@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editJobApplicationComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{jobApplicationAction.load(jobApplicationId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.JobApplication}"/> 
+        </f:facet>  
+        <s:decorate id="candidateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.jobApplication_candidate} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'candidateEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="candidate" label="#{msg.jobApplication_candidate}" value="#{jobApplicationAction.jobApplication.candidate}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'candidateEdit')}" disabled="false"> 
+            <s:selectItems value="#{candidateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="jobDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.jobApplication_job} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'jobEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="job" label="#{msg.jobApplication_job}" value="#{jobApplicationAction.jobApplication.job}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'jobEdit')}" disabled="false"> 
+            <s:selectItems value="#{jobList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

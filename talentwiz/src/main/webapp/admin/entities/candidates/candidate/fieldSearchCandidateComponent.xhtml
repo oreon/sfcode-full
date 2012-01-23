@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'firstNameEdit')}"/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{candidateList.candidate.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'lastNameEdit')}"/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{candidateList.candidate.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'phoneEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_phone" value="#{candidateList.candidate.contactDetails.phone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{candidateList.candidate.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_city" value="#{candidateList.candidate.contactDetails.city}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.candidate_availibility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="availibility" value="#{candidateList.candidate.availibility}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="IMMEDIATE" itemLabel="Immediate"/>  
+        <f:selectItem itemValue="TWO_WEEKS" itemLabel="Two_weeks"/>  
+        <f:selectItem itemValue="FOUR_WEEKS" itemLabel="Four_weeks"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.candidate_preferredJobType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="preferredJobType" value="#{candidateList.candidate.preferredJobType}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="CONTRACT" itemLabel="Contract"/>  
+        <f:selectItem itemValue="PERMANENT" itemLabel="Permanent"/>  
+        <f:selectItem itemValue="EITHER" itemLabel="Either"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.candidate_chiefExpertiese}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="chiefExpertiese" value="#{candidateList.candidate.chiefExpertiese}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="JAVA" itemLabel="Java"/>  
+        <f:selectItem itemValue="DOT_NET" itemLabel="Dot_net"/>  
+        <f:selectItem itemValue="PHP" itemLabel="Php"/>  
+        <f:selectItem itemValue="PROJECT_MANAGEMENT" itemLabel="Project_management"/>  
+        <f:selectItem itemValue="BUSINESS_ANALYST" itemLabel="Business_analyst"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.candidate_educationLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="educationLevel" value="#{candidateList.candidate.educationLevel}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="HIGH_SCHOOL" itemLabel="High_school"/>  
+        <f:selectItem itemValue="DIPLOMA" itemLabel="Diploma"/>  
+        <f:selectItem itemValue="UNDER_GRAD" itemLabel="Under_grad"/>  
+        <f:selectItem itemValue="GRAD" itemLabel="Grad"/>  
+        <f:selectItem itemValue="PHD" itemLabel="Phd"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.candidate_textResume}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/>  
+      <br/>  
+      <h:inputText id="textResume" value="#{candidateList.candidate.textResume}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'userNameEdit')}"/>  
+      <br/>  
+      <h:inputText id="appUser_userName" value="#{candidateList.candidate.appUser.userName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'enabledEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="appUser_enabled" value="#{candidateList.candidate.appUser.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'emailEdit')}"/>  
+      <br/>  
+      <h:inputText id="appUser_email" value="#{candidateList.candidate.appUser.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.appUser_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'lastLoginEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{candidateList.appUser_lastLoginRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{candidateList.appUser_lastLoginRange.end}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{candidateList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{candidateList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

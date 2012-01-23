@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCandidateComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{candidateAction.load(candidateId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Candidate}"/> 
+        </f:facet>  
+        <s:decorate id="firstNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'firstNameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'firstNameEdit')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{candidateAction.candidate.firstName}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="lastNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'lastNameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'lastNameEdit')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{candidateAction.candidate.lastName}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="availibilityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.candidate_availibility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="availibility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}" value="#{candidateAction.candidate.availibility}" required="false" label="#{msg.candidate_availibility}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="IMMEDIATE" itemLabel="#{msg.IMMEDIATE}"/>  
+            <f:selectItem itemValue="TWO_WEEKS" itemLabel="#{msg.TWO_WEEKS}"/>  
+            <f:selectItem itemValue="FOUR_WEEKS" itemLabel="#{msg.FOUR_WEEKS}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="preferredJobTypeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.candidate_preferredJobType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="preferredJobType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeEdit')}" value="#{candidateAction.candidate.preferredJobType}" required="false" label="#{msg.candidate_preferredJobType}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="CONTRACT" itemLabel="#{msg.CONTRACT}"/>  
+            <f:selectItem itemValue="PERMANENT" itemLabel="#{msg.PERMANENT}"/>  
+            <f:selectItem itemValue="EITHER" itemLabel="#{msg.EITHER}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="chiefExpertieseDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.candidate_chiefExpertiese}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="chiefExpertiese" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}" value="#{candidateAction.candidate.chiefExpertiese}" required="false" label="#{msg.candidate_chiefExpertiese}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="JAVA" itemLabel="#{msg.JAVA}"/>  
+            <f:selectItem itemValue="DOT_NET" itemLabel="#{msg.DOT_NET}"/>  
+            <f:selectItem itemValue="PHP" itemLabel="#{msg.PHP}"/>  
+            <f:selectItem itemValue="PROJECT_MANAGEMENT" itemLabel="#{msg.PROJECT_MANAGEMENT}"/>  
+            <f:selectItem itemValue="BUSINESS_ANALYST" itemLabel="#{msg.BUSINESS_ANALYST}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="educationLevelDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.candidate_educationLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="educationLevel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}" value="#{candidateAction.candidate.educationLevel}" required="false" label="#{msg.candidate_educationLevel}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="HIGH_SCHOOL" itemLabel="#{msg.HIGH_SCHOOL}"/>  
+            <f:selectItem itemValue="DIPLOMA" itemLabel="#{msg.DIPLOMA}"/>  
+            <f:selectItem itemValue="UNDER_GRAD" itemLabel="#{msg.UNDER_GRAD}"/>  
+            <f:selectItem itemValue="GRAD" itemLabel="#{msg.GRAD}"/>  
+            <f:selectItem itemValue="PHD" itemLabel="#{msg.PHD}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="resumeFileDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.candidate_resumeFile}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'resumeFileEdit')}"/>
+          </ui:define>  
+          <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'resumeFileEdit')}"> 
+            <h:outputText value="Current File:"/>  
+            <s:link value="#{candidateAction.candidate.resumeFile.name}" id="resumeFile_file" action="#{candidateAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{candidateAction.instance.id}"/> 
+            </s:link>  
+            <rich:fileUpload fileUploadListener="#{candidateAction.resumeFileUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="30" listWidth="250"> 
+              <s:conversationPropagation type="join"/>  
+              <a:support event="onuploadcomplete" reRender="resumeFile_file"/> 
+            </rich:fileUpload> 
+          </h:panelGroup> 
+        </s:decorate>  
+        <s:decorate id="textResumeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.candidate_textResume}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="textResume#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}" label="#{msg.candidate_textResume}" required="false" disabled="false" value="#{candidateAction.candidate.textResume}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ContactDetails}"/> 
+        </f:facet>  
+        <s:decorate id="contactDetails_phoneDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'phoneEdit')}"/>
+          </ui:define>  
+          <h:inputText id="contactDetails_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'phoneEdit')}" label="#{msg.contactDetails_phone}" required="false" disabled="false" value="#{candidateAction.candidate.contactDetails.phone}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="contactDetails_secondaryPhoneDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneEdit')}"/>
+          </ui:define>  
+          <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{candidateAction.candidate.contactDetails.secondaryPhone}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="contactDetails_cityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityEdit')}"/>
+          </ui:define>  
+          <h:inputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityEdit')}" label="#{msg.contactDetails_city}" required="false" disabled="false" value="#{candidateAction.candidate.contactDetails.city}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.AppUser}"/> 
+        </f:facet>  
+        <s:decorate id="appUser_userNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'userNameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'userNameEdit')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.userName}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="appUser_passwordDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_password} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'passwordEdit')}"/>
+          </ui:define>  
+          <h:inputSecret redisplay="true" id="appUser_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'passwordEdit')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.password}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputSecret> 
+        </s:decorate>  
+        <s:decorate id="appUser_enabledDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'enabledEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'enabledEdit')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{candidateAction.candidate.appUser.enabled}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="appUser_emailDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'emailEdit')}"/>
+          </ui:define>  
+          <h:inputText id="appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'emailEdit')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.email}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
