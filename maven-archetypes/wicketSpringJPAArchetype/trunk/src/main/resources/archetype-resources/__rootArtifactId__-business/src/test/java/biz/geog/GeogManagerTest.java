@@ -1,6 +1,10 @@
 package ${package}.biz.geog;
 
+import java.util.List;
+
 import javax.annotation.Resource;
+
+import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,32 +36,49 @@ public class GeogManagerTest {
 	@Test
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void testCreateCountry() {
-		Country country1 = new Country();
-		country1.setActive(true);
-		country1.setCode("US");
-		country1.setName("United States");
-		geogManager.createCountry(country1);
+		Country usCountry = new Country();
+		usCountry.setActive(true);
+		usCountry.setCode("US");
+		usCountry.setName("United states");
+		geogManager.createCountry(usCountry);
 		
-		Country country2 = new Country();
-		country2.setActive(true);
-		country2.setCode("CA");
-		country2.setName("Canada");
-		geogManager.createCountry(country2);
+		usCountry = geogManager.findCountryById(new Long(1));
+		Assert.assertEquals("US", usCountry.getCode());
 	}
-
+	
 	@Test
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void testCreateState() {
-		State state1 = new State();
-		state1.setActive(true);
-		state1.setCode("AL");
-		state1.setName("Alberta");
-		geogManager.createState(state1);
+	public void testUpdateCountry() {
+		Country usCountry = geogManager.findCountryById(new Long(1));
+		usCountry.setActive(true);
+		usCountry.setName("United States");
+		geogManager.updateCountry(usCountry);
 		
-		State state2 = new State();
-		state2.setActive(true);
-		state2.setCode("CA");
-		state2.setName("California");
-		geogManager.createState(state2);
+		usCountry = geogManager.findCountryById(new Long(1));
+		Assert.assertEquals("United States", usCountry.getName());
+	}
+	
+	@Test
+	public void testFindAllCountries() {
+		List<Country> countryList = geogManager.findAllCountries();
+		Assert.assertEquals(1, countryList.size());
+	}
+	
+	@Test
+	public void testFindAllActiveCountries() {
+		List<Country> countryList = geogManager.findAllActiveCountries();
+		Assert.assertEquals(1, countryList.size());
+	}
+
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void testCreateState() {
+		State albertaState = new State();
+		albertaState.setActive(true);
+		albertaState.setCode("AL");
+		albertaState.setName("Alberta");
+		geogManager.createState(albertaState);
+		
+		albertaState = geogManager.findStateById(new Long(1));
+		Assert.assertEquals("AL", albertaState.getCode());
 	}
 }

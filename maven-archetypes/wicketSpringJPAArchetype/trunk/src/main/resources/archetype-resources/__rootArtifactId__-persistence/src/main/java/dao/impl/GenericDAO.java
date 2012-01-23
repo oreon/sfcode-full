@@ -39,17 +39,7 @@ public abstract class GenericDAO<T, ID extends Serializable>implements IGenericD
 	 */
 	@SuppressWarnings("unchecked")
 	public GenericDAO() {
-		Class<T> localPersistentClass = null;
-		Class clazz = getClass();
-		Class superclass = clazz.getSuperclass();
-		
-		if (clazz.getSuperclass().getTypeParameters().length > 0) {
-			localPersistentClass = (Class<T>) ((ParameterizedType) clazz.getGenericSuperclass()).getActualTypeArguments()[0];
-		} else if (superclass.getSuperclass().getTypeParameters().length > 0) {
-		    localPersistentClass = (Class<T>) ((ParameterizedType) superclass.getGenericSuperclass()).getActualTypeArguments()[0];
-		}
-		
-		this.persistentClass = localPersistentClass;
+		this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	/**
@@ -78,11 +68,6 @@ public abstract class GenericDAO<T, ID extends Serializable>implements IGenericD
 	}
 
 	@Override
-	public void flagDelete(T entity) {
-		this.entityManager.merge(entity);
-	}
-	
-	@Override
 	public void delete(T entity) {
 		this.entityManager.remove(entity);
 	}
@@ -99,20 +84,20 @@ public abstract class GenericDAO<T, ID extends Serializable>implements IGenericD
 		return query.getResultList();
 	}
 
-	/*@Override
+	@Override
 	@SuppressWarnings("unchecked")
-	public <S> List<S> executeQuery(String queryString, Object... parameters) {
+	public List<T> executeQuery(String queryString, Object... parameters) {
 		Query query = entityManager.createQuery(queryString);
 		setQueryParameters(query, parameters);
 		return query.getResultList();
-	}*/
+	}
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public <S> S executeSingleResultQuery(String queryString, Object... parameters) {
+	public T executeSingleResultQuery(String queryString, Object... parameters) {
 		Query query = entityManager.createQuery(queryString);
 		setQueryParameters(query, parameters);
-		return (S) executeSingleResultQuery(query);
+		return (T) executeSingleResultQuery(query);
 	}
 	
 	@SuppressWarnings("unchecked")
