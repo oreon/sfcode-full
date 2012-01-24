@@ -52,7 +52,12 @@
   </entity>  
   <!--  JobApplication  JPA Configurations -->  
   <entity class="com.oreon.talent.candidates.JobApplication" name="JobApplication"> 
-    <table name="jobapplication"></table> 
+    <table name="jobapplication"> 
+      <unique-constraint> 
+        <column-name>job_id</column-name>  
+        <column-name>candidate_id</column-name> 
+      </unique-constraint> 
+    </table> 
   </entity>  
   <!--  AppUser  JPA Configurations -->  
   <entity class="com.oreon.talent.users.AppUser" name="AppUser"> 

@@ -79,6 +79,14 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
+        <s:decorate id="willingToRelocateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.candidate_willingToRelocate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'willingToRelocateEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="willingToRelocate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'willingToRelocateEdit')}" label="#{msg.candidate_willingToRelocate}" required="false" disabled="false" value="#{candidateAction.candidate.willingToRelocate}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
         <s:decorate id="resumeFileDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.candidate_resumeFile}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'resumeFileEdit')}"/>

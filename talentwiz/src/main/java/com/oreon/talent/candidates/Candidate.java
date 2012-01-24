@@ -83,12 +83,22 @@ public class Candidate extends com.oreon.talent.domain.Person
 	;
 
 	@Column(unique = false)
+	protected Boolean willingToRelocate
+
+	;
+
+	@Column(unique = false)
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "name", column = @Column(name = "resumeFile_name")),
 			@AttributeOverride(name = "contentType", column = @Column(name = "resumeFile_contentType")),
 			@AttributeOverride(name = "data", column = @Column(name = "resumeFile_data", length = 4194304))})
 	protected FileAttachment resumeFile = new FileAttachment();
+
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "appUser_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected com.oreon.talent.users.AppUser appUser = new com.oreon.talent.users.AppUser();
 
 	@Lob
 	@Column(unique = false)
@@ -97,11 +107,6 @@ public class Candidate extends com.oreon.talent.domain.Person
 	protected String textResume
 
 	;
-
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "appUser_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected com.oreon.talent.users.AppUser appUser = new com.oreon.talent.users.AppUser();
 
 	public void setAvailibility(Availibility availibility) {
 		this.availibility = availibility;
@@ -143,6 +148,16 @@ public class Candidate extends com.oreon.talent.domain.Person
 
 	}
 
+	public void setWillingToRelocate(Boolean willingToRelocate) {
+		this.willingToRelocate = willingToRelocate;
+	}
+
+	public Boolean getWillingToRelocate() {
+
+		return willingToRelocate;
+
+	}
+
 	public void setResumeFile(FileAttachment resumeFile) {
 		this.resumeFile = resumeFile;
 	}
@@ -153,16 +168,6 @@ public class Candidate extends com.oreon.talent.domain.Person
 
 	}
 
-	public void setTextResume(String textResume) {
-		this.textResume = textResume;
-	}
-
-	public String getTextResume() {
-
-		return textResume;
-
-	}
-
 	public void setAppUser(com.oreon.talent.users.AppUser appUser) {
 		this.appUser = appUser;
 	}
@@ -170,6 +175,16 @@ public class Candidate extends com.oreon.talent.domain.Person
 	public com.oreon.talent.users.AppUser getAppUser() {
 
 		return appUser;
+
+	}
+
+	public void setTextResume(String textResume) {
+		this.textResume = textResume;
+	}
+
+	public String getTextResume() {
+
+		return textResume;
 
 	}
 

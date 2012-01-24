@@ -70,11 +70,13 @@ public class MetaData {
 
 	"educationLevel.name", "java.lang.String",
 
+	"willingToRelocate", "java.lang.Boolean",
+
 	"resumeFile", "FileAttachment",
 
-	"textResume", "java.lang.String",
-
 	"appUser.displayName", "java.lang.String",
+
+	"textResume", "java.lang.String",
 
 	},
 
