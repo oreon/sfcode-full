@@ -111,6 +111,16 @@
           </f:facet>  
           <h:outputText value="#{_candidate.educationLevel}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('willingToRelocate', 'candidateView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{candidateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.candidate_willingToRelocate}"/>  
+              <ui:param name="propertyPath" value="candidate.willingToRelocate"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_candidate.willingToRelocate? msg.yes : msg.no }"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('resumeFile', 'candidateView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -125,16 +135,6 @@
           <s:link value="#{_candidate.resumeFile.name}" action="#{candidateAction.downloadResumeFile(_candidate.id)}" propagation="none" rendered="#{not _candidate.resumeFile.contentType.startsWith('image')}"> 
             <f:param name="currentEnt ityId" value="#{_candidate.id}"/> 
           </s:link> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('textResume', 'candidateView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{candidateList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.candidate_textResume}"/>  
-              <ui:param name="propertyPath" value="candidate.textResume"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_candidate.textResume}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('userName', 'candidateView'  )}"> 
           <f:facet name="header"> 
@@ -177,6 +177,16 @@
           <h:outputText value="#{_candidate.appUser.lastLogin}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('textResume', 'candidateView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{candidateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.candidate_textResume}"/>  
+              <ui:param name="propertyPath" value="candidate.textResume"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_candidate.textResume}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'candidateView' )}"> 
           <f:facet name="header"> 

@@ -22,7 +22,10 @@
             <ui:param name="clientId" value="#{jobAction.instance.client.id}"/> 
           </ui:include> 
         </rich:tab> 
-      </rich:tabPanel> 
+      </rich:tabPanel>  
+      <div class="buttonBox"> 
+        <h:commandButton value="apply" rendered="#{s:hasPermission('job', 'edit', jobAction.instance)}" action="#{jobAction.apply}"></h:commandButton> 
+      </div> 
     </h:form>  
     <br/>  
     <rich:tabPanel></rich:tabPanel>  

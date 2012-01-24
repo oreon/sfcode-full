@@ -209,6 +209,12 @@ public abstract class CandidateActionBase
 
 	}
 
+	public Candidate getCurrentLoggedInCandidate() {
+		String query = "Select e from Candidate e where e.appUser.userName = ?1";
+		return (Candidate) executeSingleResultQuery(query, Identity.instance()
+				.getCredentials().getUsername());
+	}
+
 	public String viewCandidate() {
 		load(currentEntityId);
 		return "viewCandidate";

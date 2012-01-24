@@ -23,6 +23,8 @@
         <h:outputText value="#{candidateAction.candidate.chiefExpertiese}"/>  
         <h:outputText value="#{msg.candidate_educationLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelView')}"/>  
         <h:outputText value="#{candidateAction.candidate.educationLevel}"/>  
+        <h:outputText value="#{msg.candidate_willingToRelocate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'willingToRelocateView')}"/>  
+        <h:outputText id="willingToRelocate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'willingToRelocateView')}" value="#{candidateAction.candidate.willingToRelocate}"></h:outputText>  
         <h:outputText value="#{msg.candidate_resumeFile}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'resumeFileView')}"/>  
         <c:choose> 
           <c:when test="${candidateAction.candidate.resumeFile.contentType.startsWith('image')}"> 

@@ -78,7 +78,7 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 
 			"candidate.educationLevel = #{candidateList.candidate.educationLevel}",
 
-			"lower(candidate.textResume) like concat(lower(#{candidateList.candidate.textResume}),'%')",
+			"candidate.willingToRelocate = #{candidateList.candidate.willingToRelocate}",
 
 			"lower(candidate.appUser.userName) like concat(lower(#{candidateList.candidate.appUser.userName}),'%')",
 
@@ -88,6 +88,8 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 
 			"candidate.appUser.lastLogin >= #{candidateList.appUser_lastLoginRange.begin}",
 			"candidate.appUser.lastLogin <= #{candidateList.appUser_lastLoginRange.end}",
+
+			"lower(candidate.textResume) like concat(lower(#{candidateList.candidate.textResume}),'%')",
 
 			"candidate.dateCreated <= #{candidateList.dateCreatedRange.end}",
 			"candidate.dateCreated >= #{candidateList.dateCreatedRange.begin}",};
@@ -122,12 +124,17 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getTextResume() != null ? e.getTextResume().replace(",",
-						"") : "") + "\",");
+				+ (e.getWillingToRelocate() != null
+						? e.getWillingToRelocate()
+						: "") + "\",");
 
 		builder.append("\""
 				+ (e.getAppUser() != null ? e.getAppUser().getDisplayName()
 						.replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getTextResume() != null ? e.getTextResume().replace(",",
+						"") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -146,9 +153,11 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 
 		builder.append("EducationLevel" + ",");
 
-		builder.append("TextResume" + ",");
+		builder.append("WillingToRelocate" + ",");
 
 		builder.append("AppUser" + ",");
+
+		builder.append("TextResume" + ",");
 
 		builder.append("\r\n");
 	}

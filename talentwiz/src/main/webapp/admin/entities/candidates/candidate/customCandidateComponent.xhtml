@@ -85,14 +85,14 @@
         <rich:message styleClass="error errors" for="educationLevel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.candidate_resumeFile}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'resumeFileEdit')}"/>  
-        <br/> 
+        <h:outputText value="#{msg.candidate_willingToRelocate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'willingToRelocateEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="willingToRelocate" value="#{candidateAction.candidate.willingToRelocate}"/>  
+        <rich:message styleClass="error errors" for="willingToRelocate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'willingToRelocateEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.candidate_textResume}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/>  
-        <br/>  
-        <rich:editor id="textResume" value="#{candidateAction.candidate.textResume}"/>  
-        <rich:message styleClass="error errors" for="textResume" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/> 
+        <h:outputText value="#{msg.candidate_resumeFile}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'resumeFileEdit')}"/>  
+        <br/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'userNameEdit')}"/>  
@@ -117,6 +117,12 @@
         <br/>  
         <rich:calendar id="appUser_lastLogin" value="#{candidateAction.candidate.appUser.lastLogin}"/>  
         <rich:message styleClass="error errors" for="appUser_lastLogin" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'lastLoginEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.candidate_textResume}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/>  
+        <br/>  
+        <rich:editor id="textResume" value="#{candidateAction.candidate.textResume}"/>  
+        <rich:message styleClass="error errors" for="textResume" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

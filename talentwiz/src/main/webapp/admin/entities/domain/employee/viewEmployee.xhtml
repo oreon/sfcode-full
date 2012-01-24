@@ -22,7 +22,13 @@
             <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
           </ui:include> 
         </rich:tab> 
-      </rich:tabPanel> 
+      </rich:tabPanel>  
+      <div class="buttonBox"> 
+        <h:commandButton value="register" rendered="#{s:hasPermission('employee', 'edit', employeeAction.instance)}" action="#{employeeAction.register}"></h:commandButton>  
+        <h:commandButton value="login" rendered="#{s:hasPermission('employee', 'edit', employeeAction.instance)}" action="#{employeeAction.login}"></h:commandButton>  
+        <h:commandButton value="findByPhone" rendered="#{s:hasPermission('employee', 'edit', employeeAction.instance)}" action="#{employeeAction.findByPhone}"></h:commandButton>  
+        <h:commandButton value="retrieveCredentials" rendered="#{s:hasPermission('employee', 'edit', employeeAction.instance)}" action="#{employeeAction.retrieveCredentials}"></h:commandButton> 
+      </div> 
     </h:form>  
     <br/>  
     <rich:tabPanel></rich:tabPanel>  

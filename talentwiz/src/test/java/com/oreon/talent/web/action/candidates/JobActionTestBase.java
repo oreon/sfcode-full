@@ -26,4 +26,18 @@ public class JobActionTestBase extends org.witchcraft.action.test.BaseTest<Job> 
 		return jobAction;
 	}
 
+	@Test
+	public void testApply() throws Exception {
+		new ComponentTest() {
+
+			protected void testComponents() throws Exception {
+				JobAction jobAction = (JobAction) org.jboss.seam.Component
+						.getInstance("jobAction");
+
+				// assert(jobAction.apply()).equals("");
+			}
+
+		}.run();
+	}
+
 }

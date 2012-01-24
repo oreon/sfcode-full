@@ -188,6 +188,13 @@ public abstract class JobActionBase extends BaseAction<Job>
 
 	}
 
+	/** 
+	 * []
+	 */
+	public void apply() {
+
+	}
+
 	public String viewJob() {
 		load(currentEntityId);
 		return "viewJob";
