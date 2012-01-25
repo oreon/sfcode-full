@@ -6,6 +6,8 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ${package}.error.ForbiddenErrorPage;
 import ${package}.error.InternalServerErrorPage;
@@ -21,6 +23,8 @@ import ${package}.session.${webSessionClassName};
  */
 public class ${webApplicationClassName} extends WebApplication {
 
+	private final Logger logger = LoggerFactory.getLogger(${webApplicationClassName}.class);
+	
 	/**
      * Default constructor.
      */
@@ -30,6 +34,8 @@ public class ${webApplicationClassName} extends WebApplication {
 	
 	@Override
 	protected void init() {
+		logger.debug("Start of web application initialization settings.");
+		
 		super.init();
 		
 		initializeMarkupSettings();
@@ -37,6 +43,8 @@ public class ${webApplicationClassName} extends WebApplication {
 		initializeWicketSpringIntegration();
 
 		mountErrorPages();
+		
+		logger.debug("End of web application initialization settings");
 	}
 	
 	private void initializeMarkupSettings() {
