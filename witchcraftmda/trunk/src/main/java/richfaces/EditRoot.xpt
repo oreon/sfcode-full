@@ -67,6 +67,7 @@
 				</rich:tab>
 			«ENDFOREACH»	
 			</rich:tabPanel>
+			«EXPAND genBusinessFunctionButtons FOR this»
 		</h:form>
 		<br/>
 			
@@ -159,6 +160,16 @@
 		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" >
 		</h:commandButton>  
 		«ENDIF»
+	</div>
+«ENDDEFINE»
+
+
+«DEFINE genBusinessFunctionButtons FOR uml::Class»
+	<div class="buttonBox">
+		«FOREACH getAllOperations() AS o»
+		<h:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', 'edit', «getAction()».instance)}" action="#{«getAction()».«o.name»}" >
+		</h:commandButton> 
+		«ENDFOREACH»
 	</div>
 «ENDDEFINE»
 
