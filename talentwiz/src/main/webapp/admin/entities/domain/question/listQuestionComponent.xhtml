@@ -29,7 +29,8 @@
               <ui:param name="propertyPath" value="question.text"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_question.text}" escape="false"/> 
+          <rich:toolTip value="#{_question.text}" for="textAbbr"></rich:toolTip>  
+          <h:outputText id="textAbbr" value="#{_question.textAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column groupOn="#{question.exam.displayName}" rendered="#{s:hasPermission('exam', 'questionView'  )}"> 
           <f:facet name="header"> 

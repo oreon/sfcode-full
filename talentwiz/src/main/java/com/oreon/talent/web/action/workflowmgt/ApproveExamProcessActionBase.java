@@ -35,12 +35,12 @@ public class ApproveExamProcessActionBase extends BaseJbpmProcessAction
 
 	}
 
-	@EndTask(transition = "askForChanges")
-	public void askForChangesReviewExam() {
-
-	}
 	@EndTask(transition = "proceedToApprove")
 	public void proceedToApproveReviewExam() {
+
+	}
+	@EndTask(transition = "askForChanges")
+	public void askForChangesReviewExam() {
 
 	}
 	@EndTask(transition = "proceedToReject")

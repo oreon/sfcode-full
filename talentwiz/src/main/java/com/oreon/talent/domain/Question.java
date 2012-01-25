@@ -104,6 +104,12 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 		}
 	}
 
+	@Transient
+	public String getTextAbbreviated() {
+		return org.apache.commons.lang.WordUtils.abbreviate(text.trim(), 100,
+				200, "...");
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}

@@ -39,7 +39,8 @@
               <ui:param name="propertyPath" value="exam.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_exam.description}" escape="false"/> 
+          <rich:toolTip value="#{_exam.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{_exam.descriptionAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'examView' )}"> 
           <f:facet name="header"> 
