@@ -186,7 +186,8 @@
               <ui:param name="propertyPath" value="candidate.textResume"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_candidate.textResume}" escape="false"/> 
+          <rich:toolTip value="#{_candidate.textResume}" for="textResumeAbbr"></rich:toolTip>  
+          <h:outputText id="textResumeAbbr" value="#{_candidate.textResumeAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'candidateView' )}"> 
           <f:facet name="header"> 

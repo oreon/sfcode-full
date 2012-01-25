@@ -68,7 +68,7 @@ public class Job extends BusinessEntity implements java.io.Serializable {
 	;
 
 	@Lob
-	@Column(unique = false)
+	@Column(name = "description", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String description
@@ -119,6 +119,12 @@ public class Job extends BusinessEntity implements java.io.Serializable {
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
+	}
+
+	@Transient
+	public String getDescriptionAbbreviated() {
+		return org.apache.commons.lang.WordUtils.abbreviate(description.trim(),
+				100, 200, "...");
 	}
 
 	//Empty setter , needed for richfaces autocomplete to work 

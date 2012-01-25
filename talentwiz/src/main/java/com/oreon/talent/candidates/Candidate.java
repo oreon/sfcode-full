@@ -197,6 +197,12 @@ public class Candidate extends com.oreon.talent.domain.Person
 		}
 	}
 
+	@Transient
+	public String getTextResumeAbbreviated() {
+		return org.apache.commons.lang.WordUtils.abbreviate(textResume.trim(),
+				100, 200, "...");
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}
