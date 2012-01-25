@@ -198,6 +198,9 @@ import org.hibernate.annotations.ParamDef;
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		
 		«EXPAND genPopupAndDisplayname FOR this»
+		
+		«EXPAND genAbbreviatedText  FOREACH getAllAttributes()»
+		
 	    
 	    //Empty setter , needed for richfaces autocomplete to work 
 	    public void setDisplayName(String name){
@@ -257,6 +260,18 @@ import org.hibernate.annotations.ParamDef;
 	    }
 	    «ENDIF»
 «ENDDEFINE»
+
+
+
+«DEFINE genAbbreviatedText FOR uml::Property»
+«IF this.type.name == "largeText"»
+@Transient
+	public String get«name.toFirstUpper()»Abbreviated() {
+		return org.apache.commons.lang.WordUtils.abbreviate(«name».trim() , 100, 200, "...");
+	}
+«ENDIF»
+«ENDDEFINE»
+
 
 
 «DEFINE genSearchFieldsArray FOR uml::Class»
@@ -396,7 +411,7 @@ import org.hibernate.annotations.ParamDef;
 	 * «ownedComment.body»
 	 */
 	«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){ 
-		«IF type != null»
+		«IF type != null && type.name != "void" »
 			return null;
 		«ENDIF»
 	}
