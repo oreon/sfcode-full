@@ -67,7 +67,6 @@
 					rowClasses="odd, even" styleClass="dataTable" 
 					     onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-					
 					 >	
 				«EXPAND genId FOR this-»	
 				«EXPAND genAttribAsOutput FOR this-»
@@ -266,6 +265,13 @@
 			<h:outputText value="#{_«genPropertyLabel()»}">
 				<f:convertNumber pattern="$#,##0.00"/>
 			</h:outputText>
+		«ELSEIF isLargeText()»
+			«IF isColumn() && !abbreviateInListing»
+				<h:outputText value="#{_«genPropertyLabel()»}"  escape="false" />	
+			«ELSE»
+			 <rich:toolTip value="#{_«genPropertyLabel()»}" for="«name»Abbr">  </rich:toolTip>
+	         <h:outputText id="«name»Abbr" value="#{_«genPropertyLabel()»Abbreviated}" escape="false"/> 
+	         «ENDIF»				
 		«ELSE»
 			<h:outputText value="#{_«genPropertyLabel()»}"  escape="false" />	
 		«ENDIF»
