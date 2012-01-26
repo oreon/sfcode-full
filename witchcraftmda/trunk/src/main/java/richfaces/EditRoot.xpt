@@ -310,7 +310,7 @@
 «DEFINE panelBegin FOR uml::Class»
 	«IF !isCurrentMultiMode()»
 		<c:if test="${numColumns == null }" > <c:set var="numColumns" value="2" /> </c:if>
-  		<h:panelGrid columns="${numColumns}" styleClass="«isCurrentEditMode()?"edit":"view"»Info" columnClasses="leftCol, rightCol" >
+  		<h:panelGrid columns="${numColumns}" styleClass="«isCurrentEditMode()?"edit":"view"»Info" columnClasses="leftCol, rightCol"   rendered="#{ hidePanel«name» eq null}" >
   		<f:facet name="header"> 
 			<h:outputText value="#{msg.«name»}"/> 
   		</f:facet>
