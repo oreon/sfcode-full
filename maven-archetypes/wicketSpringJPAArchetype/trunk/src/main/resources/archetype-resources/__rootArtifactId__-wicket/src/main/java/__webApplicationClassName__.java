@@ -13,6 +13,7 @@ import ${package}.error.ForbiddenErrorPage;
 import ${package}.error.InternalServerErrorPage;
 import ${package}.error.NotFoundErrorPage;
 import ${package}.home.HomePage;
+import ${package}.security.AuthorizationStrategy;
 import ${package}.session.${webSessionClassName};
 
 /**
@@ -34,7 +35,7 @@ public class ${webApplicationClassName} extends WebApplication {
 	
 	@Override
 	protected void init() {
-		logger.debug("Start of web application initialization settings.");
+		logger.info("Start of web application initialization settings.");
 		
 		super.init();
 		
@@ -42,9 +43,11 @@ public class ${webApplicationClassName} extends WebApplication {
 		
 		initializeWicketSpringIntegration();
 
-		mountErrorPages();
+		initializeErrorPageSettings();
 		
-		logger.debug("End of web application initialization settings");
+		initializeSecuritySettings();
+		
+		logger.info("End of web application initialization settings");
 	}
 	
 	private void initializeMarkupSettings() {
@@ -61,11 +64,23 @@ public class ${webApplicationClassName} extends WebApplication {
 	private void initializeWicketSpringIntegration() {
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 	}
-
+	
+	private void initializeErrorPageSettings() {
+		//getApplicationSettings().setAccessDeniedPage(accessDeniedPage);
+		//getApplicationSettings().setPageExpiredErrorPage(pageExpiredErrorPage);
+		//getApplicationSettings().setInternalErrorPage(internalErrorPage);
+		
+		mountErrorPages();
+	}
+	
 	private void mountErrorPages() {
 		mountPage("/error/403", ForbiddenErrorPage.class);
 		mountPage("/error/404", NotFoundErrorPage.class);
 		mountPage("/error/500", InternalServerErrorPage.class);
+	}
+	
+	private void initializeSecuritySettings() {
+		getSecuritySettings().setAuthorizationStrategy(new AuthorizationStrategy());
 	}
 	
 	@Override
