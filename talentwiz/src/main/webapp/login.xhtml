@@ -10,7 +10,38 @@
 
 <ui:define name="body">
 
+    
+    <h:form id="LoginForm" rendered="#{not identity.loggedIn}"> 
+        <dl>
+            <dt class="menuHeader">LogIn</dt>
+            <dd class="menuForm">
+                <dl>
+                    <dt><h:outputText value="#{messages.loginUser}" /></dt>
+                    <dd><h:inputText id="Username" value="#{identity.username}" size="16" /></dd>
+                    <dt><h:outputText value="#{messages.loginPass}" /></dt>
+                    <dd><h:inputSecret id="Password" value="#{identity.password}" size="16"/></dd>
+                     <dt><h:outputText value="#{messages.loginPass}" /></dt>
+                      <dd><h:selectBooleanCheckbox id="rememberMe"
+                                          value="#{identity.rememberMe}"  /></dd>
+                    <dd>
+                        <h:commandButton id="Login" action="#{identity.login}" value="#{messages.loginPrompt}"
+                                         styleClass="formButton" style="width: 166px;"/>
+                    </dd>
+                    
+                </dl>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="menuFooter">
+                <h:commandLink id="CreateAccount" action="/reg/registerForm.xhtml">Create Account</h:commandLink>
+            </dt>
+        </dl>
+    </h:form>
+    
+    
     <h:form id="login">
+    
+    
 
         <rich:panel>
             <f:facet name="header">Login</f:facet>
