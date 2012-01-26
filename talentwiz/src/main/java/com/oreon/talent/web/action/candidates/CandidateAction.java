@@ -10,5 +10,16 @@ import org.jboss.seam.annotations.Name;
 @Name("candidateAction")
 public class CandidateAction extends CandidateActionBase implements java.io.Serializable{
 	
+	
+	public String register(){
+		save();
+		return SUCCESS;
+	}
+	
+	public String editProfile(){
+		setId(instance.getId());
+		save();
+		return SUCCESS;
+	}
 }
 	

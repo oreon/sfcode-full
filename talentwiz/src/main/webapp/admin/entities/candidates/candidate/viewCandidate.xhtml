@@ -23,7 +23,11 @@
           </ui:include> 
         </rich:tab> 
       </rich:tabPanel>  
-      <div class="buttonBox"></div> 
+      <div class="buttonBox"> 
+        <h:commandButton value="register" rendered="#{s:hasPermission('candidate', 'edit', candidateAction.instance)}" action="#{candidateAction.register}"></h:commandButton>  
+        <h:commandButton value="login" rendered="#{s:hasPermission('candidate', 'edit', candidateAction.instance)}" action="#{candidateAction.login}"></h:commandButton>  
+        <h:commandButton value="retrieveCredentials" rendered="#{s:hasPermission('candidate', 'edit', candidateAction.instance)}" action="#{candidateAction.retrieveCredentials}"></h:commandButton> 
+      </div> 
     </h:form>  
     <br/>  
     <rich:tabPanel></rich:tabPanel>  

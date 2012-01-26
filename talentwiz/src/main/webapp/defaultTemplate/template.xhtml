@@ -6,6 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:s="http://jboss.com/products/seam/taglib">
 
 <head>
@@ -18,9 +19,38 @@
 <f:loadBundle basename="messages" var="msg" />
 <rich:toolBar>
 	<rich:toolBarGroup>
-		<h:graphicImage id="edit" value="/images/icons/house.png" />
-		<s:link view="/admin/entities/summary.xhtml" value="Home" />
+		<h:graphicImage value="/images/icons/house.png" />
+		<s:link view="/reg/index.seam" value="Home" />
 	</rich:toolBarGroup>
+
+	<rich:toolBarGroup rendered="#{ not identity.loggedIn}">
+		<h:graphicImage value="/images/icons/house.png" />
+		<s:link view="/regCandidate/registerForm.seam" value="Register" />
+	</rich:toolBarGroup>
+	
+	
+	<rich:toolBarGroup>
+		<h:graphicImage value="/images/icons/house.png" />
+		<s:link view="/reg/index.seam" value="Jobs" />
+	</rich:toolBarGroup>
+	
+	<rich:toolBarGroup  rendered="#{identity.loggedIn}">
+		<h:graphicImage value="/images/icons/house.png"/>
+		<s:link view="/manageAccount/viewProfile.seam" value="Manage Profile " />
+	</rich:toolBarGroup>
+	
+	
+	<rich:toolBarGroup location="right" rendered="#{ identity.loggedIn}">
+		<s:link action="#{identity.logout}" view="/reg/index.xhtml"
+			value="Logout #{identity.credentials.username}" propagation="none" />
+	</rich:toolBarGroup>
+
+	<rich:toolBarGroup location="right" rendered="#{ not identity.loggedIn}">
+		<s:link action="#{identity.logout}" view="/login.xhtml"
+			value="Log In"  propagation="none" />
+	</rich:toolBarGroup>
+	
+
 </rich:toolBar>
 <rich:messages layout="list">
 	<f:facet name="passedMarker">
@@ -32,6 +62,10 @@
 </rich:messages>
 
 
+
+<br/>
+<br/>
+<c:set var="skipPermissionCheck" value="true" />
 <ui:insert name="content" />
 
 

@@ -209,6 +209,33 @@ public abstract class CandidateActionBase
 
 	}
 
+	/** 
+	 * []
+	 */
+	public String register() {
+
+		return null;
+
+	}
+
+	/** 
+	 * []
+	 */
+	public String login() {
+
+		return null;
+
+	}
+
+	/** 
+	 * []
+	 */
+	public String retrieveCredentials() {
+
+		return null;
+
+	}
+
 	public Candidate getCurrentLoggedInCandidate() {
 		String query = "Select e from Candidate e where e.appUser.userName = ?1";
 		return (Candidate) executeSingleResultQuery(query, Identity.instance()
