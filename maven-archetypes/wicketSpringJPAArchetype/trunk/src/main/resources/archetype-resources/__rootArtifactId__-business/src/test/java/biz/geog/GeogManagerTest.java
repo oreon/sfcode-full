@@ -70,15 +70,35 @@ public class GeogManagerTest {
 		Assert.assertEquals(1, countryList.size());
 	}
 
+	@Test
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void testCreateState() {
 		State albertaState = new State();
 		albertaState.setActive(true);
 		albertaState.setCode("AL");
 		albertaState.setName("Alberta");
+		
+		Country usCountry = geogManager.findCountryById(new Long(1));
+		albertaState.setCountry(usCountry);
+		
 		geogManager.createState(albertaState);
 		
 		albertaState = geogManager.findStateById(new Long(1));
 		Assert.assertEquals("AL", albertaState.getCode());
+	}
+	
+	@Test
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void testCreateStateAndAssignToCountry() {
+		State britishColumbiaState = new State();
+		britishColumbiaState.setActive(true);
+		britishColumbiaState.setCode("BC");
+		britishColumbiaState.setName("British Columbia");
+		
+		Country usCountry = geogManager.findCountryById(new Long(1));
+		britishColumbiaState.setCountry(usCountry);
+		geogManager.createState(britishColumbiaState);
+		usCountry.getStates().add(britishColumbiaState);
+		geogManager.updateCountry(usCountry);
 	}
 }
