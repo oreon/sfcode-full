@@ -46,21 +46,19 @@
 	</rich:toolBarGroup>
 
 	<rich:toolBarGroup location="right" rendered="#{ not identity.loggedIn}">
-		<s:link action="#{identity.logout}" view="/login.xhtml"
+		<s:link  view="/reg/candidateLogin.xhtml"
 			value="Log In"  propagation="none" />
 	</rich:toolBarGroup>
 	
-
 </rich:toolBar>
-<rich:messages layout="list">
-	<f:facet name="passedMarker">
-		<h:graphicImage value="/images/true.png" />
-	</f:facet>
-	<f:facet name="errorMarker">
-		<h:graphicImage value="/images/error.gif" />
-	</f:facet>
-</rich:messages>
 
+
+<br/>
+<br/>
+
+<s:div style="border:1px solid #bbc; background-color:#eef" rendered="#{facesContext.maximumSeverity != null}">
+	<h:messages globalOnly="true" errorStyle="color:red" warnStyle="color:gray" infoStyle="color:green" />
+</s:div> 
 
 
 <br/>

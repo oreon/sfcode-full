@@ -1,0 +1,82 @@
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/defaultTemplate/template.xhtml">
+	<ui:define name="content">
+		<!--
+	
+	  <h:commandButton action="" value="" />
+	
+	  <h:commandButton action="register" value="register" />
+	
+	  <h:commandButton action="forgotCredentials" value="forgotCredentials" />
+	
+	-->
+
+
+
+
+		<!--PROTECTED REGION ID(USER_EDITABLE_RGN_reg/candidateLogin.xhtml) ENABLED START-->
+		<table width="70%" cellpadding="10">
+			<tr>
+				<td ><rich:panel>
+					<f:facet name="header">
+						<h2>Welcome to Oreon's Talentwiz Portal</h2>
+					</f:facet>
+
+					<p>We work with many different clients, from IPO start-ups to
+					large Fortune 100 companies. Having established several
+					professional contacts from all over the greater Toronto area, we're
+					sure to know of a permanent or contract opportunity that's right
+					for you. </p><p>Our priority is finding the right opportunities that best
+					meet your career objectives. We will discuss all of the details
+					about a potential position with you in advance, giving you the
+					necessary tools to decide if it's an appropriate fit.</p>
+					<p> Also, unlike
+					many other recruiting agencies, we will NEVER submit your resume to
+					a company without prior approval from you first.</p>
+					<p>In addition to helping you throughout your job search, we
+					pride ourselves on being consultants and in providing guidance as
+					to where you're headed in your career, along with the best plan of
+					action for meeting those objectives Whether you are a seasoned
+					professional or a fresh pass out, send us your resume or give us a
+					call to optimize your job search and career progression.</p>
+				</rich:panel></td>
+				<td width="30%"><h:form id="login">
+
+					<rich:panel>
+						<f:facet name="header">Login</f:facet>
+
+						<br />
+						<div style="width: 30px"><h:panelGrid columns="2">
+							<h:outputLabel for="username">User Name</h:outputLabel>
+							<h:inputText id="username" value="#{credentials.username}" required="true"/>
+							<h:outputLabel for="password">Password</h:outputLabel>
+							<h:inputSecret id="password" value="#{credentials.password}" required="true" />
+							<h:outputLabel for="rememberMe">Remember me</h:outputLabel>
+							<h:selectBooleanCheckbox id="rememberMe"
+								value="#{identity.rememberMe}" />
+						</h:panelGrid></div>
+
+						<div class="actionButtons"><h:commandButton value="Login"
+							action="#{candidateAction.login}">
+						</h:commandButton></div>
+					</rich:panel>
+
+
+
+				</h:form></td>
+			</tr>
+		</table>
+
+		<!--PROTECTED REGION END-->
+	</ui:define>
+</ui:composition>
