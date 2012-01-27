@@ -1,8 +1,14 @@
 package ${package}.domain.user;
 
+import java.util.HashSet;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.TableGenerator;
 
@@ -57,6 +63,13 @@ public abstract class AbstractUser extends BaseEntity {
     /** The password of the User. */
     @Column(name = "PASSWORD", length = 500, nullable = false)
 	private String password;
+
+	/** The roles of the User. */
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "USER_ROLE_RELATION", 
+		joinColumns = @JoinColumn(name = "USER_ID"),  
+		inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+	private java.util.Set<Role> roles = new HashSet<Role>();
     
     /**
 	 * Default no-argument constructor.
