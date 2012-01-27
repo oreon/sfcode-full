@@ -1,9 +1,14 @@
 package ${package}.domain.geog;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 
 import ${package}.domain.BaseEntity;
@@ -37,6 +42,10 @@ public abstract class AbstractCountry extends BaseEntity {
 	/** The name of the Country. */
 	@Column(name = "NAME", length = 100, nullable = false)
 	private String name;
+	
+	/** The states of this Country. */
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+	private Set<State> states = new HashSet<State>();
 	
 	/**
 	 * Default no-argument constructor.
@@ -99,5 +108,19 @@ public abstract class AbstractCountry extends BaseEntity {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the states
+	 */
+	public Set<State> getStates() {
+		return states;
+	}
+
+	/**
+	 * @param states the states to set
+	 */
+	public void setStates(Set<State> states) {
+		this.states = states;
 	}
 }

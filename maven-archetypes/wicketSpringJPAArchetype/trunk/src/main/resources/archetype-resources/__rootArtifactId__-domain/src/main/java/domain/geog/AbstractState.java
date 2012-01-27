@@ -3,6 +3,8 @@ package ${package}.domain.geog;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.TableGenerator;
 
@@ -37,6 +39,11 @@ public abstract class AbstractState extends BaseEntity {
 	/** The name of the State. */
 	@Column(name = "NAME", length = 100, nullable = false)
 	private String name;
+	
+	/** The Country this State belongs to. */
+	@ManyToOne
+	@JoinColumn(name = "COUNTRY_ID", nullable = false)
+	private Country country;
 
 	/**
 	 * Default no-argument constructor.
@@ -99,5 +106,19 @@ public abstract class AbstractState extends BaseEntity {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the country
+	 */
+	public Country getCountry() {
+		return country;
+	}
+
+	/**
+	 * @param country the country to set
+	 */
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 }
