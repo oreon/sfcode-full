@@ -11,13 +11,9 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-	<bean id="parentContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
-		<constructor-arg>
-			<list>
-				<value>systemContext.xml</value>
-				<value>persistenceContext.xml</value>
-				<value>businessContext.xml</value>
-			</list>
-   		</constructor-arg>
-	</bean>
+	<!-- This element is used to enable autodetection of the stereotyped classes in the base package defined. -->
+	<context:component-scan base-package="${package}.system" />
+	
+	<!-- This element is used to automatically register all of Spring's standard post-processors for annotation-based configuration. -->
+	<context:annotation-config />
 </beans>
