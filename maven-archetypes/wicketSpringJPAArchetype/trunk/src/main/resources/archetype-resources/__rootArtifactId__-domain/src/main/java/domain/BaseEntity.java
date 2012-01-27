@@ -1,9 +1,14 @@
 package ${package}.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 /**
@@ -22,6 +27,16 @@ public abstract class BaseEntity implements Serializable {
 	@Version
     @Column(name = "VERSION")
     private Long version;
+	
+	/** The entity create date. */
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DATE_CREATED")
+    private Date dateCreated;
+	
+	/** The entity update date. */
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(name="DATE_UPDATED")
+    private Date dateUpdated;
 
 	/**
 	 * @return the version
@@ -35,5 +50,35 @@ public abstract class BaseEntity implements Serializable {
 	 */
 	public void setVersion(Long version) {
 		this.version = version;
+	}
+
+	/**
+	 * @return the dateCreated
+	 */
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	/**
+	 * The entity create date.
+	 */
+	@PrePersist
+	public void setDateCreated() {
+		this.dateCreated = new Date();
+	}
+
+	/**
+	 * @return the dateUpdated
+	 */
+	public Date getDateUpdated() {
+		return dateUpdated;
+	}
+
+	/**
+	 * The entity update date.
+	 */
+	@PreUpdate
+	public void setDateUpdated() {
+		this.dateUpdated = new Date();
 	}
 }
