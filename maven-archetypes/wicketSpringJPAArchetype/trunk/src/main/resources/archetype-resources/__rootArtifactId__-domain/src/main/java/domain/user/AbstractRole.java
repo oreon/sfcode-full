@@ -1,8 +1,12 @@
 package ${package}.domain.user;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.TableGenerator;
 
@@ -37,6 +41,10 @@ public abstract class AbstractRole extends BaseEntity {
     /** The display name of the Role. */
     @Column(name = "DISPLAY_NAME", length = 50)
 	private String displayName;
+
+	/** The users of this Role. */
+    @ManyToMany(mappedBy = "roles")
+	private Set<User> users = new HashSet<User>();
 	
 	/**
 	 * Default no-argument constructor.
