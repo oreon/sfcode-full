@@ -29,7 +29,7 @@
         </s:decorate>  
         <s:decorate id="clientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.job_client} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'clientEdit')}"/>
+            <h:outputText value="#{msg.job_client}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'clientEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="client" label="#{msg.job_client}" value="#{jobAction.job.client}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'clientEdit')}" disabled="false"> 
             <s:selectItems value="#{clientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

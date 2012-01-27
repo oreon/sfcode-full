@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="examDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.question_exam} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'examEdit')}"/>
+            <h:outputText value="#{msg.question_exam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'examEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="exam" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'examEdit')}" disabled="false"> 
             <s:selectItems value="#{examList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
