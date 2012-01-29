@@ -14,7 +14,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import ${package}.biz.IGeogManager;
+import ${package}.biz.geog.IGeogManager;
 import ${package}.domain.geog.Country;
 import ${package}.domain.geog.State;
 

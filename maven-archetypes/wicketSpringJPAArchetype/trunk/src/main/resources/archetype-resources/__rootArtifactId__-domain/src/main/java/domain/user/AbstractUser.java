@@ -13,6 +13,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.TableGenerator;
 
 import ${package}.domain.BaseEntity;
+import ${package}.domain.role.Role;
 
 /**
  * @author Kamalpreet Singh

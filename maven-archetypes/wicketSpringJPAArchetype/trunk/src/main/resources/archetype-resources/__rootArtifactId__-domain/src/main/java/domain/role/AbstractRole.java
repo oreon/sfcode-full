@@ -1,4 +1,4 @@
-package ${package}.domain.user;
+package ${package}.domain.role;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +11,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.TableGenerator;
 
 import ${package}.domain.BaseEntity;
+import ${package}.domain.user.User;
 
 /**
  * @author Kamalpreet Singh

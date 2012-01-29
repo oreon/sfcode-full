@@ -1,4 +1,4 @@
-package ${package}.biz;
+package ${package}.biz.geog;
 
 import java.util.List;
 

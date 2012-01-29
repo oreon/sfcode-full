@@ -1,4 +1,4 @@
-package ${package}.domain.user;
+package ${package}.domain.role;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
