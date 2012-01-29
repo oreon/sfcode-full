@@ -1,4 +1,4 @@
-package ${package}.biz.impl;
+package ${package}.biz.geog.impl;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import ${package}.biz.IGeogManager;
+import ${package}.biz.geog.IGeogManager;
 import ${package}.dao.geog.ICountryDAO;
 import ${package}.dao.geog.IStateDAO;
 import ${package}.domain.geog.Country;
