@@ -71,7 +71,7 @@
 		</h:form>
 		<br/>
 			
-			<rich:tabPanel>
+			<rich:tabPanel  switchType="client" >
 			«FOREACH getNonComposedManyAssociations() AS a»
 			<rich:tab label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
@@ -98,7 +98,7 @@
 			</rich:tabPanel>
 		<br/>
 		
-		<rich:tabPanel>
+		<rich:tabPanel switchType="client">
 			<rich:tab label="Notes">
 				<wc:comments backingAction="#{«getAction()»}"/>
 			</rich:tab>
