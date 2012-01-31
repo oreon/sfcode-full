@@ -11,6 +11,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import ${package}.domain.BaseEntity;
 
 /**
@@ -45,6 +48,7 @@ public abstract class AbstractCountry extends BaseEntity {
 	
 	/** The states of this Country. */
 	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private Set<State> states = new HashSet<State>();
 	
 	/**

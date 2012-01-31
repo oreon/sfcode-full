@@ -12,10 +12,19 @@
 		<class>${package}.domain.geog.State</class>
 		<class>${package}.domain.user.User</class>
 		<class>${package}.domain.role.Role</class>
+
 		<properties>
+			<!-- DDL generate settings. -->
 			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<!-- <property name="hibernate.hbm2ddl.auto" value="update" /> -->
+			
+			<!-- Show SQL settings. -->
 			<property name="hibernate.show_sql" value="true" />
-         	<!-- <property name="hibernate.hbm2ddl.auto" value="update" /> -->
+
+			<!-- Cache settings. -->
+			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+         	<property name="hibernate.cache.use_second_level_cache" value="true" />
+         	<property name="hibernate.cache.use_query_cache" value="true" />
 		</properties>
 	</persistence-unit>
 </persistence>
