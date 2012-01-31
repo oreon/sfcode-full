@@ -1,6 +1,7 @@
 package ${package}.domain.user;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -70,7 +71,7 @@ public abstract class AbstractUser extends BaseEntity {
 	@JoinTable(name = "USER_ROLE_RELATION", 
 		joinColumns = @JoinColumn(name = "USER_ID"),  
 		inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-	private java.util.Set<Role> roles = new HashSet<Role>();
+	private Set<Role> roles = new HashSet<Role>();
     
     /**
 	 * Default no-argument constructor.
