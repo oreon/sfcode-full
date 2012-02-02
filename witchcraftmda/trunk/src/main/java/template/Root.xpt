@@ -528,7 +528,8 @@ import org.hibernate.annotations.ParamDef;
 «ENDDEFINE»
 
 «DEFINE genPropertyDecl FOR wcprofile::Column»
-	«getValidatorAnnotations()»
+	«getNotNullAnnotations()»
+	«IF validator != null »«getValidatorAnnotations()»«ENDIF»
 	«getLengthAnnotations()»
 	«getUniqueAnnotations()»
 	«REM»«getBoostAnnotations()»«ENDREM»
