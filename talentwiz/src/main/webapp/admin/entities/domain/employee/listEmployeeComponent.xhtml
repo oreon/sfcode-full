@@ -71,6 +71,16 @@
           </f:facet>  
           <h:outputText value="#{_employee.contactDetails.city}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('postalCode', 'employeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_postalCode}"/>  
+              <ui:param name="propertyPath" value="employee.contactDetails.postalCode"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_employee.contactDetails.postalCode}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('department', 'employeeView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

@@ -15,6 +15,8 @@
         <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'titleView')}" value="#{jobAction.job.title}"></h:outputText>  
         <h:outputText value="#{msg.job_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'descriptionView')}"/>  
         <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'descriptionView')}" value="#{jobAction.job.description}"></h:outputText>  
+        <h:outputText value="#{msg.job_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'activeView')}"/>  
+        <h:outputText id="active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'activeView')}" value="#{jobAction.job.active}"></h:outputText>  
         <h:outputText value="#{msg.job_client}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'clientView')}"/>  
         <s:link value="#{jobAction.job.client.displayName}" action="viewclient" propagation="none"> 
           <f:param name="clientId" value="#{jobAction.job.client.id}"/>  
@@ -22,6 +24,17 @@
         </s:link> 
       </h:panelGrid>  
       <br/>  
+      <rich:dataTable id="jobApplications" var="_jobApplication" rendered="#{not empty jobAction.listJobApplications and skipPermissionCheck == 'true' || s:hasPermission('job', 'jobApplicationsView') }" value="#{jobAction.listJobApplications}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.jobApplication_candidate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'candidateView')}"/> 
+          </f:facet>  
+          <s:link value="#{_jobApplication.candidate.displayName}" action="viewcandidate" propagation="none"> 
+            <f:param name="candidateId" value="#{_jobApplication.candidate.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column> 
+      </rich:dataTable>  
       <br/> 
     </s:validateAll> 
   </h:panelGroup> 

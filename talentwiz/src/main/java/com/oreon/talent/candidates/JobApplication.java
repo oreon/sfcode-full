@@ -65,6 +65,7 @@ public class JobApplication extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "candidate_id", nullable = false, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected Candidate candidate
 
 	;
@@ -72,6 +73,7 @@ public class JobApplication extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "job_id", nullable = false, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected Job job
 
 	;

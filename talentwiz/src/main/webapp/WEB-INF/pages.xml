@@ -4,12 +4,12 @@
   <!--PROTECTED REGION ID(USER_EDITABLE_PAGESROOT) ENABLED START-->  
   <page view-id="/admin/*"> 
     <restrict>#{identity.loggedIn}</restrict> 
-  </page> 
+  </page>  
   <!-- 
   <page view-id="/manageAccount/*"> 
     <restrict>#{identity.loggedIn}</restrict> 
   </page>
-   --> 
+   -->  
   <page view-id="/admin/tasks/viewTask.xhtml"> 
     <param name="taskId" value="#{jbpmProcessAction.taskId}"/>  
     <navigation> 
@@ -210,6 +210,7 @@
     <param name="contactDetails_phone" value="#{employeeList.employee.contactDetails.phone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_city" value="#{employeeList.employee.contactDetails.city}" validateModel="false"/>  
+    <param name="contactDetails_postalCode" value="#{employeeList.employee.contactDetails.postalCode}" validateModel="false"/>  
     <param name="department" value="#{employeeList.employee.department.id}" validateModel="false"/>  
     <param name="employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false"/>  
     <param name="employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/> 
@@ -393,16 +394,18 @@
     <param name="contactDetails_phone" value="#{candidateList.candidate.contactDetails.phone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{candidateList.candidate.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_city" value="#{candidateList.candidate.contactDetails.city}" validateModel="false"/>  
+    <param name="contactDetails_postalCode" value="#{candidateList.candidate.contactDetails.postalCode}" validateModel="false"/>  
     <param name="availibility" value="#{candidateList.candidate.availibility}" validateModel="false"/>  
     <param name="preferredJobType" value="#{candidateList.candidate.preferredJobType}" validateModel="false"/>  
-    <param name="chiefExpertiese" value="#{candidateList.candidate.chiefExpertiese}" validateModel="false"/>  
+    <param name="chiefExpertise" value="#{candidateList.candidate.chiefExpertise}" validateModel="false"/>  
     <param name="educationLevel" value="#{candidateList.candidate.educationLevel}" validateModel="false"/>  
     <param name="willingToRelocate" value="#{candidateList.candidate.willingToRelocate}" validateModel="false"/>  
     <param name="appUser_userName" value="#{candidateList.candidate.appUser.userName}" validateModel="false"/>  
     <param name="appUser_enabled" value="#{candidateList.candidate.appUser.enabled}" validateModel="false"/>  
     <param name="appUser_email" value="#{candidateList.candidate.appUser.email}" validateModel="false"/>  
     <param name="appUser_lastLogin" value="#{candidateList.candidate.appUser.lastLogin}" validateModel="false"/>  
-    <param name="textResume" value="#{candidateList.candidate.textResume}" validateModel="false"/> 
+    <param name="textResume" value="#{candidateList.candidate.textResume}" validateModel="false"/>  
+    <param name="coverLetter" value="#{candidateList.candidate.coverLetter}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/candidates/job/editJob.xhtml"> 
     <!-- <description>Edit Job: #{job.displayName}</description> -->  
@@ -448,7 +451,8 @@
     <param name="id" value="#{jobList.job.id}"/>  
     <param name="title" value="#{jobList.job.title}" validateModel="false"/>  
     <param name="description" value="#{jobList.job.description}" validateModel="false"/>  
-    <param name="client" value="#{jobList.job.client.id}" validateModel="false"/> 
+    <param name="client" value="#{jobList.job.client.id}" validateModel="false"/>  
+    <param name="active" value="#{jobList.job.active}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/candidates/client/editClient.xhtml"> 
     <!-- <description>Edit Client: #{client.displayName}</description> -->  

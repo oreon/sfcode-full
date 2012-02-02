@@ -27,6 +27,14 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
+        <s:decorate id="activeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.job_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'activeEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'activeEdit')}" label="#{msg.job_active}" required="false" disabled="false" value="#{jobAction.job.active}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
         <s:decorate id="clientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.job_client}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'clientEdit')}"/>
@@ -39,6 +47,34 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
+      <a:commandButton value="New JobApplication" action="#{jobAction.addJobApplications}" reRender="jobApplications" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'jobApplicationsEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="jobApplications" var="_jobApplication" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'jobApplicationsEdit')}" value="#{jobAction.listJobApplications}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.jobApplication_candidate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'candidateEdit')}"/>
+          </f:facet>  
+          <s:decorate id="candidateDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="candidate" label="#{msg.jobApplication_candidate}" value="#{_jobApplication.candidate}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'candidateEdit')}" disabled="false"> 
+              <s:selectItems value="#{candidateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New JobApplication" action="#{jobAction.addJobApplications}" reRender="jobApplications" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('jobApplication', 'jobApplicationsEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{jobAction.deleteJobApplications(rowIndex)}" reRender="jobApplications"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
       <br/> 
     </s:validateAll> 
   </h:panelGroup> 

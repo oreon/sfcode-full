@@ -31,6 +31,11 @@
       <h:inputText id="contactDetails_city" value="#{candidateList.candidate.contactDetails.city}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'postalCodeEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_postalCode" value="#{candidateList.candidate.contactDetails.postalCode}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.candidate_availibility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="availibility" value="#{candidateList.candidate.availibility}" required="false"> 
@@ -53,9 +58,9 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.candidate_chiefExpertiese}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}"/>  
+      <h:outputText value="#{msg.candidate_chiefExpertise}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertiseEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="chiefExpertiese" value="#{candidateList.candidate.chiefExpertiese}" required="false"> 
+      <h:selectOneMenu id="chiefExpertise" value="#{candidateList.candidate.chiefExpertise}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="None" itemValue=""/>  
         <f:selectItem itemValue="JAVA" itemLabel="Java"/>  
@@ -119,6 +124,11 @@
       <h:outputText value="#{msg.candidate_textResume}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/>  
       <br/>  
       <h:inputText id="textResume" value="#{candidateList.candidate.textResume}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.candidate_coverLetter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'coverLetterEdit')}"/>  
+      <br/>  
+      <h:inputText id="coverLetter" value="#{candidateList.candidate.coverLetter}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

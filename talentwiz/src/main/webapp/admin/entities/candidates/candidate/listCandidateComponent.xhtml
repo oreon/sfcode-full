@@ -71,6 +71,16 @@
           </f:facet>  
           <h:outputText value="#{_candidate.contactDetails.city}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('postalCode', 'candidateView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{candidateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_postalCode}"/>  
+              <ui:param name="propertyPath" value="candidate.contactDetails.postalCode"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_candidate.contactDetails.postalCode}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('availibility', 'candidateView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -91,15 +101,15 @@
           </f:facet>  
           <h:outputText value="#{_candidate.preferredJobType}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('chiefExpertiese', 'candidateView'  )}"> 
+        <h:column rendered="#{s:hasPermission('chiefExpertise', 'candidateView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{candidateList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.candidate_chiefExpertiese}"/>  
-              <ui:param name="propertyPath" value="candidate.chiefExpertiese"/> 
+              <ui:param name="propertyLabel" value="#{msg.candidate_chiefExpertise}"/>  
+              <ui:param name="propertyPath" value="candidate.chiefExpertise"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_candidate.chiefExpertiese}" escape="false"/> 
+          <h:outputText value="#{_candidate.chiefExpertise}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('educationLevel', 'candidateView'  )}"> 
           <f:facet name="header"> 
@@ -188,6 +198,17 @@
           </f:facet>  
           <rich:toolTip value="#{_candidate.textResume}" for="textResumeAbbr"></rich:toolTip>  
           <h:outputText id="textResumeAbbr" value="#{_candidate.textResumeAbbreviated}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('coverLetter', 'candidateView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{candidateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.candidate_coverLetter}"/>  
+              <ui:param name="propertyPath" value="candidate.coverLetter"/> 
+            </ui:include> 
+          </f:facet>  
+          <rich:toolTip value="#{_candidate.coverLetter}" for="coverLetterAbbr"></rich:toolTip>  
+          <h:outputText id="coverLetterAbbr" value="#{_candidate.coverLetterAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'candidateView' )}"> 
           <f:facet name="header"> 

@@ -58,6 +58,8 @@ public abstract class JobListQueryBase extends BaseQuery<Job, Long> {
 
 			"job.client.id = #{jobList.job.client.id}",
 
+			"job.active = #{jobList.job.active}",
+
 			"job.dateCreated <= #{jobList.dateCreatedRange.end}",
 			"job.dateCreated >= #{jobList.dateCreatedRange.begin}",};
 
@@ -84,6 +86,9 @@ public abstract class JobListQueryBase extends BaseQuery<Job, Long> {
 				+ (e.getClient() != null ? e.getClient().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\"" + (e.getActive() != null ? e.getActive() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -98,6 +103,8 @@ public abstract class JobListQueryBase extends BaseQuery<Job, Long> {
 		builder.append("Description" + ",");
 
 		builder.append("Client" + ",");
+
+		builder.append("Active" + ",");
 
 		builder.append("\r\n");
 	}

@@ -82,6 +82,33 @@ public class Job extends BusinessEntity implements java.io.Serializable {
 
 	;
 
+	@Column(unique = false)
+	protected Boolean active = true
+
+	;
+
+	@OneToMany(mappedBy = "job", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "job_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<JobApplication> jobApplications = new HashSet<JobApplication>();
+
+	public void addJobApplication(JobApplication jobApplication) {
+		jobApplication.setJob(this);
+		this.jobApplications.add(jobApplication);
+	}
+
+	@Transient
+	public List<com.oreon.talent.candidates.JobApplication> getListJobApplications() {
+		return new ArrayList<com.oreon.talent.candidates.JobApplication>(
+				jobApplications);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getJobApplicationsCount() {
+		return jobApplications.size();
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -110,6 +137,24 @@ public class Job extends BusinessEntity implements java.io.Serializable {
 
 		return client;
 
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Boolean getActive() {
+
+		return active;
+
+	}
+
+	public void setJobApplications(Set<JobApplication> jobApplications) {
+		this.jobApplications = jobApplications;
+	}
+
+	public Set<JobApplication> getJobApplications() {
+		return jobApplications;
 	}
 
 	@Transient
@@ -157,6 +202,10 @@ public class Job extends BusinessEntity implements java.io.Serializable {
 
 		if (getClient() != null)
 			builder.append("client:" + getClient().getDisplayName() + " ");
+
+		for (BusinessEntity e : jobApplications) {
+			builder.append(e.getDisplayName() + " ");
+		}
 
 		return builder.toString();
 	}

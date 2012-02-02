@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('job', 'jobApplicationView'  )}"> 
+        <h:column groupOn="#{jobApplication.job.displayName}" rendered="#{s:hasPermission('job', 'jobApplicationView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{jobApplicationList}"/>  

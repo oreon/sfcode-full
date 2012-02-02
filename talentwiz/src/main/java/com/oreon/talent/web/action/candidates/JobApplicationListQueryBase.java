@@ -61,6 +61,13 @@ public abstract class JobApplicationListQueryBase
 			"jobApplication.dateCreated <= #{jobApplicationList.dateCreatedRange.end}",
 			"jobApplication.dateCreated >= #{jobApplicationList.dateCreatedRange.begin}",};
 
+	public List<JobApplication> getJobApplicationsByJob(
+			com.oreon.talent.candidates.Job job) {
+		//setMaxResults(10000);
+		jobApplication.setJob(job);
+		return getResultList();
+	}
+
 	@Observer("archivedJobApplication")
 	public void onArchive() {
 		refresh();

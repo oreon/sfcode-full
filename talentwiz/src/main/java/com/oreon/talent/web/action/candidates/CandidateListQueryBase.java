@@ -70,11 +70,13 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 
 			"lower(candidate.contactDetails.city) like concat(lower(#{candidateList.candidate.contactDetails.city}),'%')",
 
+			"lower(candidate.contactDetails.postalCode) like concat(lower(#{candidateList.candidate.contactDetails.postalCode}),'%')",
+
 			"candidate.availibility = #{candidateList.candidate.availibility}",
 
 			"candidate.preferredJobType = #{candidateList.candidate.preferredJobType}",
 
-			"candidate.chiefExpertiese = #{candidateList.candidate.chiefExpertiese}",
+			"candidate.chiefExpertise = #{candidateList.candidate.chiefExpertise}",
 
 			"candidate.educationLevel = #{candidateList.candidate.educationLevel}",
 
@@ -90,6 +92,8 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 			"candidate.appUser.lastLogin <= #{candidateList.appUser_lastLoginRange.end}",
 
 			"lower(candidate.textResume) like concat(lower(#{candidateList.candidate.textResume}),'%')",
+
+			"lower(candidate.coverLetter) like concat(lower(#{candidateList.candidate.coverLetter}),'%')",
 
 			"candidate.dateCreated <= #{candidateList.dateCreatedRange.end}",
 			"candidate.dateCreated >= #{candidateList.dateCreatedRange.begin}",};
@@ -114,10 +118,9 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 						? e.getPreferredJobType()
 						: "") + "\",");
 
-		builder
-				.append("\""
-						+ (e.getChiefExpertiese() != null ? e
-								.getChiefExpertiese() : "") + "\",");
+		builder.append("\""
+				+ (e.getChiefExpertise() != null ? e.getChiefExpertise() : "")
+				+ "\",");
 
 		builder.append("\""
 				+ (e.getEducationLevel() != null ? e.getEducationLevel() : "")
@@ -136,6 +139,10 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 				+ (e.getTextResume() != null ? e.getTextResume().replace(",",
 						"") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getCoverLetter() != null ? e.getCoverLetter().replace(",",
+						"") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -149,7 +156,7 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 
 		builder.append("PreferredJobType" + ",");
 
-		builder.append("ChiefExpertiese" + ",");
+		builder.append("ChiefExpertise" + ",");
 
 		builder.append("EducationLevel" + ",");
 
@@ -158,6 +165,8 @@ public abstract class CandidateListQueryBase extends BaseQuery<Candidate, Long> 
 		builder.append("AppUser" + ",");
 
 		builder.append("TextResume" + ",");
+
+		builder.append("CoverLetter" + ",");
 
 		builder.append("\r\n");
 	}

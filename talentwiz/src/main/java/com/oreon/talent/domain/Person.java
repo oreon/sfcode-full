@@ -76,7 +76,9 @@ public class Person extends BusinessEntity {
 
 			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "contactDetails_secondaryPhone")),
 
-			@AttributeOverride(name = "city", column = @Column(name = "contactDetails_city"))
+			@AttributeOverride(name = "city", column = @Column(name = "contactDetails_city")),
+
+			@AttributeOverride(name = "postalCode", column = @Column(name = "contactDetails_postalCode"))
 
 	})
 	protected ContactDetails contactDetails = new ContactDetails();
@@ -146,6 +148,8 @@ public class Person extends BusinessEntity {
 		listSearchableFields.add("contactDetails.secondaryPhone");
 
 		listSearchableFields.add("contactDetails.city");
+
+		listSearchableFields.add("contactDetails.postalCode");
 
 		return listSearchableFields;
 	}
