@@ -26,6 +26,12 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="client" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'clientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.job_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'activeEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="active" value="#{jobAction.job.active}"/>  
+        <rich:message styleClass="error errors" for="active" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('job', 'activeEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

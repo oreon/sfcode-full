@@ -16,6 +16,8 @@ public class MetaData {
 
 	"contactDetails.city", "java.lang.String",
 
+	"contactDetails.postalCode", "java.lang.String",
+
 	"department.displayName", "java.lang.String",
 
 	"employeeNumber", "java.lang.String",
@@ -62,11 +64,13 @@ public class MetaData {
 
 	"contactDetails.city", "java.lang.String",
 
+	"contactDetails.postalCode", "java.lang.String",
+
 	"availibility.name", "java.lang.String",
 
 	"preferredJobType.name", "java.lang.String",
 
-	"chiefExpertiese.name", "java.lang.String",
+	"chiefExpertise.name", "java.lang.String",
 
 	"educationLevel.name", "java.lang.String",
 
@@ -78,6 +82,8 @@ public class MetaData {
 
 	"textResume", "java.lang.String",
 
+	"coverLetter", "java.lang.String",
+
 	},
 
 	{"com.oreon.talent.candidates.Job",
@@ -87,6 +93,10 @@ public class MetaData {
 	"description", "java.lang.String",
 
 	"client.displayName", "java.lang.String",
+
+	"active", "java.lang.Boolean",
+
+	"jobApplicationsCount", "java.lang.Integer",
 
 	},
 

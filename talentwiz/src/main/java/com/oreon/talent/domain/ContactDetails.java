@@ -54,24 +54,35 @@ import com.oreon.talent.ProjectUtils;
 public class ContactDetails implements java.io.Serializable {
 	private static final long serialVersionUID = 369764046L;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "phone", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String phone
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "secondaryPhone", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String secondaryPhone
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "city", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String city
+
+	;
+
+	@Pattern(regex = "[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]")
+	@Column(name = "postalCode", unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String postalCode
 
 	;
 
@@ -102,6 +113,16 @@ public class ContactDetails implements java.io.Serializable {
 	public String getCity() {
 
 		return city;
+
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getPostalCode() {
+
+		return postalCode;
 
 	}
 

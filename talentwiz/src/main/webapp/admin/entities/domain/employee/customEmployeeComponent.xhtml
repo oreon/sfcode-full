@@ -37,6 +37,12 @@
         <rich:message styleClass="error errors" for="contactDetails_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'cityEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'postalCodeEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_postalCode" value="#{employeeAction.employee.contactDetails.postalCode}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_postalCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'postalCodeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
         <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'departmentEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="department" value="#{employeeAction.employee.department}"> 

@@ -54,6 +54,16 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('active', 'jobView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{jobList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.job_active}"/>  
+              <ui:param name="propertyPath" value="job.active"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_job.active? msg.yes : msg.no }"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'jobView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

@@ -19,8 +19,8 @@
         <h:outputText value="#{candidateAction.candidate.availibility}"/>  
         <h:outputText value="#{msg.candidate_preferredJobType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeView')}"/>  
         <h:outputText value="#{candidateAction.candidate.preferredJobType}"/>  
-        <h:outputText value="#{msg.candidate_chiefExpertiese}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseView')}"/>  
-        <h:outputText value="#{candidateAction.candidate.chiefExpertiese}"/>  
+        <h:outputText value="#{msg.candidate_chiefExpertise}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertiseView')}"/>  
+        <h:outputText value="#{candidateAction.candidate.chiefExpertise}"/>  
         <h:outputText value="#{msg.candidate_educationLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelView')}"/>  
         <h:outputText value="#{candidateAction.candidate.educationLevel}"/>  
         <h:outputText value="#{msg.candidate_willingToRelocate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'willingToRelocateView')}"/>  
@@ -37,7 +37,9 @@
           </c:otherwise> 
         </c:choose>  
         <h:outputText value="#{msg.candidate_textResume}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeView')}"/>  
-        <h:outputText escape="false" id="textResume#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeView')}" value="#{candidateAction.candidate.textResume}"></h:outputText> 
+        <h:outputText escape="false" id="textResume#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeView')}" value="#{candidateAction.candidate.textResume}"></h:outputText>  
+        <h:outputText value="#{msg.candidate_coverLetter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'coverLetterView')}"/>  
+        <h:outputText escape="false" id="coverLetter#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'coverLetterView')}" value="#{candidateAction.candidate.coverLetter}"></h:outputText> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
@@ -51,7 +53,9 @@
         <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneView')}"/>  
         <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneView')}" value="#{candidateAction.candidate.contactDetails.secondaryPhone}"></h:outputText>  
         <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityView')}"/>  
-        <h:outputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityView')}" value="#{candidateAction.candidate.contactDetails.city}"></h:outputText> 
+        <h:outputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityView')}" value="#{candidateAction.candidate.contactDetails.city}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'postalCodeView')}"/>  
+        <h:outputText id="contactDetails_postalCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'postalCodeView')}" value="#{candidateAction.candidate.contactDetails.postalCode}"></h:outputText> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 

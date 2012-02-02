@@ -62,22 +62,26 @@ public class Candidate extends com.oreon.talent.domain.Person
 			java.io.Serializable {
 	private static final long serialVersionUID = -1374640645L;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "availibility", unique = false)
 	protected Availibility availibility
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "preferredJobType", unique = false)
 	protected PreferredJobType preferredJobType
 
 	;
 
-	@Column(unique = false)
-	protected ChiefExpertise chiefExpertiese
+	@NotNull
+	@Column(name = "chiefExpertise", unique = false)
+	protected ChiefExpertise chiefExpertise
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "educationLevel", unique = false)
 	protected EducationLevel educationLevel
 
 	;
@@ -87,7 +91,8 @@ public class Candidate extends com.oreon.talent.domain.Person
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "resumeFile", unique = false)
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "name", column = @Column(name = "resumeFile_name")),
@@ -100,11 +105,20 @@ public class Candidate extends com.oreon.talent.domain.Person
 	@ContainedIn
 	protected com.oreon.talent.users.AppUser appUser = new com.oreon.talent.users.AppUser();
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "textResume", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String textResume
+
+	;
+
+	@Lob
+	@Column(name = "coverLetter", unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String coverLetter
 
 	;
 
@@ -128,13 +142,13 @@ public class Candidate extends com.oreon.talent.domain.Person
 
 	}
 
-	public void setChiefExpertiese(ChiefExpertise chiefExpertiese) {
-		this.chiefExpertiese = chiefExpertiese;
+	public void setChiefExpertise(ChiefExpertise chiefExpertise) {
+		this.chiefExpertise = chiefExpertise;
 	}
 
-	public ChiefExpertise getChiefExpertiese() {
+	public ChiefExpertise getChiefExpertise() {
 
-		return chiefExpertiese;
+		return chiefExpertise;
 
 	}
 
@@ -188,6 +202,16 @@ public class Candidate extends com.oreon.talent.domain.Person
 
 	}
 
+	public void setCoverLetter(String coverLetter) {
+		this.coverLetter = coverLetter;
+	}
+
+	public String getCoverLetter() {
+
+		return coverLetter;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -200,6 +224,12 @@ public class Candidate extends com.oreon.talent.domain.Person
 	@Transient
 	public String getTextResumeAbbreviated() {
 		return org.apache.commons.lang.WordUtils.abbreviate(textResume.trim(),
+				100, 200, "...");
+	}
+
+	@Transient
+	public String getCoverLetterAbbreviated() {
+		return org.apache.commons.lang.WordUtils.abbreviate(coverLetter.trim(),
 				100, 200, "...");
 	}
 
@@ -217,6 +247,8 @@ public class Candidate extends com.oreon.talent.domain.Person
 
 		listSearchableFields.add("textResume");
 
+		listSearchableFields.add("coverLetter");
+
 		return listSearchableFields;
 	}
 
@@ -226,6 +258,8 @@ public class Candidate extends com.oreon.talent.domain.Person
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(getTextResume() + " ");
+
+		builder.append(getCoverLetter() + " ");
 
 		if (getAppUser() != null)
 			builder.append("appUser:" + getAppUser().getDisplayName() + " ");

@@ -31,7 +31,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.candidate_availibility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="availibility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}" value="#{candidateAction.candidate.availibility}" required="false" label="#{msg.candidate_availibility}"> 
+          <h:selectOneMenu id="availibility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}" value="#{candidateAction.candidate.availibility}" required="true" label="#{msg.candidate_availibility}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="IMMEDIATE" itemLabel="#{msg.IMMEDIATE}"/>  
             <f:selectItem itemValue="TWO_WEEKS" itemLabel="#{msg.TWO_WEEKS}"/>  
@@ -43,7 +43,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.candidate_preferredJobType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="preferredJobType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeEdit')}" value="#{candidateAction.candidate.preferredJobType}" required="false" label="#{msg.candidate_preferredJobType}"> 
+          <h:selectOneMenu id="preferredJobType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeEdit')}" value="#{candidateAction.candidate.preferredJobType}" required="true" label="#{msg.candidate_preferredJobType}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="CONTRACT" itemLabel="#{msg.CONTRACT}"/>  
             <f:selectItem itemValue="PERMANENT" itemLabel="#{msg.PERMANENT}"/>  
@@ -51,11 +51,11 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="chiefExpertieseDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="chiefExpertiseDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.candidate_chiefExpertiese}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}"/>
+            <h:outputText value="#{msg.candidate_chiefExpertise}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertiseEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="chiefExpertiese" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}" value="#{candidateAction.candidate.chiefExpertiese}" required="false" label="#{msg.candidate_chiefExpertiese}"> 
+          <h:selectOneMenu id="chiefExpertise" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertiseEdit')}" value="#{candidateAction.candidate.chiefExpertise}" required="true" label="#{msg.candidate_chiefExpertise}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="JAVA" itemLabel="#{msg.JAVA}"/>  
             <f:selectItem itemValue="DOT_NET" itemLabel="#{msg.DOT_NET}"/>  
@@ -69,7 +69,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.candidate_educationLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="educationLevel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}" value="#{candidateAction.candidate.educationLevel}" required="false" label="#{msg.candidate_educationLevel}"> 
+          <h:selectOneMenu id="educationLevel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}" value="#{candidateAction.candidate.educationLevel}" required="true" label="#{msg.candidate_educationLevel}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="HIGH_SCHOOL" itemLabel="#{msg.HIGH_SCHOOL}"/>  
             <f:selectItem itemValue="DIPLOMA" itemLabel="#{msg.DIPLOMA}"/>  
@@ -106,7 +106,15 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.candidate_textResume}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="textResume#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}" label="#{msg.candidate_textResume}" required="false" disabled="false" value="#{candidateAction.candidate.textResume}"> 
+          <rich:editor useSeamText="true" id="textResume#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}" label="#{msg.candidate_textResume}" required="true" disabled="false" value="#{candidateAction.candidate.textResume}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="coverLetterDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.candidate_coverLetter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'coverLetterEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="coverLetter#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'coverLetterEdit')}" label="#{msg.candidate_coverLetter}" required="false" disabled="false" value="#{candidateAction.candidate.coverLetter}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate> 
@@ -122,7 +130,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'phoneEdit')}"/>
           </ui:define>  
-          <h:inputText id="contactDetails_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'phoneEdit')}" label="#{msg.contactDetails_phone}" required="false" disabled="false" value="#{candidateAction.candidate.contactDetails.phone}"> 
+          <h:inputText id="contactDetails_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'phoneEdit')}" label="#{msg.contactDetails_phone}" required="true" disabled="false" value="#{candidateAction.candidate.contactDetails.phone}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -130,7 +138,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneEdit')}"/>
           </ui:define>  
-          <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{candidateAction.candidate.contactDetails.secondaryPhone}"> 
+          <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'secondaryPhoneEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="true" disabled="false" value="#{candidateAction.candidate.contactDetails.secondaryPhone}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -138,7 +146,15 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityEdit')}"/>
           </ui:define>  
-          <h:inputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityEdit')}" label="#{msg.contactDetails_city}" required="false" disabled="false" value="#{candidateAction.candidate.contactDetails.city}"> 
+          <h:inputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityEdit')}" label="#{msg.contactDetails_city}" required="true" disabled="false" value="#{candidateAction.candidate.contactDetails.city}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="contactDetails_postalCodeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'postalCodeEdit')}"/>
+          </ui:define>  
+          <h:inputText id="contactDetails_postalCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'postalCodeEdit')}" label="#{msg.contactDetails_postalCode}" required="false" disabled="false" value="#{candidateAction.candidate.contactDetails.postalCode}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

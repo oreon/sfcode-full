@@ -41,6 +41,8 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.oreon.talent.candidates.JobApplication;
+
 public abstract class JobActionBase extends BaseAction<Job>
 		implements
 			java.io.Serializable {
@@ -175,16 +177,61 @@ public abstract class JobActionBase extends BaseAction<Job>
 			clientAction.setInstance(getInstance().getClient());
 		}
 
+		initListJobApplications();
+
 	}
 
 	public void updateAssociations() {
 
 	}
 
+	protected List<com.oreon.talent.candidates.JobApplication> listJobApplications = new ArrayList<com.oreon.talent.candidates.JobApplication>();
+
+	void initListJobApplications() {
+
+		if (listJobApplications.isEmpty())
+			listJobApplications.addAll(getInstance().getJobApplications());
+
+	}
+
+	public List<com.oreon.talent.candidates.JobApplication> getListJobApplications() {
+
+		prePopulateListJobApplications();
+		return listJobApplications;
+	}
+
+	public void prePopulateListJobApplications() {
+	}
+
+	public void setListJobApplications(
+			List<com.oreon.talent.candidates.JobApplication> listJobApplications) {
+		this.listJobApplications = listJobApplications;
+	}
+
+	public void deleteJobApplications(int index) {
+		listJobApplications.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addJobApplications() {
+		initListJobApplications();
+		JobApplication jobApplications = new JobApplication();
+
+		jobApplications.setJob(getInstance());
+
+		getListJobApplications().add(jobApplications);
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listJobApplications != null) {
+			getInstance().getJobApplications().clear();
+			getInstance().getJobApplications().addAll(listJobApplications);
+		}
 	}
 
 	public void clearLists() {
+		listJobApplications.clear();
 
 	}
 

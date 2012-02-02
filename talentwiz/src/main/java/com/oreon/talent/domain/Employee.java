@@ -65,18 +65,21 @@ public class Employee extends com.oreon.talent.domain.Person
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_id", nullable = true, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected Department department
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "employeeNumber", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String employeeNumber
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "employeeType", unique = false)
 	protected EmployeeType employeeType
 
 	;

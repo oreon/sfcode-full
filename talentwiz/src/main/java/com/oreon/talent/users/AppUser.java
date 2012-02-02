@@ -88,9 +88,10 @@ public class AppUser extends BusinessEntity implements java.io.Serializable {
 	@JoinTable(name = "appUsers_appRoles", joinColumns = @JoinColumn(name = "appUsers_ID"), inverseJoinColumns = @JoinColumn(name = "appRoles_ID"))
 	private Set<AppRole> appRoles = new HashSet<AppRole>();
 
+	@Email
 	@NotNull
 	@Length(min = 1, max = 250)
-	@Column(unique = false)
+	@Column(name = "email", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String email

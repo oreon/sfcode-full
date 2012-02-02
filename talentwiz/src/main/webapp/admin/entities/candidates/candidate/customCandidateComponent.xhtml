@@ -37,6 +37,12 @@
         <rich:message styleClass="error errors" for="contactDetails_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'cityEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'postalCodeEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_postalCode" value="#{candidateAction.candidate.contactDetails.postalCode}"/>  
+        <rich:message styleClass="error errors" for="contactDetails_postalCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'postalCodeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
         <h:outputText value="#{msg.candidate_availibility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'availibilityEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="availibility" value="#{candidateAction.candidate.availibility}" required="false"> 
@@ -59,9 +65,9 @@
         <rich:message styleClass="error errors" for="preferredJobType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'preferredJobTypeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.candidate_chiefExpertiese}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}"/>  
+        <h:outputText value="#{msg.candidate_chiefExpertise}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertiseEdit')}"/>  
         <br/>  
-        <h:selectOneMenu id="chiefExpertiese" value="#{candidateAction.candidate.chiefExpertiese}" required="false"> 
+        <h:selectOneMenu id="chiefExpertise" value="#{candidateAction.candidate.chiefExpertise}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="JAVA" itemLabel="Java"/>  
           <f:selectItem itemValue="DOT_NET" itemLabel="Dot_net"/>  
@@ -69,7 +75,7 @@
           <f:selectItem itemValue="PROJECT_MANAGEMENT" itemLabel="Project_management"/>  
           <f:selectItem itemValue="BUSINESS_ANALYST" itemLabel="Business_analyst"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="chiefExpertiese" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertieseEdit')}"/> 
+        <rich:message styleClass="error errors" for="chiefExpertise" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'chiefExpertiseEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.candidate_educationLevel}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'educationLevelEdit')}"/>  
@@ -123,6 +129,12 @@
         <br/>  
         <rich:editor id="textResume" value="#{candidateAction.candidate.textResume}"/>  
         <rich:message styleClass="error errors" for="textResume" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'textResumeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.candidate_coverLetter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'coverLetterEdit')}"/>  
+        <br/>  
+        <rich:editor id="coverLetter" value="#{candidateAction.candidate.coverLetter}"/>  
+        <rich:message styleClass="error errors" for="coverLetter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('candidate', 'coverLetterEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 
