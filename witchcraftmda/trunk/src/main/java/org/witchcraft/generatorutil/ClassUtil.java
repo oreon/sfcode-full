@@ -247,6 +247,11 @@ public class ClassUtil {
 		}
 		return Arrays.asList(arr);
 	}
+	
+	public static String getSubString(String arg, String indexStr){
+		return arg.substring(arg.indexOf("_") + 1);
+	}
+	
 
 	public static String getParametersSignatureRest(Operation op, String type) {
 		op.getOwnedParameters();

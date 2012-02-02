@@ -7,10 +7,15 @@
 	«REM» Massage the model «ENDREM»
 	«setCurrentModel()»
 	«EXPAND setDefaultNamesForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
+	
 	«EXPAND setDefaultMultiplicityForAssocs FOREACH allOwnedElements().typeSelect(uml::Property) »
 	«EXPAND applyEntityStereotype FOREACH allOwnedElements().typeSelect(wcprofile::EntitiesPackage) »
 	«EXPAND applyViewStateStereotype FOREACH allOwnedElements().typeSelect(wcprofile::ViewStateMachine) »
 	«EXPAND massageEmbeddables FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable) »
+	
+	
+	«EXPAND applyRequired(this) FOREACH allOwnedElements().typeSelect(wcprofile::AbstractEntity)»
+	
 	
 	«EXPAND massageTasks FOREACH allOwnedElements().typeSelect(uml::ActivityNode) »
 	«EXPAND massageTasks FOREACH allOwnedElements().typeSelect(uml::ActivityPartition) »
@@ -20,6 +25,14 @@
 «REM» For associations we need to
  set name to type name if the name is null ;«ENDREM»
 «DEFINE setDefaultMultiplicityForAssocs FOR uml::Property»
+«ENDDEFINE»
+
+
+«DEFINE applyRequired(uml::Model model) FOR wcprofile::AbstractEntity»
+	«IF readPropertyDef("allFieldsMandatory","false") == "true"»
+		«EXPAND ApplyColumnStereotype(model) FOREACH getAllAttributes()»
+		«EXPAND setRequired(model) FOREACH getAllAttributes()»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE setDefaultNamesForAssocs FOR uml::Property»
@@ -46,6 +59,31 @@
 		«ENDIF»
 	«ENDIF»
 «ENDDEFINE»
+
+<!-- Make all fields notnull  -->
+«DEFINE ApplyColumnStereotype(uml::Model model) FOR uml::Property»
+   «IF !( type.name == "nameType"  || type.name == "uniqueNameType"  || type.name == "Boolean") »
+	«FOREACH model.getAppliedProfile("wcprofile").ownedStereotype AS s»
+			«IF s.name == "Column"» «this.applyStereotype(s)»   «ENDIF»
+	«ENDFOREACH»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE ApplyColumnStereotype(uml::Model model) FOR wcprofile::Column»
+«ENDDEFINE»
+
+«DEFINE setRequired(uml::Model model) FOR wcprofile::Column»
+	«IF notNull == null»
+		«this.setValue(getAppliedStereotype("wcprofile::Column"),"notNull", true )»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE setRequired(uml::Model model) FOR uml::Property»
+  «IF !( type.name == "nameType"  || type.name == "uniqueNameType" || type.name == "Boolean") »
+	«this.setValue(getAppliedStereotype("wcprofile::Column"),"notNull", true )»
+  «ENDIF»
+«ENDDEFINE»
+
 
 
 «REM» For classes in entitiespackage we need to default to 'Enity' profile if no sterotype is specified «ENDREM»

@@ -288,8 +288,14 @@ getEntities(Model model):
  model.allOwnedElements().typeSelect(wcprofile::Entity) ;
 
 
-String getValidatorAnnotations(Column col):
+String getNotNullAnnotations(Column col):
 col.notNull?"@NotNull":"";
+
+String getValidatorAnnotations(Column col):
+  "@" + ( col.validator.startsWith("VALIDATOR_") ? col.validator.getSubString("_").toLowerCase().toFirstUpper():  "Pattern(regex = \"" + col.validator + "\")" );
+	
+
+
 
 String getLengthAnnotations(Column col):
 col.minLength > 0 ?"@Length(min=" + col.minLength + ")"  :"";
@@ -534,3 +540,7 @@ pack.isEntitiesPackage() && pack.excludeFromGeneration == true;
 
 isEntitiesPackage(Package pack):
 pack.getAppliedStereotype("wcprofile::EntitiesPackage") != null;
+
+getSubString(String arg, String indexStr):
+JAVA org.witchcraft.generatorutil.ClassUtil.getSubString(java.lang.String, java.lang.String);
+

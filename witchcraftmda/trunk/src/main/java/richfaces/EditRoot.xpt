@@ -500,7 +500,7 @@
 	«IF !isCurrentEditMode() -»
 	<«getTextControl()»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
 	«ELSE»
-	<h:selectOneMenu id="«getId()»"  rendered="#{«genEditPermission()»}" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getAssocOptional() && !isCurrentTemplateMode()»" 
+	<h:selectOneMenu id="«getId()»"  rendered="#{«genEditPermission()»}" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getRequired()»" 
 	  label="«msgBundleKey()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
