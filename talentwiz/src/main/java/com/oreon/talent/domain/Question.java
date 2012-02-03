@@ -106,8 +106,12 @@ public class Question extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getTextAbbreviated() {
-		return org.apache.commons.lang.WordUtils.abbreviate(text.trim(), 100,
-				200, "...");
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(text.trim(),
+					100, 200, "...");
+		} catch (Exception e) {
+			return text != null ? text : "";
+		}
 	}
 
 	//Empty setter , needed for richfaces autocomplete to work 
