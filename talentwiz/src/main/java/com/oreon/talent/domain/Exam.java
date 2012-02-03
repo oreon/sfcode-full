@@ -137,8 +137,12 @@ public class Exam extends BusinessEntity implements java.io.Serializable {
 
 	@Transient
 	public String getDescriptionAbbreviated() {
-		return org.apache.commons.lang.WordUtils.abbreviate(description.trim(),
-				100, 200, "...");
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(description
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return description != null ? description : "";
+		}
 	}
 
 	//Empty setter , needed for richfaces autocomplete to work 
