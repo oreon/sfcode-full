@@ -6,11 +6,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:s="http://jboss.com/products/seam/taglib">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>National Recovery System</title>
+<title>${artifactId}</title>
 <link rel="stylesheet" href="#{request.contextPath}/css/style.css"
 	type="text/css" />
 </head>
@@ -18,20 +19,50 @@
 <f:loadBundle basename="messages" var="msg" />
 <rich:toolBar>
 	<rich:toolBarGroup>
-		<h:graphicImage id="edit" value="/images/icons/house.png" />
-		<s:link view="/admin/entities/summary.xhtml" value="Home" />
+		<h:graphicImage value="/images/icons/house.png" />
+		<s:link view="/reg/index.seam" value="Home" />
 	</rich:toolBarGroup>
+
+	<rich:toolBarGroup rendered="#{ not identity.loggedIn}">
+		<h:graphicImage value="/images/icons/house.png" />
+		<s:link view="/regCandidate/registerForm.seam" value="Register" />
+	</rich:toolBarGroup>
+	
+	<rich:toolBarGroup>
+		<h:graphicImage value="/images/icons/house.png" />
+		<s:link view="/reg/jobs.seam" value="Jobs" />
+	</rich:toolBarGroup>
+	
+	<rich:toolBarGroup  rendered="#{identity.loggedIn}">
+		<h:graphicImage value="/images/icons/house.png"/>
+		<s:link action="#{candidateAction.setCandidateId(candidateAction.currentLoggedInCandidate.id)}" view="/manageAccount/viewProfile" value="Manage Profile" propagation="begin" />
+	</rich:toolBarGroup>
+	
+	
+	<rich:toolBarGroup location="right" rendered="#{ identity.loggedIn}">
+		<s:link action="#{identity.logout}" view="/reg/index.xhtml"
+			value="Logout #{identity.credentials.username}" propagation="none" />
+	</rich:toolBarGroup>
+
+	<rich:toolBarGroup location="right" rendered="#{ not identity.loggedIn}">
+		<s:link  view="/reg/index.xhtml"
+			value="Log In"  propagation="none" />
+	</rich:toolBarGroup>
+	
 </rich:toolBar>
-<rich:messages layout="list">
-	<f:facet name="passedMarker">
-		<h:graphicImage value="/images/true.png" />
-	</f:facet>
-	<f:facet name="errorMarker">
-		<h:graphicImage value="/images/error.gif" />
-	</f:facet>
-</rich:messages>
 
 
+<br/>
+<br/>
+
+<s:div style="border:1px solid #bbc; background-color:#eef" rendered="#{facesContext.maximumSeverity != null}">
+	<h:messages globalOnly="true" errorStyle="color:red" warnStyle="color:gray" infoStyle="color:green" />
+</s:div> 
+
+
+<br/>
+<br/>
+<c:set var="skipPermissionCheck" value="true" />
 <ui:insert name="content" />
 
 
