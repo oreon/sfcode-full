@@ -267,7 +267,12 @@ import org.hibernate.annotations.ParamDef;
 «IF this.type.name == "largeText"»
 @Transient
 	public String get«name.toFirstUpper()»Abbreviated() {
-		return org.apache.commons.lang.WordUtils.abbreviate(«name».trim() , 100, 200, "...");
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(«name»
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return «name» != null ? «name» : "";
+		}
 	}
 «ENDIF»
 «ENDDEFINE»
@@ -683,6 +688,8 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	
 	import org.hibernate.validator.Length;
 	import org.hibernate.validator.NotNull;
+	
+	import java.math.BigDecimal;
 	
 	import javax.xml.bind.annotation.XmlRootElement;
 	import javax.xml.bind.annotation.XmlTransient;

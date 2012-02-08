@@ -277,10 +277,10 @@
 		<rich:calendar value="#{«getCurrentEntity().asVar()»List.«getId()»Range.end}" />
 	«ELSE»
 	<h:inputText  id="«getId()»_begin" value="#{«getCurrentEntity().asVar()»List.«getId()»Range.begin}" >
-			<f:converter converterId="javax.faces.«type.name»" />
+		<f:converter converterId="javax.faces.«type.name.getTypeName()»" />
 	</h:inputText>
 	<h:inputText  id="«getId()»_end" value="#{«getCurrentEntity().asVar()»List.«getId()»Range.end}" >
-		<f:converter converterId="javax.faces.«type.name»" />
+		<f:converter converterId="javax.faces.«type.name.getTypeName()»" />
 	</h:inputText>
 	«ENDIF»
 «ENDDEFINE»
