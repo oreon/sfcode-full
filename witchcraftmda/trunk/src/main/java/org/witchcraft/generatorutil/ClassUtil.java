@@ -111,8 +111,9 @@ public class ClassUtil {
 			mapTypes.put("Long", new String[] { "long", "" });
 		} else {
 			mapTypes.put("datatypes.Integer", new String[] { "Integer", "" });
-			mapTypes.put("Currency", new String[] { "Double", "" });
+			//mapTypes.put("Currency", new String[] { "BigDecimal", "" });
 			mapTypes.put("imageFile", new String[] { "FileAttachment", "" });
+			mapTypes.put("Currency", new String[] { "BigDecimal", "" });
 		}
 
 		mapTypes.put("largeText", new String[] { "String", "@Lob" });

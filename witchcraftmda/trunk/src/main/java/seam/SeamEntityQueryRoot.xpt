@@ -202,11 +202,12 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 «DEFINE genProperty(boolean createRangeDeclarations) FOR uml::Property-»
 	«IF createRangeDeclarations == true »
 	«IF this.type.isRangeType()»
-		private Range<«type.name»> «getId()»Range = new Range<«type.name»>();
-		public Range<«type.name»> get«getId().toFirstUpper()»Range(){
+		private Range<«type.name.getTypeName()»> «getId()»Range = new Range<«type.name.getTypeName()»>();
+		
+		public Range<«type.name.getTypeName()»> get«getId().toFirstUpper()»Range(){
 			return «getId()»Range;
 		}
-		public void  set«getId().toFirstUpper()»(Range<«type.name»> «getId()»Range ){
+		public void  set«getId().toFirstUpper()»(Range<«type.name.getTypeName()»> «getId()»Range ){
 			this.«getId()»Range = «getId()»Range;
 		}
 	«ENDIF»	
@@ -270,5 +271,7 @@ import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
+
+import java.math.BigDecimal;
 	
 «ENDDEFINE»
