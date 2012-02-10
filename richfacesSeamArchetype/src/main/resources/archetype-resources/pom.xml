@@ -56,7 +56,13 @@
 					<wtpversion>2.0</wtpversion>
 				</configuration>
 			</plugin>
-			
+
+			<plugin>
+				<groupId>com.cloudbees</groupId>
+				<artifactId>bees-maven-plugin</artifactId>
+			</plugin>
+
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
@@ -283,7 +289,6 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.7.0</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -491,11 +496,6 @@
 			<version>3.2.6.SP1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.witchcraftmda</groupId>
-			<artifactId>witchcraftmda</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 
 		<dependency>
 			<groupId>ar.com.fdvs</groupId>
@@ -566,11 +566,7 @@
 			<layout>default</layout>
 		</repository>
 
-		<repository>
-			<id>witchcraftmda</id>
-			<name>witchcraftmda</name>
-			<url>http://witchcraft.sourceforge.net/m2/</url>
-		</repository>
+
 
 	</repositories>
 	<pluginRepositories>
@@ -587,6 +583,16 @@
 			<name>Java net</name>
 			<url>http://download.java.net/maven/2/</url>
 		</pluginRepository>
+		<pluginRepository>
+			<id>bees-plugins-snapshots</id>
+			<url>http://repository-cloudbees.forge.cloudbees.com/public-snapshot/  </url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
 	</pluginRepositories>
 
 	<properties>
@@ -598,7 +604,7 @@
 		<richfaces.impl.version>3.3.3.Final</richfaces.impl.version>
 		<richfaces.ui.version>3.3.3.Final</richfaces.ui.version>
 		<cxf.version>2.2.3</cxf.version>
-		<hibernate.version>3.6.0.Final</hibernate.version>
+		<hibernate.version>3.6.1.Final</hibernate.version>
 		<hibernate.validator.version>3.1.0.GA</hibernate.validator.version>
 		<hibernate.entitymanager.version>3.6.0.Final</hibernate.entitymanager.version>
 		<hibernate.search.version>3.3.0.Final</hibernate.search.version>
