@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="QuestionTranslationModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="QuestionTranslation Search Results (#{empty records ? 0 : (questionTranslationList.paginated ? questionTranslationList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_questionTranslation" value="#{records}" id="questionTranslationList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'questionTranslationView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionTranslationList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="questionTranslation.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_questionTranslation.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('language', 'questionTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.questionTranslation_language}"/>  
+              <ui:param name="propertyPath" value="questionTranslation.language"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_questionTranslation.language}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('title', 'questionTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.questionTranslation_title}"/>  
+              <ui:param name="propertyPath" value="questionTranslation.title"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_questionTranslation.title}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('text', 'questionTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.questionTranslation_text}"/>  
+              <ui:param name="propertyPath" value="questionTranslation.text"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_questionTranslation.text}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('link', 'questionTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.questionTranslation_link}"/>  
+              <ui:param name="propertyPath" value="questionTranslation.link"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_questionTranslation.link}" escape="false"/> 
+        </h:column>  
+        <h:column groupOn="#{questionTranslation.faqQuestion.displayName}" rendered="#{s:hasPermission('faqQuestion', 'questionTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.questionTranslation_faqQuestion}"/>  
+              <ui:param name="propertyPath" value="questionTranslation.faqQuestion"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_questionTranslation.faqQuestion.displayName}" view="/admin/entities/faq/faqQuestion/viewFaqQuestion.xhtml" propagation="none"> 
+            <f:param name="faqQuestionId" value="#{_questionTranslation.faqQuestion.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('answer', 'questionTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.questionTranslation_answer}"/>  
+              <ui:param name="propertyPath" value="questionTranslation.answer"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_questionTranslation.answer}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'questionTranslationView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{questionTranslationList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="questionTranslation.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_questionTranslation.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_questionTranslation', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/faq/questionTranslation/viewQuestionTranslation.xhtml" rendered="#{s:hasPermission(_questionTranslation, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="questionTranslationId" value="#{_questionTranslation.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_questionTranslation', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/faq/questionTranslation/editQuestionTranslation.xhtml" rendered="#{s:hasPermission(_questionTranslation, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="questionTranslationId" value="#{_questionTranslation.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('questionTranslationAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{questionTranslationAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_questionTranslation.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_questionTranslation.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{questionTranslationAction.setQuestionTranslationIdForModalDlg(_questionTranslation.id)}" rendered="#{s:hasPermission(_questionTranslation, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{questionTranslationList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{questionTranslationList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{questionTranslationList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{questionTranslationList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{questionTranslationList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{questionTranslationList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{questionTranslationList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

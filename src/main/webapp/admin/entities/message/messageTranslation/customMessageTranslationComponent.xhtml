@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.messageTranslation_buttonText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'buttonTextEdit')}"/>  
+        <br/>  
+        <h:inputText id="buttonText" value="#{messageTranslationAction.messageTranslation.buttonText}"/>  
+        <rich:message styleClass="error errors" for="buttonText" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'buttonTextEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.messageTranslation_message}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'messageEdit')}"/>  
+        <br/>  
+        <rich:editor id="message" value="#{messageTranslationAction.messageTranslation.message}"/>  
+        <rich:message styleClass="error errors" for="message" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'messageEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.messageTranslation_hyperLink}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'hyperLinkEdit')}"/>  
+        <br/>  
+        <h:inputText id="hyperLink" value="#{messageTranslationAction.messageTranslation.hyperLink}"/>  
+        <rich:message styleClass="error errors" for="hyperLink" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'hyperLinkEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.messageTranslation_marketingMessage} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'marketingMessageEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="marketingMessage" value="#{messageTranslationAction.messageTranslation.marketingMessage}"> 
+          <s:selectItems value="#{marketingMessageList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="marketingMessage" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'marketingMessageEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.messageTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'languageEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="language" value="#{messageTranslationAction.messageTranslation.language}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ENGLISH" itemLabel="English"/>  
+          <f:selectItem itemValue="FRENCH" itemLabel="French"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'languageEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

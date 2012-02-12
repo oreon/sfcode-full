@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.questionTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'languageEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="language" value="#{questionTranslationAction.questionTranslation.language}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ENGLISH" itemLabel="English"/>  
+          <f:selectItem itemValue="FRENCH" itemLabel="French"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'languageEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.questionTranslation_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'titleEdit')}"/>  
+        <br/>  
+        <h:inputText id="title" value="#{questionTranslationAction.questionTranslation.title}"/>  
+        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'titleEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.questionTranslation_text} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'textEdit')}"/>  
+        <br/>  
+        <h:inputText id="text" value="#{questionTranslationAction.questionTranslation.text}"/>  
+        <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'textEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.questionTranslation_link}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'linkEdit')}"/>  
+        <br/>  
+        <h:inputText id="link" value="#{questionTranslationAction.questionTranslation.link}"/>  
+        <rich:message styleClass="error errors" for="link" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'linkEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.questionTranslation_faqQuestion} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'faqQuestionEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="faqQuestion" value="#{questionTranslationAction.questionTranslation.faqQuestion}"> 
+          <s:selectItems value="#{faqQuestionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="faqQuestion" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'faqQuestionEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.questionTranslation_answer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'answerEdit')}"/>  
+        <br/>  
+        <h:inputText id="answer" value="#{questionTranslationAction.questionTranslation.answer}"/>  
+        <rich:message styleClass="error errors" for="answer" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'answerEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

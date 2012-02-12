@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'restMethodEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="restMethod" value="#{ faqQuestionMetricsList.faqQuestionMetrics.restMethod}"> 
+        <s:selectItems value="#{restMethodList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_partner} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'partnerEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="partner" value="#{ faqQuestionMetricsList.faqQuestionMetrics.partner}"> 
+        <s:selectItems value="#{partnerList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'clientTypeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="clientType" value="#{ faqQuestionMetricsList.faqQuestionMetrics.clientType}"> 
+        <s:selectItems value="#{clientTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'dateEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{faqQuestionMetricsList.dateRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{faqQuestionMetricsList.dateRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'languageEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="language" value="#{faqQuestionMetricsList.faqQuestionMetrics.language}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="ENGLISH" itemLabel="English"/>  
+        <f:selectItem itemValue="FRENCH" itemLabel="French"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_sessionId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'sessionIdEdit')}"/>  
+      <br/>  
+      <h:inputText id="sessionId" value="#{faqQuestionMetricsList.faqQuestionMetrics.sessionId}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.faqQuestionMetrics_faqQuestion} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'faqQuestionEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="faqQuestion" value="#{ faqQuestionMetricsList.faqQuestionMetrics.faqQuestion}"> 
+        <s:selectItems value="#{faqQuestionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.faqQuestionMetrics_dateViewed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'dateViewedEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{faqQuestionMetricsList.dateViewedRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{faqQuestionMetricsList.dateViewedRange.end}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{faqQuestionMetricsList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{faqQuestionMetricsList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

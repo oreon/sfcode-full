@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.taxNewsTranslation_taxNews} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'taxNewsEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="taxNews" value="#{taxNewsTranslationAction.taxNewsTranslation.taxNews}"> 
+          <s:selectItems value="#{taxNewsList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="taxNews" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'taxNewsEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.taxNewsTranslation_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'titleEdit')}"/>  
+        <br/>  
+        <h:inputText id="title" value="#{taxNewsTranslationAction.taxNewsTranslation.title}"/>  
+        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'titleEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.taxNewsTranslation_link}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'linkEdit')}"/>  
+        <br/>  
+        <h:inputText id="link" value="#{taxNewsTranslationAction.taxNewsTranslation.link}"/>  
+        <rich:message styleClass="error errors" for="link" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'linkEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.taxNewsTranslation_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'textEdit')}"/>  
+        <br/>  
+        <rich:editor id="text" value="#{taxNewsTranslationAction.taxNewsTranslation.text}"/>  
+        <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'textEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.taxNewsTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'languageEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="language" value="#{taxNewsTranslationAction.taxNewsTranslation.language}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ENGLISH" itemLabel="English"/>  
+          <f:selectItem itemValue="FRENCH" itemLabel="French"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'languageEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

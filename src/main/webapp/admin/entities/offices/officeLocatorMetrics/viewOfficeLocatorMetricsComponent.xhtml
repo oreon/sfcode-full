@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewOfficeLocatorMetricsComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{officeLocatorMetricsAction.load(officeLocatorMetricsId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.OfficeLocatorMetrics}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.baseMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'dateView')}"/>  
+        <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'dateView')}" value="#{officeLocatorMetricsAction.officeLocatorMetrics.date}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'languageView')}"/>  
+        <h:outputText value="#{officeLocatorMetricsAction.officeLocatorMetrics.language}"/>  
+        <h:outputText value="#{msg.baseMetrics_sessionId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'sessionIdView')}"/>  
+        <h:outputText id="sessionId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'sessionIdView')}" value="#{officeLocatorMetricsAction.officeLocatorMetrics.sessionId}"></h:outputText>  
+        <h:outputText value="#{msg.officeLocatorMetrics_lookupCity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'lookupCityView')}"/>  
+        <h:outputText id="lookupCity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'lookupCityView')}" value="#{officeLocatorMetricsAction.officeLocatorMetrics.lookupCity}"></h:outputText>  
+        <h:outputText value="#{msg.officeLocatorMetrics_lookupPostalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'lookupPostalCodeView')}"/>  
+        <h:outputText id="lookupPostalCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'lookupPostalCodeView')}" value="#{officeLocatorMetricsAction.officeLocatorMetrics.lookupPostalCode}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'restMethodView')}"/>  
+        <s:link value="#{officeLocatorMetricsAction.officeLocatorMetrics.restMethod.displayName}" action="viewrestMethod" propagation="none"> 
+          <f:param name="restMethodId" value="#{officeLocatorMetricsAction.officeLocatorMetrics.restMethod.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_partner}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'partnerView')}"/>  
+        <s:link value="#{officeLocatorMetricsAction.officeLocatorMetrics.partner.displayName}" action="viewpartner" propagation="none"> 
+          <f:param name="partnerId" value="#{officeLocatorMetricsAction.officeLocatorMetrics.partner.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'clientTypeView')}"/>  
+        <s:link value="#{officeLocatorMetricsAction.officeLocatorMetrics.clientType.displayName}" action="viewclientType" propagation="none"> 
+          <f:param name="clientTypeId" value="#{officeLocatorMetricsAction.officeLocatorMetrics.clientType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

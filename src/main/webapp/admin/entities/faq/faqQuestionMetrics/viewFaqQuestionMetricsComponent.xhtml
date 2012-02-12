@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewFaqQuestionMetricsComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{faqQuestionMetricsAction.load(faqQuestionMetricsId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.FaqQuestionMetrics}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.baseMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'dateView')}"/>  
+        <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'dateView')}" value="#{faqQuestionMetricsAction.faqQuestionMetrics.date}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'languageView')}"/>  
+        <h:outputText value="#{faqQuestionMetricsAction.faqQuestionMetrics.language}"/>  
+        <h:outputText value="#{msg.baseMetrics_sessionId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'sessionIdView')}"/>  
+        <h:outputText id="sessionId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'sessionIdView')}" value="#{faqQuestionMetricsAction.faqQuestionMetrics.sessionId}"></h:outputText>  
+        <h:outputText value="#{msg.faqQuestionMetrics_dateViewed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'dateViewedView')}"/>  
+        <h:outputText direction="auto" id="dateViewed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'dateViewedView')}" value="#{faqQuestionMetricsAction.faqQuestionMetrics.dateViewed}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'restMethodView')}"/>  
+        <s:link value="#{faqQuestionMetricsAction.faqQuestionMetrics.restMethod.displayName}" action="viewrestMethod" propagation="none"> 
+          <f:param name="restMethodId" value="#{faqQuestionMetricsAction.faqQuestionMetrics.restMethod.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_partner}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'partnerView')}"/>  
+        <s:link value="#{faqQuestionMetricsAction.faqQuestionMetrics.partner.displayName}" action="viewpartner" propagation="none"> 
+          <f:param name="partnerId" value="#{faqQuestionMetricsAction.faqQuestionMetrics.partner.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'clientTypeView')}"/>  
+        <s:link value="#{faqQuestionMetricsAction.faqQuestionMetrics.clientType.displayName}" action="viewclientType" propagation="none"> 
+          <f:param name="clientTypeId" value="#{faqQuestionMetricsAction.faqQuestionMetrics.clientType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.faqQuestionMetrics_faqQuestion}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestionMetrics', 'faqQuestionView')}"/>  
+        <s:link value="#{faqQuestionMetricsAction.faqQuestionMetrics.faqQuestion.displayName}" action="viewfaqQuestion" propagation="none"> 
+          <f:param name="faqQuestionId" value="#{faqQuestionMetricsAction.faqQuestionMetrics.faqQuestion.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editPartnerComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{partnerAction.load(partnerId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Partner}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.partner_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameEdit')}" label="#{msg.partner_name}" required="true" disabled="false" value="#{partnerAction.partner.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="partnerIdDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.partner_partnerId} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdEdit')}"/>
+          </ui:define>  
+          <h:inputText id="partnerId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdEdit')}" label="#{msg.partner_partnerId}" required="true" disabled="false" value="#{partnerAction.partner.partnerId}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="defaultLanguageDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.partner_defaultLanguage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'defaultLanguageEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="defaultLanguage" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'defaultLanguageEdit')}" value="#{partnerAction.partner.defaultLanguage}" required="false" label="#{msg.partner_defaultLanguage}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="ENGLISH" itemLabel="#{msg.ENGLISH}"/>  
+            <f:selectItem itemValue="FRENCH" itemLabel="#{msg.FRENCH}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="marketingMessageDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.partner_marketingMessage} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'marketingMessageEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="marketingMessage" label="#{msg.partner_marketingMessage}" value="#{partnerAction.partner.marketingMessage}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'marketingMessageEdit')}" disabled="false"> 
+            <s:selectItems value="#{marketingMessageList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.AppUser}"/> 
+        </f:facet>  
+        <s:decorate id="appUser_userNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameEdit')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{partnerAction.partner.appUser.userName}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="appUser_passwordDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_password} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'passwordEdit')}"/>
+          </ui:define>  
+          <h:inputSecret redisplay="true" id="appUser_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'passwordEdit')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{partnerAction.partner.appUser.password}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputSecret> 
+        </s:decorate>  
+        <s:decorate id="appUser_enabledDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledEdit')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{partnerAction.partner.appUser.enabled}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="appUser_emailDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailEdit')}"/>
+          </ui:define>  
+          <h:inputText id="appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailEdit')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{partnerAction.partner.appUser.email}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

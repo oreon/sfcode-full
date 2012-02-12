@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{questionAction.load(questionId )  }"> 
+        <h:outputText value="#{msg.question_faqCategory} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'faqCategoryEdit')}"/>  
+        <h:selectOneMenu id="faqCategory" label="#{msg.question_faqCategory}" value="#{questionAction.question.faqCategory}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'faqCategoryEdit')}"> 
+          <s:selectItems value="#{faqCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="faqCategory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'faqCategoryEdit')}"/>  
+        <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}"/>  
+        <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}" label="#{msg.question_text}" required="false" disabled="false" value="#{questionAction.question.text}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}"/>  
+        <h:outputText value="#{msg.question_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'languageEdit')}"/>  
+        <h:selectOneMenu id="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'languageEdit')}" value="#{questionAction.question.language}" required="false" label="#{msg.question_language}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ENGLISH" itemLabel="#{msg.ENGLISH}"/>  
+          <f:selectItem itemValue="FRENCH" itemLabel="#{msg.FRENCH}"/>  
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'languageEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

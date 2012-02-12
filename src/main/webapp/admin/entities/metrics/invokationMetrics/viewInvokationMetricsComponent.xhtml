@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{invokationMetricsAction.load(invokationMetricsId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{invokationMetricsAction.invokationMetrics.id}"/>  
+        <h:outputText value="#{msg.invokationMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restMethod', 'invokationMetricsView')}"/>  
+        <s:link value="#{invokationMetricsAction.invokationMetrics.restMethod.displayName}" view="/admin/entities/metrics/restMethod/viewRestMethod.xhtml" propagation="none"> 
+          <f:param name="restMethodId" value="#{invokationMetricsAction.invokationMetrics.restMethod.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.invokationMetrics_partner}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'invokationMetricsView')}"/>  
+        <s:link value="#{invokationMetricsAction.invokationMetrics.partner.displayName}" view="/admin/entities/message/partner/viewPartner.xhtml" propagation="none"> 
+          <f:param name="partnerId" value="#{invokationMetricsAction.invokationMetrics.partner.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.invokationMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clientType', 'invokationMetricsView')}"/>  
+        <s:link value="#{invokationMetricsAction.invokationMetrics.clientType.displayName}" view="/admin/entities/metrics/clientType/viewClientType.xhtml" propagation="none"> 
+          <f:param name="clientTypeId" value="#{invokationMetricsAction.invokationMetrics.clientType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.invokationMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'invokationMetricsView')}"/>  
+        <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'invokationMetricsView')}" value="#{invokationMetricsAction.invokationMetrics.date}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

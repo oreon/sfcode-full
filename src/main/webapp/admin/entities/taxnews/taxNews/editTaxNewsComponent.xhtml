@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editTaxNewsComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{taxNewsAction.load(taxNewsId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.TaxNews}"/> 
+        </f:facet>  
+        <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.taxNews_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'titleEdit')}"/>
+          </ui:define>  
+          <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'titleEdit')}" label="#{msg.taxNews_title}" required="true" disabled="false" value="#{taxNewsAction.taxNews.title}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="inactiveDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.taxNews_inactive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'inactiveEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="inactive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'inactiveEdit')}" label="#{msg.taxNews_inactive}" required="false" disabled="false" value="#{taxNewsAction.taxNews.inactive}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="newsCategoryDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.taxNews_newsCategory} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'newsCategoryEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="newsCategory" label="#{msg.taxNews_newsCategory}" value="#{taxNewsAction.taxNews.newsCategory}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'newsCategoryEdit')}" disabled="false"> 
+            <s:selectItems value="#{newsCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="taxNewsTranslations" var="_taxNewsTranslation" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'taxNewsTranslationsEdit')}" value="#{taxNewsAction.listTaxNewsTranslations}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.taxNewsTranslation_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'titleEdit')}"/>
+          </f:facet>  
+          <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'titleEdit')}" label="#{msg.taxNewsTranslation_title}" required="true" disabled="false" value="#{_taxNewsTranslation.title}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.taxNewsTranslation_link}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'linkEdit')}"/>
+          </f:facet>  
+          <s:decorate id="linkDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="link#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'linkEdit')}" label="#{msg.taxNewsTranslation_link}" required="false" disabled="false" value="#{_taxNewsTranslation.link}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.taxNewsTranslation_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'textEdit')}"/>
+          </f:facet>  
+          <s:decorate id="textDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'textEdit')}" label="#{msg.taxNewsTranslation_text}" required="false" disabled="false" value="#{_taxNewsTranslation.text}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.taxNewsTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'languageEdit')}"/>
+          </f:facet>  
+          <s:decorate id="languageDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'languageEdit')}" value="#{_taxNewsTranslation.language}" required="false" label="#{msg.taxNewsTranslation_language}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="ENGLISH" itemLabel="#{msg.ENGLISH}"/>  
+              <f:selectItem itemValue="FRENCH" itemLabel="#{msg.FRENCH}"/>  
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

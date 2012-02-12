@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.faqQuestion_faqCategory} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'faqCategoryEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="faqCategory" value="#{faqQuestionAction.faqQuestion.faqCategory}"> 
+          <s:selectItems value="#{faqCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="faqCategory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'faqCategoryEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.faqQuestion_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'titleEdit')}"/>  
+        <br/>  
+        <h:inputText id="title" value="#{faqQuestionAction.faqQuestion.title}"/>  
+        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'titleEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.faqQuestion_avgRating}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'avgRatingEdit')}"/>  
+        <br/>  
+        <h:inputText id="avgRating" value="#{faqQuestionAction.faqQuestion.avgRating}"/>  
+        <rich:message styleClass="error errors" for="avgRating" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'avgRatingEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.faqQuestion_inactive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'inactiveEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="inactive" value="#{faqQuestionAction.faqQuestion.inactive}"/>  
+        <rich:message styleClass="error errors" for="inactive" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'inactiveEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.faqQuestion_views}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'viewsEdit')}"/>  
+        <br/>  
+        <h:inputText id="views" value="#{faqQuestionAction.faqQuestion.views}"/>  
+        <rich:message styleClass="error errors" for="views" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'viewsEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

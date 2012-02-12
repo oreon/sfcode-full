@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewMarketingMessageMetricsComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{marketingMessageMetricsAction.load(marketingMessageMetricsId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MarketingMessageMetrics}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.baseMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'dateView')}"/>  
+        <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'dateView')}" value="#{marketingMessageMetricsAction.marketingMessageMetrics.date}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'languageView')}"/>  
+        <h:outputText value="#{marketingMessageMetricsAction.marketingMessageMetrics.language}"/>  
+        <h:outputText value="#{msg.baseMetrics_sessionId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'sessionIdView')}"/>  
+        <h:outputText id="sessionId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'sessionIdView')}" value="#{marketingMessageMetricsAction.marketingMessageMetrics.sessionId}"></h:outputText>  
+        <h:outputText value="#{msg.marketingMessageMetrics_dateClicked}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'dateClickedView')}"/>  
+        <h:outputText direction="auto" id="dateClicked#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'dateClickedView')}" value="#{marketingMessageMetricsAction.marketingMessageMetrics.dateClicked}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'restMethodView')}"/>  
+        <s:link value="#{marketingMessageMetricsAction.marketingMessageMetrics.restMethod.displayName}" action="viewrestMethod" propagation="none"> 
+          <f:param name="restMethodId" value="#{marketingMessageMetricsAction.marketingMessageMetrics.restMethod.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_partner}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'partnerView')}"/>  
+        <s:link value="#{marketingMessageMetricsAction.marketingMessageMetrics.partner.displayName}" action="viewpartner" propagation="none"> 
+          <f:param name="partnerId" value="#{marketingMessageMetricsAction.marketingMessageMetrics.partner.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'clientTypeView')}"/>  
+        <s:link value="#{marketingMessageMetricsAction.marketingMessageMetrics.clientType.displayName}" action="viewclientType" propagation="none"> 
+          <f:param name="clientTypeId" value="#{marketingMessageMetricsAction.marketingMessageMetrics.clientType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.marketingMessageMetrics_messageTranslation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('marketingMessageMetrics', 'messageTranslationView')}"/>  
+        <s:link value="#{marketingMessageMetricsAction.marketingMessageMetrics.messageTranslation.displayName}" action="viewmessageTranslation" propagation="none"> 
+          <f:param name="messageTranslationId" value="#{marketingMessageMetricsAction.marketingMessageMetrics.messageTranslation.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

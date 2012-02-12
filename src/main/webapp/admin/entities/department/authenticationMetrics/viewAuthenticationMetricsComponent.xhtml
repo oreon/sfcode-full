@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewAuthenticationMetricsComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{authenticationMetricsAction.load(authenticationMetricsId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.AuthenticationMetrics}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.baseMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'dateView')}"/>  
+        <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'dateView')}" value="#{authenticationMetricsAction.authenticationMetrics.date}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'languageView')}"/>  
+        <h:outputText value="#{authenticationMetricsAction.authenticationMetrics.language}"/>  
+        <h:outputText value="#{msg.baseMetrics_sessionId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'sessionIdView')}"/>  
+        <h:outputText id="sessionId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'sessionIdView')}" value="#{authenticationMetricsAction.authenticationMetrics.sessionId}"></h:outputText>  
+        <h:outputText value="#{msg.authenticationMetrics_succeeded}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'succeededView')}"/>  
+        <h:outputText id="succeeded#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'succeededView')}" value="#{authenticationMetricsAction.authenticationMetrics.succeeded}"></h:outputText>  
+        <h:outputText value="#{msg.authenticationMetrics_logoutDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'logoutDateView')}"/>  
+        <h:outputText direction="auto" id="logoutDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'logoutDateView')}" value="#{authenticationMetricsAction.authenticationMetrics.logoutDate}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'restMethodView')}"/>  
+        <s:link value="#{authenticationMetricsAction.authenticationMetrics.restMethod.displayName}" action="viewrestMethod" propagation="none"> 
+          <f:param name="restMethodId" value="#{authenticationMetricsAction.authenticationMetrics.restMethod.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_partner}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'partnerView')}"/>  
+        <s:link value="#{authenticationMetricsAction.authenticationMetrics.partner.displayName}" action="viewpartner" propagation="none"> 
+          <f:param name="partnerId" value="#{authenticationMetricsAction.authenticationMetrics.partner.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'clientTypeView')}"/>  
+        <s:link value="#{authenticationMetricsAction.authenticationMetrics.clientType.displayName}" action="viewclientType" propagation="none"> 
+          <f:param name="clientTypeId" value="#{authenticationMetricsAction.authenticationMetrics.clientType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

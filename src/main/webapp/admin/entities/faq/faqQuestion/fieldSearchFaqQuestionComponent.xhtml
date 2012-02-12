@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.faqQuestion_faqCategory} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'faqCategoryEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="faqCategory" value="#{ faqQuestionList.faqQuestion.faqCategory}"> 
+        <s:selectItems value="#{faqCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.faqQuestion_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'titleEdit')}"/>  
+      <br/>  
+      <h:inputText id="title" value="#{faqQuestionList.faqQuestion.title}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.faqQuestion_avgRating}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'avgRatingEdit')}"/>  
+      <br/>  
+      <h:inputText id="avgRating_begin" value="#{faqQuestionList.avgRatingRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="avgRating_end" value="#{faqQuestionList.avgRatingRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.faqQuestion_inactive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'inactiveEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="inactive" value="#{faqQuestionList.faqQuestion.inactive}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.faqQuestion_views}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'viewsEdit')}"/>  
+      <br/>  
+      <h:inputText id="views_begin" value="#{faqQuestionList.viewsRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="views_end" value="#{faqQuestionList.viewsRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{faqQuestionList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{faqQuestionList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

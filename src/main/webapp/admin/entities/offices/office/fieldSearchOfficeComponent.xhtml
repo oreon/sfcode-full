@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_officeId} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'officeIdEdit')}"/>  
+      <br/>  
+      <h:inputText id="officeId" value="#{officeList.office.officeId}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_headingEN}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingENEdit')}"/>  
+      <br/>  
+      <h:inputText id="headingEN" value="#{officeList.office.headingEN}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_headingFR}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingFREdit')}"/>  
+      <br/>  
+      <h:inputText id="headingFR" value="#{officeList.office.headingFR}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_address}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'addressEdit')}"/>  
+      <br/>  
+      <h:inputText id="address" value="#{officeList.office.address}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'cityEdit')}"/>  
+      <br/>  
+      <h:inputText id="city" value="#{officeList.office.city}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_province}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'provinceEdit')}"/>  
+      <br/>  
+      <h:inputText id="province" value="#{officeList.office.province}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'postalCodeEdit')}"/>  
+      <br/>  
+      <h:inputText id="postalCode" value="#{officeList.office.postalCode}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_latitude}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'latitudeEdit')}"/>  
+      <br/>  
+      <h:inputText id="latitude" value="#{officeList.office.latitude}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_longitude}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'longitudeEdit')}"/>  
+      <br/>  
+      <h:inputText id="longitude" value="#{officeList.office.longitude}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'phoneEdit')}"/>  
+      <br/>  
+      <h:inputText id="phone" value="#{officeList.office.phone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_fax}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'faxEdit')}"/>  
+      <br/>  
+      <h:inputText id="fax" value="#{officeList.office.fax}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_enInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enInfoEdit')}"/>  
+      <br/>  
+      <h:inputText id="enInfo" value="#{officeList.office.enInfo}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_frInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frInfoEdit')}"/>  
+      <br/>  
+      <h:inputText id="frInfo" value="#{officeList.office.frInfo}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_enHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enHoursEdit')}"/>  
+      <br/>  
+      <h:inputText id="enHours" value="#{officeList.office.enHours}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.office_frHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frHoursEdit')}"/>  
+      <br/>  
+      <h:inputText id="frHours" value="#{officeList.office.frHours}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{officeList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{officeList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

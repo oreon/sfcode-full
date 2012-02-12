@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="RatingModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Rating Search Results (#{empty records ? 0 : (ratingList.paginated ? ratingList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_rating" value="#{records}" id="ratingList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'ratingView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{ratingList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="rating.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_rating.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('rating', 'ratingView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{ratingList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.rating_rating}"/>  
+              <ui:param name="propertyPath" value="rating.rating"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_rating.rating}" escape="false"/> 
+        </h:column>  
+        <h:column groupOn="#{rating.faqQuestion.displayName}" rendered="#{s:hasPermission('faqQuestion', 'ratingView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{ratingList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.rating_faqQuestion}"/>  
+              <ui:param name="propertyPath" value="rating.faqQuestion"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_rating.faqQuestion.displayName}" view="/admin/entities/faq/faqQuestion/viewFaqQuestion.xhtml" propagation="none"> 
+            <f:param name="faqQuestionId" value="#{_rating.faqQuestion.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'ratingView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{ratingList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="rating.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_rating.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_rating', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/faq/rating/viewRating.xhtml" rendered="#{s:hasPermission(_rating, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="ratingId" value="#{_rating.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_rating', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/faq/rating/editRating.xhtml" rendered="#{s:hasPermission(_rating, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="ratingId" value="#{_rating.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('ratingAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{ratingAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_rating.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_rating.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{ratingAction.setRatingIdForModalDlg(_rating.id)}" rendered="#{s:hasPermission(_rating, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{ratingList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{ratingList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{ratingList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{ratingList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{ratingList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{ratingList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{ratingList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

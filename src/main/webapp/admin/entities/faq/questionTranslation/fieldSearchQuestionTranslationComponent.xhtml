@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.questionTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'languageEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="language" value="#{questionTranslationList.questionTranslation.language}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="ENGLISH" itemLabel="English"/>  
+        <f:selectItem itemValue="FRENCH" itemLabel="French"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.questionTranslation_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'titleEdit')}"/>  
+      <br/>  
+      <h:inputText id="title" value="#{questionTranslationList.questionTranslation.title}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.questionTranslation_text} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'textEdit')}"/>  
+      <br/>  
+      <h:inputText id="text" value="#{questionTranslationList.questionTranslation.text}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.questionTranslation_link}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'linkEdit')}"/>  
+      <br/>  
+      <h:inputText id="link" value="#{questionTranslationList.questionTranslation.link}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.questionTranslation_faqQuestion} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'faqQuestionEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="faqQuestion" value="#{ questionTranslationList.questionTranslation.faqQuestion}"> 
+        <s:selectItems value="#{faqQuestionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.questionTranslation_answer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'answerEdit')}"/>  
+      <br/>  
+      <h:inputText id="answer" value="#{questionTranslationList.questionTranslation.answer}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{questionTranslationList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{questionTranslationList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

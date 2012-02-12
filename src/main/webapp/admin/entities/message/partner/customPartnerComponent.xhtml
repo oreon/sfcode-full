@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.partner_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameEdit')}"/>  
+        <br/>  
+        <h:inputText id="name" value="#{partnerAction.partner.name}"/>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.partner_partnerId} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdEdit')}"/>  
+        <br/>  
+        <h:inputText id="partnerId" value="#{partnerAction.partner.partnerId}"/>  
+        <rich:message styleClass="error errors" for="partnerId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.partner_securityKey}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'securityKeyEdit')}"/>  
+        <br/>  
+        <h:inputText id="securityKey" value="#{partnerAction.partner.securityKey}"/>  
+        <rich:message styleClass="error errors" for="securityKey" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'securityKeyEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.partner_marketingMessage} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'marketingMessageEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="marketingMessage" value="#{partnerAction.partner.marketingMessage}"> 
+          <s:selectItems value="#{marketingMessageList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="marketingMessage" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'marketingMessageEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.partner_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'activeEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="active" value="#{partnerAction.partner.active}"/>  
+        <rich:message styleClass="error errors" for="active" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'activeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameEdit')}"/>  
+        <br/>  
+        <h:inputText id="appUser_userName" value="#{partnerAction.partner.appUser.userName}"/>  
+        <rich:message styleClass="error errors" for="appUser_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="appUser_enabled" value="#{partnerAction.partner.appUser.enabled}"/>  
+        <rich:message styleClass="error errors" for="appUser_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailEdit')}"/>  
+        <br/>  
+        <h:inputText id="appUser_email" value="#{partnerAction.partner.appUser.email}"/>  
+        <rich:message styleClass="error errors" for="appUser_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.appUser_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'lastLoginEdit')}"/>  
+        <br/>  
+        <rich:calendar id="appUser_lastLogin" value="#{partnerAction.partner.appUser.lastLogin}"/>  
+        <rich:message styleClass="error errors" for="appUser_lastLogin" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'lastLoginEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.partner_defaultLanguage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'defaultLanguageEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="defaultLanguage" value="#{partnerAction.partner.defaultLanguage}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ENGLISH" itemLabel="English"/>  
+          <f:selectItem itemValue="FRENCH" itemLabel="French"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="defaultLanguage" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'defaultLanguageEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

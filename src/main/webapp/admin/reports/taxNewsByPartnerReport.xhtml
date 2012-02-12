@@ -1,0 +1,37 @@
+<ui:composition 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template = "/admin/reports/template.xhtml" >	
+	<ui:define name="content">
+	<h:form>
+	<s:validateAll>
+	<h:panelGrid  columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol"  >
+		<f:facet name="header">
+			<h:outputText value="TaxNewsByPartnerReport" />
+		</f:facet>
+	
+		<h:panelGroup> <h:outputText value="#{msg.taxNewsByPartnerReport_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'fromDateEdit')}"/> * </h:panelGroup>
+<rich:calendar  id="fromDate"  label="#{msg.taxNewsByPartnerReport_fromDate}"  required="true"  value="#{taxNewsByPartnerReportAction.fromDate}" />
+		<rich:message styleClass="error errors" for="fromDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'fromDateEdit')}"/>
+	
+		<h:panelGroup> <h:outputText value="#{msg.taxNewsByPartnerReport_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'toDateEdit')}"/> * </h:panelGroup>
+<rich:calendar  id="toDate"  label="#{msg.taxNewsByPartnerReport_toDate}"  required="true"  value="#{taxNewsByPartnerReportAction.toDate}" />
+		<rich:message styleClass="error errors" for="toDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('officeLocatorMetrics', 'toDateEdit')}"/>
+	
+	</h:panelGrid>
+	</s:validateAll>
+	<h:commandButton propagation="none" value="Run Report as PDF"
+				action="#{taxNewsByPartnerReportAction.runReport('TaxNewsByPartnerReport', 'PDF')}" />
+	<h:commandButton propagation="none" value="Run Report as HTML"
+				action="#{taxNewsByPartnerReportAction.runReport('TaxNewsByPartnerReport', 'HTML')}" />			
+	</h:form>
+	</ui:define>
+</ui:composition>

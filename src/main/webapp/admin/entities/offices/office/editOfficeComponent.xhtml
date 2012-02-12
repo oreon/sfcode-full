@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editOfficeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{officeAction.load(officeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Office}"/> 
+        </f:facet>  
+        <s:decorate id="officeIdDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_officeId} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'officeIdEdit')}"/>
+          </ui:define>  
+          <h:inputText id="officeId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'officeIdEdit')}" label="#{msg.office_officeId}" required="true" disabled="false" value="#{officeAction.office.officeId}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="headingENDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_headingEN}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingENEdit')}"/>
+          </ui:define>  
+          <h:inputText id="headingEN#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingENEdit')}" label="#{msg.office_headingEN}" required="false" disabled="false" value="#{officeAction.office.headingEN}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="headingFRDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_headingFR}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingFREdit')}"/>
+          </ui:define>  
+          <h:inputText id="headingFR#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingFREdit')}" label="#{msg.office_headingFR}" required="false" disabled="false" value="#{officeAction.office.headingFR}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="addressDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_address}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'addressEdit')}"/>
+          </ui:define>  
+          <h:inputText id="address#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'addressEdit')}" label="#{msg.office_address}" required="false" disabled="false" value="#{officeAction.office.address}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="cityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'cityEdit')}"/>
+          </ui:define>  
+          <h:inputText id="city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'cityEdit')}" label="#{msg.office_city}" required="false" disabled="false" value="#{officeAction.office.city}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="provinceDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_province}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'provinceEdit')}"/>
+          </ui:define>  
+          <h:inputText id="province#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'provinceEdit')}" label="#{msg.office_province}" required="false" disabled="false" value="#{officeAction.office.province}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="postalCodeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'postalCodeEdit')}"/>
+          </ui:define>  
+          <h:inputText id="postalCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'postalCodeEdit')}" label="#{msg.office_postalCode}" required="false" disabled="false" value="#{officeAction.office.postalCode}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="latitudeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_latitude}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'latitudeEdit')}"/>
+          </ui:define>  
+          <h:inputText id="latitude#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'latitudeEdit')}" label="#{msg.office_latitude}" required="false" disabled="false" value="#{officeAction.office.latitude}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="longitudeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_longitude}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'longitudeEdit')}"/>
+          </ui:define>  
+          <h:inputText id="longitude#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'longitudeEdit')}" label="#{msg.office_longitude}" required="false" disabled="false" value="#{officeAction.office.longitude}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="phoneDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'phoneEdit')}"/>
+          </ui:define>  
+          <h:inputText id="phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'phoneEdit')}" label="#{msg.office_phone}" required="false" disabled="false" value="#{officeAction.office.phone}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="faxDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_fax}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'faxEdit')}"/>
+          </ui:define>  
+          <h:inputText id="fax#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'faxEdit')}" label="#{msg.office_fax}" required="false" disabled="false" value="#{officeAction.office.fax}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="enInfoDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_enInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enInfoEdit')}"/>
+          </ui:define>  
+          <h:inputText id="enInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enInfoEdit')}" label="#{msg.office_enInfo}" required="false" disabled="false" value="#{officeAction.office.enInfo}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="frInfoDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_frInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frInfoEdit')}"/>
+          </ui:define>  
+          <h:inputText id="frInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frInfoEdit')}" label="#{msg.office_frInfo}" required="false" disabled="false" value="#{officeAction.office.frInfo}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="enHoursDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_enHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enHoursEdit')}"/>
+          </ui:define>  
+          <h:inputText id="enHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enHoursEdit')}" label="#{msg.office_enHours}" required="false" disabled="false" value="#{officeAction.office.enHours}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="frHoursDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.office_frHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frHoursEdit')}"/>
+          </ui:define>  
+          <h:inputText id="frHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frHoursEdit')}" label="#{msg.office_frHours}" required="false" disabled="false" value="#{officeAction.office.frHours}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

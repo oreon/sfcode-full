@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">  
+  <description/>  
+  <!--  MarketingMessage  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.message.MarketingMessage" name="MarketingMessage"> 
+    <table name="marketingmessage"></table>  
+    <named-query name="marketingMessage.findByUnqMessageTitle"> 
+      <query> <![CDATA[
+			select u from MarketingMessage u where u.messageTitle = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  MessageTranslation  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.message.MessageTranslation" name="MessageTranslation"> 
+    <table name="messagetranslation"></table> 
+  </entity>  
+  <!--  MarketingMessageMetrics  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.message.MarketingMessageMetrics" name="MarketingMessageMetrics"> 
+    <table name="marketingmessagemetrics"></table> 
+  </entity>  
+  <!--  NewsCategory  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.taxnews.NewsCategory" name="NewsCategory"> 
+    <table name="newscategory"></table>  
+    <named-query name="newsCategory.findByUnqName"> 
+      <query> <![CDATA[
+			select u from NewsCategory u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  TaxNews  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.taxnews.TaxNews" name="TaxNews"> 
+    <table name="taxnews"></table> 
+  </entity>  
+  <!--  TaxNewsMetrics  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.taxnews.TaxNewsMetrics" name="TaxNewsMetrics"> 
+    <table name="taxnewsmetrics"></table> 
+  </entity>  
+  <!--  TaxNewsTranslation  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.taxnews.TaxNewsTranslation" name="TaxNewsTranslation"> 
+    <table name="taxnewstranslation"></table> 
+  </entity>  
+  <!--  AppUser  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.users.AppUser" name="AppUser"> 
+    <table name="appuser"></table>  
+    <named-query name="appUser.findByUnqUserName"> 
+      <query> <![CDATA[
+			select u from AppUser u where u.userName = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  AppRole  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.users.AppRole" name="AppRole"> 
+    <table name="approle"></table>  
+    <named-query name="appRole.findByUnqName"> 
+      <query> <![CDATA[
+			select u from AppRole u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Employee  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.department.Employee" name="Employee"> 
+    <table name="employee"></table>  
+    <named-query name="findByPhone"> 
+      <query> <![CDATA[
+			select employee from Employee employee where employee.contactDetails.phone = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Department  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.department.Department" name="Department"> 
+    <table name="department"></table>  
+    <named-query name="department.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Department u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Partner  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.department.Partner" name="Partner"> 
+    <table name="partner"></table>  
+    <named-query name="partner.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Partner u where u.name = ?1
+			]]> </query> 
+    </named-query>  
+    <named-query name="partner.findByUnqPartnerId"> 
+      <query> <![CDATA[
+			select u from Partner u where u.partnerId = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  AuthenticationMetrics  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.department.AuthenticationMetrics" name="AuthenticationMetrics"> 
+    <table name="authenticationmetrics"></table> 
+  </entity>  
+  <!--  RestService  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.metrics.RestService" name="RestService"> 
+    <table name="restservice"></table>  
+    <named-query name="restService.findByUnqName"> 
+      <query> <![CDATA[
+			select u from RestService u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  RestMethod  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.metrics.RestMethod" name="RestMethod"> 
+    <table name="restmethod"></table> 
+  </entity>  
+  <!--  ClientType  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.metrics.ClientType" name="ClientType"> 
+    <table name="clienttype"></table>  
+    <named-query name="clientType.findByUnqName"> 
+      <query> <![CDATA[
+			select u from ClientType u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  FaqCategory  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.faq.FaqCategory" name="FaqCategory"> 
+    <table name="faqcategory"></table>  
+    <named-query name="faqCategory.findByUnqName"> 
+      <query> <![CDATA[
+			select u from FaqCategory u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  FaqQuestion  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.faq.FaqQuestion" name="FaqQuestion"> 
+    <table name="faqquestion"></table> 
+  </entity>  
+  <!--  QuestionTranslation  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.faq.QuestionTranslation" name="QuestionTranslation"> 
+    <table name="questiontranslation"></table> 
+  </entity>  
+  <!--  Rating  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.faq.Rating" name="Rating"> 
+    <table name="rating"></table> 
+  </entity>  
+  <!--  FaqQuestionMetrics  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.faq.FaqQuestionMetrics" name="FaqQuestionMetrics"> 
+    <table name="faqquestionmetrics"></table> 
+  </entity>  
+  <!--  Office  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.offices.Office" name="Office"> 
+    <table name="office"></table>  
+    <named-query name="office.findByUnqOfficeId"> 
+      <query> <![CDATA[
+			select u from Office u where u.officeId = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  OfficeLocatorMetrics  JPA Configurations -->  
+  <entity class="com.hrb.tservices.domain.offices.OfficeLocatorMetrics" name="OfficeLocatorMetrics"> 
+    <table name="officelocatormetrics"></table> 
+  </entity> 
+</entity-mappings>

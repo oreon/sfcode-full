@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.baseMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'restMethodEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="restMethod" value="#{taxNewsMetricsAction.taxNewsMetrics.restMethod}"> 
+          <s:selectItems value="#{restMethodList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="restMethod" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'restMethodEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.baseMetrics_partner} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'partnerEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="partner" value="#{taxNewsMetricsAction.taxNewsMetrics.partner}"> 
+          <s:selectItems value="#{partnerList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="partner" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'partnerEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.baseMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'clientTypeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="clientType" value="#{taxNewsMetricsAction.taxNewsMetrics.clientType}"> 
+          <s:selectItems value="#{clientTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="clientType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'clientTypeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.baseMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateEdit')}"/>  
+        <br/>  
+        <rich:calendar id="date" value="#{taxNewsMetricsAction.taxNewsMetrics.date}"/>  
+        <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.baseMetrics_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'languageEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="language" value="#{taxNewsMetricsAction.taxNewsMetrics.language}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ENGLISH" itemLabel="English"/>  
+          <f:selectItem itemValue="FRENCH" itemLabel="French"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'languageEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.baseMetrics_sessionId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'sessionIdEdit')}"/>  
+        <br/>  
+        <h:inputText id="sessionId" value="#{taxNewsMetricsAction.taxNewsMetrics.sessionId}"/>  
+        <rich:message styleClass="error errors" for="sessionId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'sessionIdEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.taxNewsMetrics_taxNews} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'taxNewsEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="taxNews" value="#{taxNewsMetricsAction.taxNewsMetrics.taxNews}"> 
+          <s:selectItems value="#{taxNewsList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="taxNews" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'taxNewsEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.taxNewsMetrics_dateViewed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateViewedEdit')}"/>  
+        <br/>  
+        <rich:calendar id="dateViewed" value="#{taxNewsMetricsAction.taxNewsMetrics.dateViewed}"/>  
+        <rich:message styleClass="error errors" for="dateViewed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateViewedEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>
