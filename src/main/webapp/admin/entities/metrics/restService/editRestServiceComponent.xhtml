@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editRestServiceComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{restServiceAction.load(restServiceId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.RestService}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.restService_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restService', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restService', 'nameEdit')}" label="#{msg.restService_name}" required="true" disabled="false" value="#{restServiceAction.restService.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New RestMethod" action="#{restServiceAction.addRestMethods}" reRender="restMethods" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restService', 'restMethodsEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="restMethods" var="_restMethod" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restService', 'restMethodsEdit')}" value="#{restServiceAction.listRestMethods}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.restMethod_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restMethod', 'nameEdit')}"/>
+          </f:facet>  
+          <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restMethod', 'nameEdit')}" label="#{msg.restMethod_name}" required="true" disabled="false" value="#{_restMethod.name}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New RestMethod" action="#{restServiceAction.addRestMethods}" reRender="restMethods" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restMethod', 'restMethodsEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{restServiceAction.deleteRestMethods(rowIndex)}" reRender="restMethods"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

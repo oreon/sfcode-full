@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewTaxNewsMetricsComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{taxNewsMetricsAction.load(taxNewsMetricsId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.TaxNewsMetrics}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.baseMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateView')}"/>  
+        <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateView')}" value="#{taxNewsMetricsAction.taxNewsMetrics.date}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'languageView')}"/>  
+        <h:outputText value="#{taxNewsMetricsAction.taxNewsMetrics.language}"/>  
+        <h:outputText value="#{msg.baseMetrics_sessionId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'sessionIdView')}"/>  
+        <h:outputText id="sessionId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'sessionIdView')}" value="#{taxNewsMetricsAction.taxNewsMetrics.sessionId}"></h:outputText>  
+        <h:outputText value="#{msg.taxNewsMetrics_dateViewed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateViewedView')}"/>  
+        <h:outputText direction="auto" id="dateViewed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateViewedView')}" value="#{taxNewsMetricsAction.taxNewsMetrics.dateViewed}"></h:outputText>  
+        <h:outputText value="#{msg.baseMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'restMethodView')}"/>  
+        <s:link value="#{taxNewsMetricsAction.taxNewsMetrics.restMethod.displayName}" action="viewrestMethod" propagation="none"> 
+          <f:param name="restMethodId" value="#{taxNewsMetricsAction.taxNewsMetrics.restMethod.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_partner}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'partnerView')}"/>  
+        <s:link value="#{taxNewsMetricsAction.taxNewsMetrics.partner.displayName}" action="viewpartner" propagation="none"> 
+          <f:param name="partnerId" value="#{taxNewsMetricsAction.taxNewsMetrics.partner.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'clientTypeView')}"/>  
+        <s:link value="#{taxNewsMetricsAction.taxNewsMetrics.clientType.displayName}" action="viewclientType" propagation="none"> 
+          <f:param name="clientTypeId" value="#{taxNewsMetricsAction.taxNewsMetrics.clientType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.taxNewsMetrics_taxNews}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'taxNewsView')}"/>  
+        <s:link value="#{taxNewsMetricsAction.taxNewsMetrics.taxNews.displayName}" action="viewtaxNews" propagation="none"> 
+          <f:param name="taxNewsId" value="#{taxNewsMetricsAction.taxNewsMetrics.taxNews.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

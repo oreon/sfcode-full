@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'restMethodEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="restMethod" value="#{ taxNewsMetricsList.taxNewsMetrics.restMethod}"> 
+        <s:selectItems value="#{restMethodList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_partner} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'partnerEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="partner" value="#{ taxNewsMetricsList.taxNewsMetrics.partner}"> 
+        <s:selectItems value="#{partnerList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'clientTypeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="clientType" value="#{ taxNewsMetricsList.taxNewsMetrics.clientType}"> 
+        <s:selectItems value="#{clientTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{taxNewsMetricsList.dateRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{taxNewsMetricsList.dateRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'languageEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="language" value="#{taxNewsMetricsList.taxNewsMetrics.language}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="ENGLISH" itemLabel="English"/>  
+        <f:selectItem itemValue="FRENCH" itemLabel="French"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseMetrics_sessionId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'sessionIdEdit')}"/>  
+      <br/>  
+      <h:inputText id="sessionId" value="#{taxNewsMetricsList.taxNewsMetrics.sessionId}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.taxNewsMetrics_taxNews} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'taxNewsEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="taxNews" value="#{ taxNewsMetricsList.taxNewsMetrics.taxNews}"> 
+        <s:selectItems value="#{taxNewsList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.taxNewsMetrics_dateViewed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsMetrics', 'dateViewedEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{taxNewsMetricsList.dateViewedRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{taxNewsMetricsList.dateViewedRange.end}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{taxNewsMetricsList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{taxNewsMetricsList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPartnerComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{partnerAction.load(partnerId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Partner}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.partner_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameView')}" value="#{partnerAction.partner.name}"></h:outputText>  
+        <h:outputText value="#{msg.partner_partnerId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdView')}"/>  
+        <h:outputText id="partnerId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdView')}" value="#{partnerAction.partner.partnerId}"></h:outputText>  
+        <h:outputText value="#{msg.partner_defaultLanguage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'defaultLanguageView')}"/>  
+        <h:outputText value="#{partnerAction.partner.defaultLanguage}"/>  
+        <h:outputText value="#{msg.partner_marketingMessage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'marketingMessageView')}"/>  
+        <s:link value="#{partnerAction.partner.marketingMessage.displayName}" action="viewmarketingMessage" propagation="none"> 
+          <f:param name="marketingMessageId" value="#{partnerAction.partner.marketingMessage.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.AppUser}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameView')}"/>  
+        <h:outputText id="appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameView')}" value="#{partnerAction.partner.appUser.userName}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledView')}"/>  
+        <h:outputText id="appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledView')}" value="#{partnerAction.partner.appUser.enabled}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailView')}"/>  
+        <h:outputText id="appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailView')}" value="#{partnerAction.partner.appUser.email}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'lastLoginView')}"/>  
+        <h:outputText direction="auto" id="appUser_lastLogin#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'lastLoginView')}" value="#{partnerAction.partner.appUser.lastLogin}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

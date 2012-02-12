@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>  
+    <br/>  
+    <rich:dataTable id="dataAudit" var="_log" value="#{officeAction.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Date"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.dateCreated}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Action"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.action}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="User"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.username}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Id"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entityId}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_officeId}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.officeId}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_headingEN}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.headingEN}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_headingFR}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.headingFR}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_address}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_city}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.city}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_province}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.province}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_postalCode}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.postalCode}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_latitude}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.latitude}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_longitude}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.longitude}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_phone}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.phone}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_fax}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.fax}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_enInfo}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.enInfo}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_frInfo}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.frInfo}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_enHours}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.enHours}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.office_frHours}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.frHours}"/> 
+      </rich:column> 
+    </rich:dataTable> 
+  </h:form> 
+</html>

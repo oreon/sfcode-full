@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewNewsCategoryComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{newsCategoryAction.load(newsCategoryId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.NewsCategory}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.newsCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('newsCategory', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('newsCategory', 'nameView')}" value="#{newsCategoryAction.newsCategory.name}"></h:outputText>  
+        <h:outputText value="#{msg.newsCategory_nameFrench}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('newsCategory', 'nameFrenchView')}"/>  
+        <h:outputText id="nameFrench#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('newsCategory', 'nameFrenchView')}" value="#{newsCategoryAction.newsCategory.nameFrench}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

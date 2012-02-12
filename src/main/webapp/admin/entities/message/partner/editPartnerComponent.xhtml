@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{partnerAction.load(partnerId )  }"> 
+        <h:outputText value="#{msg.partner_marketingMessage} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'marketingMessageEdit')}"/>  
+        <h:selectOneMenu id="marketingMessage" label="#{msg.partner_marketingMessage}" value="#{partnerAction.partner.marketingMessage}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'marketingMessageEdit')}"> 
+          <s:selectItems value="#{marketingMessageList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="marketingMessage" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'marketingMessageEdit')}"/>  
+        <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameEdit')}"/>  
+        <h:inputText id="appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameEdit')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{partnerAction.partner.appUser.userName}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="appUser_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameEdit')}"/>  
+        <h:outputText value="#{msg.appUser_password} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'passwordEdit')}"/>  
+        <h:inputSecret redisplay="true" id="appUser_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'passwordEdit')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{partnerAction.partner.appUser.password}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputSecret>  
+        <rich:message styleClass="error errors" for="appUser_password" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'passwordEdit')}"/>  
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledEdit')}"/>  
+        <h:selectBooleanCheckbox id="appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledEdit')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{partnerAction.partner.appUser.enabled}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox>  
+        <rich:message styleClass="error errors" for="appUser_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledEdit')}"/>  
+        <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailEdit')}"/>  
+        <h:inputText id="appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailEdit')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{partnerAction.partner.appUser.email}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="appUser_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailEdit')}"/>  
+        <h:outputText value="#{msg.partner_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameEdit')}" label="#{msg.partner_name}" required="true" disabled="false" value="#{partnerAction.partner.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameEdit')}"/>  
+        <h:outputText value="#{msg.partner_partnerId} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdEdit')}"/>  
+        <h:inputText id="partnerId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdEdit')}" label="#{msg.partner_partnerId}" required="true" disabled="false" value="#{partnerAction.partner.partnerId}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="partnerId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdEdit')}"/>  
+        <h:outputText value="#{msg.partner_securityKey}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'securityKeyEdit')}"/>  
+        <h:inputText id="securityKey#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'securityKeyEdit')}" label="#{msg.partner_securityKey}" required="false" disabled="false" value="#{partnerAction.partner.securityKey}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="securityKey" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'securityKeyEdit')}"/>  
+        <h:outputText value="#{msg.partner_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'activeEdit')}"/>  
+        <h:selectBooleanCheckbox id="active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'activeEdit')}" label="#{msg.partner_active}" required="false" disabled="false" value="#{partnerAction.partner.active}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox>  
+        <rich:message styleClass="error errors" for="active" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'activeEdit')}"/>  
+        <h:outputText value="#{msg.partner_defaultLanguage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'defaultLanguageEdit')}"/>  
+        <h:selectOneMenu id="defaultLanguage" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'defaultLanguageEdit')}" value="#{partnerAction.partner.defaultLanguage}" required="false" label="#{msg.partner_defaultLanguage}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="ENGLISH" itemLabel="#{msg.ENGLISH}"/>  
+          <f:selectItem itemValue="FRENCH" itemLabel="#{msg.FRENCH}"/>  
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="defaultLanguage" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'defaultLanguageEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

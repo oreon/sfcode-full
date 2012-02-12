@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.rating_rating}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rating', 'ratingEdit')}"/>  
+      <br/>  
+      <h:inputText id="rating_begin" value="#{ratingList.ratingRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="rating_end" value="#{ratingList.ratingRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.rating_faqQuestion} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rating', 'faqQuestionEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="faqQuestion" value="#{ ratingList.rating.faqQuestion}"> 
+        <s:selectItems value="#{faqQuestionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{ratingList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{ratingList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

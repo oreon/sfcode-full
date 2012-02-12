@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{invokationMetricsAction.load(invokationMetricsId )  }"> 
+        <h:outputText value="#{msg.invokationMetrics_restMethod} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restMethod', 'invokationMetricsEdit')}"/>  
+        <h:selectOneMenu id="restMethod" label="#{msg.invokationMetrics_restMethod}" value="#{invokationMetricsAction.invokationMetrics.restMethod}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restMethod', 'invokationMetricsEdit')}"> 
+          <s:selectItems value="#{restMethodList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="restMethod" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('restMethod', 'invokationMetricsEdit')}"/>  
+        <h:outputText value="#{msg.invokationMetrics_partner} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'invokationMetricsEdit')}"/>  
+        <h:selectOneMenu id="partner" label="#{msg.invokationMetrics_partner}" value="#{invokationMetricsAction.invokationMetrics.partner}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'invokationMetricsEdit')}"> 
+          <s:selectItems value="#{partnerList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="partner" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'invokationMetricsEdit')}"/>  
+        <h:outputText value="#{msg.invokationMetrics_clientType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clientType', 'invokationMetricsEdit')}"/>  
+        <h:selectOneMenu id="clientType" label="#{msg.invokationMetrics_clientType}" value="#{invokationMetricsAction.invokationMetrics.clientType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clientType', 'invokationMetricsEdit')}"> 
+          <s:selectItems value="#{clientTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="clientType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clientType', 'invokationMetricsEdit')}"/>  
+        <h:outputText value="#{msg.invokationMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'invokationMetricsEdit')}"/>  
+        <rich:calendar direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'invokationMetricsEdit')}" label="#{msg.invokationMetrics_date}" required="false" value="#{invokationMetricsAction.invokationMetrics.date}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('date', 'invokationMetricsEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

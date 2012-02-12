@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editAuthenticationMetricsComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{authenticationMetricsAction.load(authenticationMetricsId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.AuthenticationMetrics}"/> 
+        </f:facet>  
+        <s:decorate id="dateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.baseMetrics_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'dateEdit')}"/>
+          </ui:define>  
+          <rich:calendar direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'dateEdit')}" label="#{msg.baseMetrics_date}" required="false" disabled="false" value="#{authenticationMetricsAction.authenticationMetrics.date}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:calendar> 
+        </s:decorate>  
+        <s:decorate id="languageDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.baseMetrics_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'languageEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'languageEdit')}" value="#{authenticationMetricsAction.authenticationMetrics.language}" required="false" label="#{msg.baseMetrics_language}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="ENGLISH" itemLabel="#{msg.ENGLISH}"/>  
+            <f:selectItem itemValue="FRENCH" itemLabel="#{msg.FRENCH}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="sessionIdDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.baseMetrics_sessionId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'sessionIdEdit')}"/>
+          </ui:define>  
+          <h:inputText id="sessionId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'sessionIdEdit')}" label="#{msg.baseMetrics_sessionId}" required="false" disabled="false" value="#{authenticationMetricsAction.authenticationMetrics.sessionId}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="succeededDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.authenticationMetrics_succeeded}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'succeededEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="succeeded#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'succeededEdit')}" label="#{msg.authenticationMetrics_succeeded}" required="false" disabled="false" value="#{authenticationMetricsAction.authenticationMetrics.succeeded}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="logoutDateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.authenticationMetrics_logoutDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'logoutDateEdit')}"/>
+          </ui:define>  
+          <rich:calendar direction="auto" id="logoutDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'logoutDateEdit')}" label="#{msg.authenticationMetrics_logoutDate}" required="false" disabled="false" value="#{authenticationMetricsAction.authenticationMetrics.logoutDate}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:calendar> 
+        </s:decorate>  
+        <s:decorate id="restMethodDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.baseMetrics_restMethod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'restMethodEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="restMethod" label="#{msg.baseMetrics_restMethod}" value="#{authenticationMetricsAction.authenticationMetrics.restMethod}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'restMethodEdit')}" disabled="false"> 
+            <s:selectItems value="#{restMethodList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="partnerDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.baseMetrics_partner} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'partnerEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="partner" label="#{msg.baseMetrics_partner}" value="#{authenticationMetricsAction.authenticationMetrics.partner}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'partnerEdit')}" disabled="false"> 
+            <s:selectItems value="#{partnerList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="clientTypeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.baseMetrics_clientType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'clientTypeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="clientType" label="#{msg.baseMetrics_clientType}" value="#{authenticationMetricsAction.authenticationMetrics.clientType}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('authenticationMetrics', 'clientTypeEdit')}" disabled="false"> 
+            <s:selectItems value="#{clientTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

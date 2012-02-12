@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewOfficeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{officeAction.load(officeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Office}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.office_officeId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'officeIdView')}"/>  
+        <h:outputText id="officeId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'officeIdView')}" value="#{officeAction.office.officeId}"></h:outputText>  
+        <h:outputText value="#{msg.office_headingEN}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingENView')}"/>  
+        <h:outputText id="headingEN#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingENView')}" value="#{officeAction.office.headingEN}"></h:outputText>  
+        <h:outputText value="#{msg.office_headingFR}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingFRView')}"/>  
+        <h:outputText id="headingFR#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'headingFRView')}" value="#{officeAction.office.headingFR}"></h:outputText>  
+        <h:outputText value="#{msg.office_address}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'addressView')}"/>  
+        <h:outputText id="address#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'addressView')}" value="#{officeAction.office.address}"></h:outputText>  
+        <h:outputText value="#{msg.office_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'cityView')}"/>  
+        <h:outputText id="city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'cityView')}" value="#{officeAction.office.city}"></h:outputText>  
+        <h:outputText value="#{msg.office_province}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'provinceView')}"/>  
+        <h:outputText id="province#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'provinceView')}" value="#{officeAction.office.province}"></h:outputText>  
+        <h:outputText value="#{msg.office_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'postalCodeView')}"/>  
+        <h:outputText id="postalCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'postalCodeView')}" value="#{officeAction.office.postalCode}"></h:outputText>  
+        <h:outputText value="#{msg.office_latitude}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'latitudeView')}"/>  
+        <h:outputText id="latitude#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'latitudeView')}" value="#{officeAction.office.latitude}"></h:outputText>  
+        <h:outputText value="#{msg.office_longitude}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'longitudeView')}"/>  
+        <h:outputText id="longitude#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'longitudeView')}" value="#{officeAction.office.longitude}"></h:outputText>  
+        <h:outputText value="#{msg.office_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'phoneView')}"/>  
+        <h:outputText id="phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'phoneView')}" value="#{officeAction.office.phone}"></h:outputText>  
+        <h:outputText value="#{msg.office_fax}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'faxView')}"/>  
+        <h:outputText id="fax#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'faxView')}" value="#{officeAction.office.fax}"></h:outputText>  
+        <h:outputText value="#{msg.office_enInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enInfoView')}"/>  
+        <h:outputText id="enInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enInfoView')}" value="#{officeAction.office.enInfo}"></h:outputText>  
+        <h:outputText value="#{msg.office_frInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frInfoView')}"/>  
+        <h:outputText id="frInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frInfoView')}" value="#{officeAction.office.frInfo}"></h:outputText>  
+        <h:outputText value="#{msg.office_enHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enHoursView')}"/>  
+        <h:outputText id="enHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'enHoursView')}" value="#{officeAction.office.enHours}"></h:outputText>  
+        <h:outputText value="#{msg.office_frHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frHoursView')}"/>  
+        <h:outputText id="frHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('office', 'frHoursView')}" value="#{officeAction.office.frHours}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

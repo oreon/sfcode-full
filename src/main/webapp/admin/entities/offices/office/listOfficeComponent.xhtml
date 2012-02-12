@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="OfficeModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Office Search Results (#{empty records ? 0 : (officeList.paginated ? officeList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_office" value="#{records}" id="officeList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'officeView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="office.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('officeId', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_officeId}"/>  
+              <ui:param name="propertyPath" value="office.officeId"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.officeId}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('headingEN', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_headingEN}"/>  
+              <ui:param name="propertyPath" value="office.headingEN"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.headingEN}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('headingFR', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_headingFR}"/>  
+              <ui:param name="propertyPath" value="office.headingFR"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.headingFR}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('address', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_address}"/>  
+              <ui:param name="propertyPath" value="office.address"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.address}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('city', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_city}"/>  
+              <ui:param name="propertyPath" value="office.city"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.city}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('province', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_province}"/>  
+              <ui:param name="propertyPath" value="office.province"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.province}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('postalCode', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_postalCode}"/>  
+              <ui:param name="propertyPath" value="office.postalCode"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.postalCode}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('latitude', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_latitude}"/>  
+              <ui:param name="propertyPath" value="office.latitude"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.latitude}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('longitude', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_longitude}"/>  
+              <ui:param name="propertyPath" value="office.longitude"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.longitude}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('phone', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_phone}"/>  
+              <ui:param name="propertyPath" value="office.phone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.phone}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('fax', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_fax}"/>  
+              <ui:param name="propertyPath" value="office.fax"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.fax}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('enInfo', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_enInfo}"/>  
+              <ui:param name="propertyPath" value="office.enInfo"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.enInfo}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('frInfo', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_frInfo}"/>  
+              <ui:param name="propertyPath" value="office.frInfo"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.frInfo}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('enHours', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_enHours}"/>  
+              <ui:param name="propertyPath" value="office.enHours"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.enHours}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('frHours', 'officeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.office_frHours}"/>  
+              <ui:param name="propertyPath" value="office.frHours"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.frHours}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'officeView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{officeList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="office.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_office.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_office', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/offices/office/viewOffice.xhtml" rendered="#{s:hasPermission(_office, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="officeId" value="#{_office.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_office', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/offices/office/editOffice.xhtml" rendered="#{s:hasPermission(_office, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="officeId" value="#{_office.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('officeAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{officeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_office.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_office.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{officeAction.setOfficeIdForModalDlg(_office.id)}" rendered="#{s:hasPermission(_office, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{officeList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{officeList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{officeList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{officeList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{officeList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{officeList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{officeList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

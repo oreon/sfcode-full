@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewMessageTranslationComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{messageTranslationAction.load(messageTranslationId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MessageTranslation}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.messageTranslation_buttonText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'buttonTextView')}"/>  
+        <h:outputText id="buttonText#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'buttonTextView')}" value="#{messageTranslationAction.messageTranslation.buttonText}"></h:outputText>  
+        <h:outputText value="#{msg.messageTranslation_message}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'messageView')}"/>  
+        <h:outputText escape="false" id="message#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'messageView')}" value="#{messageTranslationAction.messageTranslation.message}"></h:outputText>  
+        <h:outputText value="#{msg.messageTranslation_hyperLink}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'hyperLinkView')}"/>  
+        <h:outputText id="hyperLink#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'hyperLinkView')}" value="#{messageTranslationAction.messageTranslation.hyperLink}"></h:outputText>  
+        <h:outputText value="#{msg.messageTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'languageView')}"/>  
+        <h:outputText value="#{messageTranslationAction.messageTranslation.language}"/>  
+        <h:outputText value="#{msg.messageTranslation_marketingMessage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'marketingMessageView')}"/>  
+        <s:link value="#{messageTranslationAction.messageTranslation.marketingMessage.displayName}" action="viewmarketingMessage" propagation="none"> 
+          <f:param name="marketingMessageId" value="#{messageTranslationAction.messageTranslation.marketingMessage.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

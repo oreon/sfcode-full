@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editQuestionTranslationComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{questionTranslationAction.load(questionTranslationId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.QuestionTranslation}"/> 
+        </f:facet>  
+        <s:decorate id="languageDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.questionTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'languageEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'languageEdit')}" value="#{questionTranslationAction.questionTranslation.language}" required="false" label="#{msg.questionTranslation_language}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="ENGLISH" itemLabel="#{msg.ENGLISH}"/>  
+            <f:selectItem itemValue="FRENCH" itemLabel="#{msg.FRENCH}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.questionTranslation_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'titleEdit')}"/>
+          </ui:define>  
+          <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'titleEdit')}" label="#{msg.questionTranslation_title}" required="true" disabled="false" value="#{questionTranslationAction.questionTranslation.title}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="textDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.questionTranslation_text} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'textEdit')}"/>
+          </ui:define>  
+          <h:inputText id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'textEdit')}" label="#{msg.questionTranslation_text}" required="true" disabled="false" value="#{questionTranslationAction.questionTranslation.text}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="linkDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.questionTranslation_link}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'linkEdit')}"/>
+          </ui:define>  
+          <h:inputText id="link#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'linkEdit')}" label="#{msg.questionTranslation_link}" required="false" disabled="false" value="#{questionTranslationAction.questionTranslation.link}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="answerDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.questionTranslation_answer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'answerEdit')}"/>
+          </ui:define>  
+          <h:inputText id="answer#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'answerEdit')}" label="#{msg.questionTranslation_answer}" required="false" disabled="false" value="#{questionTranslationAction.questionTranslation.answer}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="faqQuestionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.questionTranslation_faqQuestion} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'faqQuestionEdit')}"/>
+          </ui:define>  
+          <s:link value="#{questionTranslationAction.questionTranslation.faqQuestion.displayName}" action="viewfaqQuestion" propagation="none"> 
+            <f:param name="faqQuestionId" value="#{questionTranslationAction.questionTranslation.faqQuestion.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

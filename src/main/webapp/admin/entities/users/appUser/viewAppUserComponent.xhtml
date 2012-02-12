@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewAppUserComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{appUserAction.load(appUserId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.AppUser}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'userNameView')}"/>  
+        <h:outputText id="userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'userNameView')}" value="#{appUserAction.appUser.userName}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'enabledView')}"/>  
+        <h:outputText id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'enabledView')}" value="#{appUserAction.appUser.enabled}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'emailView')}"/>  
+        <h:outputText id="email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'emailView')}" value="#{appUserAction.appUser.email}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'lastLoginView')}"/>  
+        <h:outputText direction="auto" id="lastLogin#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'lastLoginView')}" value="#{appUserAction.appUser.lastLogin}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/>  
+      <br/>  
+      <rich:simpleTogglePanel label="#{msg.appUser_appRoles}" switchType="client"> 
+        <rich:dataTable value="#{appUserAction.listAppRoles}" var="item"> 
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:dataTable> 
+      </rich:simpleTogglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

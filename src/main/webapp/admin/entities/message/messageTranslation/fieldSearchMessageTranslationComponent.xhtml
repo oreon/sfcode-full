@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.messageTranslation_buttonText}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'buttonTextEdit')}"/>  
+      <br/>  
+      <h:inputText id="buttonText" value="#{messageTranslationList.messageTranslation.buttonText}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.messageTranslation_message}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'messageEdit')}"/>  
+      <br/>  
+      <h:inputText id="message" value="#{messageTranslationList.messageTranslation.message}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.messageTranslation_hyperLink}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'hyperLinkEdit')}"/>  
+      <br/>  
+      <h:inputText id="hyperLink" value="#{messageTranslationList.messageTranslation.hyperLink}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.messageTranslation_marketingMessage} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'marketingMessageEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="marketingMessage" value="#{ messageTranslationList.messageTranslation.marketingMessage}"> 
+        <s:selectItems value="#{marketingMessageList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.messageTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('messageTranslation', 'languageEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="language" value="#{messageTranslationList.messageTranslation.language}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="ENGLISH" itemLabel="English"/>  
+        <f:selectItem itemValue="FRENCH" itemLabel="French"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{messageTranslationList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{messageTranslationList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewTaxNewsComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{taxNewsAction.load(taxNewsId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.TaxNews}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.taxNews_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'titleView')}"/>  
+        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'titleView')}" value="#{taxNewsAction.taxNews.title}"></h:outputText>  
+        <h:outputText value="#{msg.taxNews_inactive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'inactiveView')}"/>  
+        <h:outputText id="inactive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'inactiveView')}" value="#{taxNewsAction.taxNews.inactive}"></h:outputText>  
+        <h:outputText value="#{msg.taxNews_newsCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'newsCategoryView')}"/>  
+        <s:link value="#{taxNewsAction.taxNews.newsCategory.displayName}" action="viewnewsCategory" propagation="none"> 
+          <f:param name="newsCategoryId" value="#{taxNewsAction.taxNews.newsCategory.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="taxNewsTranslations" var="_taxNewsTranslation" rendered="#{not empty taxNewsAction.listTaxNewsTranslations and skipPermissionCheck == 'true' || s:hasPermission('taxNews', 'taxNewsTranslationsView') }" value="#{taxNewsAction.listTaxNewsTranslations}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.taxNewsTranslation_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'titleView')}"/> 
+          </f:facet>  
+          <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'titleView')}" value="#{_taxNewsTranslation.title}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.taxNewsTranslation_link}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'linkView')}"/> 
+          </f:facet>  
+          <h:outputText id="link#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'linkView')}" value="#{_taxNewsTranslation.link}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.taxNewsTranslation_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'textView')}"/> 
+          </f:facet>  
+          <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'textView')}" value="#{_taxNewsTranslation.text}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.taxNewsTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'languageView')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_taxNewsTranslation.language}"/> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{faqCategoryAction.load(faqCategoryId )  }"> 
+        <h:outputText value="#{msg.faqCategory_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'titleEdit')}"/>  
+        <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'titleEdit')}" label="#{msg.faqCategory_title}" required="true" disabled="false" value="#{faqCategoryAction.faqCategory.title}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'titleEdit')}"/>  
+        <h:outputText value="#{msg.faqCategory_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'descriptionEdit')}"/>  
+        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'descriptionEdit')}" label="#{msg.faqCategory_description}" required="false" disabled="false" value="#{faqCategoryAction.faqCategory.description}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'descriptionEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New Question" action="#{faqCategoryAction.addQuestions}" reRender="questions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'questionsEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="questions" var="_question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'questionsEdit')}" value="#{faqCategoryAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}"/>
+          </f:facet>  
+          <rich:editor useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}" label="#{msg.question_text}" required="false" disabled="false" value="#{_question.text}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor>  
+          <rich:message styleClass="error errors" for="text" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'textEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.question_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'languageEdit')}"/>
+          </f:facet>  
+          <h:selectOneMenu id="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'languageEdit')}" value="#{_question.language}" required="false" label="#{msg.question_language}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="ENGLISH" itemLabel="#{msg.ENGLISH}"/>  
+            <f:selectItem itemValue="FRENCH" itemLabel="#{msg.FRENCH}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu>  
+          <rich:message styleClass="error errors" for="language" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'languageEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Question" action="#{faqCategoryAction.addQuestions}" reRender="questions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'questionsEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{faqCategoryAction.deleteQuestions(rowIndex)}" reRender="questions"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

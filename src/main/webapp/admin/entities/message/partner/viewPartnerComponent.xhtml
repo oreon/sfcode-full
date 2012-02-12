@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{partnerAction.load(partnerId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{partnerAction.partner.id}"/>  
+        <h:outputText value="#{msg.partner_marketingMessage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'marketingMessageView')}"/>  
+        <s:link value="#{partnerAction.partner.marketingMessage.displayName}" view="/admin/entities/message/marketingMessage/viewMarketingMessage.xhtml" propagation="none"> 
+          <f:param name="marketingMessageId" value="#{partnerAction.partner.marketingMessage.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameView')}"/>  
+        <h:outputText id="appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'userNameView')}" value="#{partnerAction.partner.appUser.userName}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledView')}"/>  
+        <h:outputText id="appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'enabledView')}" value="#{partnerAction.partner.appUser.enabled}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailView')}"/>  
+        <h:outputText id="appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'emailView')}" value="#{partnerAction.partner.appUser.email}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'lastLoginView')}"/>  
+        <h:outputText direction="auto" id="appUser_lastLogin#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'lastLoginView')}" value="#{partnerAction.partner.appUser.lastLogin}"></h:outputText>  
+        <h:outputText value="#{msg.partner_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'nameView')}" value="#{partnerAction.partner.name}"></h:outputText>  
+        <h:outputText value="#{msg.partner_partnerId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdView')}"/>  
+        <h:outputText id="partnerId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'partnerIdView')}" value="#{partnerAction.partner.partnerId}"></h:outputText>  
+        <h:outputText value="#{msg.partner_securityKey}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'securityKeyView')}"/>  
+        <h:outputText id="securityKey#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'securityKeyView')}" value="#{partnerAction.partner.securityKey}"></h:outputText>  
+        <h:outputText value="#{msg.partner_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'activeView')}"/>  
+        <h:outputText id="active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'activeView')}" value="#{partnerAction.partner.active}"></h:outputText>  
+        <h:outputText value="#{msg.partner_defaultLanguage}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('partner', 'defaultLanguageView')}"/>  
+        <h:outputText value="#{partnerAction.partner.defaultLanguage}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

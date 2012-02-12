@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewTaxNewsTranslationComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{taxNewsTranslationAction.load(taxNewsTranslationId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.TaxNewsTranslation}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.taxNewsTranslation_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'titleView')}"/>  
+        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'titleView')}" value="#{taxNewsTranslationAction.taxNewsTranslation.title}"></h:outputText>  
+        <h:outputText value="#{msg.taxNewsTranslation_link}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'linkView')}"/>  
+        <h:outputText id="link#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'linkView')}" value="#{taxNewsTranslationAction.taxNewsTranslation.link}"></h:outputText>  
+        <h:outputText value="#{msg.taxNewsTranslation_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'textView')}"/>  
+        <h:outputText escape="false" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'textView')}" value="#{taxNewsTranslationAction.taxNewsTranslation.text}"></h:outputText>  
+        <h:outputText value="#{msg.taxNewsTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'languageView')}"/>  
+        <h:outputText value="#{taxNewsTranslationAction.taxNewsTranslation.language}"/>  
+        <h:outputText value="#{msg.taxNewsTranslation_taxNews}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('taxNewsTranslation', 'taxNewsView')}"/>  
+        <s:link value="#{taxNewsTranslationAction.taxNewsTranslation.taxNews.displayName}" action="viewtaxNews" propagation="none"> 
+          <f:param name="taxNewsId" value="#{taxNewsTranslationAction.taxNewsTranslation.taxNews.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

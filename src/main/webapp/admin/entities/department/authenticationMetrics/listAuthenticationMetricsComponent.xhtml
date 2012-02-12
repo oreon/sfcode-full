@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="AuthenticationMetricsModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="AuthenticationMetrics Search Results (#{empty records ? 0 : (authenticationMetricsList.paginated ? authenticationMetricsList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_authenticationMetrics" value="#{records}" id="authenticationMetricsList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'authenticationMetricsView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_authenticationMetrics.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('restMethod', 'authenticationMetricsView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.baseMetrics_restMethod}"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.restMethod"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_authenticationMetrics.restMethod.displayName}" view="/admin/entities/metrics/restMethod/viewRestMethod.xhtml" propagation="none"> 
+            <f:param name="restMethodId" value="#{_authenticationMetrics.restMethod.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('partner', 'authenticationMetricsView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.baseMetrics_partner}"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.partner"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_authenticationMetrics.partner.displayName}" view="/admin/entities/department/partner/viewPartner.xhtml" propagation="none"> 
+            <f:param name="partnerId" value="#{_authenticationMetrics.partner.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('clientType', 'authenticationMetricsView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.baseMetrics_clientType}"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.clientType"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_authenticationMetrics.clientType.displayName}" view="/admin/entities/metrics/clientType/viewClientType.xhtml" propagation="none"> 
+            <f:param name="clientTypeId" value="#{_authenticationMetrics.clientType.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('date', 'authenticationMetricsView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.baseMetrics_date}"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.date"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_authenticationMetrics.date}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('language', 'authenticationMetricsView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.baseMetrics_language}"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.language"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_authenticationMetrics.language}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('sessionId', 'authenticationMetricsView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.baseMetrics_sessionId}"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.sessionId"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_authenticationMetrics.sessionId}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('succeeded', 'authenticationMetricsView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.authenticationMetrics_succeeded}"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.succeeded"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_authenticationMetrics.succeeded? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('logoutDate', 'authenticationMetricsView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.authenticationMetrics_logoutDate}"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.logoutDate"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_authenticationMetrics.logoutDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'authenticationMetricsView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{authenticationMetricsList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="authenticationMetrics.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_authenticationMetrics.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_authenticationMetrics', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/department/authenticationMetrics/viewAuthenticationMetrics.xhtml" rendered="#{s:hasPermission(_authenticationMetrics, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="authenticationMetricsId" value="#{_authenticationMetrics.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_authenticationMetrics', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/department/authenticationMetrics/editAuthenticationMetrics.xhtml" rendered="#{s:hasPermission(_authenticationMetrics, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="authenticationMetricsId" value="#{_authenticationMetrics.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('authenticationMetricsAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{authenticationMetricsAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_authenticationMetrics.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_authenticationMetrics.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{authenticationMetricsAction.setAuthenticationMetricsIdForModalDlg(_authenticationMetrics.id)}" rendered="#{s:hasPermission(_authenticationMetrics, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{authenticationMetricsList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{authenticationMetricsList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{authenticationMetricsList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{authenticationMetricsList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{authenticationMetricsList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{authenticationMetricsList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{authenticationMetricsList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>  
+    <br/>  
+    <rich:dataTable id="dataAudit" var="_log" value="#{officeLocatorMetricsAction.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Date"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.dateCreated}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Action"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.action}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="User"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.username}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Id"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entityId}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.baseMetrics_restMethod}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.restMethod.displayName}" view="/admin/entities/metrics/restMethod/viewRestMethod.xhtml"> 
+          <f:param name="id" value="#{_entity.restMethod.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.baseMetrics_partner}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.partner.displayName}" view="/admin/entities/department/partner/viewPartner.xhtml"> 
+          <f:param name="id" value="#{_entity.partner.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.baseMetrics_clientType}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.clientType.displayName}" view="/admin/entities/metrics/clientType/viewClientType.xhtml"> 
+          <f:param name="id" value="#{_entity.clientType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.baseMetrics_date}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.date}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.baseMetrics_language}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.language}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.baseMetrics_sessionId}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.sessionId}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.officeLocatorMetrics_lookupCity}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.lookupCity}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.officeLocatorMetrics_lookupPostalCode}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.lookupPostalCode}"/> 
+      </rich:column> 
+    </rich:dataTable> 
+  </h:form> 
+</html>

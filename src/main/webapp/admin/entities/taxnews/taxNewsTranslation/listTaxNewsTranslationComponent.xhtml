@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="TaxNewsTranslationModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="TaxNewsTranslation Search Results (#{empty records ? 0 : (taxNewsTranslationList.paginated ? taxNewsTranslationList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_taxNewsTranslation" value="#{records}" id="taxNewsTranslationList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'taxNewsTranslationView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{taxNewsTranslationList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="taxNewsTranslation.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_taxNewsTranslation.id}"></h:outputText> 
+        </h:column>  
+        <h:column groupOn="#{taxNewsTranslation.taxNews.displayName}" rendered="#{s:hasPermission('taxNews', 'taxNewsTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{taxNewsTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.taxNewsTranslation_taxNews}"/>  
+              <ui:param name="propertyPath" value="taxNewsTranslation.taxNews"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_taxNewsTranslation.taxNews.displayName}" view="/admin/entities/taxnews/taxNews/viewTaxNews.xhtml" propagation="none"> 
+            <f:param name="taxNewsId" value="#{_taxNewsTranslation.taxNews.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('title', 'taxNewsTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{taxNewsTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.taxNewsTranslation_title}"/>  
+              <ui:param name="propertyPath" value="taxNewsTranslation.title"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_taxNewsTranslation.title}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('link', 'taxNewsTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{taxNewsTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.taxNewsTranslation_link}"/>  
+              <ui:param name="propertyPath" value="taxNewsTranslation.link"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_taxNewsTranslation.link}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('text', 'taxNewsTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{taxNewsTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.taxNewsTranslation_text}"/>  
+              <ui:param name="propertyPath" value="taxNewsTranslation.text"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_taxNewsTranslation.text}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('language', 'taxNewsTranslationView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{taxNewsTranslationList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.taxNewsTranslation_language}"/>  
+              <ui:param name="propertyPath" value="taxNewsTranslation.language"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_taxNewsTranslation.language}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'taxNewsTranslationView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{taxNewsTranslationList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="taxNewsTranslation.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_taxNewsTranslation.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_taxNewsTranslation', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/taxnews/taxNewsTranslation/viewTaxNewsTranslation.xhtml" rendered="#{s:hasPermission(_taxNewsTranslation, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="taxNewsTranslationId" value="#{_taxNewsTranslation.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_taxNewsTranslation', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/taxnews/taxNewsTranslation/editTaxNewsTranslation.xhtml" rendered="#{s:hasPermission(_taxNewsTranslation, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="taxNewsTranslationId" value="#{_taxNewsTranslation.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('taxNewsTranslationAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{taxNewsTranslationAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_taxNewsTranslation.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_taxNewsTranslation.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{taxNewsTranslationAction.setTaxNewsTranslationIdForModalDlg(_taxNewsTranslation.id)}" rendered="#{s:hasPermission(_taxNewsTranslation, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{taxNewsTranslationList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{taxNewsTranslationList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{taxNewsTranslationList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{taxNewsTranslationList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{taxNewsTranslationList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{taxNewsTranslationList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{taxNewsTranslationList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

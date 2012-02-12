@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewFaqCategoryComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{faqCategoryAction.load(faqCategoryId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.FaqCategory}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.faqCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'nameView')}" value="#{faqCategoryAction.faqCategory.name}"></h:outputText>  
+        <h:outputText value="#{msg.faqCategory_frenchName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'frenchNameView')}"/>  
+        <h:outputText id="frenchName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'frenchNameView')}" value="#{faqCategoryAction.faqCategory.frenchName}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="faqQuestions" var="_faqQuestion" rendered="#{not empty faqCategoryAction.listFaqQuestions and skipPermissionCheck == 'true' || s:hasPermission('faqCategory', 'faqQuestionsView') }" value="#{faqCategoryAction.listFaqQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.faqQuestion_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'titleView')}"/> 
+          </f:facet>  
+          <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'titleView')}" value="#{_faqQuestion.title}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.faqQuestion_avgRating}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'avgRatingView')}"/> 
+          </f:facet>  
+          <h:outputText id="avgRating#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'avgRatingView')}" value="#{_faqQuestion.avgRating}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.faqQuestion_inactive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'inactiveView')}"/> 
+          </f:facet>  
+          <h:outputText id="inactive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'inactiveView')}" value="#{_faqQuestion.inactive}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.faqQuestion_views}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'viewsView')}"/> 
+          </f:facet>  
+          <h:outputText id="views#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('faqQuestion', 'viewsView')}" value="#{_faqQuestion.views}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

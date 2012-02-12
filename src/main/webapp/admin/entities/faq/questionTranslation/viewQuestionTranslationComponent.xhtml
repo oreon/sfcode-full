@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewQuestionTranslationComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{questionTranslationAction.load(questionTranslationId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.QuestionTranslation}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.questionTranslation_language}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'languageView')}"/>  
+        <h:outputText value="#{questionTranslationAction.questionTranslation.language}"/>  
+        <h:outputText value="#{msg.questionTranslation_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'titleView')}"/>  
+        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'titleView')}" value="#{questionTranslationAction.questionTranslation.title}"></h:outputText>  
+        <h:outputText value="#{msg.questionTranslation_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'textView')}"/>  
+        <h:outputText id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'textView')}" value="#{questionTranslationAction.questionTranslation.text}"></h:outputText>  
+        <h:outputText value="#{msg.questionTranslation_link}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'linkView')}"/>  
+        <h:outputText id="link#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'linkView')}" value="#{questionTranslationAction.questionTranslation.link}"></h:outputText>  
+        <h:outputText value="#{msg.questionTranslation_answer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'answerView')}"/>  
+        <h:outputText id="answer#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'answerView')}" value="#{questionTranslationAction.questionTranslation.answer}"></h:outputText>  
+        <h:outputText value="#{msg.questionTranslation_faqQuestion}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('questionTranslation', 'faqQuestionView')}"/>  
+        <s:link value="#{questionTranslationAction.questionTranslation.faqQuestion.displayName}" action="viewfaqQuestion" propagation="none"> 
+          <f:param name="faqQuestionId" value="#{questionTranslationAction.questionTranslation.faqQuestion.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
