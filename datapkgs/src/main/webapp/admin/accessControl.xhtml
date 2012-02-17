@@ -27,10 +27,20 @@
 							<f:facet name="header">
 								<h:outputText value="#{entity.displayName}" />
 							</f:facet>
-							
-							<ui:repeat var="fld" value="#{entity.listMetaFields}">
-							
-							
+
+							<table border="1">
+								<tr>
+									<ui:repeat var="fld" value="#{entity.listMetaFields}">
+										<th> <h:outputText value="#{fld.displayName}" /> </th>
+									</ui:repeat>
+								</tr>
+								
+								<ui:repeat var="fld" value="#{entity.listMetaFields}">
+									<h:outputText value="#{fld.displayName}" />
+								</ui:repeat>
+
+							</table>
+
 						</rich:panel>
 
 
