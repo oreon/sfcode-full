@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.itemDto_drugName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameEdit')}"/>  
+      <br/>  
+      <h:inputText id="drugName" value="#{itemDtoList.itemDto.drugName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.itemDto_delta}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaEdit')}"/>  
+      <br/>  
+      <h:inputText id="delta_begin" value="#{itemDtoList.deltaRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="delta_end" value="#{itemDtoList.deltaRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.itemDto_machineDto}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'machineDtoEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="machineDto" value="#{ itemDtoList.itemDto.machineDto}"> 
+        <s:selectItems value="#{machineDtoList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{itemDtoList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{itemDtoList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

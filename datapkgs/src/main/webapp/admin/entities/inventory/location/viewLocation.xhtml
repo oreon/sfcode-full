@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_inventory_Location) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="Location"> 
+          <ui:include src="/admin/entities/inventory/location/viewLocationComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('location', 'edit', locationAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{locationAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab> 
+      </rich:tabPanel>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel switchType="client"> 
+      <rich:tab label="Machines" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="LocationModalPanel-machines"/>  
+        <ui:include src="/admin/entities/inventory/machine/listMachineComponent.xhtml"> 
+          <ui:param name="records" value="#{machineList.getMachinesByLocation(locationAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/inventory/machine/editMachine.xhtml"> 
+            <f:param name="locationId" value="#{locationAction.instance.id}"/>  
+            <f:param name="machineId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
+            <a:actionparam name="machineId" assignTo="#{machineAction.machineId}" value="0"/>  
+            <a:actionparam name="locationId" assignTo="#{machineAction.locationId}" value="#{locationAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/inventory/machine/modalDlgMachineComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </rich:tab> 
+    </rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel switchType="client"> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{locationAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>

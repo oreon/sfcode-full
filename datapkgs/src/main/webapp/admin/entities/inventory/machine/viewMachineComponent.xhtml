@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewMachineComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{machineAction.load(machineId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelMachine eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Machine}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.machine_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'nameView')}" value="#{machineAction.machine.name}"></h:outputText>  
+        <h:outputText value="#{msg.machine_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'customerView')}"/>  
+        <s:link value="#{machineAction.machine.customer.displayName}" action="viewcustomer" propagation="none"> 
+          <f:param name="customerId" value="#{machineAction.machine.customer.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.machine_location}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'locationView')}"/>  
+        <s:link value="#{machineAction.machine.location.displayName}" action="viewlocation" propagation="none"> 
+          <f:param name="locationId" value="#{machineAction.machine.location.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="drugInventorys" var="_drugInventory" rendered="#{not empty machineAction.listDrugInventorys and skipPermissionCheck == 'true' || s:hasPermission('machine', 'drugInventorysView') }" value="#{machineAction.listDrugInventorys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.drugInventory_drugAbstract}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'drugAbstractView')}"/> 
+          </f:facet>  
+          <s:link value="#{_drugInventory.drugAbstract.displayName}" action="viewdrugAbstract" propagation="none"> 
+            <f:param name="drugAbstractId" value="#{_drugInventory.drugAbstract.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.drugInventory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'qtyView')}"/> 
+          </f:facet>  
+          <h:outputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'qtyView')}" value="#{_drugInventory.qty}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewItemDtoComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{itemDtoAction.load(itemDtoId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelItemDto eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ItemDto}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.itemDto_drugName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameView')}"/>  
+        <h:outputText id="drugName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameView')}" value="#{itemDtoAction.itemDto.drugName}"></h:outputText>  
+        <h:outputText value="#{msg.itemDto_delta}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaView')}"/>  
+        <h:outputText id="delta#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaView')}" value="#{itemDtoAction.itemDto.delta}"></h:outputText>  
+        <h:outputText value="#{msg.itemDto_machineDto}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'machineDtoView')}"/>  
+        <s:link value="#{itemDtoAction.itemDto.machineDto.displayName}" action="viewmachineDto" propagation="none"> 
+          <f:param name="machineDtoId" value="#{itemDtoAction.itemDto.machineDto.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
