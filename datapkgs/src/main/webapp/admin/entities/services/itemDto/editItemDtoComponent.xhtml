@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editItemDtoComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{itemDtoAction.load(itemDtoId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelItemDto eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ItemDto}"/> 
+        </f:facet>  
+        <s:decorate id="drugNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.itemDto_drugName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="drugName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameEdit')}" label="#{msg.itemDto_drugName}" required="false" disabled="false" value="#{itemDtoAction.itemDto.drugName}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="deltaDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.itemDto_delta}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaEdit')}"/>
+          </ui:define>  
+          <h:inputText id="delta#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaEdit')}" label="#{msg.itemDto_delta}" required="false" disabled="false" value="#{itemDtoAction.itemDto.delta}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="machineDtoDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.itemDto_machineDto}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'machineDtoEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="machineDto" label="#{msg.itemDto_machineDto}" value="#{itemDtoAction.itemDto.machineDto}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'machineDtoEdit')}" disabled="false"> 
+            <s:selectItems value="#{machineDtoList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

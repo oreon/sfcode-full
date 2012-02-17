@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.itemDto_drugName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameEdit')}"/>  
+        <br/>  
+        <h:inputText id="drugName" value="#{itemDtoAction.itemDto.drugName}"/>  
+        <rich:message styleClass="error errors" for="drugName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.itemDto_delta}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaEdit')}"/>  
+        <br/>  
+        <h:inputText id="delta" value="#{itemDtoAction.itemDto.delta}"/>  
+        <rich:message styleClass="error errors" for="delta" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.itemDto_machineDto}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'machineDtoEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="machineDto" value="#{itemDtoAction.itemDto.machineDto}"> 
+          <s:selectItems value="#{machineDtoList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="machineDto" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'machineDtoEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

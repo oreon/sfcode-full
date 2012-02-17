@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewMachineDtoComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{machineDtoAction.load(machineDtoId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelMachineDto eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MachineDto}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.machineDto_deltaStockDto}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machineDto', 'deltaStockDtoView')}"/>  
+        <s:link value="#{machineDtoAction.machineDto.deltaStockDto.displayName}" action="viewdeltaStockDto" propagation="none"> 
+          <f:param name="deltaStockDtoId" value="#{machineDtoAction.machineDto.deltaStockDto.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="itemDtos" var="_itemDto" rendered="#{not empty machineDtoAction.listItemDtos and skipPermissionCheck == 'true' || s:hasPermission('machineDto', 'itemDtosView') }" value="#{machineDtoAction.listItemDtos}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.itemDto_drugName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameView')}"/> 
+          </f:facet>  
+          <h:outputText id="drugName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameView')}" value="#{_itemDto.drugName}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.itemDto_delta}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaView')}"/> 
+          </f:facet>  
+          <h:outputText id="delta#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaView')}" value="#{_itemDto.delta}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

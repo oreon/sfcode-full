@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editDrugAbstractComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{drugAbstractAction.load(drugAbstractId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDrugAbstract eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.DrugAbstract}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drugAbstract_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'nameEdit')}" label="#{msg.drugAbstract_name}" required="true" disabled="false" value="#{drugAbstractAction.drugAbstract.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="priceDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drugAbstract_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'priceEdit')}"/>
+          </ui:define>  
+          <h:inputText id="price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'priceEdit')}" label="#{msg.drugAbstract_price}" required="false" disabled="false" value="#{drugAbstractAction.drugAbstract.price}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

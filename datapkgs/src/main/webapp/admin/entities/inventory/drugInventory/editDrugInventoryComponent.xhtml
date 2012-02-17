@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editDrugInventoryComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{drugInventoryAction.load(drugInventoryId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDrugInventory eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.DrugInventory}"/> 
+        </f:facet>  
+        <s:decorate id="qtyDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drugInventory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'qtyEdit')}"/>
+          </ui:define>  
+          <h:inputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'qtyEdit')}" label="#{msg.drugInventory_qty}" required="false" disabled="false" value="#{drugInventoryAction.drugInventory.qty}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="drugAbstractDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drugInventory_drugAbstract}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'drugAbstractEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="drugAbstract" label="#{msg.drugInventory_drugAbstract}" value="#{drugInventoryAction.drugInventory.drugAbstract}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'drugAbstractEdit')}" disabled="false"> 
+            <s:selectItems value="#{drugAbstractList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="machineDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drugInventory_machine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'machineEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="machine" label="#{msg.drugInventory_machine}" value="#{drugInventoryAction.drugInventory.machine}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'machineEdit')}" disabled="false"> 
+            <s:selectItems value="#{machineList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

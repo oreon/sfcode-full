@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editMachineDtoComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{machineDtoAction.load(machineDtoId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelMachineDto eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MachineDto}"/> 
+        </f:facet>  
+        <s:decorate id="deltaStockDtoDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.machineDto_deltaStockDto}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machineDto', 'deltaStockDtoEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="deltaStockDto" label="#{msg.machineDto_deltaStockDto}" value="#{machineDtoAction.machineDto.deltaStockDto}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machineDto', 'deltaStockDtoEdit')}" disabled="false"> 
+            <s:selectItems value="#{deltaStockDtoList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New ItemDto" action="#{machineDtoAction.addItemDtos}" reRender="itemDtos" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machineDto', 'itemDtosEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="itemDtos" var="_itemDto" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machineDto', 'itemDtosEdit')}" value="#{machineDtoAction.listItemDtos}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.itemDto_drugName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameEdit')}"/>
+          </f:facet>  
+          <s:decorate id="drugNameDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="drugName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'drugNameEdit')}" label="#{msg.itemDto_drugName}" required="false" disabled="false" value="#{_itemDto.drugName}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.itemDto_delta}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaEdit')}"/>
+          </f:facet>  
+          <s:decorate id="deltaDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="delta#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'deltaEdit')}" label="#{msg.itemDto_delta}" required="false" disabled="false" value="#{_itemDto.delta}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New ItemDto" action="#{machineDtoAction.addItemDtos}" reRender="itemDtos" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('itemDto', 'itemDtosEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{machineDtoAction.deleteItemDtos(rowIndex)}" reRender="itemDtos"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

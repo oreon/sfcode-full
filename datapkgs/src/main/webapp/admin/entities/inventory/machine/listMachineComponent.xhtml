@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="MachineModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Machine Search Results (#{empty records ? 0 : (machineList.paginated ? machineList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_machine" value="#{records}" id="machineList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'machineView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{machineList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="machine.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_machine.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'customerView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{machineList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.machine_customer}"/>  
+              <ui:param name="propertyPath" value="machine.customer"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_machine.customer.displayName}" view="/admin/entities/inventory/customer/viewCustomer.xhtml" propagation="none"> 
+            <f:param name="customerId" value="#{_machine.customer.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'nameView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{machineList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.machine_name}"/>  
+              <ui:param name="propertyPath" value="machine.name"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_machine.name}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'locationView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{machineList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.machine_location}"/>  
+              <ui:param name="propertyPath" value="machine.location"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_machine.location.displayName}" view="/admin/entities/inventory/location/viewLocation.xhtml" propagation="none"> 
+            <f:param name="locationId" value="#{_machine.location.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'machineView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{machineList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="machine.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_machine.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_machine', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/inventory/machine/viewMachine.xhtml" rendered="#{s:hasPermission(_machine, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="machineId" value="#{_machine.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_machine', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/inventory/machine/editMachine.xhtml" rendered="#{s:hasPermission(_machine, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="machineId" value="#{_machine.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('machineAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{machineAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_machine.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_machine.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{machineAction.setMachineIdForModalDlg(_machine.id)}" rendered="#{s:hasPermission(_machine, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{machineList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{machineList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{machineList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{machineList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{machineList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{machineList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{machineList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_services_ItemDto) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="ItemDto"> 
+          <ui:include src="/admin/entities/services/itemDto/viewItemDtoComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('itemDto', 'edit', itemDtoAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{itemDtoAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="MachineDto" rendered="#{itemDtoAction.instance.machineDto != null}"> 
+          <ui:include src="/admin/entities/services/machineDto/viewMachineDtoComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="machineDtoId" value="#{itemDtoAction.instance.machineDto.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel switchType="client"></rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel switchType="client"> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{itemDtoAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="InventoryHistoryModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="InventoryHistory Search Results (#{empty records ? 0 : (inventoryHistoryList.paginated ? inventoryHistoryList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_inventoryHistory" value="#{records}" id="inventoryHistoryList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'inventoryHistoryView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="inventoryHistory.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_inventoryHistory.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'drugInventoryView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.inventoryHistory_drugInventory}"/>  
+              <ui:param name="propertyPath" value="inventoryHistory.drugInventory"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_inventoryHistory.drugInventory.displayName}" view="/admin/entities/inventory/drugInventory/viewDrugInventory.xhtml" propagation="none"> 
+            <f:param name="drugInventoryId" value="#{_inventoryHistory.drugInventory.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'dateView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.inventoryHistory_date}"/>  
+              <ui:param name="propertyPath" value="inventoryHistory.date"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_inventoryHistory.date}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'qtyView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.inventoryHistory_qty}"/>  
+              <ui:param name="propertyPath" value="inventoryHistory.qty"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_inventoryHistory.qty}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'inventoryHistoryView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="inventoryHistory.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_inventoryHistory.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_inventoryHistory', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/inventory/inventoryHistory/viewInventoryHistory.xhtml" rendered="#{s:hasPermission(_inventoryHistory, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="inventoryHistoryId" value="#{_inventoryHistory.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_inventoryHistory', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/inventory/inventoryHistory/editInventoryHistory.xhtml" rendered="#{s:hasPermission(_inventoryHistory, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="inventoryHistoryId" value="#{_inventoryHistory.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('inventoryHistoryAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{inventoryHistoryAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_inventoryHistory.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_inventoryHistory.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{inventoryHistoryAction.setInventoryHistoryIdForModalDlg(_inventoryHistory.id)}" rendered="#{s:hasPermission(_inventoryHistory, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{inventoryHistoryList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{inventoryHistoryList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{inventoryHistoryList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{inventoryHistoryList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{inventoryHistoryList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{inventoryHistoryList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{inventoryHistoryList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>
