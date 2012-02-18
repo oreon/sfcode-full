@@ -106,4 +106,16 @@ public class InvService extends InvServiceBase {
 	
 	}
 
+	@Override
+	protected DeltaStockDto doGetInventory(long customerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected GenericReportDto doRunReportById(String reportName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
