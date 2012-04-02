@@ -34,13 +34,20 @@
 										<th> <h:outputText value="#{fld.displayName}" /> </th>
 									</ui:repeat>
 								</tr>
+								<tr>
 								
 								<ui:repeat var="fld" value="#{entity.listMetaFields}">
-								<ui:repeat var="role" value="#{appRoleList.resultList}">
-									<h:outputText value="#{role.displayName}" />
-								</ui:repeat>
-								</ui:repeat>
-
+								  <td>
+								  <ui:repeat var="role" value="#{appRoleList.resultList}">
+									 <h:outputText value="#{role.displayName}" /> 
+									 <b> Read </b>
+									 <b> Write </b>
+									 <br/>
+								  </ui:repeat>
+								  </td>
+								</ui:repeat> 
+								
+								</tr>
 							</table>
 
 						</rich:panel>
