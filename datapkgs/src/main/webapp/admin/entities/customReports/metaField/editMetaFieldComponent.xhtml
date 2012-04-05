@@ -39,6 +39,56 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
+      <a:commandButton value="New RoleFieldPrivilege" action="#{metaFieldAction.addRoleFieldPrivileges}" reRender="roleFieldPrivileges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'roleFieldPrivilegesEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="roleFieldPrivileges" var="_roleFieldPrivilege" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'roleFieldPrivilegesEdit')}" value="#{metaFieldAction.listRoleFieldPrivileges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.roleFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'appRoleEdit')}"/>
+          </f:facet>  
+          <s:decorate id="appRoleDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="appRole" label="#{msg.roleFieldPrivilege_appRole}" value="#{_roleFieldPrivilege.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'appRoleEdit')}" disabled="false"> 
+              <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.roleFieldPrivilege_readAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"/>
+          </f:facet>  
+          <s:decorate id="readAccessDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectBooleanCheckbox id="readAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}" label="#{msg.roleFieldPrivilege_readAccess}" required="false" disabled="false" value="#{_roleFieldPrivilege.readAccess}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectBooleanCheckbox> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}"/>
+          </f:facet>  
+          <s:decorate id="writeAccessDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectBooleanCheckbox id="writeAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}" label="#{msg.roleFieldPrivilege_writeAccess}" required="false" disabled="false" value="#{_roleFieldPrivilege.writeAccess}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectBooleanCheckbox> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New RoleFieldPrivilege" action="#{metaFieldAction.addRoleFieldPrivileges}" reRender="roleFieldPrivileges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'roleFieldPrivilegesEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{metaFieldAction.deleteRoleFieldPrivileges(rowIndex)}" reRender="roleFieldPrivileges"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
       <br/> 
     </s:validateAll> 
   </h:panelGroup> 

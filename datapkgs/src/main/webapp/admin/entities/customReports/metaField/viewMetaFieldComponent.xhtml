@@ -22,6 +22,29 @@
         </s:link> 
       </h:panelGrid>  
       <br/>  
+      <rich:dataTable id="roleFieldPrivileges" var="_roleFieldPrivilege" rendered="#{not empty metaFieldAction.listRoleFieldPrivileges and skipPermissionCheck == 'true' || s:hasPermission('metaField', 'roleFieldPrivilegesView') }" value="#{metaFieldAction.listRoleFieldPrivileges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.roleFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'appRoleView')}"/> 
+          </f:facet>  
+          <s:link value="#{_roleFieldPrivilege.appRole.displayName}" action="viewappRole" propagation="none"> 
+            <f:param name="appRoleId" value="#{_roleFieldPrivilege.appRole.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.roleFieldPrivilege_readAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessView')}"/> 
+          </f:facet>  
+          <h:outputText id="readAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessView')}" value="#{_roleFieldPrivilege.readAccess}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessView')}"/> 
+          </f:facet>  
+          <h:outputText id="writeAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessView')}" value="#{_roleFieldPrivilege.writeAccess}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
       <br/> 
     </s:validateAll> 
   </h:panelGroup> 

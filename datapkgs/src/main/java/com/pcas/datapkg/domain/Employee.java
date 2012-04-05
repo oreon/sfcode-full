@@ -67,23 +67,27 @@ public class Employee extends com.pcas.datapkg.domain.Person
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_id", nullable = true, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected Department department
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "employeeNumber", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String employeeNumber
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "employeeType", unique = false)
 	protected EmployeeType employeeType
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "salary", unique = false)
 	protected BigDecimal salary
 
 	;
@@ -91,6 +95,7 @@ public class Employee extends com.pcas.datapkg.domain.Person
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id", nullable = false, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected com.pcas.datapkg.domain.inventory.Customer customer
 
 	;

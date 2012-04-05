@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_drugInventory.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'drugAbstractView')}"> 
+        <h:column rendered="#{s:hasPermission('drugAbstract', 'drugInventoryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInventoryList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column groupOn="#{drugInventory.machine.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'machineView')}"> 
+        <h:column groupOn="#{drugInventory.machine.displayName}" rendered="#{s:hasPermission('machine', 'drugInventoryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInventoryList}"/>  
@@ -47,7 +47,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'qtyView')}"> 
+        <h:column rendered="#{s:hasPermission('qty', 'drugInventoryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInventoryList}"/>  

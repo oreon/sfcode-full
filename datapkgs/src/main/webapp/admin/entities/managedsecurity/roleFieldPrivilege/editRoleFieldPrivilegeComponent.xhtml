@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editRoleFieldPrivilegeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{roleFieldPrivilegeAction.load(roleFieldPrivilegeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelRoleFieldPrivilege eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.RoleFieldPrivilege}"/> 
+        </f:facet>  
+        <s:decorate id="readAccessDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.roleFieldPrivilege_readAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="readAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}" label="#{msg.roleFieldPrivilege_readAccess}" required="false" disabled="false" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.readAccess}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="writeAccessDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="writeAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}" label="#{msg.roleFieldPrivilege_writeAccess}" required="false" disabled="false" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.writeAccess}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="appRoleDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.roleFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'appRoleEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="appRole" label="#{msg.roleFieldPrivilege_appRole}" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'appRoleEdit')}" disabled="false"> 
+            <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="metaFieldDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.roleFieldPrivilege_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'metaFieldEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="metaField" label="#{msg.roleFieldPrivilege_metaField}" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.metaField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'metaFieldEdit')}" disabled="false"> 
+            <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

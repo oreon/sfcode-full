@@ -41,6 +41,8 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.pcas.datapkg.managedsecurity.RoleFieldPrivilege;
+
 public abstract class MetaFieldActionBase extends BaseAction<MetaField>
 		implements
 			java.io.Serializable {
@@ -175,16 +177,63 @@ public abstract class MetaFieldActionBase extends BaseAction<MetaField>
 			metaEntityAction.setInstance(getInstance().getMetaEntity());
 		}
 
+		initListRoleFieldPrivileges();
+
 	}
 
 	public void updateAssociations() {
 
 	}
 
+	protected List<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege> listRoleFieldPrivileges = new ArrayList<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege>();
+
+	void initListRoleFieldPrivileges() {
+
+		if (listRoleFieldPrivileges.isEmpty())
+			listRoleFieldPrivileges.addAll(getInstance()
+					.getRoleFieldPrivileges());
+
+	}
+
+	public List<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege> getListRoleFieldPrivileges() {
+
+		prePopulateListRoleFieldPrivileges();
+		return listRoleFieldPrivileges;
+	}
+
+	public void prePopulateListRoleFieldPrivileges() {
+	}
+
+	public void setListRoleFieldPrivileges(
+			List<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege> listRoleFieldPrivileges) {
+		this.listRoleFieldPrivileges = listRoleFieldPrivileges;
+	}
+
+	public void deleteRoleFieldPrivileges(int index) {
+		listRoleFieldPrivileges.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addRoleFieldPrivileges() {
+		initListRoleFieldPrivileges();
+		RoleFieldPrivilege roleFieldPrivileges = new RoleFieldPrivilege();
+
+		roleFieldPrivileges.setMetaField(getInstance());
+
+		getListRoleFieldPrivileges().add(roleFieldPrivileges);
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listRoleFieldPrivileges != null) {
+			getInstance().getRoleFieldPrivileges().clear();
+			getInstance().getRoleFieldPrivileges().addAll(
+					listRoleFieldPrivileges);
+		}
 	}
 
 	public void clearLists() {
+		listRoleFieldPrivileges.clear();
 
 	}
 

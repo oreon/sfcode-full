@@ -215,6 +215,18 @@
       <rule if-outcome="editAppRole"> 
         <redirect view-id="/admin/entities/users/appRole/editAppRole.xhtml"/>  
         <end-conversation/> 
+      </rule>  
+      <rule if-outcome="roleFieldPrivilege"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/listRoleFieldPrivilege.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewRoleFieldPrivilege"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/viewRoleFieldPrivilege.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editRoleFieldPrivilege"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/editRoleFieldPrivilege.xhtml"/>  
+        <end-conversation/> 
       </rule> 
     </navigation> 
   </page>  
@@ -907,6 +919,54 @@
     <param name="from"/>  
     <param name="id" value="#{appRoleList.appRole.id}"/>  
     <param name="name" value="#{appRoleList.appRole.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/managedsecurity/roleFieldPrivilege/editRoleFieldPrivilege.xhtml"> 
+    <!-- <description>Edit RoleFieldPrivilege: #{roleFieldPrivilege.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/viewRoleFieldPrivilege.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/listRoleFieldPrivilege.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="roleFieldPrivilegeId" value="#{roleFieldPrivilegeAction.roleFieldPrivilegeId}"/>  
+    <param name="appRoleId" value="#{roleFieldPrivilegeAction.appRoleId}"/>  
+    <param name="metaFieldId" value="#{roleFieldPrivilegeAction.metaFieldId}"/> 
+  </page>  
+  <page view-id="/admin/entities/managedsecurity/roleFieldPrivilege/viewRoleFieldPrivilege.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View RoleFieldPrivilege: #{roleFieldPrivilege.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/editRoleFieldPrivilege.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/listRoleFieldPrivilege.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="roleFieldPrivilegeId" value="#{roleFieldPrivilegeAction.roleFieldPrivilegeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/managedsecurity/roleFieldPrivilege/listRoleFieldPrivilege.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewRoleFieldPrivilege"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/viewRoleFieldPrivilege.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/editRoleFieldPrivilege.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/textSearchResultsRoleFieldPrivilege.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{roleFieldPrivilegeList.firstResult}"/>  
+    <param name="sort" value="#{roleFieldPrivilegeList.orderColumn}"/>  
+    <param name="dir" value="#{roleFieldPrivilegeList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{roleFieldPrivilegeList.roleFieldPrivilege.id}"/>  
+    <param name="readAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.readAccess}" validateModel="false"/>  
+    <param name="writeAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.writeAccess}" validateModel="false"/>  
+    <param name="appRole" value="#{roleFieldPrivilegeList.roleFieldPrivilege.appRole.id}" validateModel="false"/>  
+    <param name="metaField" value="#{roleFieldPrivilegeList.roleFieldPrivilege.metaField.id}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 

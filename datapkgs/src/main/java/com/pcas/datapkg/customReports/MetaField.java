@@ -91,6 +91,29 @@ public class MetaField extends BusinessEntity implements java.io.Serializable {
 
 	;
 
+	@OneToMany(mappedBy = "metaField", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "metaField_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege> roleFieldPrivileges = new HashSet<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege>();
+
+	public void addRoleFieldPrivilege(
+			com.pcas.datapkg.managedsecurity.RoleFieldPrivilege roleFieldPrivilege) {
+		roleFieldPrivilege.setMetaField(this);
+		this.roleFieldPrivileges.add(roleFieldPrivilege);
+	}
+
+	@Transient
+	public List<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege> getListRoleFieldPrivileges() {
+		return new ArrayList<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege>(
+				roleFieldPrivileges);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getRoleFieldPrivilegesCount() {
+		return roleFieldPrivileges.size();
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -137,6 +160,15 @@ public class MetaField extends BusinessEntity implements java.io.Serializable {
 
 	}
 
+	public void setRoleFieldPrivileges(
+			Set<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege> roleFieldPrivileges) {
+		this.roleFieldPrivileges = roleFieldPrivileges;
+	}
+
+	public Set<com.pcas.datapkg.managedsecurity.RoleFieldPrivilege> getRoleFieldPrivileges() {
+		return roleFieldPrivileges;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -177,6 +209,10 @@ public class MetaField extends BusinessEntity implements java.io.Serializable {
 		if (getMetaEntity() != null)
 			builder.append("metaEntity:" + getMetaEntity().getDisplayName()
 					+ " ");
+
+		for (BusinessEntity e : roleFieldPrivileges) {
+			builder.append(e.getDisplayName() + " ");
+		}
 
 		return builder.toString();
 	}

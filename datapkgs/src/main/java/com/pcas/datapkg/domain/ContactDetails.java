@@ -56,21 +56,24 @@ import com.pcas.datapkg.ProjectUtils;
 public class ContactDetails implements java.io.Serializable {
 	private static final long serialVersionUID = 369764046L;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "phone", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String phone
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "secondaryPhone", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String secondaryPhone
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "city", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String city

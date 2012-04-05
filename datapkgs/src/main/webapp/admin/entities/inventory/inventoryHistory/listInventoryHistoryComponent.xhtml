@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_inventoryHistory.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'drugInventoryView')}"> 
+        <h:column rendered="#{s:hasPermission('drugInventory', 'inventoryHistoryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'dateView')}"> 
+        <h:column rendered="#{s:hasPermission('date', 'inventoryHistoryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
@@ -46,7 +46,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'qtyView')}"> 
+        <h:column rendered="#{s:hasPermission('qty', 'inventoryHistoryView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
