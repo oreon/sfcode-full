@@ -140,6 +140,8 @@ public class MetaData {
 
 	"type", "java.lang.String",
 
+	"roleFieldPrivilegesCount", "java.lang.Integer",
+
 	},
 
 	{"com.pcas.datapkg.customReports.ReportParameter",
@@ -179,6 +181,18 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"appUsersCount", "java.lang.Integer",
+
+	},
+
+	{"com.pcas.datapkg.managedsecurity.RoleFieldPrivilege",
+
+	"readAccess", "java.lang.Boolean",
+
+	"writeAccess", "java.lang.Boolean",
+
+	"appRole.displayName", "java.lang.String",
+
+	"metaField.displayName", "java.lang.String",
 
 	},
 

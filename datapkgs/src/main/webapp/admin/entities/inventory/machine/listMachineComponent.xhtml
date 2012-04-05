@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_machine.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'customerView')}"> 
+        <h:column rendered="#{s:hasPermission('customer', 'machineView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{machineList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'nameView')}"> 
+        <h:column rendered="#{s:hasPermission('name', 'machineView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{machineList}"/>  
@@ -44,7 +44,7 @@
           </f:facet>  
           <h:outputText value="#{_machine.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'locationView')}"> 
+        <h:column rendered="#{s:hasPermission('location', 'machineView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{machineList}"/>  

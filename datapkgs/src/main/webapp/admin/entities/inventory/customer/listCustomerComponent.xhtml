@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_customer.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'nameView')}"> 
+        <h:column rendered="#{s:hasPermission('name', 'customerView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{customerList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_customer.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'countryView')}"> 
+        <h:column rendered="#{s:hasPermission('country', 'customerView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{customerList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_customer.country}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'telephoneView')}"> 
+        <h:column rendered="#{s:hasPermission('telephone', 'customerView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{customerList}"/>  

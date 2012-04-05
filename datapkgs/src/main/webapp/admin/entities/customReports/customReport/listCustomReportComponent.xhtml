@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_customReport.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'nameView')}"> 
+        <h:column rendered="#{s:hasPermission('name', 'customReportView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{customReportList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_customReport.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'metaEntityView')}"> 
+        <h:column rendered="#{s:hasPermission('metaEntity', 'customReportView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{customReportList}"/>  

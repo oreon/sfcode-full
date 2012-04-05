@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_reportParameter.id}"></h:outputText> 
         </h:column>  
-        <h:column groupOn="#{reportParameter.customReport.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'customReportView')}"> 
+        <h:column groupOn="#{reportParameter.customReport.displayName}" rendered="#{s:hasPermission('customReport', 'reportParameterView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{reportParameterList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'metaFieldView')}"> 
+        <h:column rendered="#{s:hasPermission('metaField', 'reportParameterView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{reportParameterList}"/>  
@@ -47,7 +47,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'comparisonView')}"> 
+        <h:column rendered="#{s:hasPermission('comparison', 'reportParameterView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{reportParameterList}"/>  
@@ -57,7 +57,7 @@
           </f:facet>  
           <h:outputText value="#{_reportParameter.comparison}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'mandatoryView')}"> 
+        <h:column rendered="#{s:hasPermission('mandatory', 'reportParameterView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{reportParameterList}"/>  
@@ -67,7 +67,7 @@
           </f:facet>  
           <h:outputText value="#{_reportParameter.mandatory? msg.yes : msg.no }"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'defaultValueView')}"> 
+        <h:column rendered="#{s:hasPermission('defaultValue', 'reportParameterView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{reportParameterList}"/>  
@@ -77,7 +77,7 @@
           </f:facet>  
           <h:outputText value="#{_reportParameter.defaultValue}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'nameView')}"> 
+        <h:column rendered="#{s:hasPermission('name', 'reportParameterView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{reportParameterList}"/>  

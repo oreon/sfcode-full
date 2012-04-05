@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_drugAbstract.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'nameView')}"> 
+        <h:column rendered="#{s:hasPermission('name', 'drugAbstractView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugAbstractList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_drugAbstract.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'priceView')}"> 
+        <h:column rendered="#{s:hasPermission('price', 'drugAbstractView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugAbstractList}"/>  

@@ -19,7 +19,6 @@ import org.jboss.seam.resteasy.ResourceHome;
 import org.jboss.seam.resteasy.ResourceQuery;
 
 import java.util.Date;
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.pcas.datapkg.users.AppUser;

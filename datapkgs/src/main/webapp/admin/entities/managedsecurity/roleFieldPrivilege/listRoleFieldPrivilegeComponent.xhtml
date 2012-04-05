@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="RoleFieldPrivilegeModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="RoleFieldPrivilege Search Results (#{empty records ? 0 : (roleFieldPrivilegeList.paginated ? roleFieldPrivilegeList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_roleFieldPrivilege" value="#{records}" id="roleFieldPrivilegeList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'roleFieldPrivilegeView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="roleFieldPrivilege.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_roleFieldPrivilege.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('readAccess', 'roleFieldPrivilegeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.roleFieldPrivilege_readAccess}"/>  
+              <ui:param name="propertyPath" value="roleFieldPrivilege.readAccess"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_roleFieldPrivilege.readAccess? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('writeAccess', 'roleFieldPrivilegeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.roleFieldPrivilege_writeAccess}"/>  
+              <ui:param name="propertyPath" value="roleFieldPrivilege.writeAccess"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_roleFieldPrivilege.writeAccess? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('appRole', 'roleFieldPrivilegeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.roleFieldPrivilege_appRole}"/>  
+              <ui:param name="propertyPath" value="roleFieldPrivilege.appRole"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_roleFieldPrivilege.appRole.displayName}" view="/admin/entities/users/appRole/viewAppRole.xhtml" propagation="none"> 
+            <f:param name="appRoleId" value="#{_roleFieldPrivilege.appRole.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column groupOn="#{roleFieldPrivilege.metaField.displayName}" rendered="#{s:hasPermission('metaField', 'roleFieldPrivilegeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.roleFieldPrivilege_metaField}"/>  
+              <ui:param name="propertyPath" value="roleFieldPrivilege.metaField"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_roleFieldPrivilege.metaField.displayName}" view="/admin/entities/customReports/metaField/viewMetaField.xhtml" propagation="none"> 
+            <f:param name="metaFieldId" value="#{_roleFieldPrivilege.metaField.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'roleFieldPrivilegeView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="roleFieldPrivilege.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_roleFieldPrivilege.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_roleFieldPrivilege', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/managedsecurity/roleFieldPrivilege/viewRoleFieldPrivilege.xhtml" rendered="#{s:hasPermission(_roleFieldPrivilege, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="roleFieldPrivilegeId" value="#{_roleFieldPrivilege.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_roleFieldPrivilege', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/managedsecurity/roleFieldPrivilege/editRoleFieldPrivilege.xhtml" rendered="#{s:hasPermission(_roleFieldPrivilege, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="roleFieldPrivilegeId" value="#{_roleFieldPrivilege.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('roleFieldPrivilegeAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{roleFieldPrivilegeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_roleFieldPrivilege.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_roleFieldPrivilege.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{roleFieldPrivilegeAction.setRoleFieldPrivilegeIdForModalDlg(_roleFieldPrivilege.id)}" rendered="#{s:hasPermission(_roleFieldPrivilege, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{roleFieldPrivilegeList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{roleFieldPrivilegeList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{roleFieldPrivilegeList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{roleFieldPrivilegeList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{roleFieldPrivilegeList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{roleFieldPrivilegeList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{roleFieldPrivilegeList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>
