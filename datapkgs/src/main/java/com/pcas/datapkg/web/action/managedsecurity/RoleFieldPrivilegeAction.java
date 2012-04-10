@@ -1,7 +1,4 @@
-
-	
 package com.pcas.datapkg.web.action.managedsecurity;
-	
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,15 +32,41 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
 import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.seam.security.AccountPermission;
 
 import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-	
 //@Scope(ScopeType.CONVERSATION)
 @Name("roleFieldPrivilegeAction")
-public class RoleFieldPrivilegeAction extends RoleFieldPrivilegeActionBase implements java.io.Serializable{
-	
+public class RoleFieldPrivilegeAction extends RoleFieldPrivilegeActionBase
+		implements java.io.Serializable {
+
+	public static final String USER = "user";
+	public static final String ROLE = "role";
+
+	@Override
+	public String save() {
+
+		if (instance.getWriteAccess()) {
+			createAccountPermission("edit");
+		}
+		if (instance.getReadAccess()) {
+			createAccountPermission("view");
+		}
+
+		return super.save();
+	}
+
+	private void createAccountPermission(String action) {
+		AccountPermission accountPermission = new AccountPermission();
+
+		accountPermission.setAction(action);
+		accountPermission.setTarget(instance.getMetaField().getMetaEntity().getName());
+		accountPermission.setDiscriminator(ROLE);
+		accountPermission.setRecipient(instance.getAppRole().getName());
+
+		getEntityManager().persist(accountPermission);
+	}
 }
-	
