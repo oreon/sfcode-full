@@ -17,12 +17,11 @@
 				<f:facet name="header">
 					<h:outputText value="Manage Access" />
 				</f:facet>
-
-				<h:form>
-
+				
 					<ui:repeat var="entity"
 						value="#{metaEntityList.resultListWithRoleFields}">
-
+						
+						<h:form>
 
 						<rich:panel>
 							<f:facet name="header">
@@ -38,9 +37,11 @@
 								<tr>
 
 									<ui:repeat var="fld" value="#{entity.listMetaFields}">
-										<td><ui:repeat var="fldRole" value="#{fld.listRoleFieldPrivileges}">
+										<td>
+											<ui:repeat var="fldRole" value="#{fld.listRoleFieldPrivileges}">
 										
 											<h:outputText value="#{fldRole.appRole.displayName}" />
+											<br/>
 											<s:decorate id="readAccessDecorate"
 												template="/layout/edit.xhtml">
 												<ui:define name="label">
@@ -71,18 +72,21 @@
 													<rich:ajaxValidator event="onsubmit" />
 												</h:selectBooleanCheckbox>
 											</s:decorate>
-										</ui:repeat></td>
+										</ui:repeat>
+										</td>
 									</ui:repeat>
 
 								</tr>
 							</table>
+							
+							<h:commandButton value="Save"  action="#{metaEntityAction.persist(entity)}" />
 
 						</rich:panel>
-
+						</h:form>
 
 					</ui:repeat>
 
-				</h:form>
+				
 			</rich:panel>
 
 
