@@ -33,7 +33,7 @@ public class MetaEntityAction extends MetaEntityActionBase implements java.io.Se
 		
 		if(instance == null ) return;
 		
-		Set<MetaField> flds = instance.getMetaFields();
+		List<MetaField> flds = instance.getListMetaFields();
 
 		for (MetaField metaField : flds) {
 
@@ -45,6 +45,8 @@ public class MetaEntityAction extends MetaEntityActionBase implements java.io.Se
 					metaField.addRoleFieldPrivilege(roleFieldPrivilege);
 				}
 			}
+			
+			listMetaFields.add(metaField);
 		}
 	}
 	
@@ -61,7 +63,7 @@ public class MetaEntityAction extends MetaEntityActionBase implements java.io.Se
 	public String save() {
 		
 
-		Set<MetaField> flds = instance.getMetaFields();
+		List<MetaField> flds = listMetaFields;
 
 		for (MetaField metaField : flds) {
 			
