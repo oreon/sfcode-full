@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
-  <ui:define name="content"> 
-    <h:form> 
-      <ui:include src="/admin/entities/customReports/metaEntity/editMetaEntityComponent.xhtml"/>  
-      <div class="buttonBox"> 
-        <h:commandButton value="Save" action="#{metaEntityAction.save}"></h:commandButton>  
-        <h:outputText value=" "/>  
-        <h:commandButton value="Cancel" immediate="true" action="#{metaEntityAction.cancel}"></h:commandButton> 
-      </div> 
-    </h:form> 
-  </ui:define> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{metaEntityAction.metaEntity.displayName}" />
+				</f:facet>
+				
+				   <rich:dataTable id="metaFields" var="_metaField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldsEdit')}" value="#{metaEntityAction.listMetaFields}" 
+				   rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all" /> 
+   
+
+				<table border="1">
+					<tr>
+						<ui:repeat var="fld" value="#{metaEntityAction.metaEntity.listMetaFields}">
+							<th><h:outputText value="#{fld.displayName}" /></th>
+						</ui:repeat>
+					</tr>
+					<tr>
+
+						<ui:repeat var="fld" value="#{metaEntityAction.metaEntity.listMetaFields}">
+							<td><ui:repeat var="fldRole"
+								value="#{fld.listRoleFieldPrivileges}">
+
+								<h:outputText value="#{fldRole.appRole.displayName}" />
+								<br />
+								<s:decorate id="readAccessDecorate"
+									template="/layout/edit.xhtml">
+									<ui:define name="label">
+										<h:outputText value="#{msg.roleFieldPrivilege_readAccess}  "
+											rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}" />
+									</ui:define>
+									<h:selectBooleanCheckbox id="readAccess#{entityId}"
+										rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"
+										label="#{msg.roleFieldPrivilege_readAccess}" required="false"
+										disabled="false" value="#{fldRole.readAccess}">
+										<rich:ajaxValidator event="onsubmit" />
+									</h:selectBooleanCheckbox>
+								</s:decorate>
+								<s:decorate id="writeAccessDecorate"
+									template="/layout/edit.xhtml">
+									<ui:define name="label">
+										<h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  "
+											rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}" />
+									</ui:define>
+									<h:selectBooleanCheckbox id="writeAccess#{entityId}"
+										rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}"
+										label="#{msg.roleFieldPrivilege_writeAccess}" required="false"
+										disabled="false" value="#{fldRole.writeAccess}">
+										<rich:ajaxValidator event="onsubmit" />
+									</h:selectBooleanCheckbox>
+								</s:decorate>
+							</ui:repeat></td>
+						</ui:repeat>
+
+					</tr>
+				</table>
+
+			</rich:panel>
+
+
+			<div class="buttonBox"><h:commandButton value="Save"
+				action="#{metaEntityAction.save}"></h:commandButton> <h:outputText
+				value=" " /> <h:commandButton value="Cancel" immediate="true"
+				action="#{metaEntityAction.cancel}"></h:commandButton></div>
+		</h:form>
+	</ui:define>
 </ui:composition>
