@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import org.jboss.seam.annotations.security.permission.PermissionAction;
 import org.jboss.seam.annotations.security.permission.PermissionDiscriminator;
@@ -15,6 +15,7 @@ import org.jboss.seam.annotations.security.permission.PermissionUser;
 
 
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"recipient", "target", "action", "discriminator"}))
 public class AccountPermission implements Serializable {
 
 	/**
