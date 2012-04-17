@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -62,6 +64,32 @@ public class Nurse extends com.oreon.cerebrum.employee.Employee
 			java.io.Serializable {
 	private static final long serialVersionUID = -613325953L;
 
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "nurseSpecialty_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected NurseSpecialty nurseSpecialty
+
+	;
+
+	public void setNurseSpecialty(NurseSpecialty nurseSpecialty) {
+		this.nurseSpecialty = nurseSpecialty;
+	}
+
+	public NurseSpecialty getNurseSpecialty() {
+
+		return nurseSpecialty;
+
+	}
+
+	@Transient
+	public String getDisplayName() {
+		try {
+			return nurseSpecialty + "";
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}
@@ -81,6 +109,10 @@ public class Nurse extends com.oreon.cerebrum.employee.Employee
 	@Analyzer(definition = "entityAnalyzer")
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
+
+		if (getNurseSpecialty() != null)
+			builder.append("nurseSpecialty:"
+					+ getNurseSpecialty().getDisplayName() + " ");
 
 		return builder.toString();
 	}

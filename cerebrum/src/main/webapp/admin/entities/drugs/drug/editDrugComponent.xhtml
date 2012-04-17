@@ -7,13 +7,13 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDrug eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Drug}"/> 
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.drug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'nameEdit')}"/>
+            <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'nameEdit')}"/>
           </ui:define>  
           <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'nameEdit')}" label="#{msg.drug_name}" required="true" disabled="false" value="#{drugAction.drug.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -149,7 +149,7 @@
         </s:decorate>  
         <s:decorate id="drugBankIdDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.drug_drugBankId} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugBankIdEdit')}"/>
+            <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugBankIdEdit')}"/>
           </ui:define>  
           <h:inputText id="drugBankId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugBankIdEdit')}" label="#{msg.drug_drugBankId}" required="true" disabled="false" value="#{drugAction.drug.drugBankId}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -163,7 +163,7 @@
       <rich:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugInteractionsEdit')}" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.drugInteraction_interactingDrug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"/>
+            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"/>
           </f:facet>  
           <s:decorate id="interactingDrugDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
@@ -206,9 +206,9 @@
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{drugAction.deleteDrugInteractions(rowIndex)}" reRender="drugInteractions"> 
+          <h:commandButton value="Delete" immediate="true" action="#{drugAction.deleteDrugInteractions(rowIndex)}" reRender="drugInteractions"> 
             <s:conversationId/> 
-          </a:commandButton> 
+          </h:commandButton> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

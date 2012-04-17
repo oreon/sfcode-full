@@ -18,6 +18,7 @@ import org.jboss.seam.framework.Home;
 import org.jboss.seam.resteasy.ResourceHome;
 import org.jboss.seam.resteasy.ResourceQuery;
 
+import java.util.Date;
 import java.util.List;
 
 import com.oreon.cerebrum.facility.Room;

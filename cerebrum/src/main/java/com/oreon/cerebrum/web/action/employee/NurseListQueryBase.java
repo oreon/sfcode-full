@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.employee.Nurse;
 
 /**
@@ -50,6 +52,7 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 	}
 
 	private Range<Date> dateOfBirthRange = new Range<Date>();
+
 	public Range<Date> getDateOfBirthRange() {
 		return dateOfBirthRange;
 	}
@@ -83,6 +86,8 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 
 			"lower(nurse.contactDetails.email) like concat(lower(#{nurseList.nurse.contactDetails.email}),'%')",
 
+			"nurse.nurseSpecialty.id = #{nurseList.nurse.nurseSpecialty.id}",
+
 			"nurse.dateCreated <= #{nurseList.dateCreatedRange.end}",
 			"nurse.dateCreated >= #{nurseList.dateCreatedRange.begin}",};
 
@@ -97,6 +102,10 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Nurse e) {
 
+		builder.append("\""
+				+ (e.getNurseSpecialty() != null ? e.getNurseSpecialty()
+						.getDisplayName().replace(",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -105,6 +114,8 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 	 */
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("NurseSpecialty" + ",");
 
 		builder.append("\r\n");
 	}

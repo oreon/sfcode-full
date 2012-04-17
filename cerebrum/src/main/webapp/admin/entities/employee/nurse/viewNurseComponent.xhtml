@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelNurse eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Nurse}"/> 
         </f:facet>  
@@ -22,12 +22,17 @@
         <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'genderView')}"/>  
         <h:outputText value="#{nurseAction.nurse.gender}"/>  
         <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'ageView')}"/>  
-        <h:outputText id="age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'ageView')}" value="#{nurseAction.nurse.age}"></h:outputText> 
+        <h:outputText id="age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'ageView')}" value="#{nurseAction.nurse.age}"></h:outputText>  
+        <h:outputText value="#{msg.nurse_nurseSpecialty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'nurseSpecialtyView')}"/>  
+        <s:link value="#{nurseAction.nurse.nurseSpecialty.displayName}" action="viewnurseSpecialty" propagation="none"> 
+          <f:param name="nurseSpecialtyId" value="#{nurseAction.nurse.nurseSpecialty.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.AppUser}"/> 
         </f:facet>  
@@ -41,7 +46,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.ContactDetails}"/> 
         </f:facet>  

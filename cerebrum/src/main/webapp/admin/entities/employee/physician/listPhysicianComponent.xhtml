@@ -143,6 +143,19 @@
           </f:facet>  
           <h:outputText value="#{_physician.age}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('specialization', 'physicianView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.physician_specialization}"/>  
+              <ui:param name="propertyPath" value="physician.specialization"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_physician.specialization.displayName}" view="/admin/entities/employee/specialization/viewSpecialization.xhtml" propagation="none"> 
+            <f:param name="specializationId" value="#{_physician.specialization.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'physicianView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

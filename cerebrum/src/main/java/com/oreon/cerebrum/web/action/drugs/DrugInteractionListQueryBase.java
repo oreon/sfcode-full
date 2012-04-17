@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.drugs.DrugInteraction;
 
 /**
@@ -60,11 +62,13 @@ public abstract class DrugInteractionListQueryBase
 
 			"drugInteraction.interactingDrug.id = #{drugInteractionList.drugInteraction.interactingDrug.id}",
 
+			"drugInteraction.severity = #{drugInteractionList.drugInteraction.severity}",
+
 			"drugInteraction.dateCreated <= #{drugInteractionList.dateCreatedRange.end}",
 			"drugInteraction.dateCreated >= #{drugInteractionList.dateCreatedRange.begin}",};
 
 	public List<DrugInteraction> getDrugInteractionsByDrug(
-			com.oreon.cerebrum.drugs.Drug drug) {	
+			com.oreon.cerebrum.drugs.Drug drug) {
 		//setMaxResults(10000);
 		drugInteraction.setDrug(drug);
 		return getResultList();
@@ -93,6 +97,9 @@ public abstract class DrugInteractionListQueryBase
 				+ (e.getInteractingDrug() != null ? e.getInteractingDrug()
 						.getDisplayName().replace(",", "") : "") + "\",");
 
+		builder.append("\"" + (e.getSeverity() != null ? e.getSeverity() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -107,6 +114,8 @@ public abstract class DrugInteractionListQueryBase
 		builder.append("Drug" + ",");
 
 		builder.append("InteractingDrug" + ",");
+
+		builder.append("Severity" + ",");
 
 		builder.append("\r\n");
 	}

@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.appointment.Appointment;
 
 /**
@@ -52,6 +54,7 @@ public abstract class AppointmentListQueryBase
 	}
 
 	private Range<Date> startRange = new Range<Date>();
+
 	public Range<Date> getStartRange() {
 		return startRange;
 	}
@@ -60,11 +63,21 @@ public abstract class AppointmentListQueryBase
 	}
 
 	private Range<Date> endRange = new Range<Date>();
+
 	public Range<Date> getEndRange() {
 		return endRange;
 	}
 	public void setEnd(Range<Date> endRange) {
 		this.endRange = endRange;
+	}
+
+	private Range<Integer> unitsRange = new Range<Integer>();
+
+	public Range<Integer> getUnitsRange() {
+		return unitsRange;
+	}
+	public void setUnits(Range<Integer> unitsRange) {
+		this.unitsRange = unitsRange;
 	}
 
 	private static final String[] RESTRICTIONS = {
@@ -81,6 +94,9 @@ public abstract class AppointmentListQueryBase
 			"appointment.patient.id = #{appointmentList.appointment.patient.id}",
 
 			"lower(appointment.remarks) like concat(lower(#{appointmentList.appointment.remarks}),'%')",
+
+			"appointment.units >= #{appointmentList.unitsRange.begin}",
+			"appointment.units <= #{appointmentList.unitsRange.end}",
 
 			"appointment.dateCreated <= #{appointmentList.dateCreatedRange.end}",
 			"appointment.dateCreated >= #{appointmentList.dateCreatedRange.begin}",};
@@ -114,6 +130,9 @@ public abstract class AppointmentListQueryBase
 						? e.getRemarks().replace(",", "")
 						: "") + "\",");
 
+		builder.append("\"" + (e.getUnits() != null ? e.getUnits() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -132,6 +151,8 @@ public abstract class AppointmentListQueryBase
 		builder.append("Patient" + ",");
 
 		builder.append("Remarks" + ",");
+
+		builder.append("Units" + ",");
 
 		builder.append("\r\n");
 	}

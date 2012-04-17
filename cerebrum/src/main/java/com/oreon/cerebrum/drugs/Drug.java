@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -459,6 +461,126 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 			return description;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getAbsorptionAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(absorption
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return absorption != null ? absorption : "";
+		}
+	}
+
+	@Transient
+	public String getBiotransformationAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					biotransformation.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return biotransformation != null ? biotransformation : "";
+		}
+	}
+
+	@Transient
+	public String getContraIndicationAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					contraIndication.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return contraIndication != null ? contraIndication : "";
+		}
+	}
+
+	@Transient
+	public String getDescriptionAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(description
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return description != null ? description : "";
+		}
+	}
+
+	@Transient
+	public String getFoodInteractionsAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					foodInteractions.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return foodInteractions != null ? foodInteractions : "";
+		}
+	}
+
+	@Transient
+	public String getHalfLifeAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					halfLife.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return halfLife != null ? halfLife : "";
+		}
+	}
+
+	@Transient
+	public String getIndicationAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(indication
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return indication != null ? indication : "";
+		}
+	}
+
+	@Transient
+	public String getMechanismOfActionAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					mechanismOfAction.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return mechanismOfAction != null ? mechanismOfAction : "";
+		}
+	}
+
+	@Transient
+	public String getPatientInfoAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(patientInfo
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return patientInfo != null ? patientInfo : "";
+		}
+	}
+
+	@Transient
+	public String getPharmacologyAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(pharmacology
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return pharmacology != null ? pharmacology : "";
+		}
+	}
+
+	@Transient
+	public String getToxicityAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					toxicity.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return toxicity != null ? toxicity : "";
+		}
+	}
+
+	@Transient
+	public String getRouteOfEliminationAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					routeOfElimination.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return routeOfElimination != null ? routeOfElimination : "";
 		}
 	}
 

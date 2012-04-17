@@ -7,13 +7,13 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelNurse eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Nurse}"/> 
         </f:facet>  
         <s:decorate id="employeeNumberDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'employeeNumberEdit')}"/>
+            <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'employeeNumberEdit')}"/>
           </ui:define>  
           <h:inputText id="employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'employeeNumberEdit')}" label="#{msg.employee_employeeNumber}" required="true" disabled="false" value="#{nurseAction.nurse.employeeNumber}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="firstNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'firstNameEdit')}"/>
+            <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'firstNameEdit')}"/>
           </ui:define>  
           <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'firstNameEdit')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{nurseAction.nurse.firstName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -29,7 +29,7 @@
         </s:decorate>  
         <s:decorate id="lastNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'lastNameEdit')}"/>
+            <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'lastNameEdit')}"/>
           </ui:define>  
           <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'lastNameEdit')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{nurseAction.nurse.lastName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -53,18 +53,28 @@
             <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="nurseSpecialtyDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.nurse_nurseSpecialty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'nurseSpecialtyEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="nurseSpecialty" label="#{msg.nurse_nurseSpecialty}" value="#{nurseAction.nurse.nurseSpecialty}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'nurseSpecialtyEdit')}" disabled="false"> 
+            <s:selectItems value="#{nurseSpecialtyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
         </s:decorate> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.AppUser}"/> 
         </f:facet>  
         <s:decorate id="appUser_userNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'userNameEdit')}"/>
+            <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'userNameEdit')}"/>
           </ui:define>  
           <h:inputText id="appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'userNameEdit')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{nurseAction.nurse.appUser.userName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -72,7 +82,7 @@
         </s:decorate>  
         <s:decorate id="appUser_passwordDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.appUser_password} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'passwordEdit')}"/>
+            <h:outputText value="#{msg.appUser_password}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'passwordEdit')}"/>
           </ui:define>  
           <h:inputSecret redisplay="true" id="appUser_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'passwordEdit')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{nurseAction.nurse.appUser.password}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -88,7 +98,7 @@
         </s:decorate>  
         <s:decorate id="appUser_emailDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'emailEdit')}"/>
+            <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'emailEdit')}"/>
           </ui:define>  
           <h:inputText id="appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'emailEdit')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{nurseAction.nurse.appUser.email}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -98,7 +108,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.ContactDetails}"/> 
         </f:facet>  

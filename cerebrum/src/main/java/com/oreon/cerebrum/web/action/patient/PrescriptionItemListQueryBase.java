@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.patient.PrescriptionItem;
 
 /**
@@ -52,6 +54,7 @@ public abstract class PrescriptionItemListQueryBase
 	}
 
 	private Range<Double> qtyRange = new Range<Double>();
+
 	public Range<Double> getQtyRange() {
 		return qtyRange;
 	}
@@ -60,6 +63,7 @@ public abstract class PrescriptionItemListQueryBase
 	}
 
 	private Range<Integer> durationRange = new Range<Integer>();
+
 	public Range<Integer> getDurationRange() {
 		return durationRange;
 	}

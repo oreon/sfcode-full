@@ -41,7 +41,7 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-import com.oreon.cerebrum.facility.Room;
+import com.oreon.cerebrum.facility.Ward;
 
 public abstract class FacilityActionBase extends BaseAction<Facility>
 		implements
@@ -138,7 +138,7 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	 */
 	public void loadAssociations() {
 
-		initListRooms();
+		initListWards();
 
 	}
 
@@ -146,52 +146,52 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 
 	}
 
-	protected List<com.oreon.cerebrum.facility.Room> listRooms = new ArrayList<com.oreon.cerebrum.facility.Room>();
+	protected List<com.oreon.cerebrum.facility.Ward> listWards = new ArrayList<com.oreon.cerebrum.facility.Ward>();
 
-	void initListRooms() {
+	void initListWards() {
 
-		if (listRooms.isEmpty())
-			listRooms.addAll(getInstance().getRooms());
+		if (listWards.isEmpty())
+			listWards.addAll(getInstance().getWards());
 
 	}
 
-	public List<com.oreon.cerebrum.facility.Room> getListRooms() {
+	public List<com.oreon.cerebrum.facility.Ward> getListWards() {
 
-		prePopulateListRooms();
-		return listRooms;
+		prePopulateListWards();
+		return listWards;
 	}
 
-	public void prePopulateListRooms() {
+	public void prePopulateListWards() {
 	}
 
-	public void setListRooms(List<com.oreon.cerebrum.facility.Room> listRooms) {
-		this.listRooms = listRooms;
+	public void setListWards(List<com.oreon.cerebrum.facility.Ward> listWards) {
+		this.listWards = listWards;
 	}
 
-	public void deleteRooms(int index) {
-		listRooms.remove(index);
+	public void deleteWards(int index) {
+		listWards.remove(index);
 	}
 
 	@Begin(join = true)
-	public void addRooms() {
-		initListRooms();
-		Room rooms = new Room();
+	public void addWards() {
+		initListWards();
+		Ward wards = new Ward();
 
-		rooms.setFacility(getInstance());
+		wards.setFacility(getInstance());
 
-		getListRooms().add(rooms);
+		getListWards().add(wards);
 	}
 
 	public void updateComposedAssociations() {
 
-		if (listRooms != null) {
-			getInstance().getRooms().clear();
-			getInstance().getRooms().addAll(listRooms);
+		if (listWards != null) {
+			getInstance().getWards().clear();
+			getInstance().getWards().addAll(listWards);
 		}
 	}
 
 	public void clearLists() {
-		listRooms.clear();
+		listWards.clear();
 
 	}
 

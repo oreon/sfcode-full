@@ -7,13 +7,13 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFrequecy eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Frequecy}"/> 
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.frequecy_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'nameEdit')}"/>
+            <h:outputText value="#{msg.frequecy_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'nameEdit')}"/>
           </ui:define>  
           <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'nameEdit')}" label="#{msg.frequecy_name}" required="true" disabled="false" value="#{frequecyAction.frequecy.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 

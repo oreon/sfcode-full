@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -138,6 +140,16 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 			return name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getNotesAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(notes.trim(),
+					100, 200, "...");
+		} catch (Exception e) {
+			return notes != null ? notes : "";
 		}
 	}
 

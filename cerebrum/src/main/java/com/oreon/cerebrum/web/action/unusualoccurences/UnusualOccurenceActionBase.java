@@ -56,6 +56,9 @@ public abstract class UnusualOccurenceActionBase
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
+	@In(create = true, value = "employeeAction")
+	com.oreon.cerebrum.web.action.employee.EmployeeAction createdByAction;
+
 	@DataModel
 	private List<UnusualOccurence> unusualOccurenceRecordList;
 
@@ -107,6 +110,9 @@ public abstract class UnusualOccurenceActionBase
 	}
 
 	public void setCreatedById(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setCreatedBy(createdByAction.loadFromId(id));
 
 	}
 
@@ -160,6 +166,12 @@ public abstract class UnusualOccurenceActionBase
 				.getDefinedInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
+		}
+
+		com.oreon.cerebrum.employee.Employee createdBy = createdByAction
+				.getDefinedInstance();
+		if (createdBy != null && isNew()) {
+			getInstance().setCreatedBy(createdBy);
 		}
 
 	}
@@ -219,6 +231,10 @@ public abstract class UnusualOccurenceActionBase
 
 		if (unusualOccurence.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+		}
+
+		if (unusualOccurence.getCreatedBy() != null) {
+			createdByAction.setInstance(getInstance().getCreatedBy());
 		}
 
 	}

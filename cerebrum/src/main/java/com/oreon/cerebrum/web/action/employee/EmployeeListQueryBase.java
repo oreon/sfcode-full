@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.employee.Employee;
 
 /**
@@ -28,7 +30,7 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 	private static final String EJBQL = "select employee from Employee employee";
 
-	protected Employee employee = new com.oreon.cerebrum.employee.Physician();
+	protected Employee employee = new Employee();
 
 	public Employee getEmployee() {
 		return employee;
@@ -50,6 +52,7 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	}
 
 	private Range<Date> dateOfBirthRange = new Range<Date>();
+
 	public Range<Date> getDateOfBirthRange() {
 		return dateOfBirthRange;
 	}

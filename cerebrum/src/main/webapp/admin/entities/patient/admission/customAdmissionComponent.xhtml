@@ -7,7 +7,7 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.admission_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="patient" value="#{admissionAction.admission.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
@@ -26,15 +26,6 @@
         <br/>  
         <rich:calendar id="dischargeDate" value="#{admissionAction.admission.dischargeDate}"/>  
         <rich:message styleClass="error errors" for="dischargeDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeDateEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}"/>  
-        <br/>  
-        <h:selectOneMenu id="bed" value="#{admissionAction.admission.bed}"> 
-          <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

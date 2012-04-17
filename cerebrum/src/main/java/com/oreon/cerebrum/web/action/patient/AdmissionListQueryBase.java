@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.patient.Admission;
 
 /**
@@ -50,6 +52,7 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 	}
 
 	private Range<Date> dischargeDateRange = new Range<Date>();
+
 	public Range<Date> getDischargeDateRange() {
 		return dischargeDateRange;
 	}
@@ -67,8 +70,6 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 			"admission.dischargeDate >= #{admissionList.dischargeDateRange.begin}",
 			"admission.dischargeDate <= #{admissionList.dischargeDateRange.end}",
 
-			"admission.bed.id = #{admissionList.admission.bed.id}",
-
 			"admission.dateCreated <= #{admissionList.dateCreatedRange.end}",
 			"admission.dateCreated >= #{admissionList.dateCreatedRange.begin}",};
 
@@ -76,12 +77,6 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 			com.oreon.cerebrum.patient.Patient patient) {
 		//setMaxResults(10000);
 		admission.setPatient(patient);
-		return getResultList();
-	}
-
-	public List<Admission> getAdmissionByBed(com.oreon.cerebrum.facility.Bed bed) {
-		//setMaxResults(10000);
-		admission.setBed(bed);
 		return getResultList();
 	}
 
@@ -108,10 +103,6 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 				+ (e.getDischargeDate() != null ? e.getDischargeDate() : "")
 				+ "\",");
 
-		builder.append("\""
-				+ (e.getBed() != null ? e.getBed().getDisplayName().replace(
-						",", "") : "") + "\",");
-
 		builder.append("\r\n");
 	}
 
@@ -126,8 +117,6 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 		builder.append("Notes" + ",");
 
 		builder.append("DischargeDate" + ",");
-
-		builder.append("Bed" + ",");
 
 		builder.append("\r\n");
 	}

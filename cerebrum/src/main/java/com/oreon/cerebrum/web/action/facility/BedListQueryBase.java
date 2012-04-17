@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.facility.Bed;
 
 /**
@@ -55,7 +57,7 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 
 	"lower(bed.name) like concat(lower(#{bedList.bed.name}),'%')",
 
-	"bed.admission.id = #{bedList.bed.admission.id}",
+	"bed.patient.id = #{bedList.bed.patient.id}",
 
 	"bed.dateCreated <= #{bedList.dateCreatedRange.end}",
 			"bed.dateCreated >= #{bedList.dateCreatedRange.begin}",};
@@ -63,13 +65,6 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 	public List<Bed> getBedsByRoom(com.oreon.cerebrum.facility.Room room) {
 		//setMaxResults(10000);
 		bed.setRoom(room);
-		return getResultList();
-	}
-
-	public List<Bed> getBedByAdmission(
-			com.oreon.cerebrum.patient.Admission admission) {
-		//setMaxResults(10000);
-		bed.setAdmission(admission);
 		return getResultList();
 	}
 
@@ -93,7 +88,7 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getAdmission() != null ? e.getAdmission().getDisplayName()
+				+ (e.getPatient() != null ? e.getPatient().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
@@ -109,7 +104,7 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 
 		builder.append("Name" + ",");
 
-		builder.append("Admission" + ",");
+		builder.append("Patient" + ",");
 
 		builder.append("\r\n");
 	}

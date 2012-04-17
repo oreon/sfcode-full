@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -71,21 +73,21 @@ public class Facility extends BusinessEntity implements java.io.Serializable {
 	//@JoinColumn(name = "facility_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
-	private Set<Room> rooms = new HashSet<Room>();
+	private Set<Ward> wards = new HashSet<Ward>();
 
-	public void addRoom(Room room) {
-		room.setFacility(this);
-		this.rooms.add(room);
+	public void addWard(Ward ward) {
+		ward.setFacility(this);
+		this.wards.add(ward);
 	}
 
 	@Transient
-	public List<com.oreon.cerebrum.facility.Room> getListRooms() {
-		return new ArrayList<com.oreon.cerebrum.facility.Room>(rooms);
+	public List<com.oreon.cerebrum.facility.Ward> getListWards() {
+		return new ArrayList<com.oreon.cerebrum.facility.Ward>(wards);
 	}
 
 	//JSF Friendly function to get count of collections
-	public int getRoomsCount() {
-		return rooms.size();
+	public int getWardsCount() {
+		return wards.size();
 	}
 
 	public void setName(String name) {
@@ -98,12 +100,12 @@ public class Facility extends BusinessEntity implements java.io.Serializable {
 
 	}
 
-	public void setRooms(Set<Room> rooms) {
-		this.rooms = rooms;
+	public void setWards(Set<Ward> wards) {
+		this.wards = wards;
 	}
 
-	public Set<Room> getRooms() {
-		return rooms;
+	public Set<Ward> getWards() {
+		return wards;
 	}
 
 	@Transient
@@ -129,7 +131,7 @@ public class Facility extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("name");
 
-		listSearchableFields.add("rooms.name");
+		listSearchableFields.add("wards.name");
 
 		return listSearchableFields;
 	}
@@ -141,7 +143,7 @@ public class Facility extends BusinessEntity implements java.io.Serializable {
 
 		builder.append(getName() + " ");
 
-		for (BusinessEntity e : rooms) {
+		for (BusinessEntity e : wards) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.facility.Room;
 
 /**
@@ -52,17 +54,18 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 	private static final String[] RESTRICTIONS = {
 			"room.id = #{roomList.room.id}",
 
-			"room.facility.id = #{roomList.room.facility.id}",
-
 			"lower(room.name) like concat(lower(#{roomList.room.name}),'%')",
+
+			"room.roomType.id = #{roomList.room.roomType.id}",
+
+			"room.ward.id = #{roomList.room.ward.id}",
 
 			"room.dateCreated <= #{roomList.dateCreatedRange.end}",
 			"room.dateCreated >= #{roomList.dateCreatedRange.begin}",};
 
-	public List<Room> getRoomsByFacility(
-			com.oreon.cerebrum.facility.Facility facility) {
+	public List<Room> getRoomsByWard(com.oreon.cerebrum.facility.Ward ward) {
 		//setMaxResults(10000);
-		room.setFacility(facility);
+		room.setWard(ward);
 		return getResultList();
 	}
 
@@ -78,12 +81,16 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 	public void createCsvString(StringBuilder builder, Room e) {
 
 		builder.append("\""
-				+ (e.getFacility() != null ? e.getFacility().getDisplayName()
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getRoomType() != null ? e.getRoomType().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getName() != null ? e.getName().replace(",", "") : "")
-				+ "\",");
+				+ (e.getWard() != null ? e.getWard().getDisplayName().replace(
+						",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -94,9 +101,11 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
-		builder.append("Facility" + ",");
-
 		builder.append("Name" + ",");
+
+		builder.append("RoomType" + ",");
+
+		builder.append("Ward" + ",");
 
 		builder.append("\r\n");
 	}

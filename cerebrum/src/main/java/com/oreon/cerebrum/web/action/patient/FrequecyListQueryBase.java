@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.patient.Frequecy;
 
 /**
@@ -50,6 +52,7 @@ public abstract class FrequecyListQueryBase extends BaseQuery<Frequecy, Long> {
 	}
 
 	private Range<Integer> qtyPerDayRange = new Range<Integer>();
+
 	public Range<Integer> getQtyPerDayRange() {
 		return qtyPerDayRange;
 	}

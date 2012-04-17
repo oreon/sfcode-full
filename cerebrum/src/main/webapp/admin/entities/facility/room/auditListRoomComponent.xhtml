@@ -31,18 +31,27 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.room_facility}"/> 
+          <h:outputText value="#{msg.room_name}"/> 
         </f:facet>  
-        <s:link value="#{_log.entity.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml"> 
-          <f:param name="id" value="#{_entity.facility.id}"/>  
+        <h:outputText value="#{_log.entity.name}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.room_roomType}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml"> 
+          <f:param name="id" value="#{_entity.roomType.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.room_name}"/> 
+          <h:outputText value="#{msg.room_ward}"/> 
         </f:facet>  
-        <h:outputText value="#{_log.entity.name}"/> 
+        <s:link value="#{_log.entity.ward.displayName}" view="/admin/entities/facility/ward/viewWard.xhtml"> 
+          <f:param name="id" value="#{_entity.ward.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

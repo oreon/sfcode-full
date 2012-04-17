@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.patient.Patient;
 
 /**
@@ -50,6 +52,7 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 	}
 
 	private Range<Date> dateOfBirthRange = new Range<Date>();
+
 	public Range<Date> getDateOfBirthRange() {
 		return dateOfBirthRange;
 	}

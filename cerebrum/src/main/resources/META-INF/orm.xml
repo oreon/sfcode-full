@@ -88,6 +88,23 @@
 			]]> </query> 
     </named-query> 
   </entity>  
+  <!--  TrackedVital  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.TrackedVital" name="TrackedVital"> 
+    <table name="trackedvital"></table>  
+    <named-query name="trackedVital.findByUnqName"> 
+      <query> <![CDATA[
+			select u from TrackedVital u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  VitalValue  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.VitalValue" name="VitalValue"> 
+    <table name="vitalvalue"></table> 
+  </entity>  
+  <!--  BedStay  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.patient.BedStay" name="BedStay"> 
+    <table name="bedstay"></table> 
+  </entity>  
   <!--  UnusualOccurence  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.unusualoccurences.UnusualOccurence" name="UnusualOccurence"> 
     <table name="unusualoccurence"></table> 
@@ -126,6 +143,24 @@
   <entity class="com.oreon.cerebrum.employee.Clerk" name="Clerk"> 
     <table name="clerk"></table> 
   </entity>  
+  <!--  Specialization  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.Specialization" name="Specialization"> 
+    <table name="specialization"></table>  
+    <named-query name="specialization.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Specialization u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  NurseSpecialty  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.employee.NurseSpecialty" name="NurseSpecialty"> 
+    <table name="nursespecialty"></table>  
+    <named-query name="nurseSpecialty.findByUnqName"> 
+      <query> <![CDATA[
+			select u from NurseSpecialty u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
   <!--  AppUser  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.users.AppUser" name="AppUser"> 
     <table name="appuser"></table>  
@@ -162,9 +197,22 @@
     <table name="bed"></table>  
     <named-query name="getAvailableBeds"> 
       <query> <![CDATA[
-			select b from Bed b where b.admission is null
+			select b from Bed b where b.patient is null
 			]]> </query> 
     </named-query> 
+  </entity>  
+  <!--  Ward  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.facility.Ward" name="Ward"> 
+    <table name="ward"></table>  
+    <named-query name="ward.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Ward u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  RoomType  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.facility.RoomType" name="RoomType"> 
+    <table name="roomtype"></table> 
   </entity>  
   <!--  Appointment  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.appointment.Appointment" name="Appointment"> 

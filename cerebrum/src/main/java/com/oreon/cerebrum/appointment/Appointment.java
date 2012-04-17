@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -66,7 +68,7 @@ public class Appointment extends BusinessEntity implements java.io.Serializable 
 
 	;
 
-	@Column(unique = false)
+	@Column(name = "end", unique = false)
 	protected Date end
 
 	;
@@ -90,6 +92,11 @@ public class Appointment extends BusinessEntity implements java.io.Serializable 
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String remarks
+
+	;
+
+	@Column(unique = false)
+	protected Integer units = 1
 
 	;
 
@@ -143,12 +150,32 @@ public class Appointment extends BusinessEntity implements java.io.Serializable 
 
 	}
 
+	public void setUnits(Integer units) {
+		this.units = units;
+	}
+
+	public Integer getUnits() {
+
+		return units;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
 			return start + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getRemarksAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(remarks.trim(),
+					100, 200, "...");
+		} catch (Exception e) {
+			return remarks != null ? remarks : "";
 		}
 	}
 

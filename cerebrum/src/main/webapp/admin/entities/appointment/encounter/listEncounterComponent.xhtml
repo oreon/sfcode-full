@@ -58,7 +58,8 @@
               <ui:param name="propertyPath" value="encounter.notes"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_encounter.notes}" escape="false"/> 
+          <rich:toolTip value="#{_encounter.notes}" for="notesAbbr"></rich:toolTip>  
+          <h:outputText id="notesAbbr" value="#{_encounter.notesAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'encounterView' )}"> 
           <f:facet name="header"> 

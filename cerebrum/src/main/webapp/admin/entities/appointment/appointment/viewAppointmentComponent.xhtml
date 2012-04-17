@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppointment eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Appointment}"/> 
         </f:facet>  
@@ -17,6 +17,8 @@
         <h:outputText direction="auto" id="end#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'endView')}" value="#{appointmentAction.appointment.end}"></h:outputText>  
         <h:outputText value="#{msg.appointment_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'remarksView')}"/>  
         <h:outputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'remarksView')}" value="#{appointmentAction.appointment.remarks}"></h:outputText>  
+        <h:outputText value="#{msg.appointment_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'unitsView')}"/>  
+        <h:outputText id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'unitsView')}" value="#{appointmentAction.appointment.units}"></h:outputText>  
         <h:outputText value="#{msg.appointment_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'physicianView')}"/>  
         <s:link value="#{appointmentAction.appointment.physician.displayName}" action="viewphysician" propagation="none"> 
           <f:param name="physicianId" value="#{appointmentAction.appointment.physician.id}"/>  

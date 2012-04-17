@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.billing.Service;
 
 /**
@@ -50,6 +52,7 @@ public abstract class ServiceListQueryBase extends BaseQuery<Service, Long> {
 	}
 
 	private Range<Double> priceRange = new Range<Double>();
+
 	public Range<Double> getPriceRange() {
 		return priceRange;
 	}

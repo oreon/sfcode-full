@@ -28,25 +28,34 @@
 			</rich:toolBarGroup>
 
 			<rich:toolBarGroup>
-				<h:graphicImage  value="/images/icons/eye.png" />
-				<s:link action="issue"
-					value="Issues" />
+				<h:graphicImage value="/images/icons/eye.png" />
+				<s:link action="patient" value="Patients" />
 			</rich:toolBarGroup>
-			
-			
+
+
 			<rich:toolBarGroup>
-				<h:graphicImage  value="/images/icons/add.png" />
-				<s:link action="editPrescription"
-					value="New Precription" >
-					 <f:param name="prescriptionId" value="0"/> 
+				<h:graphicImage value="/images/icons/add.png" />
+				<s:link action="editPrescription" propagation="end"
+					value="New Precription">
+					<f:param name="prescriptionId" value="0" />
 				</s:link>
 			</rich:toolBarGroup>
-			
-	
+
+
 
 			<rich:toolBarGroup location="right">
 				<s:link action="#{identity.logout}" view="/login.xhtml"
 					value="Logout #{identity.credentials.username}" propagation="none" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
+				<h:graphicImage value="/images/icons/clock.png" />
+				<s:link view="/admin/calendar.xhtml" value="Appointments" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
+				<h:graphicImage value="/images/icons/clock.png" />
+				<s:link view="/admin/admit.xhtml" value="Admissions" />
 			</rich:toolBarGroup>
 
 			<rich:toolBarGroup location="right">
@@ -58,14 +67,17 @@
 			</rich:toolBarGroup>
 
 
+
+
 			<rich:toolBarGroup location="right">
-				
-					<h:inputText styleClass="barsearch" value="#{issueList.textToSearch}" required="true" />
-					<h:commandButton styleClass="barsearchbutton"
-						action="#{issueList.textSearch}" value="Search" >
-						<s:conversationPropagation type="join"></s:conversationPropagation> 
-					</h:commandButton>
-				
+
+				<h:inputText styleClass="barsearch"
+					value="#{issueList.textToSearch}" required="true" />
+				<h:commandButton styleClass="barsearchbutton"
+					action="#{issueList.textSearch}" value="Search">
+					<s:conversationPropagation type="join"></s:conversationPropagation>
+				</h:commandButton>
+
 			</rich:toolBarGroup>
 
 		</rich:toolBar>

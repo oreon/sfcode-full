@@ -82,7 +82,18 @@
               <ui:param name="propertyPath" value="appointment.remarks"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_appointment.remarks}" escape="false"/> 
+          <rich:toolTip value="#{_appointment.remarks}" for="remarksAbbr"></rich:toolTip>  
+          <h:outputText id="remarksAbbr" value="#{_appointment.remarksAbbreviated}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('units', 'appointmentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{appointmentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.appointment_units}"/>  
+              <ui:param name="propertyPath" value="appointment.units"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_appointment.units}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'appointmentView' )}"> 
           <f:facet name="header"> 

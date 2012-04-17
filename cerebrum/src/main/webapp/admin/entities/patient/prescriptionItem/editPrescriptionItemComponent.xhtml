@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPrescriptionItem eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.PrescriptionItem}"/> 
         </f:facet>  
@@ -25,9 +25,10 @@
           </ui:define>  
           <h:selectOneMenu id="route" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'routeEdit')}" value="#{prescriptionItemAction.prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-            <f:selectItem itemValue="PIO" itemLabel="#{msg.PIO}"/>  
-            <f:selectItem itemValue="IM" itemLabel="#{msg.IM}"/>  
+            <f:selectItem itemValue="PO" itemLabel="#{msg.PO}"/>  
             <f:selectItem itemValue="IV" itemLabel="#{msg.IV}"/>  
+            <f:selectItem itemValue="IM" itemLabel="#{msg.IM}"/>  
+            <f:selectItem itemValue="SC" itemLabel="#{msg.SC}"/>  
             <f:selectItem itemValue="TOPICAL" itemLabel="#{msg.TOPICAL}"/>  
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
@@ -50,7 +51,7 @@
         </s:decorate>  
         <s:decorate id="drugDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_drug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'drugEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'drugEdit')}"/>
           </ui:define>  
           <h:panelGroup> 
             <a:region> 
@@ -68,7 +69,7 @@
         </s:decorate>  
         <s:decorate id="prescriptionDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_prescription} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'prescriptionEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'prescriptionEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="prescription" label="#{msg.prescriptionItem_prescription}" value="#{prescriptionItemAction.prescriptionItem.prescription}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'prescriptionEdit')}" disabled="false"> 
             <s:selectItems value="#{prescriptionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -78,7 +79,7 @@
         </s:decorate>  
         <s:decorate id="frequecyDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_frequecy} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_frequecy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="frequecy" label="#{msg.prescriptionItem_frequecy}" value="#{prescriptionItemAction.prescriptionItem.frequecy}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}" disabled="false"> 
             <s:selectItems value="#{frequecyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

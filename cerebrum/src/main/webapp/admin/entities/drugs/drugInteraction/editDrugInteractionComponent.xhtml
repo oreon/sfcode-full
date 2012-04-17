@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDrugInteraction eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.DrugInteraction}"/> 
         </f:facet>  
@@ -33,7 +33,7 @@
         </s:decorate>  
         <s:decorate id="drugDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.drugInteraction_drug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugEdit')}"/>
+            <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="drug" label="#{msg.drugInteraction_drug}" value="#{drugInteractionAction.drugInteraction.drug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugEdit')}" disabled="false"> 
             <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -43,7 +43,7 @@
         </s:decorate>  
         <s:decorate id="interactingDrugDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.drugInteraction_interactingDrug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"/>
+            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="interactingDrug" label="#{msg.drugInteraction_interactingDrug}" value="#{drugInteractionAction.drugInteraction.interactingDrug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}" disabled="false"> 
             <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

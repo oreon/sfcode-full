@@ -91,6 +91,15 @@
           <h:outputText value="#{msg.person_age}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.contactDetails.age}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.physician_specialization}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.contactDetails.specialization.displayName}" view="/admin/entities/employee/specialization/viewSpecialization.xhtml"> 
+          <f:param name="id" value="#{_entity.contactDetails.specialization.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

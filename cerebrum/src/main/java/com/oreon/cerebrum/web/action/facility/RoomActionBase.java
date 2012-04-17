@@ -52,8 +52,11 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	@DataModelSelection
 	private Room room;
 
-	@In(create = true, value = "facilityAction")
-	com.oreon.cerebrum.web.action.facility.FacilityAction facilityAction;
+	@In(create = true, value = "roomTypeAction")
+	com.oreon.cerebrum.web.action.facility.RoomTypeAction roomTypeAction;
+
+	@In(create = true, value = "wardAction")
+	com.oreon.cerebrum.web.action.facility.WardAction wardAction;
 
 	@DataModel
 	private List<Room> roomRecordList;
@@ -79,16 +82,29 @@ public abstract class RoomActionBase extends BaseAction<Room>
 		loadAssociations();
 	}
 
-	public void setFacilityId(Long id) {
+	public void setRoomTypeId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setFacility(facilityAction.loadFromId(id));
+			getInstance().setRoomType(roomTypeAction.loadFromId(id));
 
 	}
 
-	public Long getFacilityId() {
-		if (getInstance().getFacility() != null)
-			return getInstance().getFacility().getId();
+	public Long getRoomTypeId() {
+		if (getInstance().getRoomType() != null)
+			return getInstance().getRoomType().getId();
+		return 0L;
+	}
+
+	public void setWardId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setWard(wardAction.loadFromId(id));
+
+	}
+
+	public Long getWardId() {
+		if (getInstance().getWard() != null)
+			return getInstance().getWard().getId();
 		return 0L;
 	}
 
@@ -126,10 +142,15 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.facility.Facility facility = facilityAction
+		com.oreon.cerebrum.facility.RoomType roomType = roomTypeAction
 				.getDefinedInstance();
-		if (facility != null && isNew()) {
-			getInstance().setFacility(facility);
+		if (roomType != null && isNew()) {
+			getInstance().setRoomType(roomType);
+		}
+
+		com.oreon.cerebrum.facility.Ward ward = wardAction.getDefinedInstance();
+		if (ward != null && isNew()) {
+			getInstance().setWard(ward);
 		}
 
 	}
@@ -160,9 +181,14 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (room.getFacility() != null) {
-			criteria = criteria.add(Restrictions.eq("facility.id", room
-					.getFacility().getId()));
+		if (room.getRoomType() != null) {
+			criteria = criteria.add(Restrictions.eq("roomType.id", room
+					.getRoomType().getId()));
+		}
+
+		if (room.getWard() != null) {
+			criteria = criteria.add(Restrictions.eq("ward.id", room.getWard()
+					.getId()));
 		}
 
 	}
@@ -173,8 +199,12 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	 */
 	public void loadAssociations() {
 
-		if (room.getFacility() != null) {
-			facilityAction.setInstance(getInstance().getFacility());
+		if (room.getRoomType() != null) {
+			roomTypeAction.setInstance(getInstance().getRoomType());
+		}
+
+		if (room.getWard() != null) {
+			wardAction.setInstance(getInstance().getWard());
 		}
 
 		initListBeds();

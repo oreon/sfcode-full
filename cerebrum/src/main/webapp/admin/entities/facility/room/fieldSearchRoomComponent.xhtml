@@ -6,17 +6,25 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.room_facility} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'facilityEdit')}"/>  
+      <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="facility" value="#{ roomList.room.facility}"> 
-        <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:inputText id="name" value="#{roomList.room.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="roomType" value="#{ roomList.room.roomType}"> 
+        <s:selectItems value="#{roomTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>  
+      <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"/>  
       <br/>  
-      <h:inputText id="name" value="#{roomList.room.name}"/> 
+      <h:selectOneMenu id="ward" value="#{ roomList.room.ward}"> 
+        <s:selectItems value="#{wardList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

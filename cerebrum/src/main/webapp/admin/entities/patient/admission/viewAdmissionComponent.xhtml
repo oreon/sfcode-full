@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAdmission eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Admission}"/> 
         </f:facet>  
@@ -22,14 +22,32 @@
           <rich:toolTip> 
             <span>#{admissionAction.admission.patient.popupInfo}</span> 
           </rich:toolTip> 
-        </s:link>  
-        <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedView')}"/>  
-        <s:link value="#{admissionAction.admission.bed.displayName}" action="viewbed" propagation="none"> 
-          <f:param name="bedId" value="#{admissionAction.admission.bed.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <br/>  
+      <rich:dataTable id="bedStays" var="_bedStay" rendered="#{not empty admissionAction.listBedStays and skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedStaysView') }" value="#{admissionAction.listBedStays}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedView')}"/> 
+          </f:facet>  
+          <s:link value="#{_bedStay.bed.displayName}" action="viewbed" propagation="none"> 
+            <f:param name="bedId" value="#{_bedStay.bed.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'fromDateView')}"/> 
+          </f:facet>  
+          <h:outputText direction="auto" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'fromDateView')}" value="#{_bedStay.fromDate}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'toDateView')}"/> 
+          </f:facet>  
+          <h:outputText direction="auto" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'toDateView')}" value="#{_bedStay.toDate}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
       <br/> 
     </s:validateAll> 
   </h:panelGroup> 

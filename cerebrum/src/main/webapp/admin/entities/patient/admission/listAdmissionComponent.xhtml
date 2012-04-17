@@ -45,7 +45,8 @@
               <ui:param name="propertyPath" value="admission.notes"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_admission.notes}" escape="false"/> 
+          <rich:toolTip value="#{_admission.notes}" for="notesAbbr"></rich:toolTip>  
+          <h:outputText id="notesAbbr" value="#{_admission.notesAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('dischargeDate', 'admissionView'  )}"> 
           <f:facet name="header"> 
@@ -58,19 +59,6 @@
           <h:outputText value="#{_admission.dischargeDate}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('bed', 'admissionView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{admissionList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.admission_bed}"/>  
-              <ui:param name="propertyPath" value="admission.bed"/> 
-            </ui:include> 
-          </f:facet>  
-          <s:link value="#{_admission.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
-            <f:param name="bedId" value="#{_admission.bed.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'admissionView' )}"> 
           <f:facet name="header"> 

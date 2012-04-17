@@ -41,6 +41,8 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.oreon.cerebrum.patient.BedStay;
+
 public abstract class AdmissionActionBase extends BaseAction<Admission>
 		implements
 			java.io.Serializable {
@@ -52,9 +54,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
-
-	@In(create = true, value = "bedAction")
-	com.oreon.cerebrum.web.action.facility.BedAction bedAction;
 
 	@DataModel
 	private List<Admission> admissionRecordList;
@@ -90,19 +89,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	public Long getPatientId() {
 		if (getInstance().getPatient() != null)
 			return getInstance().getPatient().getId();
-		return 0L;
-	}
-
-	public void setBedId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setBed(bedAction.loadFromId(id));
-
-	}
-
-	public Long getBedId() {
-		if (getInstance().getBed() != null)
-			return getInstance().getBed().getId();
 		return 0L;
 	}
 
@@ -146,11 +132,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 			getInstance().setPatient(patient);
 		}
 
-		com.oreon.cerebrum.facility.Bed bed = bedAction.getDefinedInstance();
-		if (bed != null && isNew()) {
-			getInstance().setBed(bed);
-		}
-
 	}
 
 	public boolean isWired() {
@@ -184,11 +165,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 					.getPatient().getId()));
 		}
 
-		if (admission.getBed() != null) {
-			criteria = criteria.add(Restrictions.eq("bed.id", admission
-					.getBed().getId()));
-		}
-
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -201,9 +177,7 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 			patientAction.setInstance(getInstance().getPatient());
 		}
 
-		if (admission.getBed() != null) {
-			bedAction.setInstance(getInstance().getBed());
-		}
+		initListBedStays();
 
 	}
 
@@ -211,10 +185,53 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 
 	}
 
+	protected List<com.oreon.cerebrum.patient.BedStay> listBedStays = new ArrayList<com.oreon.cerebrum.patient.BedStay>();
+
+	void initListBedStays() {
+
+		if (listBedStays.isEmpty())
+			listBedStays.addAll(getInstance().getBedStays());
+
+	}
+
+	public List<com.oreon.cerebrum.patient.BedStay> getListBedStays() {
+
+		prePopulateListBedStays();
+		return listBedStays;
+	}
+
+	public void prePopulateListBedStays() {
+	}
+
+	public void setListBedStays(
+			List<com.oreon.cerebrum.patient.BedStay> listBedStays) {
+		this.listBedStays = listBedStays;
+	}
+
+	public void deleteBedStays(int index) {
+		listBedStays.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addBedStays() {
+		initListBedStays();
+		BedStay bedStays = new BedStay();
+
+		bedStays.setAdmission(getInstance());
+
+		getListBedStays().add(bedStays);
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listBedStays != null) {
+			getInstance().getBedStays().clear();
+			getInstance().getBedStays().addAll(listBedStays);
+		}
 	}
 
 	public void clearLists() {
+		listBedStays.clear();
 
 	}
 

@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -62,6 +64,32 @@ public class Physician extends com.oreon.cerebrum.employee.Employee
 			java.io.Serializable {
 	private static final long serialVersionUID = -268681712L;
 
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "specialization_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected Specialization specialization
+
+	;
+
+	public void setSpecialization(Specialization specialization) {
+		this.specialization = specialization;
+	}
+
+	public Specialization getSpecialization() {
+
+		return specialization;
+
+	}
+
+	@Transient
+	public String getDisplayName() {
+		try {
+			return specialization + "";
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
+	}
+
 	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}
@@ -81,6 +109,10 @@ public class Physician extends com.oreon.cerebrum.employee.Employee
 	@Analyzer(definition = "entityAnalyzer")
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
+
+		if (getSpecialization() != null)
+			builder.append("specialization:"
+					+ getSpecialization().getDisplayName() + " ");
 
 		return builder.toString();
 	}

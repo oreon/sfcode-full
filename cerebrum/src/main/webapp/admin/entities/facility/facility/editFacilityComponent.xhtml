@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFacility eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Facility}"/> 
         </f:facet>  
@@ -21,30 +21,44 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New Room" action="#{facilityAction.addRooms}" reRender="rooms" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'roomsEdit')}"> 
+      <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'wardsEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="rooms" var="_room" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'roomsEdit')}" value="#{facilityAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="wards" var="_ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'wardsEdit')}" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>
+            <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameEdit')}"/>
           </f:facet>  
           <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}" label="#{msg.room_name}" required="true" disabled="false" value="#{_room.name}"> 
+            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameEdit')}" label="#{msg.ward_name}" required="true" disabled="false" value="#{_ward.name}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'genderEdit')}"/>
+          </f:facet>  
+          <s:decorate id="genderDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'genderEdit')}" value="#{_ward.gender}" required="false" label="#{msg.ward_gender}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+              <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
         <h:column> 
-          <a:commandButton value="New Room" action="#{facilityAction.addRooms}" reRender="rooms" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomsEdit')}"> 
+          <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'wardsEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{facilityAction.deleteRooms(rowIndex)}" reRender="rooms"> 
+          <h:commandButton value="Delete" immediate="true" action="#{facilityAction.deleteWards(rowIndex)}" reRender="wards"> 
             <s:conversationId/> 
-          </a:commandButton> 
+          </h:commandButton> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

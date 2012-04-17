@@ -7,20 +7,37 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelRoom eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Room}"/> 
         </f:facet>  
         <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameView')}"/>  
         <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameView')}" value="#{roomAction.room.name}"></h:outputText>  
-        <h:outputText value="#{msg.room_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'facilityView')}"/>  
-        <s:link value="#{roomAction.room.facility.displayName}" action="viewfacility" propagation="none"> 
-          <f:param name="facilityId" value="#{roomAction.room.facility.id}"/>  
+        <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeView')}"/>  
+        <s:link value="#{roomAction.room.roomType.displayName}" action="viewroomType" propagation="none"> 
+          <f:param name="roomTypeId" value="#{roomAction.room.roomType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardView')}"/>  
+        <s:link value="#{roomAction.room.ward.displayName}" action="viewward" propagation="none"> 
+          <f:param name="wardId" value="#{roomAction.room.ward.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="beds" var="_bed" rendered="#{not empty roomAction.listBeds and skipPermissionCheck == 'true' || s:hasPermission('room', 'bedsView') }" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bed_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'patientView')}"/> 
+          </f:facet>  
+          <s:link value="#{_bed.patient.displayName}" action="viewpatient" propagation="none"> 
+            <f:param name="patientId" value="#{_bed.patient.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_bed.patient.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
         <h:column>
           <f:facet name="header"> 
             <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameView')}"/> 

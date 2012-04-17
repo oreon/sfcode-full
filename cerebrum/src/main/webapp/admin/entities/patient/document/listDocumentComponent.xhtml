@@ -54,7 +54,8 @@
               <ui:param name="propertyPath" value="document.notes"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_document.notes}" escape="false"/> 
+          <rich:toolTip value="#{_document.notes}" for="notesAbbr"></rich:toolTip>  
+          <h:outputText id="notesAbbr" value="#{_document.notesAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('patient', 'documentView'  )}"> 
           <f:facet name="header"> 

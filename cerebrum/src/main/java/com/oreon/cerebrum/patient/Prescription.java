@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -99,6 +101,11 @@ public class Prescription extends BusinessEntity
 
 	;
 
+	@Column(unique = false)
+	protected Boolean active
+
+	;
+
 	public void setPrescriptionItems(Set<PrescriptionItem> prescriptionItems) {
 		this.prescriptionItems = prescriptionItems;
 	}
@@ -127,12 +134,32 @@ public class Prescription extends BusinessEntity
 
 	}
 
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Boolean getActive() {
+
+		return active;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
 			return prescriptionItems + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getNotesAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(notes.trim(),
+					100, 200, "...");
+		} catch (Exception e) {
+			return notes != null ? notes : "";
 		}
 	}
 
