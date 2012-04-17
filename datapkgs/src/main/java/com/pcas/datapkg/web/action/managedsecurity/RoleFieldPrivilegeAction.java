@@ -1,5 +1,7 @@
 package com.pcas.datapkg.web.action.managedsecurity;
 
+import java.util.List;
+
 import org.apache.commons.lang.WordUtils;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.seam.security.AccountPermission;
@@ -17,25 +19,68 @@ public class RoleFieldPrivilegeAction extends RoleFieldPrivilegeActionBase
 	@Override
 	public String save() {
 
+		AccountPermission permission = findPermission("edit");
+
 		if (instance.getWriteAccess()) {
-			createAccountPermission("edit");
+			if (isNewPermission(permission))
+				createAccountPermission(permission);
+		} else {
+
+			if (!isNewPermission(permission))
+				removeAccountPermission(permission);
 		}
-		if (instance.getReadAccess()) {
-			createAccountPermission("view");
+		
+		permission = findPermission("view");
+
+		if (instance.getWriteAccess()) {
+			if (isNewPermission(permission))
+				createAccountPermission(permission);
+		} else {
+
+			if (!isNewPermission(permission))
+				removeAccountPermission(permission);
 		}
 
+		
 		return super.save();
 	}
 
-	private void createAccountPermission(String action) {
-		AccountPermission accountPermission = new AccountPermission();
+	private boolean isNewPermission(AccountPermission permission) {
+		return permission.getPermissionId() == null
+				|| permission.getPermissionId() == 0;
+	}
 
-		accountPermission.setAction(action + WordUtils.capitalize( instance.getMetaField().getName() ) );
-		accountPermission.setTarget(
-				WordUtils.uncapitalize(ProjectUtils.getSimpleName(instance.getMetaField().getMetaEntity().getDisplayName()) ) );
+	private void createAccountPermission(AccountPermission accountPermission) {
+
+		getEntityManager().persist(accountPermission);
+	}
+	
+	private void removeAccountPermission(AccountPermission accountPermission) {
+
+		getEntityManager().remove(accountPermission);
+	}
+
+	
+	private AccountPermission findPermission(String action) {
+
+		AccountPermission accountPermission = new AccountPermission();
+		accountPermission.setAction(action
+				+ WordUtils.capitalize(instance.getMetaField().getName()));
+		accountPermission.setTarget(WordUtils.uncapitalize(ProjectUtils
+				.getSimpleName(instance.getMetaField().getMetaEntity()
+						.getDisplayName())));
 		accountPermission.setDiscriminator(ROLE);
 		accountPermission.setRecipient(instance.getAppRole().getName());
 
-		getEntityManager().persist(accountPermission);
+		List<AccountPermission> permissions = executeNamedQuery(
+				"AccountPermission.findByPermission", accountPermission
+						.getRecipient(), accountPermission.getTarget(),
+				accountPermission.getAction(), accountPermission
+						.getDiscriminator());
+
+		if (!permissions.isEmpty())
+			return permissions.get(0);
+
+		return accountPermission;
 	}
 }
