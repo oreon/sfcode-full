@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPrescription eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Prescription}"/> 
         </f:facet>  
@@ -19,9 +19,17 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
+        <s:decorate id="activeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'activeEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'activeEdit')}" label="#{msg.prescription_active}" required="false" disabled="false" value="#{prescriptionAction.prescription.active}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
         <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescription_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'patientEdit')}"/>
+            <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'patientEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="patient" label="#{msg.prescription_patient}" value="#{prescriptionAction.prescription.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'patientEdit')}" disabled="false"> 
             <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -37,7 +45,7 @@
       <rich:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'prescriptionItemsEdit')}" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.prescriptionItem_drug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'drugEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'drugEdit')}"/>
           </f:facet>  
           <s:decorate id="drugDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
@@ -58,7 +66,7 @@
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.prescriptionItem_frequecy} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_frequecy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}"/>
           </f:facet>  
           <s:decorate id="frequecyDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
@@ -88,9 +96,10 @@
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="route" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'routeEdit')}" value="#{_prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
               <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-              <f:selectItem itemValue="PIO" itemLabel="#{msg.PIO}"/>  
-              <f:selectItem itemValue="IM" itemLabel="#{msg.IM}"/>  
+              <f:selectItem itemValue="PO" itemLabel="#{msg.PO}"/>  
               <f:selectItem itemValue="IV" itemLabel="#{msg.IV}"/>  
+              <f:selectItem itemValue="IM" itemLabel="#{msg.IM}"/>  
+              <f:selectItem itemValue="SC" itemLabel="#{msg.SC}"/>  
               <f:selectItem itemValue="TOPICAL" itemLabel="#{msg.TOPICAL}"/>  
               <rich:ajaxValidator event="onsubmit"/> 
             </h:selectOneMenu> 
@@ -124,9 +133,9 @@
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{prescriptionAction.deletePrescriptionItems(rowIndex)}" reRender="prescriptionItems"> 
+          <h:commandButton value="Delete" immediate="true" action="#{prescriptionAction.deletePrescriptionItems(rowIndex)}" reRender="prescriptionItems"> 
             <s:conversationId/> 
-          </a:commandButton> 
+          </h:commandButton> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

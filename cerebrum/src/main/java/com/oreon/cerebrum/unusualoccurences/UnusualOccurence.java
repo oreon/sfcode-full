@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -167,6 +169,16 @@ public class UnusualOccurence extends BusinessEntity
 			return occurenceType + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getDescriptionAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(description
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return description != null ? description : "";
 		}
 	}
 

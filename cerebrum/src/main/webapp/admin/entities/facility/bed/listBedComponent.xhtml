@@ -44,17 +44,20 @@
           </f:facet>  
           <h:outputText value="#{_bed.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('admission', 'bedView'  )}"> 
+        <h:column rendered="#{s:hasPermission('patient', 'bedView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.bed_admission}"/>  
-              <ui:param name="propertyPath" value="bed.admission"/> 
+              <ui:param name="propertyLabel" value="#{msg.bed_patient}"/>  
+              <ui:param name="propertyPath" value="bed.patient"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_bed.admission.displayName}" view="/admin/entities/patient/admission/viewAdmission.xhtml" propagation="none"> 
-            <f:param name="admissionId" value="#{_bed.admission.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
+          <s:link value="#{_bed.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+            <f:param name="patientId" value="#{_bed.patient.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_bed.patient.popupInfo}</span> 
+            </rich:toolTip> 
           </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'bedView' )}"> 

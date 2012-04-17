@@ -50,6 +50,9 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 	@DataModelSelection
 	private Nurse nurse;
 
+	@In(create = true, value = "nurseSpecialtyAction")
+	com.oreon.cerebrum.web.action.employee.NurseSpecialtyAction nurseSpecialtyAction;
+
 	@DataModel
 	private List<Nurse> nurseRecordList;
 
@@ -72,6 +75,20 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 		setId(id);
 		clearLists();
 		loadAssociations();
+	}
+
+	public void setNurseSpecialtyId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance()
+					.setNurseSpecialty(nurseSpecialtyAction.loadFromId(id));
+
+	}
+
+	public Long getNurseSpecialtyId() {
+		if (getInstance().getNurseSpecialty() != null)
+			return getInstance().getNurseSpecialty().getId();
+		return 0L;
 	}
 
 	public Long getNurseId() {
@@ -108,6 +125,12 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 	public void wire() {
 		getInstance();
 
+		com.oreon.cerebrum.employee.NurseSpecialty nurseSpecialty = nurseSpecialtyAction
+				.getDefinedInstance();
+		if (nurseSpecialty != null && isNew()) {
+			getInstance().setNurseSpecialty(nurseSpecialty);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -130,11 +153,28 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 		return Nurse.class;
 	}
 
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	@Override
+	public void addAssociations(Criteria criteria) {
+
+		if (nurse.getNurseSpecialty() != null) {
+			criteria = criteria.add(Restrictions.eq("nurseSpecialty.id", nurse
+					.getNurseSpecialty().getId()));
+		}
+
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
+
+		if (nurse.getNurseSpecialty() != null) {
+			nurseSpecialtyAction.setInstance(getInstance().getNurseSpecialty());
+		}
 
 	}
 

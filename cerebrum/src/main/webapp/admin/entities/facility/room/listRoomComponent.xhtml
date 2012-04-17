@@ -21,19 +21,6 @@
           </f:facet>  
           <h:outputText value="#{_room.id}"></h:outputText> 
         </h:column>  
-        <h:column groupOn="#{room.facility.displayName}" rendered="#{s:hasPermission('facility', 'roomView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{roomList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.room_facility}"/>  
-              <ui:param name="propertyPath" value="room.facility"/> 
-            </ui:include> 
-          </f:facet>  
-          <s:link value="#{_room.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
-            <f:param name="facilityId" value="#{_room.facility.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
-        </h:column>  
         <h:column rendered="#{s:hasPermission('name', 'roomView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -43,6 +30,32 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_room.name}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('roomType', 'roomView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{roomList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.room_roomType}"/>  
+              <ui:param name="propertyPath" value="room.roomType"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
+            <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column groupOn="#{room.ward.displayName}" rendered="#{s:hasPermission('ward', 'roomView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{roomList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.room_ward}"/>  
+              <ui:param name="propertyPath" value="room.ward"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_room.ward.displayName}" view="/admin/entities/facility/ward/viewWard.xhtml" propagation="none"> 
+            <f:param name="wardId" value="#{_room.ward.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'roomView' )}"> 
           <f:facet name="header"> 

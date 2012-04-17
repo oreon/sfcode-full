@@ -2,11 +2,13 @@ package com.oreon.cerebrum.patient;
 
 public enum Route {
 
-	PIO,
+	PO,
+
+	IV,
 
 	IM,
 
-	IV,
+	SC,
 
 	TOPICAL,
 

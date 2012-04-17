@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.drugs.Drug;
 
 /**
@@ -61,6 +63,7 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 	}
 
 	private Range<Double> halfLifeNumberOfHoursRange = new Range<Double>();
+
 	public Range<Double> getHalfLifeNumberOfHoursRange() {
 		return halfLifeNumberOfHoursRange;
 	}

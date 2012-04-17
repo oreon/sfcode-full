@@ -7,12 +7,14 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPrescription eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Prescription}"/> 
         </f:facet>  
         <h:outputText value="#{msg.prescription_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'notesView')}"/>  
         <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'notesView')}" value="#{prescriptionAction.prescription.notes}"></h:outputText>  
+        <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'activeView')}"/>  
+        <h:outputText id="active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'activeView')}" value="#{prescriptionAction.prescription.active}"></h:outputText>  
         <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'patientView')}"/>  
         <s:link value="#{prescriptionAction.prescription.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{prescriptionAction.prescription.patient.id}"/>  

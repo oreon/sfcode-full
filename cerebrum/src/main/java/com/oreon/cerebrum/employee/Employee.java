@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -52,9 +54,12 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "employee")
 @Filter(name = "archiveFilterDef")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Name("employee")
+@Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
+@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public abstract class Employee extends com.oreon.cerebrum.patient.Person
+public class Employee extends com.oreon.cerebrum.patient.Person
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = -426154292L;

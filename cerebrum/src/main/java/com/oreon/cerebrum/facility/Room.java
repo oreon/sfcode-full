@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -59,13 +61,6 @@ import com.oreon.cerebrum.ProjectUtils;
 @XmlRootElement
 public class Room extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 2085840692L;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "facility_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected Facility facility
-
-	;
 
 	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "room_ID", nullable = true)
@@ -97,15 +92,19 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 
 	;
 
-	public void setFacility(Facility facility) {
-		this.facility = facility;
-	}
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "roomType_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected RoomType roomType
 
-	public Facility getFacility() {
+	;
 
-		return facility;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ward_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Ward ward
 
-	}
+	;
 
 	public void setBeds(Set<Bed> beds) {
 		this.beds = beds;
@@ -122,6 +121,26 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 	public String getName() {
 
 		return name;
+
+	}
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+
+	public RoomType getRoomType() {
+
+		return roomType;
+
+	}
+
+	public void setWard(Ward ward) {
+		this.ward = ward;
+	}
+
+	public Ward getWard() {
+
+		return ward;
 
 	}
 
@@ -160,8 +179,11 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 
 		builder.append(getName() + " ");
 
-		if (getFacility() != null)
-			builder.append("facility:" + getFacility().getDisplayName() + " ");
+		if (getRoomType() != null)
+			builder.append("roomType:" + getRoomType().getDisplayName() + " ");
+
+		if (getWard() != null)
+			builder.append("ward:" + getWard().getDisplayName() + " ");
 
 		for (BusinessEntity e : beds) {
 			builder.append(e.getDisplayName() + " ");

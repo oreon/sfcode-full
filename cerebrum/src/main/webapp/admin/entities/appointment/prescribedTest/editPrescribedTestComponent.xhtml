@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPrescribedTest eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.PrescribedTest}"/> 
         </f:facet>  
@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="dxTestDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescribedTest_dxTest} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'dxTestEdit')}"/>
+            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'dxTestEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="dxTest" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'dxTestEdit')}" disabled="false"> 
             <s:selectItems value="#{dxTestList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -31,7 +31,7 @@
         </s:decorate>  
         <s:decorate id="encounterDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescribedTest_encounter} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'encounterEdit')}"/>
+            <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'encounterEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="encounter" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'encounterEdit')}" disabled="false"> 
             <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

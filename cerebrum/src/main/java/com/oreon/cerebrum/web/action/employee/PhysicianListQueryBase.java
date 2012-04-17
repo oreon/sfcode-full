@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.employee.Physician;
 
 /**
@@ -50,6 +52,7 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 	}
 
 	private Range<Date> dateOfBirthRange = new Range<Date>();
+
 	public Range<Date> getDateOfBirthRange() {
 		return dateOfBirthRange;
 	}
@@ -83,6 +86,8 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 
 			"lower(physician.contactDetails.email) like concat(lower(#{physicianList.physician.contactDetails.email}),'%')",
 
+			"physician.specialization.id = #{physicianList.physician.specialization.id}",
+
 			"physician.dateCreated <= #{physicianList.dateCreatedRange.end}",
 			"physician.dateCreated >= #{physicianList.dateCreatedRange.begin}",};
 
@@ -97,6 +102,10 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 	//@Override
 	public void createCsvString(StringBuilder builder, Physician e) {
 
+		builder.append("\""
+				+ (e.getSpecialization() != null ? e.getSpecialization()
+						.getDisplayName().replace(",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -105,6 +114,8 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 	 */
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Specialization" + ",");
 
 		builder.append("\r\n");
 	}

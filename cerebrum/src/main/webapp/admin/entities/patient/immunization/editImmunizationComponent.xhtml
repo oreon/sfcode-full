@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelImmunization eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Immunization}"/> 
         </f:facet>  
@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.immunization_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'patientEdit')}"/>
+            <h:outputText value="#{msg.immunization_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'patientEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="patient" label="#{msg.immunization_patient}" value="#{immunizationAction.immunization.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'patientEdit')}" disabled="false"> 
             <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -31,7 +31,7 @@
         </s:decorate>  
         <s:decorate id="vaccineDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.immunization_vaccine} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'vaccineEdit')}"/>
+            <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'vaccineEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="vaccine" label="#{msg.immunization_vaccine}" value="#{immunizationAction.immunization.vaccine}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'vaccineEdit')}" disabled="false"> 
             <s:selectItems value="#{vaccineList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

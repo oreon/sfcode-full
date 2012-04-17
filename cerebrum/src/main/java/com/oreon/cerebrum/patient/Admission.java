@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -78,12 +80,26 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 
 	;
 
-	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "bed_id", nullable = true, updatable = true)
-	@ContainedIn
-	protected com.oreon.cerebrum.facility.Bed bed
+	@OneToMany(mappedBy = "admission", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "admission_ID", nullable = false)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<BedStay> bedStays = new HashSet<BedStay>();
 
-	;
+	public void addBedStay(BedStay bedStay) {
+		bedStay.setAdmission(this);
+		this.bedStays.add(bedStay);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.patient.BedStay> getListBedStays() {
+		return new ArrayList<com.oreon.cerebrum.patient.BedStay>(bedStays);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getBedStaysCount() {
+		return bedStays.size();
+	}
 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
@@ -115,14 +131,12 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 
 	}
 
-	public void setBed(com.oreon.cerebrum.facility.Bed bed) {
-		this.bed = bed;
+	public void setBedStays(Set<BedStay> bedStays) {
+		this.bedStays = bedStays;
 	}
 
-	public com.oreon.cerebrum.facility.Bed getBed() {
-
-		return bed;
-
+	public Set<BedStay> getBedStays() {
+		return bedStays;
 	}
 
 	@Transient
@@ -131,6 +145,16 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 			return patient + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getNotesAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(notes.trim(),
+					100, 200, "...");
+		} catch (Exception e) {
+			return notes != null ? notes : "";
 		}
 	}
 
@@ -161,8 +185,9 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 		if (getPatient() != null)
 			builder.append("patient:" + getPatient().getDisplayName() + " ");
 
-		if (getBed() != null)
-			builder.append("bed:" + getBed().getDisplayName() + " ");
+		for (BusinessEntity e : bedStays) {
+			builder.append(e.getDisplayName() + " ");
+		}
 
 		return builder.toString();
 	}

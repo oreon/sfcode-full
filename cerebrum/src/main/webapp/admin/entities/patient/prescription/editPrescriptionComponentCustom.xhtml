@@ -12,6 +12,7 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 	<h:panelGroup id="editPrescriptionComponentPanel">
 		<br/>
+		<s:div style="background-color:pink; border: 1px solid red" id="ixmsgs" rendered="#{ prescriptionAction.interactions.size > 0 }">
 		<a:outputPanel id="interactionMsg" style="background-color:#fee">
 			<ul>
 			<c:forEach var="interaction" items="#{prescriptionAction.interactions}">
@@ -19,7 +20,9 @@
 			</c:forEach>
 			</ul>
 		</a:outputPanel>
-
+		</s:div>
+		<br/>
+		
 		<s:validateAll>
 			<h:panelGrid columns="1"
 				onload="#{prescriptionAction.load(prescriptionId )  }" />
@@ -82,7 +85,7 @@
 							<a:region>
 								<h:inputText value="#{_prescriptionItem.drug.displayName}"
 									label="#{msg.prescriptionItem_drug}" id="drug" required="true">
-									<a:support event="onchange" reRender="interactionMsg" />
+									<a:support event="onchange" reRender="ixmsgs" />
 								</h:inputText>
 								<rich:suggestionbox for="drug" rules="all"
 									suggestionAction="#{drugList.autocompletedb}" ajaxSingle="true"

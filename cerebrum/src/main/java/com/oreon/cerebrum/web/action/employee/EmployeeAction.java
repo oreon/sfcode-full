@@ -1,8 +1,8 @@
 
-		
-		package com.oreon.cerebrum.web.action.employee;
-		
-		
+	
+package com.oreon.cerebrum.web.action.employee;
+	
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +41,9 @@ import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
 	
-		import org.witchcraft.seam.action.BaseAction; 
-		import org.witchcraft.base.entity.BusinessEntity;
-		
-		public  abstract class EmployeeAction<T extends BusinessEntity> extends BaseAction<T> implements java.io.Serializable{
-			
-		}
+//@Scope(ScopeType.CONVERSATION)
+@Name("employeeAction")
+public class EmployeeAction extends EmployeeActionBase implements java.io.Serializable{
+	
+}
 	

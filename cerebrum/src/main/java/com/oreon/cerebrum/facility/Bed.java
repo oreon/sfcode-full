@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -76,10 +78,10 @@ public class Bed extends BusinessEntity implements java.io.Serializable {
 
 	;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "admission_id", nullable = false, updatable = true)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "patient_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected com.oreon.cerebrum.patient.Admission admission
+	protected com.oreon.cerebrum.patient.Patient patient
 
 	;
 
@@ -103,13 +105,13 @@ public class Bed extends BusinessEntity implements java.io.Serializable {
 
 	}
 
-	public void setAdmission(com.oreon.cerebrum.patient.Admission admission) {
-		this.admission = admission;
+	public void setPatient(com.oreon.cerebrum.patient.Patient patient) {
+		this.patient = patient;
 	}
 
-	public com.oreon.cerebrum.patient.Admission getAdmission() {
+	public com.oreon.cerebrum.patient.Patient getPatient() {
 
-		return admission;
+		return patient;
 
 	}
 
@@ -149,10 +151,8 @@ public class Bed extends BusinessEntity implements java.io.Serializable {
 		if (getRoom() != null)
 			builder.append("room:" + getRoom().getDisplayName() + " ");
 
-		if (getAdmission() != null)
-			builder
-					.append("admission:" + getAdmission().getDisplayName()
-							+ " ");
+		if (getPatient() != null)
+			builder.append("patient:" + getPatient().getDisplayName() + " ");
 
 		return builder.toString();
 	}

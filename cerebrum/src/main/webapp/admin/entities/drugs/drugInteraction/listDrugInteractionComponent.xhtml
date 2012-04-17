@@ -29,7 +29,8 @@
               <ui:param name="propertyPath" value="drugInteraction.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drugInteraction.description}" escape="false"/> 
+          <rich:toolTip value="#{_drugInteraction.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{_drugInteraction.descriptionAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column groupOn="#{drugInteraction.drug.displayName}" rendered="#{s:hasPermission('drug', 'drugInteractionView'  )}"> 
           <f:facet name="header"> 

@@ -124,6 +124,8 @@ public class MetaData {
 
 	"healthNumber", "java.lang.String",
 
+	"vitalValuesCount", "java.lang.Integer",
+
 	},
 
 	{"com.oreon.cerebrum.patient.Prescription",
@@ -133,6 +135,8 @@ public class MetaData {
 	"patient.displayName", "java.lang.String",
 
 	"notes", "java.lang.String",
+
+	"active", "java.lang.Boolean",
 
 	},
 
@@ -162,7 +166,7 @@ public class MetaData {
 
 	"dischargeDate", "java.util.Date",
 
-	"bed.displayName", "java.lang.String",
+	"bedStaysCount", "java.lang.Integer",
 
 	},
 
@@ -215,6 +219,36 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"qtyPerDay", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.patient.TrackedVital",
+
+	"name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.patient.VitalValue",
+
+	"remarks", "java.lang.String",
+
+	"value", "java.lang.Integer",
+
+	"trackedVital.displayName", "java.lang.String",
+
+	"patient.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.patient.BedStay",
+
+	"fromDate", "java.util.Date",
+
+	"toDate", "java.util.Date",
+
+	"admission.displayName", "java.lang.String",
+
+	"bed.displayName", "java.lang.String",
 
 	},
 
@@ -274,6 +308,8 @@ public class MetaData {
 
 	"appUser.displayName", "java.lang.String",
 
+	"specialization.displayName", "java.lang.String",
+
 	},
 
 	{"com.oreon.cerebrum.employee.Nurse",
@@ -283,6 +319,8 @@ public class MetaData {
 	"unusualOccurencesCount", "java.lang.Integer",
 
 	"appUser.displayName", "java.lang.String",
+
+	"nurseSpecialty.displayName", "java.lang.String",
 
 	},
 
@@ -303,6 +341,18 @@ public class MetaData {
 	"unusualOccurencesCount", "java.lang.Integer",
 
 	"appUser.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.employee.Specialization",
+
+	"name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.employee.NurseSpecialty",
+
+	"name", "java.lang.String",
 
 	},
 
@@ -332,17 +382,19 @@ public class MetaData {
 
 	"name", "java.lang.String",
 
-	"roomsCount", "java.lang.Integer",
+	"wardsCount", "java.lang.Integer",
 
 	},
 
 	{"com.oreon.cerebrum.facility.Room",
 
-	"facility.displayName", "java.lang.String",
-
 	"bedsCount", "java.lang.Integer",
 
 	"name", "java.lang.String",
+
+	"roomType.displayName", "java.lang.String",
+
+	"ward.displayName", "java.lang.String",
 
 	},
 
@@ -352,7 +404,29 @@ public class MetaData {
 
 	"name", "java.lang.String",
 
-	"admission.displayName", "java.lang.String",
+	"patient.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.facility.Ward",
+
+	"facility.displayName", "java.lang.String",
+
+	"roomsCount", "java.lang.Integer",
+
+	"name", "java.lang.String",
+
+	"gender.name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.facility.RoomType",
+
+	"name", "java.lang.String",
+
+	"description", "java.lang.String",
+
+	"rate", "java.lang.Double",
 
 	},
 
@@ -367,6 +441,8 @@ public class MetaData {
 	"patient.displayName", "java.lang.String",
 
 	"remarks", "java.lang.String",
+
+	"units", "java.lang.Integer",
 
 	},
 

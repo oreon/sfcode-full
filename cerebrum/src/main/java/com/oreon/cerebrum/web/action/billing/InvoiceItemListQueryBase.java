@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.billing.InvoiceItem;
 
 /**
@@ -52,6 +54,7 @@ public abstract class InvoiceItemListQueryBase
 	}
 
 	private Range<Integer> unitsRange = new Range<Integer>();
+
 	public Range<Integer> getUnitsRange() {
 		return unitsRange;
 	}

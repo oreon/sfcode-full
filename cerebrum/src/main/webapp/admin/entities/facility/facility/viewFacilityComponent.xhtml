@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFacility eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Facility}"/> 
         </f:facet>  
@@ -15,12 +15,18 @@
         <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'nameView')}" value="#{facilityAction.facility.name}"></h:outputText> 
       </h:panelGrid>  
       <br/>  
-      <rich:dataTable id="rooms" var="_room" rendered="#{not empty facilityAction.listRooms and skipPermissionCheck == 'true' || s:hasPermission('facility', 'roomsView') }" value="#{facilityAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="wards" var="_ward" rendered="#{not empty facilityAction.listWards and skipPermissionCheck == 'true' || s:hasPermission('facility', 'wardsView') }" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameView')}"/> 
+            <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameView')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameView')}" value="#{_room.name}"></h:outputText> 
+          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameView')}" value="#{_ward.name}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'genderView')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_ward.gender}"/> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

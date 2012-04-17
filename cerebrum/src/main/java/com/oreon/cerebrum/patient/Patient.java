@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -213,6 +215,27 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	;
 
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "patient_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<VitalValue> vitalValues = new HashSet<VitalValue>();
+
+	public void addVitalValue(VitalValue vitalValue) {
+		vitalValue.setPatient(this);
+		this.vitalValues.add(vitalValue);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.patient.VitalValue> getListVitalValues() {
+		return new ArrayList<com.oreon.cerebrum.patient.VitalValue>(vitalValues);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getVitalValuesCount() {
+		return vitalValues.size();
+	}
+
 	public void setAdmissions(Set<Admission> admissions) {
 		this.admissions = admissions;
 	}
@@ -280,6 +303,14 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 		return healthNumber;
 
+	}
+
+	public void setVitalValues(Set<VitalValue> vitalValues) {
+		this.vitalValues = vitalValues;
+	}
+
+	public Set<VitalValue> getVitalValues() {
+		return vitalValues;
 	}
 
 	@Transient
@@ -353,6 +384,10 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 		}
 
 		for (BusinessEntity e : immunizations) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BusinessEntity e : vitalValues) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

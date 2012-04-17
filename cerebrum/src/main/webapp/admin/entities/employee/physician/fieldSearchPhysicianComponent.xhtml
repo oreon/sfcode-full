@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'employeeNumberEdit')}"/>  
+      <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'employeeNumberEdit')}"/>  
       <br/>  
       <h:inputText id="employeeNumber" value="#{physicianList.physician.employeeNumber}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'userNameEdit')}"/>  
+      <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'userNameEdit')}"/>  
       <br/>  
       <h:inputText id="appUser_userName" value="#{physicianList.physician.appUser.userName}"/> 
     </h:panelGroup>  
@@ -25,17 +25,17 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'emailEdit')}"/>  
+      <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'emailEdit')}"/>  
       <br/>  
       <h:inputText id="appUser_email" value="#{physicianList.physician.appUser.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'firstNameEdit')}"/>  
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'firstNameEdit')}"/>  
       <br/>  
       <h:inputText id="firstName" value="#{physicianList.physician.firstName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'lastNameEdit')}"/>  
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'lastNameEdit')}"/>  
       <br/>  
       <h:inputText id="lastName" value="#{physicianList.physician.lastName}"/> 
     </h:panelGroup>  
@@ -72,6 +72,15 @@
       <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'emailEdit')}"/>  
       <br/>  
       <h:inputText id="contactDetails_email" value="#{physicianList.physician.contactDetails.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.physician_specialization}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'specializationEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="specialization" value="#{ physicianList.physician.specialization}"> 
+        <s:selectItems value="#{specializationList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

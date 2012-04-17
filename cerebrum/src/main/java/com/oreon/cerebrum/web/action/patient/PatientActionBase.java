@@ -47,6 +47,7 @@ import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
 import com.oreon.cerebrum.patient.Document;
 import com.oreon.cerebrum.patient.Allergy;
 import com.oreon.cerebrum.patient.Immunization;
+import com.oreon.cerebrum.patient.VitalValue;
 
 public abstract class PatientActionBase
 		extends
@@ -76,6 +77,9 @@ public abstract class PatientActionBase
 
 	@In(create = true, value = "immunizationAction")
 	com.oreon.cerebrum.web.action.patient.ImmunizationAction immunizationsAction;
+
+	@In(create = true, value = "vitalValueAction")
+	com.oreon.cerebrum.web.action.patient.VitalValueAction vitalValuesAction;
 
 	@DataModel
 	private List<Patient> patientRecordList;
@@ -175,6 +179,8 @@ public abstract class PatientActionBase
 
 		initListImmunizations();
 
+		initListVitalValues();
+
 	}
 
 	public void updateAssociations() {
@@ -208,6 +214,11 @@ public abstract class PatientActionBase
 				.getInstance("immunization");
 		immunizations.setPatient(patient);
 		events.raiseTransactionSuccessEvent("archivedImmunization");
+
+		com.oreon.cerebrum.patient.VitalValue vitalValues = (com.oreon.cerebrum.patient.VitalValue) org.jboss.seam.Component
+				.getInstance("vitalValue");
+		vitalValues.setPatient(patient);
+		events.raiseTransactionSuccessEvent("archivedVitalValue");
 
 	}
 
@@ -433,6 +444,43 @@ public abstract class PatientActionBase
 		getListImmunizations().add(immunizations);
 	}
 
+	protected List<com.oreon.cerebrum.patient.VitalValue> listVitalValues = new ArrayList<com.oreon.cerebrum.patient.VitalValue>();
+
+	void initListVitalValues() {
+
+		if (listVitalValues.isEmpty())
+			listVitalValues.addAll(getInstance().getVitalValues());
+
+	}
+
+	public List<com.oreon.cerebrum.patient.VitalValue> getListVitalValues() {
+
+		prePopulateListVitalValues();
+		return listVitalValues;
+	}
+
+	public void prePopulateListVitalValues() {
+	}
+
+	public void setListVitalValues(
+			List<com.oreon.cerebrum.patient.VitalValue> listVitalValues) {
+		this.listVitalValues = listVitalValues;
+	}
+
+	public void deleteVitalValues(int index) {
+		listVitalValues.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addVitalValues() {
+		initListVitalValues();
+		VitalValue vitalValues = new VitalValue();
+
+		vitalValues.setPatient(getInstance());
+
+		getListVitalValues().add(vitalValues);
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listAdmissions != null) {
@@ -464,6 +512,11 @@ public abstract class PatientActionBase
 			getInstance().getImmunizations().clear();
 			getInstance().getImmunizations().addAll(listImmunizations);
 		}
+
+		if (listVitalValues != null) {
+			getInstance().getVitalValues().clear();
+			getInstance().getVitalValues().addAll(listVitalValues);
+		}
 	}
 
 	public void clearLists() {
@@ -473,6 +526,7 @@ public abstract class PatientActionBase
 		listDocuments.clear();
 		listAllergys.clear();
 		listImmunizations.clear();
+		listVitalValues.clear();
 
 	}
 

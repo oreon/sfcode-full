@@ -204,6 +204,42 @@
         <redirect view-id="/admin/entities/patient/frequecy/editFrequecy.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="trackedVital"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/listTrackedVital.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewTrackedVital"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editTrackedVital"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/editTrackedVital.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="vitalValue"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/listVitalValue.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewVitalValue"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/viewVitalValue.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editVitalValue"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/editVitalValue.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="bedStay"> 
+        <redirect view-id="/admin/entities/patient/bedStay/listBedStay.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewBedStay"> 
+        <redirect view-id="/admin/entities/patient/bedStay/viewBedStay.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editBedStay"> 
+        <redirect view-id="/admin/entities/patient/bedStay/editBedStay.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="unusualOccurence"> 
         <redirect view-id="/admin/entities/unusualoccurences/unusualOccurence/listUnusualOccurence.xhtml"/>  
         <end-conversation/> 
@@ -288,6 +324,30 @@
         <redirect view-id="/admin/entities/employee/clerk/editClerk.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="specialization"> 
+        <redirect view-id="/admin/entities/employee/specialization/listSpecialization.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewSpecialization"> 
+        <redirect view-id="/admin/entities/employee/specialization/viewSpecialization.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editSpecialization"> 
+        <redirect view-id="/admin/entities/employee/specialization/editSpecialization.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="nurseSpecialty"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/listNurseSpecialty.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewNurseSpecialty"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editNurseSpecialty"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/editNurseSpecialty.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="appUser"> 
         <redirect view-id="/admin/entities/users/appUser/listAppUser.xhtml"/>  
         <end-conversation/> 
@@ -346,6 +406,30 @@
       </rule>  
       <rule if-outcome="editBed"> 
         <redirect view-id="/admin/entities/facility/bed/editBed.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="ward"> 
+        <redirect view-id="/admin/entities/facility/ward/listWard.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewWard"> 
+        <redirect view-id="/admin/entities/facility/ward/viewWard.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editWard"> 
+        <redirect view-id="/admin/entities/facility/ward/editWard.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="roomType"> 
+        <redirect view-id="/admin/entities/facility/roomType/listRoomType.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewRoomType"> 
+        <redirect view-id="/admin/entities/facility/roomType/viewRoomType.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editRoomType"> 
+        <redirect view-id="/admin/entities/facility/roomType/editRoomType.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="appointment"> 
@@ -742,7 +826,8 @@
     <param name="from"/>  
     <param name="id" value="#{prescriptionList.prescription.id}"/>  
     <param name="patient" value="#{prescriptionList.prescription.patient.id}" validateModel="false"/>  
-    <param name="notes" value="#{prescriptionList.prescription.notes}" validateModel="false"/> 
+    <param name="notes" value="#{prescriptionList.prescription.notes}" validateModel="false"/>  
+    <param name="active" value="#{prescriptionList.prescription.active}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/patient/prescriptionTemplate/editPrescription"> 
     <navigation> 
@@ -843,8 +928,7 @@
       </rule> 
     </navigation>  
     <param name="admissionId" value="#{admissionAction.admissionId}"/>  
-    <param name="patientId" value="#{admissionAction.patientId}"/>  
-    <param name="bedId" value="#{admissionAction.bedId}"/> 
+    <param name="patientId" value="#{admissionAction.patientId}"/> 
   </page>  
   <page view-id="/admin/entities/patient/admission/viewAdmission.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Admission: #{admission.displayName}</description> -->  
@@ -877,8 +961,7 @@
     <param name="id" value="#{admissionList.admission.id}"/>  
     <param name="patient" value="#{admissionList.admission.patient.id}" validateModel="false"/>  
     <param name="notes" value="#{admissionList.admission.notes}" validateModel="false"/>  
-    <param name="dischargeDate" value="#{admissionList.admission.dischargeDate}" validateModel="false"/>  
-    <param name="bed" value="#{admissionList.admission.bed.id}" validateModel="false"/> 
+    <param name="dischargeDate" value="#{admissionList.admission.dischargeDate}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/patient/document/editDocument.xhtml"> 
     <!-- <description>Edit Document: #{document.displayName}</description> -->  
@@ -1150,6 +1233,145 @@
     <param name="name" value="#{frequecyList.frequecy.name}" validateModel="false"/>  
     <param name="qtyPerDay" value="#{frequecyList.frequecy.qtyPerDay}" validateModel="false"/> 
   </page>  
+  <page view-id="/admin/entities/patient/trackedVital/editTrackedVital.xhtml"> 
+    <!-- <description>Edit TrackedVital: #{trackedVital.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/listTrackedVital.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="trackedVitalId" value="#{trackedVitalAction.trackedVitalId}"/> 
+  </page>  
+  <page view-id="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View TrackedVital: #{trackedVital.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/editTrackedVital.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/listTrackedVital.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="trackedVitalId" value="#{trackedVitalAction.trackedVitalId}"/> 
+  </page>  
+  <page view-id="/admin/entities/patient/trackedVital/listTrackedVital.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewTrackedVital"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/editTrackedVital.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/patient/trackedVital/textSearchResultsTrackedVital.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{trackedVitalList.firstResult}"/>  
+    <param name="sort" value="#{trackedVitalList.orderColumn}"/>  
+    <param name="dir" value="#{trackedVitalList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{trackedVitalList.trackedVital.id}"/>  
+    <param name="name" value="#{trackedVitalList.trackedVital.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/patient/vitalValue/editVitalValue.xhtml"> 
+    <!-- <description>Edit VitalValue: #{vitalValue.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/viewVitalValue.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/listVitalValue.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="vitalValueId" value="#{vitalValueAction.vitalValueId}"/>  
+    <param name="trackedVitalId" value="#{vitalValueAction.trackedVitalId}"/>  
+    <param name="patientId" value="#{vitalValueAction.patientId}"/> 
+  </page>  
+  <page view-id="/admin/entities/patient/vitalValue/viewVitalValue.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View VitalValue: #{vitalValue.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/editVitalValue.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/listVitalValue.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="vitalValueId" value="#{vitalValueAction.vitalValueId}"/> 
+  </page>  
+  <page view-id="/admin/entities/patient/vitalValue/listVitalValue.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewVitalValue"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/viewVitalValue.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/editVitalValue.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/patient/vitalValue/textSearchResultsVitalValue.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{vitalValueList.firstResult}"/>  
+    <param name="sort" value="#{vitalValueList.orderColumn}"/>  
+    <param name="dir" value="#{vitalValueList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{vitalValueList.vitalValue.id}"/>  
+    <param name="remarks" value="#{vitalValueList.vitalValue.remarks}" validateModel="false"/>  
+    <param name="value" value="#{vitalValueList.vitalValue.value}" validateModel="false"/>  
+    <param name="trackedVital" value="#{vitalValueList.vitalValue.trackedVital.id}" validateModel="false"/>  
+    <param name="patient" value="#{vitalValueList.vitalValue.patient.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/patient/bedStay/editBedStay.xhtml"> 
+    <!-- <description>Edit BedStay: #{bedStay.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/patient/bedStay/viewBedStay.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/patient/bedStay/listBedStay.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="bedStayId" value="#{bedStayAction.bedStayId}"/>  
+    <param name="admissionId" value="#{bedStayAction.admissionId}"/>  
+    <param name="bedId" value="#{bedStayAction.bedId}"/> 
+  </page>  
+  <page view-id="/admin/entities/patient/bedStay/viewBedStay.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View BedStay: #{bedStay.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/patient/bedStay/editBedStay.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/patient/bedStay/listBedStay.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="bedStayId" value="#{bedStayAction.bedStayId}"/> 
+  </page>  
+  <page view-id="/admin/entities/patient/bedStay/listBedStay.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewBedStay"> 
+        <redirect view-id="/admin/entities/patient/bedStay/viewBedStay.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/patient/bedStay/editBedStay.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/patient/bedStay/textSearchResultsBedStay.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{bedStayList.firstResult}"/>  
+    <param name="sort" value="#{bedStayList.orderColumn}"/>  
+    <param name="dir" value="#{bedStayList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{bedStayList.bedStay.id}"/>  
+    <param name="fromDate" value="#{bedStayList.bedStay.fromDate}" validateModel="false"/>  
+    <param name="toDate" value="#{bedStayList.bedStay.toDate}" validateModel="false"/>  
+    <param name="admission" value="#{bedStayList.bedStay.admission.id}" validateModel="false"/>  
+    <param name="bed" value="#{bedStayList.bedStay.bed.id}" validateModel="false"/> 
+  </page>  
   <page view-id="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurence.xhtml"> 
     <!-- <description>Edit UnusualOccurence: #{unusualOccurence.displayName}</description> -->  
     <navigation> 
@@ -1308,7 +1530,8 @@
         <redirect view-id="/admin/entities/employee/physician/listPhysician.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="physicianId" value="#{physicianAction.physicianId}"/> 
+    <param name="physicianId" value="#{physicianAction.physicianId}"/>  
+    <param name="specializationId" value="#{physicianAction.specializationId}"/> 
   </page>  
   <page view-id="/admin/entities/employee/physician/viewPhysician.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Physician: #{physician.displayName}</description> -->  
@@ -1349,7 +1572,8 @@
     <param name="gender" value="#{physicianList.physician.gender}" validateModel="false"/>  
     <param name="contactDetails_primaryPhone" value="#{physicianList.physician.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{physicianList.physician.contactDetails.secondaryPhone}" validateModel="false"/>  
-    <param name="contactDetails_email" value="#{physicianList.physician.contactDetails.email}" validateModel="false"/> 
+    <param name="contactDetails_email" value="#{physicianList.physician.contactDetails.email}" validateModel="false"/>  
+    <param name="specialization" value="#{physicianList.physician.specialization.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/employee/nurse/editNurse.xhtml"> 
     <!-- <description>Edit Nurse: #{nurse.displayName}</description> -->  
@@ -1361,7 +1585,8 @@
         <redirect view-id="/admin/entities/employee/nurse/listNurse.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="nurseId" value="#{nurseAction.nurseId}"/> 
+    <param name="nurseId" value="#{nurseAction.nurseId}"/>  
+    <param name="nurseSpecialtyId" value="#{nurseAction.nurseSpecialtyId}"/> 
   </page>  
   <page view-id="/admin/entities/employee/nurse/viewNurse.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Nurse: #{nurse.displayName}</description> -->  
@@ -1402,7 +1627,8 @@
     <param name="gender" value="#{nurseList.nurse.gender}" validateModel="false"/>  
     <param name="contactDetails_primaryPhone" value="#{nurseList.nurse.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{nurseList.nurse.contactDetails.secondaryPhone}" validateModel="false"/>  
-    <param name="contactDetails_email" value="#{nurseList.nurse.contactDetails.email}" validateModel="false"/> 
+    <param name="contactDetails_email" value="#{nurseList.nurse.contactDetails.email}" validateModel="false"/>  
+    <param name="nurseSpecialty" value="#{nurseList.nurse.nurseSpecialty.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/employee/technician/editTechnician.xhtml"> 
     <!-- <description>Edit Technician: #{technician.displayName}</description> -->  
@@ -1509,6 +1735,92 @@
     <param name="contactDetails_primaryPhone" value="#{clerkList.clerk.contactDetails.primaryPhone}" validateModel="false"/>  
     <param name="contactDetails_secondaryPhone" value="#{clerkList.clerk.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_email" value="#{clerkList.clerk.contactDetails.email}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/employee/specialization/editSpecialization.xhtml"> 
+    <!-- <description>Edit Specialization: #{specialization.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/employee/specialization/viewSpecialization.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/employee/specialization/listSpecialization.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="specializationId" value="#{specializationAction.specializationId}"/> 
+  </page>  
+  <page view-id="/admin/entities/employee/specialization/viewSpecialization.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Specialization: #{specialization.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/employee/specialization/editSpecialization.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/employee/specialization/listSpecialization.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="specializationId" value="#{specializationAction.specializationId}"/> 
+  </page>  
+  <page view-id="/admin/entities/employee/specialization/listSpecialization.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewSpecialization"> 
+        <redirect view-id="/admin/entities/employee/specialization/viewSpecialization.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/employee/specialization/editSpecialization.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/employee/specialization/textSearchResultsSpecialization.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{specializationList.firstResult}"/>  
+    <param name="sort" value="#{specializationList.orderColumn}"/>  
+    <param name="dir" value="#{specializationList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{specializationList.specialization.id}"/>  
+    <param name="name" value="#{specializationList.specialization.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/employee/nurseSpecialty/editNurseSpecialty.xhtml"> 
+    <!-- <description>Edit NurseSpecialty: #{nurseSpecialty.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/listNurseSpecialty.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="nurseSpecialtyId" value="#{nurseSpecialtyAction.nurseSpecialtyId}"/> 
+  </page>  
+  <page view-id="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View NurseSpecialty: #{nurseSpecialty.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/editNurseSpecialty.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/listNurseSpecialty.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="nurseSpecialtyId" value="#{nurseSpecialtyAction.nurseSpecialtyId}"/> 
+  </page>  
+  <page view-id="/admin/entities/employee/nurseSpecialty/listNurseSpecialty.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewNurseSpecialty"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/editNurseSpecialty.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/employee/nurseSpecialty/textSearchResultsNurseSpecialty.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{nurseSpecialtyList.firstResult}"/>  
+    <param name="sort" value="#{nurseSpecialtyList.orderColumn}"/>  
+    <param name="dir" value="#{nurseSpecialtyList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{nurseSpecialtyList.nurseSpecialty.id}"/>  
+    <param name="name" value="#{nurseSpecialtyList.nurseSpecialty.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/users/appUser/editAppUser.xhtml"> 
     <!-- <description>Edit AppUser: #{appUser.displayName}</description> -->  
@@ -1652,7 +1964,8 @@
       </rule> 
     </navigation>  
     <param name="roomId" value="#{roomAction.roomId}"/>  
-    <param name="facilityId" value="#{roomAction.facilityId}"/> 
+    <param name="roomTypeId" value="#{roomAction.roomTypeId}"/>  
+    <param name="wardId" value="#{roomAction.wardId}"/> 
   </page>  
   <page view-id="/admin/entities/facility/room/viewRoom.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Room: #{room.displayName}</description> -->  
@@ -1683,8 +1996,9 @@
     <param name="dir" value="#{roomList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{roomList.room.id}"/>  
-    <param name="facility" value="#{roomList.room.facility.id}" validateModel="false"/>  
-    <param name="name" value="#{roomList.room.name}" validateModel="false"/> 
+    <param name="name" value="#{roomList.room.name}" validateModel="false"/>  
+    <param name="roomType" value="#{roomList.room.roomType.id}" validateModel="false"/>  
+    <param name="ward" value="#{roomList.room.ward.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/facility/bed/editBed.xhtml"> 
     <!-- <description>Edit Bed: #{bed.displayName}</description> -->  
@@ -1698,7 +2012,7 @@
     </navigation>  
     <param name="bedId" value="#{bedAction.bedId}"/>  
     <param name="roomId" value="#{bedAction.roomId}"/>  
-    <param name="admissionId" value="#{bedAction.admissionId}"/> 
+    <param name="patientId" value="#{bedAction.patientId}"/> 
   </page>  
   <page view-id="/admin/entities/facility/bed/viewBed.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Bed: #{bed.displayName}</description> -->  
@@ -1731,7 +2045,98 @@
     <param name="id" value="#{bedList.bed.id}"/>  
     <param name="room" value="#{bedList.bed.room.id}" validateModel="false"/>  
     <param name="name" value="#{bedList.bed.name}" validateModel="false"/>  
-    <param name="admission" value="#{bedList.bed.admission.id}" validateModel="false"/> 
+    <param name="patient" value="#{bedList.bed.patient.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/facility/ward/editWard.xhtml"> 
+    <!-- <description>Edit Ward: #{ward.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/facility/ward/viewWard.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/facility/ward/listWard.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="wardId" value="#{wardAction.wardId}"/>  
+    <param name="facilityId" value="#{wardAction.facilityId}"/> 
+  </page>  
+  <page view-id="/admin/entities/facility/ward/viewWard.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Ward: #{ward.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/facility/ward/editWard.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/facility/ward/listWard.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="wardId" value="#{wardAction.wardId}"/> 
+  </page>  
+  <page view-id="/admin/entities/facility/ward/listWard.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewWard"> 
+        <redirect view-id="/admin/entities/facility/ward/viewWard.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/facility/ward/editWard.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/facility/ward/textSearchResultsWard.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{wardList.firstResult}"/>  
+    <param name="sort" value="#{wardList.orderColumn}"/>  
+    <param name="dir" value="#{wardList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{wardList.ward.id}"/>  
+    <param name="facility" value="#{wardList.ward.facility.id}" validateModel="false"/>  
+    <param name="name" value="#{wardList.ward.name}" validateModel="false"/>  
+    <param name="gender" value="#{wardList.ward.gender}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/facility/roomType/editRoomType.xhtml"> 
+    <!-- <description>Edit RoomType: #{roomType.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/facility/roomType/viewRoomType.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/facility/roomType/listRoomType.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="roomTypeId" value="#{roomTypeAction.roomTypeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/facility/roomType/viewRoomType.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View RoomType: #{roomType.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/facility/roomType/editRoomType.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/facility/roomType/listRoomType.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="roomTypeId" value="#{roomTypeAction.roomTypeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/facility/roomType/listRoomType.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewRoomType"> 
+        <redirect view-id="/admin/entities/facility/roomType/viewRoomType.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/facility/roomType/editRoomType.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/facility/roomType/textSearchResultsRoomType.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{roomTypeList.firstResult}"/>  
+    <param name="sort" value="#{roomTypeList.orderColumn}"/>  
+    <param name="dir" value="#{roomTypeList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{roomTypeList.roomType.id}"/>  
+    <param name="name" value="#{roomTypeList.roomType.name}" validateModel="false"/>  
+    <param name="description" value="#{roomTypeList.roomType.description}" validateModel="false"/>  
+    <param name="rate" value="#{roomTypeList.roomType.rate}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/appointment/appointment/editAppointment.xhtml"> 
     <!-- <description>Edit Appointment: #{appointment.displayName}</description> -->  
@@ -1780,7 +2185,8 @@
     <param name="end" value="#{appointmentList.appointment.end}" validateModel="false"/>  
     <param name="physician" value="#{appointmentList.appointment.physician.id}" validateModel="false"/>  
     <param name="patient" value="#{appointmentList.appointment.patient.id}" validateModel="false"/>  
-    <param name="remarks" value="#{appointmentList.appointment.remarks}" validateModel="false"/> 
+    <param name="remarks" value="#{appointmentList.appointment.remarks}" validateModel="false"/>  
+    <param name="units" value="#{appointmentList.appointment.units}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/appointment/encounter/editEncounter.xhtml"> 
     <!-- <description>Edit Encounter: #{encounter.displayName}</description> -->  

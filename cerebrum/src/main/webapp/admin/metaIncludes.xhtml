@@ -21,14 +21,14 @@
         //<![CDATA[
         function adoptCTDialogHeight(contentDiv) {
             if (jQuery(window).height() -
-                    jQuery(#{rich:element('ctContent')}).height() < 70) {
+                    jQuery(#{rich:element('ctContent^')}).height() < 70) {
                         addScrollToCTDialog();
                 }
         }
         //]]>
     </script>
     
-    <rich:jQuery name="addScrollToCTDialog" timing="onJScall" selector="#ctContent" 
+    <rich:jQuery name="addScrollToCTDialog" timing="onJScall" selector="[id^=ctContent]"
         query="css('overflow-y','auto').css('overflow-x','hidden').css('height', jQuery(window).height() - 70)" />
         
     <rich:jQuery name="resetScrollToCTDialog" timing="onJScall" selector="#ctContent" 

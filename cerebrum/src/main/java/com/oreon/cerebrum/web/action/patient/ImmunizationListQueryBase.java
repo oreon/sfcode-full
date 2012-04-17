@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.patient.Immunization;
 
 /**
@@ -52,6 +54,7 @@ public abstract class ImmunizationListQueryBase
 	}
 
 	private Range<Date> dateRange = new Range<Date>();
+
 	public Range<Date> getDateRange() {
 		return dateRange;
 	}

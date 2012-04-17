@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.patient.Prescription;
 
 /**
@@ -58,6 +60,8 @@ public abstract class PrescriptionListQueryBase
 
 			"lower(prescription.notes) like concat(lower(#{prescriptionList.prescription.notes}),'%')",
 
+			"prescription.active = #{prescriptionList.prescription.active}",
+
 			"prescription.dateCreated <= #{prescriptionList.dateCreatedRange.end}",
 			"prescription.dateCreated >= #{prescriptionList.dateCreatedRange.begin}",};
 
@@ -87,6 +91,9 @@ public abstract class PrescriptionListQueryBase
 				+ (e.getNotes() != null ? e.getNotes().replace(",", "") : "")
 				+ "\",");
 
+		builder.append("\"" + (e.getActive() != null ? e.getActive() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -99,6 +106,8 @@ public abstract class PrescriptionListQueryBase
 		builder.append("Patient" + ",");
 
 		builder.append("Notes" + ",");
+
+		builder.append("Active" + ",");
 
 		builder.append("\r\n");
 	}

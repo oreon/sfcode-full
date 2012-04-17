@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="patient" value="#{ admissionList.admission.patient}"> 
         <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -26,15 +26,6 @@
       <rich:calendar value="#{admissionList.dischargeDateRange.begin}"/> To
       <br/>  
       <rich:calendar value="#{admissionList.dischargeDateRange.end}"/> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}"/>  
-      <br/>  
-      <h:selectOneMenu id="bed" value="#{ admissionList.admission.bed}"> 
-        <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/> 
-      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

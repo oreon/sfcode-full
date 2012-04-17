@@ -143,6 +143,19 @@
           </f:facet>  
           <h:outputText value="#{_nurse.age}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('nurseSpecialty', 'nurseView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.nurse_nurseSpecialty}"/>  
+              <ui:param name="propertyPath" value="nurse.nurseSpecialty"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_nurse.nurseSpecialty.displayName}" view="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml" propagation="none"> 
+            <f:param name="nurseSpecialtyId" value="#{_nurse.nurseSpecialty.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'nurseView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

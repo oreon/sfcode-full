@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEncounter eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.Encounter}"/> 
         </f:facet>  
@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.encounter_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'patientEdit')}"/>
+            <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'patientEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="patient" label="#{msg.encounter_patient}" value="#{encounterAction.encounter.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'patientEdit')}" disabled="false"> 
             <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -31,7 +31,7 @@
         </s:decorate>  
         <s:decorate id="physicianDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.encounter_physician} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'physicianEdit')}"/>
+            <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'physicianEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="physician" label="#{msg.encounter_physician}" value="#{encounterAction.encounter.physician}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'physicianEdit')}" disabled="false"> 
             <s:selectItems value="#{physicianList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -62,9 +62,9 @@
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{encounterAction.deleteHistorys(rowIndex)}" reRender="historys"> 
+          <h:commandButton value="Delete" immediate="true" action="#{encounterAction.deleteHistorys(rowIndex)}" reRender="historys"> 
             <s:conversationId/> 
-          </a:commandButton> 
+          </h:commandButton> 
         </h:column> 
       </rich:dataTable>  
       <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'prescribedTestsEdit')}"> 
@@ -73,7 +73,7 @@
       <rich:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'prescribedTestsEdit')}" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.prescribedTest_dxTest} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'dxTestEdit')}"/>
+            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'dxTestEdit')}"/>
           </f:facet>  
           <s:decorate id="dxTestDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
@@ -101,9 +101,9 @@
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{encounterAction.deletePrescribedTests(rowIndex)}" reRender="prescribedTests"> 
+          <h:commandButton value="Delete" immediate="true" action="#{encounterAction.deletePrescribedTests(rowIndex)}" reRender="prescribedTests"> 
             <s:conversationId/> 
-          </a:commandButton> 
+          </h:commandButton> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
 
 /**
@@ -73,6 +75,13 @@ public abstract class UnusualOccurenceListQueryBase
 			com.oreon.cerebrum.patient.Patient patient) {
 		//setMaxResults(10000);
 		unusualOccurence.setPatient(patient);
+		return getResultList();
+	}
+
+	public List<UnusualOccurence> getUnusualOccurencesByCreatedBy(
+			com.oreon.cerebrum.employee.Employee employee) {
+		//setMaxResults(10000);
+		unusualOccurence.setCreatedBy(employee);
 		return getResultList();
 	}
 

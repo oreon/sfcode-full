@@ -53,8 +53,8 @@ public abstract class BedActionBase extends BaseAction<Bed>
 	@In(create = true, value = "roomAction")
 	com.oreon.cerebrum.web.action.facility.RoomAction roomAction;
 
-	@In(create = true, value = "admissionAction")
-	com.oreon.cerebrum.web.action.patient.AdmissionAction admissionAction;
+	@In(create = true, value = "patientAction")
+	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
 	@DataModel
 	private List<Bed> bedRecordList;
@@ -93,16 +93,16 @@ public abstract class BedActionBase extends BaseAction<Bed>
 		return 0L;
 	}
 
-	public void setAdmissionId(Long id) {
+	public void setPatientId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setAdmission(admissionAction.loadFromId(id));
+			getInstance().setPatient(patientAction.loadFromId(id));
 
 	}
 
-	public Long getAdmissionId() {
-		if (getInstance().getAdmission() != null)
-			return getInstance().getAdmission().getId();
+	public Long getPatientId() {
+		if (getInstance().getPatient() != null)
+			return getInstance().getPatient().getId();
 		return 0L;
 	}
 
@@ -145,10 +145,10 @@ public abstract class BedActionBase extends BaseAction<Bed>
 			getInstance().setRoom(room);
 		}
 
-		com.oreon.cerebrum.patient.Admission admission = admissionAction
+		com.oreon.cerebrum.patient.Patient patient = patientAction
 				.getDefinedInstance();
-		if (admission != null && isNew()) {
-			getInstance().setAdmission(admission);
+		if (patient != null && isNew()) {
+			getInstance().setPatient(patient);
 		}
 
 	}
@@ -184,9 +184,9 @@ public abstract class BedActionBase extends BaseAction<Bed>
 					.getId()));
 		}
 
-		if (bed.getAdmission() != null) {
-			criteria = criteria.add(Restrictions.eq("admission.id", bed
-					.getAdmission().getId()));
+		if (bed.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", bed
+					.getPatient().getId()));
 		}
 
 	}
@@ -201,8 +201,8 @@ public abstract class BedActionBase extends BaseAction<Bed>
 			roomAction.setInstance(getInstance().getRoom());
 		}
 
-		if (bed.getAdmission() != null) {
-			admissionAction.setInstance(getInstance().getAdmission());
+		if (bed.getPatient() != null) {
+			patientAction.setInstance(getInstance().getPatient());
 		}
 
 	}

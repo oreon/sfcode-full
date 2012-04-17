@@ -36,6 +36,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -62,10 +64,10 @@ public class Immunization extends BusinessEntity
 			java.io.Serializable {
 	private static final long serialVersionUID = 1013563995L;
 
-	@Column(unique = false)
+	@Column(name = "date", unique = false)
 	protected Date date
 
-	;
+	= new Date();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)

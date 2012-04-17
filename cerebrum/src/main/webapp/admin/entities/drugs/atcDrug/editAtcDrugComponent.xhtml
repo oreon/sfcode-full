@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAtcDrug eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.AtcDrug}"/> 
         </f:facet>  
@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.atcDrug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/>
+            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/>
           </ui:define>  
           <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{atcDrugAction.atcDrug.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -79,7 +79,7 @@
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.atcDrug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/>
+            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/>
           </f:facet>  
           <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
@@ -94,9 +94,9 @@
           </a:commandButton> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="Delete" immediate="true" action="#{atcDrugAction.deleteSubcategories(rowIndex)}" reRender="subcategories"> 
+          <h:commandButton value="Delete" immediate="true" action="#{atcDrugAction.deleteSubcategories(rowIndex)}" reRender="subcategories"> 
             <s:conversationId/> 
-          </a:commandButton> 
+          </h:commandButton> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

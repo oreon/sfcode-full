@@ -17,6 +17,8 @@ import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
 
+import java.math.BigDecimal;
+
 import com.oreon.cerebrum.employee.Technician;
 
 /**
@@ -52,6 +54,7 @@ public abstract class TechnicianListQueryBase
 	}
 
 	private Range<Date> dateOfBirthRange = new Range<Date>();
+
 	public Range<Date> getDateOfBirthRange() {
 		return dateOfBirthRange;
 	}

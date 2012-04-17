@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelUnusualOccurence eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.UnusualOccurence}"/> 
         </f:facet>  
@@ -47,7 +47,7 @@
         </s:decorate>  
         <s:decorate id="occurenceTypeDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.unusualOccurence_occurenceType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeEdit')}"/>
+            <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="occurenceType" label="#{msg.unusualOccurence_occurenceType}" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeEdit')}" disabled="false"> 
             <s:selectItems value="#{occurenceTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -57,7 +57,7 @@
         </s:decorate>  
         <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.unusualOccurence_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientEdit')}"/>
+            <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="patient" label="#{msg.unusualOccurence_patient}" value="#{unusualOccurenceAction.unusualOccurence.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientEdit')}" disabled="false"> 
             <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -67,7 +67,7 @@
         </s:decorate>  
         <s:decorate id="createdByDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.unusualOccurence_createdBy} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByEdit')}"/>
+            <h:outputText value="#{msg.unusualOccurence_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="createdBy" label="#{msg.unusualOccurence_createdBy}" value="#{unusualOccurenceAction.unusualOccurence.createdBy}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByEdit')}" disabled="false"> 
             <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

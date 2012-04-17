@@ -283,8 +283,10 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 			if (isManaged())
 				update();
-			else
+			else{
+				instance = entityManager.merge(instance);
 				persist();
+			}
 
 		//	addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
 			updateAssociations();

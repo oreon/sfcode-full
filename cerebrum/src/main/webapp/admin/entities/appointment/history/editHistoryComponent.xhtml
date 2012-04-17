@@ -7,7 +7,7 @@
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
       </c:if>  
-      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelHistory eq null}"> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.History}"/> 
         </f:facet>  
@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="encounterDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.history_encounter} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}"/>
+            <h:outputText value="#{msg.history_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}"/>
           </ui:define>  
           <h:selectOneMenu id="encounter" label="#{msg.history_encounter}" value="#{historyAction.history.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}" disabled="false"> 
             <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
