@@ -15,6 +15,8 @@ public class RoleFieldPrivilegeAction extends RoleFieldPrivilegeActionBase
 
 	public static final String USER = "user";
 	public static final String ROLE = "role";
+	
+	public static final String findQry = "Select r from RoleFieldPrivilege r where r.appRole = ? and r.metaField = ?";
 
 	@Override
 	public String save() {
@@ -32,7 +34,7 @@ public class RoleFieldPrivilegeAction extends RoleFieldPrivilegeActionBase
 		
 		permission = findPermission("view");
 
-		if (instance.getWriteAccess()) {
+		if (instance.getReadAccess()) {
 			if (isNewPermission(permission))
 				createAccountPermission(permission);
 		} else {
