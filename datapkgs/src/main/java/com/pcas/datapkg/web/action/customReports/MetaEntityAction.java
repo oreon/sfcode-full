@@ -29,6 +29,8 @@ public class MetaEntityAction extends MetaEntityActionBase implements java.io.Se
 	@Override
 	public void prePopulateListMetaFields() {
 		
+		listMetaFields.clear();
+		
 		List<AppRole> roles = appRoleList.getResultList();
 		
 		if(instance == null ) return;
