@@ -26,7 +26,14 @@
 		<h:form>
 		«IF templatable && !isCurrentTemplateMode() »«EXPAND genTemplateChooser FOR this»«ENDIF»
 		
-		«IF isCurrentTemplateMode()»Template Name: <h:inputText value="#{«getAction()».templateName}" required="true" />«ENDIF»
+		«IF isCurrentTemplateMode()»
+		 <s:decorate id="templateNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.templateName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'notesEdit')}"/>
+          </ui:define>  
+          <h:inputText label="#{msg.templateName}"  value="#{«getAction()».templateName}" required="true"   /> 
+        </s:decorate>
+		«ENDIF»
 	
 		<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 		«EXPAND genCancelSaveBtns(true) FOR this»
@@ -110,6 +117,9 @@
 			«ENDIF»
 		</rich:tabPanel>
 		
+		
+		«EXPAND generateWebFunctionIncludes FOR this»
+		
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
@@ -167,10 +177,31 @@
 «DEFINE genBusinessFunctionButtons FOR uml::Class»
 	<div class="buttonBox">
 		«FOREACH getAllOperations() AS o»
-		<h:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', 'edit', «getAction()».instance)}" action="#{«getAction()».«o.name»}" >
-		</h:commandButton> 
+		«IF o.hasStereo("UserOperation") »
+			«IF o.hasUI»
+			
+			<a:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)}" 
+				oncomplete="Richfaces.showModalPanel('«o.name»«name.toFirstUpper()»Mdl',{});"  />
+	
+			«ELSE»
+			<h:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)}" 
+					action="#{«getAction()».«o.name»}" />
+			«ENDIF»
+		«ENDIF»
 		«ENDFOREACH»
 	</div>
+«ENDDEFINE»
+
+
+«DEFINE generateWebFunctionIncludes FOR wcprofile::Entity»
+	«FOREACH getAllOperations() AS o»
+		«IF o.hasStereo("UserOperation") && o.hasUI»
+		<ui:include src="«getComponentViewFile("modalDlg" + o.name.toFirstUpper())»" >
+				<ui:param name="modalId" value="«o.name»«name.toFirstUpper()»Mdl" />
+		</ui:include>
+		«EXPAND webFunctionModelDlg::gen(o) FOR this » 
+		«ENDIF»
+	«ENDFOREACH»
 «ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
@@ -539,11 +570,11 @@
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
-		<a:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
+		<h:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
 			reRender="«name»"
 			>
 			<s:conversationId/>
-		</a:commandButton>
+		</h:commandButton>
 	</h:column>
 «ENDDEFINE»
 
@@ -573,6 +604,8 @@
           <s:convertEntity/> 
           <a:support event="onchange"
 							action="#{«getAction()».loadFromTemplate}"
-							reRender="edit«name»ComponentPanel#{entityId}" ajaxSingle="true" />
+							reRender="edit«name»ComponentPanel#{entityId}" ajaxSingle="true" >
+				<s:conversationPropagation type="begin" />
+		  </a:support> 
         </h:selectOneMenu>  
 «ENDDEFINE»
