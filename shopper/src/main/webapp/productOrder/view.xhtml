@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{productOrderBean.id}"/>
+		<f:event type="preRenderView" listener="#{productOrderBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Product Order"/>
+
+	<ui:define name="header">
+		Product Order
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Product Order
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="productOrderBeanProductOrderCustomer" value="Customer:"/>
+			<h:link id="productOrderBeanProductOrderCustomer" outcome="/customer/view" value="#{productOrderBean.productOrder.customer}">
+				<f:param name="id" value="#{productOrderBean.productOrder.customer.id}"/>
+			</h:link>
+			<h:outputText/>
+			<h:outputLabel for="productOrderBeanProductOrderItems" value="Items:"/>
+			<h:dataTable id="productOrderBeanProductOrderItems" styleClass="data-table" value="#{forgeview:asList(productOrderBean.productOrder.items)}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Name"/>
+					</f:facet>
+					<h:link outcome="/item/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemName" value="#{_item.name}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Price"/>
+					</f:facet>
+					<h:link outcome="/item/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemPrice" value="#{_item.price}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Stock"/>
+					</f:facet>
+					<h:link outcome="/item/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemStock" value="#{_item.stock}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<h:outputText/>
+			<h:outputLabel for="productOrderBeanProductOrderShippingAddress" value="Shipping Address:"/>
+			<h:link id="productOrderBeanProductOrderShippingAddress" outcome="/address/view" value="#{productOrderBean.productOrder.shippingAddress}">
+				<f:param name="id" value="#{productOrderBean.productOrder.shippingAddress.id}"/>
+			</h:link>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true"/>
+			<h:link value="Create New" outcome="create"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

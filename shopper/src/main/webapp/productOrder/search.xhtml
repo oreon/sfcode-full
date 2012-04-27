@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{productOrderBean.page}"/>
+		<f:event type="preRenderView" listener="#{productOrderBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Product Order entities"/>
+
+	<ui:define name="header">
+		Product Order
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Product Order entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<h:panelGroup styleClass="search">
+
+				<h:panelGrid columnClasses="label,component,required" columns="3">
+					<h:outputLabel for="productOrderBeanSearchCustomer" value="Customer:"/>
+					<h:panelGroup>
+						<h:selectOneMenu converter="#{customerBean.converter}" id="productOrderBeanSearchCustomer" value="#{productOrderBean.search.customer}">
+							<f:selectItem/>
+							<f:selectItems value="#{customerBean.all}"/>
+						</h:selectOneMenu>
+						<h:message for="productOrderBeanSearchCustomer" styleClass="error"/>
+					</h:panelGroup>
+					<h:outputText/>
+					<h:outputLabel for="productOrderBeanSearchShippingAddress" value="Shipping Address:"/>
+					<h:panelGroup>
+						<h:selectOneMenu converter="#{addressBean.converter}" id="productOrderBeanSearchShippingAddress" value="#{productOrderBean.search.shippingAddress}">
+							<f:selectItem/>
+							<f:selectItems value="#{addressBean.all}"/>
+						</h:selectOneMenu>
+						<h:message for="productOrderBeanSearchShippingAddress" styleClass="error"/>
+					</h:panelGroup>
+					<h:outputText/>
+				</h:panelGrid>
+				<h:panelGroup styleClass="buttons">
+					<h:commandLink value="Search" action="#{productOrderBean.search}"/>
+					<h:commandLink value="Create New" action="#{productOrderBean.create}"/>
+				</h:panelGroup>
+			</h:panelGroup>
+			
+			<h:dataTable id="productOrderBeanPageItems" styleClass="data-table" value="#{productOrderBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Customer"/>
+					</f:facet>
+					<h:link outcome="/productOrder/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCustomer" value="#{_item.customer}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Shipping Address"/>
+					</f:facet>
+					<h:link outcome="/productOrder/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemShippingAddress" value="#{_item.shippingAddress}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{productOrderBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>
