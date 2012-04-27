@@ -270,7 +270,9 @@ public class ClassUtil {
 
 		for (int i = 0; i < params.size(); i++) {
 			Parameter param = params.get(i);
-			// param.
+			
+			//param.get
+			//param.getClientDependency("aa").get
 			String result = (String) xtendFacade.call("fqn",
 					new Object[] { param.getType() });
 			if (!StringUtils.isEmpty(param.getName()))
