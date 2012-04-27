@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{profileBean.id}"/>
+		<f:event type="preRenderView" listener="#{profileBean.retrieve}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Profile"/>
+
+	<ui:define name="header">
+		Profile
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Profile
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="profileBeanProfileBio" value="Bio:"/>
+			<h:outputText id="profileBeanProfileBio" value="#{profileBean.profile.bio}"/>
+			<h:outputText/>
+			<h:outputLabel for="profileBeanProfilePreferredName" value="Preferred Name:"/>
+			<h:outputText id="profileBeanProfilePreferredName" value="#{profileBean.profile.preferredName}"/>
+			<h:outputText/>
+			<h:outputLabel for="profileBeanProfileNotes" value="Notes:"/>
+			<h:outputText id="profileBeanProfileNotes" value="#{profileBean.profile.notes}"/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true"/>
+			<h:link value="Create New" outcome="create"/>
+		</div>
+	</ui:define>
+
+</ui:composition>
