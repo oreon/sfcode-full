@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{carBean.page}" />
+		<f:event type="preRenderView" listener="#{carBean.paginate}" />
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Customer entities" />
+
+
+	<ui:define name="main">
+
+		<h:form id="form">
+
+			<p:dataTable var="car" value="#{carBean.carDataModel}" paginator="true"
+				rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" selectionMode="single" 
+				selection="#{carBean.selectedCar}" id="carTable">
+
+				<p:ajax event="rowSelect" 
+					update=":form:display" oncomplete="carDialog.show()" />
+
+				<p:column headerText="Model" sortBy="#{car.model}"
+					filterBy="#{car.model}">
+					<h:outputText value="#{car.model}" />
+				</p:column>
+
+				<p:column headerText="Year" sortBy="#{car.year}"
+					filterBy="#{car.year}">
+					<h:outputText value="#{car.year}" />
+				</p:column>
+
+				<p:column headerText="Manufacturer" sortBy="#{car.manufacturer}"
+					filterBy="#{car.manufacturer}">
+					<h:outputText value="#{car.manufacturer}" />
+				</p:column>
+
+				<p:column headerText="Color" sortBy="#{car.color}"
+					filterBy="#{car.color}">
+					<h:outputText value="#{car.color}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Car Detail" widgetVar="carDialog" resizable="false"
+				>
+
+				<h:panelGrid id="display" columns="2" cellpadding="4">
+
+					<f:facet name="header">
+						<p:graphicImage
+							value="/images/cars/#{carBean.selectedCar.manufacturer}.jpg" />
+					</f:facet>
+
+					<h:outputText value="Id" />
+					<h:outputText value="#{carBean.selectedCar.id}"
+						style="font-weight:bold" />
+					
+
+					<h:outputText value="Model:" />
+					<h:outputText value="#{carBean.selectedCar.model}"
+						style="font-weight:bold" />
+
+					<h:outputText value="Year:" />
+					<h:outputText value="#{carBean.selectedCar.year}"
+						style="font-weight:bold" />
+
+					<h:outputText value="Manufacturer:" />
+					<h:outputText value="#{carBean.selectedCar.manufacturer}"
+						style="font-weight:bold" />
+
+					<h:outputText value="Color:" />
+					<h:inputText value="#{carBean.selectedCar.color}"
+						style="font-weight:bold" />
+				</h:panelGrid>
+				
+				
+				<h:commandButton value="Save" action="#{carBean.update}" />
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

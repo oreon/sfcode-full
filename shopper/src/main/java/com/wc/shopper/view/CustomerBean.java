@@ -53,6 +53,8 @@ public class CustomerBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private  List<Customer> lazyCustomers ;
+	@Inject
+	private CarBean carBean;
 
 	/*
 	 * Support creating and retrieving Customer entities
@@ -204,6 +206,8 @@ public class CustomerBean implements Serializable {
 		query.setFirstResult(this.page * getPageSize()).setMaxResults(
 				getPageSize());
 		this.pageItems = query.getResultList();
+		
+		carBean.populateRandomCars(60);
 	}
 
 	private Predicate[] getSearchPredicates(Root<Customer> root) {
@@ -285,6 +289,14 @@ public class CustomerBean implements Serializable {
 		Customer added = this.add;
 		this.add = new Customer();
 		return added;
+	}
+
+	public CarBean getCarBean() {
+		return carBean;
+	}
+
+	public void setCarBean(CarBean carBean) {
+		this.carBean = carBean;
 	}
 
 	

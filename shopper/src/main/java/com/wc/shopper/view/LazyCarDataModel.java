@@ -2,11 +2,16 @@ package com.wc.shopper.view;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.ejb.Stateful;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -26,15 +31,30 @@ import com.wc.shopper.domain.Customer;
 /**
  * Dummy implementation of LazyDataModel that uses a list to mimic a real datasource like a database.
  */
+//@Named
+//@Stateless
 public class LazyCarDataModel extends LazyDataModel<Car> {
 	
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager entityManager;
     
-    private List<Car> datasource;
+    public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+	private List<Car> datasource;
     
     public LazyCarDataModel(List<Car> datasource) {
+    	
         this.datasource = datasource;
+    }
+    
+    public void initLoad(){
+    	load(1, 10, null, null, new HashMap<String, String>());
     }
     
     @Override
@@ -79,6 +99,12 @@ public class LazyCarDataModel extends LazyDataModel<Car> {
  		}
 
  		crit = crit.setFirstResult(index).setMaxResults(pageSize);
+ 		
+ 		List<Car> lstCars = crit.list();
+ 		
+ 		datasource = lstCars;
+ 		
+ 		//data = lstCars;
 
  		return crit.list();
  		

@@ -6,9 +6,21 @@ import javax.persistence.Entity;
 public class Car extends BaseEntity {
 	
 	private String model;
+	private int year;
 	private String color;
-	private String year;
 	private String manufacturer;
+	
+	public Car(){
+		
+	}
+	
+	public Car(String model, int year, String color, String manufacturer) {
+		super();
+		this.model = model;
+		this.year = year;
+		this.color = color;
+		this.manufacturer = manufacturer;
+	}
 	
 	
 	public String getModel() {
@@ -20,10 +32,10 @@ public class Car extends BaseEntity {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public String getYear() {
+	public int getYear() {
 		return year;
 	}
-	public void setYear(String year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 	public String getManufacturer() {
