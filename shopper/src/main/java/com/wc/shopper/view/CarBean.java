@@ -39,7 +39,7 @@ import com.wc.shopper.domain.Car;
 @Named
 @Stateful
 @ConversationScoped
-public class CarBean implements Serializable {
+public class CarBean implements Serializable   {
 
 	private static final long serialVersionUID = 1L;
 
