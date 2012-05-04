@@ -30,7 +30,11 @@
 
 				<p:column headerText="Model" sortBy="#{car.model}"
 					filterBy="#{car.model}">
-					<h:outputText value="#{car.model}" />
+					
+					<h:link outcome="/car/view">
+						<f:param name="id" value="#{car.id}"/>
+						<h:outputText value="#{car.model}" />
+					</h:link>
 				</p:column>
 
 				<p:column headerText="Year" sortBy="#{car.year}"
