@@ -42,12 +42,9 @@ public abstract class BaseBean<T extends BaseEntity> {
 		this.id = id;
 	}
 
-	private T item;
+	protected T item;
 
-	public T getT() {
-		return this.item;
-	}
-
+	
 	@Inject
 	private Conversation conversation;
 
