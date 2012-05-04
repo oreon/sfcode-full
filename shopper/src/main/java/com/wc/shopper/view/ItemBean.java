@@ -30,169 +30,29 @@ import com.wc.shopper.domain.Item;
  * This class provides CRUD functionality for all Item entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
- * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD framework or
- * custom base class.
+ * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD
+ * framework or custom base class.
  */
 
 @Named
 @Stateful
 @ConversationScoped
-public class ItemBean implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
-	/*
-	 * Support creating and retrieving Item entities
-	 */
-
-	private Long id;
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	private Item item;
-
-	public Item getItem() {
-		return this.item;
-	}
-
-	@Inject
-	private Conversation conversation;
-
-	@PersistenceContext(type = PersistenceContextType.EXTENDED)
-	private EntityManager entityManager;
-
-	public String create() {
-
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+public class ItemBean extends BaseBean<Item> implements Serializable {
 	
-	public void retrieve() {
-
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
-
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
-
-		if (this.id == null) {
-			this.item = this.search;
-		} else {
-			this.item = this.entityManager.find(Item.class, getId());
-		}
-	}
-
-	/*
-	 * Support updating and deleting Item entities
-	 */
-
-	public String update() {
-		this.conversation.end();
-		
-		try {
-			if (this.id == null) {
-				this.entityManager.persist(this.item);
-				return "search?faces-redirect=true";			
-			} else {
-				this.entityManager.merge(this.item);
-				return "view?faces-redirect=true&id=" + this.item.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
-
-	public String delete() {
-		this.conversation.end();
-
-		try {
-			this.entityManager.remove(this.entityManager.find(Item.class,
-					getId()));
-			this.entityManager.flush();
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
-
-	/*
-	 * Support searching Item entities with pagination
-	 */
-
-	private int page;
-	private long count;
-	private List<Item> pageItems;
 	
-	private Item search = new Item();
 
-	public int getPage() {
-		return this.page;
-	}
+	protected Predicate[] getSearchPredicates(Root<Item> root) {
 
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getPageSize() {
-		return 10;
-	}
-
-	public Item getSearch() {
-		return this.search;
-	}
-
-	public void setSearch(Item search) {
-		this.search = search;
-	}
-
-	public void search() {
-		this.page = 0;
-	}
-
-	public void paginate() {
-
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-
-		// Populate this.count
-
-		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-		Root<Item> root = countCriteria.from(Item.class);
-		countCriteria = countCriteria.select(builder.count(root)).where(
-				getSearchPredicates(root));
-		this.count = this.entityManager.createQuery(countCriteria)
-				.getSingleResult();
-
-		// Populate this.pageItems
-
-		CriteriaQuery<Item> criteria = builder.createQuery(Item.class);
-		root = criteria.from(Item.class);
-		TypedQuery<Item> query = this.entityManager.createQuery(criteria
-				.select(root).where(getSearchPredicates(root)));
-		query.setFirstResult(this.page * getPageSize()).setMaxResults(
-				getPageSize());
-		this.pageItems = query.getResultList();
-	}
-
-	private Predicate[] getSearchPredicates(Root<Item> root) {
-
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-		String name = this.search.getName();
+		String name = search.getName();
 		if (name != null && !"".equals(name)) {
-			predicatesList.add(builder.like(root.<String>get("name"), '%' + name + '%'));
+			predicatesList.add(builder.like(root.<String> get("name"),
+					'%' + name + '%'));
 		}
-		int stock = this.search.getStock();
+		
+		int stock = search.getStock();
 		if (stock != 0) {
 			predicatesList.add(builder.equal(root.get("stock"), stock));
 		}
@@ -200,65 +60,12 @@ public class ItemBean implements Serializable {
 		return predicatesList.toArray(new Predicate[predicatesList.size()]);
 	}
 
-	public List<Item> getPageItems() {
-		return this.pageItems;
-	}
-
-	public long getCount() {
-		return this.count;
-	}
-
-	/*
-	 * Support listing and POSTing back Item entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
-
-	public List<Item> getAll() {
-
-		CriteriaQuery<Item> criteria = this.entityManager
-				.getCriteriaBuilder().createQuery(Item.class);
-		return this.entityManager.createQuery(
-				criteria.select(criteria.from(Item.class))).getResultList();
-	}
-
-	public Converter getConverter() {
-
-		return new Converter() {
-
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
-
-				return ItemBean.this.entityManager.find(Item.class,
-						Long.valueOf(value));
-			}
-
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
-
-				if (value == null) {
-					return "";
-				}
-
-				return String.valueOf(((Item) value).getId());
-			}
-		};
+	@Override
+	protected Class<Item> getEntityClass() {
+		return Item.class;
 	}
 	
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
-	 
-	private Item add = new Item();
-
-	public Item getAdd() {
-		return this.add;
-	}
-
-	public Item getAdded() {
-		Item added = this.add;
-		this.add = new Item();
-		return added;
+	public Item createInstance(){
+		return new Item();
 	}
 }
