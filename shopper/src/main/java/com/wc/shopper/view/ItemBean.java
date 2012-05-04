@@ -40,7 +40,6 @@ import com.wc.shopper.domain.Item;
 public class ItemBean extends BaseBean<Item> implements Serializable {
 	
 	
-
 	protected Predicate[] getSearchPredicates(Root<Item> root) {
 
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
