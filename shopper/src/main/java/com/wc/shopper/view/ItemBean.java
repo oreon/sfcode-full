@@ -68,4 +68,9 @@ public class ItemBean extends BaseBean<Item> implements Serializable {
 	public Item createInstance(){
 		return new Item();
 	}
+	
+	public Item getItem() {
+		return this.item;
+	}
+
 }
