@@ -421,7 +421,21 @@ import org.hibernate.annotations.ParamDef;
 			return null;
 		«ENDIF»
 	}
+	
+	«EXPAND genFunctionEnabled FOR this»
 «ENDDEFINE»
+
+«DEFINE genFunctionEnabled FOR uml::Operation»
+	
+«ENDDEFINE»
+
+«DEFINE genFunctionEnabled FOR wcprofile::UserOperation»
+	public boolean is«name.toFirstUpper()»Allowed(){
+		return true;
+	}
+«ENDDEFINE»
+
+
 
 «DEFINE genOperationDecl FOR uml::Operation»
 	«visibility» «getOpReturnType()» «name» («getParametersSignature()»);
