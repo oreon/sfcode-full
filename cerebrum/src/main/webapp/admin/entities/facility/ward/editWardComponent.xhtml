@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editWardComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{wardAction.load(wardId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelWard eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Ward}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameEdit')}" label="#{msg.ward_name}" required="true" disabled="false" value="#{wardAction.ward.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="genderDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'genderEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'genderEdit')}" value="#{wardAction.ward.gender}" required="false" label="#{msg.ward_gender}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+            <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="facilityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'facilityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="facility" label="#{msg.ward_facility}" value="#{wardAction.ward.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'facilityEdit')}" disabled="false"> 
+            <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New Room" action="#{wardAction.addRooms}" reRender="rooms" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'roomsEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="rooms" var="_room" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'roomsEdit')}" value="#{wardAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"/>
+          </f:facet>  
+          <s:decorate id="roomTypeDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="roomType" label="#{msg.room_roomType}" value="#{_room.roomType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}" disabled="false"> 
+              <s:selectItems value="#{roomTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>
+          </f:facet>  
+          <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}" label="#{msg.room_name}" required="true" disabled="false" value="#{_room.name}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Room" action="#{wardAction.addRooms}" reRender="rooms" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomsEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{wardAction.deleteRooms(rowIndex)}" reRender="rooms"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
