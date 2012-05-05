@@ -62,7 +62,8 @@ import com.oreon.cerebrum.ProjectUtils;
 public class AtcDrug extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1623432457L;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "code", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String code
@@ -101,12 +102,14 @@ public class AtcDrug extends BusinessEntity implements java.io.Serializable {
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "drug_id", nullable = true, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected Drug drug
 
 	;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id", nullable = true, updatable = true)
+	@NotNull
 	protected AtcDrug parent
 
 	;

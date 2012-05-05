@@ -51,72 +51,72 @@ import org.witchcraft.utils.*;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-@Embeddable
+@Entity
+@Table(name = "trackedvital")
+@Filter(name = "archiveFilterDef")
+@Name("trackedVital")
 @Indexed
-public class ContactDetails implements java.io.Serializable {
-	private static final long serialVersionUID = 243784283L;
+@Cache(usage = CacheConcurrencyStrategy.NONE)
+@Analyzer(definition = "entityAnalyzer")
+@XmlRootElement
+public class TrackedVital extends BusinessEntity
+		implements
+			java.io.Serializable {
+	private static final long serialVersionUID = 700076891L;
 
 	@NotNull
-	@Column(name = "primaryPhone", unique = false)
+	@Length(min = 1, max = 250)
+	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String primaryPhone
+	protected String name
 
 	;
 
-	@NotNull
-	@Column(name = "secondaryPhone", unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String secondaryPhone
-
-	;
-
-	@NotNull
-	@Column(name = "email", unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String email
-
-	;
-
-	public void setPrimaryPhone(String primaryPhone) {
-		this.primaryPhone = primaryPhone;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPrimaryPhone() {
+	public String getName() {
 
-		return primaryPhone;
-
-	}
-
-	public void setSecondaryPhone(String secondaryPhone) {
-		this.secondaryPhone = secondaryPhone;
-	}
-
-	public String getSecondaryPhone() {
-
-		return secondaryPhone;
-
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getEmail() {
-
-		return email;
+		return name;
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return primaryPhone;
+			return name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
+	}
+
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
+	@Override
+	public List<String> listSearchableFields() {
+		List<String> listSearchableFields = new ArrayList<String>();
+		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("name");
+
+		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		return builder.toString();
 	}
 
 }

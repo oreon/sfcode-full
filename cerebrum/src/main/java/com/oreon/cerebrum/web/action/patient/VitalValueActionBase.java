@@ -1,6 +1,6 @@
 package com.oreon.cerebrum.web.action.patient;
 
-import com.oreon.cerebrum.patient.Admission;
+import com.oreon.cerebrum.patient.VitalValue;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -41,24 +41,25 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-import com.oreon.cerebrum.patient.BedStay;
-
-public abstract class AdmissionActionBase extends BaseAction<Admission>
+public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private Admission admission;
+	private VitalValue vitalValue;
+
+	@In(create = true, value = "trackedVitalAction")
+	com.oreon.cerebrum.web.action.patient.TrackedVitalAction trackedVitalAction;
 
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
 	@DataModel
-	private List<Admission> admissionRecordList;
+	private List<VitalValue> vitalValueRecordList;
 
-	public void setAdmissionId(Long id) {
+	public void setVitalValueId(Long id) {
 		if (id == 0) {
 			clearInstance();
 			clearLists();
@@ -73,10 +74,23 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
-	public void setAdmissionIdForModalDlg(Long id) {
+	public void setVitalValueIdForModalDlg(Long id) {
 		setId(id);
 		clearLists();
 		loadAssociations();
+	}
+
+	public void setTrackedVitalId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setTrackedVital(trackedVitalAction.loadFromId(id));
+
+	}
+
+	public Long getTrackedVitalId() {
+		if (getInstance().getTrackedVital() != null)
+			return getInstance().getTrackedVital().getId();
+		return 0L;
 	}
 
 	public void setPatientId(Long id) {
@@ -92,27 +106,27 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 		return 0L;
 	}
 
-	public Long getAdmissionId() {
+	public Long getVitalValueId() {
 		return (Long) getId();
 	}
 
-	public Admission getEntity() {
-		return admission;
+	public VitalValue getEntity() {
+		return vitalValue;
 	}
 
 	//@Override
-	public void setEntity(Admission t) {
-		this.admission = t;
+	public void setEntity(VitalValue t) {
+		this.vitalValue = t;
 		loadAssociations();
 	}
 
-	public Admission getAdmission() {
-		return (Admission) getInstance();
+	public VitalValue getVitalValue() {
+		return (VitalValue) getInstance();
 	}
 
 	@Override
-	protected Admission createInstance() {
-		Admission instance = super.createInstance();
+	protected VitalValue createInstance() {
+		VitalValue instance = super.createInstance();
 
 		return instance;
 	}
@@ -126,6 +140,12 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	public void wire() {
 		getInstance();
 
+		com.oreon.cerebrum.patient.TrackedVital trackedVital = trackedVitalAction
+				.getDefinedInstance();
+		if (trackedVital != null && isNew()) {
+			getInstance().setTrackedVital(trackedVital);
+		}
+
 		com.oreon.cerebrum.patient.Patient patient = patientAction
 				.getDefinedInstance();
 		if (patient != null && isNew()) {
@@ -138,20 +158,20 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 		return true;
 	}
 
-	public Admission getDefinedInstance() {
-		return (Admission) (isIdDefined() ? getInstance() : null);
+	public VitalValue getDefinedInstance() {
+		return (VitalValue) (isIdDefined() ? getInstance() : null);
 	}
 
-	public void setAdmission(Admission t) {
-		this.admission = t;
-		if (admission != null)
-			setAdmissionId(t.getId());
+	public void setVitalValue(VitalValue t) {
+		this.vitalValue = t;
+		if (vitalValue != null)
+			setVitalValueId(t.getId());
 		loadAssociations();
 	}
 
 	@Override
-	public Class<Admission> getEntityClass() {
-		return Admission.class;
+	public Class<VitalValue> getEntityClass() {
+		return VitalValue.class;
 	}
 
 	/** This function adds associated entities to an example criterion
@@ -160,8 +180,13 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (admission.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", admission
+		if (vitalValue.getTrackedVital() != null) {
+			criteria = criteria.add(Restrictions.eq("trackedVital.id",
+					vitalValue.getTrackedVital().getId()));
+		}
+
+		if (vitalValue.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", vitalValue
 					.getPatient().getId()));
 		}
 
@@ -173,13 +198,13 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	 */
 	public void loadAssociations() {
 
-		if (admission.getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
+		if (vitalValue.getTrackedVital() != null) {
+			trackedVitalAction.setInstance(getInstance().getTrackedVital());
 		}
 
-		initListBedStays();
-
-		initListBedStays();
+		if (vitalValue.getPatient() != null) {
+			patientAction.setInstance(getInstance().getPatient());
+		}
 
 	}
 
@@ -187,81 +212,16 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 
 	}
 
-	protected List<com.oreon.cerebrum.patient.BedStay> listBedStays = new ArrayList<com.oreon.cerebrum.patient.BedStay>();
-
-	void initListBedStays() {
-
-		if (listBedStays.isEmpty())
-			listBedStays.addAll(getInstance().getBedStays());
-
-	}
-
-	public List<com.oreon.cerebrum.patient.BedStay> getListBedStays() {
-
-		prePopulateListBedStays();
-		return listBedStays;
-	}
-
-	public void prePopulateListBedStays() {
-	}
-
-	public void setListBedStays(
-			List<com.oreon.cerebrum.patient.BedStay> listBedStays) {
-		this.listBedStays = listBedStays;
-	}
-
-	public void deleteBedStays(int index) {
-		listBedStays.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addBedStays() {
-		initListBedStays();
-		BedStay bedStays = new BedStay();
-
-		bedStays.setAdmission(getInstance());
-
-		getListBedStays().add(bedStays);
-	}
-
 	public void updateComposedAssociations() {
-
-		if (listBedStays != null) {
-			getInstance().getBedStays().clear();
-			getInstance().getBedStays().addAll(listBedStays);
-		}
 	}
 
 	public void clearLists() {
-		listBedStays.clear();
 
 	}
 
-	/** 
-	 * []
-	 */
-	public void transfer() {
-
-	}
-
-	public boolean isTransferEnabled() {
-		return true;
-	}
-
-	/** 
-	 * []
-	 */
-	public void discharge() {
-
-	}
-
-	public boolean isDischargeEnabled() {
-		return true;
-	}
-
-	public String viewAdmission() {
+	public String viewVitalValue() {
 		load(currentEntityId);
-		return "viewAdmission";
+		return "viewVitalValue";
 	}
 
 }

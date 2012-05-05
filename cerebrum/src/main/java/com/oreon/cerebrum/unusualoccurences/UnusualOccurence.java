@@ -67,22 +67,26 @@ public class UnusualOccurence extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "occurenceType_id", nullable = false, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected OccurenceType occurenceType
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "category", unique = false)
 	protected TreatmentCategory category
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "severity", unique = false)
 	protected Severity severity
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "description", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String description
@@ -92,6 +96,7 @@ public class UnusualOccurence extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected com.oreon.cerebrum.patient.Patient patient
 
 	;
@@ -99,6 +104,7 @@ public class UnusualOccurence extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "createdBy_id", nullable = false, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected com.oreon.cerebrum.employee.Employee createdBy
 
 	;

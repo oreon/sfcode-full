@@ -71,7 +71,7 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String notes
+	protected String admissionNote
 
 	;
 
@@ -101,6 +101,26 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 		return bedStays.size();
 	}
 
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "bed_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected com.oreon.cerebrum.facility.Bed bed
+
+	;
+
+	@Lob
+	@Column(unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String dischargeNote
+
+	;
+
+	@Column(unique = false)
+	protected DischargeCode dischargeCode
+
+	;
+
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
@@ -111,13 +131,13 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 
 	}
 
-	public void setNotes(String notes) {
-		this.notes = notes;
+	public void setAdmissionNote(String admissionNote) {
+		this.admissionNote = admissionNote;
 	}
 
-	public String getNotes() {
+	public String getAdmissionNote() {
 
-		return notes;
+		return admissionNote;
 
 	}
 
@@ -139,6 +159,36 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 		return bedStays;
 	}
 
+	public void setBed(com.oreon.cerebrum.facility.Bed bed) {
+		this.bed = bed;
+	}
+
+	public com.oreon.cerebrum.facility.Bed getBed() {
+
+		return bed;
+
+	}
+
+	public void setDischargeNote(String dischargeNote) {
+		this.dischargeNote = dischargeNote;
+	}
+
+	public String getDischargeNote() {
+
+		return dischargeNote;
+
+	}
+
+	public void setDischargeCode(DischargeCode dischargeCode) {
+		this.dischargeCode = dischargeCode;
+	}
+
+	public DischargeCode getDischargeCode() {
+
+		return dischargeCode;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -149,12 +199,22 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 	}
 
 	@Transient
-	public String getNotesAbbreviated() {
+	public String getAdmissionNoteAbbreviated() {
 		try {
-			return org.apache.commons.lang.WordUtils.abbreviate(notes.trim(),
-					100, 200, "...");
+			return org.apache.commons.lang.WordUtils.abbreviate(admissionNote
+					.trim(), 100, 200, "...");
 		} catch (Exception e) {
-			return notes != null ? notes : "";
+			return admissionNote != null ? admissionNote : "";
+		}
+	}
+
+	@Transient
+	public String getDischargeNoteAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(dischargeNote
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return dischargeNote != null ? dischargeNote : "";
 		}
 	}
 
@@ -170,7 +230,9 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("notes");
+		listSearchableFields.add("admissionNote");
+
+		listSearchableFields.add("dischargeNote");
 
 		return listSearchableFields;
 	}
@@ -180,10 +242,15 @@ public class Admission extends BusinessEntity implements java.io.Serializable {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(getNotes() + " ");
+		builder.append(getAdmissionNote() + " ");
+
+		builder.append(getDischargeNote() + " ");
 
 		if (getPatient() != null)
 			builder.append("patient:" + getPatient().getDisplayName() + " ");
+
+		if (getBed() != null)
+			builder.append("bed:" + getBed().getDisplayName() + " ");
 
 		for (BusinessEntity e : bedStays) {
 			builder.append(e.getDisplayName() + " ");

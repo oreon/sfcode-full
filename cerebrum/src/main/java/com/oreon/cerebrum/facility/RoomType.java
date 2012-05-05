@@ -1,4 +1,4 @@
-package com.oreon.cerebrum.patient;
+package com.oreon.cerebrum.facility;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -51,72 +51,117 @@ import org.witchcraft.utils.*;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-@Embeddable
+@Entity
+@Table(name = "roomtype")
+@Filter(name = "archiveFilterDef")
+@Name("roomType")
 @Indexed
-public class ContactDetails implements java.io.Serializable {
-	private static final long serialVersionUID = 243784283L;
+@Cache(usage = CacheConcurrencyStrategy.NONE)
+@Analyzer(definition = "entityAnalyzer")
+@XmlRootElement
+public class RoomType extends BusinessEntity implements java.io.Serializable {
+	private static final long serialVersionUID = 1595756186L;
 
 	@NotNull
-	@Column(name = "primaryPhone", unique = false)
+	@Length(min = 1, max = 250)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String primaryPhone
+	protected String name
 
 	;
 
-	@NotNull
-	@Column(name = "secondaryPhone", unique = false)
+	@Lob
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String secondaryPhone
+	protected String description
 
 	;
 
-	@NotNull
-	@Column(name = "email", unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String email
+	@Column(unique = false)
+	protected Double rate
 
 	;
 
-	public void setPrimaryPhone(String primaryPhone) {
-		this.primaryPhone = primaryPhone;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPrimaryPhone() {
+	public String getName() {
 
-		return primaryPhone;
-
-	}
-
-	public void setSecondaryPhone(String secondaryPhone) {
-		this.secondaryPhone = secondaryPhone;
-	}
-
-	public String getSecondaryPhone() {
-
-		return secondaryPhone;
+		return name;
 
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getEmail() {
+	public String getDescription() {
 
-		return email;
+		return description;
+
+	}
+
+	public void setRate(Double rate) {
+		this.rate = rate;
+	}
+
+	public Double getRate() {
+
+		return rate;
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return primaryPhone;
+			return name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
+	}
+
+	@Transient
+	public String getDescriptionAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(description
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return description != null ? description : "";
+		}
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
+	}
+
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 */
+	@Override
+	public List<String> listSearchableFields() {
+		List<String> listSearchableFields = new ArrayList<String>();
+		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("name");
+
+		listSearchableFields.add("description");
+
+		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		builder.append(getDescription() + " ");
+
+		return builder.toString();
 	}
 
 }

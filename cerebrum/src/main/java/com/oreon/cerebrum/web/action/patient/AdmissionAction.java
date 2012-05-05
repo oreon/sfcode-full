@@ -3,9 +3,11 @@
 package com.oreon.cerebrum.web.action.patient;
 	
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 
@@ -14,6 +16,7 @@ import com.oreon.cerebrum.facility.Room;
 import com.oreon.cerebrum.facility.RoomType;
 import com.oreon.cerebrum.facility.Ward;
 import com.oreon.cerebrum.patient.BedStay;
+import com.oreon.cerebrum.patient.Patient;
 import com.oreon.cerebrum.web.action.facility.BedAction;
 
 	
@@ -25,7 +28,9 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	
 	private RoomType roomType;
 	
-	private Bed bed;
+	private Bed bed ;
+	
+	private Patient patient;
 	
 	@In(create=true)
 	BedAction bedAction;
@@ -56,17 +61,77 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	}
 	
 	@Override
+	public void updateComposedAssociations() {
+		// TODO Auto-generated method stub
+		//super.updateComposedAssociations();
+	}
+	
+	@Override
+	public boolean isDischargeEnabled(){
+		return instance.getDischargeDate() == null;
+	}
+	
+	@Override
+	public boolean isTransferEnabled() {
+		return instance.getDischargeDate() == null;
+	}
+	
+	//@Override
+	public void discharge(String dischargeNote,
+			com.oreon.cerebrum.patient.DischargeCode dischargeCode) {
+		
+		updateBedStayDate();
+		
+		instance.setDischargeDate(new Date());
+		super.save();
+		addInfoMessage("Successfully Discharged patient" );
+
+	}
+	
+	public void discharge(){
+		discharge(instance.getDischargeNote(), instance.getDischargeCode());
+	}
+
+	private void updateBedStayDate() {
+		for (BedStay bedStay : instance.getBedStays()) {
+			if(bedStay.getToDate()  == null)
+				bedStay.setToDate(new Date());
+		}
+	}
+	
+	@Override
+	public void transfer() {
+		
+	
+		updateBedStayDate();
+		createBedStay();
+		
+		listBedStays.clear();
+		listBedStays.addAll(getInstance().getBedStays());
+		
+		super.save();
+		
+		addInfoMessage("Successfully transferred to bed " + instance.getBed());
+		
+	}
+	
+	@Override
 	public String save() {
-		bed.setPatient(instance.getPatient());
-		//bedAction.persist(bed);
-		
-		BedStay bedStay = new BedStay();
-		bedStay.setAdmission(instance);
-		bedStay.setFromDate(new Date());
-		
-		instance.addBedStay(bedStay);
+		//if(bed != null )
+		createBedStay();
 		
 		return super.save();
+	}
+
+	private void createBedStay() {
+		bed = instance.getBed();
+		bed.setPatient(instance.getPatient());
+			
+		BedStay bedStay = new BedStay();
+		bedStay.setAdmission(instance);
+		bedStay.setBed(bed);
+		bedStay.setFromDate(new Date());
+		instance.addBedStay(bedStay);
 	}
 	
 
@@ -98,6 +163,15 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 
 	public Bed getBed() {
 		return bed;
+	}
+
+	@Begin(join=true)
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Patient getPatient() {
+		return patient;
 	}
 	
 }
