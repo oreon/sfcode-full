@@ -51,130 +51,92 @@ import org.witchcraft.utils.*;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-@MappedSuperclass
-public class Person extends BusinessEntity {
-	private static final long serialVersionUID = -1283387220L;
+@Entity
+@Table(name = "bedstay")
+@Filter(name = "archiveFilterDef")
+@Name("bedStay")
+@Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
+@Analyzer(definition = "entityAnalyzer")
+@XmlRootElement
+public class BedStay extends BusinessEntity implements java.io.Serializable {
+	private static final long serialVersionUID = 537868947L;
 
-	@NotNull
-	@Length(min = 1, max = 250)
 	@Column(unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String firstName
+	protected Date fromDate
 
 	;
 
-	@NotNull
-	@Length(min = 1, max = 250)
 	@Column(unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String lastName
+	protected Date toDate
 
 	;
 
-	@NotNull
-	@Column(name = "dateOfBirth", unique = false)
-	protected Date dateOfBirth
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "admission_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Admission admission
 
 	;
 
-	@NotNull
-	@Column(name = "gender", unique = false)
-	protected Gender gender
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "bed_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected com.oreon.cerebrum.facility.Bed bed
 
 	;
 
-	@IndexedEmbedded
-	@AttributeOverrides({
-
-			@AttributeOverride(name = "primaryPhone", column = @Column(name = "contactDetails_primaryPhone")),
-
-			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "contactDetails_secondaryPhone")),
-
-			@AttributeOverride(name = "email", column = @Column(name = "contactDetails_email"))
-
-	})
-	protected ContactDetails contactDetails = new ContactDetails();
-
-	@Transient
-	protected Integer age
-
-	;
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
 	}
 
-	public String getFirstName() {
+	public Date getFromDate() {
 
-		return firstName;
+		return fromDate;
 
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
 	}
 
-	public String getLastName() {
+	public Date getToDate() {
 
-		return lastName;
-
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public Date getDateOfBirth() {
-
-		return dateOfBirth;
+		return toDate;
 
 	}
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
+	public void setAdmission(Admission admission) {
+		this.admission = admission;
 	}
 
-	public Gender getGender() {
+	public Admission getAdmission() {
 
-		return gender;
-
-	}
-
-	public void setContactDetails(ContactDetails contactDetails) {
-		this.contactDetails = contactDetails;
-	}
-
-	public ContactDetails getContactDetails() {
-
-		return contactDetails;
+		return admission;
 
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setBed(com.oreon.cerebrum.facility.Bed bed) {
+		this.bed = bed;
 	}
 
-	public Integer getAge() {
+	public com.oreon.cerebrum.facility.Bed getBed() {
 
-		try {
-			return DateUtils.calcAge(dateOfBirth);
-		} catch (Exception e) {
-
-			return 0;
-
-		}
+		return bed;
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return lastName != null ? lastName + ", " + firstName : "";
+			return fromDate + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -185,16 +147,6 @@ public class Person extends BusinessEntity {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("firstName");
-
-		listSearchableFields.add("lastName");
-
-		listSearchableFields.add("contactDetails.primaryPhone");
-
-		listSearchableFields.add("contactDetails.secondaryPhone");
-
-		listSearchableFields.add("contactDetails.email");
-
 		return listSearchableFields;
 	}
 
@@ -203,9 +155,13 @@ public class Person extends BusinessEntity {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(getFirstName() + " ");
+		if (getAdmission() != null)
+			builder
+					.append("admission:" + getAdmission().getDisplayName()
+							+ " ");
 
-		builder.append(getLastName() + " ");
+		if (getBed() != null)
+			builder.append("bed:" + getBed().getDisplayName() + " ");
 
 		return builder.toString();
 	}

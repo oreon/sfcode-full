@@ -56,28 +56,32 @@ import com.oreon.cerebrum.ProjectUtils;
 public class Address implements java.io.Serializable {
 	private static final long serialVersionUID = -855511539L;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "streetAddress", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String streetAddress
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "city", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String city
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "State", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String State
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "phone", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String phone

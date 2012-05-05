@@ -340,8 +340,9 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	}
 
 	public void load(Long entityId) {
-		// if (entityId == null || entityId == 0)
-		// entityId = currentEntityId;
+		if (entityId == null || entityId == 0)
+			entityId = currentEntityId;
+		
 		if (entityId == null || entityId == 0) {
 			log.info("Empty id " + entityId);
 			return;

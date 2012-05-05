@@ -71,99 +71,112 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "absorption", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String absorption
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "biotransformation", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String biotransformation
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "atcCodes", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String atcCodes
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "contraIndication", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String contraIndication
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "description", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String description
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "dosageForm", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String dosageForm
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "foodInteractions", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String foodInteractions
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "halfLife", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String halfLife
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "halfLifeNumberOfHours", unique = false)
 	protected Double halfLifeNumberOfHours
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "indication", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String indication
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "mechanismOfAction", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String mechanismOfAction
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "patientInfo", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String patientInfo
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "pharmacology", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String pharmacology
@@ -195,23 +208,26 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	@ManyToMany(mappedBy = "drugs")
 	private Set<DrugCategory> drugCategorys = new HashSet<DrugCategory>();
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "toxicity", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String toxicity
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "routeOfElimination", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String routeOfElimination
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "volumeOfDistribution", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String volumeOfDistribution

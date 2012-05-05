@@ -89,12 +89,14 @@ public class Prescription extends BusinessEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected Patient patient
 
 	;
 
+	@NotNull
 	@Lob
-	@Column(unique = false)
+	@Column(name = "notes", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String notes

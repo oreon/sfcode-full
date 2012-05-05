@@ -65,13 +65,18 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 
 			"admission.patient.id = #{admissionList.admission.patient.id}",
 
-			"lower(admission.notes) like concat(lower(#{admissionList.admission.notes}),'%')",
+			"lower(admission.admissionNote) like concat(lower(#{admissionList.admission.admissionNote}),'%')",
 
 			"admission.dischargeDate >= #{admissionList.dischargeDateRange.begin}",
 			"admission.dischargeDate <= #{admissionList.dischargeDateRange.end}",
 
+			"lower(admission.dischargeNote) like concat(lower(#{admissionList.admission.dischargeNote}),'%')",
+
+			"admission.dischargeCode = #{admissionList.admission.dischargeCode}",
+
 			"admission.dateCreated <= #{admissionList.dateCreatedRange.end}",
-			"admission.dateCreated >= #{admissionList.dateCreatedRange.begin}",};
+			"admission.dateCreated >= #{admissionList.dateCreatedRange.begin}",
+	};
 
 	public List<Admission> getAdmissionsByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
@@ -96,11 +101,19 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getNotes() != null ? e.getNotes().replace(",", "") : "")
-				+ "\",");
+				+ (e.getAdmissionNote() != null ? e.getAdmissionNote().replace(
+						",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getDischargeDate() != null ? e.getDischargeDate() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getDischargeNote() != null ? e.getDischargeNote().replace(
+						",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getDischargeCode() != null ? e.getDischargeCode() : "")
 				+ "\",");
 
 		builder.append("\r\n");
@@ -114,9 +127,13 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 
 		builder.append("Patient" + ",");
 
-		builder.append("Notes" + ",");
+		builder.append("AdmissionNote" + ",");
 
 		builder.append("DischargeDate" + ",");
+
+		builder.append("DischargeNote" + ",");
+
+		builder.append("DischargeCode" + ",");
 
 		builder.append("\r\n");
 	}

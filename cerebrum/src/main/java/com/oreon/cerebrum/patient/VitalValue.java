@@ -51,130 +51,94 @@ import org.witchcraft.utils.*;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-@MappedSuperclass
-public class Person extends BusinessEntity {
-	private static final long serialVersionUID = -1283387220L;
+@Entity
+@Table(name = "vitalvalue")
+@Filter(name = "archiveFilterDef")
+@Name("vitalValue")
+@Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
+@Analyzer(definition = "entityAnalyzer")
+@XmlRootElement
+public class VitalValue extends BusinessEntity implements java.io.Serializable {
+	private static final long serialVersionUID = -1119654372L;
 
-	@NotNull
-	@Length(min = 1, max = 250)
 	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String firstName
+	protected String remarks
 
 	;
 
-	@NotNull
-	@Length(min = 1, max = 250)
 	@Column(unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String lastName
+	protected Integer value
 
 	;
 
-	@NotNull
-	@Column(name = "dateOfBirth", unique = false)
-	protected Date dateOfBirth
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "trackedVital_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected TrackedVital trackedVital
 
 	;
 
-	@NotNull
-	@Column(name = "gender", unique = false)
-	protected Gender gender
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Patient patient
 
 	;
 
-	@IndexedEmbedded
-	@AttributeOverrides({
-
-			@AttributeOverride(name = "primaryPhone", column = @Column(name = "contactDetails_primaryPhone")),
-
-			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "contactDetails_secondaryPhone")),
-
-			@AttributeOverride(name = "email", column = @Column(name = "contactDetails_email"))
-
-	})
-	protected ContactDetails contactDetails = new ContactDetails();
-
-	@Transient
-	protected Integer age
-
-	;
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
-	public String getFirstName() {
+	public String getRemarks() {
 
-		return firstName;
+		return remarks;
 
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setValue(Integer value) {
+		this.value = value;
 	}
 
-	public String getLastName() {
+	public Integer getValue() {
 
-		return lastName;
-
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public Date getDateOfBirth() {
-
-		return dateOfBirth;
+		return value;
 
 	}
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
+	public void setTrackedVital(TrackedVital trackedVital) {
+		this.trackedVital = trackedVital;
 	}
 
-	public Gender getGender() {
+	public TrackedVital getTrackedVital() {
 
-		return gender;
-
-	}
-
-	public void setContactDetails(ContactDetails contactDetails) {
-		this.contactDetails = contactDetails;
-	}
-
-	public ContactDetails getContactDetails() {
-
-		return contactDetails;
+		return trackedVital;
 
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
-	public Integer getAge() {
+	public Patient getPatient() {
 
-		try {
-			return DateUtils.calcAge(dateOfBirth);
-		} catch (Exception e) {
-
-			return 0;
-
-		}
+		return patient;
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return lastName != null ? lastName + ", " + firstName : "";
+			return remarks;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -185,15 +149,7 @@ public class Person extends BusinessEntity {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("firstName");
-
-		listSearchableFields.add("lastName");
-
-		listSearchableFields.add("contactDetails.primaryPhone");
-
-		listSearchableFields.add("contactDetails.secondaryPhone");
-
-		listSearchableFields.add("contactDetails.email");
+		listSearchableFields.add("remarks");
 
 		return listSearchableFields;
 	}
@@ -203,9 +159,14 @@ public class Person extends BusinessEntity {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(getFirstName() + " ");
+		builder.append(getRemarks() + " ");
 
-		builder.append(getLastName() + " ");
+		if (getTrackedVital() != null)
+			builder.append("trackedVital:" + getTrackedVital().getDisplayName()
+					+ " ");
+
+		if (getPatient() != null)
+			builder.append("patient:" + getPatient().getDisplayName() + " ");
 
 		return builder.toString();
 	}

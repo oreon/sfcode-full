@@ -1,4 +1,4 @@
-package com.oreon.cerebrum.patient;
+package com.oreon.cerebrum.facility;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -51,130 +51,108 @@ import org.witchcraft.utils.*;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-@MappedSuperclass
-public class Person extends BusinessEntity {
-	private static final long serialVersionUID = -1283387220L;
+@Entity
+@Table(name = "ward")
+@Filter(name = "archiveFilterDef")
+@Name("ward")
+@Indexed
+@Cache(usage = CacheConcurrencyStrategy.NONE)
+@Analyzer(definition = "entityAnalyzer")
+@XmlRootElement
+public class Ward extends BusinessEntity implements java.io.Serializable {
+	private static final long serialVersionUID = -515597643L;
 
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String firstName
-
-	;
-
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String lastName
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "facility_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Facility facility
 
 	;
 
-	@NotNull
-	@Column(name = "dateOfBirth", unique = false)
-	protected Date dateOfBirth
-
-	;
-
-	@NotNull
-	@Column(name = "gender", unique = false)
-	protected Gender gender
-
-	;
-
+	@OneToMany(mappedBy = "ward", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "ward_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
-	@AttributeOverrides({
+	private Set<Room> rooms = new HashSet<Room>();
 
-			@AttributeOverride(name = "primaryPhone", column = @Column(name = "contactDetails_primaryPhone")),
-
-			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "contactDetails_secondaryPhone")),
-
-			@AttributeOverride(name = "email", column = @Column(name = "contactDetails_email"))
-
-	})
-	protected ContactDetails contactDetails = new ContactDetails();
+	public void addRoom(Room room) {
+		room.setWard(this);
+		this.rooms.add(room);
+	}
 
 	@Transient
-	protected Integer age
+	public List<com.oreon.cerebrum.facility.Room> getListRooms() {
+		return new ArrayList<com.oreon.cerebrum.facility.Room>(rooms);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getRoomsCount() {
+		return rooms.size();
+	}
+
+	@NotNull
+	@Length(min = 1, max = 250)
+	@Column(unique = true)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String name
 
 	;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	@Column(unique = false)
+	protected com.oreon.cerebrum.patient.Gender gender
+
+	;
+
+	public void setFacility(Facility facility) {
+		this.facility = facility;
 	}
 
-	public String getFirstName() {
+	public Facility getFacility() {
 
-		return firstName;
-
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getLastName() {
-
-		return lastName;
+		return facility;
 
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
 	}
 
-	public Date getDateOfBirth() {
+	public Set<Room> getRooms() {
+		return rooms;
+	}
 
-		return dateOfBirth;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+
+		return name;
 
 	}
 
-	public void setGender(Gender gender) {
+	public void setGender(com.oreon.cerebrum.patient.Gender gender) {
 		this.gender = gender;
 	}
 
-	public Gender getGender() {
+	public com.oreon.cerebrum.patient.Gender getGender() {
 
 		return gender;
-
-	}
-
-	public void setContactDetails(ContactDetails contactDetails) {
-		this.contactDetails = contactDetails;
-	}
-
-	public ContactDetails getContactDetails() {
-
-		return contactDetails;
-
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Integer getAge() {
-
-		try {
-			return DateUtils.calcAge(dateOfBirth);
-		} catch (Exception e) {
-
-			return 0;
-
-		}
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return lastName != null ? lastName + ", " + firstName : "";
+			return name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
+	}
+
+	//Empty setter , needed for richfaces autocomplete to work 
+	public void setDisplayName(String name) {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
@@ -185,15 +163,9 @@ public class Person extends BusinessEntity {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("firstName");
+		listSearchableFields.add("name");
 
-		listSearchableFields.add("lastName");
-
-		listSearchableFields.add("contactDetails.primaryPhone");
-
-		listSearchableFields.add("contactDetails.secondaryPhone");
-
-		listSearchableFields.add("contactDetails.email");
+		listSearchableFields.add("rooms.name");
 
 		return listSearchableFields;
 	}
@@ -203,9 +175,14 @@ public class Person extends BusinessEntity {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(getFirstName() + " ");
+		builder.append(getName() + " ");
 
-		builder.append(getLastName() + " ");
+		if (getFacility() != null)
+			builder.append("facility:" + getFacility().getDisplayName() + " ");
+
+		for (BusinessEntity e : rooms) {
+			builder.append(e.getDisplayName() + " ");
+		}
 
 		return builder.toString();
 	}

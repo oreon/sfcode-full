@@ -208,7 +208,8 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 		return immunizations.size();
 	}
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "healthNumber", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String healthNumber
