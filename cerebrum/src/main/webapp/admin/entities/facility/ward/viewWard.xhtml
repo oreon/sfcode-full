@@ -3,29 +3,23 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
     <h:form> 
-      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_facility_Bed) ENABLED START-->  
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_facility_Ward) ENABLED START-->  
       <!--PROTECTED REGION END-->  
       <rich:tabPanel switchType="ajax"> 
-        <rich:tab label="Bed"> 
-          <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"/>  
+        <rich:tab label="Ward"> 
+          <ui:include src="/admin/entities/facility/ward/viewWardComponent.xhtml"/>  
           <div class="buttonBox"> 
-            <h:commandButton value="Edit" rendered="#{s:hasPermission('bed', 'edit', bedAction.instance)}" action="edit"></h:commandButton>  
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('ward', 'edit', wardAction.instance)}" action="edit"></h:commandButton>  
             <h:outputText value=" "/>  
-            <h:commandButton value="Back To Listing" action="#{bedAction.cancel}"> 
+            <h:commandButton value="Back To Listing" action="#{wardAction.cancel}"> 
               <s:conversationPropagation type="end"/> 
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Room" rendered="#{bedAction.instance.room != null}"> 
-          <ui:include src="/admin/entities/facility/room/viewRoomComponent.xhtml"> 
+        <rich:tab label="Facility" rendered="#{wardAction.instance.facility != null}"> 
+          <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
-            <ui:param name="roomId" value="#{bedAction.instance.room.id}"/> 
-          </ui:include> 
-        </rich:tab>  
-        <rich:tab label="Patient" rendered="#{bedAction.instance.patient != null}"> 
-          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="patientId" value="#{bedAction.instance.patient.id}"/> 
+            <ui:param name="facilityId" value="#{wardAction.instance.facility.id}"/> 
           </ui:include> 
         </rich:tab> 
       </rich:tabPanel>  
@@ -36,7 +30,7 @@
     <br/>  
     <rich:tabPanel switchType="client"> 
       <rich:tab label="Notes"> 
-        <wc:comments backingAction="#{bedAction}"/> 
+        <wc:comments backingAction="#{wardAction}"/> 
       </rich:tab> 
     </rich:tabPanel> 
   </ui:define> 

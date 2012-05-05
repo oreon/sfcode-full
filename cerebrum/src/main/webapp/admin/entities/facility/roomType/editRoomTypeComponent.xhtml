@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editRoomTypeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{roomTypeAction.load(roomTypeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelRoomType eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.RoomType}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.roomType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'nameEdit')}" label="#{msg.roomType_name}" required="true" disabled="false" value="#{roomTypeAction.roomType.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'descriptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'descriptionEdit')}" label="#{msg.roomType_description}" required="false" disabled="false" value="#{roomTypeAction.roomType.description}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="rateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.roomType_rate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'rateEdit')}"/>
+          </ui:define>  
+          <h:inputText id="rate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'rateEdit')}" label="#{msg.roomType_rate}" required="false" disabled="false" value="#{roomTypeAction.roomType.rate}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
