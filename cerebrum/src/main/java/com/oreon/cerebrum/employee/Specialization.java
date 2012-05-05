@@ -52,40 +52,41 @@ import org.witchcraft.utils.*;
 import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
-@Table(name = "nurse")
+@Table(name = "specialization")
 @Filter(name = "archiveFilterDef")
-@Name("nurse")
+@Name("specialization")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class Nurse extends com.oreon.cerebrum.employee.Employee
+public class Specialization extends BusinessEntity
 		implements
 			java.io.Serializable {
-	private static final long serialVersionUID = -613325953L;
+	private static final long serialVersionUID = 1474550929L;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "nurseSpecialty_id", nullable = true, updatable = true)
-	@ContainedIn
 	@NotNull
-	protected NurseSpecialty nurseSpecialty
+	@Length(min = 1, max = 250)
+	@Column(unique = true)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String name
 
 	;
 
-	public void setNurseSpecialty(NurseSpecialty nurseSpecialty) {
-		this.nurseSpecialty = nurseSpecialty;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public NurseSpecialty getNurseSpecialty() {
+	public String getName() {
 
-		return nurseSpecialty;
+		return name;
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return nurseSpecialty + "";
+			return name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -103,6 +104,8 @@ public class Nurse extends com.oreon.cerebrum.employee.Employee
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("name");
+
 		return listSearchableFields;
 	}
 
@@ -111,9 +114,7 @@ public class Nurse extends com.oreon.cerebrum.employee.Employee
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		if (getNurseSpecialty() != null)
-			builder.append("nurseSpecialty:"
-					+ getNurseSpecialty().getDisplayName() + " ");
+		builder.append(getName() + " ");
 
 		return builder.toString();
 	}

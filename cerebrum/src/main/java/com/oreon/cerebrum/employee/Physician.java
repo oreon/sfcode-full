@@ -67,6 +67,7 @@ public class Physician extends com.oreon.cerebrum.employee.Employee
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "specialization_id", nullable = true, updatable = true)
 	@ContainedIn
+	@NotNull
 	protected Specialization specialization
 
 	;
