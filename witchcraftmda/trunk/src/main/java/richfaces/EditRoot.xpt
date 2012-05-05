@@ -180,11 +180,11 @@
 		«IF o.hasStereo("UserOperation") »
 			«IF o.hasUI»
 			
-			<a:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)}" 
+			<a:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)  and  «getAction()».«o.name»Allowed }" 
 				oncomplete="Richfaces.showModalPanel('«o.name»«name.toFirstUpper()»Mdl',{});"  />
 	
 			«ELSE»
-			<h:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)}" 
+			<h:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance) and  «getAction()».«o.name»Allowed}" 
 					action="#{«getAction()».«o.name»}" />
 			«ENDIF»
 		«ENDIF»
