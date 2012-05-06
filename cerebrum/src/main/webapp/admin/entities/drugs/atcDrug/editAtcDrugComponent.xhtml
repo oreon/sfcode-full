@@ -15,7 +15,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeEdit')}"/>
           </ui:define>  
-          <h:inputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeEdit')}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{atcDrugAction.atcDrug.code}"> 
+          <h:inputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeEdit')}" label="#{msg.atcDrug_code}" required="true" disabled="false" value="#{atcDrugAction.atcDrug.code}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -72,7 +72,7 @@
           </f:facet>  
           <s:decorate id="codeDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeEdit')}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{_atcDrug.code}"> 
+            <h:inputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeEdit')}" label="#{msg.atcDrug_code}" required="true" disabled="false" value="#{_atcDrug.code}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 

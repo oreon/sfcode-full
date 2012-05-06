@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="BedStayModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="BedStay Search Results (#{empty records ? 0 : (bedStayList.paginated ? bedStayList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_bedStay" value="#{records}" id="bedStayList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'bedStayView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{bedStayList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="bedStay.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_bedStay.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('fromDate', 'bedStayView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{bedStayList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.bedStay_fromDate}"/>  
+              <ui:param name="propertyPath" value="bedStay.fromDate"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_bedStay.fromDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('toDate', 'bedStayView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{bedStayList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.bedStay_toDate}"/>  
+              <ui:param name="propertyPath" value="bedStay.toDate"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_bedStay.toDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column groupOn="#{bedStay.admission.displayName}" rendered="#{s:hasPermission('admission', 'bedStayView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{bedStayList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.bedStay_admission}"/>  
+              <ui:param name="propertyPath" value="bedStay.admission"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_bedStay.admission.displayName}" view="/admin/entities/patient/admission/viewAdmission.xhtml" propagation="none"> 
+            <f:param name="admissionId" value="#{_bedStay.admission.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('bed', 'bedStayView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{bedStayList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.bedStay_bed}"/>  
+              <ui:param name="propertyPath" value="bedStay.bed"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_bedStay.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+            <f:param name="bedId" value="#{_bedStay.bed.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'bedStayView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{bedStayList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="bedStay.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_bedStay.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_bedStay', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/patient/bedStay/viewBedStay.xhtml" rendered="#{s:hasPermission(_bedStay, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="bedStayId" value="#{_bedStay.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_bedStay', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/patient/bedStay/editBedStay.xhtml" rendered="#{s:hasPermission(_bedStay, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="bedStayId" value="#{_bedStay.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('bedStayAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{bedStayAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_bedStay.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_bedStay.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{bedStayAction.setBedStayIdForModalDlg(_bedStay.id)}" rendered="#{s:hasPermission(_bedStay, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{bedStayList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{bedStayList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{bedStayList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{bedStayList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{bedStayList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{bedStayList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{bedStayList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

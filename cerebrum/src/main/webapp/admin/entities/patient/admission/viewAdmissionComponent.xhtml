@@ -11,10 +11,14 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Admission}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.admission_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'notesView')}"/>  
-        <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'notesView')}" value="#{admissionAction.admission.notes}"></h:outputText>  
+        <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'admissionNoteView')}"/>  
+        <h:outputText escape="false" id="admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'admissionNoteView')}" value="#{admissionAction.admission.admissionNote}"></h:outputText>  
         <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeDateView')}"/>  
         <h:outputText direction="auto" id="dischargeDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeDateView')}" value="#{admissionAction.admission.dischargeDate}"></h:outputText>  
+        <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteView')}"/>  
+        <h:outputText escape="false" id="dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteView')}" value="#{admissionAction.admission.dischargeNote}"></h:outputText>  
+        <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeView')}"/>  
+        <h:outputText value="#{admissionAction.admission.dischargeCode}"/>  
         <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientView')}"/>  
         <s:link value="#{admissionAction.admission.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{admissionAction.admission.patient.id}"/>  

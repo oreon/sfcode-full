@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:set var="opId" value="outputPanel-${modalId}"/>  
+  <rich:modalPanel id="${modalId}" autosized="true" zindex="2000" domElementAttachment="parent" onshow="adoptCTDialogHeight()"> 
+    <f:facet name="header"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.Discharge}"/> 
+      </h:panelGroup> 
+    </f:facet>  
+    <f:facet name="controls"> 
+      <h:panelGroup> 
+        <h:graphicImage value="/images/icons/close.png" alt="Close" styleClass="hidelink" id="hide${modalId}"/>  
+        <rich:componentControl for="${modalId}" attachTo="hide${modalId}" operation="hide" event="onclick"/> 
+      </h:panelGroup> 
+    </f:facet>  
+    <s:div id="ctContent-admission-${modalId}" style="padding-right:15px" layout="block"> 
+      <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list"></rich:messages>  
+      <h:form> 
+        <!--PROTECTED REGION ID(MDL_RGN_VIEW_DischargeAdmission) ENABLED START-->  
+        <h:panelGrid columns="2"> 
+          <s:decorate id="dischargeNoteDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"> 
+              <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteEdit')}"/> 
+            </ui:define>  
+            <rich:editor useSeamText="true" id="dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteEdit')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{admissionAction.admission.dischargeNote}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate>  
+          <s:decorate id="dischargeCodeDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"> 
+              <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeEdit')}"/> 
+            </ui:define>  
+            <h:selectOneMenu id="dischargeCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeEdit')}" value="#{admissionAction.admission.dischargeCode}" required="false" label="#{msg.admission_dischargeCode}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="REGULAR" itemLabel="#{msg.REGULAR}"/>  
+              <f:selectItem itemValue="DECEASED" itemLabel="#{msg.DECEASED}"/>  
+              <f:selectItem itemValue="REFERRED" itemLabel="#{msg.REFERRED}"/>  
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:panelGrid>  
+        <!--PROTECTED REGION END-->  
+        <a:commandButton action="#{admissionAction.discharge}" styleClass="button" oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('#{modalId}'); }" reRender="viewAdmissionComponentPanel, ${opId}" value="Save"> 
+          <f:param name="conversationPropagation" value="end"/>  
+          <a:actionparam name="taskId" value="#{taskId}"/> 
+        </a:commandButton>  
+        <rich:spacer/>  
+        <a:commandButton immediate="true" oncomplete="Richfaces.hideModalPanel('${modalId}')" value="Hide" styleClass="button"/>  
+        <h:outputText value=" "/>  
+        <a:commandButton immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('${modalId}');" value="Cancel" styleClass="button"> 
+          <f:param name="conversationPropagation" value="end"/> 
+        </a:commandButton> 
+      </h:form> 
+    </s:div> 
+  </rich:modalPanel> 
+</ui:composition>

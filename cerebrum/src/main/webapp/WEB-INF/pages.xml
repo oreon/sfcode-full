@@ -928,7 +928,8 @@
       </rule> 
     </navigation>  
     <param name="admissionId" value="#{admissionAction.admissionId}"/>  
-    <param name="patientId" value="#{admissionAction.patientId}"/> 
+    <param name="patientId" value="#{admissionAction.patientId}"/>  
+    <param name="bedId" value="#{admissionAction.bedId}"/> 
   </page>  
   <page view-id="/admin/entities/patient/admission/viewAdmission.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Admission: #{admission.displayName}</description> -->  
@@ -960,8 +961,11 @@
     <param name="from"/>  
     <param name="id" value="#{admissionList.admission.id}"/>  
     <param name="patient" value="#{admissionList.admission.patient.id}" validateModel="false"/>  
-    <param name="notes" value="#{admissionList.admission.notes}" validateModel="false"/>  
-    <param name="dischargeDate" value="#{admissionList.admission.dischargeDate}" validateModel="false"/> 
+    <param name="admissionNote" value="#{admissionList.admission.admissionNote}" validateModel="false"/>  
+    <param name="dischargeDate" value="#{admissionList.admission.dischargeDate}" validateModel="false"/>  
+    <param name="bed" value="#{admissionList.admission.bed.id}" validateModel="false"/>  
+    <param name="dischargeNote" value="#{admissionList.admission.dischargeNote}" validateModel="false"/>  
+    <param name="dischargeCode" value="#{admissionList.admission.dischargeCode}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/patient/document/editDocument.xhtml"> 
     <!-- <description>Edit Document: #{document.displayName}</description> -->  
