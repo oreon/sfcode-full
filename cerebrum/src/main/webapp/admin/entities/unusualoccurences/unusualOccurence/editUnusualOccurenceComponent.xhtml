@@ -15,7 +15,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="category" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryEdit')}" value="#{unusualOccurenceAction.unusualOccurence.category}" required="false" label="#{msg.unusualOccurence_category}"> 
+          <h:selectOneMenu id="category" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryEdit')}" value="#{unusualOccurenceAction.unusualOccurence.category}" required="true" label="#{msg.unusualOccurence_category}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="Radiation" itemLabel="#{msg.Radiation}"/>  
             <f:selectItem itemValue="Chemotherapy" itemLabel="#{msg.Chemotherapy}"/>  
@@ -29,7 +29,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityEdit')}"/>
           </ui:define>  
-          <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityEdit')}" value="#{unusualOccurenceAction.unusualOccurence.severity}" required="false" label="#{msg.unusualOccurence_severity}"> 
+          <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityEdit')}" value="#{unusualOccurenceAction.unusualOccurence.severity}" required="true" label="#{msg.unusualOccurence_severity}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="Mild" itemLabel="#{msg.Mild}"/>  
             <f:selectItem itemValue="Moderate" itemLabel="#{msg.Moderate}"/>  
@@ -41,7 +41,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionEdit')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionEdit')}" label="#{msg.unusualOccurence_description}" required="false" disabled="false" value="#{unusualOccurenceAction.unusualOccurence.description}"> 
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionEdit')}" label="#{msg.unusualOccurence_description}" required="true" disabled="false" value="#{unusualOccurenceAction.unusualOccurence.description}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  

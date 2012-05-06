@@ -11,13 +11,33 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Admission}"/> 
         </f:facet>  
-        <s:decorate id="notesDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="admissionNoteDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.admission_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'notesEdit')}"/>
+            <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'admissionNoteEdit')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'notesEdit')}" label="#{msg.admission_notes}" required="false" disabled="false" value="#{admissionAction.admission.notes}"> 
+          <rich:editor useSeamText="true" id="admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'admissionNoteEdit')}" label="#{msg.admission_admissionNote}" required="false" disabled="false" value="#{admissionAction.admission.admissionNote}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="dischargeNoteDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteEdit')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{admissionAction.admission.dischargeNote}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="dischargeCodeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="dischargeCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeEdit')}" value="#{admissionAction.admission.dischargeCode}" required="false" label="#{msg.admission_dischargeCode}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="REGULAR" itemLabel="#{msg.REGULAR}"/>  
+            <f:selectItem itemValue="DECEASED" itemLabel="#{msg.DECEASED}"/>  
+            <f:selectItem itemValue="REFERRED" itemLabel="#{msg.REFERRED}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
         </s:decorate>  
         <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
@@ -42,6 +62,16 @@
               </rich:suggestionbox> 
             </a:region> 
           </h:panelGroup> 
+        </s:decorate>  
+        <s:decorate id="bedDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="bed" label="#{msg.admission_bed}" value="#{admissionAction.admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}" disabled="false"> 
+            <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

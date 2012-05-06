@@ -21,9 +21,18 @@
             <ui:param name="entityId" value="1"/>  
             <ui:param name="patientId" value="#{admissionAction.instance.patient.id}"/> 
           </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Bed" rendered="#{admissionAction.instance.bed != null}"> 
+          <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="bedId" value="#{admissionAction.instance.bed.id}"/> 
+          </ui:include> 
         </rich:tab> 
       </rich:tabPanel>  
-      <div class="buttonBox"></div> 
+      <div class="buttonBox"> 
+        <a:commandButton value="transfer" rendered="#{s:hasPermission('admission', 'transfer', admissionAction.instance)  and  admissionAction.transferEnabled }" oncomplete="Richfaces.showModalPanel('transferAdmissionMdl',{});"/>  
+        <a:commandButton value="discharge" rendered="#{s:hasPermission('admission', 'discharge', admissionAction.instance)  and  admissionAction.dischargeEnabled }" oncomplete="Richfaces.showModalPanel('dischargeAdmissionMdl',{});"/> 
+      </div> 
     </h:form>  
     <br/>  
     <rich:tabPanel switchType="client"></rich:tabPanel>  
@@ -32,6 +41,12 @@
       <rich:tab label="Notes"> 
         <wc:comments backingAction="#{admissionAction}"/> 
       </rich:tab> 
-    </rich:tabPanel> 
+    </rich:tabPanel>  
+    <ui:include src="/admin/entities/patient/admission/modalDlgTransferAdmissionComponent.xhtml"> 
+      <ui:param name="modalId" value="transferAdmissionMdl"/> 
+    </ui:include>  
+    <ui:include src="/admin/entities/patient/admission/modalDlgDischargeAdmissionComponent.xhtml"> 
+      <ui:param name="modalId" value="dischargeAdmissionMdl"/> 
+    </ui:include> 
   </ui:define> 
 </ui:composition>

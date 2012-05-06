@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<c:set var="opId" value="outputPanel-${modalId}" />
+	<rich:modalPanel id="${modalId}" autosized="true" zindex="2000"
+		domElementAttachment="parent" onshow="adoptCTDialogHeight()">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Transfer patient to another bed" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/images/icons/close.png" alt="Close"
+					styleClass="hidelink" id="hide${modalId}" />
+				<rich:componentControl for="${modalId}" attachTo="hide${modalId}"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<s:div id="ctContent-admission-${modalId}" style="padding-right:15px"
+			layout="block">
+			<rich:messages passedLabel=""
+				style="width:100%; text-align: left; color: red; font-weight: bold;"
+				layout="list"></rich:messages>
+			<h:form>
+
+
+				<s:decorate id="bedDecorate" template="/layout/edit.xhtml">
+					<ui:define name="label">
+						<h:outputText value="#{msg.admission_bed}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}" />
+					</ui:define>
+					<h:selectOneMenu id="bed" label="#{msg.admission_bed}"
+						value="#{admissionAction.admission.bed}" required="false"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}"
+						disabled="false">
+						<s:selectItems value="#{bedList}" var="itemIter"
+							label="#{itemIter.displayName}"
+							noSelectionLabel="Please Select..." />
+						<rich:ajaxValidator event="onsubmit" />
+						<s:convertEntity />
+					</h:selectOneMenu>
+				</s:decorate>
+
+				<a:commandButton action="#{admissionAction.transfer}"
+					styleClass="button"
+					oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('#{modalId}'); }"
+					reRender="viewAdmissionComponentPanel, ${opId}" value="Transfer">
+					<f:param name="conversationPropagation" value="end" />
+					<a:actionparam name="taskId" value="#{taskId}" />
+				</a:commandButton>
+				<rich:spacer />
+				<a:commandButton immediate="true"
+					oncomplete="Richfaces.hideModalPanel('${modalId}')" value="Hide"
+					styleClass="button" />
+				<h:outputText value=" " />
+				<a:commandButton immediate="true" type="reset"
+					oncomplete="Richfaces.hideModalPanel('${modalId}');" value="Cancel"
+					styleClass="button">
+					<f:param name="conversationPropagation" value="end" />
+				</a:commandButton>
+			</h:form>
+		</s:div>
+	</rich:modalPanel>
+</ui:composition>

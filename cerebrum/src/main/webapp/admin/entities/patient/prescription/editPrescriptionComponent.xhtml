@@ -15,7 +15,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.prescription_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'notesEdit')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'notesEdit')}" label="#{msg.prescription_notes}" required="false" disabled="false" value="#{prescriptionAction.prescription.notes}"> 
+          <rich:editor useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'notesEdit')}" label="#{msg.prescription_notes}" required="true" disabled="false" value="#{prescriptionAction.prescription.notes}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  

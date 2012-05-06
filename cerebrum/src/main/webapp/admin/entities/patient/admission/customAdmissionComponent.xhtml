@@ -16,16 +16,33 @@
         <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.admission_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'notesEdit')}"/>  
+        <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'admissionNoteEdit')}"/>  
         <br/>  
-        <rich:editor id="notes" value="#{admissionAction.admission.notes}"/>  
-        <rich:message styleClass="error errors" for="notes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'notesEdit')}"/> 
+        <rich:editor id="admissionNote" value="#{admissionAction.admission.admissionNote}"/>  
+        <rich:message styleClass="error errors" for="admissionNote" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'admissionNoteEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeDateEdit')}"/>  
         <br/>  
         <rich:calendar id="dischargeDate" value="#{admissionAction.admission.dischargeDate}"/>  
         <rich:message styleClass="error errors" for="dischargeDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeDateEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteEdit')}"/>  
+        <br/>  
+        <rich:editor id="dischargeNote" value="#{admissionAction.admission.dischargeNote}"/>  
+        <rich:message styleClass="error errors" for="dischargeNote" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="dischargeCode" value="#{admissionAction.admission.dischargeCode}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="REGULAR" itemLabel="Regular"/>  
+          <f:selectItem itemValue="DECEASED" itemLabel="Deceased"/>  
+          <f:selectItem itemValue="REFERRED" itemLabel="Referred"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="dischargeCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

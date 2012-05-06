@@ -6,6 +6,12 @@
       <h:commandButton value="Full Text Search" action="textSearch"> 
         <s:conversationPropagation type="join"/> 
       </h:commandButton> 
+      
+       <h:selectOneMenu id="dischargeCode" value="#{admissionList.admission.dischargeCode}" required="false"> 
+        <f:selectItem itemValue="REGULAR" itemLabel="Current"/>  
+        <f:selectItem itemValue="DECEASED" itemLabel="Past"/>  
+        <f:selectItem itemValue="REFERRED" itemLabel="All"/> 
+      </h:selectOneMenu>
     </h:form>  
     <c:set var="modalId" value="AdmissionModalPanel-Admission"/>  
     <ui:include src="searchAdmission.xhtml"/>  
