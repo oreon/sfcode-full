@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "department")
-@Filter(name = "archiveFilterDef")
+//@Filter(name = "archiveFilterDef")
 //@Name("department")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
@@ -39,7 +39,7 @@ public class Department extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "department_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	//@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Employee> employees = new HashSet<Employee>();
 
