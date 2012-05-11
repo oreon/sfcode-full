@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Table(name = "employee")
-@Filter(name = "archiveFilterDef")
+//@Filter(name = "archiveFilterDef")
 //@Name("employee")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
