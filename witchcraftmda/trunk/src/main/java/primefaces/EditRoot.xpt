@@ -19,6 +19,12 @@
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getAdminTemplate()»" >	
 	
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{«getAction()».id}"/>
+		<f:event type="preRenderView" listener="#{«getAction()».retrieve}"/>
+	</f:metadata>
+	
 	<ui:define name="content">
 		<h:form>
 		«REM»«IF templatable && !isCurrentTemplateMode() »«EXPAND genTemplateChooser FOR this»«ENDIF»
