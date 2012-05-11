@@ -54,7 +54,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 	public String create() {
 
 		this.conversation.begin();
-		return "create?faces-redirect=true";
+		return "edit" + getEntityClass().getSimpleName() +  "?faces-redirect=true";
 	}
 
 	protected abstract Class<T> getEntityClass();
