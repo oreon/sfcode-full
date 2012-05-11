@@ -6,15 +6,16 @@
 «EXTENSION template::associationExtensions»
 
 
-«DEFINE genEditView(boolean edit) FOR uml::Class»
+«DEFINE genEdit FOR uml::Class»
 	«clearCurrentEmbeddable()-»
-	«setCurrentEditMode(edit)» 
+	«setCurrentEditMode(true)» 
 	«EXPAND genEditFile»
-	«EXPAND genEditViewComponent(edit) FOR this»
+	«EXPAND genEditComponent»
 «ENDDEFINE»
 
 «DEFINE genEditFile FOR uml::Class»
-«FILE getWebPath() +"/" + "edit" + name+ "." + getExtension()»
+
+«FILE getWebPath() +"/" + "edit" + name+ "22." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getAdminTemplate()»" >	
 	
@@ -32,7 +33,7 @@
 		«ENDIF»  «ENDREM»
 	
 		<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
-		«EXPAND genCancelSaveBtns(true) FOR this»
+		«EXPAND genCancelSaveBtns FOR this»
 		</h:form>
 		
 	</ui:define> 
@@ -50,10 +51,10 @@
 
 
 «DEFINE genEditComponent FOR uml::Class»
-	«FILE getWebPath() +"/" + "edit" + name+ "Component." + getExtension()»
+	«FILE getWebPath() +"/" + "edit" + name+ "Component22." + getExtension()»
 	<ui:composition «EXPAND WebRoot::genIncludes-» >	
 	
-	<h:panelGroup  id="«(edit?"edit":"view")»«name»ComponentPanel" >
+	<h:panelGroup  id="«"edit"»«name»ComponentPanel" >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
 		<h:panelGrid columns="1" onload="#{«getAction()».load(«asVar()»Id )  }"></h:panelGrid>
@@ -80,8 +81,7 @@
 		</h:commandButton>  
 		<h:outputText value=" " /> 
 		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" >
-		</h:commandButton>  
-		«ENDIF»
+		</h:commandButton> 
 	</div>
 «ENDDEFINE»
 
@@ -210,15 +210,8 @@
 
 «DEFINE genLabelAndInput FOR uml::Property-»
 	«IF !isDerived() && !type.isEmbeddable() && !systemModify() && !currentUser()»
-
-		<h:panelGroup>
-			<h:inputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}"  />
-			<h:message for="«getId()»" styleClass="error"/>
-		</h:panelGroup>
-	
 		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>": getOutputMessage()»
-		«REM»comment<s:decorate id="«getId()»Decorate" template="/layout/edit.xhtml"> «ENDREM»
-		<ui:define name="label"> «!isCurrentMultiMode()?getOutputMessage():" "»</ui:define> 
+		«REM»comment<s:decorate id="«getId()»Decorate" template="/layout/edit.xhtml"> «!isCurrentMultiMode()?getOutputMessage():" "»  «ENDREM»
 		«IF association != null-»
 			«EXPAND genAssociation-»
 		«ELSE»
@@ -308,6 +301,18 @@
 	«ENDIF»	
 «ENDDEFINE»
 
+«DEFINE genDropDown FOR uml::Property»
+<h:panelGroup>
+	<h:selectOneMenu converter="#{«getActionForMode()»converter}" id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()-»}">
+		<f:selectItem/>
+		<f:selectItems value="#{«getActionForMode()»all}"/>
+	</h:selectOneMenu>
+	<h:message for="«getId()»" styleClass="error"/>
+</h:panelGroup>
+«ENDDEFINE»
+
+
+
 «DEFINE genAutoCompleteAssoc FOR uml::Property»
 	<h:panelGroup>
 	 <a:region>
@@ -340,43 +345,16 @@
 	</rich:suggestionbox>
 «ENDDEFINE»
 
-«DEFINE genDropDown FOR uml::Property»
-	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" 
-		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}" 
-		disabled="false" >
-		«IF isColumn() && this.controls != null » <a:support event="onchange" 
-			action="#{«class.getAction()».onChange«name.toFirstUpper()»}"  reRender="«controls»" ajaxSingle="true" />
-		«ENDIF»
-		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		«genAjaxValidator()»
-		<s:convertEntity />
-	</h:selectOneMenu>
-«ENDDEFINE»
+
 
 
 
 «REM»Generate text control for the given property «ENDREM»
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-«IF isFile()-» «EXPAND genFilePropertyEntry»
-«ELSE-»
-<«getTextControl()»  
-	 «IF type.name == "largeText"»
-	 	«IF isCurrentEditMode()» useSeamText="true" «ELSE» escape="false" «ENDIF»
-	 «ENDIF»  
-	 «IF isColumn() && secret»
-	 	«IF isCurrentEditMode()»  redisplay="true" «ENDIF»
-	 «ENDIF»  
-	 «IF isType("Date")»  direction="auto" «ENDIF»
-	 
-	 id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
-	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"" + " disabled=\"" + getDisabled() + "\"" :""
-	 » 
-	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
-	 «IF isCurrentEditMode()» «genAjaxValidator()» «ENDIF»
-</«getTextControl()»>
-«ENDIF»
+	<h:panelGroup>
+			<h:inputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}"  />
+			<h:message for="«getId()»" styleClass="error"/>
+	</h:panelGroup>
 «ENDDEFINE»
 
 
@@ -446,18 +424,13 @@
 
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
-	«IF !isCurrentEditMode() -»
-	<«getTextControl()»  value="#{«getActionForMode()»«genPropertyLabel()»}" />
-	«ELSE»
 	<h:selectOneMenu id="«getId()»"  rendered="#{«genEditPermission()»}" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getRequired()»" 
 	  label="«msgBundleKey()»">
 		<f:selectItem itemLabel="Please Select..." itemValue="" />
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemValue="«e.name»"  itemLabel="#{msg.«e.name-»}" />
 		«ENDFOREACH»
-		«genAjaxValidator()»
 	</h:selectOneMenu>
-	«ENDIF»
 «ENDDEFINE»
 
 
