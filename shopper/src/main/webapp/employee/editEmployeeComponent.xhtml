@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEmployeeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" />  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEmployee eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Employee}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'firstNameEdit')}"/>  
+        <h:panelGroup> 
+          <h:inputText id="firstName" value="#{employeeAction.employee.firstName}"/>  
+          <h:message for="firstName" styleClass="error"/> 
+        </h:panelGroup>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'lastNameEdit')}"/>  
+        <h:panelGroup> 
+          <h:inputText id="lastName" value="#{employeeAction.employee.lastName}"/>  
+          <h:message for="lastName" styleClass="error"/> 
+        </h:panelGroup>  
+        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'employeeNumberEdit')}"/>  
+        <h:panelGroup> 
+          <h:inputText id="employeeNumber" value="#{employeeAction.employee.employeeNumber}"/>  
+          <h:message for="employeeNumber" styleClass="error"/> 
+        </h:panelGroup>  
+        <h:outputText value="#{msg.employee_employeeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'employeeTypeEdit')}"/>  
+        <h:selectOneMenu id="employeeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'employeeTypeEdit')}" value="#{employeeAction.employee.employeeType}" required="true" label="#{msg.employee_employeeType}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="FULL_TIME" itemLabel="#{msg.FULL_TIME}"/>  
+          <f:selectItem itemValue="CONTRACT" itemLabel="#{msg.CONTRACT}"/>  
+          <f:selectItem itemValue="PART_TIME" itemLabel="#{msg.PART_TIME}"/> 
+        </h:selectOneMenu>  
+        <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'departmentEdit')}"/>  
+        <h:panelGroup> 
+          <h:selectOneMenu converter="#{employeeAction.converter}" id="department" value="#{employeeAction.employee.department}"> 
+            <f:selectItem/>  
+            <f:selectItems value="#{employeeAction.all}"/> 
+          </h:selectOneMenu>  
+          <h:message for="department" styleClass="error"/> 
+        </h:panelGroup> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ContactDetails}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'phoneEdit')}"/>  
+        <h:panelGroup> 
+          <h:inputText id="contactDetails_phone" value="#{employeeAction.employee.contactDetails.phone}"/>  
+          <h:message for="contactDetails_phone" styleClass="error"/> 
+        </h:panelGroup>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'secondaryPhoneEdit')}"/>  
+        <h:panelGroup> 
+          <h:inputText id="contactDetails_secondaryPhone" value="#{employeeAction.employee.contactDetails.secondaryPhone}"/>  
+          <h:message for="contactDetails_secondaryPhone" styleClass="error"/> 
+        </h:panelGroup>  
+        <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'cityEdit')}"/>  
+        <h:panelGroup> 
+          <h:inputText id="contactDetails_city" value="#{employeeAction.employee.contactDetails.city}"/>  
+          <h:message for="contactDetails_city" styleClass="error"/> 
+        </h:panelGroup>  
+        <h:outputText value="#{msg.contactDetails_postalCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'postalCodeEdit')}"/>  
+        <h:panelGroup> 
+          <h:inputText id="contactDetails_postalCode" value="#{employeeAction.employee.contactDetails.postalCode}"/>  
+          <h:message for="contactDetails_postalCode" styleClass="error"/> 
+        </h:panelGroup> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

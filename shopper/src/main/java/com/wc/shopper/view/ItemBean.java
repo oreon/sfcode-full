@@ -37,7 +37,7 @@ import com.wc.shopper.domain.Item;
 @Named
 @Stateful
 @ConversationScoped
-public class ItemBean extends BaseBean<Item> implements Serializable {
+public class ItemBean extends BaseAction<Item> implements Serializable {
 	
 	
 	protected Predicate[] getSearchPredicates(Root<Item> root) {
@@ -69,7 +69,7 @@ public class ItemBean extends BaseBean<Item> implements Serializable {
 	}
 	
 	public Item getItem() {
-		return this.item;
+		return this.entity;
 	}
 
 }

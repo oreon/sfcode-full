@@ -30,7 +30,7 @@ import com.wc.shopper.domain.BaseEntity;
  * 
  * @param <T>
  */
-public abstract class BaseBean<T extends BaseEntity> {
+public abstract class BaseAction<T extends BaseEntity> {
 
 	private Long id;
 
@@ -42,7 +42,7 @@ public abstract class BaseBean<T extends BaseEntity> {
 		this.id = id;
 	}
 
-	protected T item;
+	protected T entity;
 
 	
 	@Inject
@@ -70,9 +70,9 @@ public abstract class BaseBean<T extends BaseEntity> {
 		}
 
 		if (this.id == null) {
-			this.item = this.search;
+			this.entity = this.search;
 		} else {
-			this.item = this.entityManager.find(getEntityClass(), getId());
+			this.entity = this.entityManager.find(getEntityClass(), getId());
 		}
 	}
 
@@ -85,11 +85,11 @@ public abstract class BaseBean<T extends BaseEntity> {
 
 		try {
 			if (this.id == null) {
-				this.entityManager.persist(this.item);
+				this.entityManager.persist(this.entity);
 				return "search?faces-redirect=true";
 			} else {
-				this.entityManager.merge(this.item);
-				return "view?faces-redirect=true&id=" + this.item.getId();
+				this.entityManager.merge(this.entity);
+				return "view?faces-redirect=true&id=" + this.entity.getId();
 			}
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
