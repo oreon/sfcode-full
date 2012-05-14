@@ -309,9 +309,10 @@
 
 «DEFINE genDropDown FOR uml::Property»
 <h:panelGroup>
-	<h:selectOneMenu converter="#{«getActionForMode()»converter}" id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()-»}">
-		<f:selectItem/>
-		<f:selectItems value="#{«getActionForMode()»all}"/>
+	<h:selectOneMenu converter="#{«type.asVar()»Action.converter}" id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()-»}">
+		 <f:selectItem  itemLabel="Please Select ..." />  
+		<f:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "Action.all"»}" 
+		 var="«name»" itemLabel="#{«name».displayName}" />
 	</h:selectOneMenu>
 	<h:message for="«getId()»" styleClass="error"/>
 </h:panelGroup>
