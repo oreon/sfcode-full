@@ -9,10 +9,10 @@
 	<h:form id="form">
 
 		<p:dataTable var="_employee"
-			value="#{employeeAction.pageItems}" paginator="true"
+			value="#{employeeAction.model}" paginator="true"
 			rows="10"
 			paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-			rowsPerPageTemplate="5,10,15" 
+			rowsPerPageTemplate="5,10,15" selectionMode="single"
 			selection="#{employeeAction.employee}" id="EmployeeTable">
 
 			<p:ajax event="rowSelect" update=":form:display"
