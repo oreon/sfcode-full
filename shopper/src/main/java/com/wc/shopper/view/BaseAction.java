@@ -71,6 +71,8 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 		if (this.id == null) {
 			this.entity = this.search;
+			if(entity == null)
+				entity = createInstance();
 		} else {
 			this.entity = this.entityManager.find(getEntityClass(), getId());
 		}
@@ -85,7 +87,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 		try {
 			if (this.id == null) {
-				this.entityManager.persist(this.entity);
+				this.entityManager.merge(this.entity);
 				return "search?faces-redirect=true";
 			} else {
 				this.entityManager.merge(this.entity);
