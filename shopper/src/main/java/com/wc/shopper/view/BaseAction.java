@@ -2,8 +2,12 @@ package com.wc.shopper.view;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -23,7 +27,17 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
 import com.wc.shopper.domain.BaseEntity;
+
 
 /**
  * @author singj3
@@ -242,5 +256,92 @@ public abstract class BaseAction<T extends BaseEntity> {
 		this.add = createInstance();
 		return added;
 	}
+	
+	///////////////////////////////// Lazy data model ///////////////////////////////////////////////////////////////////////////////////
+	
+	
+	private LazyDataModel<T> model;
+
+	public LazyDataModel<T> getModel() {
+		return model;
+	}
+	
+
+	protected class EntityLazyDataModel extends LazyDataModel<T> {
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public List<T> load( int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters ) {
+	
+			Session s = (Session) entityManager.getDelegate();
+
+	 		Criteria crit = s.createCriteria(getEntityClass());
+
+	 		if (sortField != null && !sortField.isEmpty()) {
+	 			if (sortOrder == SortOrder.ASCENDING) {
+	 				crit = crit.addOrder(Order.asc(sortField));
+	 			} else {
+	 				crit = crit.addOrder(Order.desc(sortField));
+	 			}
+	 		}
+
+	 		if (!filters.isEmpty()) {
+	 			Iterator<Entry<String, String>> iterator = filters.entrySet()
+	 					.iterator();
+	 			while (iterator.hasNext()) {
+	 				Entry<String, String> entry = iterator.next();
+	 				crit = crit.add(Restrictions.like(entry.getKey(),
+	 						entry.getValue(), MatchMode.START));
+	 			}
+	 		}
+
+	 		crit = crit.setFirstResult(first).setMaxResults(pageSize);
+
+			model.setRowCount(  safeLongToInt (getCount() )  );
+			return crit.list();
+		}
+		
+		
+		public Long getCount() {
+	 		Session s = (Session) entityManager.getDelegate();
+
+	 		Criteria crit = s.createCriteria(getEntityClass()).setProjection(
+	 				Projections.rowCount());
+
+	 		return (Long) crit.list().get(0);
+	 	}
+
+		@Override
+		public Object getRowKey( T t ) {
+			return t.getId();
+		}
+
+		@Override
+		public T getRowData( String rowKey ) {
+			T t = entityManager.find( getEntityClass(), Long.valueOf( rowKey ) );
+			return t;
+		}
+		
+		public  int safeLongToInt(long l) {
+		    if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+		        throw new IllegalArgumentException
+		            (l + " cannot be cast to int without changing its value.");
+		    }
+		    return (int) l;
+		}
+
+	}
+	
+	
+
+	@PostConstruct
+	public void init() {
+		model = new EntityLazyDataModel();
+	}
+	
 
 }

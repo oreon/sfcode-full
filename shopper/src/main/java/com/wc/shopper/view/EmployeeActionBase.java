@@ -29,11 +29,7 @@ public abstract class EmployeeActionBase extends PersonAction<Employee> implemen
 	 * 
 	 */
 	private static final long serialVersionUID = 5867093559332541564L;
-	private LazyDataModel<Employee> model;
-
-	public LazyDataModel<Employee> getModel() {
-		return model;
-	}
+	
 
 	protected Predicate[] getSearchPredicates( Root<Employee> root ) {
 
@@ -64,82 +60,5 @@ public abstract class EmployeeActionBase extends PersonAction<Employee> implemen
 		return this.entity;
 	}
 
-	protected class EmployeeLazyDataModel extends LazyDataModel<Employee> {
-		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public List<Employee> load( int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters ) {
-			//List<Employee> result = null;
-
-			Session s = (Session) entityManager.getDelegate();
-
-	 		Criteria crit = s.createCriteria(Car.class);
-
-	 		if (sortField != null && !sortField.isEmpty()) {
-	 			if (sortOrder == SortOrder.ASCENDING) {
-	 				crit = crit.addOrder(Order.asc(sortField));
-	 			} else {
-	 				crit = crit.addOrder(Order.desc(sortField));
-	 			}
-	 		}
-
-	 		if (!filters.isEmpty()) {
-	 			Iterator<Entry<String, String>> iterator = filters.entrySet()
-	 					.iterator();
-	 			while (iterator.hasNext()) {
-	 				Entry<String, String> entry = iterator.next();
-	 				crit = crit.add(Restrictions.like(entry.getKey(),
-	 						entry.getValue(), MatchMode.START));
-	 			}
-	 		}
-
-	 		crit = crit.setFirstResult(first).setMaxResults(pageSize);
-
-			model.setRowCount(  safeLongToInt (getCount() )  );
-			return crit.list();
-		}
-		
-		
-		public Long getCount() {
-	 		Session s = (Session) entityManager.getDelegate();
-
-	 		Criteria crit = s.createCriteria(Employee.class).setProjection(
-	 				Projections.rowCount());
-
-	 		return (Long) crit.list().get(0);
-	 	}
-
-		@Override
-		public Object getRowKey( Employee Employee ) {
-			return Employee.getId();
-		}
-
-		@Override
-		public Employee getRowData( String rowKey ) {
-			Employee employee = null;
-			employee = entityManager.find( getEntityClass(), Long.valueOf( rowKey ) );
-			return employee;
-		}
-		
-		public int safeLongToInt(long l) {
-		    int i = (int)l;
-		    if ((long)i != l) {
-		        throw new IllegalArgumentException(l + " cannot be cast to int without changing its value.");
-		    }
-		    return i;
-		}
-
-	}
-	
-	
-
-	@PostConstruct
-	public void init() {
-		model = new EmployeeLazyDataModel();
-	}
 
 }
