@@ -82,13 +82,10 @@
 
 
 «DEFINE genCancelSaveBtns FOR uml::Class»
-	<div class="buttonBox">
-		<h:commandButton value="Save" action="#{«getAction()».save«isCurrentTemplateMode()?"Template":"" »}" >
-		</h:commandButton>  
-		<h:outputText value=" " /> 
-		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" >
-		</h:commandButton> 
-	</div>
+	 <div class="buttonBox"> 
+        <h:button value="Save" action="#{«getAction()».update}" />   
+        <h:button value="Cancel" outcome="list«name»" />  
+      </div> 
 «ENDDEFINE»
 
 
