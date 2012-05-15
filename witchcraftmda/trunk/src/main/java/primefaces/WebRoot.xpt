@@ -19,6 +19,8 @@
 	«EXPAND ListBasic::genListView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	
 	«EXPAND EditRoot::genEdit FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	
+	«EXPAND ViewRoot::genView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«REM» comment
 	«EXPAND EditRoot::genEditView(false) FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND EditRoot::genEditView(true) FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
@@ -26,7 +28,7 @@
 	«EXPAND SearchRoot::genSearchView FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND genTemplate FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND dashboard::gen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
-	«EXPAND NRSEdit::genEditFile FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	
 	«EXPAND TreeView::genTreeViewComponent FOREACH allOwnedElements().typeSelect(wcprofile::Entity  )»
 	«ENDREM» 
 «ENDDEFINE»
@@ -46,14 +48,12 @@
 
 
 «DEFINE genIncludes FOR uml::Element»
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:a="http://richfaces.org/a4j"
-	xmlns:p="http://primefaces.prime.com.tr/ui"
-	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 «ENDDEFINE»
