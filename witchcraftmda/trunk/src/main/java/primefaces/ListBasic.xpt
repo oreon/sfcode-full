@@ -14,8 +14,8 @@
 			«clearCurrentEmbeddable()-»
 			
 	<f:metadata>
-		<f:viewParam name="page" value="#{«name»Bean.page}" />
-		<f:event type="preRenderView" listener="#{«name»Bean.paginate}" />
+		<f:viewParam name="page" value="#{«getAction()».page}" />
+		<f:event type="preRenderView" listener="#{«getAction()».paginate}" />
 	</f:metadata>
 
 	<ui:param name="pageTitle" value="Search Customer entities" />
@@ -57,11 +57,11 @@
 
 		<h:form id="form">
 
-			<p:dataTable var="_«name.toFirstLower()»" value="#{«name»Bean.«name»DataModel}" paginator="true"
+			<p:dataTable var="_«name.toFirstLower()»" value="#{«getAction()».«name»DataModel}" paginator="true"
 				rows="10"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15" selectionMode="single" 
-				selection="#{«name»Bean.selected«name»}" id="«name»Table">
+				selection="#{«getAction()».«name.toFirstLower()»}" id="«name»Table">
 
 				<p:ajax event="rowSelect" 
 					update=":form:display" oncomplete="«name»Dialog.show()" />
@@ -100,35 +100,9 @@
 
 				<h:panelGrid id="display" columns="2" cellpadding="4">
 					
-					<!--
-					<f:facet name="header">
-						<p:graphicImage
-							value="/images/«name»s/#{«name»Bean.selected«name».manufacturer}.jpg" />
-					</f:facet>
-					-->
-					
-					<h:outputText value="Id" />
-					<h:outputText value="#{«name»Bean.selected«name».id}"
-						style="font-weight:bold" />
-					
-					<h:outputText value="Model:" />
-					<h:inputText value="#{«name»Bean.selected«name».model}"
-						style="font-weight:bold" />
-
-					<h:outputText value="Year:" />
-					<h:inputText value="#{«name»Bean.selected«name».year}"
-						style="font-weight:bold" />
-
-					<h:outputText value="Manufacturer:" />
-					<h:inputText value="#{«name»Bean.selected«name».manufacturer}"
-						style="font-weight:bold" />
-
-					<h:outputText value="Color:" />
-					<h:inputText value="#{«name»Bean.selected«name».color}"
-						style="font-weight:bold" />
 				</h:panelGrid>
 				
-				<h:commandButton value="Save" action="#{«name»Bean.update}" />
+				<h:commandButton value="Save" action="#{«getAction()».update}" />
 				
 			</p:dialog>
 
@@ -210,30 +184,30 @@
 
 «DEFINE paginationLinks FOR wcprofile::Entity»
  <div class="tableControl">
-<s:link
+<h:commandLink
 	view="#{request.servletPath}"
 	rendered="#{«asVar()»List.previousExists}"
 	value="#{messages.left}#{messages.left} First Page" >
 	<f:param name="firstResult" value="0" />
-</s:link> 
+</h:commandLink> 
 
-<s:link view="#{request.servletPath}"
+<h:commandLink view="#{request.servletPath}"
 	rendered="#{«asVar()»List.previousExists}"
 	value="#{messages.left} Previous Page" >
 	<f:param name="firstResult" value="#{«asVar()»List.previousFirstResult}" />
-</s:link> 
+</h:commandLink> 
 
-<s:link view="#{request.servletPath}"
+<h:commandLink view="#{request.servletPath}"
 	rendered="#{«asVar()»List.nextExists}"
 	value="Next Page #{messages.right}" >
 	<f:param name="firstResult" value="#{«asVar()»List.nextFirstResult}" />
-</s:link> 
+</h:commandLink> 
 
-<s:link view="#{request.servletPath}"
+<h:commandLink view="#{request.servletPath}"
 	rendered="#{«asVar()»List.nextExists}"
 	value="Last Page #{messages.right}#{messages.right}" >
 	<f:param name="firstResult" value="#{«asVar()»List.lastFirstResult}" />
-</s:link>
+</h:commandLink>
 </div>
 «ENDDEFINE»
 
@@ -277,10 +251,10 @@
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<s:link view="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}" propagation="none">
+		<h:commandLink view="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}" propagation="none">
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" alt="«action»"/>
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
-		</s:link>
+		</h:commandLink>
 	</p:column>
 «ENDDEFINE»
 
@@ -305,10 +279,10 @@
 			<h:outputText value="" />
 		</f:facet>
 		
-		<s:link action="#{«asVar()»Action.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_«asVar()».displayName} ?')){ return false; } else { return true; }" >
+		<h:commandLink action="#{«asVar()»Action.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_«asVar()».displayName} ?')){ return false; } else { return true; }" >
 			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>
 			<f:param name="idToArchive" value="#{_«asVar()».id}"/>
-		</s:link>
+		</h:commandLink>
 	</p:column>
 «ENDDEFINE»
 
@@ -324,7 +298,7 @@
 
 «DEFINE genAssoc FOR uml::Property»
 	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
-	<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
+	<h:commandLink «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
 			<f:param name="«type.name.toFirstLower()»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
@@ -334,7 +308,7 @@
 	            </span>
 	        </rich:toolTip>
 	        «ENDIF»
-	</s:link>
+	</h:commandLink>
 «ENDDEFINE»
 
 
@@ -346,10 +320,10 @@
 					<s:transformImageSize height="100" maintainRatio="true"/>
 				</s:graphicImage>
 		
-				<s:link value="#{_«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(_«class.asVar()».id)}" 
+				<h:commandLink value="#{_«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(_«class.asVar()».id)}" 
 					propagation="none"  rendered="#{not _«genPropertyLabel()».contentType.startsWith('image')}" >
-					<f:param name="currentEnt	ityId" value="#{_«class.asVar()».id}" />
-          		</s:link> 
+					<f:param name="currentEntityId" value="#{_«class.asVar()».id}" />
+          		</h:commandLink> 
 		«ELSEIF isDate()»
 			<h:outputText value="#{_«genPropertyLabel()»}">
 				<s:convertDateTime type="date" dateStyle="medium" />
