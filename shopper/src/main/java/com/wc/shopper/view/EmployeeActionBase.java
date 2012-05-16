@@ -3,6 +3,7 @@ package com.wc.shopper.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.CreateException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -18,7 +19,6 @@ public abstract class EmployeeActionBase extends PersonAction<Employee> implemen
 	 */
 	private static final long serialVersionUID = 5867093559332541564L;
 	
-	private Employee selectedEmployee;
 	
 
 	protected Predicate[] getSearchPredicates( Root<Employee> root ) {
@@ -47,6 +47,10 @@ public abstract class EmployeeActionBase extends PersonAction<Employee> implemen
 	}
 
 	public Employee getEmployee() {
+		
+		if(entity == null)
+			entity = createInstance();
+		
 		return this.entity;
 	}
 
@@ -55,17 +59,11 @@ public abstract class EmployeeActionBase extends PersonAction<Employee> implemen
 		this.entity = employee;
 	}
 
-	public Employee getSelectedEmployee() {
-		return selectedEmployee;
-	}
-
-	public void setSelectedEmployee( Employee selectedEmployee ) {
-		this.selectedEmployee = selectedEmployee;
-	}
+	
 	
 	public void onRowSelect(SelectEvent selectEvent){
-		//selectedEmployee = (Employee)selectEvent.getObject();
-		entity = (Employee)selectEvent.getObject();
+		//conversation.begin();
+		//entity = (Employee)selectEvent.getObject();
 		
 	}
 }
