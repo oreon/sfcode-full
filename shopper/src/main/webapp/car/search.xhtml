@@ -23,7 +23,7 @@
 				rows="10"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15" selectionMode="single" 
-				selection="#{carBean.car}" id="carTable">
+				selection="#{carBean.selectedCar}" id="carTable">
 
 				<p:ajax event="rowSelect" 
 					update=":form:display" oncomplete="carDialog.show()" />
@@ -59,28 +59,28 @@
 
 					<f:facet name="header">
 						<p:graphicImage
-							value="/images/cars/#{carBean.car.manufacturer}.jpg" />
+							value="/images/cars/#{carBean.selectedCar.manufacturer}.jpg" />
 					</f:facet>
 
 					<h:outputText value="Id" />
-					<h:outputText value="#{carBean.car.id}"
+					<h:outputText value="#{carBean.selectedCar.id}"
 						style="font-weight:bold" />
 					
 
 					<h:outputText value="Model:" />
-					<h:outputText value="#{carBean.car.model}"
+					<h:outputText value="#{carBean.selectedCar.model}"
 						style="font-weight:bold" />
 
 					<h:outputText value="Year:" />
-					<h:outputText value="#{carBean.car.year}"
+					<h:outputText value="#{carBean.selectedCar.year}"
 						style="font-weight:bold" />
 
 					<h:outputText value="Manufacturer:" />
-					<h:outputText value="#{carBean.car.manufacturer}"
+					<h:outputText value="#{carBean.selectedCar.manufacturer}"
 						style="font-weight:bold" />
 
 					<h:outputText value="Color:" />
-					<h:inputText value="#{carBean.car.color}"
+					<h:inputText value="#{carBean.selectedCar.color}"
 						style="font-weight:bold" />
 				</h:panelGrid>
 				

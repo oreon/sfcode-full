@@ -45,6 +45,9 @@ import com.wc.shopper.domain.BaseEntity;
  * @param <T>
  */
 public abstract class BaseAction<T extends BaseEntity> {
+	
+	
+	
 
 	private Long id;
 
@@ -60,7 +63,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 	
 	@Inject
-	private Conversation conversation;
+	protected Conversation conversation;
 
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	protected EntityManager entityManager;
@@ -91,6 +94,28 @@ public abstract class BaseAction<T extends BaseEntity> {
 			this.entity = this.entityManager.find(getEntityClass(), getId());
 		}
 	}
+	
+	
+	public String persist(){
+		
+		try {
+			if (this.id == null) {
+				//TODO: Identical code
+				this.entityManager.merge(this.entity);
+				
+			} else {
+				this.entityManager.merge(this.entity);
+				
+			}
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(e.getMessage()));
+			return null;
+		}
+		
+		
+		return "success";
+	}
 
 	/*
 	 * Support updating and deleting T entities
@@ -99,21 +124,10 @@ public abstract class BaseAction<T extends BaseEntity> {
 	public String update() {
 		if(!conversation.isTransient())
 			this.conversation.end();
-
-		try {
-			if (this.id == null) {
-				//TODO: Identical code
-				this.entityManager.merge(this.entity);
-				return "view" + getEntityClass().getSimpleName() + "?faces-redirect=true&id=" + this.entity.getId();
-			} else {
-				this.entityManager.merge(this.entity);
-				return "view" + getEntityClass().getSimpleName() + "?faces-redirect=true&id=" + this.entity.getId();
-			}
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(e.getMessage()));
-			return null;
-		}
+		
+		persist();
+		return "view" + getEntityClass().getSimpleName() + "?faces-redirect=true&id=" + this.entity.getId();
+		
 	}
 
 	public String delete() {

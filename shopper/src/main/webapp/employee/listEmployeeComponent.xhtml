@@ -15,7 +15,7 @@
 			rowsPerPageTemplate="5,10,15" selectionMode="single" 
 			selection="#{employeeAction.employee}" id="EmployeeTable">
 
-			<p:ajax event="rowSelect" update=":form:display" 
+			<p:ajax event="rowSelect" update=":form:display"  listener="#{employeeAction.onRowSelect}"
 				oncomplete="EmployeeDialog.show()" />
 
 			<p:column>
@@ -119,7 +119,7 @@
 				<ui:include src="editEmployeeComponent.xhtml" />
 			</h:panelGrid>
 
-			<h:commandButton value="Save" action="#{employeeAction.update}" />
+			<h:commandButton value="Save" action="#{employeeAction.persist}" />
 
 		</p:dialog>
 
