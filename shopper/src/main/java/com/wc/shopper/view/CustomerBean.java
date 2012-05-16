@@ -2,10 +2,7 @@ package com.wc.shopper.view;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
@@ -22,18 +19,12 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-
 import com.wc.shopper.domain.Customer;
+import com.wc.shopper.domain.Department;
+import com.wc.shopper.domain.Employee;
 
 /**
  * Backing bean for Customer entities.
@@ -207,7 +198,22 @@ public class CustomerBean implements Serializable {
 				getPageSize());
 		this.pageItems = query.getResultList();
 		
-		carBean.populateRandomCars(60);
+		carBean.populateRandomCars(20);
+		
+		createEmployee();
+	}
+
+	private void createEmployee() {
+		Employee employee = new Employee();
+		Department department = new Department();
+		department.setName( "finance" );
+		entityManager.persist( department );
+		
+		
+		employee.setFirstName( "DD" );
+		employee.setLastName( "sf" );
+		employee.setDepartment( department );
+		
 	}
 
 	private Predicate[] getSearchPredicates(Root<Customer> root) {

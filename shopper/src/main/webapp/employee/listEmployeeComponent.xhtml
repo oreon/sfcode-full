@@ -9,13 +9,13 @@
 	<h:form id="form">
 
 		<p:dataTable var="_employee"
-			value="#{employeeAction.model}" paginator="true"
+			value="#{employeeAction.model}" paginator="true" 
 			rows="10"
 			paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-			rowsPerPageTemplate="5,10,15" selectionMode="single"
+			rowsPerPageTemplate="5,10,15" selectionMode="single" 
 			selection="#{employeeAction.employee}" id="EmployeeTable">
 
-			<p:ajax event="rowSelect" update=":form:display"
+			<p:ajax event="rowSelect" update=":form:display" 
 				oncomplete="EmployeeDialog.show()" />
 
 			<p:column>
@@ -116,7 +116,7 @@
 			resizable="true">
 
 			<h:panelGrid id="display" columns="2" cellpadding="4">
-
+				<ui:include src="editEmployeeComponent.xhtml" />
 			</h:panelGrid>
 
 			<h:commandButton value="Save" action="#{employeeAction.update}" />

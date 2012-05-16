@@ -1,0 +1,52 @@
+
+	<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+	<h:panelGroup  id="editDepartmentComponentPanel" >
+		
+		<h:panelGrid columns="1" onload="#{departmentAction.load(departmentId )  }"></h:panelGrid>
+		
+	
+	
+	
+		<c:if test="${numColumns == null }" > <c:set var="numColumns" value="2" /> </c:if>
+  		<h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"   rendered="#{ hidePanelDepartment eq null}" >
+  		<f:facet name="header"> 
+			<h:outputText value="#{msg.Department}"/> 
+  		</f:facet>
+  	
+
+	
+	
+		
+		
+		<h:outputText value="#{msg.department_name} * " rendered="#{true}"/>		
+		
+		
+	<h:outputText id="name"  value="#{departmentAction.department.name}"  />
+		
+		
+		
+	
+	
+	
+	
+	
+	
+		</h:panelGrid>
+	
+
+ 
+
+	</h:panelGroup>
+	
+	</ui:composition>
+	
