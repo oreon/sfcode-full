@@ -1,0 +1,45 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="main">
+
+		<f:metadata>
+			<f:viewParam name="id" value="#{employeeAction.id}" />
+			<f:event type="preRenderView" listener="#{employeeAction.retrieve}" />
+		</f:metadata>
+
+		<h:form>
+
+			<p:tabView >
+				<p:tab title="Employee">
+					<ui:include
+						src="/employee/viewEmployeeComponent.xhtml" />
+				</p:tab>
+
+				<p:tab title="department">
+					<ui:include src = "/department/viewDepartmentComponent.xhtml" />
+				</p:tab>				
+			
+			</p:tabView>
+
+			
+					<div class="buttonBox">
+						<h:button value="Edit"
+							outcome="editEmployee" includeViewParams="true">
+						</h:button>
+						
+						<h:button value="Back To Listing"
+							outcome="listEmployee" />
+					</div>
+			
+
+		</h:form>
+	</ui:define>
+</ui:composition>

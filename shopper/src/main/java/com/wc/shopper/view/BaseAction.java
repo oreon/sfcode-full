@@ -97,7 +97,8 @@ public abstract class BaseAction<T extends BaseEntity> {
 	 */
 
 	public String update() {
-		this.conversation.end();
+		if(!conversation.isTransient())
+			this.conversation.end();
 
 		try {
 			if (this.id == null) {

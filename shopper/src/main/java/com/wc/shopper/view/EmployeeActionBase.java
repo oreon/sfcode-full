@@ -1,26 +1,14 @@
 package com.wc.shopper.view;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
+import org.primefaces.event.SelectEvent;
 
-import com.wc.shopper.domain.Car;
 import com.wc.shopper.domain.Employee;
 
 public abstract class EmployeeActionBase extends PersonAction<Employee> implements java.io.Serializable {
@@ -29,6 +17,8 @@ public abstract class EmployeeActionBase extends PersonAction<Employee> implemen
 	 * 
 	 */
 	private static final long serialVersionUID = 5867093559332541564L;
+	
+	private Employee selectedEmployee;
 	
 
 	protected Predicate[] getSearchPredicates( Root<Employee> root ) {
@@ -61,4 +51,21 @@ public abstract class EmployeeActionBase extends PersonAction<Employee> implemen
 	}
 
 
+	public void setEmployee(Employee employee) {
+		this.entity = employee;
+	}
+
+	public Employee getSelectedEmployee() {
+		return selectedEmployee;
+	}
+
+	public void setSelectedEmployee( Employee selectedEmployee ) {
+		this.selectedEmployee = selectedEmployee;
+	}
+	
+	public void onRowSelect(SelectEvent selectEvent){
+		//selectedEmployee = (Employee)selectEvent.getObject();
+		entity = (Employee)selectEvent.getObject();
+		
+	}
 }

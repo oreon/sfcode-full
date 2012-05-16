@@ -65,6 +65,10 @@ public class CarBean implements Serializable   {
 	public Car getCar() {
 		return this.Car;
 	}
+	
+	public void setCar(Car car) {
+		this.Car = car;
+	}
 
 	@Inject
 	private Conversation conversation;
