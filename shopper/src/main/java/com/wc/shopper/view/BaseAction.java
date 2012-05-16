@@ -333,6 +333,10 @@ public abstract class BaseAction<T extends BaseEntity> {
 		}
 		
 		
+		/* (non-Javadoc)
+		 * @see org.primefaces.model.LazyDataModel#setRowIndex(int) 
+		 *  Override created to address the issue - http://code.google.com/p/primefaces/issues/detail?id=1544
+		 */
 		@Override
 	    public void setRowIndex(int rowIndex) {
 	        /*
