@@ -101,11 +101,12 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 		try {
 			if (this.id == null) {
+				//TODO: Identical code
 				this.entityManager.merge(this.entity);
-				return "search?faces-redirect=true";
+				return "view" + getEntityClass().getSimpleName() + "?faces-redirect=true&id=" + this.entity.getId();
 			} else {
 				this.entityManager.merge(this.entity);
-				return "view?faces-redirect=true&id=" + this.entity.getId();
+				return "view" + getEntityClass().getSimpleName() + "?faces-redirect=true&id=" + this.entity.getId();
 			}
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -277,6 +278,8 @@ public abstract class BaseAction<T extends BaseEntity> {
 		@Override
 		public List<T> load( int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters ) {
 	
+			setPageSize( pageSize );
+			
 			Session s = (Session) entityManager.getDelegate();
 
 	 		Criteria crit = s.createCriteria(getEntityClass());
@@ -302,6 +305,9 @@ public abstract class BaseAction<T extends BaseEntity> {
 	 		crit = crit.setFirstResult(first).setMaxResults(pageSize);
 
 			model.setRowCount(  safeLongToInt (getCount() )  );
+			
+			
+			
 			return crit.list();
 		}
 		
@@ -326,6 +332,21 @@ public abstract class BaseAction<T extends BaseEntity> {
 			return t;
 		}
 		
+		
+		@Override
+	    public void setRowIndex(int rowIndex) {
+	        /*
+	         * The following is in ancestor (LazyDataModel):
+	         * this.rowIndex = rowIndex == -1 ? rowIndex : (rowIndex % pageSize);
+	         */
+	        if (rowIndex == -1 || getPageSize() == 0) {
+	            super.setRowIndex(-1);
+	        }
+	        else
+	            super.setRowIndex(rowIndex % getPageSize());
+	    }
+		
+		//TODO: should be moved to a utils class
 		public  int safeLongToInt(long l) {
 		    if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
 		        throw new IllegalArgumentException
