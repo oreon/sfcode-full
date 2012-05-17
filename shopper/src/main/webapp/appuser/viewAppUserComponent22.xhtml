@@ -1,0 +1,107 @@
+
+	<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ >	
+	
+	<h:panelGroup  id="editAppUserComponentPanel" >
+		<s:validateAll>
+		<h:panelGrid columns="1" onload="#{appUserAction.load(appUserId )  }"></h:panelGrid>
+		
+	
+	
+	
+		<c:if test="${numColumns == null }" > <c:set var="numColumns" value="2" /> </c:if>
+  		<h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"   rendered="#{ hidePanelAppUser eq null}" >
+  		<f:facet name="header"> 
+			<h:outputText value="#{msg.AppUser}"/> 
+  		</f:facet>
+  	
+
+	
+	
+		
+		
+		<h:outputText value="#{msg.appUser_userName} * " rendered="#{true}"/>		
+		
+		
+	<h:outputText id="userName"  value="#{appUserAction.appUser.userName}"  />
+		
+		
+		
+	
+	
+	
+		
+		
+		<h:outputText value="#{msg.appUser_enabled} * " rendered="#{true}"/>		
+		
+		
+	<h:outputText id="enabled"  value="#{appUserAction.appUser.enabled}"  />
+		
+		
+		
+	
+	
+		
+		
+		<h:outputText value="#{msg.appUser_email} * " rendered="#{true}"/>		
+		
+		
+	<h:outputText id="email"  value="#{appUserAction.appUser.email}"  />
+		
+		
+		
+	
+	
+		
+		
+		<h:outputText value="#{msg.appUser_lastLogin} * " rendered="#{true}"/>		
+		
+		
+	<h:outputText id="lastLogin"  value="#{appUserAction.appUser.lastLogin}"  />
+		
+		
+		
+	
+	
+	
+	
+	
+	
+		</h:panelGrid>
+	
+
+ 
+	
+	
+	
+	
+	
+		<br/>
+		
+	
+		<br/>
+		
+	
+	
+	<br/>
+	
+	<p:simpleTogglePanel label="#{msg.appUser_appRoles}" switchType="client"  >
+        <p:dataTable value="#{appUserAction.listAppRoles}" var="item" >
+        	<p:column> #{item.displayName} </p:column>
+     	</p:dataTable>
+     </p:simpleTogglePanel>
+	
+		</s:validateAll>
+	
+	</h:panelGroup>
+	
+	</ui:composition>
+	

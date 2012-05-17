@@ -93,20 +93,19 @@ public abstract class BaseAction<T extends BaseEntity> {
 		} else {
 			this.entity = this.entityManager.find(getEntityClass(), getId());
 		}
+		
+		initLists();
 	}
 	
 	
 	public String persist(){
 		
 		try {
-			if (this.id == null) {
-				//TODO: Identical code
-				this.entityManager.merge(this.entity);
-				
-			} else {
-				this.entityManager.merge(this.entity);
-				
-			}
+			
+			updateComposedAssociations();
+			this.entityManager.merge(this.entity);
+			
+			
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(e.getMessage()));
@@ -273,6 +272,21 @@ public abstract class BaseAction<T extends BaseEntity> {
 		return added;
 	}
 	
+	
+	@PostConstruct
+	public void init() {
+		model = new EntityLazyDataModel();
+		//initLists();
+	}
+	
+	protected void updateComposedAssociations() {
+		
+	}
+	
+	protected void initLists(){
+		
+	}
+	
 	///////////////////////////////// Lazy data model ///////////////////////////////////////////////////////////////////////////////////
 	
 	
@@ -320,8 +334,6 @@ public abstract class BaseAction<T extends BaseEntity> {
 	 		crit = crit.setFirstResult(first).setMaxResults(pageSize);
 
 			model.setRowCount(  safeLongToInt (getCount() )  );
-			
-			
 			
 			return crit.list();
 		}
@@ -378,10 +390,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 	
 	
 
-	@PostConstruct
-	public void init() {
-		model = new EntityLazyDataModel();
-	}
+	
 	
 
 }

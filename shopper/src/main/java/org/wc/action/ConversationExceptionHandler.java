@@ -14,24 +14,24 @@ import org.jboss.solder.exception.control.HandlesExceptions;
 
 
 
-@HandlesExceptions
-public class ConversationExceptionHandler {
-    @Inject
-    private FacesContext facesContext;
-
-    /**
-     * Handles the exception thrown at the end of a conversation redirecting
-     * the flow to a pretty page instead of printing a stacktrace on the screen.
-     *
-     * @param event
-     * @param log
-     */
-    public void conversationEndedExceptionHandler(@Handles CaughtException<NonexistentConversationException> event, Logger log) {
-        log.info("Conversation ended: " + event.getException().getMessage());
-        try {
-            facesContext.getExternalContext().redirect("conversation_ended");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
+//@HandlesExceptions
+//public class ConversationExceptionHandler {
+//    @Inject
+//    private FacesContext facesContext;
+//
+//    /**
+//     * Handles the exception thrown at the end of a conversation redirecting
+//     * the flow to a pretty page instead of printing a stacktrace on the screen.
+//     *
+//     * @param event
+//     * @param log
+//     */
+//    public void conversationEndedExceptionHandler(@Handles CaughtException<NonexistentConversationException> event, Logger log) {
+//        log.info("Conversation ended: " + event.getException().getMessage());
+//        try {
+//            facesContext.getExternalContext().redirect("conversation_ended");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//}
