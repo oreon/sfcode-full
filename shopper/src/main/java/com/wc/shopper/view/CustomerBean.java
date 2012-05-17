@@ -22,6 +22,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.wc.shopper.domain.AppRole;
 import com.wc.shopper.domain.Customer;
 import com.wc.shopper.domain.Department;
 import com.wc.shopper.domain.Employee;
@@ -205,9 +206,24 @@ public class CustomerBean implements Serializable {
 
 	private void createEmployee() {
 		Employee employee = new Employee();
+		
 		Department department = new Department();
 		department.setName( "finance" );
-		entityManager.persist( department );
+		//entityManager.persist( department );
+		
+		AppRole manager = new AppRole();
+		manager.setName( "Manager" );
+		entityManager.persist( manager );
+		
+		AppRole manager1 = new AppRole();
+		manager1.setName( "Admin" );
+		entityManager.persist( manager1 );
+		
+		
+		AppRole manager2 = new AppRole();
+		manager2.setName( "Support" );
+		entityManager.persist( manager2 );
+		
 		
 		
 		employee.setFirstName( "DD" );

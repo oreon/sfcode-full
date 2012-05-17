@@ -1,0 +1,77 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+	<h:panelGroup id="editAppUserComponentPanel">
+
+
+
+		<c:if test="${numColumns == null }">
+			<c:set var="numColumns" value="2" />
+		</c:if>
+
+
+		<h:panelGrid columns="${numColumns}" styleClass="editInfo"
+			columnClasses="leftCol, rightCol"
+			rendered="#{ hidePanelAppUser eq null}">
+			<f:facet name="header">
+				<h:outputText value="#{msg.AppUser}" />
+			</f:facet>
+
+
+			<h:outputText value="#{msg.appUser_userName} * " rendered="#{true}" />
+
+
+			<h:panelGroup>
+				<h:inputText id="userName" value="#{appUserAction.appUser.userName}" />
+				<h:message for="userName" styleClass="error" />
+			</h:panelGroup>
+
+			<h:outputText value="#{msg.appUser_password} * " rendered="#{true}" />
+
+
+			<h:panelGroup>
+				<h:inputText id="password" value="#{appUserAction.appUser.password}" />
+				<h:message for="password" styleClass="error" />
+			</h:panelGroup>
+
+
+			<h:outputText value="#{msg.appUser_enabled} * " rendered="#{true}" />
+
+
+			<h:panelGroup>
+				<h:selectBooleanCheckbox id="enabled"
+					value="#{appUserAction.appUser.enabled}" />
+				<h:message for="enabled" styleClass="error" />
+			</h:panelGroup>
+
+
+			<h:outputText value="#{msg.appUser_email} * " rendered="#{true}" />
+
+
+			<h:panelGroup>
+				<h:inputText id="email" value="#{appUserAction.appUser.email}" />
+				<h:message for="email" styleClass="error" />
+			</h:panelGroup>
+
+
+		</h:panelGrid>
+
+		<p:pickList id="pickList" value="#{appUserAction.appRoles}"
+			var="member" itemLabel="#{member.displayName}" itemValue="#{member}"
+			converter="#{appRoleAction.converter}" />
+
+
+		<br />
+
+
+
+	</h:panelGroup>
+
+</ui:composition>
