@@ -98,10 +98,11 @@ import org.hibernate.annotations.ParamDef;
 		«FILE packagePath() +"/" +name + ".java" man_path »
 			package « packageName() »;
 			«EXPAND genImports FOR this»
-			import org.jboss.seam.annotations.Name;
+			«IF getCartridge() == "RICH" » import org.jboss.seam.annotations.Name; «ENDIF»
 			
 			
-			@Name("«name.toFirstLower()»")
+			
+			«IF getCartridge() == "RICH" » @Name("«name.toFirstLower()»")  «ENDIF»
 			public class «name» extends «name»Base {
 				
 			}
@@ -282,7 +283,7 @@ import org.hibernate.annotations.ParamDef;
 «DEFINE genSearchFieldsArray FOR uml::Class»
 
 	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public List<String> listSearchableFields() {
@@ -299,7 +300,7 @@ import org.hibernate.annotations.ParamDef;
 	}
 	
 	
-	@Field( index=Index.TOKENIZED, name="searchData")
+	@Field( index=Index.«  getCurrentCartridge() == "RICH" ? "TOKENIZED":"YES" », name="searchData")
     @Analyzer(definition="entityAnalyzer")
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
@@ -314,7 +315,7 @@ import org.hibernate.annotations.ParamDef;
 		«ENDFOREACH»
 		
 		«FOREACH getMultiValued() AS e»
-		for (BusinessEntity e : «e.name») {
+		for (BaseEntity e : «e.name») {
 			builder.append(e.getDisplayName() + " ");
 		}
 		«ENDFOREACH»
@@ -573,7 +574,7 @@ import org.hibernate.annotations.ParamDef;
 	protected FileAttachment «name» = new FileAttachment();	
 	«ELSE»
 		«IF isColumn() && (  derivedProperty != null)»@Transient«ENDIF»
-		«IF isString()» @Field(index = Index.TOKENIZED)
+		«IF isString()» @Field(index = Index.« getCurrentCartridge() == "RICH" ? "TOKENIZED":"YES" »)
 		@Analyzer(definition = "entityAnalyzer") «ENDIF»
 		«EXPAND genBasePropertyDecl FOR this» 
 			«IF isColumn() && defaultExpression != null»  
@@ -700,9 +701,13 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	
 	import org.hibernate.annotations.Filter;
 	
-	
+	«IF getCurrentCartridge() == "RICH" »
 	import org.hibernate.validator.Length;
 	import org.hibernate.validator.NotNull;
+	«ELSE»
+	import org.hibernate.validator.constraints.*;
+	import javax.validation.constraints.*;
+	«ENDIF»
 	
 	import java.math.BigDecimal;
 	
@@ -713,7 +718,7 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	
 	import org.jboss.seam.annotations.Name;
 	
-	import org.witchcraft.base.entity.BusinessEntity;
+	import org.witchcraft.base.entity.BaseEntity;
 	import org.witchcraft.model.support.audit.Auditable;
 	import org.witchcraft.base.entity.FileAttachment;
 	
@@ -721,7 +726,7 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	«ENDIF»
 	
 	«IF getCurrentCartridge() == "JPA_SPRING" »
-	import org.witchcraft.model.support.BusinessEntity;
+	import org.witchcraft.model.support.BaseEntity;
 	«ENDIF»
 	
 	import «getTopLevelPackage()».ProjectUtils;
