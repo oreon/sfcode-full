@@ -1,0 +1,71 @@
+
+		
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+ template="/admin/template.xhtml"  >	
+			
+			
+	<f:metadata>
+		<f:viewParam name="page" value="#{examAction.page}" />
+		<f:event type="preRenderView" listener="#{examAction.paginate}" />
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Customer entities" />
+
+
+	<ui:define name="main">
+				
+ <h:form> 
+	<h:commandButton  value="Full Text Search"
+		action="textSearch">
+		<s:conversationPropagation type="join" />
+	</h:commandButton>
+</h:form>
+
+	
+				<c:set var="modalId" value="ExamModalPanel-Exam" />
+				<ui:include src="searchExam.xhtml" />
+				<br/> <br/>
+				
+	<a:form>
+		<h:commandButton value="Create New" action="/admin/entities/domain/exam/editExam.xhtml" propagation="none" >
+			<f:param name="examId" value="0"/>
+  			</h:commandButton> 
+				<a:commandButton action="#{examAction.setExamId(0)}" 
+				oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}" >
+			</a:commandButton>
+		<h:commandButton value="Export to Excel" action="#{examList.exportToCsv}" />
+		</a:form>
+		
+
+				<ui:include src="listExamComponent.xhtml"  >
+					<ui:param name="records" value="#{examList.resultList}" />
+         		</ui:include>
+				
+	<a:form>
+		<h:commandButton value="Create New" action="/admin/entities/domain/exam/editExam.xhtml" propagation="none" >
+			<f:param name="examId" value="0"/>
+  			</h:commandButton> 
+				<a:commandButton action="#{examAction.setExamId(0)}" 
+				oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}" >
+			</a:commandButton>
+		<h:commandButton value="Export to Excel" action="#{examList.exportToCsv}" />
+		</a:form>
+		
+
+				
+				<ui:include src="/admin/entities/domain/exam/modalDlgExamComponent.xhtml" >
+					<ui:param name="modalId" value="${modalId}"/> 
+				</ui:include>
+			</ui:define>
+			
+			
+		</ui:composition>
+	

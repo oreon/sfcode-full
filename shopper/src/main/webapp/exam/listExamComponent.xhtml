@@ -1,0 +1,102 @@
+
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+		<h:form id="form">
+
+			<p:dataTable var="_exam" value="#{examAction.ExamDataModel}" paginator="true"
+				rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" selectionMode="single" 
+				selection="#{examAction.exam}" id="ExamTable">
+
+				<p:ajax event="rowSelect" 
+					update=":form:display" oncomplete="ExamDialog.show()" />
+
+				<p:column headerText="Model" sortBy="#{Exam.model}"
+					filterBy="#{Exam.model}">
+					
+					<h:link outcome="/Exam/view">
+						<f:param name="id" value="#{Exam.id}"/>
+						<h:outputText value="#{Exam.model}" />
+					</h:link>
+				</p:column>
+				
+				
+	<p:column 
+	
+>
+	
+		<h:outputText    value="#{_exam.id}"  >
+		</h:outputText>
+	</p:column>
+	
+	<p:column   
+	
+ headerText="#{msg.exam_title}" sortBy="#{_exam.title}"  >
+		
+			<h:outputText value="#{_exam.title}"   />	
+		
+	</p:column>
+	
+	
+	<p:column   
+	
+ headerText="#{msg.exam_description}" sortBy="#{_exam.description}"  >
+		
+			
+			 <rich:toolTip value="#{_exam.description}" for="descriptionAbbr">  </rich:toolTip>
+	         <h:outputText id="descriptionAbbr" value="#{_exam.descriptionAbbreviated}" /> 
+	         				
+		
+	</p:column>
+	
+	
+				
+    
+				
+	<p:column 
+	
+>
+		<h:outputText    value="#{_exam.dateCreated}"  >
+			<s:convertDateTime type="date" dateStyle="medium" />
+		</h:outputText>
+	</p:column>
+
+				<p:column headerText="Year" sortBy="#{Exam.year}"
+					filterBy="#{Exam.year}">
+					<h:outputText value="#{Exam.year}" />
+				</p:column>
+
+				<p:column headerText="Manufacturer" sortBy="#{Exam.manufacturer}"
+					filterBy="#{Exam.manufacturer}">
+					<h:outputText value="#{Exam.manufacturer}" />
+				</p:column>
+
+				<p:column headerText="Color" sortBy="#{Exam.color}"
+					filterBy="#{Exam.color}">
+					<h:outputText value="#{Exam.color}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Exam Detail" widgetVar="ExamDialog" resizable="true">
+
+				<h:panelGrid id="display" columns="2" cellpadding="4">
+					<ui:include src = "/admin/entities/domain/exam/editExamComponent.xhtml" />
+				</h:panelGrid>
+				
+				<h:commandButton value="Save" action="#{examAction.update}" />
+				
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
