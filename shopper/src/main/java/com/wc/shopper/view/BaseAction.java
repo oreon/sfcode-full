@@ -62,6 +62,8 @@ public abstract class BaseAction<T extends BaseEntity> {
 	protected T entity;
 
 	
+	
+
 	@Inject
 	protected Conversation conversation;
 
@@ -285,6 +287,14 @@ public abstract class BaseAction<T extends BaseEntity> {
 	
 	protected void initLists(){
 		
+	}
+	
+	public T getEntity() {
+		return entity;
+	}
+
+	public void setEntity( T entity ) {
+		this.entity = entity;
 	}
 	
 	///////////////////////////////// Lazy data model ///////////////////////////////////////////////////////////////////////////////////

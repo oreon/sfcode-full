@@ -13,7 +13,8 @@
 			rowsPerPageTemplate="5,10,15" selectionMode="single"
 			selection="#{appUserAction.appUser}" id="AppUserTable">
 
-			
+			<p:ajax event="rowSelect" update=":form:display"  
+				oncomplete="AppUserDialog.show()" />
 
 			<p:column>
 
@@ -66,8 +67,10 @@
 
 		<p:dialog header="AppUser Detail" widgetVar="AppUserDialog"
 			resizable="true">
-
 			
+			<p:panel id="display" >
+				  <ui:include src="/appuser/editAppUserComponent.xhtml"/>  
+			</p:panel>
 			<h:commandButton value="Save" action="#{appUserAction.update}" />
 
 		</p:dialog>
