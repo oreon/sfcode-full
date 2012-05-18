@@ -61,16 +61,14 @@
 	<ui:composition «EXPAND WebRoot::genIncludes-» >	
 	
 	<h:panelGroup  id="«"edit"»«name»ComponentPanel" >
-		<s:validateAll>
+	
 		«setAsCurrentEntity(this)-»
-		<h:panelGrid columns="1" onload="#{«getAction()».load(«asVar()»Id )  }"></h:panelGrid>
 		
 		«EXPAND genAttribAsOutput FOR this-»
 		<br/>
 		«EXPAND genTable FOR this-»
 		<br/>
 		«EXPAND genManyToManyShuttle FOR this-»
-		</s:validateAll>
 	
 	</h:panelGroup>
 	
@@ -169,13 +167,12 @@
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
 	<br/>
 	«IF isCurrentEditMode()»
-	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  id="«name»">
-		<rich:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
-			targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
-	        <s:convertEntity />
-	        <rich:column> #{item.displayName} </rich:column>
-	     </rich:listShuttle>
-    </rich:simpleTogglePanel>
+		  <p:pickList id="pickList" value="#{«class.getAction()».list«name.toFirstUpper()»}"  
+                var="member"  
+                itemLabel="#{member.displayName}"  
+                itemValue="#{member}"
+                converter="#{«type.name.toFirstLower()»Action.converter}"
+             />  
 	«ELSE»
 	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  >
         <rich:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >

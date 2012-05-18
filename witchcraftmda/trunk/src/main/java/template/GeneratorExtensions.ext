@@ -181,11 +181,11 @@ JAVA org.witchcraft.generatorutil.ClassUtil.removeSpaces(java.lang.String);
 
 //get the parent
 String getParent(Entity cls):
-getExtensionKeyword() + ( cls.parents().size > 0 ? cls.parents().get(0).fqn():" BusinessEntity ");
+getExtensionKeyword() + ( cls.parents().size > 0 ? cls.parents().get(0).fqn():" BaseEntity ");
 
 //get the parent
 String getParent(MappedSuperClass cls):
-getExtensionKeyword() + ( cls.parents().size > 0 ? cls.parents().get(0).name:" BusinessEntity ");
+getExtensionKeyword() + ( cls.parents().size > 0 ? cls.parents().get(0).name:" BaseEntity ");
 
 String getExtensionKeyword():
 if( getCurrentCartridge() == "DOT_NET" ) then
@@ -194,10 +194,11 @@ else
 	" extends ";
 
 String getCartridge():
-readProperty("cartridge");
+readPropertyDef("cartridge", "RICH");
 
 String getTopLevelPackageProperty():
 readProperty("topLevelPackage");
+
 
 String getTopLevelPackage(Element elem):
 readPropertyDef("topLevelPackage", elem.package.name);
@@ -380,7 +381,7 @@ JAVA org.witchcraft.generatorutil.ClassUtil.getDisplayNameFromAttribs(org.eclips
  
  
 String getCurrentCartridge():
-JAVA org.witchcraft.generatorutil.ClassUtil.getCurrentCartridge();
+getCartridge();
 
 
 setCurrentCartridge(String currentCartridge):

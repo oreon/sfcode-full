@@ -108,7 +108,7 @@ isCurrentEditMode()?prop.genEditPermission():prop.genViewPermission() ;
 //isCurrentEditMode() && (prop.getRequired() == "true" || ( prop.association != null && !prop.getAssocOptional() ) )?"*":"";
 
 getRequiredStar(Property prop):
-"";
+getCartridge() == "SEAM3" ? "*" : "";
 
 
 String getTextControl(Property prop):
@@ -205,7 +205,7 @@ st.containingStateMachine().name + "/" + st.name + "." + getExtension();
 
 
 String getExtension():
-if( getCurrentCartridge() == "RICH" ) then
+if( getCurrentCartridge() == "RICH"  || getCurrentCartridge() == "SEAM3") then
 	 "xhtml"
 else if ( getCurrentCartridge() == "ICE") then
 	"jspx"
@@ -279,7 +279,8 @@ genViewPermission(Property prop):
 genPermission(prop,'View');
 
 genPermission(Property prop, String mode):
-"skipPermissionCheck == 'true' || s:hasPermission('" + getCurrentEntity().asVar() + "', '" + prop.name +  mode + "')";
+"true";
+//"skipPermissionCheck == 'true' || s:hasPermission('" + getCurrentEntity().asVar() + "', '" + prop.name +  mode + "')";
 
 //getgeneric type for an action, for abstract classes we have to return none
 getGenericType(Class child, Class parent):
