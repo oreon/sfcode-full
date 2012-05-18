@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editExamComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{examAction.load(examId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelExam eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Exam}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.exam_title} * " rendered="#{true}"/>  
+      <h:outputText id="title" value="#{examAction.exam.title}"/>  
+      <h:outputText value="#{msg.exam_description} * " rendered="#{true}"/>  
+      <h:outputText id="description" value="#{examAction.exam.description}"/> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

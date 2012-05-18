@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <f:metadata> 
+    <f:viewParam name="id" value="#{examAction.id}"/>  
+    <f:event type="preRenderView" listener="#{examAction.retrieve}"/> 
+  </f:metadata>  
+  <ui:define name="content"> 
+    <h:form> 
+      <ui:include src="/admin/entities/domain/exam/editExamComponent.xhtml"/>  
+      <div class="buttonBox"> 
+        <h:button value="Save" action="#{examAction.update}"/>  
+        <h:button value="Cancel" outcome="listExam"/> 
+      </div> 
+    </h:form> 
+  </ui:define> 
+</ui:composition>
