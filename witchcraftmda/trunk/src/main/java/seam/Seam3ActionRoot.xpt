@@ -92,12 +92,13 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		List<Predicate> predicatesList = new ArrayList<Predicate>();
 
+		/*
 		String name = search.getName();
 		if (name != null && !"".equals(name)) {
 			predicatesList.add(builder.like(root.<String> get("name"),
 					'%' + name + '%'));
 		}
-		/*
+		
 		int stock = search.getStock();
 		if (stock != 0) {
 			predicatesList.add(builder.equal(root.get("stock"), stock));
@@ -123,6 +124,65 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		this.entity = «asVar()»;
 	}
 	
+	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
+	 * that customer can be shown on the customer tab within viewOrder.xhtml
+	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
+	 */
+	public void loadAssociations(){
+	
+		«REM»comment
+		«FOREACH getOutgoingAssociations() AS e»
+		«IF !e.type.isAbstract»
+		if («asVar()».get«e.name.toFirstUpper()»() != null) {
+			«e.name»Action.setInstance(getEntity().get«e.name.toFirstUpper()»());
+		}
+		«ENDIF»
+		«ENDFOREACH»
+		«ENDREM»
+		
+		«FOREACH getMultiValued() AS e»
+			initList«e.name.toFirstUpper()»(); 
+		«ENDFOREACH»
+		
+		«FOREACH getLeadingManyToMany() AS e»
+			initList«e.name.toFirstUpper()»(); 
+			initListAvailable«e.name.toFirstUpper()»(); 
+		«ENDFOREACH»
+	}
+	
+	public void updateAssociations(){
+		«FOREACH getNonComposedManyAssociations() AS a»
+		«a.type.fqn()» «a.name» =(«a.type.fqn()») org.jboss.seam.Component.getEntity("«a.type.name.toFirstLower()»");
+		«a.name».set«a.opposite.name.toFirstUpper()»(«asVar()»);
+		events.raiseTransactionSuccessEvent("archived«a.type.name»");
+		«ENDFOREACH»
+	}
+	
+	
+	«EXPAND genCompositeCode FOREACH getMultiValued() -»
+	«EXPAND genManyToMany FOREACH getLeadingManyToMany() -»
+	
+	
+	public void updateComposedAssociations(){
+		«EXPAND updateList FOREACH getMultiValued() -»
+		«EXPAND updateList FOREACH getLeadingManyToMany() -»
+	}
+	
+	
+	public void clearLists(){
+		«FOREACH getMultiValued() AS a -»
+			list«a.name.toFirstUpper()».clear();
+		«ENDFOREACH»
+		
+		«FOREACH getLeadingManyToMany() AS a -»
+			list«a.name.toFirstUpper()».clear();
+		«ENDFOREACH»
+	}
+	
+
+	«EXPAND template::Root::genOperation FOREACH getAllOperations()»
+	
+	
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -133,8 +193,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 
 «DEFINE updateList FOR uml::Property»
 	  if (list«name.toFirstUpper()» != null) {
-		getInstance().get«name.toFirstUpper()»().clear();
-		getInstance().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
+		getEntity().get«name.toFirstUpper()»().clear();
+		getEntity().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
 	  }
 «ENDDEFINE»
 
@@ -154,12 +214,12 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«currentList».remove(index);
 	}
 	
-	@Begin(join=true)
+	éé@Begin(join=true)
 	public void add«name.toFirstUpper()»(){
 		init«currentList.toFirstUpper()»();
 		«type.name» «name» = new «type.name»();
 		«IF opposite != null && opposite.isNavigable()»
-			«name».set«opposite.name.toFirstUpper()»(getInstance());
+			«name».set«opposite.name.toFirstUpper()»(getEntity());
 		«ENDIF»
 		get«currentList.toFirstUpper()»().add(«name»);
 	}
@@ -177,10 +237,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 		«IF isLeadingManyToMany() && prefix == "Available"»
 			«currentList» = getEntityManager().createQuery("select r from «type.name» r").getResultList();
-			«currentList».removeAll(getInstance().get«name.toFirstUpper()»());
+			«currentList».removeAll(getEntity().get«name.toFirstUpper()»());
 		«ELSE»
 		if(«currentList».isEmpty())
-			«currentList».addAll(getInstance().get«name.toFirstUpper()»());
+			«currentList».addAll(getEntity().get«name.toFirstUpper()»());
 		«ENDIF»	
 	}
 	
