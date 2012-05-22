@@ -1,6 +1,14 @@
 package org.witchcraft.base.entity;
 
-public class Range<T> {
+import java.io.Serializable;
+
+public class Range<T> implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8120395366852371051L;
+	
 	
 	private T begin;
 	private T end;

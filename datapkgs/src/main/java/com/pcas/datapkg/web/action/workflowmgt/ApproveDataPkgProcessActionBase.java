@@ -39,12 +39,12 @@ public class ApproveDataPkgProcessActionBase extends BaseJbpmProcessAction
 	public void askForChangesReviewExam() {
 
 	}
-	@EndTask(transition = "proceedToApprove")
-	public void proceedToApproveReviewExam() {
-
-	}
 	@EndTask(transition = "proceedToReject")
 	public void proceedToRejectReviewExam() {
+
+	}
+	@EndTask(transition = "proceedToApprove")
+	public void proceedToApproveReviewExam() {
 
 	}
 

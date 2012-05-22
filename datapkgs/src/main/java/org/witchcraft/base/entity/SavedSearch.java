@@ -13,12 +13,11 @@ import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 
 @Entity
-@Table(name = "template")
-@Name("entityTemplate")
-@EntityListeners({EntityTemplateListener.class})
+@Name("savedSearch")
+//@EntityListeners({EntityTemplateListener.class})
 @NamedQueries({
-@NamedQuery(name="entityTemplates.templatesForEntity", query= "Select c from EntityTemplate c where c.entityName = ?1 order by c.templateName "),
-@NamedQuery(name="entityTemplate.templateEntityByName", query= "Select c from EntityTemplate c where c.entityName = ?1 and c.templateName = ?2 ")
+@NamedQuery(name="savedSearch.searchesForEntity", query= "Select c from SavedSearch c where c.entityName = ?1 order by c.entityName "),
+@NamedQuery(name="savedSearch.searchByName", query= "Select c from SavedSearch c where c.entityName = ?1 and c.searchName = ?2 ")
 })
 public class SavedSearch extends BusinessEntity {
 

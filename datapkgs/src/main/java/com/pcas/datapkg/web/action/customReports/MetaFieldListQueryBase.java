@@ -78,13 +78,13 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 
 			"lower(metaField.name) like concat(lower(#{metaFieldList.metaField.name}),'%')",
 
-			"metaField.metaEntity.id = #{metaFieldList.metaField.metaEntity.id}",
-
 			"#{metaFieldList.customReportsToSearch} in elements(metaField.customReports)",
 
 			"#{metaFieldList.groupReportToSearch} in elements(metaField.groupReport)",
 
 			"lower(metaField.type) like concat(lower(#{metaFieldList.metaField.type}),'%')",
+
+			"metaField.metaEntity.id = #{metaFieldList.metaField.metaEntity.id}",
 
 			"metaField.dateCreated <= #{metaFieldList.dateCreatedRange.end}",
 			"metaField.dateCreated >= #{metaFieldList.dateCreatedRange.begin}",};
@@ -112,10 +112,6 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getMetaEntity() != null ? e.getMetaEntity()
-						.getDisplayName().replace(",", "") : "") + "\",");
-
-		builder.append("\""
 				+ (e.getCustomReports() != null ? e.getCustomReports() : "")
 				+ "\",");
 
@@ -126,6 +122,10 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 		builder.append("\""
 				+ (e.getType() != null ? e.getType().replace(",", "") : "")
 				+ "\",");
+
+		builder.append("\""
+				+ (e.getMetaEntity() != null ? e.getMetaEntity()
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -138,13 +138,13 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 
 		builder.append("Name" + ",");
 
-		builder.append("MetaEntity" + ",");
-
 		builder.append("CustomReports" + ",");
 
 		builder.append("GroupReport" + ",");
 
 		builder.append("Type" + ",");
+
+		builder.append("MetaEntity" + ",");
 
 		builder.append("\r\n");
 	}
