@@ -1,7 +1,14 @@
 package org.witchcraft.base.entity;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -15,9 +22,12 @@ import java.util.TreeMap;
 
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PostLoad;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.highlight.Highlighter;
@@ -25,6 +35,8 @@ import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 import org.apache.lucene.util.Version;
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.jboss.seam.annotations.Begin;
@@ -34,7 +46,10 @@ import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
+import org.jbpm.job.ExecuteNodeJob;
 import org.witchcraft.exceptions.ContractViolationException;
+
+import com.pcas.datapkg.domain.Clerk;
 
 
 
@@ -60,6 +75,17 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
 	
+	private String searchName;
+	
+	
+	public String getSearchName() {
+		return searchName;
+	}
+
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
+
 	private List<E> entityList;
 
 	@RequestParameter
@@ -69,7 +95,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 	@In
 	// @PersistenceContext(type=EXTENDED)
-	protected FullTextEntityManager entityManager;
+	transient protected FullTextEntityManager entityManager;
 
 	public String getSearchText() {
 		return searchText;
@@ -453,8 +479,125 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	}
 	
 	
-	public static void main(String[] args) {
-		
+	public void saveSearch(){
+		SavedSearch search = new SavedSearch();
+		search.setSearchName(searchName);
+		search.setEntityName(getEntityClass().getSimpleName());
+		search.setEncodedXml(encode());
+		entityManager.persist(search);
 	}
 	
+	public void executeSearch(){
+		SavedSearch savedSearch = executeSingleResultNamedQuery("savedSearch.searchByName", getEntityClass().getSimpleName(), 
+				"searchs");
+		decode(savedSearch);
+	}
+	
+	public List<SavedSearch> findSearches(){
+		return executeNamedQuery( "savedSearch.searchesForEntity",  getEntityClass().getSimpleName() );
+		//return null;
+	}
+	
+	public String encode() {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(1024 * 20);
+		XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(bos ));
+		E entity = getInstance();
+		Hibernate.initialize(entity);
+		if (entity instanceof HibernateProxy) {
+			entity = (E) ((HibernateProxy) entity)
+					.getHibernateLazyInitializer().getImplementation();
+		}
+		
+		setInstance(entity);
+		encoder.writeObject(this);
+		encoder.close();
+		//System.out.println(" ecoded xml : " + new String(bos.toByteArray()));
+		return (new String(bos.toByteArray()));
+	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	public void decode(SavedSearch savedSearch){
+		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new ByteArrayInputStream(savedSearch.getEncodedXml().getBytes()) ));
+		BaseQuery<BusinessEntity, Long> temp = ((BaseQuery<BusinessEntity, Long>) decoder.readObject());
+		try {
+			BeanUtils.copyProperties(this, temp);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		decoder.close();
+	}
+	
+	
+	
+
+	@SuppressWarnings("unchecked")
+	public <S> List<S> executeQuery(String queryString, Object... params) {
+		Query query = entityManager.createQuery(queryString);
+		setQueryParams(query, params);
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public <S> S executeSingleResultQuery(String queryString, Object... params) {
+		Query query = entityManager.createQuery(queryString);
+		setQueryParams(query, params);
+		return (S) executeSingleResultQuery(query);
+	}
+
+	private <S> S executeSingleResultQuery(Query query) {
+		try {
+			return (S) query.getSingleResult();
+		} catch (NoResultException nre) {
+			log.info("No " + "record " + " found !");
+			return null;
+		}
+	}
+
+
+
+	@SuppressWarnings("unchecked")
+	public <S> List<S> executeNamedQuery(String queryString, Object... params) {
+		Query query = entityManager.createNamedQuery(queryString);
+		setQueryParams(query, params);
+		// setEntityList(query.getResultList());
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public <S> S executeSingleResultNamedQuery(String queryString,
+			Object... params) {
+		Query query = entityManager.createNamedQuery(queryString);
+		setQueryParams(query, params);
+		return (S) executeSingleResultQuery(query);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <S> S executeSingleResultNativeQuery(String queryString,
+			Object... params) {
+		Query query = entityManager.createNativeQuery(queryString);
+		setQueryParams(query, params);
+		return (S) query.getSingleResult();
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public <S> List<S> executeNativeQuery(String queryString, Object... params) {
+		Query query = entityManager.createNativeQuery(queryString);
+		setQueryParams(query, params);
+		return query.getResultList();
+	}
+
+	private void setQueryParams(Query query, Object... params) {
+		int counter = 1;
+		for (Object param : params) {
+			query.setParameter(counter++, param);
+		}
+	}
+
 }

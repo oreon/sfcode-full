@@ -463,6 +463,28 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	 */
 	public void updateComposedAssociations() {
 	}
+	
+	@End
+	public String returnToListingView() {
+		String retVal = Redirect.instance().getViewId() == null ? StringUtils
+				.uncapitalize(getClassName()) : Redirect.instance().getViewId();
+		return retVal;
+	}
+
+	
+	/**
+	 * To create a full text index for the given entity
+	 * 
+	 * @return
+	 */
+	public String reIndex() {
+		final List<T> entries = entityManager.createQuery(
+				"select d from " + getClassName(getInstance()) + "  d")
+				.getResultList();
+		for (T t : entries)
+			entityManager.index(t);
+		return null;
+	}
 
 	@SuppressWarnings("unchecked")
 	public <S> List<S> executeQuery(String queryString, Object... params) {
@@ -487,27 +509,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		}
 	}
 
-	@End
-	public String returnToListingView() {
-		String retVal = Redirect.instance().getViewId() == null ? StringUtils
-				.uncapitalize(getClassName()) : Redirect.instance().getViewId();
-		return retVal;
-	}
 
-	
-	/**
-	 * To create a full text index for the given entity
-	 * 
-	 * @return
-	 */
-	public String reIndex() {
-		final List<T> entries = entityManager.createQuery(
-				"select d from " + getClassName(getInstance()) + "  d")
-				.getResultList();
-		for (T t : entries)
-			entityManager.index(t);
-		return null;
-	}
 
 	@SuppressWarnings("unchecked")
 	public <S> List<S> executeNamedQuery(String queryString, Object... params) {
