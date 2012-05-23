@@ -318,7 +318,9 @@
 «ENDDEFINE»
 
 
-«DEFINE getFileView FOR uml::Property»
+
+
+«DEFINE genFilePropertyEntry FOR uml::Property-»
 «LET isCurrentMultiMode()?"_" + getCurrentEntity().asVar() + "." + name: getFieldNameWithAction() AS currentFile»
 	<c:choose>
 		<c:when test="${«currentFile».contentType.startsWith('image')}">
@@ -331,24 +333,6 @@
 		</c:otherwise>
 	</c:choose>
 «ENDLET»
-«ENDDEFINE»
-
-«DEFINE genFilePropertyEntry FOR uml::Property-»
-	«IF isCurrentEditMode() » 
-     <h:panelGroup  rendered="#{«genEditPermission()»}"> 
-          <h:outputText value="Current File:" /> <h:link value="#{«getActionForFileMode()»«class.asVar()-».«name».name}" id="«name»_file" 
-          	action="#{«getActionForFileMode()»downloadFile(null)}" propagation="none"> 
-              <f:param name="currentEntityId" value="#{«getActionForFileMode()»«name.toFirstLower()».id}" /> 
-            </h:link> 
-        <p:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
-        	autoclear="false"  listHeight="30" listWidth="250"> 	
-        	<s:conversationPropagation type="join" />
-        	 <a:support event="onuploadcomplete" reRender="«name»_file" />
-        </p:fileUpload>
-     </h:panelGroup>
-    «ELSE» 
-		«EXPAND getFileView » 
-	«ENDIF»
 «ENDDEFINE»
 
 

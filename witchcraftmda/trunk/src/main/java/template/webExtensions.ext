@@ -123,12 +123,31 @@ getDisabled(Property prop):
 "false"; //todo 
 
 String getInputControl(Property prop):
+(getCartridge() == "RICH" ?  getInputControlRich(prop) :  getInputControlPrime(prop) ) ;
+
+
+String getInputControlRich(Property prop):
 if(prop.type.name == "largeText")  
 	then getRichTextEditor()
 else if ( prop.isType("boolean") || prop.isType("Boolean") )
 	then prop.getJSFPrefix() + ":selectBooleanCheckbox"
 else if (prop.isType("Date")) then
 	"rich:calendar" 
+else if (prop.isColumn() && prop.secret ) then
+	prop.getJSFPrefix() + ":inputSecret"
+else if (prop.isColumn() && prop.textSize > 0 ) then
+	prop.getJSFPrefix() + ":inputText size=\"" + prop.textSize +"\""
+else	
+	prop.getJSFPrefix() + ":inputText";
+	
+	
+String getInputControlPrime(Property prop):
+if(prop.type.name == "largeText")  
+	then "p:editor"
+else if ( prop.isType("boolean") || prop.isType("Boolean") )
+	then prop.getJSFPrefix() + ":selectBooleanCheckbox"
+else if (prop.isType("Date")) then
+	"p:calendar" 
 else if (prop.isColumn() && prop.secret ) then
 	prop.getJSFPrefix() + ":inputSecret"
 else if (prop.isColumn() && prop.textSize > 0 ) then
@@ -164,7 +183,7 @@ String getJSFPrefix(Property prop):
 (isCurrentEditMode() && prop.isType("Date"))?"wc":getCurrentJSFPrefix();
 
 String getCurrentJSFPrefix():
-getCurrentCartridge() == "RICH" ? "h" : "ice";
+getCurrentCartridge() != "ICE" ? "h" : "ice";
 
 String getFieldNameWithAction(Property prop):
 prop.class.getAction() + "." + prop.class.asVar() + "." + prop.name;
