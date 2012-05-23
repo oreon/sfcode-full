@@ -24,7 +24,7 @@
 				«EXPAND genFullTextBtn FOR this»
 	
 				<c:set var="modalId" value="«name»ModalPanel-«name»" />
-				<ui:include src="search«name».«getExtension()»" />
+				<!-- <ui:include src="search«name».«getExtension()»" /> -->
 				<br/> <br/>
 				«EXPAND genButtons FOR this»
 				<ui:include src="list«name»Component.«getExtension()»"  >
@@ -35,10 +35,10 @@
 				<ui:include src="«getComponentViewFile("modalDlg")»" >
 					<ui:param name="modalId" value="${modalId}"/> 
 				</ui:include>
-			</ui:define>
+	</ui:define>
 			
 			
-		</ui:composition>
+	</ui:composition>
 	«ENDFILE»
 	«EXPAND genListViewBasic FOR this»
 «ENDDEFINE»
@@ -52,7 +52,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	template="/resources/scaffold/pageTemplate.xhtml">
+>
 
 		<h:form id="form">
 
@@ -78,7 +78,7 @@
 					<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 				</h:panelGrid>
 				
-				<h:commandButton value="Save" action="#{«getAction()».update}" />
+				<h:commandButton value="Save" action="#{«getAction()».persist}" />
 				
 			</p:dialog>
 
@@ -141,15 +141,14 @@
 «ENDDEFINE»
 
 «DEFINE genButtons FOR wcprofile::Entity»
-	<a:form>
+	<h:form>
 		<h:commandButton value="Create New" action="«getViewFile("edit")»" propagation="none" >
 			<f:param name="«asVar()»Id" value="0"/>
-  			</h:commandButton> 
-				<a:commandButton action="#{«asVar()»Action.set«name»Id(0)}" 
-				oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}" >
-			</a:commandButton>
-		<h:commandButton value="Export to Excel" action="#{«asVar()»List.exportToCsv}" />
-		</a:form>
+  		</h:commandButton> 
+		
+		<p:commandButton  oncomplete="«name»Dialog.show()" value="Quick Create" />
+				
+	</h:form>
 		«IF templatable»
 		 <h:commandButton value="Create Template" view="«getTemplateViewFileName("edit")»"/>
 		 «ENDIF»
