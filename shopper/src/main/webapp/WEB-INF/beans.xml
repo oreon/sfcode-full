@@ -2,5 +2,27 @@
 	xsi:schemaLocation="
       http://java.sun.com/xml/ns/javaee
       http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
-	
+
+
+	<persistence:filter name="archivedFilter">
+		<persistence:name>archiveFilterDef</persistence:name>
+		<persistence:parameters>
+			<key>aArchived</key>
+			<value>#{'0'}</value>
+		</persistence:parameters>
+	</persistence:filter>
+
+	<persistence:entity-manager-factory
+		name="entityManagerFactory" persistence-unit-name="appEntityManager" />
+
+	<persistence:managed-persistence-context
+		auto-create="true" entity-manager-factory="#{entityManagerFactory}"
+		name="entityManager">
+
+		<persistence:filters>
+			<value>#{archivedFilter}</value>
+		</persistence:filters>
+
+	</persistence:managed-persistence-context>
+
 </beans>

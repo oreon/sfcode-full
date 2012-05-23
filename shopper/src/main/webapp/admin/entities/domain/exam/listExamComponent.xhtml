@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	>
+
+	<h:form id="form">
+
+		<p:dataTable var="_exam" value="#{examAction.model}"
+			paginator="true" rows="10"
+			paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+			rowsPerPageTemplate="5,10,15" selectionMode="single"
+			selection="#{examAction.exam}" id="ExamTable">
+
+			<p:ajax event="rowSelect" update=":form:display"
+				oncomplete="ExamDialog.show()" />
+
+			<p:column>
+
+				<h:outputText value="#{_exam.id}">
+				</h:outputText>
+			</p:column>
+
+			<p:column headerText="#{msg.exam_title}" sortBy="#{_exam.title}">
+
+				<h:outputText value="#{_exam.title}" />
+
+			</p:column>
+
+
+			<p:column headerText="#{msg.exam_description}"
+				sortBy="#{_exam.description}">
+
+
+				<h:outputText id="descriptionbr"
+					value="#{_exam.description}" />
+
+
+			</p:column>
+
+
+			<p:column>
+				<h:outputText value="#{_exam.dateCreated}">
+					
+				</h:outputText>
+			</p:column>
+
+		</p:dataTable>
+	
+	
+		<p:dialog header="Exam Detail" widgetVar="ExamDialog" resizable="true" >
+
+			<h:panelGrid id="display" columns="2" cellpadding="4">
+				<ui:include
+					src="/admin/entities/domain/exam/editExamComponent.xhtml" />
+			</h:panelGrid>
+
+			<h:commandButton value="Save" action="#{examAction.persist}" />
+			
+		</p:dialog>
+
+
+
+	</h:form>
+
+</ui:composition>
