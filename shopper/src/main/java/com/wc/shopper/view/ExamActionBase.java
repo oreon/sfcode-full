@@ -47,6 +47,8 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 	}
 
 	public Exam getExam() {
+		if (entity == null)
+			entity = createInstance();
 		return this.entity;
 	}
 
@@ -97,7 +99,7 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	//@Begin(join = true)
 	public void addQuestions() {
-		initListQuestions();
+		//initListQuestions();
 		Question questions = new Question();
 
 		questions.setExam(getEntity());
