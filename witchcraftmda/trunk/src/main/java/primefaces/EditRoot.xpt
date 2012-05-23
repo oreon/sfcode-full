@@ -174,11 +174,11 @@
                 converter="#{«type.name.toFirstLower()»Action.converter}"
              />  
 	«ELSE»
-	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  >
-        <rich:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
-        	<rich:column> #{item.displayName} </rich:column>
-     	</rich:dataTable>
-     </rich:simpleTogglePanel>
+	<p:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  >
+        <p:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
+        	<p:column> #{item.displayName} </p:column>
+     	</p:dataTable>
+     </p:simpleTogglePanel>
 	«ENDIF»
 «ENDDEFINE»
 
@@ -271,11 +271,11 @@
 			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
-			 <rich:toolTip>
+			 <p:toolTip>
 	            <span>
 	              #{«getActionForMode()»«genPropertyLabel()».popupInfo} 
 	            </span>
-	        </rich:toolTip>
+	        </p:toolTip>
 	        «ENDIF»
 	</s:link>
 «ENDDEFINE»
@@ -304,7 +304,7 @@
 «DEFINE genDropDown FOR uml::Property»
 <h:panelGroup>
 	<h:selectOneMenu converter="#{«type.asVar()»Action.converter}" id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()-»}">
-		 <f:selectItem  itemLabel="Please Select ..." />  
+		<f:selectItem  itemLabel="Please Select ..." />  
 		<f:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "Action.all"»}" 
 		 var="«name»" itemLabel="#{«name».displayName}" />
 	</h:selectOneMenu>
@@ -325,7 +325,7 @@
 «ENDDEFINE»
 
 «DEFINE genSuggestionBox FOR uml::Property»
-	<rich:suggestionbox  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
+	<p:suggestionbox  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
 		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
 		«IF type.autoCompleteColumns == null»
 			<h:column>
@@ -343,7 +343,7 @@
 			<f:setPropertyActionListener value="#{_result}"
 				target="#{«getActionForMode()»«genPropertyLabel()-»}" />
 		</a:support>
-	</rich:suggestionbox>
+	</p:suggestionbox>
 «ENDDEFINE»
 
 
@@ -353,7 +353,25 @@
 «REM»Generate text control for the given property «ENDREM»
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
 	<h:panelGroup>
-			<h:inputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}"  />
+«IF isFile()-» 
+	«EXPAND genFilePropertyEntry»
+«ELSE-»
+<«getTextControl()»  
+	 «IF type.name == "largeText"»
+	 	
+	 «ENDIF»  
+	 «IF isColumn() && secret»
+	 	«IF isCurrentEditMode()»  redisplay="true" «ENDIF»
+	 «ENDIF»  
+	 «IF isType("Date")»  «ENDIF»
+	 
+	 id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
+	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"" + " disabled=\"" + getDisabled() + "\"" :""» 
+	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
+	 «REM»comment«IF isCurrentEditMode()» «genAjaxValidator()» «ENDIF» «ENDREM»
+</«getTextControl()»>
+«ENDIF»	
+		«REM»	<h:inputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}"  /> «ENDREM»
 			<h:message for="«getId()»" styleClass="error"/>
 	</h:panelGroup>
 «ENDDEFINE»
@@ -383,11 +401,11 @@
           	action="#{«getActionForFileMode()»downloadFile(null)}" propagation="none"> 
               <f:param name="currentEntityId" value="#{«getActionForFileMode()»instance.id}" /> 
             </s:link> 
-        <rich:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
+        <p:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
         	autoclear="false"  listHeight="30" listWidth="250"> 	
         	<s:conversationPropagation type="join" />
         	 <a:support event="onuploadcomplete" reRender="«name»_file" />
-        </rich:fileUpload>
+        </p:fileUpload>
      </h:panelGroup>
     «ELSE» 
 		«EXPAND getFileView » 
@@ -439,7 +457,7 @@
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
-	<rich:dataTable id="«name»" var="_«type.asVar()»" 
+	<p:dataTable id="«name»" var="_«type.asVar()»" 
 		«IF !isCurrentEditMode()» 
 			rendered="#{not empty «class.getAction()».list«name.toFirstUpper()» and «genViewPermission()» }"
 			«ELSE»
@@ -456,16 +474,15 @@
 		  «EXPAND genDelete FOR this -»
 		 «ENDIF»
 		«ENDIF»	
-	</rich:dataTable>
+	</p:dataTable>
 	«setCurrentMultiMode(false)-»
 «ENDDEFINE»
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
 		<h:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
-			reRender="«name»"
-			>
-			<s:conversationId/>
+			reRender="«name»" >
+			<f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/>
 		</h:commandButton>
 	</h:column>
 «ENDDEFINE»
@@ -477,10 +494,11 @@
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
-	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
+	<h:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
 		reRender="«name»"  rendered="#{«genEditPermission()»}" >
-		<s:conversationId/>
-	</a:commandButton>
+		 <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/>
+
+	</h:commandButton>
 «ENDDEFINE»
 
 «DEFINE genProperty FOR String-»

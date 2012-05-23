@@ -19,8 +19,7 @@
 	</f:metadata>
 
 	<ui:param name="pageTitle" value="Search Customer entities" />
-
-
+	
 	<ui:define name="main">
 				«EXPAND genFullTextBtn FOR this»
 	
@@ -45,7 +44,7 @@
 «ENDDEFINE»
 
 «DEFINE genListViewBasic FOR uml::Class»
-«FILE getWebPath() +"/list" + name + "Component." + getExtension()»
+«FILE getWebPath() +"/list" + name + "Component." + getExtension()-»
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
@@ -65,35 +64,12 @@
 
 				<p:ajax event="rowSelect" 
 					update=":form:display" oncomplete="«name»Dialog.show()" />
-
-				<p:column headerText="Model" sortBy="#{«name».model}"
-					filterBy="#{«name».model}">
-					
-					<h:link outcome="/«name»/view">
-						<f:param name="id" value="#{«name».id}"/>
-						<h:outputText value="#{«name».model}" />
-					</h:link>
-				</p:column>
 				
 				«EXPAND genId FOR this-»	
 				«EXPAND genAttribAsOutput FOR this-»
 				«EXPAND genPropsFromBusinessEntity FOR this-»
 				«EXPAND genCreationDate FOR this-»	
-
-				<p:column headerText="Year" sortBy="#{«name».year}"
-					filterBy="#{«name».year}">
-					<h:outputText value="#{«name».year}" />
-				</p:column>
-
-				<p:column headerText="Manufacturer" sortBy="#{«name».manufacturer}"
-					filterBy="#{«name».manufacturer}">
-					<h:outputText value="#{«name».manufacturer}" />
-				</p:column>
-
-				<p:column headerText="Color" sortBy="#{«name».color}"
-					filterBy="#{«name».color}">
-					<h:outputText value="#{«name».color}" />
-				</p:column>
+				
 			</p:dataTable>
 
 			<p:dialog header="«name» Detail" widgetVar="«name»Dialog" resizable="true">
@@ -107,8 +83,6 @@
 			</p:dialog>
 
 		</h:form>
-
-	</ui:define>
 
 </ui:composition>
 «ENDFILE»
