@@ -297,7 +297,7 @@
           		</h:commandLink> 
 		«ELSEIF isDate()»
 			<h:outputText value="#{_«genPropertyLabel()»}">
-				<s:convertDateTime type="date" dateStyle="medium" />
+				 <f:convertDateTime pattern="dd-MMM-yyyy " />
 			</h:outputText>
 		«ELSEIF isBoolean()»
 			<h:outputText value="#{_«genPropertyLabel()»? msg.yes : msg.no }" />	
@@ -309,7 +309,7 @@
 			«IF isColumn() && !abbreviateInListing»
 				<h:outputText value="#{_«genPropertyLabel()»}"   />	
 			«ELSE»
-			 <rich:toolTip value="#{_«genPropertyLabel()»}" for="«name»Abbr">  </rich:toolTip>
+			 <p:toolTip value="#{_«genPropertyLabel()»}" for="«name»Abbr">  </p:toolTip>
 	         <h:outputText id="«name»Abbr" value="#{_«genPropertyLabel()»Abbreviated}" /> 
 	         «ENDIF»				
 		«ELSE»
@@ -342,7 +342,6 @@
 
 «DEFINE genId FOR uml::Class»
 	<p:column «EXPAND genPermission FOR 'id'»>
-	
 		<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  >
 		</h:outputText>
 	</p:column>
@@ -352,7 +351,7 @@
 «DEFINE genCreationDate FOR uml::Class»
 	<p:column «EXPAND genPermission FOR 'creationDate'»>
 		<h:outputText    value="#{_«getCurrentEntity().asVar()».dateCreated}"  >
-			<s:convertDateTime type="date" dateStyle="medium" />
+			 <f:convertDateTime pattern="dd-MMM-yyyy " />
 		</h:outputText>
 	</p:column>
 «ENDDEFINE»
