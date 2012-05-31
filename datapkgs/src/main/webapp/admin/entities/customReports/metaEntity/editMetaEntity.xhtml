@@ -13,9 +13,133 @@
 	template="/admin/template.xhtml">
 	<ui:define name="content">
 		<h:form>
+
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText value="#{metaEntityAction.metaEntity.displayName}" />
+					<h:outputText
+						value="#{metaEntityAction.metaEntity.displayName} Entity Level Privileges " />
+				</f:facet>
+
+				<table style="border-collapse: none;border:1px solid #ddd"  >
+					<tr>
+						<td>
+							<table style="background-color: #eef">
+								<tr style="background-color: #ddd">
+									<th colspan="2">Create</th>
+								</tr>
+								<ui:repeat var="role" value="#{appRoleList.resultList}"
+									varStatus="loop">
+									<tr>
+
+										<td style="babackground-color: red"><h:outputText
+												value="#{role.name}"
+												rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}" />
+										</td>
+										<td style="babackground-color: red"><h:selectBooleanCheckbox
+												id="readAccess#{entityId}"
+												rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"
+												label="#{msg.roleFieldPrivilege_readAccess}"
+												required="false" disabled="false">
+												<rich:ajaxValidator event="onsubmit" />
+											</h:selectBooleanCheckbox></td>
+									</tr>
+
+								</ui:repeat>
+							</table>
+
+						</td>
+						<td>
+
+							<table style="background-color: #eed">
+								<tr style="background-color: #ddd">
+									<th colspan="2">Edit</th>
+								</tr>
+								<ui:repeat var="role" value="#{appRoleList.resultList}"
+									varStatus="loop">
+									<tr>
+										<td style="babackground-color: red"><h:outputText
+												value="#{role.name}"
+												rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}" />
+										</td>
+										<td><h:selectBooleanCheckbox id="readAccess#{entityId}"
+												rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"
+												label="#{msg.roleFieldPrivilege_readAccess}"
+												required="false" disabled="false">
+												<rich:ajaxValidator event="onsubmit" />
+											</h:selectBooleanCheckbox></td>
+									</tr>
+								</ui:repeat>
+							</table>
+
+						</td>
+						
+						<td>
+
+							<table style="background-color: #eef">
+								<tr style="background-color: #ddd">
+									<th colspan="2">View</th>
+								</tr>
+								<ui:repeat var="role" value="#{appRoleList.resultList}"
+									varStatus="loop">
+									<tr>
+										<td style="babackground-color: red"><h:outputText
+												value="#{role.name}"
+												rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}" />
+										</td>
+										<td><h:selectBooleanCheckbox id="readAccess#{entityId}"
+												rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"
+												label="#{msg.roleFieldPrivilege_readAccess}"
+												required="false" disabled="false">
+												<rich:ajaxValidator event="onsubmit" />
+											</h:selectBooleanCheckbox></td>
+									</tr>
+								</ui:repeat>
+							</table>
+
+						</td>
+						
+						<td>
+
+							<table style="background-color: #eed">
+								<tr style="background-color: #ddd">
+									<th colspan="2">Delete</th>
+								</tr>
+								<ui:repeat var="role" value="#{appRoleList.resultList}"
+									varStatus="loop">
+									<tr>
+										<td style="babackground-color: red"><h:outputText
+												value="#{role.name}"
+												rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}" />
+										</td>
+										<td><h:selectBooleanCheckbox id="readAccess#{entityId}"
+												rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"
+												label="#{msg.roleFieldPrivilege_readAccess}"
+												required="false" disabled="false">
+												<rich:ajaxValidator event="onsubmit" />
+											</h:selectBooleanCheckbox></td>
+									</tr>
+								</ui:repeat>
+							</table>
+
+						</td>
+						
+						
+					</tr>
+
+				
+
+				</table>
+
+
+			</rich:panel>
+
+			<br />
+			<br />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText
+						value="#{metaEntityAction.metaEntity.displayName} Field Level Privileges " />
 				</f:facet>
 
 				<rich:dataTable id="metaFields" var="_metaField"
@@ -24,7 +148,7 @@
 					rowClasses="odd, even" styleClass="viewInfo" rules="all" />
 
 
-				<table border="1">
+				<table style="border: 1px solid gray; table-layout: fixed">
 					<tr>
 						<ui:repeat var="fld"
 							value="#{metaEntityAction.metaEntity.listMetaFields}">
@@ -35,37 +159,49 @@
 
 						<ui:repeat var="fld" value="#{metaEntityAction.listMetaFields}">
 							<td>
-							
-							<ui:repeat var="fldRole"
-								value="#{fld.listRoleFieldPrivileges}">
 
-								<h3> <h:outputText value="#{fldRole.appRole.displayName}" /> </h3>
+								<table>
+									<ui:repeat var="fldRole" value="#{fld.listRoleFieldPrivileges}"
+										varStatus="loop">
 
-	
-								<h:outputText value="#{msg.roleFieldPrivilege_readAccess}  "
-									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}" />
-
-								<h:selectBooleanCheckbox id="readAccess#{entityId}"
-									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"
-									label="#{msg.roleFieldPrivilege_readAccess}" required="false"
-									disabled="false" value="#{fldRole.readAccess}">
-									<rich:ajaxValidator event="onsubmit" />
-								</h:selectBooleanCheckbox>
-
-								<br/>
+										<tr>
+											<td colspan="2"><h3>
+													<h:outputText value="#{fldRole.appRole.displayName}" />
+												</h3></td>
+										</tr>
 
 
-								<h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  "
-									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}" />
-								<h:selectBooleanCheckbox id="writeAccess#{entityId}"
-									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}"
-									label="#{msg.roleFieldPrivilege_writeAccess}" required="false"
-									disabled="false" value="#{fldRole.writeAccess}">
-									<rich:ajaxValidator event="onsubmit" />
-								</h:selectBooleanCheckbox>
 
-							</ui:repeat>
-							
+										<tr style="babackground-color: gray">
+											<td style="babackground-color: red"><h:outputText
+													value="Write"
+													rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}" />
+											</td>
+											<td style="babackground-color: kred"><h:selectBooleanCheckbox
+													id="readAccess#{entityId}"
+													rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"
+													label="#{msg.roleFieldPrivilege_readAccess}"
+													required="false" disabled="false"
+													value="#{fldRole.readAccess}">
+													<rich:ajaxValidator event="onsubmit" />
+												</h:selectBooleanCheckbox></td>
+										</tr>
+
+										<tr>
+											<td><h:outputText value="Read"
+													rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}" />
+											</td>
+											<td><h:selectBooleanCheckbox id="writeAccess#{entityId}"
+													rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}"
+													label="#{msg.roleFieldPrivilege_writeAccess}"
+													required="false" disabled="false"
+													value="#{fldRole.writeAccess}">
+													<rich:ajaxValidator event="onsubmit" />
+												</h:selectBooleanCheckbox></td>
+										</tr>
+
+									</ui:repeat>
+								</table>
 							</td>
 						</ui:repeat>
 
@@ -75,11 +211,14 @@
 			</rich:panel>
 
 
-			<div class="buttonBox"><h:commandButton value="Save"
-				action="#{metaEntityAction.save}">
-				<s:conversationId />
-			</h:commandButton> <h:outputText value=" " /> <h:commandButton value="Cancel"
-				immediate="true" action="#{metaEntityAction.cancel}"></h:commandButton></div>
+			<div class="buttonBox">
+				<h:commandButton value="Save" action="#{metaEntityAction.save}">
+					<s:conversationId />
+				</h:commandButton>
+				<h:outputText value=" " />
+				<h:commandButton value="Cancel" immediate="true"
+					action="#{metaEntityAction.cancel}"></h:commandButton>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>
