@@ -75,9 +75,9 @@ public class MetaEntityAction extends MetaEntityActionBase implements java.io.Se
 				//if (!(containsRole(metaField, appRole))) {
 					
 				//}
-				
-				roleFieldPrivilegeAction.setInstance(roleFieldPrivilege);
-				roleFieldPrivilegeAction.save();
+				entityManager.merge ( roleFieldPrivilege );
+				//roleFieldPrivilegeAction.setInstance(roleFieldPrivilege);
+				//roleFieldPrivilegeAction.save();
 				
 			}
 			
