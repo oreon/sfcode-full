@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewTeacherComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{teacherAction.load(teacherId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelTeacher eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Teacher}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'employeeNumberView')}"/>  
+        <h:outputText id="employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'employeeNumberView')}" value="#{teacherAction.teacher.employeeNumber}"></h:outputText>  
+        <h:outputText value="#{msg.employee_employeeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'employeeTypeView')}"/>  
+        <h:outputText value="#{teacherAction.teacher.employeeType}"/>  
+        <h:outputText value="#{msg.employee_salary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'salaryView')}"/>  
+        <h:outputText id="salary#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'salaryView')}" value="#{teacherAction.teacher.salary}"></h:outputText>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'firstNameView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'firstNameView')}" value="#{teacherAction.teacher.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'lastNameView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'lastNameView')}" value="#{teacherAction.teacher.lastName}"></h:outputText>  
+        <h:outputText value="#{msg.teacher_skills}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'skillsView')}"/>  
+        <h:outputText id="skills#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'skillsView')}" value="#{teacherAction.teacher.skills}"></h:outputText>  
+        <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'departmentView')}"/>  
+        <s:link value="#{teacherAction.teacher.department.displayName}" action="viewdepartment" propagation="none"> 
+          <f:param name="departmentId" value="#{teacherAction.teacher.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.employee_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'customerView')}"/>  
+        <s:link value="#{teacherAction.teacher.customer.displayName}" action="viewcustomer" propagation="none"> 
+          <f:param name="customerId" value="#{teacherAction.teacher.customer.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.AppUser}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'userNameView')}"/>  
+        <h:outputText id="appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'userNameView')}" value="#{teacherAction.teacher.appUser.userName}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'enabledView')}"/>  
+        <h:outputText id="appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'enabledView')}" value="#{teacherAction.teacher.appUser.enabled}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'emailView')}"/>  
+        <h:outputText id="appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'emailView')}" value="#{teacherAction.teacher.appUser.email}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'lastLoginView')}"/>  
+        <h:outputText direction="auto" id="appUser_lastLogin#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'lastLoginView')}" value="#{teacherAction.teacher.appUser.lastLogin}"></h:outputText> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ContactDetails}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'phoneView')}"/>  
+        <h:outputText id="contactDetails_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'phoneView')}" value="#{teacherAction.teacher.contactDetails.phone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'secondaryPhoneView')}"/>  
+        <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'secondaryPhoneView')}" value="#{teacherAction.teacher.contactDetails.secondaryPhone}"></h:outputText>  
+        <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'cityView')}"/>  
+        <h:outputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('teacher', 'cityView')}" value="#{teacherAction.teacher.contactDetails.city}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

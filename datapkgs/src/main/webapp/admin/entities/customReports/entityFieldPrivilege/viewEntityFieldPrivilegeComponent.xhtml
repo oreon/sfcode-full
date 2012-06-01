@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewEntityFieldPrivilegeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{entityFieldPrivilegeAction.load(entityFieldPrivilegeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEntityFieldPrivilege eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.EntityFieldPrivilege}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeView')}"/>  
+        <h:outputText value="#{entityFieldPrivilegeAction.entityFieldPrivilege.privilegeType}"/>  
+        <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'metaEntityView')}"/>  
+        <s:link value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity.displayName}" action="viewmetaEntity" propagation="none"> 
+          <f:param name="metaEntityId" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleView')}"/>  
+        <s:link value="#{entityFieldPrivilegeAction.entityFieldPrivilege.appRole.displayName}" action="viewappRole" propagation="none"> 
+          <f:param name="appRoleId" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.appRole.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

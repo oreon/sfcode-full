@@ -10,10 +10,10 @@ import org.jboss.seam.security.Identity;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.seam.action.BaseAction;
 
-public abstract class BaseTest<T extends BusinessEntity> extends SeamTest{
+public abstract class BaseTest<T extends BaseEntity> extends SeamTest{
 	
 	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
 	private EntityManagerFactory emf;

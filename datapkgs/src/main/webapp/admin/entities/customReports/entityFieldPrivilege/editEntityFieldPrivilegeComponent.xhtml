@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEntityFieldPrivilegeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{entityFieldPrivilegeAction.load(entityFieldPrivilegeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEntityFieldPrivilege eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.EntityFieldPrivilege}"/> 
+        </f:facet>  
+        <s:decorate id="privilegeTypeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="privilegeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeEdit')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.privilegeType}" required="false" label="#{msg.entityFieldPrivilege_privilegeType}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="READ" itemLabel="#{msg.READ}"/>  
+            <f:selectItem itemValue="WRITE" itemLabel="#{msg.WRITE}"/>  
+            <f:selectItem itemValue="DELETE" itemLabel="#{msg.DELETE}"/>  
+            <f:selectItem itemValue="CREATE" itemLabel="#{msg.CREATE}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="metaEntityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'metaEntityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="metaEntity" label="#{msg.entityFieldPrivilege_metaEntity}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'metaEntityEdit')}" disabled="false"> 
+            <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="appRoleDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="appRole" label="#{msg.entityFieldPrivilege_appRole}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleEdit')}" disabled="false"> 
+            <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

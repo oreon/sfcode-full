@@ -9,6 +9,14 @@
           <p:chartSeries label="Incidents" value="#{dep.metaFieldsCount}"/> 
         </p:barChart> 
       </h:panelGrid> 
+    </p:panel>  
+    <p:panel id="pnlEntityFieldPrivileges" header="EntityFieldPrivileges" toggleable="true" closable="true"> 
+      <h:panelGrid columns="2"> 
+        <p:pieChart value="#{metaEntityList.resultList}" var="dep" categoryField="#{dep.displayName}" dataField="#{dep.entityFieldPrivilegesCount}"/>  
+        <p:barChart value="#{metaEntityList.resultList}" var="dep" yfield="#{dep.displayName}"> 
+          <p:chartSeries label="Incidents" value="#{dep.entityFieldPrivilegesCount}"/> 
+        </p:barChart> 
+      </h:panelGrid> 
     </p:panel> 
   </h:panelGrid> 
 </ui:composition>

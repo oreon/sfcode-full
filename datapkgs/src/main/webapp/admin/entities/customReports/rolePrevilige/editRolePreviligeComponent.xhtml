@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editRolePreviligeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{rolePreviligeAction.load(rolePreviligeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelRolePrevilige eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.RolePrevilige}"/> 
+        </f:facet>  
+        <s:decorate id="editDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.rolePrevilige_edit}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'editEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="edit#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'editEdit')}" label="#{msg.rolePrevilige_edit}" required="false" disabled="false" value="#{rolePreviligeAction.rolePrevilige.edit}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="viewDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.rolePrevilige_view}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'viewEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="view#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'viewEdit')}" label="#{msg.rolePrevilige_view}" required="false" disabled="false" value="#{rolePreviligeAction.rolePrevilige.view}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="appRoleDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.rolePrevilige_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'appRoleEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="appRole" label="#{msg.rolePrevilige_appRole}" value="#{rolePreviligeAction.rolePrevilige.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'appRoleEdit')}" disabled="false"> 
+            <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="fieldPreviligeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.rolePrevilige_fieldPrevilige}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'fieldPreviligeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="fieldPrevilige" label="#{msg.rolePrevilige_fieldPrevilige}" value="#{rolePreviligeAction.rolePrevilige.fieldPrevilige}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'fieldPreviligeEdit')}" disabled="false"> 
+            <s:selectItems value="#{fieldPreviligeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

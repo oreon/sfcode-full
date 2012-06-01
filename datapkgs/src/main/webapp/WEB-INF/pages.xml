@@ -192,6 +192,18 @@
         <redirect view-id="/admin/entities/customReports/reportParameter/editReportParameter.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="entityFieldPrivilege"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/listEntityFieldPrivilege.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewEntityFieldPrivilege"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/viewEntityFieldPrivilege.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editEntityFieldPrivilege"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/editEntityFieldPrivilege.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="appUser"> 
         <redirect view-id="/admin/entities/users/appUser/listAppUser.xhtml"/>  
         <end-conversation/> 
@@ -830,6 +842,53 @@
     <param name="mandatory" value="#{reportParameterList.reportParameter.mandatory}" validateModel="false"/>  
     <param name="defaultValue" value="#{reportParameterList.reportParameter.defaultValue}" validateModel="false"/>  
     <param name="name" value="#{reportParameterList.reportParameter.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/customReports/entityFieldPrivilege/editEntityFieldPrivilege.xhtml"> 
+    <!-- <description>Edit EntityFieldPrivilege: #{entityFieldPrivilege.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/viewEntityFieldPrivilege.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/listEntityFieldPrivilege.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="entityFieldPrivilegeId" value="#{entityFieldPrivilegeAction.entityFieldPrivilegeId}"/>  
+    <param name="metaEntityId" value="#{entityFieldPrivilegeAction.metaEntityId}"/>  
+    <param name="appRoleId" value="#{entityFieldPrivilegeAction.appRoleId}"/> 
+  </page>  
+  <page view-id="/admin/entities/customReports/entityFieldPrivilege/viewEntityFieldPrivilege.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View EntityFieldPrivilege: #{entityFieldPrivilege.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/editEntityFieldPrivilege.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/listEntityFieldPrivilege.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="entityFieldPrivilegeId" value="#{entityFieldPrivilegeAction.entityFieldPrivilegeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/customReports/entityFieldPrivilege/listEntityFieldPrivilege.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewEntityFieldPrivilege"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/viewEntityFieldPrivilege.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/editEntityFieldPrivilege.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/customReports/entityFieldPrivilege/textSearchResultsEntityFieldPrivilege.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{entityFieldPrivilegeList.firstResult}"/>  
+    <param name="sort" value="#{entityFieldPrivilegeList.orderColumn}"/>  
+    <param name="dir" value="#{entityFieldPrivilegeList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{entityFieldPrivilegeList.entityFieldPrivilege.id}"/>  
+    <param name="metaEntity" value="#{entityFieldPrivilegeList.entityFieldPrivilege.metaEntity.id}" validateModel="false"/>  
+    <param name="appRole" value="#{entityFieldPrivilegeList.entityFieldPrivilege.appRole.id}" validateModel="false"/>  
+    <param name="privilegeType" value="#{entityFieldPrivilegeList.entityFieldPrivilege.privilegeType}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/users/appUser/editAppUser.xhtml"> 
     <!-- <description>Edit AppUser: #{appUser.displayName}</description> -->  

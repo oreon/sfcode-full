@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewFieldPreviligeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{fieldPreviligeAction.load(fieldPreviligeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFieldPrevilige eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.FieldPrevilige}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.fieldPrevilige_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'metaFieldView')}"/>  
+        <s:link value="#{fieldPreviligeAction.fieldPrevilige.metaField.displayName}" action="viewmetaField" propagation="none"> 
+          <f:param name="metaFieldId" value="#{fieldPreviligeAction.fieldPrevilige.metaField.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.fieldPrevilige_entityPrevilige}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'entityPreviligeView')}"/>  
+        <s:link value="#{fieldPreviligeAction.fieldPrevilige.entityPrevilige.displayName}" action="viewentityPrevilige" propagation="none"> 
+          <f:param name="entityPreviligeId" value="#{fieldPreviligeAction.fieldPrevilige.entityPrevilige.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="rolePreviliges" var="_rolePrevilige" rendered="#{not empty fieldPreviligeAction.listRolePreviliges and skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'rolePreviligesView') }" value="#{fieldPreviligeAction.listRolePreviliges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.rolePrevilige_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'appRoleView')}"/> 
+          </f:facet>  
+          <s:link value="#{_rolePrevilige.appRole.displayName}" action="viewappRole" propagation="none"> 
+            <f:param name="appRoleId" value="#{_rolePrevilige.appRole.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.rolePrevilige_edit}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'editView')}"/> 
+          </f:facet>  
+          <h:outputText id="edit#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'editView')}" value="#{_rolePrevilige.edit}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.rolePrevilige_view}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'viewView')}"/> 
+          </f:facet>  
+          <h:outputText id="view#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'viewView')}" value="#{_rolePrevilige.view}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

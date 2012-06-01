@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.rolePrevilige_edit}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'editEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="edit" value="#{rolePreviligeList.rolePrevilige.edit}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.rolePrevilige_view}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'viewEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="view" value="#{rolePreviligeList.rolePrevilige.view}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.rolePrevilige_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'appRoleEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="appRole" value="#{ rolePreviligeList.rolePrevilige.appRole}"> 
+        <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.rolePrevilige_fieldPrevilige}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'fieldPreviligeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="fieldPrevilige" value="#{ rolePreviligeList.rolePrevilige.fieldPrevilige}"> 
+        <s:selectItems value="#{fieldPreviligeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{rolePreviligeList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{rolePreviligeList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

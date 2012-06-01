@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEntityPreviligeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{entityPreviligeAction.load(entityPreviligeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEntityPrevilige eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.EntityPrevilige}"/> 
+        </f:facet>  
+        <s:decorate id="metaEntityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.entityPrevilige_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityPrevilige', 'metaEntityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="metaEntity" label="#{msg.entityPrevilige_metaEntity}" value="#{entityPreviligeAction.entityPrevilige.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityPrevilige', 'metaEntityEdit')}" disabled="false"> 
+            <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <h:commandButton value="New FieldPrevilige" action="#{entityPreviligeAction.addFieldPreviliges}" reRender="fieldPreviliges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityPrevilige', 'fieldPreviligesEdit')}"> 
+        <s:conversationId/> 
+      </h:commandButton>  
+      <rich:dataTable id="fieldPreviliges" var="_fieldPrevilige" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityPrevilige', 'fieldPreviligesEdit')}" value="#{entityPreviligeAction.listFieldPreviliges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.fieldPrevilige_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'metaFieldEdit')}"/>
+          </f:facet>  
+          <s:decorate id="metaFieldDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="metaField" label="#{msg.fieldPrevilige_metaField}" value="#{_fieldPrevilige.metaField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'metaFieldEdit')}" disabled="false"> 
+              <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="New FieldPrevilige" action="#{entityPreviligeAction.addFieldPreviliges}" reRender="fieldPreviliges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'fieldPreviligesEdit')}"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{entityPreviligeAction.deleteFieldPreviliges(rowIndex)}" reRender="fieldPreviliges"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
