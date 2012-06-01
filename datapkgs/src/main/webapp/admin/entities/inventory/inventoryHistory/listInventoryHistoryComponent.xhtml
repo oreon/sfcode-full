@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_inventoryHistory" value="#{records}" id="inventoryHistoryList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'inventoryHistoryView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_inventoryHistory.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drugInventory', 'inventoryHistoryView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'viewDrugInventory')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('date', 'inventoryHistoryView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'viewDate')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
@@ -46,7 +46,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('qty', 'inventoryHistoryView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'viewQty')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{inventoryHistoryList}"/>  
@@ -56,7 +56,7 @@
           </f:facet>  
           <h:outputText value="#{_inventoryHistory.qty}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'inventoryHistoryView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{inventoryHistoryList}"/>  

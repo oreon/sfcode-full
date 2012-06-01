@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_machine" value="#{records}" id="machineList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'machineView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{machineList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_machine.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('customer', 'machineView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'viewCustomer')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{machineList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'machineView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{machineList}"/>  
@@ -44,7 +44,7 @@
           </f:facet>  
           <h:outputText value="#{_machine.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('location', 'machineView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'viewLocation')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{machineList}"/>  
@@ -57,7 +57,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'machineView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{machineList}"/>  

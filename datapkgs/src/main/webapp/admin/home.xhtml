@@ -1,6 +1,5 @@
 
-<ui:composition 
- xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,13 +7,42 @@
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template = "/admin/template.xhtml" >	
+	template="/admin/template.xhtml">
 	<ui:define name="content">
-	<h:form>
-	
-	</h:form>
-	</ui:define> 
+		
+
+		<h:form id="form">
+			<h2> hi</h2>
+			<p:growl id="growl" showDetail="true" />
+
+			<p:dashboard id="board" model="#{dashboardBean.model}">
+				<p:ajax event="reorder" listener="#{dashboardBean.handleReorder}"
+					update="growl" />
+
+				<p:panel id="sports" header="Sports">
+					<h:outputText value="Sports Content" />
+				</p:panel>
+
+				<p:panel id="finance" header="Finance">
+					<h:outputText value="Finance Content" />
+				</p:panel>
+
+				<p:panel id="lifestyle" header="Lifestyle">
+					<h:outputText value="Lifestyle Content" />
+				</p:panel>
+
+				<p:panel id="weather" header="Weather">
+					<h:outputText value="Weather Content" />
+				</p:panel>
+
+				<p:panel id="politics" header="Politics">
+					<h:outputText value="Politics Content" />
+				</p:panel>
+			</p:dashboard>
+
+		</h:form>
+	</ui:define>
 </ui:composition>
-	

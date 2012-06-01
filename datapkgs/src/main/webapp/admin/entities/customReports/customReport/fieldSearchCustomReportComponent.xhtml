@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.customReport_fields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'fieldsEdit')}"/>  
+      <h:outputText value="#{msg.customReport_fields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editFields')}"/>  
       <br/>  
       <h:selectOneMenu id="fields" value="#{ customReportList.fieldsToSearch}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -15,7 +15,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.customReport_groupFields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'groupFieldsEdit')}"/>  
+      <h:outputText value="#{msg.customReport_groupFields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editGroupFields')}"/>  
       <br/>  
       <h:selectOneMenu id="groupFields" value="#{ customReportList.groupFieldsToSearch}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -24,12 +24,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'nameEdit')}"/>  
+      <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{customReportList.customReport.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'metaEntityEdit')}"/>  
+      <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editMetaEntity')}"/>  
       <br/>  
       <h:selectOneMenu id="metaEntity" value="#{ customReportList.customReport.metaEntity}"> 
         <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

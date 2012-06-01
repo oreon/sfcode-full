@@ -13,42 +13,42 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.metaEntity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'nameEdit')}"/>
+            <h:outputText value="#{msg.metaEntity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'nameEdit')}" label="#{msg.metaEntity_name}" required="true" disabled="false" value="#{metaEntityAction.metaEntity.name}"> 
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'editName')}" label="#{msg.metaEntity_name}" required="true" disabled="false" value="#{metaEntityAction.metaEntity.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldsEdit')}"> 
+      <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'editMetaFields')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="metaFields" var="_metaField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldsEdit')}" value="#{metaEntityAction.listMetaFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="metaFields" var="_metaField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'editMetaFields')}" value="#{metaEntityAction.listMetaFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameEdit')}"/>
+            <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editName')}"/>
           </f:facet>  
           <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameEdit')}" label="#{msg.metaField_name}" required="true" disabled="false" value="#{_metaField.name}"> 
+            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editName')}" label="#{msg.metaField_name}" required="true" disabled="false" value="#{_metaField.name}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeEdit')}"/>
+            <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editType')}"/>
           </f:facet>  
           <s:decorate id="typeDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeEdit')}" label="#{msg.metaField_type}" required="false" disabled="false" value="#{_metaField.type}"> 
+            <h:inputText id="type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editType')}" label="#{msg.metaField_type}" required="false" disabled="false" value="#{_metaField.type}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'metaFieldsEdit')}"> 
+          <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editMetaFields')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
@@ -58,17 +58,17 @@
           </h:commandButton> 
         </h:column> 
       </rich:dataTable>  
-      <a:commandButton value="New EntityFieldPrivilege" action="#{metaEntityAction.addEntityFieldPrivileges}" reRender="entityFieldPrivileges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'entityFieldPrivilegesEdit')}"> 
+      <a:commandButton value="New EntityFieldPrivilege" action="#{metaEntityAction.addEntityFieldPrivileges}" reRender="entityFieldPrivileges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editEntityFieldPrivileges')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="entityFieldPrivileges" var="_entityFieldPrivilege" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'entityFieldPrivilegesEdit')}" value="#{metaEntityAction.listEntityFieldPrivileges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="entityFieldPrivileges" var="_entityFieldPrivilege" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editEntityFieldPrivileges')}" value="#{metaEntityAction.listEntityFieldPrivileges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleEdit')}"/>
+            <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}"/>
           </f:facet>  
           <s:decorate id="appRoleDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="appRole" label="#{msg.entityFieldPrivilege_appRole}" value="#{_entityFieldPrivilege.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleEdit')}" disabled="false"> 
+            <h:selectOneMenu id="appRole" label="#{msg.entityFieldPrivilege_appRole}" value="#{_entityFieldPrivilege.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}" disabled="false"> 
               <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
               <rich:ajaxValidator event="onsubmit"/>  
               <s:convertEntity/> 
@@ -77,11 +77,11 @@
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeEdit')}"/>
+            <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}"/>
           </f:facet>  
           <s:decorate id="privilegeTypeDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="privilegeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeEdit')}" value="#{_entityFieldPrivilege.privilegeType}" required="false" label="#{msg.entityFieldPrivilege_privilegeType}"> 
+            <h:selectOneMenu id="privilegeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}" value="#{_entityFieldPrivilege.privilegeType}" required="false" label="#{msg.entityFieldPrivilege_privilegeType}"> 
               <f:selectItem itemLabel="Please Select..." itemValue=""/>  
               <f:selectItem itemValue="READ" itemLabel="#{msg.READ}"/>  
               <f:selectItem itemValue="WRITE" itemLabel="#{msg.WRITE}"/>  
@@ -92,7 +92,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New EntityFieldPrivilege" action="#{metaEntityAction.addEntityFieldPrivileges}" reRender="entityFieldPrivileges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'entityFieldPrivilegesEdit')}"> 
+          <a:commandButton value="New EntityFieldPrivilege" action="#{metaEntityAction.addEntityFieldPrivileges}" reRender="entityFieldPrivileges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editEntityFieldPrivileges')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

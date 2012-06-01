@@ -11,14 +11,14 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.DrugInventory}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.drugInventory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'qtyView')}"/>  
-        <h:outputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'qtyView')}" value="#{drugInventoryAction.drugInventory.qty}"></h:outputText>  
-        <h:outputText value="#{msg.drugInventory_drugAbstract}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'drugAbstractView')}"/>  
+        <h:outputText value="#{msg.drugInventory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'viewQty')}"/>  
+        <h:outputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'viewQty')}" value="#{drugInventoryAction.drugInventory.qty}"></h:outputText>  
+        <h:outputText value="#{msg.drugInventory_drugAbstract}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'viewDrugAbstract')}"/>  
         <s:link value="#{drugInventoryAction.drugInventory.drugAbstract.displayName}" action="viewdrugAbstract" propagation="none"> 
           <f:param name="drugAbstractId" value="#{drugInventoryAction.drugInventory.drugAbstract.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.drugInventory_machine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'machineView')}"/>  
+        <h:outputText value="#{msg.drugInventory_machine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'viewMachine')}"/>  
         <s:link value="#{drugInventoryAction.drugInventory.machine.displayName}" action="viewmachine" propagation="none"> 
           <f:param name="machineId" value="#{drugInventoryAction.drugInventory.machine.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 

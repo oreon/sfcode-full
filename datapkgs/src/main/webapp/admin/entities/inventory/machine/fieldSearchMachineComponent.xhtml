@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.machine_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'customerEdit')}"/>  
+      <h:outputText value="#{msg.machine_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editCustomer')}"/>  
       <br/>  
       <h:selectOneMenu id="customer" value="#{ machineList.machine.customer}"> 
         <s:selectItems value="#{customerList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,12 +14,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.machine_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'nameEdit')}"/>  
+      <h:outputText value="#{msg.machine_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{machineList.machine.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.machine_location}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'locationEdit')}"/>  
+      <h:outputText value="#{msg.machine_location}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editLocation')}"/>  
       <br/>  
       <h:selectOneMenu id="location" value="#{ machineList.machine.location}"> 
         <s:selectItems value="#{locationList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
