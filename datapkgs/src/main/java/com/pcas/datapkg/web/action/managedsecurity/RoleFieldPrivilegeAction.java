@@ -42,9 +42,14 @@ public class RoleFieldPrivilegeAction extends RoleFieldPrivilegeActionBase
 			if (!isNewPermission(permission))
 				removeAccountPermission(permission);
 		}
+		
+		if ( instance.getId() != null )
+			entityManager.merge( instance );
+		else
+			entityManager.persist( instance );
 
 		
-		return super.save();
+		return "success";
 	}
 
 	private boolean isNewPermission(AccountPermission permission) {
@@ -84,5 +89,10 @@ public class RoleFieldPrivilegeAction extends RoleFieldPrivilegeActionBase
 			return permissions.get(0);
 
 		return accountPermission;
+	}
+	
+	public List<AccountPermission> getAccountPermissions(){
+		List<AccountPermission> accountPermissions =  executeQuery( "Select a from AccountPermission a" );
+		return accountPermissions;
 	}
 }
