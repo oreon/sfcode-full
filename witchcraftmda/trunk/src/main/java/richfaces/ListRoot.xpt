@@ -288,11 +288,11 @@
 «ENDDEFINE»
 
 «DEFINE genPermission FOR uml::Property»
-	rendered="#{s:hasPermission('«name»', '«getCurrentEntity().asVar()»View'  )}"
+	rendered="#{«genViewPermission()»}"
 «ENDDEFINE»
 
 «DEFINE genPermission FOR String»
-	rendered="#{s:hasPermission('«this»', '«getCurrentEntity().asVar()»View' )}"
+	rendered="#{s:hasPermission('«this»', 'view«this.toFirstUpper()»' )}"
 «ENDDEFINE»
 
 
