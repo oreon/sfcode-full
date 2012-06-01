@@ -64,7 +64,7 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 	public Range<BigDecimal> getSalaryRange() {
 		return salaryRange;
 	}
-	public void setSalary(Range<BigDecimal> salaryRange) {
+	public void setSalaryRange(Range<BigDecimal> salaryRange) {
 		this.salaryRange = salaryRange;
 	}
 
@@ -73,7 +73,7 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 	public Range<Date> getAppUser_lastLoginRange() {
 		return appUser_lastLoginRange;
 	}
-	public void setAppUser_lastLogin(Range<Date> appUser_lastLoginRange) {
+	public void setAppUser_lastLoginRange(Range<Date> appUser_lastLoginRange) {
 		this.appUser_lastLoginRange = appUser_lastLoginRange;
 	}
 

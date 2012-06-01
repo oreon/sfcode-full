@@ -2,7 +2,7 @@ package org.witchcraft.base.entity;
 
 import java.io.Serializable;
 
-public class Range<T> implements Serializable{
+public class Range<T extends Serializable> implements Serializable{
 	
 	/**
 	 * 
