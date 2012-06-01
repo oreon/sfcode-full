@@ -11,11 +11,11 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.InventoryHistory}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.inventoryHistory_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'dateView')}"/>  
-        <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'dateView')}" value="#{inventoryHistoryAction.inventoryHistory.date}"></h:outputText>  
-        <h:outputText value="#{msg.inventoryHistory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'qtyView')}"/>  
-        <h:outputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'qtyView')}" value="#{inventoryHistoryAction.inventoryHistory.qty}"></h:outputText>  
-        <h:outputText value="#{msg.inventoryHistory_drugInventory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'drugInventoryView')}"/>  
+        <h:outputText value="#{msg.inventoryHistory_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'viewDate')}"/>  
+        <h:outputText direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'viewDate')}" value="#{inventoryHistoryAction.inventoryHistory.date}"></h:outputText>  
+        <h:outputText value="#{msg.inventoryHistory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'viewQty')}"/>  
+        <h:outputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'viewQty')}" value="#{inventoryHistoryAction.inventoryHistory.qty}"></h:outputText>  
+        <h:outputText value="#{msg.inventoryHistory_drugInventory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'viewDrugInventory')}"/>  
         <s:link value="#{inventoryHistoryAction.inventoryHistory.drugInventory.displayName}" action="viewdrugInventory" propagation="none"> 
           <f:param name="drugInventoryId" value="#{inventoryHistoryAction.inventoryHistory.drugInventory.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 

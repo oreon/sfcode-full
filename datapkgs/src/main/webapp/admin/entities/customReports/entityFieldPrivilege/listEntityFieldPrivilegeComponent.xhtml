@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_entityFieldPrivilege" value="#{records}" id="entityFieldPrivilegeList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'entityFieldPrivilegeView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{entityFieldPrivilegeList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_entityFieldPrivilege.id}"></h:outputText> 
         </h:column>  
-        <h:column groupOn="#{entityFieldPrivilege.metaEntity.displayName}" rendered="#{s:hasPermission('metaEntity', 'entityFieldPrivilegeView'  )}"> 
+        <h:column groupOn="#{entityFieldPrivilege.metaEntity.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewMetaEntity')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{entityFieldPrivilegeList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('appRole', 'entityFieldPrivilegeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewAppRole')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{entityFieldPrivilegeList}"/>  
@@ -47,7 +47,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('privilegeType', 'entityFieldPrivilegeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewPrivilegeType')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{entityFieldPrivilegeList}"/>  
@@ -57,7 +57,7 @@
           </f:facet>  
           <h:outputText value="#{_entityFieldPrivilege.privilegeType}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'entityFieldPrivilegeView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{entityFieldPrivilegeList}"/>  

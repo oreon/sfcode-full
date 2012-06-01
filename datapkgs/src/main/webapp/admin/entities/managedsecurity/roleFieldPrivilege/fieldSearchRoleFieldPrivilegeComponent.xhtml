@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.roleFieldPrivilege_readAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'readAccessEdit')}"/>  
+      <h:outputText value="#{msg.roleFieldPrivilege_readAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editReadAccess')}"/>  
       <br/>  
       <h:selectOneMenu id="readAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.readAccess}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -15,7 +15,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'writeAccessEdit')}"/>  
+      <h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editWriteAccess')}"/>  
       <br/>  
       <h:selectOneMenu id="writeAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.writeAccess}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -24,7 +24,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.roleFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'appRoleEdit')}"/>  
+      <h:outputText value="#{msg.roleFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editAppRole')}"/>  
       <br/>  
       <h:selectOneMenu id="appRole" value="#{ roleFieldPrivilegeList.roleFieldPrivilege.appRole}"> 
         <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -32,7 +32,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.roleFieldPrivilege_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'metaFieldEdit')}"/>  
+      <h:outputText value="#{msg.roleFieldPrivilege_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editMetaField')}"/>  
       <br/>  
       <h:selectOneMenu id="metaField" value="#{ roleFieldPrivilegeList.roleFieldPrivilege.metaField}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

@@ -7,28 +7,28 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInventory_drugAbstract}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'drugAbstractEdit')}"/>  
+        <h:outputText value="#{msg.drugInventory_drugAbstract}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editDrugAbstract')}"/>  
         <br/>  
         <h:selectOneMenu id="drugAbstract" value="#{drugInventoryAction.drugInventory.drugAbstract}"> 
           <s:selectItems value="#{drugAbstractList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="drugAbstract" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'drugAbstractEdit')}"/> 
+        <rich:message styleClass="error errors" for="drugAbstract" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editDrugAbstract')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInventory_machine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'machineEdit')}"/>  
+        <h:outputText value="#{msg.drugInventory_machine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editMachine')}"/>  
         <br/>  
         <h:selectOneMenu id="machine" value="#{drugInventoryAction.drugInventory.machine}"> 
           <s:selectItems value="#{machineList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="machine" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'machineEdit')}"/> 
+        <rich:message styleClass="error errors" for="machine" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editMachine')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInventory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'qtyEdit')}"/>  
+        <h:outputText value="#{msg.drugInventory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editQty')}"/>  
         <br/>  
         <h:inputText id="qty" value="#{drugInventoryAction.drugInventory.qty}"/>  
-        <rich:message styleClass="error errors" for="qty" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'qtyEdit')}"/> 
+        <rich:message styleClass="error errors" for="qty" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editQty')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -11,14 +11,14 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.EntityFieldPrivilege}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeView')}"/>  
+        <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewPrivilegeType')}"/>  
         <h:outputText value="#{entityFieldPrivilegeAction.entityFieldPrivilege.privilegeType}"/>  
-        <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'metaEntityView')}"/>  
+        <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewMetaEntity')}"/>  
         <s:link value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity.displayName}" action="viewmetaEntity" propagation="none"> 
           <f:param name="metaEntityId" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleView')}"/>  
+        <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewAppRole')}"/>  
         <s:link value="#{entityFieldPrivilegeAction.entityFieldPrivilege.appRole.displayName}" action="viewappRole" propagation="none"> 
           <f:param name="appRoleId" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.appRole.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 

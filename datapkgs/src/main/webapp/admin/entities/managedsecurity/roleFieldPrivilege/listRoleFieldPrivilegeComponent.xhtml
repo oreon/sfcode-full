@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_roleFieldPrivilege" value="#{records}" id="roleFieldPrivilegeList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'roleFieldPrivilegeView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_roleFieldPrivilege.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('readAccess', 'roleFieldPrivilegeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewReadAccess')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_roleFieldPrivilege.readAccess? msg.yes : msg.no }"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('writeAccess', 'roleFieldPrivilegeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewWriteAccess')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_roleFieldPrivilege.writeAccess? msg.yes : msg.no }"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('appRole', 'roleFieldPrivilegeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewAppRole')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
@@ -54,7 +54,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column groupOn="#{roleFieldPrivilege.metaField.displayName}" rendered="#{s:hasPermission('metaField', 'roleFieldPrivilegeView'  )}"> 
+        <h:column groupOn="#{roleFieldPrivilege.metaField.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewMetaField')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  
@@ -67,7 +67,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'roleFieldPrivilegeView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roleFieldPrivilegeList}"/>  

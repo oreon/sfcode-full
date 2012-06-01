@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_drugAbstract" value="#{records}" id="drugAbstractList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'drugAbstractView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugAbstractList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_drugAbstract.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'drugAbstractView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugAbstractList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_drugAbstract.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('price', 'drugAbstractView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'viewPrice')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugAbstractList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_drugAbstract.price}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'drugAbstractView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugAbstractList}"/>  

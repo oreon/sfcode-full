@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_metaField" value="#{records}" id="metaFieldList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'metaFieldView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{metaFieldList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_metaField.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'metaFieldView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{metaFieldList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_metaField.name}" escape="false"/> 
         </h:column>  
-        <h:column groupOn="#{metaField.metaEntity.displayName}" rendered="#{s:hasPermission('metaEntity', 'metaFieldView'  )}"> 
+        <h:column groupOn="#{metaField.metaEntity.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewMetaEntity')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{metaFieldList}"/>  
@@ -44,7 +44,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('type', 'metaFieldView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewType')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{metaFieldList}"/>  
@@ -54,7 +54,7 @@
           </f:facet>  
           <h:outputText value="#{_metaField.type}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'metaFieldView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{metaFieldList}"/>  

@@ -13,17 +13,17 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.drugAbstract_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'nameEdit')}"/>
+            <h:outputText value="#{msg.drugAbstract_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'nameEdit')}" label="#{msg.drugAbstract_name}" required="true" disabled="false" value="#{drugAbstractAction.drugAbstract.name}"> 
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editName')}" label="#{msg.drugAbstract_name}" required="true" disabled="false" value="#{drugAbstractAction.drugAbstract.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="priceDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.drugAbstract_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'priceEdit')}"/>
+            <h:outputText value="#{msg.drugAbstract_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editPrice')}"/>
           </ui:define>  
-          <h:inputText id="price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'priceEdit')}" label="#{msg.drugAbstract_price}" required="false" disabled="false" value="#{drugAbstractAction.drugAbstract.price}"> 
+          <h:inputText id="price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editPrice')}" label="#{msg.drugAbstract_price}" required="false" disabled="false" value="#{drugAbstractAction.drugAbstract.price}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

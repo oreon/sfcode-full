@@ -11,28 +11,28 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.MetaEntity}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.metaEntity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'nameView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'nameView')}" value="#{metaEntityAction.metaEntity.name}"></h:outputText> 
+        <h:outputText value="#{msg.metaEntity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'viewName')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'viewName')}" value="#{metaEntityAction.metaEntity.name}"></h:outputText> 
       </h:panelGrid>  
       <br/>  
-      <rich:dataTable id="metaFields" var="_metaField" rendered="#{not empty metaEntityAction.listMetaFields and skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldsView') }" value="#{metaEntityAction.listMetaFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="metaFields" var="_metaField" rendered="#{not empty metaEntityAction.listMetaFields and skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'viewMetaFields') }" value="#{metaEntityAction.listMetaFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameView')}"/> 
+            <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewName')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameView')}" value="#{_metaField.name}"></h:outputText> 
+          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewName')}" value="#{_metaField.name}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeView')}"/> 
+            <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewType')}"/> 
           </f:facet>  
-          <h:outputText id="type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeView')}" value="#{_metaField.type}"></h:outputText> 
+          <h:outputText id="type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewType')}" value="#{_metaField.type}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
-      <rich:dataTable id="entityFieldPrivileges" var="_entityFieldPrivilege" rendered="#{not empty metaEntityAction.listEntityFieldPrivileges and skipPermissionCheck == 'true' || s:hasPermission('metaField', 'entityFieldPrivilegesView') }" value="#{metaEntityAction.listEntityFieldPrivileges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="entityFieldPrivileges" var="_entityFieldPrivilege" rendered="#{not empty metaEntityAction.listEntityFieldPrivileges and skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewEntityFieldPrivileges') }" value="#{metaEntityAction.listEntityFieldPrivileges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleView')}"/> 
+            <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewAppRole')}"/> 
           </f:facet>  
           <s:link value="#{_entityFieldPrivilege.appRole.displayName}" action="viewappRole" propagation="none"> 
             <f:param name="appRoleId" value="#{_entityFieldPrivilege.appRole.id}"/>  
@@ -41,7 +41,7 @@
         </h:column>  
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeView')}"/> 
+            <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewPrivilegeType')}"/> 
           </f:facet>  
           <h:outputText value="#{_entityFieldPrivilege.privilegeType}"/> 
         </h:column> 

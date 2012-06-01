@@ -13,9 +13,9 @@
         </f:facet>  
         <s:decorate id="privilegeTypeDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeEdit')}"/>
+            <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}"/>
           </ui:define>  
-          <h:selectOneMenu id="privilegeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeEdit')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.privilegeType}" required="false" label="#{msg.entityFieldPrivilege_privilegeType}"> 
+          <h:selectOneMenu id="privilegeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.privilegeType}" required="false" label="#{msg.entityFieldPrivilege_privilegeType}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="READ" itemLabel="#{msg.READ}"/>  
             <f:selectItem itemValue="WRITE" itemLabel="#{msg.WRITE}"/>  
@@ -26,9 +26,9 @@
         </s:decorate>  
         <s:decorate id="metaEntityDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'metaEntityEdit')}"/>
+            <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editMetaEntity')}"/>
           </ui:define>  
-          <h:selectOneMenu id="metaEntity" label="#{msg.entityFieldPrivilege_metaEntity}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'metaEntityEdit')}" disabled="false"> 
+          <h:selectOneMenu id="metaEntity" label="#{msg.entityFieldPrivilege_metaEntity}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editMetaEntity')}" disabled="false"> 
             <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -36,9 +36,9 @@
         </s:decorate>  
         <s:decorate id="appRoleDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleEdit')}"/>
+            <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}"/>
           </ui:define>  
-          <h:selectOneMenu id="appRole" label="#{msg.entityFieldPrivilege_appRole}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleEdit')}" disabled="false"> 
+          <h:selectOneMenu id="appRole" label="#{msg.entityFieldPrivilege_appRole}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}" disabled="false"> 
             <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
