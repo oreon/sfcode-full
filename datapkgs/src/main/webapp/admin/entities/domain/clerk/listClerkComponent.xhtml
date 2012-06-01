@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ClerkModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Clerk Search Results (#{empty records ? 0 : (clerkList.paginated ? clerkList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_clerk" value="#{records}" id="clerkList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'clerkView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="clerk.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('department', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_department}"/>  
+              <ui:param name="propertyPath" value="clerk.department"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_clerk.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
+            <f:param name="departmentId" value="#{_clerk.department.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('employeeNumber', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_employeeNumber}"/>  
+              <ui:param name="propertyPath" value="clerk.employeeNumber"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.employeeNumber}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('employeeType', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_employeeType}"/>  
+              <ui:param name="propertyPath" value="clerk.employeeType"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.employeeType}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('salary', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_salary}"/>  
+              <ui:param name="propertyPath" value="clerk.salary"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.salary}" escape="false"/> 
+        </h:column>  
+        <h:column groupOn="#{clerk.customer.displayName}" rendered="#{s:hasPermission('customer', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_customer}"/>  
+              <ui:param name="propertyPath" value="clerk.customer"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_clerk.customer.displayName}" view="/admin/entities/inventory/customer/viewCustomer.xhtml" propagation="none"> 
+            <f:param name="customerId" value="#{_clerk.customer.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('userName', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.appUser_userName}"/>  
+              <ui:param name="propertyPath" value="clerk.appUser.userName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.appUser.userName}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('enabled', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.appUser_enabled}"/>  
+              <ui:param name="propertyPath" value="clerk.appUser.enabled"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.appUser.enabled? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('email', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.appUser_email}"/>  
+              <ui:param name="propertyPath" value="clerk.appUser.email"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.appUser.email}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('lastLogin', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.appUser_lastLogin}"/>  
+              <ui:param name="propertyPath" value="clerk.appUser.lastLogin"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.appUser.lastLogin}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('firstName', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_firstName}"/>  
+              <ui:param name="propertyPath" value="clerk.firstName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.firstName}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('lastName', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_lastName}"/>  
+              <ui:param name="propertyPath" value="clerk.lastName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.lastName}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('phone', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_phone}"/>  
+              <ui:param name="propertyPath" value="clerk.contactDetails.phone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.contactDetails.phone}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('secondaryPhone', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>  
+              <ui:param name="propertyPath" value="clerk.contactDetails.secondaryPhone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.contactDetails.secondaryPhone}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('city', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_city}"/>  
+              <ui:param name="propertyPath" value="clerk.contactDetails.city"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.contactDetails.city}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('typist', 'clerkView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.clerk_typist}"/>  
+              <ui:param name="propertyPath" value="clerk.typist"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.typist? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'clerkView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="clerk.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_clerk', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/domain/clerk/viewClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="clerkId" value="#{_clerk.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_clerk', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/domain/clerk/editClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="clerkId" value="#{_clerk.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('clerkAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{clerkAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_clerk.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_clerk.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{clerkAction.setClerkIdForModalDlg(_clerk.id)}" rendered="#{s:hasPermission(_clerk, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{clerkList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{clerkList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{clerkList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{clerkList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{clerkList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{clerkList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{clerkList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

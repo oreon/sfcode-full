@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editFieldPreviligeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{fieldPreviligeAction.load(fieldPreviligeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFieldPrevilige eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.FieldPrevilige}"/> 
+        </f:facet>  
+        <s:decorate id="metaFieldDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.fieldPrevilige_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'metaFieldEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="metaField" label="#{msg.fieldPrevilige_metaField}" value="#{fieldPreviligeAction.fieldPrevilige.metaField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'metaFieldEdit')}" disabled="false"> 
+            <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="entityPreviligeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.fieldPrevilige_entityPrevilige}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'entityPreviligeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="entityPrevilige" label="#{msg.fieldPrevilige_entityPrevilige}" value="#{fieldPreviligeAction.fieldPrevilige.entityPrevilige}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'entityPreviligeEdit')}" disabled="false"> 
+            <s:selectItems value="#{entityPreviligeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <h:commandButton value="New RolePrevilige" action="#{fieldPreviligeAction.addRolePreviliges}" reRender="rolePreviliges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'rolePreviligesEdit')}"> 
+        <s:conversationId/> 
+      </h:commandButton>  
+      <rich:dataTable id="rolePreviliges" var="_rolePrevilige" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fieldPrevilige', 'rolePreviligesEdit')}" value="#{fieldPreviligeAction.listRolePreviliges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.rolePrevilige_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'appRoleEdit')}"/>
+          </f:facet>  
+          <s:decorate id="appRoleDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="appRole" label="#{msg.rolePrevilige_appRole}" value="#{_rolePrevilige.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'appRoleEdit')}" disabled="false"> 
+              <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.rolePrevilige_edit}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'editEdit')}"/>
+          </f:facet>  
+          <s:decorate id="editDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectBooleanCheckbox id="edit#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'editEdit')}" label="#{msg.rolePrevilige_edit}" required="false" disabled="false" value="#{_rolePrevilige.edit}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectBooleanCheckbox> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.rolePrevilige_view}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'viewEdit')}"/>
+          </f:facet>  
+          <s:decorate id="viewDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectBooleanCheckbox id="view#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'viewEdit')}" label="#{msg.rolePrevilige_view}" required="false" disabled="false" value="#{_rolePrevilige.view}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectBooleanCheckbox> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="New RolePrevilige" action="#{fieldPreviligeAction.addRolePreviliges}" reRender="rolePreviliges" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('rolePrevilige', 'rolePreviligesEdit')}"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{fieldPreviligeAction.deleteRolePreviliges(rowIndex)}" reRender="rolePreviliges"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

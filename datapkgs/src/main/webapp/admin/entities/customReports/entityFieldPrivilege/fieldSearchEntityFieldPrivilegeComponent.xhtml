@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'metaEntityEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="metaEntity" value="#{ entityFieldPrivilegeList.entityFieldPrivilege.metaEntity}"> 
+        <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'appRoleEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="appRole" value="#{ entityFieldPrivilegeList.entityFieldPrivilege.appRole}"> 
+        <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'privilegeTypeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="privilegeType" value="#{entityFieldPrivilegeList.entityFieldPrivilege.privilegeType}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="READ" itemLabel="Read"/>  
+        <f:selectItem itemValue="WRITE" itemLabel="Write"/>  
+        <f:selectItem itemValue="DELETE" itemLabel="Delete"/>  
+        <f:selectItem itemValue="CREATE" itemLabel="Create"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{entityFieldPrivilegeList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{entityFieldPrivilegeList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>
