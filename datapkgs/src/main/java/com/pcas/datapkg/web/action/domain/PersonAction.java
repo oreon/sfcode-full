@@ -3,10 +3,10 @@
 		package com.pcas.datapkg.web.action.domain;
 		
 		
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.seam.action.BaseAction;
 		
-		public  abstract class PersonAction<T extends BusinessEntity> extends BaseAction<T> implements java.io.Serializable{
+		public  abstract class PersonAction<T extends BaseEntity> extends BaseAction<T> implements java.io.Serializable{
 			
 		}
 	

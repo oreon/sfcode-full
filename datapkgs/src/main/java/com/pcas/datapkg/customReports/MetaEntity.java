@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -59,7 +59,7 @@ import com.pcas.datapkg.ProjectUtils;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class MetaEntity extends BusinessEntity implements java.io.Serializable {
+public class MetaEntity extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1562422680L;
 
 	@NotNull
@@ -93,6 +93,29 @@ public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 		return metaFields.size();
 	}
 
+	@OneToMany(mappedBy = "metaEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "metaEntity_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<EntityFieldPrivilege> entityFieldPrivileges = new HashSet<EntityFieldPrivilege>();
+
+	public void addEntityFieldPrivilege(
+			EntityFieldPrivilege entityFieldPrivilege) {
+		entityFieldPrivilege.setMetaEntity(this);
+		this.entityFieldPrivileges.add(entityFieldPrivilege);
+	}
+
+	@Transient
+	public List<com.pcas.datapkg.customReports.EntityFieldPrivilege> getListEntityFieldPrivileges() {
+		return new ArrayList<com.pcas.datapkg.customReports.EntityFieldPrivilege>(
+				entityFieldPrivileges);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getEntityFieldPrivilegesCount() {
+		return entityFieldPrivileges.size();
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -111,6 +134,15 @@ public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 		return metaFields;
 	}
 
+	public void setEntityFieldPrivileges(
+			Set<EntityFieldPrivilege> entityFieldPrivileges) {
+		this.entityFieldPrivileges = entityFieldPrivileges;
+	}
+
+	public Set<EntityFieldPrivilege> getEntityFieldPrivileges() {
+		return entityFieldPrivileges;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -125,7 +157,7 @@ public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public List<String> listSearchableFields() {
@@ -148,7 +180,11 @@ public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 
 		builder.append(getName() + " ");
 
-		for (BusinessEntity e : metaFields) {
+		for (BaseEntity e : metaFields) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BaseEntity e : entityFieldPrivileges) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

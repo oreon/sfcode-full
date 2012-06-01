@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -59,7 +59,7 @@ import com.pcas.datapkg.ProjectUtils;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class Machine extends BusinessEntity implements java.io.Serializable {
+public class Machine extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1776872649L;
 
 	@OneToMany(mappedBy = "machine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -159,7 +159,7 @@ public class Machine extends BusinessEntity implements java.io.Serializable {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public List<String> listSearchableFields() {
@@ -184,7 +184,7 @@ public class Machine extends BusinessEntity implements java.io.Serializable {
 		if (getLocation() != null)
 			builder.append("location:" + getLocation().getDisplayName() + " ");
 
-		for (BusinessEntity e : drugInventorys) {
+		for (BaseEntity e : drugInventorys) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

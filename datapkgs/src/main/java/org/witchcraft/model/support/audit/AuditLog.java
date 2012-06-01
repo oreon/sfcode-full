@@ -17,7 +17,7 @@ import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 import org.jboss.seam.annotations.Name;
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.seam.action.EventTypes;
 
 /** This class represents an audit log entry
@@ -34,11 +34,11 @@ import org.witchcraft.seam.action.EventTypes;
 	@TokenFilterDef(factory = PhoneticFilterFactory.class,  params = {@Parameter(name = "encoder", value="SOUNDEX")} ),
 	//@TokenFilterDef(factory = SynonymFilterFactory.class),
 	@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class AuditLog<T> extends BusinessEntity{
+public class AuditLog<T> extends BaseEntity{
 	private EventTypes action;
 	@Lob
 	@Column(length=4194304)
-	private BusinessEntity record;
+	private BaseEntity record;
 	private String entityName;
 	private String username;
 	private Long entityId;
@@ -46,7 +46,7 @@ public class AuditLog<T> extends BusinessEntity{
 	
 	public AuditLog(){}
 	
-	public AuditLog(EventTypes action, BusinessEntity record, String entityName, Long entityId,
+	public AuditLog(EventTypes action, BaseEntity record, String entityName, Long entityId,
 			String username) {
 		super();
 		this.action = action;
@@ -64,10 +64,10 @@ public class AuditLog<T> extends BusinessEntity{
 	}
 	
 	
-	public BusinessEntity getRecord() {
+	public BaseEntity getRecord() {
 		return record;
 	}
-	public void setRecord(BusinessEntity record) {
+	public void setRecord(BaseEntity record) {
 		this.record = record;
 	}
 	public String getEntityName() {

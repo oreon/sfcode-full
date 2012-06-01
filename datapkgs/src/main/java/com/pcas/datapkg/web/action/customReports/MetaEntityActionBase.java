@@ -42,6 +42,7 @@ import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
 import com.pcas.datapkg.customReports.MetaField;
+import com.pcas.datapkg.customReports.EntityFieldPrivilege;
 
 public abstract class MetaEntityActionBase extends BaseAction<MetaEntity>
 		implements
@@ -144,6 +145,8 @@ public abstract class MetaEntityActionBase extends BaseAction<MetaEntity>
 
 		initListMetaFields();
 
+		initListEntityFieldPrivileges();
+
 	}
 
 	public void updateAssociations() {
@@ -187,16 +190,61 @@ public abstract class MetaEntityActionBase extends BaseAction<MetaEntity>
 		getListMetaFields().add(metaFields);
 	}
 
+	protected List<com.pcas.datapkg.customReports.EntityFieldPrivilege> listEntityFieldPrivileges = new ArrayList<com.pcas.datapkg.customReports.EntityFieldPrivilege>();
+
+	void initListEntityFieldPrivileges() {
+
+		if (listEntityFieldPrivileges.isEmpty())
+			listEntityFieldPrivileges.addAll(getInstance()
+					.getEntityFieldPrivileges());
+
+	}
+
+	public List<com.pcas.datapkg.customReports.EntityFieldPrivilege> getListEntityFieldPrivileges() {
+
+		prePopulateListEntityFieldPrivileges();
+		return listEntityFieldPrivileges;
+	}
+
+	public void prePopulateListEntityFieldPrivileges() {
+	}
+
+	public void setListEntityFieldPrivileges(
+			List<com.pcas.datapkg.customReports.EntityFieldPrivilege> listEntityFieldPrivileges) {
+		this.listEntityFieldPrivileges = listEntityFieldPrivileges;
+	}
+
+	public void deleteEntityFieldPrivileges(int index) {
+		listEntityFieldPrivileges.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addEntityFieldPrivileges() {
+		initListEntityFieldPrivileges();
+		EntityFieldPrivilege entityFieldPrivileges = new EntityFieldPrivilege();
+
+		entityFieldPrivileges.setMetaEntity(getInstance());
+
+		getListEntityFieldPrivileges().add(entityFieldPrivileges);
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listMetaFields != null) {
 			getInstance().getMetaFields().clear();
 			getInstance().getMetaFields().addAll(listMetaFields);
 		}
+
+		if (listEntityFieldPrivileges != null) {
+			getInstance().getEntityFieldPrivileges().clear();
+			getInstance().getEntityFieldPrivileges().addAll(
+					listEntityFieldPrivileges);
+		}
 	}
 
 	public void clearLists() {
 		listMetaFields.clear();
+		listEntityFieldPrivileges.clear();
 
 	}
 
