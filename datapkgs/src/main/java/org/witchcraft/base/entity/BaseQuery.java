@@ -1,5 +1,6 @@
 package org.witchcraft.base.entity;
 
+import java.beans.PersistenceDelegate;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -76,6 +78,8 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 	
 	private String searchName;
+	
+	private SavedSearch currentSavedSearch;
 	
 	
 	public String getSearchName() {
@@ -489,11 +493,11 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	
 	public void executeSearch(){
 		SavedSearch savedSearch = executeSingleResultNamedQuery("savedSearch.searchByName", getEntityClass().getSimpleName(), 
-				"searchs");
+				currentSavedSearch.getSearchName());
 		decode(savedSearch);
 	}
 	
-	public List<SavedSearch> findSearches(){
+	public List<SavedSearch> getSavedSearches(){
 		return executeNamedQuery( "savedSearch.searchesForEntity",  getEntityClass().getSimpleName() );
 		//return null;
 	}
@@ -509,6 +513,10 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		}
 		
 		setInstance(entity);
+		
+		PersistenceDelegate pd=encoder.getPersistenceDelegate(Integer.class); 
+		encoder.setPersistenceDelegate(BigDecimal.class,pd );
+		
 		encoder.writeObject(this);
 		encoder.close();
 		//System.out.println(" ecoded xml : " + new String(bos.toByteArray()));
@@ -598,6 +606,14 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		for (Object param : params) {
 			query.setParameter(counter++, param);
 		}
+	}
+
+	public void setCurrentSavedSearch(SavedSearch currentSavedSearch) {
+		this.currentSavedSearch = currentSavedSearch;
+	}
+
+	public SavedSearch getCurrentSavedSearch() {
+		return currentSavedSearch;
 	}
 
 }
