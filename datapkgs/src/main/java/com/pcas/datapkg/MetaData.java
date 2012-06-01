@@ -126,6 +126,8 @@ public class MetaData {
 
 	"metaFieldsCount", "java.lang.Integer",
 
+	"entityFieldPrivilegesCount", "java.lang.Integer",
+
 	},
 
 	{"com.pcas.datapkg.customReports.MetaField",
@@ -157,6 +159,16 @@ public class MetaData {
 	"defaultValue", "java.lang.String",
 
 	"name", "java.lang.String",
+
+	},
+
+	{"com.pcas.datapkg.customReports.EntityFieldPrivilege",
+
+	"metaEntity.displayName", "java.lang.String",
+
+	"appRole.displayName", "java.lang.String",
+
+	"privilegeType.name", "java.lang.String",
 
 	},
 

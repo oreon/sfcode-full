@@ -19,7 +19,7 @@ import org.jboss.seam.annotations.Name;
 @NamedQuery(name="savedSearch.searchesForEntity", query= "Select c from SavedSearch c where c.entityName = ?1 order by c.entityName "),
 @NamedQuery(name="savedSearch.searchByName", query= "Select c from SavedSearch c where c.entityName = ?1 and c.searchName = ?2 ")
 })
-public class SavedSearch extends BusinessEntity {
+public class SavedSearch extends BaseEntity {
 
 	/**
 	 * 

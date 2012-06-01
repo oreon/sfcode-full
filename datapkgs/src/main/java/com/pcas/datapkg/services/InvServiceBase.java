@@ -21,9 +21,12 @@ public abstract class InvServiceBase
 
 	/** 
 	 * Returns the stock delta , If date is null returns for the current date
+	 	
 	  @param customerId  long   
-	 *	  @param date  Date   
-	 *	  
+	 *	 	
+	  @param date  Date   
+	 *	 	
+	  
 	 *
 	 * @return DeltaStockDto 
 	 */
@@ -49,8 +52,10 @@ public abstract class InvServiceBase
 
 	/** 
 	 * 
+	 	
 	  @param customerId  long   
-	 *	  
+	 *	 	
+	  
 	 *
 	 * @return DeltaStockDto 
 	 */
@@ -75,8 +80,10 @@ public abstract class InvServiceBase
 
 	/** 
 	 * run a report by its name , if no such name is found NoReportFound fault is returned.
+	 	
 	  @param reportName  String   
-	 *	  
+	 *	 	
+	  
 	 *
 	 * @return GenericReportDto 
 	 */
@@ -102,6 +109,7 @@ public abstract class InvServiceBase
 
 	/** 
 	 * 
+	 	
 	  
 	 *
 	 * @return GenericReportDto 

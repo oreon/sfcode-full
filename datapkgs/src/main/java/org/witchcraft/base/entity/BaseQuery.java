@@ -62,7 +62,7 @@ import com.pcas.datapkg.domain.Clerk;
  * @param <PK>
  */
 @SuppressWarnings("serial")
-public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializable>
+public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		extends EntityQuery<E> {
 
 	private static final String SEARCH_DATA = "searchData";
@@ -528,7 +528,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	@SuppressWarnings("unchecked")
 	public void decode(SavedSearch savedSearch){
 		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new ByteArrayInputStream(savedSearch.getEncodedXml().getBytes()) ));
-		BaseQuery<BusinessEntity, Long> temp = ((BaseQuery<BusinessEntity, Long>) decoder.readObject());
+		BaseQuery<BaseEntity, Long> temp = ((BaseQuery<BaseEntity, Long>) decoder.readObject());
 		try {
 			BeanUtils.copyProperties(this, temp);
 		} catch (IllegalAccessException e) {

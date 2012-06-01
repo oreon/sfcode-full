@@ -52,86 +52,72 @@ import org.witchcraft.utils.*;
 import com.pcas.datapkg.ProjectUtils;
 
 @Entity
-@Table(name = "fieldprevilige")
+@Table(name = "entityfieldprivilege")
 @Filter(name = "archiveFilterDef")
-@Name("fieldPrevilige")
+@Name("entityFieldPrivilege")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class FieldPrevilige extends BaseEntity
+public class EntityFieldPrivilege extends BaseEntity
 		implements
 			java.io.Serializable {
-	private static final long serialVersionUID = -463823175L;
-
-	@OneToMany(mappedBy = "fieldPrevilige", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "fieldPrevilige_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	@IndexedEmbedded
-	private Set<RolePrevilige> rolePreviliges = new HashSet<RolePrevilige>();
-
-	public void addRolePrevilige(RolePrevilige rolePrevilige) {
-		rolePrevilige.setFieldPrevilige(this);
-		this.rolePreviliges.add(rolePrevilige);
-	}
-
-	@Transient
-	public List<com.pcas.datapkg.customReports.RolePrevilige> getListRolePreviliges() {
-		return new ArrayList<com.pcas.datapkg.customReports.RolePrevilige>(
-				rolePreviliges);
-	}
-
-	//JSF Friendly function to get count of collections
-	public int getRolePreviligesCount() {
-		return rolePreviliges.size();
-	}
+	private static final long serialVersionUID = 2125560378L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "metaField_id", nullable = false, updatable = true)
+	@JoinColumn(name = "metaEntity_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected MetaField metaField
+	protected MetaEntity metaEntity
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "entityPrevilige_id", nullable = false, updatable = true)
+	@JoinColumn(name = "appRole_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected EntityPrevilige entityPrevilige
+	protected com.pcas.datapkg.users.AppRole appRole
 
 	;
 
-	public void setRolePreviliges(Set<RolePrevilige> rolePreviliges) {
-		this.rolePreviliges = rolePreviliges;
+	@Column(unique = false)
+	protected com.pcas.datapkg.managedsecurity.PrivilegeType privilegeType
+
+	;
+
+	public void setMetaEntity(MetaEntity metaEntity) {
+		this.metaEntity = metaEntity;
 	}
 
-	public Set<RolePrevilige> getRolePreviliges() {
-		return rolePreviliges;
-	}
+	public MetaEntity getMetaEntity() {
 
-	public void setMetaField(MetaField metaField) {
-		this.metaField = metaField;
-	}
-
-	public MetaField getMetaField() {
-
-		return metaField;
+		return metaEntity;
 
 	}
 
-	public void setEntityPrevilige(EntityPrevilige entityPrevilige) {
-		this.entityPrevilige = entityPrevilige;
+	public void setAppRole(com.pcas.datapkg.users.AppRole appRole) {
+		this.appRole = appRole;
 	}
 
-	public EntityPrevilige getEntityPrevilige() {
+	public com.pcas.datapkg.users.AppRole getAppRole() {
 
-		return entityPrevilige;
+		return appRole;
+
+	}
+
+	public void setPrivilegeType(
+			com.pcas.datapkg.managedsecurity.PrivilegeType privilegeType) {
+		this.privilegeType = privilegeType;
+	}
+
+	public com.pcas.datapkg.managedsecurity.PrivilegeType getPrivilegeType() {
+
+		return privilegeType;
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return rolePreviliges + "";
+			return metaEntity + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -157,18 +143,12 @@ public class FieldPrevilige extends BaseEntity
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		if (getMetaField() != null)
-			builder
-					.append("metaField:" + getMetaField().getDisplayName()
-							+ " ");
+		if (getMetaEntity() != null)
+			builder.append("metaEntity:" + getMetaEntity().getDisplayName()
+					+ " ");
 
-		if (getEntityPrevilige() != null)
-			builder.append("entityPrevilige:"
-					+ getEntityPrevilige().getDisplayName() + " ");
-
-		for (BaseEntity e : rolePreviliges) {
-			builder.append(e.getDisplayName() + " ");
-		}
+		if (getAppRole() != null)
+			builder.append("appRole:" + getAppRole().getDisplayName() + " ");
 
 		return builder.toString();
 	}

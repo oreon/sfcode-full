@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -59,7 +59,7 @@ import com.pcas.datapkg.ProjectUtils;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class Department extends BusinessEntity implements java.io.Serializable {
+public class Department extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1899938946L;
 
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -124,7 +124,7 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public List<String> listSearchableFields() {
@@ -143,7 +143,7 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 
 		builder.append(getName() + " ");
 
-		for (BusinessEntity e : employees) {
+		for (BaseEntity e : employees) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
