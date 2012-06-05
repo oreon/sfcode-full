@@ -159,9 +159,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 			initList«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
 		
-		«FOREACH getLeadingManyToMany() AS e»
+		«FOREACH getLeadingManyToMany() AS e» 
 			initList«e.name.toFirstUpper()»(); 
-			initListAvailable«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
 	}
 	
@@ -181,10 +180,6 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«FOREACH getMultiValued() AS a -»
 			list«a.name.toFirstUpper()».clear();
 		«ENDFOREACH»
-		
-		«FOREACH getLeadingManyToMany() AS a -»
-			list«a.name.toFirstUpper()».clear();
-		«ENDFOREACH»
 	}
 	
 
@@ -202,13 +197,12 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 «DEFINE updateList FOR uml::Property»
 	  if (list«name.toFirstUpper()» != null) {
 		getEntity().get«name.toFirstUpper()»().clear();
-		getEntity().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
+		getEntity().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»«IF isLeadingManyToMany()».getTarget()«ENDIF» );
 	  }
 «ENDDEFINE»
 
 
 «DEFINE genManyToMany FOR uml::Property»
-	«EXPAND genList( "") FOR this»
 	«EXPAND genList( "Available") FOR this»
 «ENDDEFINE»
 
@@ -236,7 +230,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 
 «DEFINE genList(String prefix) FOR uml::Property»
 	
-	«LET "list" + prefix + name.toFirstUpper()  AS currentList»
+	«LET "list" + name.toFirstUpper()  AS currentList»
 	
 	«IF isLeadingManyToMany() && prefix == "Available"» «REM»for many to many«ENDREM»
 	
