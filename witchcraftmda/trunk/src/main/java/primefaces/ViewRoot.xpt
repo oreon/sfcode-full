@@ -51,6 +51,7 @@
 			«FOREACH getNonComposedManyAssociations() AS a»
 			<p:tab title="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
+				«REM»comment
 				<ui:include src = "«a.type.getComponentViewFile("list")»" >
 					<ui:param name="records" value="#{«a.type.asVar()»List.get«a.name.toFirstUpper()»By«a.opposite.name.toFirstUpper()»(«getAction()».«name.toFirstLower()»)}" />
          			<ui:param name="modalId" value="${modalId}" />
@@ -60,15 +61,16 @@
 		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».«name.toFirstLower()».id}" />
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
 		      		</h:button>
-		      		  <a:button oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  reRender="${modalId}" >
+		      		  <h:button oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  reRender="${modalId}" >
 			            <a:actionparam name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
 			         	<a:actionparam name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.opposite.name»Id}" 
 			         		value="#{«name.toFirstLower()»Action.«name.toFirstLower()».id}"  />
-			         </a:button>
+			         </h:button>
 		    	</h:form>
 		    	<ui:include src="«a.type.getComponentViewFile("modalDlg")»" > 
 		    		<ui:param name="modalId" value="${modalId}" />
 		    	</ui:include>
+		    	«ENDREM»
 			</p:tab>
 			«ENDFOREACH»
 			</p:tabView>
@@ -297,11 +299,11 @@
 			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
-			 <p:toolTip>
+			 <p:tooltip>
 	            <span>
 	              #{«getActionForMode()»«genPropertyLabel()».popupInfo} 
 	            </span>
-	        </p:toolTip>
+	        </p:tooltip>
 	        «ENDIF»
 	</h:link>
 «ENDDEFINE»

@@ -32,9 +32,7 @@
          		</ui:include>
 				«EXPAND genButtons FOR this»
 				
-				<ui:include src="«getComponentViewFile("modalDlg")»" >
-					<ui:param name="modalId" value="${modalId}"/> 
-				</ui:include>
+				
 	</ui:define>
 			
 			
@@ -234,11 +232,11 @@
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<a:commandLink action="#{«asVar()»Action.set«name»IdForModalDlg(_«asVar()».id)}"  rendered="#{s:hasPermission(_«asVar()», 'quickEdit')}" 
+		<h:commandLink action="#{«asVar()»Action.set«name»IdForModalDlg(_«asVar()».id)}"  rendered="#{s:hasPermission(_«asVar()», 'quickEdit')}" 
 			oncomplete="Richfaces.showModalPanel('${modalId}',{});"  reRender="${modalId}" > 
 			<h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>
 			<s:conversationPropagation type="join"/>
-		</a:commandLink>
+		</h:commandLink>
 	</p:column>
 «ENDDEFINE»
 
@@ -273,11 +271,11 @@
 			<f:param name="«type.name.toFirstLower()»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
-			 <rich:toolTip>
+			 <rich:tooltip>
 	            <span>
 	              #{_«genPropertyLabel()».popupInfo} 
 	            </span>
-	        </rich:toolTip>
+	        </rich:tooltip>
 	        «ENDIF»
 	</h:commandLink>
 «ENDDEFINE»
@@ -309,7 +307,7 @@
 			«IF isColumn() && !abbreviateInListing»
 				<h:outputText value="#{_«genPropertyLabel()»}"   />	
 			«ELSE»
-			 <p:toolTip value="#{_«genPropertyLabel()»}" for="«name»Abbr">  </p:toolTip>
+			 <p:tooltip value="#{_«genPropertyLabel()»}" for="«name»Abbr">  </p:tooltip>
 	         <h:outputText id="«name»Abbr" value="#{_«genPropertyLabel()»Abbreviated}" /> 
 	         «ENDIF»				
 		«ELSE»

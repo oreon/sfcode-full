@@ -88,12 +88,12 @@
 
 
 «DEFINE genBusinessFunctionButtons FOR uml::Class»
-	<div class="buttonBox">
+	<div class="buttonBox">	
 		«FOREACH getAllOperations() AS o»
 		«IF o.hasStereo("UserOperation") »
 			«IF o.hasUI»
 			
-			<a:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)  and  «getAction()».«o.name»Allowed }" 
+			<h:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)  and  «getAction()».«o.name»Allowed }" 
 				oncomplete="Richfaces.showModalPanel('«o.name»«name.toFirstUpper()»Mdl',{});"  />
 	
 			«ELSE»
@@ -210,7 +210,7 @@
 
 «DEFINE genLabelAndInput FOR uml::Property-»
 	«IF !isDerived() && !type.isEmbeddable() && !systemModify() && !currentUser()»
-		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>": getOutputMessage()»
+		«isCurrentMultiMode()?"<p:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>": getOutputMessage()»
 		«REM»comment<s:decorate id="«getId()»Decorate" template="/layout/edit.xhtml"> «!isCurrentMultiMode()?getOutputMessage():" "»  «ENDREM»
 		«IF association != null-»
 			«EXPAND genAssociation-»
@@ -218,13 +218,13 @@
 			«EXPAND genPropertyEntry(type) FOR this-»
 		«ENDIF»
 		«REM»</s:decorate> «ENDREM»
-		«isCurrentMultiMode()?"</h:column>":""»
+		«isCurrentMultiMode()?"</p:column>":""»
 	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genLabelAndOutput FOR uml::Property-»
 	«IF !isSecret()  »
-		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">":""»
+		«isCurrentMultiMode()?"<p:column><f:facet name=\"header\">":""»
 		«getOutputMessage()-»
 		«isCurrentMultiMode()?"</f:facet>":""»
 		«IF association != null»
@@ -233,7 +233,7 @@
 			«EXPAND genPropertyEntry(type) FOR this-»
 		«ENDIF»
 		«getErrorMessageHolder()-»
-		«isCurrentMultiMode()?"</h:column>":""»
+		«isCurrentMultiMode()?"</p:column>":""»
 	«ENDIF»
 «ENDDEFINE»
 
@@ -479,25 +479,24 @@
 «ENDDEFINE»
 
 «DEFINE genDelete FOR uml::Property»
-	<h:column>
+	<p:column>
 		<h:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
 			reRender="«name»" >
 			<f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/>
 		</h:commandButton>
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 «DEFINE genNew FOR uml::Property»
-	<h:column>
+	<p:column>
 		«EXPAND genNewButton FOR this»
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
 	<h:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		reRender="«name»"  rendered="#{«genEditPermission()»}" >
+		update="«name»"  rendered="#{«genEditPermission()»}" >
 		 <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/>
-
 	</h:commandButton>
 «ENDDEFINE»
 
