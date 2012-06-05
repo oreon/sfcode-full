@@ -86,6 +86,19 @@ import «a.type.fqn()»;
 
 public abstract class «name»ActionBase extends «getFirstParent() == null || getFirstParent().length == 0  || !parentIsMappedSuperClass() ? "BaseAction<" +  name + ">" :
 	 parents().get(0).getActionFqn() + getGenericType(parents().get(0)) » implements java.io.Serializable{
+	 
+	«FOREACH getOutgoingAssociations() AS e»
+		«IF !e.type.isAbstract»
+		 @Inject
+		 «e.type.getActionFqn()» «e.type.getAction()»;
+		«ENDIF»
+	«ENDFOREACH»
+	
+	«FOREACH getLeadingManyToMany() AS e»
+		 @Inject
+		 «e.type.getActionFqn()» «e.type.getAction()»;
+	«ENDFOREACH»
+	 
 
 	protected Predicate[] getSearchPredicates(Root<«name»> root) {
 
@@ -117,6 +130,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	}
 	
 	public «name» get«name»() {
+		if(entity == null)
+			entity = createInstance();
 		return this.entity;
 	}
 	
@@ -151,17 +166,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	}
 	
 	public void updateAssociations(){
-		«FOREACH getNonComposedManyAssociations() AS a»
-		«a.type.fqn()» «a.name» =(«a.type.fqn()») org.jboss.seam.Component.getEntity("«a.type.name.toFirstLower()»");
-		«a.name».set«a.opposite.name.toFirstUpper()»(«asVar()»);
-		events.raiseTransactionSuccessEvent("archived«a.type.name»");
-		«ENDFOREACH»
 	}
-	
 	
 	«EXPAND genCompositeCode FOREACH getMultiValued() -»
 	«EXPAND genManyToMany FOREACH getLeadingManyToMany() -»
-	
 	
 	public void updateComposedAssociations(){
 		«EXPAND updateList FOREACH getMultiValued() -»
@@ -214,7 +222,6 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«currentList».remove(index);
 	}
 	
-	éé@Begin(join=true)
 	public void add«name.toFirstUpper()»(){
 		init«currentList.toFirstUpper()»();
 		«type.name» «name» = new «type.name»();
@@ -231,31 +238,52 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 	«LET "list" + prefix + name.toFirstUpper()  AS currentList»
 	
-	protected List<«type.fqn()»> «currentList» = new ArrayList<«type.fqn()»>();
+	«IF isLeadingManyToMany() && prefix == "Available"» «REM»for many to many«ENDREM»
+	
+	protected DualListModel<«type.fqn()»> «currentList» = new DualListModel<«type.fqn()»>();
 	
 	void init«currentList.toFirstUpper()»(){
 	
-		«IF isLeadingManyToMany() && prefix == "Available"»
-			«currentList» = getEntityManager().createQuery("select r from «type.name» r").getResultList();
-			«currentList».removeAll(getEntity().get«name.toFirstUpper()»());
-		«ELSE»
-		if(«currentList».isEmpty())
-			«currentList».addAll(getEntity().get«name.toFirstUpper()»());
-		«ENDIF»	
+		List<«type.fqn()»> available«name» = «type.getAction()».getAll();
+		List<«type.fqn()»> current«name» = getEntity() != null ? ViewUtils.asList( getEntity().get«name.toFirstUpper()»() ) : new ArrayList<«type.fqn()»>();
+
+		if ( available«name» == null )
+			available«name» = new ArrayList<«type.fqn()»>();
+		if ( getEntity() != null )
+			available«name».removeAll( getEntity().get«name.toFirstUpper()»() );
+
+		«currentList» = new DualListModel<«type.fqn()»>( available«name», current«name» );
 	}
 	
-	«IF prefix == "Available"»@Begin(join=true)«ENDIF»
-	public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
-		«REM»«IF isLeadingManyToMany() && prefix == "Available"» init«currentList.toFirstUpper()»(); «ENDIF»comment«ENDREM»
-		prePopulate«currentList.toFirstUpper()»();
+	public DualListModel<«type.fqn()»> get«currentList.toFirstUpper()»() {
 		return «currentList»;
 	}
 	
-	public void prePopulate«currentList.toFirstUpper()»() {}
+
+	public void set«currentList.toFirstUpper()»(DualListModel<«type.fqn()»> «currentList») {
+		this.«currentList» = «currentList»;
+	}
+	«ELSE»
+	
+	protected List<«type.fqn()»> «currentList» = new ArrayList<«type.fqn()»>();
+	
+	void init«currentList.toFirstUpper()»(){
+		prePopulate«currentList.toFirstUpper()»();
+		«currentList».addAll(getEntity().get«name.toFirstUpper()»());
+	}
+	
+	public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
+		return «currentList»;
+	}
+	
 
 	public void set«currentList.toFirstUpper()»(List<«type.fqn()»> «currentList») {
 		this.«currentList» = «currentList»;
 	}
+	«ENDIF»
+	
+	public void prePopulate«currentList.toFirstUpper()»() {}
+	
 	«ENDLET»
 «ENDDEFINE»
 
@@ -278,5 +306,10 @@ import javax.persistence.criteria.Root;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+import org.primefaces.model.DualListModel;
+
+import org.witchcraft.utils.ViewUtils;
+import javax.inject.Inject;
+
 «ENDDEFINE»
 

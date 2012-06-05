@@ -20,7 +20,7 @@
 
 	<ui:param name="pageTitle" value="Search Customer entities" />
 	
-	<ui:define name="main">
+	<ui:define name="content">
 				«EXPAND genFullTextBtn FOR this»
 	
 				<c:set var="modalId" value="«name»ModalPanel-«name»" />
@@ -56,7 +56,7 @@
 
 		<h:form id="form">
 
-			<p:dataTable var="_«name.toFirstLower()»" value="#{«getAction()».«name»DataModel}" paginator="true"
+			<p:dataTable var="_«name.toFirstLower()»" value="#{«getAction()».model}" paginator="true"
 				rows="10"
 				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 				rowsPerPageTemplate="5,10,15" selectionMode="single" 
@@ -285,7 +285,7 @@
 
 
 «DEFINE genProperty FOR uml::Property-»
-	<p:column   «EXPAND genPermission FOR this» headerText="«msgBundleKey()-»" sortBy="#{_«genPropertyLabel()»}"  >
+	<p:column   «EXPAND genPermission FOR this» headerText="«msgBundleKey()-»" sortBy="#{_«genPropertyLabel()»}" filterBy="#{_«genPropertyLabel()»}" >
 		«IF isFile()»
 				<s:graphicImage rendered="#{_«genPropertyLabel()» ne null and  _«genPropertyLabel()».contentType.startsWith('image')}" value="#{_«genPropertyLabel()».data}">
 					<s:transformImageSize height="100" maintainRatio="true"/>
@@ -341,9 +341,13 @@
 
 
 «DEFINE genId FOR uml::Class»
-	<p:column «EXPAND genPermission FOR 'id'»>
-		<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  >
-		</h:outputText>
+	<p:column headerText="Id"  sortBy="#{_«getCurrentEntity().asVar()».id}" «EXPAND genPermission FOR 'id'» >
+		
+		<h:link outcome="view«name».xthml">
+			<f:param name="id" value="#{_«getCurrentEntity().asVar()».id}"  />
+			<h:outputText value="#{_«getCurrentEntity().asVar()».id}"  />				
+		</h:link>
+		
 	</p:column>
 «ENDDEFINE»
 
