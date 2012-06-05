@@ -494,7 +494,7 @@ import org.hibernate.annotations.ParamDef;
 		@OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 		«REM»comment«IF isComposite()»@Cascade(value=org.hibernate.annotations.CascadeType.DELETE_ORPHAN)«ENDIF»«ENDREM»
 		//@JoinColumn(name = "«getOppositeName()»_ID", nullable = «getAssocOptional()»)
-		 @OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"dateCreated DESC"«ENDIF»)
+		 @OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"id DESC"«ENDIF»)
 		«IF type.name != class.name»@IndexedEmbedded«ENDIF»
 		«ENDIF»
 		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
