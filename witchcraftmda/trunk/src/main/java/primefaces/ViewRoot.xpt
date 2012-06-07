@@ -199,8 +199,9 @@
 «REM»For multivalued attributes e.g. an order's order items«ENDREM»
 «DEFINE genTable FOR uml::Class»
 	«FOREACH allParents() AS e-»
-		«EXPAND gentEditableTable FOREACH e.getComposed() -»
+		«EXPAND genViewTable FOREACH e.getComposed() -»
 	«ENDFOREACH»
+	«EXPAND genViewTable FOREACH getComposed() -»
 «ENDDEFINE»
 
 
@@ -212,25 +213,33 @@
 «ENDDEFINE»
 
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
-	<br/>
-	«IF isCurrentEditMode()»
-	<p:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  id="«name»">
-		<p:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
-			targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
-	        <s:convertEntity />
-	        <p:column> #{item.displayName} </p:column>
-	     </p:listShuttle>
-    </p:simpleTogglePanel>
-	«ELSE»
-	<p:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  >
-        <p:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
+	<p:panel label="«msgBundleKey()»" >
+        <p:dataTable value="#{«class.getAction()».list«name.toFirstUpper()».target}" var="item" >
         	<p:column> #{item.displayName} </p:column>
      	</p:dataTable>
-     </p:simpleTogglePanel>
-	«ENDIF»
+     </p:panel>
 «ENDDEFINE»
 
+ «DEFINE genViewTable FOR uml::Property»
+ «setCurrentMultiMode(true)-»
+	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
+	<p:dataTable id="«name»" var="_«type.asVar()»" 
+		«IF !isCurrentEditMode()» 
+			rendered="#{not empty «class.getAction()».list«name.toFirstUpper()» and «genViewPermission()» }"
+			«ELSE»
+				rendered="#{«genEditPermission()»}"
+		 «ENDIF»
+				value="#{«class.getAction()».list«name.toFirstUpper()»}" 
+				rowKeyVar="rowIndex" 
+				rowClasses="odd, even" styleClass="viewInfo" rules="all">
+		«setAsCurrentEntity(type)»
+		«EXPAND genAttribAsOutput FOR type-»
+	</p:dataTable>
+	«setCurrentMultiMode(false)-»
 
+ «ENDDEFINE»
+ 
+ 	
 
 
 «DEFINE genAttributeAssoc FOR uml::Property -»
@@ -254,7 +263,7 @@
 «DEFINE genLabelAndOutput FOR uml::Property-»
 	«IF !isSecret()  »
 		
-		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">":""»
+		«isCurrentMultiMode()?"<p:column><f:facet name=\"header\">":""»
 		«getOutputMessage()-»
 		«isCurrentMultiMode()?"</f:facet>":""»
 		
@@ -265,7 +274,7 @@
 		«ENDIF»
 		
 		«getErrorMessageHolder()-»
-		«isCurrentMultiMode()?"</h:column>":""»
+		«isCurrentMultiMode()?"</p:column>":""»
 	«ENDIF»
 «ENDDEFINE»
 
@@ -312,7 +321,11 @@
 
 «REM»Generate text control for the given property «ENDREM»
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-	<h:outputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}"  />
+	<h:outputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}"  «IF isType("largeText")» escape="false" «ENDIF» />
+«ENDDEFINE»
+
+«DEFINE genPropertyEntry(wcprofile::largeText cls) FOR uml::Property-»
+	<h:outputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}" escape="false"  />
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
