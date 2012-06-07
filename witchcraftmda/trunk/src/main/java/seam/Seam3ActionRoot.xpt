@@ -164,6 +164,26 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«ENDFOREACH»
 	}
 	
+	
+	«FOREACH getAllAttributes().select ( e | e.isFile() ) AS e»	
+	public String download«e.name.toFirstUpper()»(Long id) {
+		if(id == null || id == 0)
+            id = currentEntityId;
+		setId(id);
+		downloadAttachment(getEntity().get«e.name.toFirstUpper()»());
+		return "success";
+	}
+	
+	public void «e.name»UploadListener(FileUploadEvent event) throws Exception {
+		  UploadedFile uploadItem = event.getFile();
+		  if(getEntity().get«e.name.toFirstUpper()»() == null )
+			getEntity().set«e.name.toFirstUpper()»(new FileAttachment());
+		  getEntity().get«e.name.toFirstUpper()»().setName(uploadItem.getFileName());
+		  getEntity().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
+		  getEntity().get«e.name.toFirstUpper()»().setData(uploadItem.getContents()); 
+	}
+	«ENDFOREACH»
+	
 	public void updateAssociations(){
 	}
 	

@@ -297,9 +297,10 @@ String getNotNullAnnotations(Column col):
 col.notNull?"@NotNull":"";
 
 String getValidatorAnnotations(Column col):
-  "@" + ( col.validator.startsWith("VALIDATOR_") ? col.validator.getSubString("_").toLowerCase().toFirstUpper():  "Pattern(regex = \"" + col.validator + "\")" );
+  "@" + ( col.validator.startsWith("VALIDATOR_") ? col.validator.getSubString("_").toLowerCase().toFirstUpper():  "Pattern(" + getRegex() + " = \"" + col.validator + "\")" );
 	
-
+String getRegex():
+getCartridge() == "RICH" ? "regex" : "regexp";
 
 
 String getLengthAnnotations(Column col):

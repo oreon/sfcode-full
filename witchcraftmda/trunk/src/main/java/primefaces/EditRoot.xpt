@@ -395,51 +395,13 @@
 «ENDDEFINE»
 
 «DEFINE genFilePropertyEntry FOR uml::Property-»
-	«IF isCurrentEditMode() » 
-     <h:panelGroup  rendered="#{«genEditPermission()»}"> 
-          <h:outputText value="Current File:" /> <s:link value="#{«getActionForFileMode()»«class.asVar()-».«name».name}" id="«name»_file" 
-          	action="#{«getActionForFileMode()»downloadFile(null)}" propagation="none"> 
-              <f:param name="currentEntityId" value="#{«getActionForFileMode()»instance.id}" /> 
-            </s:link> 
-        <p:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
-        	autoclear="false"  listHeight="30" listWidth="250"> 	
-        	<s:conversationPropagation type="join" />
-        	 <a:support event="onuploadcomplete" reRender="«name»_file" />
-        </p:fileUpload>
-     </h:panelGroup>
-    «ELSE» 
-		«EXPAND getFileView » 
-	«ENDIF»
+		<p:fileUpload id="«getId()»" 
+			fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"
+			mode="advanced" sizeLimit="500000">
+		</p:fileUpload>
 «ENDDEFINE»
 
-«DEFINE genFilePropertyEntryOrg FOR uml::Property-»
-	«LET "_" + getCurrentEntity().asVar() AS currentFile»
-	«IF isCurrentEditMode() »  
-		<h:panelGroup>
-		«IF isCurrentMultiMode()»
-		<s:div rendered="#{«currentFile».id > 0 }">
-			«EXPAND getFileView »			
-		</s:div>
-		<s:div rendered="#{«currentFile».id == null }">
-			<s:fileUpload
-				contentType="#{«currentFile».contentType}"
-				data="#{«currentFile».data}"
-				fileName="#{«currentFile».name}" />
-		</s:div>
-		«ELSE»
-		<s:div rendered="#{«getActionForMode()»«class.asVar()-».id != 0 }">
-			«EXPAND getFileView»			
-		</s:div>
-		<s:div rendered="#{«getActionForMode()»«class.asVar()-».id == null }">
-			«getTextForImgFile()» 
-		</s:div>
-		«ENDIF»
-		 </h:panelGroup>
-	«ELSE» 
-		«EXPAND getFileView » 
-	«ENDIF»
-	«ENDLET»
-«ENDDEFINE»
+
 
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
