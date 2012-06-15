@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editJobApplicationComponentPanel"> 
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelJobApplication eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.JobApplication}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.jobApplication_candidate} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{candidateAction.converter}" id="candidate" value="#{jobApplicationAction.jobApplication.candidate}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{candidateAction.all}" var="candidate" itemLabel="#{candidate.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="candidate" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.jobApplication_job} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{jobAction.converter}" id="job" value="#{jobApplicationAction.jobApplication.job}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{jobAction.all}" var="job" itemLabel="#{job.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="job" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

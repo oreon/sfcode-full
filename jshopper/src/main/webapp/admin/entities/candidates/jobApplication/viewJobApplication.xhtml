@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <f:metadata> 
+      <f:viewParam name="id" value="#{jobApplicationAction.id}"/>  
+      <f:event type="preRenderView" listener="#{jobApplicationAction.retrieve}"/> 
+    </f:metadata>  
+    <h:form> 
+      <p:tabView switchType="ajax"> 
+        <p:tab title="JobApplication"> 
+          <ui:include src="/admin/entities/candidates/jobApplication/viewJobApplicationComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:button value="Edit" outcome="editJobApplication" includeViewParams="true"></h:button>  
+            <h:button value="Back To Listing" outcome="listJobApplication"/> 
+          </div> 
+        </p:tab>  
+        <p:tab title="Candidate" rendered="#{jobApplicationAction.jobApplication.candidate != null}"> 
+          <ui:include src="/admin/entities/candidates/candidate/viewCandidateComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="candidateId" value="#{jobApplicationAction.jobApplication.candidate.id}"/> 
+          </ui:include> 
+        </p:tab>  
+        <p:tab title="Job" rendered="#{jobApplicationAction.jobApplication.job != null}"> 
+          <ui:include src="/admin/entities/candidates/job/viewJobComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="jobId" value="#{jobApplicationAction.jobApplication.job.id}"/> 
+          </ui:include> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabView switchType="client"></p:tabView>  
+    <br/>  
+    <p:tabView switchType="client"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{jobApplicationAction}"/> 
+      </p:tab> 
+    </p:tabView> 
+  </ui:define> 
+</ui:composition>

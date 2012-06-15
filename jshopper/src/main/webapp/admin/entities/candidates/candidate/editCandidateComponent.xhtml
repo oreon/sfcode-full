@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCandidateComponentPanel"> 
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCandidate eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Candidate}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="firstName#{entityId}" rendered="#{true}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{candidateAction.candidate.firstName}"></h:inputText>  
+        <h:message for="firstName" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="lastName#{entityId}" rendered="#{true}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{candidateAction.candidate.lastName}"></h:inputText>  
+        <h:message for="lastName" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.candidate_availibility} * " rendered="#{true}"/>  
+      <h:selectOneMenu id="availibility" rendered="#{true}" value="#{candidateAction.candidate.availibility}" required="true" label="#{msg.candidate_availibility}"> 
+        <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+        <f:selectItem itemValue="IMMEDIATE" itemLabel="#{msg.IMMEDIATE}"/>  
+        <f:selectItem itemValue="TWO_WEEKS" itemLabel="#{msg.TWO_WEEKS}"/>  
+        <f:selectItem itemValue="FOUR_WEEKS" itemLabel="#{msg.FOUR_WEEKS}"/> 
+      </h:selectOneMenu>  
+      <h:outputText value="#{msg.candidate_preferredJobType} * " rendered="#{true}"/>  
+      <h:selectOneMenu id="preferredJobType" rendered="#{true}" value="#{candidateAction.candidate.preferredJobType}" required="true" label="#{msg.candidate_preferredJobType}"> 
+        <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+        <f:selectItem itemValue="CONTRACT" itemLabel="#{msg.CONTRACT}"/>  
+        <f:selectItem itemValue="PERMANENT" itemLabel="#{msg.PERMANENT}"/>  
+        <f:selectItem itemValue="EITHER" itemLabel="#{msg.EITHER}"/> 
+      </h:selectOneMenu>  
+      <h:outputText value="#{msg.candidate_chiefExpertise} * " rendered="#{true}"/>  
+      <h:selectOneMenu id="chiefExpertise" rendered="#{true}" value="#{candidateAction.candidate.chiefExpertise}" required="true" label="#{msg.candidate_chiefExpertise}"> 
+        <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+        <f:selectItem itemValue="JAVA" itemLabel="#{msg.JAVA}"/>  
+        <f:selectItem itemValue="DOT_NET" itemLabel="#{msg.DOT_NET}"/>  
+        <f:selectItem itemValue="PHP" itemLabel="#{msg.PHP}"/>  
+        <f:selectItem itemValue="PROJECT_MANAGEMENT" itemLabel="#{msg.PROJECT_MANAGEMENT}"/>  
+        <f:selectItem itemValue="BUSINESS_ANALYST" itemLabel="#{msg.BUSINESS_ANALYST}"/> 
+      </h:selectOneMenu>  
+      <h:outputText value="#{msg.candidate_educationLevel} * " rendered="#{true}"/>  
+      <h:selectOneMenu id="educationLevel" rendered="#{true}" value="#{candidateAction.candidate.educationLevel}" required="true" label="#{msg.candidate_educationLevel}"> 
+        <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+        <f:selectItem itemValue="HIGH_SCHOOL" itemLabel="#{msg.HIGH_SCHOOL}"/>  
+        <f:selectItem itemValue="DIPLOMA" itemLabel="#{msg.DIPLOMA}"/>  
+        <f:selectItem itemValue="UNDER_GRAD" itemLabel="#{msg.UNDER_GRAD}"/>  
+        <f:selectItem itemValue="GRAD" itemLabel="#{msg.GRAD}"/>  
+        <f:selectItem itemValue="PHD" itemLabel="#{msg.PHD}"/> 
+      </h:selectOneMenu>  
+      <h:outputText value="#{msg.candidate_willingToRelocate} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectBooleanCheckbox id="willingToRelocate#{entityId}" rendered="#{true}" label="#{msg.candidate_willingToRelocate}" required="false" disabled="false" value="#{candidateAction.candidate.willingToRelocate}"></h:selectBooleanCheckbox>  
+        <h:message for="willingToRelocate" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.candidate_resumeFile} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:fileUpload id="resumeFile" fileUploadListener="#{candidateAction.resumeFileUploadListener}" mode="advanced" sizeLimit="500000"></p:fileUpload>  
+        <h:message for="resumeFile" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.candidate_textResume} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:editor id="textResume#{entityId}" rendered="#{true}" label="#{msg.candidate_textResume}" required="true" disabled="false" value="#{candidateAction.candidate.textResume}"></p:editor>  
+        <h:message for="textResume" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.candidate_coverLetter} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:editor id="coverLetter#{entityId}" rendered="#{true}" label="#{msg.candidate_coverLetter}" required="false" disabled="false" value="#{candidateAction.candidate.coverLetter}"></p:editor>  
+        <h:message for="coverLetter" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.contactDetails_phone} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="contactDetails_phone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_phone}" required="true" disabled="false" value="#{candidateAction.candidate.contactDetails.phone}"></h:inputText>  
+        <h:message for="contactDetails_phone" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_secondaryPhone}" required="true" disabled="false" value="#{candidateAction.candidate.contactDetails.secondaryPhone}"></h:inputText>  
+        <h:message for="contactDetails_secondaryPhone" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.contactDetails_city} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="contactDetails_city#{entityId}" rendered="#{true}" label="#{msg.contactDetails_city}" required="true" disabled="false" value="#{candidateAction.candidate.contactDetails.city}"></h:inputText>  
+        <h:message for="contactDetails_city" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.contactDetails_postalCode} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="contactDetails_postalCode#{entityId}" rendered="#{true}" label="#{msg.contactDetails_postalCode}" required="false" disabled="false" value="#{candidateAction.candidate.contactDetails.postalCode}"></h:inputText>  
+        <h:message for="contactDetails_postalCode" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.AppUser}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.appUser_userName} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="appUser_userName#{entityId}" rendered="#{true}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.userName}"></h:inputText>  
+        <h:message for="appUser_userName" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.appUser_password} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputSecret redisplay="true" id="appUser_password#{entityId}" rendered="#{true}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.password}"></h:inputSecret>  
+        <h:message for="appUser_password" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.appUser_enabled} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectBooleanCheckbox id="appUser_enabled#{entityId}" rendered="#{true}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{candidateAction.candidate.appUser.enabled}"></h:selectBooleanCheckbox>  
+        <h:message for="appUser_enabled" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.appUser_email} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="appUser_email#{entityId}" rendered="#{true}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.email}"></h:inputText>  
+        <h:message for="appUser_email" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

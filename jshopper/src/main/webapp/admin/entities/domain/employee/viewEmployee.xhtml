@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <f:metadata> 
+      <f:viewParam name="id" value="#{employeeAction.id}"/>  
+      <f:event type="preRenderView" listener="#{employeeAction.retrieve}"/> 
+    </f:metadata>  
+    <h:form> 
+      <p:tabView switchType="ajax"> 
+        <p:tab title="Employee"> 
+          <ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:button value="Edit" outcome="editEmployee" includeViewParams="true"></h:button>  
+            <h:button value="Back To Listing" outcome="listEmployee"/> 
+          </div> 
+        </p:tab>  
+        <p:tab title="Department" rendered="#{employeeAction.employee.department != null}"> 
+          <ui:include src="/admin/entities/domain/department/viewDepartmentComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="departmentId" value="#{employeeAction.employee.department.id}"/> 
+          </ui:include> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabView switchType="client"></p:tabView>  
+    <br/>  
+    <p:tabView switchType="client"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{employeeAction}"/> 
+      </p:tab> 
+    </p:tabView> 
+  </ui:define> 
+</ui:composition>

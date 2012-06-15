@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_question" value="#{questionAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{questionAction.question}" id="QuestionTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="QuestionDialog.show()" listener="#{questionAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_question.id}"> 
+        <h:link outcome="viewQuestion.xthml"> 
+          <f:param name="id" value="#{_question.id}"/>  
+          <h:outputText value="#{_question.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.question_text}" sortBy="#{_question.text}" filterBy="#{_question.text}"> 
+        <p:tooltip value="#{_question.text}" for="textAbbr"></p:tooltip>  
+        <h:outputText id="textAbbr" value="#{_question.textAbbreviated}"/> 
+      </p:column>  
+      <p:column groupOn="#{question.exam.displayName}"> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_question.exam.displayName}" view="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
+          <f:param name="examId" value="#{_question.exam.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column> 
+        <h:outputText value="#{_question.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="Question Detail" widgetVar="QuestionDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/domain/question/editQuestionComponent.xhtml"/> 
+      </h:panelGrid>  
+      <h:commandButton value="Save" action="#{questionAction.persist}"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

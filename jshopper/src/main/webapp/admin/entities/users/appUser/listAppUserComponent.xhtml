@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_appUser" value="#{appUserAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{appUserAction.appUser}" id="AppUserTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="AppUserDialog.show()" listener="#{appUserAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_appUser.id}"> 
+        <h:link outcome="viewAppUser.xthml"> 
+          <f:param name="id" value="#{_appUser.id}"/>  
+          <h:outputText value="#{_appUser.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.appUser_userName}" sortBy="#{_appUser.userName}" filterBy="#{_appUser.userName}"> 
+        <h:outputText value="#{_appUser.userName}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.appUser_enabled}" sortBy="#{_appUser.enabled}" filterBy="#{_appUser.enabled}"> 
+        <h:outputText value="#{_appUser.enabled? msg.yes : msg.no }"/> 
+      </p:column>  
+      <p:column headerText="#{msg.appUser_email}" sortBy="#{_appUser.email}" filterBy="#{_appUser.email}"> 
+        <h:outputText value="#{_appUser.email}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.appUser_lastLogin}" sortBy="#{_appUser.lastLogin}" filterBy="#{_appUser.lastLogin}"> 
+        <h:outputText value="#{_appUser.lastLogin}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column>  
+      <p:column> 
+        <h:outputText value="#{_appUser.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="AppUser Detail" widgetVar="AppUserDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/users/appUser/editAppUserComponent.xhtml"/> 
+      </h:panelGrid>  
+      <h:commandButton value="Save" action="#{appUserAction.persist}"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

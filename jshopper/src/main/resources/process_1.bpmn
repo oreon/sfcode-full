@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_moneyItem" structureRef="Integer" />
+
+  <process processType="Private" isExecutable="true" id="process_1" name="myprocess" tns:packageName="defaultPackage" tns:version="1" >
+
+    <!-- process variables -->
+    <property id="money" itemSubjectRef="_moneyItem"/>
+
+    <!-- nodes -->
+    <scriptTask id="ScriptTask_1" name="Script Task" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("hi " + kcontext.getVariable("name"));</script>
+    </scriptTask>
+    <startEvent id="StartEvent_1" />
+    <exclusiveGateway id="ExclusiveGateway_1" gatewayDirection="Diverging" />
+    <scriptTask id="ScriptTask_2" name="economy" >
+      <script>System.out.println("economy");</script>
+    </scriptTask>
+    <scriptTask id="ScriptTask_3" name="Script Task" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("business ");</script>
+    </scriptTask>
+    <endEvent id="EndEvent_1" />
+    <endEvent id="EndEvent_2" />
+
+    <!-- connections -->
+    <sequenceFlow id="StartEvent_1-ScriptTask_1" sourceRef="StartEvent_1" targetRef="ScriptTask_1" />
+    <sequenceFlow id="ScriptTask_1-ExclusiveGateway_1" sourceRef="ScriptTask_1" targetRef="ExclusiveGateway_1" />
+    <sequenceFlow id="ExclusiveGateway_1-ScriptTask_2" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_2" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return money &lt; 1000;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="ExclusiveGateway_1-ScriptTask_3" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_3" name="haveMoney" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return money &gt; 1000;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="ScriptTask_3-EndEvent_1" sourceRef="ScriptTask_3" targetRef="EndEvent_1" />
+    <sequenceFlow id="ScriptTask_2-EndEvent_2" sourceRef="ScriptTask_2" targetRef="EndEvent_2" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="process_1" >
+      <bpmndi:BPMNShape bpmnElement="ScriptTask_1" >
+        <dc:Bounds x="285" y="215" width="110" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="StartEvent_1" >
+        <dc:Bounds x="104" y="104" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ExclusiveGateway_1" >
+        <dc:Bounds x="457" y="330" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ScriptTask_2" >
+        <dc:Bounds x="670" y="250" width="110" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ScriptTask_3" >
+        <dc:Bounds x="820" y="420" width="110" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_1" >
+        <dc:Bounds x="964" y="268" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_2" >
+        <dc:Bounds x="906" y="166" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="StartEvent_1-ScriptTask_1" >
+        <di:waypoint x="128" y="128" />
+        <di:waypoint x="340" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="ScriptTask_1-ExclusiveGateway_1" >
+        <di:waypoint x="340" y="240" />
+        <di:waypoint x="481" y="354" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="ExclusiveGateway_1-ScriptTask_2" >
+        <di:waypoint x="481" y="354" />
+        <di:waypoint x="725" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="ExclusiveGateway_1-ScriptTask_3" >
+        <di:waypoint x="481" y="354" />
+        <di:waypoint x="875" y="445" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="ScriptTask_3-EndEvent_1" >
+        <di:waypoint x="875" y="445" />
+        <di:waypoint x="988" y="292" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="ScriptTask_2-EndEvent_2" >
+        <di:waypoint x="725" y="275" />
+        <di:waypoint x="930" y="190" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>
