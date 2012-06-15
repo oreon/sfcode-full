@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_job" value="#{jobAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{jobAction.job}" id="JobTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="JobDialog.show()" listener="#{jobAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_job.id}"> 
+        <h:link outcome="viewJob.xthml"> 
+          <f:param name="id" value="#{_job.id}"/>  
+          <h:outputText value="#{_job.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.job_title}" sortBy="#{_job.title}" filterBy="#{_job.title}"> 
+        <h:outputText value="#{_job.title}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.job_description}" sortBy="#{_job.description}" filterBy="#{_job.description}"> 
+        <h:outputText value="#{_job.description}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_job.client.displayName}" view="/admin/entities/candidates/client/viewClient.xhtml" propagation="none"> 
+          <f:param name="clientId" value="#{_job.client.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.job_active}" sortBy="#{_job.active}" filterBy="#{_job.active}"> 
+        <h:outputText value="#{_job.active? msg.yes : msg.no }"/> 
+      </p:column>  
+      <p:column> 
+        <h:outputText value="#{_job.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="Job Detail" widgetVar="JobDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/candidates/job/editJobComponent.xhtml"/> 
+      </h:panelGrid>  
+      <h:commandButton value="Save" action="#{jobAction.persist}"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

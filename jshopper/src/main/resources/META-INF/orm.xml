@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">  
+  <description/>  
+  <!--  Employee  JPA Configurations -->  
+  <entity class="com.oreon.talent.domain.Employee" name="Employee"> 
+    <table name="employee"></table>  
+    <named-query name="findByPhone"> 
+      <query> <![CDATA[
+			select employee from Employee employee where employee.contactDetails.phone = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Department  JPA Configurations -->  
+  <entity class="com.oreon.talent.domain.Department" name="Department"> 
+    <table name="department"></table>  
+    <named-query name="department.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Department u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Exam  JPA Configurations -->  
+  <entity class="com.oreon.talent.domain.Exam" name="Exam"> 
+    <table name="exam"></table>  
+    <named-query name="exam.findByUnqTitle"> 
+      <query> <![CDATA[
+			select u from Exam u where u.title = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Question  JPA Configurations -->  
+  <entity class="com.oreon.talent.domain.Question" name="Question"> 
+    <table name="question"></table> 
+  </entity>  
+  <!--  Candidate  JPA Configurations -->  
+  <entity class="com.oreon.talent.candidates.Candidate" name="Candidate"> 
+    <table name="candidate"></table> 
+  </entity>  
+  <!--  Job  JPA Configurations -->  
+  <entity class="com.oreon.talent.candidates.Job" name="Job"> 
+    <table name="job"></table> 
+  </entity>  
+  <!--  Client  JPA Configurations -->  
+  <entity class="com.oreon.talent.candidates.Client" name="Client"> 
+    <table name="client"></table>  
+    <named-query name="client.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Client u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  JobApplication  JPA Configurations -->  
+  <entity class="com.oreon.talent.candidates.JobApplication" name="JobApplication"> 
+    <table name="jobapplication"> 
+      <unique-constraint> 
+        <column-name>job_id</column-name>  
+        <column-name>candidate_id</column-name> 
+      </unique-constraint> 
+    </table> 
+  </entity>  
+  <!--  AppUser  JPA Configurations -->  
+  <entity class="com.oreon.talent.users.AppUser" name="AppUser"> 
+    <table name="appuser"></table>  
+    <named-query name="appUser.findByUnqUserName"> 
+      <query> <![CDATA[
+			select u from AppUser u where u.userName = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  AppRole  JPA Configurations -->  
+  <entity class="com.oreon.talent.users.AppRole" name="AppRole"> 
+    <table name="approle"></table>  
+    <named-query name="appRole.findByUnqName"> 
+      <query> <![CDATA[
+			select u from AppRole u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity> 
+</entity-mappings>

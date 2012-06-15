@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <f:metadata> 
+      <f:viewParam name="id" value="#{appRoleAction.id}"/>  
+      <f:event type="preRenderView" listener="#{appRoleAction.retrieve}"/> 
+    </f:metadata>  
+    <h:form> 
+      <p:tabView switchType="ajax"> 
+        <p:tab title="AppRole"> 
+          <ui:include src="/admin/entities/users/appRole/viewAppRoleComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:button value="Edit" outcome="editAppRole" includeViewParams="true"></h:button>  
+            <h:button value="Back To Listing" outcome="listAppRole"/> 
+          </div> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabView switchType="client"></p:tabView>  
+    <br/>  
+    <p:tabView switchType="client"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{appRoleAction}"/> 
+      </p:tab> 
+    </p:tabView> 
+  </ui:define> 
+</ui:composition>

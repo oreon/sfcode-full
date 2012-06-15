@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_client" value="#{clientAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{clientAction.client}" id="ClientTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="ClientDialog.show()" listener="#{clientAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_client.id}"> 
+        <h:link outcome="viewClient.xthml"> 
+          <f:param name="id" value="#{_client.id}"/>  
+          <h:outputText value="#{_client.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.client_name}" sortBy="#{_client.name}" filterBy="#{_client.name}"> 
+        <h:outputText value="#{_client.name}"/> 
+      </p:column>  
+      <p:column> 
+        <h:outputText value="#{_client.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="Client Detail" widgetVar="ClientDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/candidates/client/editClientComponent.xhtml"/> 
+      </h:panelGrid>  
+      <h:commandButton value="Save" action="#{clientAction.persist}"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

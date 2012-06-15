@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_jobApplication" value="#{jobApplicationAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{jobApplicationAction.jobApplication}" id="JobApplicationTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="JobApplicationDialog.show()" listener="#{jobApplicationAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_jobApplication.id}"> 
+        <h:link outcome="viewJobApplication.xthml"> 
+          <f:param name="id" value="#{_jobApplication.id}"/>  
+          <h:outputText value="#{_jobApplication.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_jobApplication.candidate.displayName}" view="/admin/entities/candidates/candidate/viewCandidate.xhtml" propagation="none"> 
+          <f:param name="candidateId" value="#{_jobApplication.candidate.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column groupOn="#{jobApplication.job.displayName}"> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_jobApplication.job.displayName}" view="/admin/entities/candidates/job/viewJob.xhtml" propagation="none"> 
+          <f:param name="jobId" value="#{_jobApplication.job.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column> 
+        <h:outputText value="#{_jobApplication.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="JobApplication Detail" widgetVar="JobApplicationDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/candidates/jobApplication/editJobApplicationComponent.xhtml"/> 
+      </h:panelGrid>  
+      <h:commandButton value="Save" action="#{jobApplicationAction.persist}"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

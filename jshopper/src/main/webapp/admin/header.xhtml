@@ -1,0 +1,55 @@
+<ui:composition 
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://java.sun.com/jsf/core" 
+xmlns:c="http://java.sun.com/jstl/core" 
+xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+xmlns:p="http://primefaces.org/ui" 
+xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+
+	<h:form>
+	
+		<p:toolbar height="34" itemSeparator="line">
+
+			<p:toolbarGroup>
+				<h:graphicImage id="edit" value="/images/icons/bricks.png" />
+				<h:link view="/admin/entities/summary.xhtml" value="Entities" />
+				<p:spacer/>
+				<h:graphicImage id="find" value="/images/icons/clock.png" />
+				<h:link view="/admin/tasks/tasks.xhtml" value="Tasks" />
+				<p:spacer/>
+				<h:graphicImage id="filter" value="/images/icons/chart_bar.png" />
+				<h:link  view="/admin/reports/reports.xhtml" value="Reports" />
+			</p:toolbarGroup>
+
+			<p:toolbarGroup>
+				<h:graphicImage  value="/images/icons/eye.png" />
+				<h:link action="issue"
+					value="Issues" />
+			</p:toolbarGroup>
+			
+			
+			<p:toolbarGroup>
+				<h:graphicImage id="issues" value="/images/icons/add.png" />
+				<h:link action="editIssue"
+					value="Create Issue" >
+					 <f:param name="issueId" value="0"/> 
+				</h:link>
+			</p:toolbarGroup>
+			
+	
+
+			<p:toolbarGroup align="right">
+				<h:commandLink action="#{identity.logout}" 
+					value="Logout #{identity.user.id}" />
+			</p:toolbarGroup>
+
+			
+
+		</p:toolbar>
+
+		
+	</h:form>
+
+</ui:composition>

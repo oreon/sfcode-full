@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	 xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+
+<ui:composition>
+
+	<h:form>
+		<p:accordionPanel  >
+			<p:tab title="Comments">
+
+			<ui:repeat var="comment" value="#{backingAction.comments}">
+				<ul>
+					<li><b>${comment.createdByUser.displayName} ,
+					${comment.dateCreated} </b> <br />
+					<h:outputText value="#{comment.text}" escape="false" />
+					<hr />
+					</li>
+				</ul>
+			</ui:repeat>
+
+
+			<p:editor
+				id="Comment_text" required="false"
+				value="#{backingAction.currentCommentText}" />
+			<h:commandButton action="#{backingAction.saveComment}"
+				value="Add Comment" partialSubmit="true" />
+
+			</p:tab>
+		</p:accordionPanel>
+	</h:form>
+
+
+</ui:composition>
+
+</html>

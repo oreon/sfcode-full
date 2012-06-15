@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_employee" value="#{employeeAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{employeeAction.employee}" id="EmployeeTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="EmployeeDialog.show()" listener="#{employeeAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_employee.id}"> 
+        <h:link outcome="viewEmployee.xthml"> 
+          <f:param name="id" value="#{_employee.id}"/>  
+          <h:outputText value="#{_employee.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.person_firstName}" sortBy="#{_employee.firstName}" filterBy="#{_employee.firstName}"> 
+        <h:outputText value="#{_employee.firstName}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.person_lastName}" sortBy="#{_employee.lastName}" filterBy="#{_employee.lastName}"> 
+        <h:outputText value="#{_employee.lastName}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.contactDetails_phone}" sortBy="#{_employee.contactDetails.phone}" filterBy="#{_employee.contactDetails.phone}"> 
+        <h:outputText value="#{_employee.contactDetails.phone}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="#{_employee.contactDetails.secondaryPhone}" filterBy="#{_employee.contactDetails.secondaryPhone}"> 
+        <h:outputText value="#{_employee.contactDetails.secondaryPhone}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.contactDetails_city}" sortBy="#{_employee.contactDetails.city}" filterBy="#{_employee.contactDetails.city}"> 
+        <h:outputText value="#{_employee.contactDetails.city}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.contactDetails_postalCode}" sortBy="#{_employee.contactDetails.postalCode}" filterBy="#{_employee.contactDetails.postalCode}"> 
+        <h:outputText value="#{_employee.contactDetails.postalCode}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{_employee.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.employee_employeeNumber}" sortBy="#{_employee.employeeNumber}" filterBy="#{_employee.employeeNumber}"> 
+        <h:outputText value="#{_employee.employeeNumber}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.employee_employeeType}" sortBy="#{_employee.employeeType}" filterBy="#{_employee.employeeType}"> 
+        <h:outputText value="#{_employee.employeeType}"/> 
+      </p:column>  
+      <p:column> 
+        <h:outputText value="#{_employee.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="Employee Detail" widgetVar="EmployeeDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/domain/employee/editEmployeeComponent.xhtml"/> 
+      </h:panelGrid>  
+      <h:commandButton value="Save" action="#{employeeAction.persist}"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

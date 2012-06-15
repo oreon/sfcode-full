@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editJobComponentPanel"> 
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelJob eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Job}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.job_title} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="title#{entityId}" rendered="#{true}" label="#{msg.job_title}" required="false" disabled="false" value="#{jobAction.job.title}"></h:inputText>  
+        <h:message for="title" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.job_description} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:editor id="description#{entityId}" rendered="#{true}" label="#{msg.job_description}" required="false" disabled="false" value="#{jobAction.job.description}"></p:editor>  
+        <h:message for="description" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.job_active} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectBooleanCheckbox id="active#{entityId}" rendered="#{true}" label="#{msg.job_active}" required="false" disabled="false" value="#{jobAction.job.active}"></h:selectBooleanCheckbox>  
+        <h:message for="active" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.job_client} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{clientAction.converter}" id="client" value="#{jobAction.job.client}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{clientAction.all}" var="client" itemLabel="#{client.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="client" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <h:commandButton value="New JobApplication" action="#{jobAction.addJobApplications}" update="jobApplications" rendered="#{true}"> 
+      <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+    </h:commandButton>  
+    <p:dataTable id="jobApplications" var="_jobApplication" rendered="#{true}" value="#{jobAction.listJobApplications}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column>
+        <f:facet name="header">
+          <h:outputText value="#{msg.jobApplication_candidate} * " rendered="#{true}"/>
+        </f:facet>  
+        <h:panelGroup> 
+          <h:selectOneMenu converter="#{candidateAction.converter}" id="candidate" value="#{_jobApplication.candidate}"> 
+            <f:selectItem itemLabel="Please Select ..."/>  
+            <f:selectItems value="#{candidateAction.all}" var="candidate" itemLabel="#{candidate.displayName}"/> 
+          </h:selectOneMenu>  
+          <h:message for="candidate" styleClass="error"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column> 
+        <h:commandButton value="New JobApplication" action="#{jobAction.addJobApplications}" update="jobApplications" rendered="#{true}"> 
+          <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+        </h:commandButton> 
+      </p:column>  
+      <p:column> 
+        <h:commandButton value="Delete" immediate="true" action="#{jobAction.deleteJobApplications(rowIndex)}" reRender="jobApplications"> 
+          <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+        </h:commandButton> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCandidateComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{candidateAction.load(candidateId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCandidate eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Candidate}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{true}"/>  
+      <h:outputText id="firstName" value="#{candidateAction.candidate.firstName}"/>  
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{true}"/>  
+      <h:outputText id="lastName" value="#{candidateAction.candidate.lastName}"/>  
+      <h:outputText value="#{msg.candidate_availibility} * " rendered="#{true}"/>  
+      <h:outputText id="availibility" value="#{candidateAction.candidate.availibility}"/>  
+      <h:outputText value="#{msg.candidate_preferredJobType} * " rendered="#{true}"/>  
+      <h:outputText id="preferredJobType" value="#{candidateAction.candidate.preferredJobType}"/>  
+      <h:outputText value="#{msg.candidate_chiefExpertise} * " rendered="#{true}"/>  
+      <h:outputText id="chiefExpertise" value="#{candidateAction.candidate.chiefExpertise}"/>  
+      <h:outputText value="#{msg.candidate_educationLevel} * " rendered="#{true}"/>  
+      <h:outputText id="educationLevel" value="#{candidateAction.candidate.educationLevel}"/>  
+      <h:outputText value="#{msg.candidate_willingToRelocate} * " rendered="#{true}"/>  
+      <h:outputText id="willingToRelocate" value="#{candidateAction.candidate.willingToRelocate}"/>  
+      <h:outputText value="#{msg.candidate_resumeFile} * " rendered="#{true}"/>  
+      <h:outputText id="resumeFile" value="#{candidateAction.candidate.resumeFile}"/>  
+      <h:outputText value="#{msg.candidate_textResume} * " rendered="#{true}"/>  
+      <h:outputText id="textResume" value="#{candidateAction.candidate.textResume}" escape="false"/>  
+      <h:outputText value="#{msg.candidate_coverLetter} * " rendered="#{true}"/>  
+      <h:outputText id="coverLetter" value="#{candidateAction.candidate.coverLetter}" escape="false"/> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.contactDetails_phone} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_phone" value="#{candidateAction.candidate.contactDetails.phone}"/>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_secondaryPhone" value="#{candidateAction.candidate.contactDetails.secondaryPhone}"/>  
+      <h:outputText value="#{msg.contactDetails_city} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_city" value="#{candidateAction.candidate.contactDetails.city}"/>  
+      <h:outputText value="#{msg.contactDetails_postalCode} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_postalCode" value="#{candidateAction.candidate.contactDetails.postalCode}"/> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.AppUser}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.appUser_userName} * " rendered="#{true}"/>  
+      <h:outputText id="appUser_userName" value="#{candidateAction.candidate.appUser.userName}"/>  
+      <h:outputText value="#{msg.appUser_enabled} * " rendered="#{true}"/>  
+      <h:outputText id="appUser_enabled" value="#{candidateAction.candidate.appUser.enabled}"/>  
+      <h:outputText value="#{msg.appUser_email} * " rendered="#{true}"/>  
+      <h:outputText id="appUser_email" value="#{candidateAction.candidate.appUser.email}"/>  
+      <h:outputText value="#{msg.appUser_lastLogin} * " rendered="#{true}"/>  
+      <h:outputText id="appUser_lastLogin" value="#{candidateAction.candidate.appUser.lastLogin}"/> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>
