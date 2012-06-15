@@ -28,17 +28,19 @@
 			 «PROTECT CSTART '<!--' CEND '-->' ID  'EDITABLE_RGN_VIEW_' + package.name + "_" + (isCurrentTemplateMode()?"Template_":"") + name»			
 			«ENDPROTECT»	
 			«ENDREM»
-			<p:tabView switchType="ajax">
+			<p:tabView  dynamic="true" cache="true">
 				<p:tab title="«name»">
-					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" />
+					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" >
+						<ui:param name="_«name.toFirstLower()»" value="#{«getAction()».«name.toFirstLower()»}" />
+					</ui:include>
 					«EXPAND genCancelSaveBtns FOR this»
 				</p:tab>
 			«FOREACH getOutgoingAssociations() AS a ITERATOR iter»
 				<p:tab title="«a.name.toFirstUpper()»"  rendered="#{«getAction()».«name.toFirstLower()».«a.name» != null}">
 					<ui:include src = "«a.type.getComponentViewFile("view")»" >
 						«REM»comment<ui:param name="entityId" value="«getRandomNumber()»" />«ENDREM»
-						<ui:param name="entityId" value="«iter.counter1»" />
-						<ui:param name="«a.type.name.toFirstLower()»Id" value="#{«getAction()».«name.toFirstLower()».«a.name».id}" />
+						«REM»<ui:param name="entityId" value="«iter.counter1»" />«ENDREM»
+						<ui:param name="_«a.name»" value="#{«getAction()».«name.toFirstLower()».«a.name»}" />
 					</ui:include>
 				</p:tab>
 			«ENDFOREACH»	
@@ -289,6 +291,9 @@
 «DEFINE panelBegin FOR uml::Class»
 	«IF !isCurrentMultiMode()»
 		<c:if test="${numColumns == null }" > <c:set var="numColumns" value="2" /> </c:if>
+		<c:if test="${_«name.toFirstLower()» == null }"> 
+      		<c:set var="${_«name.toFirstLower()»}" value="#{departmentAction.department}"/> 
+    	</c:if>  
   		<h:panelGrid columns="${numColumns}" styleClass="«isCurrentEditMode()?"edit":"view"»Info" columnClasses="leftCol, rightCol"   rendered="#{ hidePanel«name» eq null}" >
   		<f:facet name="header"> 
 			<h:outputText value="#{msg.«name»}"/> 
@@ -303,14 +308,14 @@
 «ENDDEFINE»
 
 «DEFINE genAssocLink FOR uml::Property»
-	<h:link «getEscape()»  value="#{«getActionForMode()»«genPropertyLabel()».displayName}"  
+	<h:link «getEscape()»  value="#{«getActionForViewMode()»«genPropertyLabel()».displayName}"  
 			action="view«name»" propagation="none">
-			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
+			<f:param name="«name»Id" value="#{«getActionForViewMode()»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
 			 <p:tooltip>
 	            <span>
-	              #{«getActionForMode()»«genPropertyLabel()».popupInfo} 
+	              #{«getActionForViewMode()»«genPropertyLabel()».popupInfo} 
 	            </span>
 	        </p:tooltip>
 	        «ENDIF»
@@ -321,15 +326,15 @@
 
 «REM»Generate text control for the given property «ENDREM»
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-	<h:outputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}"  «IF isType("largeText")» escape="false" «ENDIF» />
+	<h:outputText id="«getId()»"  value="#{«getActionForViewMode()»«genPropertyLabel()»}"  «IF isType("largeText")» escape="false" «ENDIF» />
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(wcprofile::largeText cls) FOR uml::Property-»
-	<h:outputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}" escape="false"  />
+	<h:outputText id="«getId()»"  value="#{«getActionForViewMode()»«genPropertyLabel()»}" escape="false"  />
 «ENDDEFINE»
 
 «DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
-	<h:outputText id="«getId()»"  value="#{«getActionForMode()»«genPropertyLabel()»}"  />
+	<h:outputText id="«getId()»"  value="#{«getActionForViewMode()»«genPropertyLabel()»}"  />
 «ENDDEFINE»
 
 
