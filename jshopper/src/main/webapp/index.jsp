@@ -1,3 +1,3 @@
 <% 
-response.sendRedirect("admin/home.seam"); 
+response.sendRedirect("admin/home.xhtml"); 
 %>
