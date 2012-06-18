@@ -22,6 +22,8 @@ import org.apache.solr.analysis.PhoneticFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.apache.solr.analysis.StopFilterFactory;
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Field;
@@ -31,8 +33,6 @@ import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 
 import com.oreon.talent.users.AppUser;
-
-
 
 @MappedSuperclass
 @AnalyzerDef( name = "entityAnalyzer", tokenizer = @TokenizerDef( factory = StandardTokenizerFactory.class ), filters = {
@@ -57,7 +57,7 @@ public abstract class BaseEntity {
 	@Version
 	private @Column( name = "version" )
 	int version = 0;
-	
+
 	private AppUser createdByUser;
 
 	public Long getId() {
@@ -104,8 +104,6 @@ public abstract class BaseEntity {
 	public Boolean getArchived() {
 		return archived;
 	}
-	
-	
 
 	public void setArchived( boolean archived ) {
 		this.archived = archived;
@@ -187,6 +185,12 @@ public abstract class BaseEntity {
 			return false;
 		}
 		if ( getClass() != that.getClass() ) {
+
+			if ( that instanceof HibernateProxy ) {
+				Hibernate.initialize( that );
+				that = (BaseEntity) ( (HibernateProxy) that ).getHibernateLazyInitializer().getImplementation();
+				return equals(that);
+			}
 			return false;
 		}
 		if ( id != null ) {

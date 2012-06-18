@@ -6,18 +6,21 @@
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
+    <c:if test="${_jobApplication == null }"> 
+      <c:set var="${_jobApplication}" value="#{departmentAction.department}"/> 
+    </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelJobApplication eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.JobApplication}"/> 
       </f:facet>  
       <h:outputText value="#{msg.jobApplication_candidate} * " rendered="#{true}"/>  
-      <h:link value="#{jobApplicationAction.jobApplication.candidate.displayName}" action="viewcandidate" propagation="none"> 
-        <f:param name="candidateId" value="#{jobApplicationAction.jobApplication.candidate.id}"/>  
+      <h:link value="#{_jobApplication.candidate.displayName}" action="viewcandidate" propagation="none"> 
+        <f:param name="candidateId" value="#{_jobApplication.candidate.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
       <h:outputText value="#{msg.jobApplication_job} * " rendered="#{true}"/>  
-      <h:link value="#{jobApplicationAction.jobApplication.job.displayName}" action="viewjob" propagation="none"> 
-        <f:param name="jobId" value="#{jobApplicationAction.jobApplication.job.id}"/>  
+      <h:link value="#{_jobApplication.job.displayName}" action="viewjob" propagation="none"> 
+        <f:param name="jobId" value="#{_jobApplication.job.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 
     </h:panelGrid>  

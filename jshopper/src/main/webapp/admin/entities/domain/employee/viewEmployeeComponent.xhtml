@@ -6,39 +6,45 @@
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
+    <c:if test="${_employee == null }"> 
+      <c:set var="${_employee}" value="#{departmentAction.department}"/> 
+    </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEmployee eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Employee}"/> 
       </f:facet>  
       <h:outputText value="#{msg.person_firstName} * " rendered="#{true}"/>  
-      <h:outputText id="firstName" value="#{employeeAction.employee.firstName}"/>  
+      <h:outputText id="firstName" value="#{_employee.firstName}"/>  
       <h:outputText value="#{msg.person_lastName} * " rendered="#{true}"/>  
-      <h:outputText id="lastName" value="#{employeeAction.employee.lastName}"/>  
+      <h:outputText id="lastName" value="#{_employee.lastName}"/>  
       <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{true}"/>  
-      <h:outputText id="employeeNumber" value="#{employeeAction.employee.employeeNumber}"/>  
+      <h:outputText id="employeeNumber" value="#{_employee.employeeNumber}"/>  
       <h:outputText value="#{msg.employee_employeeType} * " rendered="#{true}"/>  
-      <h:outputText id="employeeType" value="#{employeeAction.employee.employeeType}"/>  
+      <h:outputText id="employeeType" value="#{_employee.employeeType}"/>  
       <h:outputText value="#{msg.employee_department} * " rendered="#{true}"/>  
-      <h:link value="#{employeeAction.employee.department.displayName}" action="viewdepartment" propagation="none"> 
-        <f:param name="departmentId" value="#{employeeAction.employee.department.id}"/>  
+      <h:link value="#{_employee.department.displayName}" action="viewdepartment" propagation="none"> 
+        <f:param name="departmentId" value="#{_employee.department.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
+    <c:if test="${_contactDetails == null }"> 
+      <c:set var="${_contactDetails}" value="#{departmentAction.department}"/> 
+    </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.ContactDetails}"/> 
       </f:facet>  
       <h:outputText value="#{msg.contactDetails_phone} * " rendered="#{true}"/>  
-      <h:outputText id="contactDetails_phone" value="#{employeeAction.employee.contactDetails.phone}"/>  
+      <h:outputText id="contactDetails_phone" value="#{_employee.contactDetails.phone}"/>  
       <h:outputText value="#{msg.contactDetails_secondaryPhone} * " rendered="#{true}"/>  
-      <h:outputText id="contactDetails_secondaryPhone" value="#{employeeAction.employee.contactDetails.secondaryPhone}"/>  
+      <h:outputText id="contactDetails_secondaryPhone" value="#{_employee.contactDetails.secondaryPhone}"/>  
       <h:outputText value="#{msg.contactDetails_city} * " rendered="#{true}"/>  
-      <h:outputText id="contactDetails_city" value="#{employeeAction.employee.contactDetails.city}"/>  
+      <h:outputText id="contactDetails_city" value="#{_employee.contactDetails.city}"/>  
       <h:outputText value="#{msg.contactDetails_postalCode} * " rendered="#{true}"/>  
-      <h:outputText id="contactDetails_postalCode" value="#{employeeAction.employee.contactDetails.postalCode}"/> 
+      <h:outputText id="contactDetails_postalCode" value="#{_employee.contactDetails.postalCode}"/> 
     </h:panelGrid>  
     <br/>  
     <br/> 

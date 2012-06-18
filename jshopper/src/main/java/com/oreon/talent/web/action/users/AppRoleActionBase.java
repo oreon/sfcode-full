@@ -25,6 +25,9 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.utils.ViewUtils;
 import javax.inject.Inject;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
 public abstract class AppRoleActionBase extends BaseAction<AppRole>
 		implements
 			java.io.Serializable {

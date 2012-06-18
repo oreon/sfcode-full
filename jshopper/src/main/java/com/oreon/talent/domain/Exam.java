@@ -48,10 +48,8 @@ import com.oreon.talent.ProjectUtils;
 
 @Entity
 @Table(name = "exam")
-@Filter(name = "archiveFilterDef")
 @Indexed
-//@Cache(usage = CacheConcurrencyStrategy.NONE)
-@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Exam extends BaseEntity implements java.io.Serializable {
@@ -76,7 +74,7 @@ public class Exam extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "exam_ID", nullable = false)
-	//@OrderBy("id DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<Question> questions = new HashSet<Question>();
 

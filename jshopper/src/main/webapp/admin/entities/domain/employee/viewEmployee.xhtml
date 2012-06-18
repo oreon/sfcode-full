@@ -7,9 +7,11 @@
       <f:event type="preRenderView" listener="#{employeeAction.retrieve}"/> 
     </f:metadata>  
     <h:form> 
-      <p:tabView switchType="ajax"> 
+      <p:tabView dynamic="true" cache="true"> 
         <p:tab title="Employee"> 
-          <ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml"/>  
+          <ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml"> 
+            <ui:param name="_employee" value="#{employeeAction.employee}"/> 
+          </ui:include>  
           <div class="buttonBox"> 
             <h:button value="Edit" outcome="editEmployee" includeViewParams="true"></h:button>  
             <h:button value="Back To Listing" outcome="listEmployee"/> 
@@ -17,8 +19,7 @@
         </p:tab>  
         <p:tab title="Department" rendered="#{employeeAction.employee.department != null}"> 
           <ui:include src="/admin/entities/domain/department/viewDepartmentComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="departmentId" value="#{employeeAction.employee.department.id}"/> 
+            <ui:param name="_department" value="#{employeeAction.employee.department}"/> 
           </ui:include> 
         </p:tab> 
       </p:tabView>  

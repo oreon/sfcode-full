@@ -8,16 +8,19 @@ import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -27,12 +30,15 @@ import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.proxy.HibernateProxy;
 import org.jboss.seam.persistence.SeamManagedPersistenceContextCreated;
+import org.jboss.solder.core.ExtensionManaged;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -61,8 +67,10 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 	@Inject
 	protected Conversation conversation;
-
-	@PersistenceContext ( type = PersistenceContextType.EXTENDED )
+	
+	
+	
+	@Inject
 	protected EntityManager entityManager;
 
 	public String create() {
@@ -223,7 +231,8 @@ public abstract class BaseAction<T extends BaseEntity> {
 	 */
 
 	public List<T> getAll() {
-
+		Session session = (Session) entityManager.getDelegate();
+	//	session.enableFilter("archiveFilterDef").setParameter("aArchived", "0");
 		CriteriaQuery<T> criteria = this.entityManager.getCriteriaBuilder().createQuery( getEntityClass() );
 		return this.entityManager.createQuery( criteria.select( criteria.from( getEntityClass() ) ) ).getResultList();
 	}
@@ -234,8 +243,17 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 			@Override
 			public Object getAsObject( FacesContext context, UIComponent component, String value ) {
+				
+				T t = entityManager.find( getEntityClass(), Long.valueOf( value ) );
+				
+				/*
+				Hibernate.initialize(t);
+				if (t instanceof HibernateProxy) {
+					t = (T) ((HibernateProxy) t)
+							.getHibernateLazyInitializer().getImplementation();
+				}*/
 
-				return (T) entityManager.find( getEntityClass(), Long.valueOf( value ) );
+				return t;
 			}
 
 			@Override
@@ -244,6 +262,13 @@ public abstract class BaseAction<T extends BaseEntity> {
 				if ( value == null ) {
 					return "";
 				}
+				
+				/*
+				Hibernate.initialize(value);
+				if (value instanceof HibernateProxy) {
+					value = ((HibernateProxy) value)
+							.getHibernateLazyInitializer().getImplementation();
+				}*/
 
 				return String.valueOf( ( (T) value ).getId() );
 			}
@@ -288,13 +313,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 		this.entity = entity;
 	}
 
-	public static void setupEntityManager( @Observes SeamManagedPersistenceContextCreated event ) {
-
-		Session session = (Session) event.getEntityManager().getDelegate();
-
-		session.enableFilter( "archiveFilterDef" );
-
-	} 
+	
 	
 	protected void downloadAttachment(FileAttachment fileAttachment) {
 		FacesContext context = FacesContext.getCurrentInstance();

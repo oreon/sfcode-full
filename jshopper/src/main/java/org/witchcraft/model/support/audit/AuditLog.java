@@ -15,7 +15,7 @@ import org.witchcraft.seam.action.EventTypes;
  *
  */
 @Entity
-@Filter(name = "archiveFilterDef")
+//@Filter(name = "archiveFilterDef")
 @Indexed
 public class AuditLog<T> extends BaseEntity{
 	private EventTypes action;

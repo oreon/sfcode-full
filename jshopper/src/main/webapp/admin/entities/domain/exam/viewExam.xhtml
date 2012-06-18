@@ -7,9 +7,11 @@
       <f:event type="preRenderView" listener="#{examAction.retrieve}"/> 
     </f:metadata>  
     <h:form> 
-      <p:tabView switchType="ajax"> 
+      <p:tabView dynamic="true" cache="true"> 
         <p:tab title="Exam"> 
-          <ui:include src="/admin/entities/domain/exam/viewExamComponent.xhtml"/>  
+          <ui:include src="/admin/entities/domain/exam/viewExamComponent.xhtml"> 
+            <ui:param name="_exam" value="#{examAction.exam}"/> 
+          </ui:include>  
           <div class="buttonBox"> 
             <h:button value="Edit" outcome="editExam" includeViewParams="true"></h:button>  
             <h:button value="Back To Listing" outcome="listExam"/> 

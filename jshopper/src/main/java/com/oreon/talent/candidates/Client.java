@@ -31,7 +31,7 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
-
+import org.hibernate.annotations.Filter;
 
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
@@ -48,7 +48,6 @@ import com.oreon.talent.ProjectUtils;
 
 @Entity
 @Table(name = "client")
-@Filter(name = "archiveFilterDef")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")

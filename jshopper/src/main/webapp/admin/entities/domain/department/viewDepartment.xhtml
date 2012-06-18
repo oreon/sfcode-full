@@ -7,9 +7,11 @@
       <f:event type="preRenderView" listener="#{departmentAction.retrieve}"/> 
     </f:metadata>  
     <h:form> 
-      <p:tabView switchType="ajax"> 
+      <p:tabView dynamic="true" cache="true"> 
         <p:tab title="Department"> 
-          <ui:include src="/admin/entities/domain/department/viewDepartmentComponent.xhtml"/>  
+          <ui:include src="/admin/entities/domain/department/viewDepartmentComponent.xhtml"> 
+            <ui:param name="_department" value="#{departmentAction.department}"/> 
+          </ui:include>  
           <div class="buttonBox"> 
             <h:button value="Edit" outcome="editDepartment" includeViewParams="true"></h:button>  
             <h:button value="Back To Listing" outcome="listDepartment"/> 
