@@ -7,9 +7,11 @@
       <f:event type="preRenderView" listener="#{appRoleAction.retrieve}"/> 
     </f:metadata>  
     <h:form> 
-      <p:tabView switchType="ajax"> 
+      <p:tabView dynamic="true" cache="true"> 
         <p:tab title="AppRole"> 
-          <ui:include src="/admin/entities/users/appRole/viewAppRoleComponent.xhtml"/>  
+          <ui:include src="/admin/entities/users/appRole/viewAppRoleComponent.xhtml"> 
+            <ui:param name="_appRole" value="#{appRoleAction.appRole}"/> 
+          </ui:include>  
           <div class="buttonBox"> 
             <h:button value="Edit" outcome="editAppRole" includeViewParams="true"></h:button>  
             <h:button value="Back To Listing" outcome="listAppRole"/> 

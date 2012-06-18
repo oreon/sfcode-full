@@ -6,12 +6,15 @@
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
+    <c:if test="${_client == null }"> 
+      <c:set var="${_client}" value="#{departmentAction.department}"/> 
+    </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelClient eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Client}"/> 
       </f:facet>  
       <h:outputText value="#{msg.client_name} * " rendered="#{true}"/>  
-      <h:outputText id="name" value="#{clientAction.client.name}"/> 
+      <h:outputText id="name" value="#{_client.name}"/> 
     </h:panelGrid>  
     <br/>  
     <br/> 

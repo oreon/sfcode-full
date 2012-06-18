@@ -6,18 +6,21 @@
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
+    <c:if test="${_appUser == null }"> 
+      <c:set var="${_appUser}" value="#{departmentAction.department}"/> 
+    </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.AppUser}"/> 
       </f:facet>  
       <h:outputText value="#{msg.appUser_userName} * " rendered="#{true}"/>  
-      <h:outputText id="userName" value="#{appUserAction.appUser.userName}"/>  
+      <h:outputText id="userName" value="#{_appUser.userName}"/>  
       <h:outputText value="#{msg.appUser_enabled} * " rendered="#{true}"/>  
-      <h:outputText id="enabled" value="#{appUserAction.appUser.enabled}"/>  
+      <h:outputText id="enabled" value="#{_appUser.enabled}"/>  
       <h:outputText value="#{msg.appUser_email} * " rendered="#{true}"/>  
-      <h:outputText id="email" value="#{appUserAction.appUser.email}"/>  
+      <h:outputText id="email" value="#{_appUser.email}"/>  
       <h:outputText value="#{msg.appUser_lastLogin} * " rendered="#{true}"/>  
-      <h:outputText id="lastLogin" value="#{appUserAction.appUser.lastLogin}"/> 
+      <h:outputText id="lastLogin" value="#{_appUser.lastLogin}"/> 
     </h:panelGrid>  
     <br/>  
     <br/>  

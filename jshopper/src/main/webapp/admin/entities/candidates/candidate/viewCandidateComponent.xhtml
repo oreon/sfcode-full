@@ -6,62 +6,71 @@
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
+    <c:if test="${_candidate == null }"> 
+      <c:set var="${_candidate}" value="#{departmentAction.department}"/> 
+    </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCandidate eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Candidate}"/> 
       </f:facet>  
       <h:outputText value="#{msg.person_firstName} * " rendered="#{true}"/>  
-      <h:outputText id="firstName" value="#{candidateAction.candidate.firstName}"/>  
+      <h:outputText id="firstName" value="#{_candidate.firstName}"/>  
       <h:outputText value="#{msg.person_lastName} * " rendered="#{true}"/>  
-      <h:outputText id="lastName" value="#{candidateAction.candidate.lastName}"/>  
+      <h:outputText id="lastName" value="#{_candidate.lastName}"/>  
       <h:outputText value="#{msg.candidate_availibility} * " rendered="#{true}"/>  
-      <h:outputText id="availibility" value="#{candidateAction.candidate.availibility}"/>  
+      <h:outputText id="availibility" value="#{_candidate.availibility}"/>  
       <h:outputText value="#{msg.candidate_preferredJobType} * " rendered="#{true}"/>  
-      <h:outputText id="preferredJobType" value="#{candidateAction.candidate.preferredJobType}"/>  
+      <h:outputText id="preferredJobType" value="#{_candidate.preferredJobType}"/>  
       <h:outputText value="#{msg.candidate_chiefExpertise} * " rendered="#{true}"/>  
-      <h:outputText id="chiefExpertise" value="#{candidateAction.candidate.chiefExpertise}"/>  
+      <h:outputText id="chiefExpertise" value="#{_candidate.chiefExpertise}"/>  
       <h:outputText value="#{msg.candidate_educationLevel} * " rendered="#{true}"/>  
-      <h:outputText id="educationLevel" value="#{candidateAction.candidate.educationLevel}"/>  
+      <h:outputText id="educationLevel" value="#{_candidate.educationLevel}"/>  
       <h:outputText value="#{msg.candidate_willingToRelocate} * " rendered="#{true}"/>  
-      <h:outputText id="willingToRelocate" value="#{candidateAction.candidate.willingToRelocate}"/>  
+      <h:outputText id="willingToRelocate" value="#{_candidate.willingToRelocate}"/>  
       <h:outputText value="#{msg.candidate_resumeFile} * " rendered="#{true}"/>  
-      <h:outputText id="resumeFile" value="#{candidateAction.candidate.resumeFile}"/>  
+      <h:outputText id="resumeFile" value="#{_candidate.resumeFile}"/>  
       <h:outputText value="#{msg.candidate_textResume} * " rendered="#{true}"/>  
-      <h:outputText id="textResume" value="#{candidateAction.candidate.textResume}" escape="false"/>  
+      <h:outputText id="textResume" value="#{_candidate.textResume}" escape="false"/>  
       <h:outputText value="#{msg.candidate_coverLetter} * " rendered="#{true}"/>  
-      <h:outputText id="coverLetter" value="#{candidateAction.candidate.coverLetter}" escape="false"/> 
+      <h:outputText id="coverLetter" value="#{_candidate.coverLetter}" escape="false"/> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_contactDetails == null }"> 
+      <c:set var="${_contactDetails}" value="#{departmentAction.department}"/> 
     </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.ContactDetails}"/> 
       </f:facet>  
       <h:outputText value="#{msg.contactDetails_phone} * " rendered="#{true}"/>  
-      <h:outputText id="contactDetails_phone" value="#{candidateAction.candidate.contactDetails.phone}"/>  
+      <h:outputText id="contactDetails_phone" value="#{_candidate.contactDetails.phone}"/>  
       <h:outputText value="#{msg.contactDetails_secondaryPhone} * " rendered="#{true}"/>  
-      <h:outputText id="contactDetails_secondaryPhone" value="#{candidateAction.candidate.contactDetails.secondaryPhone}"/>  
+      <h:outputText id="contactDetails_secondaryPhone" value="#{_candidate.contactDetails.secondaryPhone}"/>  
       <h:outputText value="#{msg.contactDetails_city} * " rendered="#{true}"/>  
-      <h:outputText id="contactDetails_city" value="#{candidateAction.candidate.contactDetails.city}"/>  
+      <h:outputText id="contactDetails_city" value="#{_candidate.contactDetails.city}"/>  
       <h:outputText value="#{msg.contactDetails_postalCode} * " rendered="#{true}"/>  
-      <h:outputText id="contactDetails_postalCode" value="#{candidateAction.candidate.contactDetails.postalCode}"/> 
+      <h:outputText id="contactDetails_postalCode" value="#{_candidate.contactDetails.postalCode}"/> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_appUser == null }"> 
+      <c:set var="${_appUser}" value="#{departmentAction.department}"/> 
     </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.AppUser}"/> 
       </f:facet>  
       <h:outputText value="#{msg.appUser_userName} * " rendered="#{true}"/>  
-      <h:outputText id="appUser_userName" value="#{candidateAction.candidate.appUser.userName}"/>  
+      <h:outputText id="appUser_userName" value="#{_candidate.appUser.userName}"/>  
       <h:outputText value="#{msg.appUser_enabled} * " rendered="#{true}"/>  
-      <h:outputText id="appUser_enabled" value="#{candidateAction.candidate.appUser.enabled}"/>  
+      <h:outputText id="appUser_enabled" value="#{_candidate.appUser.enabled}"/>  
       <h:outputText value="#{msg.appUser_email} * " rendered="#{true}"/>  
-      <h:outputText id="appUser_email" value="#{candidateAction.candidate.appUser.email}"/>  
+      <h:outputText id="appUser_email" value="#{_candidate.appUser.email}"/>  
       <h:outputText value="#{msg.appUser_lastLogin} * " rendered="#{true}"/>  
-      <h:outputText id="appUser_lastLogin" value="#{candidateAction.candidate.appUser.lastLogin}"/> 
+      <h:outputText id="appUser_lastLogin" value="#{_candidate.appUser.lastLogin}"/> 
     </h:panelGrid>  
     <br/>  
     <br/> 

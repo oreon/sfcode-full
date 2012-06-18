@@ -7,9 +7,11 @@
       <f:event type="preRenderView" listener="#{jobApplicationAction.retrieve}"/> 
     </f:metadata>  
     <h:form> 
-      <p:tabView switchType="ajax"> 
+      <p:tabView dynamic="true" cache="true"> 
         <p:tab title="JobApplication"> 
-          <ui:include src="/admin/entities/candidates/jobApplication/viewJobApplicationComponent.xhtml"/>  
+          <ui:include src="/admin/entities/candidates/jobApplication/viewJobApplicationComponent.xhtml"> 
+            <ui:param name="_jobApplication" value="#{jobApplicationAction.jobApplication}"/> 
+          </ui:include>  
           <div class="buttonBox"> 
             <h:button value="Edit" outcome="editJobApplication" includeViewParams="true"></h:button>  
             <h:button value="Back To Listing" outcome="listJobApplication"/> 
@@ -17,14 +19,12 @@
         </p:tab>  
         <p:tab title="Candidate" rendered="#{jobApplicationAction.jobApplication.candidate != null}"> 
           <ui:include src="/admin/entities/candidates/candidate/viewCandidateComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="candidateId" value="#{jobApplicationAction.jobApplication.candidate.id}"/> 
+            <ui:param name="_candidate" value="#{jobApplicationAction.jobApplication.candidate}"/> 
           </ui:include> 
         </p:tab>  
         <p:tab title="Job" rendered="#{jobApplicationAction.jobApplication.job != null}"> 
           <ui:include src="/admin/entities/candidates/job/viewJobComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="jobId" value="#{jobApplicationAction.jobApplication.job.id}"/> 
+            <ui:param name="_job" value="#{jobApplicationAction.jobApplication.job}"/> 
           </ui:include> 
         </p:tab> 
       </p:tabView>  

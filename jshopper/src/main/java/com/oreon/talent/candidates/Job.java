@@ -48,7 +48,6 @@ import com.oreon.talent.ProjectUtils;
 
 @Entity
 @Table(name = "job")
-@Filter(name = "archiveFilterDef")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
@@ -85,7 +84,7 @@ public class Job extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "job", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "job_ID", nullable = true)
-	//@OrderBy("id DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<JobApplication> jobApplications = new HashSet<JobApplication>();
 

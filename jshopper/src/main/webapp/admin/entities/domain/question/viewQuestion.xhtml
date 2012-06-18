@@ -7,9 +7,11 @@
       <f:event type="preRenderView" listener="#{questionAction.retrieve}"/> 
     </f:metadata>  
     <h:form> 
-      <p:tabView switchType="ajax"> 
+      <p:tabView dynamic="true" cache="true"> 
         <p:tab title="Question"> 
-          <ui:include src="/admin/entities/domain/question/viewQuestionComponent.xhtml"/>  
+          <ui:include src="/admin/entities/domain/question/viewQuestionComponent.xhtml"> 
+            <ui:param name="_question" value="#{questionAction.question}"/> 
+          </ui:include>  
           <div class="buttonBox"> 
             <h:button value="Edit" outcome="editQuestion" includeViewParams="true"></h:button>  
             <h:button value="Back To Listing" outcome="listQuestion"/> 
@@ -17,8 +19,7 @@
         </p:tab>  
         <p:tab title="Exam" rendered="#{questionAction.question.exam != null}"> 
           <ui:include src="/admin/entities/domain/exam/viewExamComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="examId" value="#{questionAction.question.exam.id}"/> 
+            <ui:param name="_exam" value="#{questionAction.question.exam}"/> 
           </ui:include> 
         </p:tab> 
       </p:tabView>  

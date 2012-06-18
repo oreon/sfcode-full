@@ -6,12 +6,15 @@
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
+    <c:if test="${_appRole == null }"> 
+      <c:set var="${_appRole}" value="#{departmentAction.department}"/> 
+    </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppRole eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.AppRole}"/> 
       </f:facet>  
       <h:outputText value="#{msg.appRole_name} * " rendered="#{true}"/>  
-      <h:outputText id="name" value="#{appRoleAction.appRole.name}"/> 
+      <h:outputText id="name" value="#{_appRole.name}"/> 
     </h:panelGrid>  
     <br/>  
     <br/> 

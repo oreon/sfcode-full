@@ -48,7 +48,6 @@ import com.oreon.talent.ProjectUtils;
 
 @Entity
 @Table(name = "employee")
-@Filter(name = "archiveFilterDef")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")

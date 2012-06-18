@@ -6,19 +6,22 @@
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
+    <c:if test="${_job == null }"> 
+      <c:set var="${_job}" value="#{departmentAction.department}"/> 
+    </c:if>  
     <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelJob eq null}"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Job}"/> 
       </f:facet>  
       <h:outputText value="#{msg.job_title} * " rendered="#{true}"/>  
-      <h:outputText id="title" value="#{jobAction.job.title}"/>  
+      <h:outputText id="title" value="#{_job.title}"/>  
       <h:outputText value="#{msg.job_description} * " rendered="#{true}"/>  
-      <h:outputText id="description" value="#{jobAction.job.description}" escape="false"/>  
+      <h:outputText id="description" value="#{_job.description}" escape="false"/>  
       <h:outputText value="#{msg.job_active} * " rendered="#{true}"/>  
-      <h:outputText id="active" value="#{jobAction.job.active}"/>  
+      <h:outputText id="active" value="#{_job.active}"/>  
       <h:outputText value="#{msg.job_client} * " rendered="#{true}"/>  
-      <h:link value="#{jobAction.job.client.displayName}" action="viewclient" propagation="none"> 
-        <f:param name="clientId" value="#{jobAction.job.client.id}"/>  
+      <h:link value="#{_job.client.displayName}" action="viewclient" propagation="none"> 
+        <f:param name="clientId" value="#{_job.client.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 
     </h:panelGrid>  

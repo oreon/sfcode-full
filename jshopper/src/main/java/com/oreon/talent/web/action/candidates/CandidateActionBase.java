@@ -1,18 +1,32 @@
 package com.oreon.talent.web.action.candidates;
 
+import com.oreon.talent.candidates.Candidate;
+
+import org.witchcraft.seam.action.BaseAction;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+
+import org.apache.commons.lang.StringUtils;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 import org.witchcraft.base.entity.FileAttachment;
 
-import com.oreon.talent.candidates.Candidate;
+import org.apache.commons.io.FileUtils;
+import org.primefaces.model.DualListModel;
+
+import org.witchcraft.utils.ViewUtils;
+import javax.inject.Inject;
+
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 public abstract class CandidateActionBase
 		extends
