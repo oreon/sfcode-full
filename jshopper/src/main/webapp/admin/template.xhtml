@@ -17,16 +17,19 @@
 
 	<ui:include src="/admin/header.xhtml"></ui:include>
 	<div id="topmenu"></div>
-	
+
 	<div id="leftcol">
 		<ui:include src="/admin/entities/navigation.xhtml" />
 	</div>
-	
-	welcome #{identity.user.id} :
+
+
 	<div id="content">
+		<h:messages globalOnly="true" errorStyle="color:red"
+		warnStyle="color:gray" infoStyle="color:green" />
+	
 		<ui:insert name="content" />
 	</div>
-	
+
 	<script type="text/javascript">  
     function handleLoginRequest(dlg, xhr, status, args) {  
         alert(args.validationFailed);
@@ -37,7 +40,7 @@
             //jQuery('#loginLink').fadeOut();  
         }  
     }  
-</script> 
-	
+		</script>
+
 </h:body>
 </html>
