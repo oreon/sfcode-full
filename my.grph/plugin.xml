@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Sample Category"
+            id="my.grph">
+      </category>
+      <view
+            name="Sample View"
+            icon="icons/sample.gif"
+            category="my.grph"
+            class="my.grph.views.SampleView"
+            id="my.grph.views.SampleView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="my.grph.views.SampleView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   
+   
+   <extension point="org.eclipse.graphiti.ui.diagramTypes">
+		<diagramType description="This is the diagram type for my Graphiti tutorial"
+				id="org.eclipse.graphiti.examples.tutorial.diagram.MyTutorialDiagramType" name="My Graphiti Tutorial Diagram Type"
+		     type="mytutorial">
+		</diagramType>
+	</extension>
+	
+	<extension point="org.eclipse.graphiti.ui.diagramTypeProviders">
+		<diagramTypeProvider
+        class="my.grph.MyTutorialDiagramTypeProvider"
+        description="This is my editor for the Graphiti tutorial"
+        id="my.grph.MyTutorialDiagramTypeProvider"
+        name="My tutorial editor">
+			<diagramType id="org.eclipse.graphiti.examples.tutorial.diagram.MyTutorialDiagramType">
+			</diagramType>
+		</diagramTypeProvider>
+    </extension> 
+
+
+</plugin>
