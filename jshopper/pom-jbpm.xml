@@ -1,0 +1,343 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.wc.sample</groupId>
+	<artifactId>jshopper</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>jshopper</name>
+	<packaging>war</packaging>
+	<url>http://witchcraftmda.com</url>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>2.0.0.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.1.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>antlr</groupId>
+					<artifactId>antlr</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-core</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+			</exclusions>
+			<scope>provided</scope>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search</artifactId>
+			<version>4.1.1.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>hibernate-core</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-analyzers</artifactId>
+			<version>4.1.1.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.1.0.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.5.6-Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.annotation</groupId>
+			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.faces</groupId>
+			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.6.2</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency> 
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-persistence-jpa</artifactId>
+			<version>5.4.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.ocpsoft</groupId>
+			<artifactId>prettyfaces-jsf2</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.jboss.solder</groupId>
+			<artifactId>solder-impl</artifactId>
+			<version>3.1.1.Final</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.jboss.seam.faces</groupId>
+			<artifactId>seam-faces</artifactId>
+			<version>3.1.0.Final</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>solder-impl</artifactId>
+					<groupId>org.jboss.solder</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>solder-api</artifactId>
+					<groupId>org.jboss.solder</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam.international</groupId>
+			<artifactId>seam-international</artifactId>
+			<version>3.1.0.Final</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>solder-api</artifactId>
+					<exclusion>
+					</exclusion>
+				</exclusion>
+				<exclusion>
+					<artifactId>solder-impl</artifactId>
+					<groupId>org.jboss.solder</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam.security</groupId>
+			<artifactId>seam-security-api</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam.security</groupId>
+			<artifactId>seam-security</artifactId>
+			<version>3.1.0.Final</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>solder-impl</artifactId>
+					<groupId>org.jboss.solder</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam.persistence</groupId>
+			<artifactId>seam-persistence</artifactId>
+			<version>3.1.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>solder-impl</artifactId>
+					<groupId>org.jboss.solder</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>solder-api</artifactId>
+					<groupId>org.jboss.solder</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+
+
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bpmn2</artifactId>
+			<version>5.3.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>antlr-runtime</artifactId>
+					<groupId>org.antlr</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>antlr</artifactId>
+					<groupId>antlr</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>antlr</artifactId>
+					<groupId>org.antlr</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>stringtemplate</artifactId>
+					<groupId>org.antlr</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-human-task</artifactId>
+			<version>5.2.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-persistence-jpa</artifactId>
+			<version>5.3.0.Final</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bam</artifactId>
+			<version>5.3.0.Final</version>
+
+		</dependency>
+
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>4.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>eclipse</groupId>
+					<artifactId>jdtcore</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bcprov-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>JBOSS_NEXUS</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
+	<build>
+		<finalName>jshopper</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<extensions>false</extensions>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
