@@ -32,6 +32,8 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	
 	private Bed bed ;
 	
+	private Bed selectedBed ;
+	
 	private Patient patient;
 	
 	@In(create=true)
@@ -119,7 +121,7 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	
 	@Override
 	public String save() {
-		if(bed == null )
+		if(selectedBed == null )
 			throw new BusinessException("Please Select a Bed");
 		createBedStay();
 		
@@ -132,7 +134,7 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 			
 		BedStay bedStay = new BedStay();
 		bedStay.setAdmission(instance);
-		bedStay.setBed(bed);
+		bedStay.setBed(selectedBed);
 		bedStay.setFromDate(new Date());
 		instance.addBedStay(bedStay);
 	}
@@ -175,6 +177,10 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 
 	public Patient getPatient() {
 		return patient;
+	}
+	
+	public void updateSelectedBed(){
+		this.selectedBed = this.bed;
 	}
 	
 }
