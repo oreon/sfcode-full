@@ -78,7 +78,7 @@
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}" />
 							</ui:define>
 							<h:selectOneMenu id="ward" label="#{msg.room_ward}"
-								value="#{admissionAction.ward}" 
+								value="#{admissionAction.ward}"
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"
 								disabled="false">
 								<s:selectItems value="#{wardList}" var="itemIter"
@@ -101,7 +101,7 @@
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}" />
 							</ui:define>
 							<h:selectOneMenu id="roomType" label="#{msg.room_roomType}"
-								value="#{admissionAction.roomType}" 
+								value="#{admissionAction.roomType}"
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"
 								disabled="false">
 								<s:selectItems value="#{roomTypeList}" var="itemIter"
@@ -117,7 +117,7 @@
 						</s:decorate>
 
 
-<!--  
+						<!--  
 
 						<s:decorate id="bedDecorate" template="/layout/edit.xhtml">
 							<ui:define name="label">
@@ -140,7 +140,7 @@
 							</h:selectOneMenu>
 						</s:decorate>
 						
-	-->					
+	-->
 					</h:panelGrid>
 					<br />
 
@@ -156,8 +156,8 @@
 							<ui:repeat value="#{admissionAction.preferredRoomsList}"
 								var="room">
 								<h4>#{room.name}</h4>
-								<br/>
-							
+								<br />
+
 								<h:selectOneMenu label="#{msg.bedStay_bed}"
 									value="#{admissionAction.bed}" required="true"
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
@@ -166,7 +166,13 @@
 										label="#{itemIter.displayName}"
 										noSelectionLabel="Please Select..." />
 
-									<s:conversationId />
+
+									<a:support event="onchange"
+										action="#{admissionAction.updateSelectedBed}"
+										ajaxSingle="true">
+										<s:conversationId />
+									</a:support>
+
 									<s:convertEntity />
 								</h:selectOneMenu>
 								<hr />
@@ -183,14 +189,18 @@
 								<h4>#{room.name}</h4>
 
 								<h:selectOneMenu label="#{msg.bedStay_bed}"
-									value="#{admissionAction.bed}" 
+									value="#{admissionAction.bed}"
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
 									disabled="false">
 									<s:selectItems value="#{room.listBeds}" var="itemIter"
 										label="#{itemIter.displayName}"
 										noSelectionLabel="Please Select..." />
 
-									<s:conversationId />
+									<a:support event="onchange"
+										action="#{admissionAction.updateSelectedBed}"
+										ajaxSingle="true">
+										<s:conversationId />
+									</a:support>
 									<s:convertEntity />
 								</h:selectOneMenu>
 								<hr />
