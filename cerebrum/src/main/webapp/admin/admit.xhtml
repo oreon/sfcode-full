@@ -64,14 +64,14 @@
 										<a:support event="onselect">
 											<f:setPropertyActionListener value="#{_result}"
 												target="#{admissionAction.admission.patient}" />
-											
+
 										</a:support>
 									</rich:suggestionbox>
 								</a:region>
 							</h:panelGroup>
 
 						</s:decorate>
- 
+
 						<s:decorate id="wardDecorate" template="/layout/edit.xhtml">
 							<ui:define name="label">
 								<h:outputText value="#{msg.room_ward}  "
@@ -86,11 +86,11 @@
 									noSelectionLabel="Please Select..." />
 								<rich:ajaxValidator event="onsubmit" />
 								<a:support event="onchange" reRender="roombeds"
-									ajaxSingle="true" >
-									
+									ajaxSingle="true">
+
 									<s:conversationId />
 								</a:support>
-								
+
 								<s:convertEntity />
 							</h:selectOneMenu>
 						</s:decorate>
@@ -109,22 +109,22 @@
 									noSelectionLabel="Please Select..." />
 								<rich:ajaxValidator event="onsubmit" />
 								<a:support event="onchange" reRender="roombeds"
-									ajaxSingle="true" >
+									ajaxSingle="true">
 									<s:conversationId />
 								</a:support>
 								<s:convertEntity />
 							</h:selectOneMenu>
 						</s:decorate>
-						
-						
-		 				
-						
+
+
+<!--  
+
 						<s:decorate id="bedDecorate" template="/layout/edit.xhtml">
 							<ui:define name="label">
 								<h:outputText value="#{msg.bedStay_bed}  "
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}" />
 							</ui:define>
-							<h:selectOneMenu  id="bed" label="#{msg.bedStay_bed}"
+							<h:selectOneMenu id="bed" label="#{msg.bedStay_bed}"
 								value="#{admissionAction.bed}" required="true"
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
 								disabled="false">
@@ -132,10 +132,15 @@
 									label="#{itemIter.displayName}"
 									noSelectionLabel="Please Select..." />
 								<rich:ajaxValidator event="onsubmit" />
-								<s:conversationId />
+								<a:support event="onchange" reRender="roombeds"
+									ajaxSingle="true">
+									<s:conversationId />
+								</a:support>
 								<s:convertEntity />
 							</h:selectOneMenu>
 						</s:decorate>
+						
+	-->					
 					</h:panelGrid>
 					<br />
 
@@ -143,7 +148,7 @@
 			</h:panelGroup>
 
 			<rich:panel id="roombeds">
-				<h:selectOneRadio >
+				<h:selectOneRadio>
 					<rich:simpleTogglePanel switchType="client" label="Preferred Rooms"
 						opened="true">
 
@@ -151,11 +156,21 @@
 							<ui:repeat value="#{admissionAction.preferredRoomsList}"
 								var="room">
 								<h4>#{room.name}</h4>
-								<ui:repeat value="#{room.listBeds}" var="bed">
-									<f:selectItem itemLabel="#{bed.name}"  />
-								    
-								</ui:repeat>
+								<br/>
+							
+								<h:selectOneMenu label="#{msg.bedStay_bed}"
+									value="#{admissionAction.bed}" required="true"
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
+									disabled="false">
+									<s:selectItems value="#{room.listBeds}" var="itemIter"
+										label="#{itemIter.displayName}"
+										noSelectionLabel="Please Select..." />
+
+									<s:conversationId />
+									<s:convertEntity />
+								</h:selectOneMenu>
 								<hr />
+
 							</ui:repeat>
 						</h:panelGroup>
 					</rich:simpleTogglePanel>
@@ -166,11 +181,20 @@
 							<ui:repeat value="#{admissionAction.nonPreferredRoomsList}"
 								var="room">
 								<h4>#{room.name}</h4>
-								<ui:repeat value="#{room.listBeds}" var="bed">
-									<br />
-									<f:selectItem itemLabel="#{bed.name}" />
-								</ui:repeat>
+
+								<h:selectOneMenu label="#{msg.bedStay_bed}"
+									value="#{admissionAction.bed}" required="true"
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
+									disabled="false">
+									<s:selectItems value="#{room.listBeds}" var="itemIter"
+										label="#{itemIter.displayName}"
+										noSelectionLabel="Please Select..." />
+
+									<s:conversationId />
+									<s:convertEntity />
+								</h:selectOneMenu>
 								<hr />
+
 							</ui:repeat>
 						</h:panelGroup>
 
@@ -180,10 +204,8 @@
 			<div class="buttonBox"><h:commandButton value="Save"
 				action="#{admissionAction.save}">
 				<s:conversationId />
-				</h:commandButton> 
-				<h:outputText
-				value=" " /> <h:commandButton value="Cancel" immediate="true"
-				action="#{admissionAction.cancel}"></h:commandButton></div>
+			</h:commandButton> <h:outputText value=" " /> <h:commandButton value="Cancel"
+				immediate="true" action="#{admissionAction.cancel}"></h:commandButton></div>
 		</h:form>
 	</ui:define>
 </ui:composition>
