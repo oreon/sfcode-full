@@ -78,7 +78,7 @@
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}" />
 							</ui:define>
 							<h:selectOneMenu id="ward" label="#{msg.room_ward}"
-								value="#{admissionAction.ward}" required="true"
+								value="#{admissionAction.ward}" 
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"
 								disabled="false">
 								<s:selectItems value="#{wardList}" var="itemIter"
@@ -101,7 +101,7 @@
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}" />
 							</ui:define>
 							<h:selectOneMenu id="roomType" label="#{msg.room_roomType}"
-								value="#{admissionAction.roomType}" required="true"
+								value="#{admissionAction.roomType}" 
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"
 								disabled="false">
 								<s:selectItems value="#{roomTypeList}" var="itemIter"
@@ -109,7 +109,7 @@
 									noSelectionLabel="Please Select..." />
 								<rich:ajaxValidator event="onsubmit" />
 								<a:support event="onchange" reRender="roombeds"
-									ajaxSingle="true">
+									ajaxSingle="false">
 									<s:conversationId />
 								</a:support>
 								<s:convertEntity />
@@ -183,7 +183,7 @@
 								<h4>#{room.name}</h4>
 
 								<h:selectOneMenu label="#{msg.bedStay_bed}"
-									value="#{admissionAction.bed}" required="true"
+									value="#{admissionAction.bed}" 
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
 									disabled="false">
 									<s:selectItems value="#{room.listBeds}" var="itemIter"
