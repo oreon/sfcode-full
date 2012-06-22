@@ -33,7 +33,7 @@
 							<rich:editor useSeamText="true" id="notes#{entityId}"
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'notesEdit')}"
 								label="#{msg.admission_notes}" required="false" disabled="false"
-								value="#{admissionAction.admission.notes}">
+								value="#{admissionAction.admission.admissionNote}">
 								<rich:ajaxValidator event="onsubmit" />
 							</rich:editor>
 						</s:decorate>
@@ -71,7 +71,7 @@
 							</h:panelGroup>
 
 						</s:decorate>
-<!-- 
+ 
 						<s:decorate id="wardDecorate" template="/layout/edit.xhtml">
 							<ui:define name="label">
 								<h:outputText value="#{msg.room_ward}  "
@@ -117,7 +117,7 @@
 						</s:decorate>
 						
 						
-		 -->				
+		 				
 						
 						<s:decorate id="bedDecorate" template="/layout/edit.xhtml">
 							<ui:define name="label">
