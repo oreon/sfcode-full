@@ -3,13 +3,15 @@
 package com.oreon.cerebrum.web.action.patient;
 	
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
+import org.witchcraft.exceptions.BusinessException;
 
 import com.oreon.cerebrum.facility.Bed;
 import com.oreon.cerebrum.facility.Room;
@@ -20,7 +22,7 @@ import com.oreon.cerebrum.patient.Patient;
 import com.oreon.cerebrum.web.action.facility.BedAction;
 
 	
-//@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.CONVERSATION)
 @Name("admissionAction")
 public class AdmissionAction extends AdmissionActionBase implements java.io.Serializable{
 	
@@ -117,7 +119,8 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	
 	@Override
 	public String save() {
-		//if(bed != null )
+		if(bed == null )
+			throw new BusinessException("Please Select a Bed");
 		createBedStay();
 		
 		return super.save();
