@@ -1,4 +1,4 @@
-package com.pcas.datapkg.customReports;
+package com.pcas.datapkg.dashboards;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,132 +52,85 @@ import org.witchcraft.utils.*;
 import com.pcas.datapkg.ProjectUtils;
 
 @Entity
-@Table(name = "entityfieldprivilege")
+@Table(name = "dashboard")
 @Filter(name = "archiveFilterDef")
-@Name("entityFieldPrivilege")
+@Name("dashboard")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class EntityFieldPrivilege extends BaseEntity
-		implements
-			java.io.Serializable {
-	private static final long serialVersionUID = 2125560378L;
+public class Dashboard extends BaseEntity implements java.io.Serializable {
+	private static final long serialVersionUID = 1071479129L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "metaEntity_id", nullable = false, updatable = true)
+	@JoinColumn(name = "appUser_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected MetaEntity metaEntity
+	protected com.pcas.datapkg.users.AppUser appUser
 
 	;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "appRole_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected com.pcas.datapkg.users.AppRole appRole
+	@OneToMany(mappedBy = "dashboard", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "dashboard_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<DashboardComponent> dashboardComponents = new HashSet<DashboardComponent>();
 
-	;
+	public void addDashboardComponent(DashboardComponent dashboardComponent) {
+		dashboardComponent.setDashboard(this);
+		this.dashboardComponents.add(dashboardComponent);
+	}
+
+	@Transient
+	public List<com.pcas.datapkg.dashboards.DashboardComponent> getListDashboardComponents() {
+		return new ArrayList<com.pcas.datapkg.dashboards.DashboardComponent>(
+				dashboardComponents);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getDashboardComponentsCount() {
+		return dashboardComponents.size();
+	}
 
 	@Column(unique = false)
-	protected com.pcas.datapkg.managedsecurity.PrivilegeType privilegeType
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String name
 
 	;
 
-	@Column(unique = false)
-	protected Boolean readAllowed
-
-	;
-
-	@Column(unique = false)
-	protected Boolean writeAllowed
-
-	;
-
-	@Column(unique = false)
-	protected Boolean editAllowed
-
-	;
-
-	@Column(unique = false)
-	protected Boolean deleteAllowed
-
-	;
-
-	public void setMetaEntity(MetaEntity metaEntity) {
-		this.metaEntity = metaEntity;
+	public void setAppUser(com.pcas.datapkg.users.AppUser appUser) {
+		this.appUser = appUser;
 	}
 
-	public MetaEntity getMetaEntity() {
+	public com.pcas.datapkg.users.AppUser getAppUser() {
 
-		return metaEntity;
+		return appUser;
 
 	}
 
-	public void setAppRole(com.pcas.datapkg.users.AppRole appRole) {
-		this.appRole = appRole;
+	public void setDashboardComponents(
+			Set<DashboardComponent> dashboardComponents) {
+		this.dashboardComponents = dashboardComponents;
 	}
 
-	public com.pcas.datapkg.users.AppRole getAppRole() {
-
-		return appRole;
-
+	public Set<DashboardComponent> getDashboardComponents() {
+		return dashboardComponents;
 	}
 
-	public void setPrivilegeType(
-			com.pcas.datapkg.managedsecurity.PrivilegeType privilegeType) {
-		this.privilegeType = privilegeType;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public com.pcas.datapkg.managedsecurity.PrivilegeType getPrivilegeType() {
+	public String getName() {
 
-		return privilegeType;
-
-	}
-
-	public void setReadAllowed(Boolean readAllowed) {
-		this.readAllowed = readAllowed;
-	}
-
-	public Boolean getReadAllowed() {
-
-		return readAllowed;
-
-	}
-
-	public void setWriteAllowed(Boolean writeAllowed) {
-		this.writeAllowed = writeAllowed;
-	}
-
-	public Boolean getWriteAllowed() {
-
-		return writeAllowed;
-
-	}
-
-	public void setEditAllowed(Boolean editAllowed) {
-		this.editAllowed = editAllowed;
-	}
-
-	public Boolean getEditAllowed() {
-
-		return editAllowed;
-
-	}
-
-	public void setDeleteAllowed(Boolean deleteAllowed) {
-		this.deleteAllowed = deleteAllowed;
-	}
-
-	public Boolean getDeleteAllowed() {
-
-		return deleteAllowed;
+		return name;
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return metaEntity + "";
+			return name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -195,6 +148,10 @@ public class EntityFieldPrivilege extends BaseEntity
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("name");
+
+		listSearchableFields.add("dashboardComponents.contents");
+
 		return listSearchableFields;
 	}
 
@@ -203,12 +160,14 @@ public class EntityFieldPrivilege extends BaseEntity
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		if (getMetaEntity() != null)
-			builder.append("metaEntity:" + getMetaEntity().getDisplayName()
-					+ " ");
+		builder.append(getName() + " ");
 
-		if (getAppRole() != null)
-			builder.append("appRole:" + getAppRole().getDisplayName() + " ");
+		if (getAppUser() != null)
+			builder.append("appUser:" + getAppUser().getDisplayName() + " ");
+
+		for (BaseEntity e : dashboardComponents) {
+			builder.append(e.getDisplayName() + " ");
+		}
 
 		return builder.toString();
 	}
