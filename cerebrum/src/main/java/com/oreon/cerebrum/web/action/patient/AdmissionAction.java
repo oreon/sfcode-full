@@ -126,12 +126,12 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		//super.updateComposedAssociations();
 	}
 	
-	@Override
+	//@Override
 	public boolean isDischargeEnabled(){
 		return instance.getDischargeDate() == null;
 	}
 	
-	@Override
+	//@Override
 	public boolean isTransferEnabled() {
 		return instance.getDischargeDate() == null;
 	}
@@ -156,6 +156,7 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		for (BedStay bedStay : instance.getBedStays()) {
 			if(bedStay.getToDate()  == null)
 				bedStay.setToDate(new Date());
+				bedStay.getBed().setPatient(null);
 		}
 	}
 	
@@ -188,7 +189,9 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	}
 
 	private void createBedStay() {
-		//bed = instance.getBed();
+		if(bed == null)
+			bed = instance.getBed();
+		
 		bed.setPatient(instance.getPatient());
 			
 		BedStay bedStay = new BedStay();

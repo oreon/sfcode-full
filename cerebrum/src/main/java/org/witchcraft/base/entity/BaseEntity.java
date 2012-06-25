@@ -34,7 +34,7 @@ import com.oreon.cerebrum.users.AppUser;
 
 @MappedSuperclass
 @EntityListeners({EntityListener.class})
-public class BusinessEntity implements Serializable{
+public class BaseEntity implements Serializable{
 	private static final long serialVersionUID = -2225862673125944610L;
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
@@ -98,7 +98,7 @@ public class BusinessEntity implements Serializable{
     @Column(name="date_updated")
     private Date dateUpdated;
     
-    public BusinessEntity() {
+    public BaseEntity() {
         super();
     }
 
@@ -163,17 +163,17 @@ public class BusinessEntity implements Serializable{
 	
 	@Override
     public boolean equals(Object o) {
-		if(o == null || !(o instanceof BusinessEntity))
+		if(o == null || !(o instanceof BaseEntity))
 			return false;
-		BusinessEntity entity = ((BusinessEntity)o);
+		BaseEntity entity = ((BaseEntity)o);
 		if(getId() == null || getId() == 0 || entity.getId() == null || entity.getId() == 0)
 			return false;
     	return this.getId() == entity.getId();
     }
 	
-	public String getCollectionAsString(Collection<? extends BusinessEntity> list){
+	public String getCollectionAsString(Collection<? extends BaseEntity> list){
 		StringBuffer ret = new StringBuffer();
-		for (BusinessEntity businessEntity : list) {
+		for (BaseEntity businessEntity : list) {
 			ret.append(businessEntity.getDisplayName() + "; ");
 		}
 		return ret.toString();

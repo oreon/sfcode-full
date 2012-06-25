@@ -70,13 +70,14 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 			"admission.dischargeDate >= #{admissionList.dischargeDateRange.begin}",
 			"admission.dischargeDate <= #{admissionList.dischargeDateRange.end}",
 
+			"admission.bed.id = #{admissionList.admission.bed.id}",
+
 			"lower(admission.dischargeNote) like concat(lower(#{admissionList.admission.dischargeNote}),'%')",
 
 			"admission.dischargeCode = #{admissionList.admission.dischargeCode}",
 
 			"admission.dateCreated <= #{admissionList.dateCreatedRange.end}",
-			"admission.dateCreated >= #{admissionList.dateCreatedRange.begin}",
-	};
+			"admission.dateCreated >= #{admissionList.dateCreatedRange.begin}",};
 
 	public List<Admission> getAdmissionsByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
@@ -109,6 +110,10 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 				+ "\",");
 
 		builder.append("\""
+				+ (e.getBed() != null ? e.getBed().getDisplayName().replace(
+						",", "") : "") + "\",");
+
+		builder.append("\""
 				+ (e.getDischargeNote() != null ? e.getDischargeNote().replace(
 						",", "") : "") + "\",");
 
@@ -130,6 +135,8 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 		builder.append("AdmissionNote" + ",");
 
 		builder.append("DischargeDate" + ",");
+
+		builder.append("Bed" + ",");
 
 		builder.append("DischargeNote" + ",");
 

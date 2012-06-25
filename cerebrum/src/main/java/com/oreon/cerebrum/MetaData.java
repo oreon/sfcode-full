@@ -162,11 +162,17 @@ public class MetaData {
 
 	"patient.displayName", "java.lang.String",
 
-	"notes", "java.lang.String",
+	"admissionNote", "java.lang.String",
 
 	"dischargeDate", "java.util.Date",
 
 	"bedStaysCount", "java.lang.Integer",
+
+	"bed.displayName", "java.lang.String",
+
+	"dischargeNote", "java.lang.String",
+
+	"dischargeCode.name", "java.lang.String",
 
 	},
 
@@ -427,6 +433,8 @@ public class MetaData {
 	"description", "java.lang.String",
 
 	"rate", "java.lang.Double",
+
+	"numberOfRooms", "java.lang.Integer",
 
 	},
 
