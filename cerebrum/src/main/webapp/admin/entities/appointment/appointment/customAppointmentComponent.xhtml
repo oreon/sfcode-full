@@ -7,46 +7,46 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.appointment_start}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'startEdit')}"/>  
+        <h:outputText value="#{msg.appointment_start}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}"/>  
         <br/>  
         <rich:calendar id="start" value="#{appointmentAction.appointment.start}"/>  
-        <rich:message styleClass="error errors" for="start" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'startEdit')}"/> 
+        <rich:message styleClass="error errors" for="start" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.appointment_end}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'endEdit')}"/>  
+        <h:outputText value="#{msg.appointment_end}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editEnd')}"/>  
         <br/>  
         <rich:calendar id="end" value="#{appointmentAction.appointment.end}"/>  
-        <rich:message styleClass="error errors" for="end" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'endEdit')}"/> 
+        <rich:message styleClass="error errors" for="end" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editEnd')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.appointment_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'physicianEdit')}"/>  
+        <h:outputText value="#{msg.appointment_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}"/>  
         <br/>  
         <h:selectOneMenu id="physician" value="#{appointmentAction.appointment.physician}"> 
           <s:selectItems value="#{physicianList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="physician" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'physicianEdit')}"/> 
+        <rich:message styleClass="error errors" for="physician" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.appointment_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.appointment_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPatient')}"/>  
         <br/>  
         <h:selectOneMenu id="patient" value="#{appointmentAction.appointment.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'patientEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.appointment_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'remarksEdit')}"/>  
+        <h:outputText value="#{msg.appointment_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editRemarks')}"/>  
         <br/>  
         <rich:editor id="remarks" value="#{appointmentAction.appointment.remarks}"/>  
-        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'remarksEdit')}"/> 
+        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editRemarks')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.appointment_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'unitsEdit')}"/>  
+        <h:outputText value="#{msg.appointment_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editUnits')}"/>  
         <br/>  
         <h:inputText id="units" value="#{appointmentAction.appointment.units}"/>  
-        <rich:message styleClass="error errors" for="units" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'unitsEdit')}"/> 
+        <rich:message styleClass="error errors" for="units" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editUnits')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

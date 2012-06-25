@@ -7,28 +7,28 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/>  
+        <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editName')}"/>  
         <br/>  
         <h:inputText id="name" value="#{roomAction.room.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"/>  
+        <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}"/>  
         <br/>  
         <h:selectOneMenu id="roomType" value="#{roomAction.room.roomType}"> 
           <s:selectItems value="#{roomTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="roomType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"/> 
+        <rich:message styleClass="error errors" for="roomType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"/>  
+        <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editWard')}"/>  
         <br/>  
         <h:selectOneMenu id="ward" value="#{roomAction.room.ward}"> 
           <s:selectItems value="#{wardList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"/> 
+        <rich:message styleClass="error errors" for="ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editWard')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

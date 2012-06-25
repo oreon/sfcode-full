@@ -13,25 +13,25 @@
         </f:facet>  
         <s:decorate id="admissionNoteDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'admissionNoteEdit')}"/>
+            <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'admissionNoteEdit')}" label="#{msg.admission_admissionNote}" required="false" disabled="false" value="#{admissionAction.admission.admissionNote}"> 
+          <rich:editor useSeamText="true" id="admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}" label="#{msg.admission_admissionNote}" required="false" disabled="false" value="#{admissionAction.admission.admissionNote}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
         <s:decorate id="dischargeNoteDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteEdit')}"/>
+            <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteEdit')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{admissionAction.admission.dischargeNote}"> 
+          <rich:editor useSeamText="true" id="dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{admissionAction.admission.dischargeNote}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
         <s:decorate id="dischargeCodeDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeEdit')}"/>
+            <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}"/>
           </ui:define>  
-          <h:selectOneMenu id="dischargeCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeEdit')}" value="#{admissionAction.admission.dischargeCode}" required="false" label="#{msg.admission_dischargeCode}"> 
+          <h:selectOneMenu id="dischargeCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}" value="#{admissionAction.admission.dischargeCode}" required="false" label="#{msg.admission_dischargeCode}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="REGULAR" itemLabel="#{msg.REGULAR}"/>  
             <f:selectItem itemValue="DECEASED" itemLabel="#{msg.DECEASED}"/>  
@@ -41,7 +41,7 @@
         </s:decorate>  
         <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}"/>
+            <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>
           </ui:define>  
           <h:panelGroup> 
             <a:region> 
@@ -65,9 +65,9 @@
         </s:decorate>  
         <s:decorate id="bedDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}"/>
+            <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>
           </ui:define>  
-          <h:selectOneMenu id="bed" label="#{msg.admission_bed}" value="#{admissionAction.admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}" disabled="false"> 
+          <h:selectOneMenu id="bed" label="#{msg.admission_bed}" value="#{admissionAction.admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}" disabled="false"> 
             <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -75,17 +75,17 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" reRender="bedStays" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedStaysEdit')}"> 
+      <a:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" reRender="bedStays" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="bedStays" var="_bedStay" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedStaysEdit')}" value="#{admissionAction.listBedStays}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="bedStays" var="_bedStay" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}" value="#{admissionAction.listBedStays}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"/>
+            <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>
           </f:facet>  
           <s:decorate id="bedDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="bed" label="#{msg.bedStay_bed}" value="#{_bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}" disabled="false"> 
+            <h:selectOneMenu id="bed" label="#{msg.bedStay_bed}" value="#{_bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false"> 
               <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
               <rich:ajaxValidator event="onsubmit"/>  
               <s:convertEntity/> 
@@ -94,28 +94,28 @@
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'fromDateEdit')}"/>
+            <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}"/>
           </f:facet>  
           <s:decorate id="fromDateDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <rich:calendar direction="auto" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'fromDateEdit')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{_bedStay.fromDate}"> 
+            <rich:calendar direction="auto" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{_bedStay.fromDate}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </rich:calendar> 
           </s:decorate> 
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'toDateEdit')}"/>
+            <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}"/>
           </f:facet>  
           <s:decorate id="toDateDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <rich:calendar direction="auto" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'toDateEdit')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{_bedStay.toDate}"> 
+            <rich:calendar direction="auto" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{_bedStay.toDate}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </rich:calendar> 
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" reRender="bedStays" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedStaysEdit')}"> 
+          <a:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" reRender="bedStays" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

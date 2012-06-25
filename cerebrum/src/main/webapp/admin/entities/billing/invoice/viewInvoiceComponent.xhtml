@@ -11,9 +11,9 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Invoice}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'notesView')}"/>  
-        <h:outputText id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'notesView')}" value="#{invoiceAction.invoice.notes}"></h:outputText>  
-        <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'patientView')}"/>  
+        <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}"/>  
+        <h:outputText id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}" value="#{invoiceAction.invoice.notes}"></h:outputText>  
+        <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')}"/>  
         <s:link value="#{invoiceAction.invoice.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{invoiceAction.invoice.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
@@ -23,10 +23,10 @@
         </s:link> 
       </h:panelGrid>  
       <br/>  
-      <rich:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{not empty invoiceAction.listInvoiceItems and skipPermissionCheck == 'true' || s:hasPermission('invoice', 'invoiceItemsView') }" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{not empty invoiceAction.listInvoiceItems and skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewInvoiceItems') }" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceView')}"/> 
+            <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewService')}"/> 
           </f:facet>  
           <s:link value="#{_invoiceItem.service.displayName}" action="viewservice" propagation="none"> 
             <f:param name="serviceId" value="#{_invoiceItem.service.id}"/>  
@@ -35,15 +35,15 @@
         </h:column>  
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'unitsView')}"/> 
+            <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}"/> 
           </f:facet>  
-          <h:outputText id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'unitsView')}" value="#{_invoiceItem.units}"></h:outputText> 
+          <h:outputText id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}" value="#{_invoiceItem.units}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'totalView')}"/> 
+            <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}"/> 
           </f:facet>  
-          <h:outputText id="total#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'totalView')}" value="#{_invoiceItem.total}"></h:outputText> 
+          <h:outputText id="total#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}" value="#{_invoiceItem.total}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

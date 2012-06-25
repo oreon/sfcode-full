@@ -11,14 +11,14 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.PrescribedTest}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'remarksView')}"/>  
-        <h:outputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'remarksView')}" value="#{prescribedTestAction.prescribedTest.remarks}"></h:outputText>  
-        <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'dxTestView')}"/>  
+        <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}"/>  
+        <h:outputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}" value="#{prescribedTestAction.prescribedTest.remarks}"></h:outputText>  
+        <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}"/>  
         <s:link value="#{prescribedTestAction.prescribedTest.dxTest.displayName}" action="viewdxTest" propagation="none"> 
           <f:param name="dxTestId" value="#{prescribedTestAction.prescribedTest.dxTest.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'encounterView')}"/>  
+        <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewEncounter')}"/>  
         <s:link value="#{prescribedTestAction.prescribedTest.encounter.displayName}" action="viewencounter" propagation="none"> 
           <f:param name="encounterId" value="#{prescribedTestAction.prescribedTest.encounter.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 

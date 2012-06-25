@@ -7,19 +7,19 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.history_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}"/>  
+        <h:outputText value="#{msg.history_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editEncounter')}"/>  
         <br/>  
         <h:selectOneMenu id="encounter" value="#{historyAction.history.encounter}"> 
           <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="encounter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}"/> 
+        <rich:message styleClass="error errors" for="encounter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editEncounter')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}"/>  
+        <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editHistory')}"/>  
         <br/>  
         <h:inputText id="history" value="#{historyAction.history.history}"/>  
-        <rich:message styleClass="error errors" for="history" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}"/> 
+        <rich:message styleClass="error errors" for="history" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editHistory')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

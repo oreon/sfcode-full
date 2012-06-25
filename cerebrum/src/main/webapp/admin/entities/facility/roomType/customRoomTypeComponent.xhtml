@@ -7,22 +7,28 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.roomType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'nameEdit')}"/>  
+        <h:outputText value="#{msg.roomType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}"/>  
         <br/>  
         <h:inputText id="name" value="#{roomTypeAction.roomType.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'nameEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'descriptionEdit')}"/>  
+        <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}"/>  
         <br/>  
         <rich:editor id="description" value="#{roomTypeAction.roomType.description}"/>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'descriptionEdit')}"/> 
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.roomType_rate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'rateEdit')}"/>  
+        <h:outputText value="#{msg.roomType_rate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}"/>  
         <br/>  
         <h:inputText id="rate" value="#{roomTypeAction.roomType.rate}"/>  
-        <rich:message styleClass="error errors" for="rate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'rateEdit')}"/> 
+        <rich:message styleClass="error errors" for="rate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.roomType_numberOfRooms}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfRooms')}"/>  
+        <br/>  
+        <h:inputText id="numberOfRooms" value="#{roomTypeAction.roomType.numberOfRooms}"/>  
+        <rich:message styleClass="error errors" for="numberOfRooms" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfRooms')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

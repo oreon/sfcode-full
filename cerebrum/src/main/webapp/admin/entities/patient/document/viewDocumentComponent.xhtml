@@ -11,9 +11,9 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Document}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.document_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'nameView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'nameView')}" value="#{documentAction.document.name}"></h:outputText>  
-        <h:outputText value="#{msg.document_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'fileView')}"/>  
+        <h:outputText value="#{msg.document_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewName')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewName')}" value="#{documentAction.document.name}"></h:outputText>  
+        <h:outputText value="#{msg.document_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewFile')}"/>  
         <c:choose> 
           <c:when test="${documentAction.document.file.contentType.startsWith('image')}"> 
             <s:graphicImage value="#{documentAction.document.file.data}"/> 
@@ -24,9 +24,9 @@
             </s:link> 
           </c:otherwise> 
         </c:choose>  
-        <h:outputText value="#{msg.document_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'notesView')}"/>  
-        <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'notesView')}" value="#{documentAction.document.notes}"></h:outputText>  
-        <h:outputText value="#{msg.document_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'patientView')}"/>  
+        <h:outputText value="#{msg.document_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewNotes')}"/>  
+        <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewNotes')}" value="#{documentAction.document.notes}"></h:outputText>  
+        <h:outputText value="#{msg.document_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewPatient')}"/>  
         <s:link value="#{documentAction.document.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{documentAction.document.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  

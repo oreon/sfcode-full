@@ -7,19 +7,19 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/>  
         <br/>  
         <h:selectOneMenu id="patient" value="#{invoiceAction.invoice.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'patientEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'notesEdit')}"/>  
+        <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}"/>  
         <br/>  
         <h:inputText id="notes" value="#{invoiceAction.invoice.notes}"/>  
-        <rich:message styleClass="error errors" for="notes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'notesEdit')}"/> 
+        <rich:message styleClass="error errors" for="notes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

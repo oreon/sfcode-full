@@ -11,16 +11,16 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.VitalValue}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'remarksView')}"/>  
-        <h:outputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'remarksView')}" value="#{vitalValueAction.vitalValue.remarks}"></h:outputText>  
-        <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'valueView')}"/>  
-        <h:outputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'valueView')}" value="#{vitalValueAction.vitalValue.value}"></h:outputText>  
-        <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'trackedVitalView')}"/>  
+        <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}"/>  
+        <h:outputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}" value="#{vitalValueAction.vitalValue.remarks}"></h:outputText>  
+        <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}"/>  
+        <h:outputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}" value="#{vitalValueAction.vitalValue.value}"></h:outputText>  
+        <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')}"/>  
         <s:link value="#{vitalValueAction.vitalValue.trackedVital.displayName}" action="viewtrackedVital" propagation="none"> 
           <f:param name="trackedVitalId" value="#{vitalValueAction.vitalValue.trackedVital.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'patientView')}"/>  
+        <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewPatient')}"/>  
         <s:link value="#{vitalValueAction.vitalValue.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{vitalValueAction.vitalValue.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  

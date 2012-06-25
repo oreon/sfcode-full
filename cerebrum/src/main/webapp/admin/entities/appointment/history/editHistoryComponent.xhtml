@@ -13,17 +13,17 @@
         </f:facet>  
         <s:decorate id="historyDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}"/>
+            <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editHistory')}"/>
           </ui:define>  
-          <h:inputText id="history#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}" label="#{msg.history_history}" required="false" disabled="false" value="#{historyAction.history.history}"> 
+          <h:inputText id="history#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editHistory')}" label="#{msg.history_history}" required="false" disabled="false" value="#{historyAction.history.history}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="encounterDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.history_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}"/>
+            <h:outputText value="#{msg.history_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editEncounter')}"/>
           </ui:define>  
-          <h:selectOneMenu id="encounter" label="#{msg.history_encounter}" value="#{historyAction.history.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterEdit')}" disabled="false"> 
+          <h:selectOneMenu id="encounter" label="#{msg.history_encounter}" value="#{historyAction.history.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'editEncounter')}" disabled="false"> 
             <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

@@ -7,28 +7,28 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/>  
         <br/>  
         <h:selectOneMenu id="patient" value="#{encounterAction.encounter.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'patientEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'physicianEdit')}"/>  
+        <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}"/>  
         <br/>  
         <h:selectOneMenu id="physician" value="#{encounterAction.encounter.physician}"> 
           <s:selectItems value="#{physicianList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="physician" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'physicianEdit')}"/> 
+        <rich:message styleClass="error errors" for="physician" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.encounter_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'notesEdit')}"/>  
+        <h:outputText value="#{msg.encounter_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editNotes')}"/>  
         <br/>  
         <rich:editor id="notes" value="#{encounterAction.encounter.notes}"/>  
-        <rich:message styleClass="error errors" for="notes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'notesEdit')}"/> 
+        <rich:message styleClass="error errors" for="notes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editNotes')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

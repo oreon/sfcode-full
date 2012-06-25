@@ -13,17 +13,17 @@
         </f:facet>  
         <s:decorate id="unitsDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'unitsEdit')}"/>
+            <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}"/>
           </ui:define>  
-          <h:inputText id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'unitsEdit')}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{invoiceItemAction.invoiceItem.units}"> 
+          <h:inputText id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{invoiceItemAction.invoiceItem.units}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="serviceDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceEdit')}"/>
+            <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>
           </ui:define>  
-          <h:selectOneMenu id="service" label="#{msg.invoiceItem_service}" value="#{invoiceItemAction.invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceEdit')}" disabled="false"> 
+          <h:selectOneMenu id="service" label="#{msg.invoiceItem_service}" value="#{invoiceItemAction.invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false"> 
             <s:selectItems value="#{serviceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -31,9 +31,9 @@
         </s:decorate>  
         <s:decorate id="invoiceDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'invoiceEdit')}"/>
+            <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}"/>
           </ui:define>  
-          <h:selectOneMenu id="invoice" label="#{msg.invoiceItem_invoice}" value="#{invoiceItemAction.invoiceItem.invoice}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'invoiceEdit')}" disabled="false"> 
+          <h:selectOneMenu id="invoice" label="#{msg.invoiceItem_invoice}" value="#{invoiceItemAction.invoiceItem.invoice}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}" disabled="false"> 
             <s:selectItems value="#{invoiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

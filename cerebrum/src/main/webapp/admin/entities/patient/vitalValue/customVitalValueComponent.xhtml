@@ -7,34 +7,34 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'remarksEdit')}"/>  
+        <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>  
         <br/>  
         <h:inputText id="remarks" value="#{vitalValueAction.vitalValue.remarks}"/>  
-        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'remarksEdit')}"/> 
+        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'valueEdit')}"/>  
+        <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}"/>  
         <br/>  
         <h:inputText id="value" value="#{vitalValueAction.vitalValue.value}"/>  
-        <rich:message styleClass="error errors" for="value" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'valueEdit')}"/> 
+        <rich:message styleClass="error errors" for="value" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'trackedVitalEdit')}"/>  
+        <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/>  
         <br/>  
         <h:selectOneMenu id="trackedVital" value="#{vitalValueAction.vitalValue.trackedVital}"> 
           <s:selectItems value="#{trackedVitalList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="trackedVital" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'trackedVitalEdit')}"/> 
+        <rich:message styleClass="error errors" for="trackedVital" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/>  
         <br/>  
         <h:selectOneMenu id="patient" value="#{vitalValueAction.vitalValue.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'patientEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

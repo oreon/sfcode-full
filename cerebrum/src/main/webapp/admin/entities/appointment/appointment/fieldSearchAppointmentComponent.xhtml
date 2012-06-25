@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.appointment_start}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'startEdit')}"/>  
+      <h:outputText value="#{msg.appointment_start}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -15,7 +15,7 @@
       <rich:calendar value="#{appointmentList.startRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appointment_end}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'endEdit')}"/>  
+      <h:outputText value="#{msg.appointment_end}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editEnd')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -24,7 +24,7 @@
       <rich:calendar value="#{appointmentList.endRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appointment_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'physicianEdit')}"/>  
+      <h:outputText value="#{msg.appointment_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}"/>  
       <br/>  
       <h:selectOneMenu id="physician" value="#{ appointmentList.appointment.physician}"> 
         <s:selectItems value="#{physicianList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -32,7 +32,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appointment_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.appointment_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPatient')}"/>  
       <br/>  
       <h:selectOneMenu id="patient" value="#{ appointmentList.appointment.patient}"> 
         <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -40,12 +40,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appointment_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'remarksEdit')}"/>  
+      <h:outputText value="#{msg.appointment_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editRemarks')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{appointmentList.appointment.remarks}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appointment_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'unitsEdit')}"/>  
+      <h:outputText value="#{msg.appointment_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editUnits')}"/>  
       <br/>  
       <h:inputText id="units_begin" value="#{appointmentList.unitsRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 

@@ -11,24 +11,24 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Room}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'nameView')}" value="#{roomAction.room.name}"></h:outputText>  
-        <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeView')}"/>  
+        <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}" value="#{roomAction.room.name}"></h:outputText>  
+        <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewRoomType')}"/>  
         <s:link value="#{roomAction.room.roomType.displayName}" action="viewroomType" propagation="none"> 
           <f:param name="roomTypeId" value="#{roomAction.room.roomType.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardView')}"/>  
+        <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewWard')}"/>  
         <s:link value="#{roomAction.room.ward.displayName}" action="viewward" propagation="none"> 
           <f:param name="wardId" value="#{roomAction.room.ward.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <br/>  
-      <rich:dataTable id="beds" var="_bed" rendered="#{not empty roomAction.listBeds and skipPermissionCheck == 'true' || s:hasPermission('room', 'bedsView') }" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="beds" var="_bed" rendered="#{not empty roomAction.listBeds and skipPermissionCheck == 'true' || s:hasPermission('room', 'viewBeds') }" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.bed_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'patientView')}"/> 
+            <h:outputText value="#{msg.bed_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewPatient')}"/> 
           </f:facet>  
           <s:link value="#{_bed.patient.displayName}" action="viewpatient" propagation="none"> 
             <f:param name="patientId" value="#{_bed.patient.id}"/>  
@@ -40,9 +40,9 @@
         </h:column>  
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameView')}"/> 
+            <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameView')}" value="#{_bed.name}"></h:outputText> 
+          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')}" value="#{_bed.name}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 
