@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class Room extends BusinessEntity implements java.io.Serializable {
+public class Room extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 2085840692L;
 
 	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -158,7 +158,7 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public List<String> listSearchableFields() {
@@ -185,7 +185,7 @@ public class Room extends BusinessEntity implements java.io.Serializable {
 		if (getWard() != null)
 			builder.append("ward:" + getWard().getDisplayName() + " ");
 
-		for (BusinessEntity e : beds) {
+		for (BaseEntity e : beds) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

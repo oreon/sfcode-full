@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -337,7 +337,7 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public List<String> listSearchableFields() {
@@ -364,31 +364,31 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 		builder.append(getHealthNumber() + " ");
 
-		for (BusinessEntity e : admissions) {
+		for (BaseEntity e : admissions) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : prescriptions) {
+		for (BaseEntity e : prescriptions) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : unusualOccurences) {
+		for (BaseEntity e : unusualOccurences) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : documents) {
+		for (BaseEntity e : documents) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : allergys) {
+		for (BaseEntity e : allergys) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : immunizations) {
+		for (BaseEntity e : immunizations) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : vitalValues) {
+		for (BaseEntity e : vitalValues) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

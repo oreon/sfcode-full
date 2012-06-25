@@ -60,6 +60,15 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 		this.rateRange = rateRange;
 	}
 
+	private Range<Integer> numberOfRoomsRange = new Range<Integer>();
+
+	public Range<Integer> getNumberOfRoomsRange() {
+		return numberOfRoomsRange;
+	}
+	public void setNumberOfRooms(Range<Integer> numberOfRoomsRange) {
+		this.numberOfRoomsRange = numberOfRoomsRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"roomType.id = #{roomTypeList.roomType.id}",
 
@@ -69,6 +78,9 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 
 			"roomType.rate >= #{roomTypeList.rateRange.begin}",
 			"roomType.rate <= #{roomTypeList.rateRange.end}",
+
+			"roomType.numberOfRooms >= #{roomTypeList.numberOfRoomsRange.begin}",
+			"roomType.numberOfRooms <= #{roomTypeList.numberOfRoomsRange.end}",
 
 			"roomType.dateCreated <= #{roomTypeList.dateCreatedRange.end}",
 			"roomType.dateCreated >= #{roomTypeList.dateCreatedRange.begin}",};
@@ -94,6 +106,10 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 
 		builder.append("\"" + (e.getRate() != null ? e.getRate() : "") + "\",");
 
+		builder.append("\""
+				+ (e.getNumberOfRooms() != null ? e.getNumberOfRooms() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -108,6 +124,8 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 		builder.append("Description" + ",");
 
 		builder.append("Rate" + ",");
+
+		builder.append("NumberOfRooms" + ",");
 
 		builder.append("\r\n");
 	}

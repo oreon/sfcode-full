@@ -42,9 +42,9 @@ import org.richfaces.model.UploadItem;
 
 	
 		import org.witchcraft.seam.action.BaseAction; 
-		import org.witchcraft.base.entity.BusinessEntity;
+		import org.witchcraft.base.entity.BaseEntity;
 		
-		public  abstract class PersonAction<T extends BusinessEntity> extends BaseAction<T> implements java.io.Serializable{
+		public  abstract class PersonAction<T extends BaseEntity> extends BaseAction<T> implements java.io.Serializable{
 			
 		}
 	
