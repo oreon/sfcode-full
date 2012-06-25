@@ -170,6 +170,14 @@ public class MetaData {
 
 	"privilegeType.name", "java.lang.String",
 
+	"readAllowed", "java.lang.Boolean",
+
+	"writeAllowed", "java.lang.Boolean",
+
+	"editAllowed", "java.lang.Boolean",
+
+	"deleteAllowed", "java.lang.Boolean",
+
 	},
 
 	{"com.pcas.datapkg.users.AppUser",
@@ -205,6 +213,24 @@ public class MetaData {
 	"appRole.displayName", "java.lang.String",
 
 	"metaField.displayName", "java.lang.String",
+
+	},
+
+	{"com.pcas.datapkg.dashboards.Dashboard",
+
+	"appUser.displayName", "java.lang.String",
+
+	"dashboardComponentsCount", "java.lang.Integer",
+
+	"name", "java.lang.String",
+
+	},
+
+	{"com.pcas.datapkg.dashboards.DashboardComponent",
+
+	"dashboard.displayName", "java.lang.String",
+
+	"contents", "java.lang.String",
 
 	},
 

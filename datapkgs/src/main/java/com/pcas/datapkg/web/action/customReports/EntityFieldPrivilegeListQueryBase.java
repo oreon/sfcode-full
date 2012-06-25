@@ -62,6 +62,14 @@ public abstract class EntityFieldPrivilegeListQueryBase
 
 			"entityFieldPrivilege.privilegeType = #{entityFieldPrivilegeList.entityFieldPrivilege.privilegeType}",
 
+			"entityFieldPrivilege.readAllowed = #{entityFieldPrivilegeList.entityFieldPrivilege.readAllowed}",
+
+			"entityFieldPrivilege.writeAllowed = #{entityFieldPrivilegeList.entityFieldPrivilege.writeAllowed}",
+
+			"entityFieldPrivilege.editAllowed = #{entityFieldPrivilegeList.entityFieldPrivilege.editAllowed}",
+
+			"entityFieldPrivilege.deleteAllowed = #{entityFieldPrivilegeList.entityFieldPrivilege.deleteAllowed}",
+
 			"entityFieldPrivilege.dateCreated <= #{entityFieldPrivilegeList.dateCreatedRange.end}",
 			"entityFieldPrivilege.dateCreated >= #{entityFieldPrivilegeList.dateCreatedRange.begin}",};
 
@@ -95,6 +103,22 @@ public abstract class EntityFieldPrivilegeListQueryBase
 				+ (e.getPrivilegeType() != null ? e.getPrivilegeType() : "")
 				+ "\",");
 
+		builder.append("\""
+				+ (e.getReadAllowed() != null ? e.getReadAllowed() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getWriteAllowed() != null ? e.getWriteAllowed() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getEditAllowed() != null ? e.getEditAllowed() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getDeleteAllowed() != null ? e.getDeleteAllowed() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -109,6 +133,14 @@ public abstract class EntityFieldPrivilegeListQueryBase
 		builder.append("AppRole" + ",");
 
 		builder.append("PrivilegeType" + ",");
+
+		builder.append("ReadAllowed" + ",");
+
+		builder.append("WriteAllowed" + ",");
+
+		builder.append("EditAllowed" + ",");
+
+		builder.append("DeleteAllowed" + ",");
 
 		builder.append("\r\n");
 	}

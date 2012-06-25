@@ -1,4 +1,4 @@
-package com.pcas.datapkg.customReports;
+package com.pcas.datapkg.dashboards;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,132 +52,58 @@ import org.witchcraft.utils.*;
 import com.pcas.datapkg.ProjectUtils;
 
 @Entity
-@Table(name = "entityfieldprivilege")
+@Table(name = "dashboardcomponent")
 @Filter(name = "archiveFilterDef")
-@Name("entityFieldPrivilege")
+@Name("dashboardComponent")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class EntityFieldPrivilege extends BaseEntity
+public class DashboardComponent extends BaseEntity
 		implements
 			java.io.Serializable {
-	private static final long serialVersionUID = 2125560378L;
+	private static final long serialVersionUID = 1810244546L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "metaEntity_id", nullable = false, updatable = true)
+	@JoinColumn(name = "dashboard_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected MetaEntity metaEntity
+	protected Dashboard dashboard
 
 	;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "appRole_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected com.pcas.datapkg.users.AppRole appRole
-
-	;
-
+	@NotNull
+	@Length(min = 1, max = 250)
 	@Column(unique = false)
-	protected com.pcas.datapkg.managedsecurity.PrivilegeType privilegeType
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String contents
 
 	;
 
-	@Column(unique = false)
-	protected Boolean readAllowed
-
-	;
-
-	@Column(unique = false)
-	protected Boolean writeAllowed
-
-	;
-
-	@Column(unique = false)
-	protected Boolean editAllowed
-
-	;
-
-	@Column(unique = false)
-	protected Boolean deleteAllowed
-
-	;
-
-	public void setMetaEntity(MetaEntity metaEntity) {
-		this.metaEntity = metaEntity;
+	public void setDashboard(Dashboard dashboard) {
+		this.dashboard = dashboard;
 	}
 
-	public MetaEntity getMetaEntity() {
+	public Dashboard getDashboard() {
 
-		return metaEntity;
+		return dashboard;
 
 	}
 
-	public void setAppRole(com.pcas.datapkg.users.AppRole appRole) {
-		this.appRole = appRole;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
-	public com.pcas.datapkg.users.AppRole getAppRole() {
+	public String getContents() {
 
-		return appRole;
-
-	}
-
-	public void setPrivilegeType(
-			com.pcas.datapkg.managedsecurity.PrivilegeType privilegeType) {
-		this.privilegeType = privilegeType;
-	}
-
-	public com.pcas.datapkg.managedsecurity.PrivilegeType getPrivilegeType() {
-
-		return privilegeType;
-
-	}
-
-	public void setReadAllowed(Boolean readAllowed) {
-		this.readAllowed = readAllowed;
-	}
-
-	public Boolean getReadAllowed() {
-
-		return readAllowed;
-
-	}
-
-	public void setWriteAllowed(Boolean writeAllowed) {
-		this.writeAllowed = writeAllowed;
-	}
-
-	public Boolean getWriteAllowed() {
-
-		return writeAllowed;
-
-	}
-
-	public void setEditAllowed(Boolean editAllowed) {
-		this.editAllowed = editAllowed;
-	}
-
-	public Boolean getEditAllowed() {
-
-		return editAllowed;
-
-	}
-
-	public void setDeleteAllowed(Boolean deleteAllowed) {
-		this.deleteAllowed = deleteAllowed;
-	}
-
-	public Boolean getDeleteAllowed() {
-
-		return deleteAllowed;
+		return contents;
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return metaEntity + "";
+			return contents;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -195,6 +121,8 @@ public class EntityFieldPrivilege extends BaseEntity
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("contents");
+
 		return listSearchableFields;
 	}
 
@@ -203,12 +131,12 @@ public class EntityFieldPrivilege extends BaseEntity
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		if (getMetaEntity() != null)
-			builder.append("metaEntity:" + getMetaEntity().getDisplayName()
-					+ " ");
+		builder.append(getContents() + " ");
 
-		if (getAppRole() != null)
-			builder.append("appRole:" + getAppRole().getDisplayName() + " ");
+		if (getDashboard() != null)
+			builder
+					.append("dashboard:" + getDashboard().getDisplayName()
+							+ " ");
 
 		return builder.toString();
 	}

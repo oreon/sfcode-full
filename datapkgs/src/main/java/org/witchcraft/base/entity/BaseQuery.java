@@ -497,6 +497,16 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		decode(savedSearch);
 	}
 	
+	public List<E> executeSearch(String searchName){
+		if(currentSavedSearch == null) 
+			currentSavedSearch = new SavedSearch();
+		currentSavedSearch.setSearchName( searchName );
+		executeSearch();
+		return getResultList();
+	}
+	
+	
+	
 	public List<SavedSearch> getSavedSearches(){
 		return executeNamedQuery( "savedSearch.searchesForEntity",  getEntityClass().getSimpleName() );
 		//return null;
