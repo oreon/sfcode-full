@@ -3,14 +3,18 @@
 package com.oreon.cerebrum.web.action.patient;
 	
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.core.Conversation;
 import org.witchcraft.exceptions.BusinessException;
 
 import com.oreon.cerebrum.facility.Bed;
@@ -32,8 +36,32 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	
 	private Bed bed ;
 	
-	private Bed selectedBed ;
+	private Bed preferredBed ;
 	
+	private Bed nonPreferredBed ;
+	
+	@In
+	Conversation conversation;
+	
+	public Bed getPreferredBed() {
+		return preferredBed;
+	}
+
+	public void setPreferredBed(Bed preferredBed) {
+		this.preferredBed = preferredBed;
+	}
+
+	
+	
+	
+	public Bed getNonPreferredBed() {
+		return nonPreferredBed;
+	}
+
+	public void setNonPreferredBed(Bed nonPreferredBed) {
+		this.nonPreferredBed = nonPreferredBed;
+	}
+
 	private Patient patient;
 	
 	@In(create=true)
@@ -46,23 +74,51 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	
 	public List<Room> getPreferredRoomsList(){
 		if(ward == null || roomType == null)
-			return null;
+			return new ArrayList<Room>();
 		//String nativeQry = "SELECT * FROM Room r WHERE r.ward_id = ? AND ( SELECT COUNT(*) FROM Bed b WHERE b.patient_id IS NULL AND b.room_id = r.id  > 0 )";
-		
+		System.out.println("looking for " + ward.getName() + " " + roomType.getName());
 		List<Room> rooms =  executeQuery(qryPref, ward.getId(), roomType );
 		
 		return rooms;
 	}
 	
+	@Begin(join=true)
+	public List<Bed> getPrefferedBeds(){
+		
+		System.out.println(conversation.getId());
+		
+		List<Room> rooms = getPreferredRoomsList();
+		List<Bed> beds = new ArrayList<Bed>();
+		for (Room room : rooms) {
+			Hibernate.initialize(room.getBeds());
+			beds.addAll(room.getBeds());
+		}
+		
+		
+		return beds;
+	}
+	
+	@Begin(join=true)
 	public List<Room> getNonPreferredRoomsList(){
 		if(ward == null )
-			return null;
+			return new ArrayList<Room>();
 		
 		if(roomType != null)
 			return executeQuery(qryNonPref, ward.getId(), roomType);
 		
 		return executeQuery(qryAll, ward.getId());
 	}
+	
+	public List<Bed> getNonPreferredBedsList (){
+		List<Room> rooms = getNonPreferredRoomsList();
+		List<Bed> beds = new ArrayList<Bed>();
+		for (Room room : rooms) {
+			Hibernate.initialize(room.getBeds());
+			beds.addAll(room.getBeds());
+		}
+		return beds;
+	}
+	
 	
 	@Override
 	public void updateComposedAssociations() {
@@ -120,8 +176,11 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	}
 	
 	@Override
+	@End
 	public String save() {
-		if(selectedBed == null )
+		bed = preferredBed != null ? preferredBed : nonPreferredBed;
+		
+		if(bed == null )
 			throw new BusinessException("Please Select a Bed");
 		createBedStay();
 		
@@ -129,12 +188,12 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	}
 
 	private void createBedStay() {
-		bed = instance.getBed();
+		//bed = instance.getBed();
 		bed.setPatient(instance.getPatient());
 			
 		BedStay bedStay = new BedStay();
 		bedStay.setAdmission(instance);
-		bedStay.setBed(selectedBed);
+		bedStay.setBed(bed);
 		bedStay.setFromDate(new Date());
 		instance.addBedStay(bedStay);
 	}
@@ -180,7 +239,7 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	}
 	
 	public void updateSelectedBed(){
-		this.selectedBed = this.bed;
+		//this.selectedBed = this.bed;
 	}
 	
 }
