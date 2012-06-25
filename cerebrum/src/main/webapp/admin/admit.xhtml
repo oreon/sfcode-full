@@ -86,7 +86,7 @@
 									noSelectionLabel="Please Select..." />
 								<rich:ajaxValidator event="onsubmit" />
 								<a:support event="onchange" reRender="roombeds"
-									ajaxSingle="true">
+									ajaxSingle="false">
 
 									<s:conversationId />
 								</a:support>
@@ -153,69 +153,54 @@
 						opened="true">
 
 						<h:panelGroup>
-							<ui:repeat value="#{admissionAction.preferredRoomsList}"
-								var="room">
-								<h4>#{room.name}</h4>
-								<br />
+								
 
-								<h:selectOneMenu label="#{msg.bedStay_bed}"
-									value="#{admissionAction.bed}" required="true"
+								<h:selectOneMenu label="#{msg.bedStay_bed}" id="pref"
+									value="#{admissionAction.preferredBed}" required="false"
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
 									disabled="false">
-									<s:selectItems value="#{room.listBeds}" var="itemIter"
+									<s:selectItems value="#{admissionAction.prefferedBeds}" var="itemIter"
 										label="#{itemIter.displayName}"
 										noSelectionLabel="Please Select..." />
-
-
-									<a:support event="onchange"
-										action="#{admissionAction.updateSelectedBed}"
-										ajaxSingle="false">
-										<s:conversationId />
-									</a:support>
 
 									<s:convertEntity />
 								</h:selectOneMenu>
 								<hr />
 
-							</ui:repeat>
 						</h:panelGroup>
 					</rich:simpleTogglePanel>
 					<br />
 					<rich:simpleTogglePanel switchType="client" label="Non Preferred"
 						opened="true">
 						<h:panelGroup>
-							<ui:repeat value="#{admissionAction.nonPreferredRoomsList}"
-								var="room">
-								<h4>#{room.name}</h4>
-
-								<h:selectOneMenu label="#{msg.bedStay_bed}"
-									value="#{admissionAction.bed}"
+								<h:selectOneMenu label="#{msg.bedStay_bed}" id="nonpref"
+									value="#{admissionAction.nonPreferredBed}"
 									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
 									disabled="false">
-									<s:selectItems value="#{room.listBeds}" var="itemIter"
+									<s:selectItems value="#{admissionAction.nonPreferredBedsList}" var="itemIter"
 										label="#{itemIter.displayName}"
 										noSelectionLabel="Please Select..." />
 
-									<a:support event="onchange"
-										action="#{admissionAction.updateSelectedBed}"
-										ajaxSingle="false">
-										<s:conversationId />
-									</a:support>
+									
 									<s:convertEntity />
 								</h:selectOneMenu>
 								<hr />
 
-							</ui:repeat>
+							
 						</h:panelGroup>
 
 					</rich:simpleTogglePanel>
 				</h:selectOneRadio>
 			</rich:panel>
-			<div class="buttonBox"><h:commandButton value="Save"
-				action="#{admissionAction.save}">
-				<s:conversationId />
-			</h:commandButton> <h:outputText value=" " /> <h:commandButton value="Cancel"
-				immediate="true" action="#{admissionAction.cancel}"></h:commandButton></div>
+			<div class="buttonBox">
+				<h:commandButton value="Save" 
+					action="#{admissionAction.save}">
+					<s:conversationId />
+				</h:commandButton> 
+				
+				<h:outputText value=" " /> <h:commandButton value="Cancel"
+					immediate="true" action="#{admissionAction.cancel}"></h:commandButton>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>
