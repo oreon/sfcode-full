@@ -11,16 +11,16 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.BedStay}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'fromDateView')}"/>  
-        <h:outputText direction="auto" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'fromDateView')}" value="#{bedStayAction.bedStay.fromDate}"></h:outputText>  
-        <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'toDateView')}"/>  
-        <h:outputText direction="auto" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'toDateView')}" value="#{bedStayAction.bedStay.toDate}"></h:outputText>  
-        <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'admissionView')}"/>  
+        <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}"/>  
+        <h:outputText direction="auto" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}" value="#{bedStayAction.bedStay.fromDate}"></h:outputText>  
+        <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}"/>  
+        <h:outputText direction="auto" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}" value="#{bedStayAction.bedStay.toDate}"></h:outputText>  
+        <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewAdmission')}"/>  
         <s:link value="#{bedStayAction.bedStay.admission.displayName}" action="viewadmission" propagation="none"> 
           <f:param name="admissionId" value="#{bedStayAction.bedStay.admission.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedView')}"/>  
+        <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewBed')}"/>  
         <s:link value="#{bedStayAction.bedStay.bed.displayName}" action="viewbed" propagation="none"> 
           <f:param name="bedId" value="#{bedStayAction.bedStay.bed.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 

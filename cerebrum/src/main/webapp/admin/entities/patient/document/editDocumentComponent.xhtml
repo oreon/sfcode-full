@@ -13,17 +13,17 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.document_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'nameEdit')}"/>
+            <h:outputText value="#{msg.document_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'nameEdit')}" label="#{msg.document_name}" required="true" disabled="false" value="#{documentAction.document.name}"> 
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editName')}" label="#{msg.document_name}" required="true" disabled="false" value="#{documentAction.document.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="fileDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.document_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'fileEdit')}"/>
+            <h:outputText value="#{msg.document_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editFile')}"/>
           </ui:define>  
-          <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'fileEdit')}"> 
+          <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editFile')}"> 
             <h:outputText value="Current File:"/>  
             <s:link value="#{documentAction.document.file.name}" id="file_file" action="#{documentAction.downloadFile(null)}" propagation="none"> 
               <f:param name="currentEntityId" value="#{documentAction.instance.id}"/> 
@@ -36,17 +36,17 @@
         </s:decorate>  
         <s:decorate id="notesDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.document_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'notesEdit')}"/>
+            <h:outputText value="#{msg.document_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editNotes')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'notesEdit')}" label="#{msg.document_notes}" required="false" disabled="false" value="#{documentAction.document.notes}"> 
+          <rich:editor useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editNotes')}" label="#{msg.document_notes}" required="false" disabled="false" value="#{documentAction.document.notes}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
         <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.document_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'patientEdit')}"/>
+            <h:outputText value="#{msg.document_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editPatient')}"/>
           </ui:define>  
-          <h:selectOneMenu id="patient" label="#{msg.document_patient}" value="#{documentAction.document.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'patientEdit')}" disabled="false"> 
+          <h:selectOneMenu id="patient" label="#{msg.document_patient}" value="#{documentAction.document.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'editPatient')}" disabled="false"> 
             <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

@@ -54,6 +54,16 @@
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('numberOfRooms', 'roomTypeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{roomTypeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.roomType_numberOfRooms}"/>  
+              <ui:param name="propertyPath" value="roomType.numberOfRooms"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_roomType.numberOfRooms}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'roomTypeView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

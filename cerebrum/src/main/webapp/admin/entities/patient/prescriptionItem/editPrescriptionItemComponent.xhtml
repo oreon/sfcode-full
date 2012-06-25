@@ -13,17 +13,17 @@
         </f:facet>  
         <s:decorate id="qtyDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'qtyEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editQty')}"/>
           </ui:define>  
-          <h:inputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'qtyEdit')}" label="#{msg.prescriptionItem_qty}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.qty}"> 
+          <h:inputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editQty')}" label="#{msg.prescriptionItem_qty}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.qty}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="routeDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'routeEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRoute')}"/>
           </ui:define>  
-          <h:selectOneMenu id="route" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'routeEdit')}" value="#{prescriptionItemAction.prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
+          <h:selectOneMenu id="route" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRoute')}" value="#{prescriptionItemAction.prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="PO" itemLabel="#{msg.PO}"/>  
             <f:selectItem itemValue="IV" itemLabel="#{msg.IV}"/>  
@@ -35,23 +35,23 @@
         </s:decorate>  
         <s:decorate id="durationDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'durationEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDuration')}"/>
           </ui:define>  
-          <h:inputText id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'durationEdit')}" label="#{msg.prescriptionItem_duration}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.duration}"> 
+          <h:inputText id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDuration')}" label="#{msg.prescriptionItem_duration}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.duration}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'remarksEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRemarks')}"/>
           </ui:define>  
-          <h:inputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'remarksEdit')}" label="#{msg.prescriptionItem_remarks}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.remarks}"> 
+          <h:inputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRemarks')}" label="#{msg.prescriptionItem_remarks}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.remarks}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="drugDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'drugEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDrug')}"/>
           </ui:define>  
           <h:panelGroup> 
             <a:region> 
@@ -69,9 +69,9 @@
         </s:decorate>  
         <s:decorate id="prescriptionDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'prescriptionEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescription')}"/>
           </ui:define>  
-          <h:selectOneMenu id="prescription" label="#{msg.prescriptionItem_prescription}" value="#{prescriptionItemAction.prescriptionItem.prescription}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'prescriptionEdit')}" disabled="false"> 
+          <h:selectOneMenu id="prescription" label="#{msg.prescriptionItem_prescription}" value="#{prescriptionItemAction.prescriptionItem.prescription}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescription')}" disabled="false"> 
             <s:selectItems value="#{prescriptionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -79,9 +79,9 @@
         </s:decorate>  
         <s:decorate id="frequecyDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.prescriptionItem_frequecy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}"/>
+            <h:outputText value="#{msg.prescriptionItem_frequecy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequecy')}"/>
           </ui:define>  
-          <h:selectOneMenu id="frequecy" label="#{msg.prescriptionItem_frequecy}" value="#{prescriptionItemAction.prescriptionItem.frequecy}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}" disabled="false"> 
+          <h:selectOneMenu id="frequecy" label="#{msg.prescriptionItem_frequecy}" value="#{prescriptionItemAction.prescriptionItem.frequecy}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequecy')}" disabled="false"> 
             <s:selectItems value="#{frequecyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

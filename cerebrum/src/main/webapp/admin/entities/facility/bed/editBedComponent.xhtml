@@ -13,28 +13,18 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}"/>
+            <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'nameEdit')}" label="#{msg.bed_name}" required="true" disabled="false" value="#{bedAction.bed.name}"> 
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editName')}" label="#{msg.bed_name}" required="true" disabled="false" value="#{bedAction.bed.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="roomDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'roomEdit')}"/>
+            <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}"/>
           </ui:define>  
-          <h:selectOneMenu id="room" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'roomEdit')}" disabled="false"> 
+          <h:selectOneMenu id="room" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}" disabled="false"> 
             <s:selectItems value="#{roomList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu> 
-        </s:decorate>  
-        <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.bed_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'patientEdit')}"/>
-          </ui:define>  
-          <h:selectOneMenu id="patient" label="#{msg.bed_patient}" value="#{bedAction.bed.patient}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'patientEdit')}" disabled="false"> 
-            <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 

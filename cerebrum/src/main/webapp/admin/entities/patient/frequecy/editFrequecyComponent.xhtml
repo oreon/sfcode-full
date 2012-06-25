@@ -13,17 +13,17 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.frequecy_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'nameEdit')}"/>
+            <h:outputText value="#{msg.frequecy_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'nameEdit')}" label="#{msg.frequecy_name}" required="true" disabled="false" value="#{frequecyAction.frequecy.name}"> 
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'editName')}" label="#{msg.frequecy_name}" required="true" disabled="false" value="#{frequecyAction.frequecy.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="qtyPerDayDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.frequecy_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'qtyPerDayEdit')}"/>
+            <h:outputText value="#{msg.frequecy_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'editQtyPerDay')}"/>
           </ui:define>  
-          <h:inputText id="qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'qtyPerDayEdit')}" label="#{msg.frequecy_qtyPerDay}" required="false" disabled="false" value="#{frequecyAction.frequecy.qtyPerDay}"> 
+          <h:inputText id="qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'editQtyPerDay')}" label="#{msg.frequecy_qtyPerDay}" required="false" disabled="false" value="#{frequecyAction.frequecy.qtyPerDay}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

@@ -13,25 +13,25 @@
         </f:facet>  
         <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'remarksEdit')}"/>
+            <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>
           </ui:define>  
-          <h:inputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'remarksEdit')}" label="#{msg.vitalValue_remarks}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.remarks}"> 
+          <h:inputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}" label="#{msg.vitalValue_remarks}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.remarks}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="valueDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'valueEdit')}"/>
+            <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}"/>
           </ui:define>  
-          <h:inputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'valueEdit')}" label="#{msg.vitalValue_value}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.value}"> 
+          <h:inputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}" label="#{msg.vitalValue_value}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.value}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="trackedVitalDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'trackedVitalEdit')}"/>
+            <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/>
           </ui:define>  
-          <h:selectOneMenu id="trackedVital" label="#{msg.vitalValue_trackedVital}" value="#{vitalValueAction.vitalValue.trackedVital}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'trackedVitalEdit')}" disabled="false"> 
+          <h:selectOneMenu id="trackedVital" label="#{msg.vitalValue_trackedVital}" value="#{vitalValueAction.vitalValue.trackedVital}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}" disabled="false"> 
             <s:selectItems value="#{trackedVitalList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -39,9 +39,9 @@
         </s:decorate>  
         <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'patientEdit')}"/>
+            <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/>
           </ui:define>  
-          <h:selectOneMenu id="patient" label="#{msg.vitalValue_patient}" value="#{vitalValueAction.vitalValue.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'patientEdit')}" disabled="false"> 
+          <h:selectOneMenu id="patient" label="#{msg.vitalValue_patient}" value="#{vitalValueAction.vitalValue.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}" disabled="false"> 
             <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

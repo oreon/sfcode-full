@@ -7,28 +7,28 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.immunization_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'dateEdit')}"/>  
+        <h:outputText value="#{msg.immunization_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editDate')}"/>  
         <br/>  
         <rich:calendar id="date" value="#{immunizationAction.immunization.date}"/>  
-        <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'dateEdit')}"/> 
+        <rich:message styleClass="error errors" for="date" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editDate')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.immunization_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.immunization_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}"/>  
         <br/>  
         <h:selectOneMenu id="patient" value="#{immunizationAction.immunization.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'patientEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'vaccineEdit')}"/>  
+        <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}"/>  
         <br/>  
         <h:selectOneMenu id="vaccine" value="#{immunizationAction.immunization.vaccine}"> 
           <s:selectItems value="#{vaccineList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="vaccine" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'vaccineEdit')}"/> 
+        <rich:message styleClass="error errors" for="vaccine" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -11,9 +11,9 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Encounter}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.encounter_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'notesView')}"/>  
-        <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'notesView')}" value="#{encounterAction.encounter.notes}"></h:outputText>  
-        <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'patientView')}"/>  
+        <h:outputText value="#{msg.encounter_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewNotes')}"/>  
+        <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewNotes')}" value="#{encounterAction.encounter.notes}"></h:outputText>  
+        <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatient')}"/>  
         <s:link value="#{encounterAction.encounter.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{encounterAction.encounter.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
@@ -21,25 +21,25 @@
             <span>#{encounterAction.encounter.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link>  
-        <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'physicianView')}"/>  
+        <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPhysician')}"/>  
         <s:link value="#{encounterAction.encounter.physician.displayName}" action="viewphysician" propagation="none"> 
           <f:param name="physicianId" value="#{encounterAction.encounter.physician.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <br/>  
-      <rich:dataTable id="historys" var="_history" rendered="#{not empty encounterAction.listHistorys and skipPermissionCheck == 'true' || s:hasPermission('encounter', 'historysView') }" value="#{encounterAction.listHistorys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="historys" var="_history" rendered="#{not empty encounterAction.listHistorys and skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewHistorys') }" value="#{encounterAction.listHistorys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyView')}"/> 
+            <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewHistory')}"/> 
           </f:facet>  
-          <h:outputText id="history#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyView')}" value="#{_history.history}"></h:outputText> 
+          <h:outputText id="history#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewHistory')}" value="#{_history.history}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
-      <rich:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{not empty encounterAction.listPrescribedTests and skipPermissionCheck == 'true' || s:hasPermission('history', 'prescribedTestsView') }" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{not empty encounterAction.listPrescribedTests and skipPermissionCheck == 'true' || s:hasPermission('history', 'viewPrescribedTests') }" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'dxTestView')}"/> 
+            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}"/> 
           </f:facet>  
           <s:link value="#{_prescribedTest.dxTest.displayName}" action="viewdxTest" propagation="none"> 
             <f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}"/>  
@@ -48,9 +48,9 @@
         </h:column>  
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'remarksView')}"/> 
+            <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}"/> 
           </f:facet>  
-          <h:outputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'remarksView')}" value="#{_prescribedTest.remarks}"></h:outputText> 
+          <h:outputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}" value="#{_prescribedTest.remarks}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

@@ -7,16 +7,16 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeEdit')}"/>  
+        <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}"/>  
         <br/>  
         <h:selectOneMenu id="occurenceType" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}"> 
           <s:selectItems value="#{occurenceTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="occurenceType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'occurenceTypeEdit')}"/> 
+        <rich:message styleClass="error errors" for="occurenceType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryEdit')}"/>  
+        <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCategory')}"/>  
         <br/>  
         <h:selectOneMenu id="category" value="#{unusualOccurenceAction.unusualOccurence.category}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -26,10 +26,10 @@
           <f:selectItem itemValue="Surgery" itemLabel="Surgery"/>  
           <f:selectItem itemValue="Other" itemLabel="Other"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="category" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'categoryEdit')}"/> 
+        <rich:message styleClass="error errors" for="category" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCategory')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityEdit')}"/>  
+        <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editSeverity')}"/>  
         <br/>  
         <h:selectOneMenu id="severity" value="#{unusualOccurenceAction.unusualOccurence.severity}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -37,31 +37,31 @@
           <f:selectItem itemValue="Moderate" itemLabel="Moderate"/>  
           <f:selectItem itemValue="Critical" itemLabel="Critical"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'severityEdit')}"/> 
+        <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editSeverity')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionEdit')}"/>  
+        <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editDescription')}"/>  
         <br/>  
         <rich:editor id="description" value="#{unusualOccurenceAction.unusualOccurence.description}"/>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'descriptionEdit')}"/> 
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editDescription')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}"/>  
         <br/>  
         <h:selectOneMenu id="patient" value="#{unusualOccurenceAction.unusualOccurence.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'patientEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.unusualOccurence_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByEdit')}"/>  
+        <h:outputText value="#{msg.unusualOccurence_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCreatedBy')}"/>  
         <br/>  
         <h:selectOneMenu id="createdBy" value="#{unusualOccurenceAction.unusualOccurence.createdBy}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="createdBy" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'createdByEdit')}"/> 
+        <rich:message styleClass="error errors" for="createdBy" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCreatedBy')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

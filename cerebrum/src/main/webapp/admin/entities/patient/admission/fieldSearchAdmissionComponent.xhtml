@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>  
       <br/>  
       <h:selectOneMenu id="patient" value="#{ admissionList.admission.patient}"> 
         <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,12 +14,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'admissionNoteEdit')}"/>  
+      <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>  
       <br/>  
       <h:inputText id="admissionNote" value="#{admissionList.admission.admissionNote}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeDateEdit')}"/>  
+      <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeDate')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -28,12 +28,21 @@
       <rich:calendar value="#{admissionList.dischargeDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeNoteEdit')}"/>  
+      <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>  
+      <br/>  
+      <h:selectOneMenu id="bed" value="#{ admissionList.admission.bed}"> 
+        <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>  
       <br/>  
       <h:inputText id="dischargeNote" value="#{admissionList.admission.dischargeNote}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'dischargeCodeEdit')}"/>  
+      <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}"/>  
       <br/>  
       <h:selectOneMenu id="dischargeCode" value="#{admissionList.admission.dischargeCode}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  

@@ -13,9 +13,9 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.allergen_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergen', 'nameEdit')}"/>
+            <h:outputText value="#{msg.allergen_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergen', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergen', 'nameEdit')}" label="#{msg.allergen_name}" required="true" disabled="false" value="#{allergenAction.allergen.name}"> 
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergen', 'editName')}" label="#{msg.allergen_name}" required="true" disabled="false" value="#{allergenAction.allergen.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

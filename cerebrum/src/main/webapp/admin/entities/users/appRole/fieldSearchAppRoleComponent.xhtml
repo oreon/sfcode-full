@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.appRole_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appRole', 'nameEdit')}"/>  
+      <h:outputText value="#{msg.appRole_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appRole', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{appRoleList.appRole.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appRole_appUsers}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appRole', 'appUsersEdit')}"/>  
+      <h:outputText value="#{msg.appRole_appUsers}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appRole', 'editAppUsers')}"/>  
       <br/>  
       <h:selectOneMenu id="appUsers" value="#{ appRoleList.appUsersToSearch}"> 
         <s:selectItems value="#{appUserList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

@@ -7,29 +7,29 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'facilityEdit')}"/>  
+        <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editFacility')}"/>  
         <br/>  
         <h:selectOneMenu id="facility" value="#{wardAction.ward.facility}"> 
           <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="facility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'facilityEdit')}"/> 
+        <rich:message styleClass="error errors" for="facility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editFacility')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameEdit')}"/>  
+        <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}"/>  
         <br/>  
         <h:inputText id="name" value="#{wardAction.ward.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'genderEdit')}"/>  
+        <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editGender')}"/>  
         <br/>  
         <h:selectOneMenu id="gender" value="#{wardAction.ward.gender}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="F" itemLabel="F"/>  
           <f:selectItem itemValue="M" itemLabel="M"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'genderEdit')}"/> 
+        <rich:message styleClass="error errors" for="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editGender')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

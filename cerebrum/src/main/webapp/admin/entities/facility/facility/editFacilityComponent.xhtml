@@ -13,36 +13,36 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.facility_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'nameEdit')}"/>
+            <h:outputText value="#{msg.facility_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'nameEdit')}" label="#{msg.facility_name}" required="false" disabled="false" value="#{facilityAction.facility.name}"> 
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editName')}" label="#{msg.facility_name}" required="false" disabled="false" value="#{facilityAction.facility.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'wardsEdit')}"> 
+      <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="wards" var="_ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'wardsEdit')}" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="wards" var="_ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameEdit')}"/>
+            <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}"/>
           </f:facet>  
           <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nameEdit')}" label="#{msg.ward_name}" required="true" disabled="false" value="#{_ward.name}"> 
+            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}" label="#{msg.ward_name}" required="true" disabled="false" value="#{_ward.name}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'genderEdit')}"/>
+            <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editGender')}"/>
           </f:facet>  
           <s:decorate id="genderDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'genderEdit')}" value="#{_ward.gender}" required="false" label="#{msg.ward_gender}"> 
+            <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editGender')}" value="#{_ward.gender}" required="false" label="#{msg.ward_gender}"> 
               <f:selectItem itemLabel="Please Select..." itemValue=""/>  
               <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
               <f:selectItem itemValue="M" itemLabel="#{msg.M}"/>  
@@ -51,7 +51,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'wardsEdit')}"> 
+          <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

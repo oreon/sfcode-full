@@ -13,25 +13,25 @@
         </f:facet>  
         <s:decorate id="fromDateDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'fromDateEdit')}"/>
+            <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}"/>
           </ui:define>  
-          <rich:calendar direction="auto" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'fromDateEdit')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.fromDate}"> 
+          <rich:calendar direction="auto" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.fromDate}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  
         <s:decorate id="toDateDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'toDateEdit')}"/>
+            <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}"/>
           </ui:define>  
-          <rich:calendar direction="auto" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'toDateEdit')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.toDate}"> 
+          <rich:calendar direction="auto" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.toDate}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  
         <s:decorate id="admissionDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'admissionEdit')}"/>
+            <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}"/>
           </ui:define>  
-          <h:selectOneMenu id="admission" label="#{msg.bedStay_admission}" value="#{bedStayAction.bedStay.admission}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'admissionEdit')}" disabled="false"> 
+          <h:selectOneMenu id="admission" label="#{msg.bedStay_admission}" value="#{bedStayAction.bedStay.admission}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}" disabled="false"> 
             <s:selectItems value="#{admissionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -39,9 +39,9 @@
         </s:decorate>  
         <s:decorate id="bedDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"/>
+            <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>
           </ui:define>  
-          <h:selectOneMenu id="bed" label="#{msg.bedStay_bed}" value="#{bedStayAction.bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}" disabled="false"> 
+          <h:selectOneMenu id="bed" label="#{msg.bedStay_bed}" value="#{bedStayAction.bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false"> 
             <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

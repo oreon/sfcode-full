@@ -7,34 +7,34 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'unitsEdit')}"/>  
+        <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}"/>  
         <br/>  
         <h:inputText id="units" value="#{invoiceItemAction.invoiceItem.units}"/>  
-        <rich:message styleClass="error errors" for="units" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'unitsEdit')}"/> 
+        <rich:message styleClass="error errors" for="units" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceEdit')}"/>  
+        <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>  
         <br/>  
         <h:selectOneMenu id="service" value="#{invoiceItemAction.invoiceItem.service}"> 
           <s:selectItems value="#{serviceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="service" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'serviceEdit')}"/> 
+        <rich:message styleClass="error errors" for="service" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'invoiceEdit')}"/>  
+        <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}"/>  
         <br/>  
         <h:selectOneMenu id="invoice" value="#{invoiceItemAction.invoiceItem.invoice}"> 
           <s:selectItems value="#{invoiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="invoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'invoiceEdit')}"/> 
+        <rich:message styleClass="error errors" for="invoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'totalEdit')}"/>  
+        <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editTotal')}"/>  
         <br/>  
         <h:inputText id="total" value="#{invoiceItemAction.invoiceItem.total}"/>  
-        <rich:message styleClass="error errors" for="total" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'totalEdit')}"/> 
+        <rich:message styleClass="error errors" for="total" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editTotal')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

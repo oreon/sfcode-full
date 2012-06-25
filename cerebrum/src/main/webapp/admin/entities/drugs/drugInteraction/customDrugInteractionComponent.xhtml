@@ -7,31 +7,31 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'descriptionEdit')}"/>  
+        <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDescription')}"/>  
         <br/>  
         <rich:editor id="description" value="#{drugInteractionAction.drugInteraction.description}"/>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'descriptionEdit')}"/> 
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDescription')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugEdit')}"/>  
+        <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/>  
         <br/>  
         <h:selectOneMenu id="drug" value="#{drugInteractionAction.drugInteraction.drug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="drug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugEdit')}"/> 
+        <rich:message styleClass="error errors" for="drug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"/>  
+        <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/>  
         <br/>  
         <h:selectOneMenu id="interactingDrug" value="#{drugInteractionAction.drugInteraction.interactingDrug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="interactingDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"/> 
+        <rich:message styleClass="error errors" for="interactingDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'severityEdit')}"/>  
+        <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editSeverity')}"/>  
         <br/>  
         <h:selectOneMenu id="severity" value="#{drugInteractionAction.drugInteraction.severity}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -39,7 +39,7 @@
           <f:selectItem itemValue="MODERATE" itemLabel="Moderate"/>  
           <f:selectItem itemValue="SEVERE" itemLabel="Severe"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'severityEdit')}"/> 
+        <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editSeverity')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -11,9 +11,9 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.History}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyView')}"/>  
-        <h:outputText id="history#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyView')}" value="#{historyAction.history.history}"></h:outputText>  
-        <h:outputText value="#{msg.history_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'encounterView')}"/>  
+        <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewHistory')}"/>  
+        <h:outputText id="history#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewHistory')}" value="#{historyAction.history.history}"></h:outputText>  
+        <h:outputText value="#{msg.history_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewEncounter')}"/>  
         <s:link value="#{historyAction.history.encounter.displayName}" action="viewencounter" propagation="none"> 
           <f:param name="encounterId" value="#{historyAction.history.encounter.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 

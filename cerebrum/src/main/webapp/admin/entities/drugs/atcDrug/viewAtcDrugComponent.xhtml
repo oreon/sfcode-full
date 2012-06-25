@@ -11,11 +11,11 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.AtcDrug}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeView')}"/>  
-        <h:outputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeView')}" value="#{atcDrugAction.atcDrug.code}"></h:outputText>  
-        <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameView')}" value="#{atcDrugAction.atcDrug.name}"></h:outputText>  
-        <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'drugView')}"/>  
+        <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')}"/>  
+        <h:outputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')}" value="#{atcDrugAction.atcDrug.code}"></h:outputText>  
+        <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')}" value="#{atcDrugAction.atcDrug.name}"></h:outputText>  
+        <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')}"/>  
         <s:link value="#{atcDrugAction.atcDrug.drug.displayName}" action="viewdrug" propagation="none"> 
           <f:param name="drugId" value="#{atcDrugAction.atcDrug.drug.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
@@ -23,17 +23,17 @@
             <span>#{atcDrugAction.atcDrug.drug.popupInfo}</span> 
           </rich:toolTip> 
         </s:link>  
-        <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'parentView')}"/>  
+        <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')}"/>  
         <s:link value="#{atcDrugAction.atcDrug.parent.displayName}" action="viewparent" propagation="none"> 
           <f:param name="parentId" value="#{atcDrugAction.atcDrug.parent.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <br/>  
-      <rich:dataTable id="subcategories" var="_atcDrug" rendered="#{not empty atcDrugAction.listSubcategories and skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'subcategoriesView') }" value="#{atcDrugAction.listSubcategories}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <rich:dataTable id="subcategories" var="_atcDrug" rendered="#{not empty atcDrugAction.listSubcategories and skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewSubcategories') }" value="#{atcDrugAction.listSubcategories}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'drugView')}"/> 
+            <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')}"/> 
           </f:facet>  
           <s:link value="#{_atcDrug.drug.displayName}" action="viewdrug" propagation="none"> 
             <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
@@ -45,15 +45,15 @@
         </h:column>  
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeView')}"/> 
+            <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')}"/> 
           </f:facet>  
-          <h:outputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeView')}" value="#{_atcDrug.code}"></h:outputText> 
+          <h:outputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')}" value="#{_atcDrug.code}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 
-            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameView')}"/> 
+            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameView')}" value="#{_atcDrug.name}"></h:outputText> 
+          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')}" value="#{_atcDrug.name}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

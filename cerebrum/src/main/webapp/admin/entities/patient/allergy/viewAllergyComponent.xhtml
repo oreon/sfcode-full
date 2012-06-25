@@ -11,9 +11,9 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Allergy}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'severityView')}"/>  
+        <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewSeverity')}"/>  
         <h:outputText value="#{allergyAction.allergy.severity}"/>  
-        <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'patientView')}"/>  
+        <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')}"/>  
         <s:link value="#{allergyAction.allergy.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{allergyAction.allergy.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
@@ -21,7 +21,7 @@
             <span>#{allergyAction.allergy.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link>  
-        <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'allergenView')}"/>  
+        <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewAllergen')}"/>  
         <s:link value="#{allergyAction.allergy.allergen.displayName}" action="viewallergen" propagation="none"> 
           <f:param name="allergenId" value="#{allergyAction.allergy.allergen.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 

@@ -7,25 +7,25 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeEdit')}"/>  
+        <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}"/>  
         <br/>  
         <h:inputText id="code" value="#{atcDrugAction.atcDrug.code}"/>  
-        <rich:message styleClass="error errors" for="code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'codeEdit')}"/> 
+        <rich:message styleClass="error errors" for="code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/>  
+        <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/>  
         <br/>  
         <h:inputText id="name" value="#{atcDrugAction.atcDrug.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'nameEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'drugEdit')}"/>  
+        <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>  
         <br/>  
         <h:selectOneMenu id="drug" value="#{atcDrugAction.atcDrug.drug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="drug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'drugEdit')}"/> 
+        <rich:message styleClass="error errors" for="drug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 
