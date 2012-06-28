@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils;
 import org.primefaces.model.DualListModel;
 
 import org.witchcraft.utils.ViewUtils;
-import javax.inject.Inject;
+import javax.inject.Inject; import javax.ejb.Stateful;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;

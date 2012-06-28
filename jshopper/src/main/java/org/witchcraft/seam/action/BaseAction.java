@@ -15,7 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.inject.Inject;
+import javax.inject.Inject; import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -45,6 +45,7 @@ import org.primefaces.model.SortOrder;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.seam.security.hasPermission;
 
 /**
  * @author singj3
@@ -131,7 +132,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 	/*
 	 * Support updating and deleting T entities
 	 */
-
+	@hasPermission
 	public String update() {
 		
 		persist();

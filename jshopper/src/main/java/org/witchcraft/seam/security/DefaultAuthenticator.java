@@ -18,7 +18,7 @@ package org.witchcraft.seam.security;
 
 import javax.ejb.Stateful;
 import javax.enterprise.event.Event;
-import javax.inject.Inject;
+import javax.inject.Inject; import javax.ejb.Stateful;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

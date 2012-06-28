@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
+import javax.inject.Inject; import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
