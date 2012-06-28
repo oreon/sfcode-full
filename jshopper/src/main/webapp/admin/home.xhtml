@@ -1,21 +1,66 @@
-
-<ui:composition 
- xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template = "/admin/template.xhtml" >	
+	template="/admin/template.xhtml">
+
 	<ui:define name="content">
-	<h:form>
-		
-		<h3> WECLOME</h3>
-	</h:form>
-	</ui:define> 
+
+
+
+		<h3>WECLOME</h3>
+
+		<h:form>
+
+			<h:inputText value="#{examAction.searchText}" />
+
+			<p:commandButton action="#{examAction.textSearch}" value="Search"  update="ExamTable"/>
+
+			<p:dataTable var="_exam" value="#{examAction.searchResultsList}" paginator="true"
+				rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" selectionMode="single"
+				 id="ExamTable">
+				
+				<p:column headerText="Id" sortBy="#{_exam.id}">
+					<h:link outcome="viewExam.xthml">
+						<f:param name="id" value="#{_exam.id}" />
+						<h:outputText value="#{_exam.id}" />
+					</h:link>
+				</p:column>
+				<p:column headerText="#{msg.exam_title}" sortBy="#{_exam.title}"
+					filterBy="#{_exam.title}">
+					<h:outputText value="#{_exam.title}" />
+				</p:column>
+				<p:column headerText="#{msg.exam_description}"
+					sortBy="#{_exam.description}" filterBy="#{_exam.description}">
+					<p:tooltip value="#{_exam.description}" for="descriptionAbbr"></p:tooltip>
+					<h:outputText id="descriptionAbbr"
+						value="#{_exam.descriptionAbbreviated}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{_exam.dateCreated}">
+						<f:convertDateTime pattern="dd-MMM-yyyy " />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			<p:dialog header="Exam Detail" widgetVar="ExamDialog"
+				resizable="true">
+				<h:panelGrid id="display" columns="2" cellpadding="4">
+					<ui:include
+						src="/admin/entities/domain/exam/editExamComponent.xhtml" />
+				</h:panelGrid>
+				<h:commandButton value="Save" action="#{examAction.persist}" />
+			</p:dialog>
+
+
+		</h:form>
+	</ui:define>
 </ui:composition>
-	
