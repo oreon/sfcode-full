@@ -3,7 +3,7 @@ package org.witchcraft.base.entity;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
+import javax.inject.Inject; import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
 
@@ -20,6 +20,7 @@ public class UserUtilAction implements Serializable{
 	
 	@Inject
 	EntityManager entityManager;
+	
 
 	/*
 	private AppUser currentUser;

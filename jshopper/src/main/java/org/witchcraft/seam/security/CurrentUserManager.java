@@ -23,6 +23,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.jboss.solder.core.Veto;
 import org.picketlink.idm.api.User;
 
 import com.oreon.talent.users.AppUser;
