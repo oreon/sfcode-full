@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.appointment.DxTest;
 
-@Name("dxTestResourceHome")
-@Path("dxTest")
+//@Name("dxTestResourceHome")
+//@Path("dxTest")
 public class DxTestResourceHome extends ResourceHome<DxTest, Long> {
 	@In(create = true)
 	private EntityHome<DxTest> dxTestAction;

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.facility.Ward;
 
-@Name("wardResourceQuery")
-@Path("ward")
+//@Name("wardResourceQuery")
+//@Path("ward")
 public class WardResourceQuery extends ResourceQuery<Ward> {
 
 }

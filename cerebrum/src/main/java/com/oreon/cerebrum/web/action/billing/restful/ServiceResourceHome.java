@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.billing.Service;
 
-@Name("serviceResourceHome")
-@Path("service")
+//@Name("serviceResourceHome")
+//@Path("service")
 public class ServiceResourceHome extends ResourceHome<Service, Long> {
 	@In(create = true)
 	private EntityHome<Service> serviceAction;

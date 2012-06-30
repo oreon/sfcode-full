@@ -17,9 +17,7 @@ import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.mock.SeamTest;
-import org.jbpm.identity.User;
 import org.testng.annotations.BeforeClass;
-import org.witchcraft.seam.action.BaseAction;
 
 
 

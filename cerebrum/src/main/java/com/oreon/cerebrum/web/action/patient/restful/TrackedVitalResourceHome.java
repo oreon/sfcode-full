@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.TrackedVital;
 
-@Name("trackedVitalResourceHome")
-@Path("trackedVital")
+//@Name("trackedVitalResourceHome")
+//@Path("trackedVital")
 public class TrackedVitalResourceHome extends ResourceHome<TrackedVital, Long> {
 	@In(create = true)
 	private EntityHome<TrackedVital> trackedVitalAction;

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.Document;
 
-@Name("documentResourceQuery")
-@Path("document")
+//@Name("documentResourceQuery")
+//@Path("document")
 public class DocumentResourceQuery extends ResourceQuery<Document> {
 
 }

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
 
-@Name("unusualOccurenceResourceQuery")
-@Path("unusualOccurence")
+//@Name("unusualOccurenceResourceQuery")
+//@Path("unusualOccurence")
 public class UnusualOccurenceResourceQuery
 		extends
 			ResourceQuery<UnusualOccurence> {

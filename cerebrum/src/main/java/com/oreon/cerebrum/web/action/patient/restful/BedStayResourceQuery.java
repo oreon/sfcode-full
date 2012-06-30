@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.BedStay;
 
-@Name("bedStayResourceQuery")
-@Path("bedStay")
+//@Name("bedStayResourceQuery")
+//@Path("bedStay")
 public class BedStayResourceQuery extends ResourceQuery<BedStay> {
 
 }

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.Allergen;
 
-@Name("allergenResourceHome")
-@Path("allergen")
+//@Name("allergenResourceHome")
+//@Path("allergen")
 public class AllergenResourceHome extends ResourceHome<Allergen, Long> {
 	@In(create = true)
 	private EntityHome<Allergen> allergenAction;

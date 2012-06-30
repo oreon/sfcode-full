@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.Allergen;
 
-@Name("allergenResourceQuery")
-@Path("allergen")
+//@Name("allergenResourceQuery")
+//@Path("allergen")
 public class AllergenResourceQuery extends ResourceQuery<Allergen> {
 
 }

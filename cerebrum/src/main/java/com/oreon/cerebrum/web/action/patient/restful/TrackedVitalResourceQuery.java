@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.TrackedVital;
 
-@Name("trackedVitalResourceQuery")
-@Path("trackedVital")
+//@Name("trackedVitalResourceQuery")
+//@Path("trackedVital")
 public class TrackedVitalResourceQuery extends ResourceQuery<TrackedVital> {
 
 }

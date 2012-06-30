@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.drugs.DrugInteraction;
 
-@Name("drugInteractionResourceHome")
-@Path("drugInteraction")
+//@Name("drugInteractionResourceHome")
+//@Path("drugInteraction")
 public class DrugInteractionResourceHome
 		extends
 			ResourceHome<DrugInteraction, Long> {

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.appointment.PrescribedTest;
 
-@Name("prescribedTestResourceQuery")
-@Path("prescribedTest")
+//@Name("prescribedTestResourceQuery")
+//@Path("prescribedTest")
 public class PrescribedTestResourceQuery extends ResourceQuery<PrescribedTest> {
 
 }

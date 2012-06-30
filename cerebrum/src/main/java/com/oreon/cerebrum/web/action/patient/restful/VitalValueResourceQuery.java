@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.VitalValue;
 
-@Name("vitalValueResourceQuery")
-@Path("vitalValue")
+//@Name("vitalValueResourceQuery")
+//@Path("vitalValue")
 public class VitalValueResourceQuery extends ResourceQuery<VitalValue> {
 
 }

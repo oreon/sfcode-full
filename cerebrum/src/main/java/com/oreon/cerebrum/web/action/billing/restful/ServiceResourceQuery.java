@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.billing.Service;
 
-@Name("serviceResourceQuery")
-@Path("service")
+//@Name("serviceResourceQuery")
+//@Path("service")
 public class ServiceResourceQuery extends ResourceQuery<Service> {
 
 }

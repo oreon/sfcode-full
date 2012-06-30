@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.BedStay;
 
-@Name("bedStayResourceHome")
-@Path("bedStay")
+//@Name("bedStayResourceHome")
+//@Path("bedStay")
 public class BedStayResourceHome extends ResourceHome<BedStay, Long> {
 	@In(create = true)
 	private EntityHome<BedStay> bedStayAction;

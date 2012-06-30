@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.Frequecy;
 
-@Name("frequecyResourceQuery")
-@Path("frequecy")
+//@Name("frequecyResourceQuery")
+//@Path("frequecy")
 public class FrequecyResourceQuery extends ResourceQuery<Frequecy> {
 
 }

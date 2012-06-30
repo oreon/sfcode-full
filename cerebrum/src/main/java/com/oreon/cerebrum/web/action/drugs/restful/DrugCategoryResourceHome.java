@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.drugs.DrugCategory;
 
-@Name("drugCategoryResourceHome")
-@Path("drugCategory")
+//@Name("drugCategoryResourceHome")
+//@Path("drugCategory")
 public class DrugCategoryResourceHome extends ResourceHome<DrugCategory, Long> {
 	@In(create = true)
 	private EntityHome<DrugCategory> drugCategoryAction;

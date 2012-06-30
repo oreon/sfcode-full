@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.Vaccine;
 
-@Name("vaccineResourceQuery")
-@Path("vaccine")
+//@Name("vaccineResourceQuery")
+//@Path("vaccine")
 public class VaccineResourceQuery extends ResourceQuery<Vaccine> {
 
 }

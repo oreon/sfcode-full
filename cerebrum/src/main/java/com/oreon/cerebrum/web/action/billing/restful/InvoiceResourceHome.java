@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.billing.Invoice;
 
-@Name("invoiceResourceHome")
-@Path("invoice")
+//@Name("invoiceResourceHome")
+//@Path("invoice")
 public class InvoiceResourceHome extends ResourceHome<Invoice, Long> {
 	@In(create = true)
 	private EntityHome<Invoice> invoiceAction;

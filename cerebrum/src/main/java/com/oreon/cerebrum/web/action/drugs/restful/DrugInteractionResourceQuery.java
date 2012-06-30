@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.drugs.DrugInteraction;
 
-@Name("drugInteractionResourceQuery")
-@Path("drugInteraction")
+//@Name("drugInteractionResourceQuery")
+//@Path("drugInteraction")
 public class DrugInteractionResourceQuery
 		extends
 			ResourceQuery<DrugInteraction> {

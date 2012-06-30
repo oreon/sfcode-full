@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.appointment.History;
 
-@Name("historyResourceQuery")
-@Path("history")
+//@Name("historyResourceQuery")
+//@Path("history")
 public class HistoryResourceQuery extends ResourceQuery<History> {
 
 }
