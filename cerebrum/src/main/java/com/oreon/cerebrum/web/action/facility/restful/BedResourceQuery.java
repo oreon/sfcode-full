@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.facility.Bed;
 
-@Name("bedResourceQuery")
-@Path("bed")
+//@Name("bedResourceQuery")
+//@Path("bed")
 public class BedResourceQuery extends ResourceQuery<Bed> {
 
 }

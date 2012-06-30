@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.Immunization;
 
-@Name("immunizationResourceHome")
-@Path("immunization")
+//@Name("immunizationResourceHome")
+//@Path("immunization")
 public class ImmunizationResourceHome extends ResourceHome<Immunization, Long> {
 	@In(create = true)
 	private EntityHome<Immunization> immunizationAction;

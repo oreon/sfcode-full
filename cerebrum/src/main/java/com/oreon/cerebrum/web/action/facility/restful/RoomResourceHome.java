@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.facility.Room;
 
-@Name("roomResourceHome")
-@Path("room")
+//@Name("roomResourceHome")
+//@Path("room")
 public class RoomResourceHome extends ResourceHome<Room, Long> {
 	@In(create = true)
 	private EntityHome<Room> roomAction;

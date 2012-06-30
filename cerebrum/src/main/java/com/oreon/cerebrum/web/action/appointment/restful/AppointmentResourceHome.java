@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.appointment.Appointment;
 
-@Name("appointmentResourceHome")
-@Path("appointment")
+//@Name("appointmentResourceHome")
+//@Path("appointment")
 public class AppointmentResourceHome extends ResourceHome<Appointment, Long> {
 	@In(create = true)
 	private EntityHome<Appointment> appointmentAction;

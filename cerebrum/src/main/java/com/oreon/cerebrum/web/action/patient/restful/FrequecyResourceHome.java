@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.Frequecy;
 
-@Name("frequecyResourceHome")
-@Path("frequecy")
+//@Name("frequecyResourceHome")
+//@Path("frequecy")
 public class FrequecyResourceHome extends ResourceHome<Frequecy, Long> {
 	@In(create = true)
 	private EntityHome<Frequecy> frequecyAction;

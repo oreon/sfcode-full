@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.billing.InvoiceItem;
 
-@Name("invoiceItemResourceQuery")
-@Path("invoiceItem")
+//@Name("invoiceItemResourceQuery")
+//@Path("invoiceItem")
 public class InvoiceItemResourceQuery extends ResourceQuery<InvoiceItem> {
 
 }

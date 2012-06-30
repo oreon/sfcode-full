@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.unusualoccurences.OccurenceType;
 
-@Name("occurenceTypeResourceQuery")
-@Path("occurenceType")
+//@Name("occurenceTypeResourceQuery")
+//@Path("occurenceType")
 public class OccurenceTypeResourceQuery extends ResourceQuery<OccurenceType> {
 
 }

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.Prescription;
 
-@Name("prescriptionResourceHome")
-@Path("prescription")
+//@Name("prescriptionResourceHome")
+//@Path("prescription")
 public class PrescriptionResourceHome extends ResourceHome<Prescription, Long> {
 	@In(create = true)
 	private EntityHome<Prescription> prescriptionAction;

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
 
-@Name("unusualOccurenceResourceHome")
-@Path("unusualOccurence")
+//@Name("unusualOccurenceResourceHome")
+//@Path("unusualOccurence")
 public class UnusualOccurenceResourceHome
 		extends
 			ResourceHome<UnusualOccurence, Long> {

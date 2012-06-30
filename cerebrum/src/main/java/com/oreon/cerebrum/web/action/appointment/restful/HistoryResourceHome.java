@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.appointment.History;
 
-@Name("historyResourceHome")
-@Path("history")
+//@Name("historyResourceHome")
+//@Path("history")
 public class HistoryResourceHome extends ResourceHome<History, Long> {
 	@In(create = true)
 	private EntityHome<History> historyAction;

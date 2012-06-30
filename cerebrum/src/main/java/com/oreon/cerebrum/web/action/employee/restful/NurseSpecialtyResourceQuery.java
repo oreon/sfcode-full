@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.employee.NurseSpecialty;
 
-@Name("nurseSpecialtyResourceQuery")
-@Path("nurseSpecialty")
+//@Name("nurseSpecialtyResourceQuery")
+//@Path("nurseSpecialty")
 public class NurseSpecialtyResourceQuery extends ResourceQuery<NurseSpecialty> {
 
 }

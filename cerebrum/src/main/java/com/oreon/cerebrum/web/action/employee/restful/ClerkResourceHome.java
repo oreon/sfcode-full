@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.employee.Clerk;
 
-@Name("clerkResourceHome")
-@Path("clerk")
+//@Name("clerkResourceHome")
+//@Path("clerk")
 public class ClerkResourceHome extends ResourceHome<Clerk, Long> {
 	@In(create = true)
 	private EntityHome<Clerk> clerkAction;

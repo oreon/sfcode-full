@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.drugs.AtcDrug;
 
-@Name("atcDrugResourceHome")
-@Path("atcDrug")
+//@Name("atcDrugResourceHome")
+//@Path("atcDrug")
 public class AtcDrugResourceHome extends ResourceHome<AtcDrug, Long> {
 	@In(create = true)
 	private EntityHome<AtcDrug> atcDrugAction;

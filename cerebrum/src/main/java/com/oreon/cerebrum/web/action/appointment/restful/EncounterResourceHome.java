@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.appointment.Encounter;
 
-@Name("encounterResourceHome")
-@Path("encounter")
+//@Name("encounterResourceHome")
+//@Path("encounter")
 public class EncounterResourceHome extends ResourceHome<Encounter, Long> {
 	@In(create = true)
 	private EntityHome<Encounter> encounterAction;

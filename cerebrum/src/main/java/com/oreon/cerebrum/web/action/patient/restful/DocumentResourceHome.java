@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.Document;
 
-@Name("documentResourceHome")
-@Path("document")
+//@Name("documentResourceHome")
+//@Path("document")
 public class DocumentResourceHome extends ResourceHome<Document, Long> {
 	@In(create = true)
 	private EntityHome<Document> documentAction;

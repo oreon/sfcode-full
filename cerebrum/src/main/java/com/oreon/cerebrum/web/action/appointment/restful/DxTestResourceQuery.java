@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.appointment.DxTest;
 
-@Name("dxTestResourceQuery")
-@Path("dxTest")
+//@Name("dxTestResourceQuery")
+//@Path("dxTest")
 public class DxTestResourceQuery extends ResourceQuery<DxTest> {
 
 }

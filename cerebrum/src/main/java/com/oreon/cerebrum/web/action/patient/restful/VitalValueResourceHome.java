@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.oreon.cerebrum.patient.VitalValue;
 
-@Name("vitalValueResourceHome")
-@Path("vitalValue")
+//@Name("vitalValueResourceHome")
+//@Path("vitalValue")
 public class VitalValueResourceHome extends ResourceHome<VitalValue, Long> {
 	@In(create = true)
 	private EntityHome<VitalValue> vitalValueAction;
