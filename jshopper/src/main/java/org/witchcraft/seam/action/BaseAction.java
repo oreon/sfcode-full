@@ -2,6 +2,8 @@ package org.witchcraft.seam.action;
 
 import java.awt.print.Book;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,7 @@ import org.primefaces.model.SortOrder;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.TextSearchResultHolder;
 import org.witchcraft.exceptions.ContractViolationException;
 import org.witchcraft.seam.security.hasPermission;
 
@@ -79,7 +82,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 	private String searchText;
 	
 	
-	private List<T> searchResultsList;
+	private List<TextSearchResultHolder> searchResultsList = new ArrayList<TextSearchResultHolder>();
 
 	
 
@@ -198,6 +201,9 @@ public abstract class BaseAction<T extends BaseEntity> {
 		QueryParser parser = new QueryParser( Version.LUCENE_35, SEARCH_DATA, fullTextEntityManager.getSearchFactory().getAnalyzer( "entityAnalyzer" ) );
 
 		org.apache.lucene.search.Query query = null;
+		
+		if(searchText == null)
+			return null;
 
 		try {
 			query = parser.parse( searchText );
@@ -222,13 +228,14 @@ public abstract class BaseAction<T extends BaseEntity> {
 				String fragment = highlighter
 								.getBestFragment( fullTextEntityManager.getSearchFactory().getAnalyzer( "entityAnalyzer" ), SEARCH_DATA, e.getSearchData() );
 
-				//e.setHiglightedFragment( fragment );
+				
+				searchResultsList.add( new TextSearchResultHolder( e,   fragment  ));
 			} catch ( Exception ex ) {
 				throw new ContractViolationException( ex.getMessage() );
 			}
 		}
 
-		setSearchResultsList(  result );
+		//setSearchResultsList(  result );
 		return "textSearch";
 	}
 
@@ -619,11 +626,11 @@ public abstract class BaseAction<T extends BaseEntity> {
 		this.searchText = searchText;
 	}
 
-	public List<T> getSearchResultsList() {
+	public List<TextSearchResultHolder> getSearchResultsList() {
 		return searchResultsList;
 	}
 
-	public void setSearchResultsList( List<T> searchResultsList ) {
+	public void setSearchResultsList(  List<TextSearchResultHolder> searchResultsList ) {
 		this.searchResultsList = searchResultsList;
 	}
 

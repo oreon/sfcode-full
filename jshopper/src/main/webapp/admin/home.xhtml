@@ -6,22 +6,33 @@
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://java.sun.com/jstl/core"
+	
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/admin/template.xhtml">
 
 	<ui:define name="content">
 
-
-
-		<h3>WECLOME</h3>
+<h4> hi </h4>
 
 		<h:form>
 
 			<h:inputText value="#{examAction.searchText}" />
 
-			<p:commandButton action="#{examAction.textSearch}" value="Search" />
+			<p:commandButton action="#{examAction.textSearch}" value="Search" update="results" />
+
+			<p:panel id="results">
+			
+				<p:dataTable value="#{examAction.searchResultsList}" var="entry">
+					<p:column>
+						${entry.baseEntity.displayName}, 
+						 ${entry.highlightedFragment}
+					</p:column>
+				</p:dataTable> 
+					
+			</p:panel>
 
 
 
