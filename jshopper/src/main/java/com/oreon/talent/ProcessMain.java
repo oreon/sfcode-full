@@ -25,6 +25,8 @@ public class ProcessMain {
         params.put("name", "Arthur");
         params.put("money", 1800);
         
+        
+        //TransactionManager
         // start a new process instance
         ksession.startProcess("process_1",params);
     }
