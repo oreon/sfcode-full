@@ -21,8 +21,8 @@ import com.pcas.datapkg.users.AppUser;
 @Name("savedSearch")
 // @EntityListeners({EntityTemplateListener.class})
 @NamedQueries( {
-		@NamedQuery(name = "savedSearch.searchesForEntity", query = "Select c from SavedSearch c where c.entityName = ?1 and c.createdBy = ?2 order by c.entityName "),
-		@NamedQuery(name = "savedSearch.searchByName", query = "Select c from SavedSearch c where c.entityName = ?1 and c.searchName = ?2  and c.createdBy = ?3") })
+		@NamedQuery(name = "savedSearch.searchesForEntity", query = "Select c from SavedSearch c where c.entityName = ?1 and c.createdByUser = ?2 order by c.entityName "),
+		@NamedQuery(name = "savedSearch.searchByName", query = "Select c from SavedSearch c where c.entityName = ?1 and c.searchName = ?2  and c.createdByUser = ?3") })
 public class SavedSearch extends BaseEntity {
 
 	/**
@@ -40,17 +40,6 @@ public class SavedSearch extends BaseEntity {
 	@Column(length = 1048576)
 	protected String encodedXml;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "created_by_user_id", nullable = true)
-	private AppUser createdBy;
-
-	public AppUser getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(AppUser createdByUser) {
-		this.createdBy = createdByUser;
-	}
 
 	public String getEncodedXml() {
 		return encodedXml;
