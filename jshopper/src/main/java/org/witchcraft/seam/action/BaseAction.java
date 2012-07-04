@@ -78,13 +78,10 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 	@Inject
 	protected EntityManager entityManager;
-	
-	private String searchText;
-	
-	
-	private List<TextSearchResultHolder> searchResultsList = new ArrayList<TextSearchResultHolder>();
 
-	
+	private String searchText;
+
+	private List<TextSearchResultHolder> searchResultsList = new ArrayList<TextSearchResultHolder>();
 
 	public String create() {
 
@@ -191,25 +188,25 @@ public abstract class BaseAction<T extends BaseEntity> {
 		// entityManager.getTransaction().commit();
 		entityManager.close();
 	}
-	
+
 	private static final String SEARCH_DATA = "searchData";
 
 	public String textSearch() {
-		
+
 		FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager( entityManager );
 
 		QueryParser parser = new QueryParser( Version.LUCENE_35, SEARCH_DATA, fullTextEntityManager.getSearchFactory().getAnalyzer( "entityAnalyzer" ) );
 
 		org.apache.lucene.search.Query query = null;
-		
-		if(searchText == null)
+
+		if ( searchText == null )
 			return null;
 
 		try {
 			query = parser.parse( searchText );
 		} catch ( ParseException e1 ) {
-			//TODO
-			//addErrorMessaget(e1.getMessage());
+			// TODO
+			// addErrorMessaget(e1.getMessage());
 		}
 
 		QueryScorer scorer = new QueryScorer( query, SEARCH_DATA );
@@ -218,24 +215,24 @@ public abstract class BaseAction<T extends BaseEntity> {
 		Highlighter highlighter = new Highlighter( formatter, scorer );
 		highlighter.setTextFragmenter( new SimpleSpanFragmenter( scorer, 100 ) );
 
-		
 		FullTextQuery ftq = fullTextEntityManager.createFullTextQuery( query, getEntityClass() );
 
 		List<T> result = ftq.getResultList();
 
 		for ( T e : result ) {
 			try {
-				String fragment = highlighter
-								.getBestFragment( fullTextEntityManager.getSearchFactory().getAnalyzer( "entityAnalyzer" ), SEARCH_DATA, e.getSearchData() );
+				String fragment = highlighter.getBestFragment( fullTextEntityManager.getSearchFactory().getAnalyzer( "entityAnalyzer" ), SEARCH_DATA,
+								e.getSearchData() );
 
-				
-				searchResultsList.add( new TextSearchResultHolder( e,   fragment  ));
+				TextSearchResultHolder textSearchResultHolder = new TextSearchResultHolder( e, fragment );
+				if ( !searchResultsList.contains( textSearchResultHolder ) )
+					searchResultsList.add( textSearchResultHolder );
 			} catch ( Exception ex ) {
 				throw new ContractViolationException( ex.getMessage() );
 			}
 		}
 
-		//setSearchResultsList(  result );
+		// setSearchResultsList( result );
 		return "textSearch";
 	}
 
@@ -617,7 +614,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 		}
 
 	}
-	
+
 	public String getSearchText() {
 		return searchText;
 	}
@@ -627,10 +624,13 @@ public abstract class BaseAction<T extends BaseEntity> {
 	}
 
 	public List<TextSearchResultHolder> getSearchResultsList() {
+		if ( searchResultsList.isEmpty() )
+			textSearch();
+
 		return searchResultsList;
 	}
 
-	public void setSearchResultsList(  List<TextSearchResultHolder> searchResultsList ) {
+	public void setSearchResultsList( List<TextSearchResultHolder> searchResultsList ) {
 		this.searchResultsList = searchResultsList;
 	}
 

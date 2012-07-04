@@ -29,5 +29,11 @@ public class TextSearchResultHolder {
 		this.highlightedFragment = highlightedFragment;
 	}
 	
+	@Override
+	public boolean equals( Object obj ) {
+		
+		return ((TextSearchResultHolder)obj).getBaseEntity().getId() == getBaseEntity().getId(); 
+	}
+	
 	
 }
