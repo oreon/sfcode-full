@@ -32,6 +32,42 @@
         <f:selectItem itemValue="DELETE" itemLabel="Delete"/>  
         <f:selectItem itemValue="CREATE" itemLabel="Create"/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.entityFieldPrivilege_readAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editReadAllowed')}"/>  
+      <br/>  
+      <h:selectOneMenu id="readAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.readAllowed}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.entityFieldPrivilege_writeAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editWriteAllowed')}"/>  
+      <br/>  
+      <h:selectOneMenu id="writeAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.writeAllowed}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.entityFieldPrivilege_editAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editEditAllowed')}"/>  
+      <br/>  
+      <h:selectOneMenu id="editAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.editAllowed}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.entityFieldPrivilege_deleteAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editDeleteAllowed')}"/>  
+      <br/>  
+      <h:selectOneMenu id="deleteAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.deleteAllowed}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

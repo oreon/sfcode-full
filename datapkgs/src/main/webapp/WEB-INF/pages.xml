@@ -239,6 +239,30 @@
       <rule if-outcome="editRoleFieldPrivilege"> 
         <redirect view-id="/admin/entities/managedsecurity/roleFieldPrivilege/editRoleFieldPrivilege.xhtml"/>  
         <end-conversation/> 
+      </rule>  
+      <rule if-outcome="dashboard"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/listDashboard.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewDashboard"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/viewDashboard.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editDashboard"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/editDashboard.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="dashboardComponent"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/listDashboardComponent.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewDashboardComponent"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/viewDashboardComponent.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editDashboardComponent"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/editDashboardComponent.xhtml"/>  
+        <end-conversation/> 
       </rule> 
     </navigation> 
   </page>  
@@ -888,7 +912,11 @@
     <param name="id" value="#{entityFieldPrivilegeList.entityFieldPrivilege.id}"/>  
     <param name="metaEntity" value="#{entityFieldPrivilegeList.entityFieldPrivilege.metaEntity.id}" validateModel="false"/>  
     <param name="appRole" value="#{entityFieldPrivilegeList.entityFieldPrivilege.appRole.id}" validateModel="false"/>  
-    <param name="privilegeType" value="#{entityFieldPrivilegeList.entityFieldPrivilege.privilegeType}" validateModel="false"/> 
+    <param name="privilegeType" value="#{entityFieldPrivilegeList.entityFieldPrivilege.privilegeType}" validateModel="false"/>  
+    <param name="readAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.readAllowed}" validateModel="false"/>  
+    <param name="writeAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.writeAllowed}" validateModel="false"/>  
+    <param name="editAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.editAllowed}" validateModel="false"/>  
+    <param name="deleteAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.deleteAllowed}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/users/appUser/editAppUser.xhtml"> 
     <!-- <description>Edit AppUser: #{appUser.displayName}</description> -->  
@@ -1026,6 +1054,96 @@
     <param name="writeAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.writeAccess}" validateModel="false"/>  
     <param name="appRole" value="#{roleFieldPrivilegeList.roleFieldPrivilege.appRole.id}" validateModel="false"/>  
     <param name="metaField" value="#{roleFieldPrivilegeList.roleFieldPrivilege.metaField.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/dashboards/dashboard/editDashboard.xhtml"> 
+    <!-- <description>Edit Dashboard: #{dashboard.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/viewDashboard.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/listDashboard.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="dashboardId" value="#{dashboardAction.dashboardId}"/>  
+    <param name="appUserId" value="#{dashboardAction.appUserId}"/> 
+  </page>  
+  <page view-id="/admin/entities/dashboards/dashboard/viewDashboard.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Dashboard: #{dashboard.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/editDashboard.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/listDashboard.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="dashboardId" value="#{dashboardAction.dashboardId}"/> 
+  </page>  
+  <page view-id="/admin/entities/dashboards/dashboard/listDashboard.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewDashboard"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/viewDashboard.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/editDashboard.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/dashboards/dashboard/textSearchResultsDashboard.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{dashboardList.firstResult}"/>  
+    <param name="sort" value="#{dashboardList.orderColumn}"/>  
+    <param name="dir" value="#{dashboardList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{dashboardList.dashboard.id}"/>  
+    <param name="appUser" value="#{dashboardList.dashboard.appUser.id}" validateModel="false"/>  
+    <param name="name" value="#{dashboardList.dashboard.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/dashboards/dashboardComponent/editDashboardComponent.xhtml"> 
+    <!-- <description>Edit DashboardComponent: #{dashboardComponent.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/viewDashboardComponent.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/listDashboardComponent.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="dashboardComponentId" value="#{dashboardComponentAction.dashboardComponentId}"/>  
+    <param name="dashboardId" value="#{dashboardComponentAction.dashboardId}"/> 
+  </page>  
+  <page view-id="/admin/entities/dashboards/dashboardComponent/viewDashboardComponent.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View DashboardComponent: #{dashboardComponent.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/editDashboardComponent.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/listDashboardComponent.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="dashboardComponentId" value="#{dashboardComponentAction.dashboardComponentId}"/> 
+  </page>  
+  <page view-id="/admin/entities/dashboards/dashboardComponent/listDashboardComponent.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewDashboardComponent"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/viewDashboardComponent.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/editDashboardComponent.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/dashboards/dashboardComponent/textSearchResultsDashboardComponent.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{dashboardComponentList.firstResult}"/>  
+    <param name="sort" value="#{dashboardComponentList.orderColumn}"/>  
+    <param name="dir" value="#{dashboardComponentList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{dashboardComponentList.dashboardComponent.id}"/>  
+    <param name="dashboard" value="#{dashboardComponentList.dashboardComponent.dashboard.id}" validateModel="false"/>  
+    <param name="contents" value="#{dashboardComponentList.dashboardComponent.contents}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 

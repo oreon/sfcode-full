@@ -4,7 +4,7 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
-  <h:panelGrid columns="6"> 
+  <h:panelGrid columns="6" id="clerkSearchPanelGrid"> 
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'departmentEdit')}"/>  
       <br/>  
@@ -117,6 +117,29 @@
     <rich:calendar id="from" value="#{clerkList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{clerkList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
+  
+  <div style="background-color: #eef; border: 1 px solid #eeb">
+                    Search Name (to save this search ) <h:inputText
+						value="#{clerkList.searchName}" />
+
+					<h:commandButton id="savesearch" value="Save Search"
+						action="#{clerkList.saveSearch}">
+						<s:conversationPropagation type="join" />
+					</h:commandButton>
+
+					<h:selectOneMenu id="svdsearches"
+						value="#{clerkList.currentSavedSearch}">
+						<s:selectItems value="#{clerkList.savedSearches}" var="itemIter"
+							label="#{itemIter.displayName}"
+							noSelectionLabel="Load Saved Search" />
+						<s:convertEntity />
+					</h:selectOneMenu>
+					
+					<h:commandButton value="Load Search"
+						action="#{clerkList.executeSearch}">
+						<s:conversationPropagation type="join" />
+					</h:commandButton>
+	</div>
   
   
 </ui:composition>

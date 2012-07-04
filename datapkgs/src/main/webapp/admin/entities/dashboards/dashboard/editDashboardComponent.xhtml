@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editDashboardComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{dashboardAction.load(dashboardId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDashboard eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Dashboard}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.dashboard_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editName')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editName')}" label="#{msg.dashboard_name}" required="false" disabled="false" value="#{dashboardAction.dashboard.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="appUserDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.dashboard_appUser}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editAppUser')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="appUser" label="#{msg.dashboard_appUser}" value="#{dashboardAction.dashboard.appUser}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editAppUser')}" disabled="false"> 
+            <s:selectItems value="#{appUserList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New DashboardComponent" action="#{dashboardAction.addDashboardComponents}" reRender="dashboardComponents" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editDashboardComponents')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="dashboardComponents" var="_dashboardComponent" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editDashboardComponents')}" value="#{dashboardAction.listDashboardComponents}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.dashboardComponent_contents}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'editContents')}"/>
+          </f:facet>  
+          <s:decorate id="contentsDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="contents#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'editContents')}" label="#{msg.dashboardComponent_contents}" required="true" disabled="false" value="#{_dashboardComponent.contents}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New DashboardComponent" action="#{dashboardAction.addDashboardComponents}" reRender="dashboardComponents" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'editDashboardComponents')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{dashboardAction.deleteDashboardComponents(rowIndex)}" reRender="dashboardComponents"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

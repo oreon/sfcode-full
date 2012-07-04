@@ -20,35 +20,20 @@
 			<rich:tabPanel>
 				<rich:tab label="Search">
 					<ui:include src="fieldSearchClerkComponent.xhtml" />
-          
-         Search Name (to save this search ) <h:inputText
-						value="#{clerkList.searchName}" />
+					
 				</rich:tab>
 				<rich:tab label="Text Search">
 					<ui:include src="textSearchClerkComponent.xhtml" />
 				</rich:tab>
 			</rich:tabPanel>
 
-
+	
 
 			<div class="actionButtons"><h:commandButton id="search"
 				value="Search" view="/admin/entities/domain/clerk/listClerk.xhtml">
 				<s:conversationPropagation type="join" />
 			</h:commandButton> <s:button propagation="none" id="reset" value="Reset"
-				includePageParams="false" /> <h:commandButton id="savesearch"
-				value="Save Search" action="#{clerkList.saveSearch}">
-
-				<s:conversationPropagation type="join" />
-			</h:commandButton> 
-			
-			<h:selectOneMenu id="svdsearches" value="#{ clerkList.currentSavedSearch}">
-				<s:selectItems value="#{clerkList.savedSearches}" var="itemIter"
-					label="#{itemIter.displayName}" noSelectionLabel="Select Saved Search" />
-				<s:convertEntity />
-			</h:selectOneMenu> 
-			
-			<h:commandButton id="execsearch" value="Load Search"
-				action="#{clerkList.executeSearch}" /></div>
+				includePageParams="false" /></div>
 		</rich:simpleTogglePanel>
 	</h:form>
 </ui:composition>

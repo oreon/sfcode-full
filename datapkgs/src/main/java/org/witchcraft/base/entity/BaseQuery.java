@@ -30,6 +30,8 @@ import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.index.SegmentInfos.FindSegmentsFile;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.highlight.Highlighter;
@@ -37,6 +39,7 @@ import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 import org.apache.lucene.util.Version;
+import org.drools.process.command.AddEventListenerCommand;
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.jpa.FullTextEntityManager;
@@ -46,12 +49,16 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
+import org.jboss.seam.international.StatusMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
+import org.jboss.seam.security.Identity;
 import org.jbpm.job.ExecuteNodeJob;
 import org.witchcraft.exceptions.ContractViolationException;
 
 import com.pcas.datapkg.domain.Clerk;
+import com.pcas.datapkg.web.action.users.AppUserAction;
 
 
 
@@ -73,6 +80,12 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	@Logger
 	protected Log log;
+	
+	@In
+	protected StatusMessages statusMessages;
+	
+	@In
+	AppUserAction appUserAction;
 
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
@@ -94,6 +107,9 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	@RequestParameter
 	protected String searchText;
+	
+	@In
+	Identity identity;
 
 	public static final int DEFAULT_PAGES_FOR_PAGINATION = 25;
 
@@ -481,20 +497,39 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	protected String getFieldForCSV(String e) {
 		return (e != null ? e.replace("," , "") : "");
 	}
+
 	
 	
 	public void saveSearch(){
-		SavedSearch search = new SavedSearch();
+		
+		if(searchName == null || StringUtils.isEmpty(searchName)){
+			addErrorMessage("Search name is required");
+			return;
+		}
+		
+		SavedSearch search  = null;
+		
+		//if(searchName!=null)
+		search = findSavedSearchByName(searchName);
+		if(search == null)
+			search = new SavedSearch();
+		
 		search.setSearchName(searchName);
 		search.setEntityName(getEntityClass().getSimpleName());
 		search.setEncodedXml(encode());
+		search.setCreatedBy(appUserAction.findByUnqUserName(identity.getCredentials().getUsername()));
+
 		entityManager.persist(search);
 	}
 	
 	public void executeSearch(){
-		SavedSearch savedSearch = executeSingleResultNamedQuery("savedSearch.searchByName", getEntityClass().getSimpleName(), 
-				currentSavedSearch.getSearchName());
+		SavedSearch savedSearch = findSavedSearchByName( currentSavedSearch.getSearchName());
 		decode(savedSearch);
+	}
+	
+	public SavedSearch findSavedSearchByName(String searchNameStr){
+		return executeSingleResultNamedQuery("savedSearch.searchByName", getEntityClass().getSimpleName(), 
+				searchNameStr, identity.getCredentials().getUsername());
 	}
 	
 	public List<E> executeSearch(String searchName){
@@ -506,9 +541,15 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	}
 	
 	
-	
+	protected void addInfoMessage(String message, Object... params) {
+		statusMessages.add(message, params);
+	}
+
+	protected void addErrorMessage(String message, Object... params) {
+		statusMessages.add(Severity.ERROR, message, params);
+	}
 	public List<SavedSearch> getSavedSearches(){
-		return executeNamedQuery( "savedSearch.searchesForEntity",  getEntityClass().getSimpleName() );
+		return executeNamedQuery( "savedSearch.searchesForEntity",  getEntityClass().getSimpleName() , identity.getCredentials().getUsername());
 		//return null;
 	}
 	
