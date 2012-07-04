@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="DashboardComponentModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="DashboardComponent Search Results (#{empty records ? 0 : (dashboardComponentList.paginated ? dashboardComponentList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_dashboardComponent" value="#{records}" id="dashboardComponentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'dashboardComponentView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dashboardComponentList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="dashboardComponent.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_dashboardComponent.id}"></h:outputText> 
+        </h:column>  
+        <h:column groupOn="#{dashboardComponent.dashboard.displayName}" rendered="#{s:hasPermission('dashboard', 'dashboardComponentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dashboardComponentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.dashboardComponent_dashboard}"/>  
+              <ui:param name="propertyPath" value="dashboardComponent.dashboard"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_dashboardComponent.dashboard.displayName}" view="/admin/entities/dashboards/dashboard/viewDashboard.xhtml" propagation="none"> 
+            <f:param name="dashboardId" value="#{_dashboardComponent.dashboard.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('contents', 'dashboardComponentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dashboardComponentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.dashboardComponent_contents}"/>  
+              <ui:param name="propertyPath" value="dashboardComponent.contents"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_dashboardComponent.contents}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'dashboardComponentView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dashboardComponentList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="dashboardComponent.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_dashboardComponent.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_dashboardComponent', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/dashboards/dashboardComponent/viewDashboardComponent.xhtml" rendered="#{s:hasPermission(_dashboardComponent, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="dashboardComponentId" value="#{_dashboardComponent.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_dashboardComponent', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/dashboards/dashboardComponent/editDashboardComponent.xhtml" rendered="#{s:hasPermission(_dashboardComponent, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="dashboardComponentId" value="#{_dashboardComponent.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('dashboardComponentAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{dashboardComponentAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_dashboardComponent.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_dashboardComponent.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{dashboardComponentAction.setDashboardComponentIdForModalDlg(_dashboardComponent.id)}" rendered="#{s:hasPermission(_dashboardComponent, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{dashboardComponentList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{dashboardComponentList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{dashboardComponentList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{dashboardComponentList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{dashboardComponentList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{dashboardComponentList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{dashboardComponentList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>
