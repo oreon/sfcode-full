@@ -84,7 +84,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	@In
 	protected StatusMessages statusMessages;
 	
-	@In
+	@In(create=true)
 	AppUserAction appUserAction;
 
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
