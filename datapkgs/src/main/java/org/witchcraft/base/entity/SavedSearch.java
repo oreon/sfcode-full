@@ -21,8 +21,8 @@ import com.pcas.datapkg.users.AppUser;
 @Name("savedSearch")
 // @EntityListeners({EntityTemplateListener.class})
 @NamedQueries( {
-		@NamedQuery(name = "savedSearch.searchesForEntity", query = "Select c from SavedSearch c where c.entityName = ?1 and c.createdByUser = ?2 order by c.entityName "),
-		@NamedQuery(name = "savedSearch.searchByName", query = "Select c from SavedSearch c where c.entityName = ?1 and c.searchName = ?2  and c.createdByUser = ?3") })
+		@NamedQuery(name = "savedSearch.searchesForEntity", query = "Select c from SavedSearch c where c.entityName = ?1 and c.createdByUser.userName = ?2 order by c.entityName "),
+		@NamedQuery(name = "savedSearch.searchByName", query = "Select c from SavedSearch c where c.entityName = ?1 and c.searchName = ?2  and c.createdByUser.userName = ?3") })
 public class SavedSearch extends BaseEntity {
 
 	/**
