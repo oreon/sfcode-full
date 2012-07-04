@@ -517,7 +517,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		search.setSearchName(searchName);
 		search.setEntityName(getEntityClass().getSimpleName());
 		search.setEncodedXml(encode());
-		search.setCreatedBy(appUserAction.findByUnqUserName(identity.getCredentials().getUsername()));
+		search.setCreatedByUser(appUserAction.findByUnqUserName(identity.getCredentials().getUsername()));
 
 		entityManager.persist(search);
 	}
