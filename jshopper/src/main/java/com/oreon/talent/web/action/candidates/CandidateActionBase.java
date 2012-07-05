@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils;
 import org.primefaces.model.DualListModel;
 
 import org.witchcraft.utils.ViewUtils;
-import javax.inject.Inject; import javax.ejb.Stateful;
+import javax.inject.Inject;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -85,8 +85,8 @@ public abstract class CandidateActionBase
 	}
 
 	public String downloadResumeFile(Long id) {
-		//if (id == null || id == 0)
-		//	id = currentEntityId;
+		//if(id == null || id == 0)
+		//   id = currentEntityId;
 		setId(id);
 		downloadAttachment(getEntity().getResumeFile());
 		return "success";
