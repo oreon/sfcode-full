@@ -70,9 +70,10 @@ package «packageNamePck()»;
 
 «DEFINE GenPackageInfo FOR wcprofile::EntitiesPackage»
 «FILE packagePathPck() +"/package-info.java"  »
+«IF getCurrentCartridge() == "RICH"»
 @FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", 
 		parameters = @ParamDef(name = "aArchived", type = "string")) 
-
+«ENDIF»
 package «packageNamePck()»; 
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
@@ -182,7 +183,7 @@ import org.hibernate.annotations.ParamDef;
 «DEFINE genClassBody FOR wcprofile::Entity»
 	@Entity
 	@Table(name="«getTableName()»")
-	@Filter(name = "archiveFilterDef") 
+	«IF getCartridge() == "RICH"»@Filter(name = "archiveFilterDef")«ENDIF» 
 	«IF !isAbstract »   
 		«IF getCurrentCartridge() == "RICH"» @Name("«asVar()»")   «ENDIF»
 		@Indexed
