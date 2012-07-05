@@ -167,8 +167,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 	«FOREACH getAllAttributes().select ( e | e.isFile() ) AS e»	
 	public String download«e.name.toFirstUpper()»(Long id) {
-		if(id == null || id == 0)
-            id = currentEntityId;
+		 //if(id == null || id == 0)
+         //   id = currentEntityId;
 		setId(id);
 		downloadAttachment(getEntity().get«e.name.toFirstUpper()»());
 		return "success";
@@ -236,6 +236,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«LET "list" + name.toFirstUpper()  AS currentList»
 	public void delete«name.toFirstUpper()»(int index){
 		«currentList».remove(index);
+	}
+	
+	public void delete«name.toFirstUpper()»(«type.name» «type.asVar()»){
+		«currentList».remove(«type.asVar()»);
 	}
 	
 	public void add«name.toFirstUpper()»(){
