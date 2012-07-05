@@ -23,7 +23,7 @@ public class ProcessMain {
         //org.jbpm.task.Comment comment;
 
         params.put("name", "Arthur");
-        params.put("money", 1800);
+        params.put("money", 300);
         
        // CharStre
         
