@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils;
 import org.primefaces.model.DualListModel;
 
 import org.witchcraft.utils.ViewUtils;
-import javax.inject.Inject; import javax.ejb.Stateful;
+import javax.inject.Inject;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -112,8 +112,12 @@ public abstract class JobActionBase extends BaseAction<Job>
 		listJobApplications.remove(index);
 	}
 
+	public void deleteJobApplications(JobApplication jobApplication) {
+		listJobApplications.remove(jobApplication);
+	}
+
 	public void addJobApplications() {
-		initListJobApplications();
+
 		JobApplication jobApplications = new JobApplication();
 
 		jobApplications.setJob(getEntity());

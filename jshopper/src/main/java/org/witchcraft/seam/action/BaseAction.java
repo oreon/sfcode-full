@@ -26,6 +26,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.highlight.Highlighter;
@@ -225,7 +226,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 								e.getSearchData() );
 
 				TextSearchResultHolder textSearchResultHolder = new TextSearchResultHolder( e, fragment );
-				if ( !searchResultsList.contains( textSearchResultHolder ) )
+				if ( !searchResultsList.contains( textSearchResultHolder ) &&  !StringUtils.isEmpty( fragment ))
 					searchResultsList.add( textSearchResultHolder );
 			} catch ( Exception ex ) {
 				throw new ContractViolationException( ex.getMessage() );

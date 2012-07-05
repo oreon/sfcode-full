@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils;
 import org.primefaces.model.DualListModel;
 
 import org.witchcraft.utils.ViewUtils;
-import javax.inject.Inject; import javax.ejb.Stateful;
+import javax.inject.Inject;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -109,8 +109,12 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 		listQuestions.remove(index);
 	}
 
+	public void deleteQuestions(Question question) {
+		listQuestions.remove(question);
+	}
+
 	public void addQuestions() {
-		initListQuestions();
+
 		Question questions = new Question();
 
 		questions.setExam(getEntity());

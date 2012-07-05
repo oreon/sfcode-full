@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils;
 import org.primefaces.model.DualListModel;
 
 import org.witchcraft.utils.ViewUtils;
-import javax.inject.Inject; import javax.ejb.Stateful;
+import javax.inject.Inject;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -109,8 +109,12 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		listEmployees.remove(index);
 	}
 
+	public void deleteEmployees(Employee employee) {
+		listEmployees.remove(employee);
+	}
+
 	public void addEmployees() {
-		initListEmployees();
+
 		Employee employees = new Employee();
 
 		employees.setDepartment(getEntity());
