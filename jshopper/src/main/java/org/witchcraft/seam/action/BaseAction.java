@@ -18,6 +18,7 @@ import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -78,6 +79,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 	protected Conversation conversation;
 
 	@Inject
+	//@PersistenceContext
 	protected EntityManager entityManager;
 
 	private String searchText;
