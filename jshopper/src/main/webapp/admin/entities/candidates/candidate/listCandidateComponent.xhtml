@@ -1,237 +1,89 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
->
 
-		<h:form id="form">
-
-			<p:dataTable var="_candidate" value="#{candidateAction.model}" paginator="true"
-				rows="10"
-				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				rowsPerPageTemplate="5,10,15" selectionMode="single" 
-				selection="#{candidateAction.candidate}" id="CandidateTable">
-
-				<p:ajax event="rowSelect" 
-					update=":form:display" oncomplete="CandidateDialog.show()"   listener="#{candidateAction.onRowSelect}" />
-				
-				
-	<p:column headerText="Id"  sortBy="#{_candidate.id}" 
-	
- >
-		
-		<h:link outcome="viewCandidate.xthml">
-			<f:param name="id" value="#{_candidate.id}"  />
-			<h:outputText value="#{_candidate.id}"  />				
-		</h:link>
-		
-	</p:column>
-	<p:column   
-	
- headerText="#{msg.person_firstName}" sortBy="#{_candidate.firstName}" filterBy="#{_candidate.firstName}" >
-		
-			<h:outputText value="#{_candidate.firstName}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.person_lastName}" sortBy="#{_candidate.lastName}" filterBy="#{_candidate.lastName}" >
-		
-			<h:outputText value="#{_candidate.lastName}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.contactDetails_phone}" sortBy="#{_candidate.contactDetails.phone}" filterBy="#{_candidate.contactDetails.phone}" >
-		
-			<h:outputText value="#{_candidate.contactDetails.phone}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.contactDetails_secondaryPhone}" sortBy="#{_candidate.contactDetails.secondaryPhone}" filterBy="#{_candidate.contactDetails.secondaryPhone}" >
-		
-			<h:outputText value="#{_candidate.contactDetails.secondaryPhone}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.contactDetails_city}" sortBy="#{_candidate.contactDetails.city}" filterBy="#{_candidate.contactDetails.city}" >
-		
-			<h:outputText value="#{_candidate.contactDetails.city}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.contactDetails_postalCode}" sortBy="#{_candidate.contactDetails.postalCode}" filterBy="#{_candidate.contactDetails.postalCode}" >
-		
-			<h:outputText value="#{_candidate.contactDetails.postalCode}"   />	
-		
-	</p:column>
-	
-	
-	
-	
-	<p:column   
-	
- headerText="#{msg.candidate_availibility}" sortBy="#{_candidate.availibility}" filterBy="#{_candidate.availibility}" >
-		
-			<h:outputText value="#{_candidate.availibility}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.candidate_preferredJobType}" sortBy="#{_candidate.preferredJobType}" filterBy="#{_candidate.preferredJobType}" >
-		
-			<h:outputText value="#{_candidate.preferredJobType}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.candidate_chiefExpertise}" sortBy="#{_candidate.chiefExpertise}" filterBy="#{_candidate.chiefExpertise}" >
-		
-			<h:outputText value="#{_candidate.chiefExpertise}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.candidate_educationLevel}" sortBy="#{_candidate.educationLevel}" filterBy="#{_candidate.educationLevel}" >
-		
-			<h:outputText value="#{_candidate.educationLevel}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.candidate_willingToRelocate}" sortBy="#{_candidate.willingToRelocate}" filterBy="#{_candidate.willingToRelocate}" >
-		
-			<h:outputText value="#{_candidate.willingToRelocate? msg.yes : msg.no }" />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.candidate_resumeFile}" sortBy="#{_candidate.resumeFile}" filterBy="#{_candidate.resumeFile}" >
-		
-				<s:graphicImage rendered="#{_candidate.resumeFile ne null and  _candidate.resumeFile.contentType.startsWith('image')}" value="#{_candidate.resumeFile.data}">
-					<s:transformImageSize height="100" maintainRatio="true"/>
-				</s:graphicImage>
-		
-				<h:commandLink value="#{_candidate.resumeFile.name}"  action="#{candidateAction.downloadResumeFile(_candidate.id)}" 
-					propagation="none"  rendered="#{not _candidate.resumeFile.contentType.startsWith('image')}" >
-					<f:param name="currentEntityId" value="#{_candidate.id}" />
-          		</h:commandLink> 
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.appUser_userName}" sortBy="#{_candidate.appUser.userName}" filterBy="#{_candidate.appUser.userName}" >
-		
-			<h:outputText value="#{_candidate.appUser.userName}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.appUser_enabled}" sortBy="#{_candidate.appUser.enabled}" filterBy="#{_candidate.appUser.enabled}" >
-		
-			<h:outputText value="#{_candidate.appUser.enabled? msg.yes : msg.no }" />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.appUser_email}" sortBy="#{_candidate.appUser.email}" filterBy="#{_candidate.appUser.email}" >
-		
-			<h:outputText value="#{_candidate.appUser.email}"   />	
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.appUser_lastLogin}" sortBy="#{_candidate.appUser.lastLogin}" filterBy="#{_candidate.appUser.lastLogin}" >
-		
-			<h:outputText value="#{_candidate.appUser.lastLogin}">
-				 <f:convertDateTime pattern="dd-MMM-yyyy " />
-			</h:outputText>
-		
-	</p:column>
-	
-	
-	
-	<p:column   
-	
- headerText="#{msg.candidate_textResume}" sortBy="#{_candidate.textResume}" filterBy="#{_candidate.textResume}" >
-		
-			
-			 <p:tooltip value="#{_candidate.textResume}" for="textResumeAbbr">  </p:tooltip>
-	         <h:outputText id="textResumeAbbr" value="#{_candidate.textResumeAbbreviated}" /> 
-	         				
-		
-	</p:column>
-	
-	
-	<p:column   
-	
- headerText="#{msg.candidate_coverLetter}" sortBy="#{_candidate.coverLetter}" filterBy="#{_candidate.coverLetter}" >
-		
-			
-			 <p:tooltip value="#{_candidate.coverLetter}" for="coverLetterAbbr">  </p:tooltip>
-	         <h:outputText id="coverLetterAbbr" value="#{_candidate.coverLetterAbbreviated}" /> 
-	         				
-		
-	</p:column>
-	
-	
-				
-    
-				
-	<p:column 
-	
->
-		<h:outputText    value="#{_candidate.dateCreated}"  >
-			 <f:convertDateTime pattern="dd-MMM-yyyy " />
-		</h:outputText>
-	</p:column>
-				
-			</p:dataTable>
-
-			<p:dialog header="Candidate Detail" widgetVar="CandidateDialog" resizable="true">
-
-				<h:panelGrid id="display" columns="2" cellpadding="4">
-					<ui:include src = "/admin/entities/candidates/candidate/editCandidateComponent.xhtml" />
-				</h:panelGrid>
-				
-				<h:commandButton value="Save" action="#{candidateAction.persist}" />
-				
-			</p:dialog>
-
-		</h:form>
-
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_candidate" value="#{candidateAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{candidateAction.candidate}" id="CandidateTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="CandidateDialog.show()" listener="#{candidateAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_candidate.id}"> 
+        <h:link outcome="viewCandidate.xthml"> 
+          <f:param name="id" value="#{_candidate.id}"/>  
+          <h:outputText value="#{_candidate.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.person_firstName}" sortBy="#{_candidate.firstName}" filterBy="#{_candidate.firstName}"> 
+        <h:outputText value="#{_candidate.firstName}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.person_lastName}" sortBy="#{_candidate.lastName}" filterBy="#{_candidate.lastName}"> 
+        <h:outputText value="#{_candidate.lastName}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.contactDetails_phone}" sortBy="#{_candidate.contactDetails.phone}" filterBy="#{_candidate.contactDetails.phone}"> 
+        <h:outputText value="#{_candidate.contactDetails.phone}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="#{_candidate.contactDetails.secondaryPhone}" filterBy="#{_candidate.contactDetails.secondaryPhone}"> 
+        <h:outputText value="#{_candidate.contactDetails.secondaryPhone}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.contactDetails_city}" sortBy="#{_candidate.contactDetails.city}" filterBy="#{_candidate.contactDetails.city}"> 
+        <h:outputText value="#{_candidate.contactDetails.city}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.contactDetails_postalCode}" sortBy="#{_candidate.contactDetails.postalCode}" filterBy="#{_candidate.contactDetails.postalCode}"> 
+        <h:outputText value="#{_candidate.contactDetails.postalCode}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.candidate_availibility}" sortBy="#{_candidate.availibility}" filterBy="#{_candidate.availibility}"> 
+        <h:outputText value="#{_candidate.availibility}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.candidate_preferredJobType}" sortBy="#{_candidate.preferredJobType}" filterBy="#{_candidate.preferredJobType}"> 
+        <h:outputText value="#{_candidate.preferredJobType}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.candidate_chiefExpertise}" sortBy="#{_candidate.chiefExpertise}" filterBy="#{_candidate.chiefExpertise}"> 
+        <h:outputText value="#{_candidate.chiefExpertise}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.candidate_educationLevel}" sortBy="#{_candidate.educationLevel}" filterBy="#{_candidate.educationLevel}"> 
+        <h:outputText value="#{_candidate.educationLevel}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.candidate_willingToRelocate}" sortBy="#{_candidate.willingToRelocate}" filterBy="#{_candidate.willingToRelocate}"> 
+        <h:outputText value="#{_candidate.willingToRelocate? msg.yes : msg.no }"/> 
+      </p:column>  
+      <p:column headerText="#{msg.candidate_resumeFile}" sortBy="#{_candidate.resumeFile}" filterBy="#{_candidate.resumeFile}"> 
+        <h:commandLink value="#{_candidate.resumeFile.name}" action="#{candidateAction.downloadResumeFile(_candidate.id)}" propagation="none" rendered="#{not _candidate.resumeFile.contentType.startsWith('image')}"> 
+          <f:param name="currentEntityId" value="#{_candidate.id}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.appUser_userName}" sortBy="#{_candidate.appUser.userName}" filterBy="#{_candidate.appUser.userName}"> 
+        <h:outputText value="#{_candidate.appUser.userName}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.appUser_enabled}" sortBy="#{_candidate.appUser.enabled}" filterBy="#{_candidate.appUser.enabled}"> 
+        <h:outputText value="#{_candidate.appUser.enabled? msg.yes : msg.no }"/> 
+      </p:column>  
+      <p:column headerText="#{msg.appUser_email}" sortBy="#{_candidate.appUser.email}" filterBy="#{_candidate.appUser.email}"> 
+        <h:outputText value="#{_candidate.appUser.email}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.appUser_lastLogin}" sortBy="#{_candidate.appUser.lastLogin}" filterBy="#{_candidate.appUser.lastLogin}"> 
+        <h:outputText value="#{_candidate.appUser.lastLogin}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column>  
+      <p:column headerText="#{msg.candidate_textResume}" sortBy="#{_candidate.textResume}" filterBy="#{_candidate.textResume}"> 
+        <p:tooltip value="#{_candidate.textResume}" for="textResumeAbbr"></p:tooltip>  
+        <h:outputText id="textResumeAbbr" value="#{_candidate.textResumeAbbreviated}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.candidate_coverLetter}" sortBy="#{_candidate.coverLetter}" filterBy="#{_candidate.coverLetter}"> 
+        <p:tooltip value="#{_candidate.coverLetter}" for="coverLetterAbbr"></p:tooltip>  
+        <h:outputText id="coverLetterAbbr" value="#{_candidate.coverLetterAbbreviated}"/> 
+      </p:column>  
+      <p:column> 
+        <h:outputText value="#{_candidate.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="Candidate Detail" widgetVar="CandidateDialog" resizable="true"> 
+     <p:scrollPanel scrollMode="native">  	
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/candidates/candidate/editCandidateComponent.xhtml"/> 
+      </h:panelGrid>  
+      <p:commandButton value="Save" action="#{candidateAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, CandidateDialog)"/>
+      </p:scrollPanel> 
+    </p:dialog> 
+  </h:form> 
 </ui:composition>

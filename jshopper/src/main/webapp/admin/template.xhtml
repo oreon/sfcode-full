@@ -25,22 +25,22 @@
 
 	<div id="content">
 		<h:messages globalOnly="true" errorStyle="color:red"
-		warnStyle="color:gray" infoStyle="color:green" />
-	
+			warnStyle="color:gray" infoStyle="color:green" />
+
 		<ui:insert name="content" />
 	</div>
 
-	<script type="text/javascript">  
-    function handleLoginRequest(dlg, xhr, status, args) {  
-        alert(args.validationFailed);
-        if(args.validationFailed ) {  
-           // jQuery('#dialog').effect("shake", { times:3 }, 100);  
-        } else {  
-            dlg.hide();  
-            //jQuery('#loginLink').fadeOut();  
-        }  
-    }  
-		</script>
+	<script type="text/javascript">
+    function handleDialogSubmit(xhr, status, args, dlg) {
+        if (args.validationFailed) {
+            //alert('invalid');
+        	dlg.show();
+        } else {
+        	//alert('valid');
+        	dlg.hide();
+        }
+    }
+</script>
 
 </h:body>
 </html>

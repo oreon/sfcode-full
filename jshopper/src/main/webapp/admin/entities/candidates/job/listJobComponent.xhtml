@@ -37,7 +37,7 @@
       <h:panelGrid id="display" columns="2" cellpadding="4"> 
         <ui:include src="/admin/entities/candidates/job/editJobComponent.xhtml"/> 
       </h:panelGrid>  
-      <h:commandButton value="Save" action="#{jobAction.persist}"/> 
+      <p:commandButton value="Save" action="#{jobAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, JobDialog)"/> 
     </p:dialog> 
   </h:form> 
 </ui:composition>

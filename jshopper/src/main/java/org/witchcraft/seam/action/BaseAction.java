@@ -132,13 +132,24 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 			updateComposedAssociations();
 			entity = this.entityManager.merge( this.entity );
+			
 
 		} catch ( Exception e ) {
 			FacesContext.getCurrentInstance().addMessage( null, new FacesMessage( e.getMessage() ) );
 			return null;
 		}
 
+		
 		return "success";
+	}
+	
+	
+	/**
+	 * Method to be called from save of dialogs
+	 */
+	public void persistAndClear(){
+		persist();
+		entity = null;
 	}
 
 	/*
@@ -387,6 +398,14 @@ public abstract class BaseAction<T extends BaseEntity> {
 	}
 
 	public void setEntity( T entity ) {
+		this.entity = entity;
+	}
+	
+	public T getSelectedEntity() {
+		return entity;
+	}
+
+	public void setSelectedEntity( T entity ) {
 		this.entity = entity;
 	}
 

@@ -24,7 +24,7 @@
       <h:panelGrid id="display" columns="2" cellpadding="4"> 
         <ui:include src="/admin/entities/candidates/client/editClientComponent.xhtml"/> 
       </h:panelGrid>  
-      <h:commandButton value="Save" action="#{clientAction.persist}"/> 
+      <p:commandButton value="Save" action="#{clientAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, ClientDialog)"/> 
     </p:dialog> 
   </h:form> 
 </ui:composition>

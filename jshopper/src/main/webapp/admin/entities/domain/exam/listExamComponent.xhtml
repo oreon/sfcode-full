@@ -28,7 +28,7 @@
       <h:panelGrid id="display" columns="2" cellpadding="4"> 
         <ui:include src="/admin/entities/domain/exam/editExamComponent.xhtml"/> 
       </h:panelGrid>  
-      <h:commandButton value="Save" action="#{examAction.persist}"/> 
+      <p:commandButton value="Save" action="#{examAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, ExamDialog)"/> 
     </p:dialog> 
   </h:form> 
 </ui:composition>
