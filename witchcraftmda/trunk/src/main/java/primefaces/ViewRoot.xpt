@@ -342,6 +342,7 @@
 
 «DEFINE genFilePropertyEntry FOR uml::Property-»
 «LET isCurrentMultiMode()?"_" + getCurrentEntity().asVar() + "." + name: getFieldNameWithAction() AS currentFile»
+«REM»comment
 	<c:choose>
 		<c:when test="${«currentFile».contentType.startsWith('image')}">
 			<s:graphicImage value="#{«currentFile».data}" />
@@ -352,6 +353,7 @@
 			</h:link>
 		</c:otherwise>
 	</c:choose>
+«ENDREM»
 «ENDLET»
 «ENDDEFINE»
 

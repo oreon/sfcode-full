@@ -108,7 +108,7 @@ isCurrentEditMode()?prop.genEditPermission():prop.genViewPermission() ;
 //isCurrentEditMode() && (prop.getRequired() == "true" || ( prop.association != null && !prop.getAssocOptional() ) )?"*":"";
 
 getRequiredStar(Property prop):
-getCartridge() == "SEAM3" ? "*" : "";
+getCartridge() == "SEAM3" && prop.isRequired() ? "*" : "";
 
 
 String getTextControl(Property prop):
@@ -283,10 +283,19 @@ String getTemplateViewFileName(Class e,String mode):
 "/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "Template/" + mode + e.name;
 
 String getRequired(Property prop):
-!isCurrentTemplateMode() && (prop.type.name == "nameType" || prop.type.name == "uniqueNameType")?"true":"false";
+prop.isRequired()?"true":"false";
 
-String getRequired(Column prop):
-!isCurrentTemplateMode() && (prop.notNull || prop.type.name == "nameType" || prop.type.name == "uniqueNameType")?"true":"false";
+
+//String getRequired(Column prop):
+//!isCurrentTemplateMode() && (prop.notNull || prop.type.name == "nameType" || prop.type.name == "uniqueNameType")?"true":"false";
+
+
+isRequired(Property prop):
+!isCurrentTemplateMode() && (prop.type.name == "nameType" || prop.type.name == "uniqueNameType");
+
+isRequired(Column prop):
+!isCurrentTemplateMode() && (prop.notNull || prop.type.name == "nameType" || prop.type.name == "uniqueNameType");
+
 
 getAccess(Column prop):
 prop.access;

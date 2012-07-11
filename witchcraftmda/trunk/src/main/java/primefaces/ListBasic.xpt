@@ -76,7 +76,8 @@
 					<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 				</h:panelGrid>
 				
-				<h:commandButton value="Save" action="#{«getAction()».persist}" />
+				<p:commandButton value="Save" action="#{«getAction()».persistAndClear}" update=":form:display  :form" 
+					oncomplete="handleDialogSubmit(xhr, status, args, «name»Dialog)"   />
 				
 			</p:dialog>
 
@@ -284,10 +285,11 @@
 «DEFINE genProperty FOR uml::Property-»
 	<p:column   «EXPAND genPermission FOR this» headerText="«msgBundleKey()-»" sortBy="#{_«genPropertyLabel()»}" filterBy="#{_«genPropertyLabel()»}" >
 		«IF isFile()»
+			«REM»comment		
 				<s:graphicImage rendered="#{_«genPropertyLabel()» ne null and  _«genPropertyLabel()».contentType.startsWith('image')}" value="#{_«genPropertyLabel()».data}">
 					<s:transformImageSize height="100" maintainRatio="true"/>
 				</s:graphicImage>
-		
+			«ENDREM»	
 				<h:commandLink value="#{_«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(_«class.asVar()».id)}" 
 					propagation="none"  rendered="#{not _«genPropertyLabel()».contentType.startsWith('image')}" >
 					<f:param name="currentEntityId" value="#{_«class.asVar()».id}" />
