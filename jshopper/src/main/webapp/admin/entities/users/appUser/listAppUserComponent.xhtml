@@ -35,7 +35,7 @@
       <h:panelGrid id="display" columns="2" cellpadding="4"> 
         <ui:include src="/admin/entities/users/appUser/editAppUserComponent.xhtml"/> 
       </h:panelGrid>  
-      <h:commandButton value="Save" action="#{appUserAction.persist}"/> 
+      <p:commandButton value="Save" action="#{appUserAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, AppUserDialog)"/> 
     </p:dialog> 
   </h:form> 
 </ui:composition>

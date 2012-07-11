@@ -24,7 +24,7 @@
       <h:panelGrid id="display" columns="2" cellpadding="4"> 
         <ui:include src="/admin/entities/domain/department/editDepartmentComponent.xhtml"/> 
       </h:panelGrid>  
-      <h:commandButton value="Save" action="#{departmentAction.persist}"/> 
+      <p:commandButton value="Save" action="#{departmentAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, DepartmentDialog)"/> 
     </p:dialog> 
   </h:form> 
 </ui:composition>

@@ -24,7 +24,7 @@
       <h:panelGrid id="display" columns="2" cellpadding="4"> 
         <ui:include src="/admin/entities/users/appRole/editAppRoleComponent.xhtml"/> 
       </h:panelGrid>  
-      <h:commandButton value="Save" action="#{appRoleAction.persist}"/> 
+      <p:commandButton value="Save" action="#{appRoleAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, AppRoleDialog)"/> 
     </p:dialog> 
   </h:form> 
 </ui:composition>

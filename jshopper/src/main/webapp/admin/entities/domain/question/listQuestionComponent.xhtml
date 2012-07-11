@@ -32,7 +32,7 @@
       <h:panelGrid id="display" columns="2" cellpadding="4"> 
         <ui:include src="/admin/entities/domain/question/editQuestionComponent.xhtml"/> 
       </h:panelGrid>  
-      <h:commandButton value="Save" action="#{questionAction.persist}"/> 
+      <p:commandButton value="Save" action="#{questionAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, QuestionDialog)"/> 
     </p:dialog> 
   </h:form> 
 </ui:composition>

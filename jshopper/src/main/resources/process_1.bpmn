@@ -18,12 +18,15 @@
 
   <process processType="Private" isExecutable="true" id="process_1" name="myprocess" tns:packageName="defaultPackage" tns:version="1" >
 
+    <extensionElements>
+     <tns:import name="com.oreon.talent.*" />
+    </extensionElements>
     <!-- process variables -->
     <property id="money" itemSubjectRef="_moneyItem"/>
 
     <!-- nodes -->
     <scriptTask id="ScriptTask_1" name="Script Task" scriptFormat="http://www.java.com/java" >
-      <script>System.out.println("hi " + kcontext.getVariable("name"));</script>
+      <script>System.out.println("hi " + kcontext.getVariable("name"));OSGClient.reserveResource();</script>
     </scriptTask>
     <startEvent id="StartEvent_1" />
     <exclusiveGateway id="ExclusiveGateway_1" gatewayDirection="Diverging" />

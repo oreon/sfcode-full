@@ -52,7 +52,7 @@
       <h:panelGrid id="display" columns="2" cellpadding="4"> 
         <ui:include src="/admin/entities/domain/employee/editEmployeeComponent.xhtml"/> 
       </h:panelGrid>  
-      <h:commandButton value="Save" action="#{employeeAction.persist}"/> 
+      <p:commandButton value="Save" action="#{employeeAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, EmployeeDialog)"/> 
     </p:dialog> 
   </h:form> 
 </ui:composition>

@@ -19,6 +19,8 @@ public class EMFactory {
 	@PersistenceUnit
 	@ConversationScoped
 	private static EntityManagerFactory entityManagerFactory;
+	
+
 
 	public void setupEntityManager( @Observes SeamManagedPersistenceContextCreated event ) {
 
@@ -28,4 +30,16 @@ public class EMFactory {
 		//session.enableFilter( "myfilter" );
 
 	}
+
+
+
+	public static EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
+
+
+	/*public static void setEntityManagerFactory( EntityManagerFactory entityManagerFactory ) {
+		EMFactory.entityManagerFactory = entityManagerFactory;
+	}*/
 }
