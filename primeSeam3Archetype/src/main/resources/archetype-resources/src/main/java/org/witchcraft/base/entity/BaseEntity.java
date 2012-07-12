@@ -17,7 +17,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.apache.solr.analysis.EdgeNGramFilterFactory;
 import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.NGramFilterFactory;
 import org.apache.solr.analysis.PhoneticFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
@@ -37,6 +39,8 @@ import com.oreon.talent.users.AppUser;
 @MappedSuperclass
 @AnalyzerDef( name = "entityAnalyzer", tokenizer = @TokenizerDef( factory = StandardTokenizerFactory.class ), filters = {
 				@TokenFilterDef( factory = LowerCaseFilterFactory.class ), @TokenFilterDef( factory = StopFilterFactory.class ),
+				@TokenFilterDef( factory =  EdgeNGramFilterFactory.class, params = { @Parameter( name = "minGramSize", value = "3" ) , 
+						@Parameter( name = "maxGramSize", value = "15" ) , @Parameter( name = "side", value = "front" )   }), 
 				@TokenFilterDef( factory = PhoneticFilterFactory.class, params = { @Parameter( name = "encoder", value = "SOUNDEX" ) } ),
 				// @TokenFilterDef(factory = SynonymFilterFactory.class),
 				@TokenFilterDef( factory = SnowballPorterFilterFactory.class, params = { @Parameter( name = "language", value = "English" ) } ) } )
