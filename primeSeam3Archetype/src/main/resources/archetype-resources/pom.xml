@@ -101,7 +101,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>3.2</version>
+			<version>3.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.ocpsoft</groupId>
@@ -139,6 +139,28 @@
 			<artifactId>seam-persistence</artifactId>
 			<version>3.1.0.Final</version>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.jboss.seam.security</groupId>
+			<artifactId>seam-security-api</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
+
+		
+
+		<dependency>
+			<groupId>org.jboss.seam.security</groupId>
+			<artifactId>seam-security</artifactId>
+			<version>3.1.0.Final</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>solder-impl</artifactId>
+					<groupId>org.jboss.solder</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 
 
@@ -172,6 +194,12 @@
 		<repository>
 			<id>JBOSS_NEXUS</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
 		</repository>
 	</repositories>
 	<build>

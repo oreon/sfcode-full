@@ -1,6 +1,8 @@
 package org.witchcraft.seam.action;
 
+import java.awt.print.Book;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -8,19 +10,14 @@ import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.inject.Inject; import javax.ejb.Stateful;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -29,23 +26,31 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
+import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
+import org.apache.lucene.util.Version;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.proxy.HibernateProxy;
-import org.jboss.seam.persistence.SeamManagedPersistenceContextCreated;
-import org.jboss.solder.core.ExtensionManaged;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.FileAttachment;
-import org.witchcraft.seam.security.hasPermission;
+import org.witchcraft.base.entity.TextSearchResultHolder;
+import org.witchcraft.exceptions.ContractViolationException;
 
 /**
  * @author singj3
@@ -68,11 +73,14 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 	@Inject
 	protected Conversation conversation;
-	
-	
-	
-	@Inject
+
+	//@Inject
+	@PersistenceContext
 	protected EntityManager entityManager;
+
+	private String searchText;
+
+	private List<TextSearchResultHolder> searchResultsList = new ArrayList<TextSearchResultHolder>();
 
 	public String create() {
 
@@ -81,8 +89,8 @@ public abstract class BaseAction<T extends BaseEntity> {
 	}
 
 	protected abstract Class<T> getEntityClass();
-	
-	//Needed for many to many list initializations in dialog
+
+	// Needed for many to many list initializations in dialog
 	public void onRowSelect( SelectEvent event ) throws Exception {
 		T t = (T) event.getObject();
 		setId( t.getId() );
@@ -120,28 +128,39 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 			updateComposedAssociations();
 			entity = this.entityManager.merge( this.entity );
+			
 
 		} catch ( Exception e ) {
 			FacesContext.getCurrentInstance().addMessage( null, new FacesMessage( e.getMessage() ) );
 			return null;
 		}
 
+		
 		return "success";
+	}
+	
+	
+	/**
+	 * Method to be called from save of dialogs
+	 */
+	public void persistAndClear(){
+		persist();
+		entity = null;
 	}
 
 	/*
 	 * Support updating and deleting T entities
 	 */
-	@hasPermission
+	//@hasPermission
 	public String update() {
-		
+
 		persist();
-		
-		long currentId= getEntity().getId();
-		
+
+		long currentId = getEntity().getId();
+
 		if ( !conversation.isTransient() )
 			this.conversation.end();
-		
+
 		return "view" + getEntityClass().getSimpleName() + "?faces-redirect=true&id=" + currentId;
 
 	}
@@ -157,6 +176,55 @@ public abstract class BaseAction<T extends BaseEntity> {
 			FacesContext.getCurrentInstance().addMessage( null, new FacesMessage( e.getMessage() ) );
 			return null;
 		}
+	}
+
+	
+
+	private static final String SEARCH_DATA = "searchData";
+
+	public String textSearch() {
+
+		FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager( entityManager );
+
+		QueryParser parser = new QueryParser( Version.LUCENE_35, SEARCH_DATA, fullTextEntityManager.getSearchFactory().getAnalyzer( "entityAnalyzer" ) );
+
+		org.apache.lucene.search.Query query = null;
+
+		if ( searchText == null )
+			return null;
+
+		try {
+			query = parser.parse( searchText );
+		} catch ( ParseException e1 ) {
+			// TODO
+			// addErrorMessaget(e1.getMessage());
+		}
+
+		QueryScorer scorer = new QueryScorer( query, SEARCH_DATA );
+		// Highlight using a CSS style
+		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter( "<span style='background-color:yellow;'>", "</span>" );
+		Highlighter highlighter = new Highlighter( formatter, scorer );
+		highlighter.setTextFragmenter( new SimpleSpanFragmenter( scorer, 100 ) );
+
+		FullTextQuery ftq = fullTextEntityManager.createFullTextQuery( query, getEntityClass() );
+
+		List<T> result = ftq.getResultList();
+
+		for ( T e : result ) {
+			try {
+				String fragment = highlighter.getBestFragment( fullTextEntityManager.getSearchFactory().getAnalyzer( "entityAnalyzer" ), SEARCH_DATA,
+								e.getSearchData() );
+
+				TextSearchResultHolder textSearchResultHolder = new TextSearchResultHolder( e, fragment );
+				if ( !searchResultsList.contains( textSearchResultHolder ) &&  !StringUtils.isEmpty( fragment ))
+					searchResultsList.add( textSearchResultHolder );
+			} catch ( Exception ex ) {
+				throw new ContractViolationException( ex.getMessage() );
+			}
+		}
+
+		// setSearchResultsList( result );
+		return "textSearch";
 	}
 
 	/*
@@ -233,7 +301,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 	public List<T> getAll() {
 		Session session = (Session) entityManager.getDelegate();
-	//	session.enableFilter("archiveFilterDef").setParameter("aArchived", "0");
+		// session.enableFilter("archiveFilterDef").setParameter("aArchived", "0");
 		CriteriaQuery<T> criteria = this.entityManager.getCriteriaBuilder().createQuery( getEntityClass() );
 		return this.entityManager.createQuery( criteria.select( criteria.from( getEntityClass() ) ) ).getResultList();
 	}
@@ -244,15 +312,13 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 			@Override
 			public Object getAsObject( FacesContext context, UIComponent component, String value ) {
-				
+
 				T t = entityManager.find( getEntityClass(), Long.valueOf( value ) );
-				
+
 				/*
-				Hibernate.initialize(t);
-				if (t instanceof HibernateProxy) {
-					t = (T) ((HibernateProxy) t)
-							.getHibernateLazyInitializer().getImplementation();
-				}*/
+				 * Hibernate.initialize(t); if (t instanceof HibernateProxy) { t = (T) ((HibernateProxy) t) .getHibernateLazyInitializer().getImplementation();
+				 * }
+				 */
 
 				return t;
 			}
@@ -263,13 +329,11 @@ public abstract class BaseAction<T extends BaseEntity> {
 				if ( value == null ) {
 					return "";
 				}
-				
+
 				/*
-				Hibernate.initialize(value);
-				if (value instanceof HibernateProxy) {
-					value = ((HibernateProxy) value)
-							.getHibernateLazyInitializer().getImplementation();
-				}*/
+				 * Hibernate.initialize(value); if (value instanceof HibernateProxy) { value = ((HibernateProxy) value)
+				 * .getHibernateLazyInitializer().getImplementation(); }
+				 */
 
 				return String.valueOf( ( (T) value ).getId() );
 			}
@@ -299,7 +363,7 @@ public abstract class BaseAction<T extends BaseEntity> {
 	}
 
 	protected void updateComposedAssociations() {
-		
+
 	}
 
 	protected void initLists() {
@@ -313,33 +377,37 @@ public abstract class BaseAction<T extends BaseEntity> {
 	public void setEntity( T entity ) {
 		this.entity = entity;
 	}
+	
+	public T getSelectedEntity() {
+		return entity;
+	}
 
-	
-	
-	protected void downloadAttachment(FileAttachment fileAttachment) {
+	public void setSelectedEntity( T entity ) {
+		this.entity = entity;
+	}
+
+	protected void downloadAttachment( FileAttachment fileAttachment ) {
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletResponse response = (HttpServletResponse) context
-				.getExternalContext().getResponse();
-		response.setContentType(fileAttachment.getContentType());
+		HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+		response.setContentType( fileAttachment.getContentType() );
 
-		response.addHeader("Content-disposition", "attachment; filename=\""
-				+ fileAttachment.getName() + "\"");
+		response.addHeader( "Content-disposition", "attachment; filename=\"" + fileAttachment.getName() + "\"" );
 
 		try {
 			OutputStream os = response.getOutputStream();
-			os.write(fileAttachment.getData());
+			os.write( fileAttachment.getData() );
 			os.flush();
 			os.close();
 			context.responseComplete();
-		} catch (Exception e) {
-			//log.error("\nFailure : " + e.toString() + "\n");
+		} catch ( Exception e ) {
+			// log.error("\nFailure : " + e.toString() + "\n");
 		}
 	}
-	
-	///////////////////////////////////// Comments ////////////////////////////////////////////////////////////////////////////////////
-	
+
+	// /////////////////////////////////// Comments ////////////////////////////////////////////////////////////////////////////////////
+
 	private List<EntityComment> comments;
-	
+
 	public String getCurrentCommentText() {
 		return currentCommentText;
 	}
@@ -351,113 +419,104 @@ public abstract class BaseAction<T extends BaseEntity> {
 	public void setComments( List<EntityComment> comments ) {
 		this.comments = comments;
 	}
-	
+
 	public List<EntityComment> getComments() {
 		loadComments();
 		return comments;
 	}
 
 	private String currentCommentText;
-	
+
 	public void saveComment() {
 		EntityComment currentComment = new EntityComment();
-		currentComment.setText(currentCommentText);
-		currentComment.setEntityId(getEntity().getId());
-		currentComment.setEntityName(getClassName(getEntity()));
-		entityManager.persist(currentComment);
+		currentComment.setText( currentCommentText );
+		currentComment.setEntityId( getEntity().getId() );
+		currentComment.setEntityName( getClassName( getEntity() ) );
+		entityManager.persist( currentComment );
 		currentCommentText = new String();
-		//events.raiseTransactionSuccessEvent("entityCommentsUpdated",
-		//		getClassName(getInstance()));
+		// events.raiseTransactionSuccessEvent("entityCommentsUpdated",
+		// getClassName(getInstance()));
 	}
 
-	
-
-	//@Observer("entityCommentsUpdated")
+	// @Observer("entityCommentsUpdated")
 	public void loadComments() {
-		comments = executeNamedQuery("commentsForRecord",
-				getEntity().getId(), getClassName(getEntity()));
+		comments = executeNamedQuery( "commentsForRecord", getEntity().getId(), getClassName( getEntity() ) );
 	}
-	
-	protected String getClassName(T t) {
+
+	protected String getClassName( T t ) {
 		String name = t.getClass().getSimpleName();
-		if (name.indexOf("$$") > 0)
-			name = name.substring(0, name.indexOf("$$"));
+		if ( name.indexOf( "$$" ) > 0 )
+			name = name.substring( 0, name.indexOf( "$$" ) );
 		return name;
 	}
 
 	protected String getClassName() {
-		return getClassName(getEntity());
+		return getClassName( getEntity() );
 	}
-	
-	
-	/////////////////// QUERIES //////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
-	@SuppressWarnings("unchecked")
-	public <S> List<S> executeQuery(String queryString, Object... params) {
-		Query query = entityManager.createQuery(queryString);
-		setQueryParams(query, params);
+
+	// ///////////////// QUERIES //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@SuppressWarnings( "unchecked" )
+	public <S> List<S> executeQuery( String queryString, Object... params ) {
+		Query query = entityManager.createQuery( queryString );
+		setQueryParams( query, params );
 		return query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
-	public <S> S executeSingleResultQuery(String queryString, Object... params) {
-		Query query = entityManager.createQuery(queryString);
-		setQueryParams(query, params);
-		return (S) executeSingleResultQuery(query);
+	@SuppressWarnings( "unchecked" )
+	public <S> S executeSingleResultQuery( String queryString, Object... params ) {
+		Query query = entityManager.createQuery( queryString );
+		setQueryParams( query, params );
+		return (S) executeSingleResultQuery( query );
 	}
 
 	@SuppressWarnings( "unchecked" )
-	private <S> S executeSingleResultQuery(Query query) {
+	private <S> S executeSingleResultQuery( Query query ) {
 		try {
 			return (S) query.getSingleResult();
-		} catch (NoResultException nre) {
-			//TODO: logging
-			//log.info("No " + "record " + " found !");
+		} catch ( NoResultException nre ) {
+			// TODO: logging
+			// log.info("No " + "record " + " found !");
 			return null;
 		}
 	}
 
-
-	@SuppressWarnings("unchecked")
-	public <S> List<S> executeNamedQuery(String queryString, Object... params) {
-		Query query = entityManager.createNamedQuery(queryString);
-		setQueryParams(query, params);
+	@SuppressWarnings( "unchecked" )
+	public <S> List<S> executeNamedQuery( String queryString, Object... params ) {
+		Query query = entityManager.createNamedQuery( queryString );
+		setQueryParams( query, params );
 		// setEntityList(query.getResultList());
 		return query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
-	public <S> S executeSingleResultNamedQuery(String queryString,
-			Object... params) {
-		Query query = entityManager.createNamedQuery(queryString);
-		setQueryParams(query, params);
-		return (S) executeSingleResultQuery(query);
+	@SuppressWarnings( "unchecked" )
+	public <S> S executeSingleResultNamedQuery( String queryString, Object... params ) {
+		Query query = entityManager.createNamedQuery( queryString );
+		setQueryParams( query, params );
+		return (S) executeSingleResultQuery( query );
 	}
 
-	@SuppressWarnings("unchecked")
-	public <S> S executeSingleResultNativeQuery(String queryString,
-			Object... params) {
-		Query query = entityManager.createNativeQuery(queryString);
-		setQueryParams(query, params);
+	@SuppressWarnings( "unchecked" )
+	public <S> S executeSingleResultNativeQuery( String queryString, Object... params ) {
+		Query query = entityManager.createNativeQuery( queryString );
+		setQueryParams( query, params );
 		return (S) query.getSingleResult();
 
 	}
 
-	@SuppressWarnings("unchecked")
-	public <S> List<S> executeNativeQuery(String queryString, Object... params) {
-		Query query = entityManager.createNativeQuery(queryString);
-		setQueryParams(query, params);
+	@SuppressWarnings( "unchecked" )
+	public <S> List<S> executeNativeQuery( String queryString, Object... params ) {
+		Query query = entityManager.createNativeQuery( queryString );
+		setQueryParams( query, params );
 		return query.getResultList();
 	}
 
-	private void setQueryParams(Query query, Object... params) {
+	private void setQueryParams( Query query, Object... params ) {
 		int counter = 1;
-		for (Object param : params) {
-			query.setParameter(counter++, param);
+		for ( Object param : params ) {
+			query.setParameter( counter++, param );
 		}
 	}
-
 
 	// /////////////////////////////// Lazy data model ///////////////////////////////////////////////////////////////////////////////////
 
@@ -521,9 +580,9 @@ public abstract class BaseAction<T extends BaseEntity> {
 
 		@Override
 		public T getRowData( String rowKey ) {
-			if(rowKey == null || rowKey.equals( "null" ))
+			if ( rowKey == null || rowKey.equals( "null" ) )
 				return null;
-			
+
 			T t = entityManager.find( getEntityClass(), Long.valueOf( rowKey ) );
 			return t;
 		}
@@ -553,6 +612,25 @@ public abstract class BaseAction<T extends BaseEntity> {
 			return (int) l;
 		}
 
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText( String searchText ) {
+		this.searchText = searchText;
+	}
+
+	public List<TextSearchResultHolder> getSearchResultsList() {
+		if ( searchResultsList.isEmpty() )
+			textSearch();
+
+		return searchResultsList;
+	}
+
+	public void setSearchResultsList( List<TextSearchResultHolder> searchResultsList ) {
+		this.searchResultsList = searchResultsList;
 	}
 
 }
