@@ -1,0 +1,51 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/defaultTemplate/template.xhtml">
+
+	<ui:define name="content">
+		<center>
+		<div style="width: 20%">
+		<h:form id="login">
+
+			<rich:panel>
+				<f:facet name="header">Login</f:facet>
+
+				<h:panelGrid columns="1" >
+					 <s:decorate id="appUser_userNameDecorate" template="/layout/edit.xhtml"> 
+			          <ui:define name="label"> 
+			            <h:outputText value="#{msg.appUser_userName} * " />
+			          </ui:define>  
+			          <h:inputText id="appUser_userName#{entityId}"  label="#{msg.appUser_userName}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.userName}"> 
+			            <rich:ajaxValidator /> 
+			          </h:inputText> 
+			        </s:decorate>  
+			        <s:decorate id="appUser_passwordDecorate" template="/layout/edit.xhtml"> 
+			          <ui:define name="label"> 
+			            <h:outputText value="#{msg.appUser_password} * " />
+			          </ui:define>  
+			          <h:inputSecret redisplay="true" id="appUser_password#{entityId}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.password}"> 
+			            <rich:ajaxValidator/> 
+			          </h:inputSecret> 
+			        </s:decorate>  
+					
+					<h:outputLabel for="rememberMe">Remember me</h:outputLabel>
+					<h:selectBooleanCheckbox id="rememberMe"
+						value="#{identity.rememberMe}" />
+				</h:panelGrid>
+				<div class="actionButtons"><h:commandButton value="Log Me In"
+					action="#{identity.login}">
+				</h:commandButton></div>
+
+			</rich:panel>
+			</h:form>
+			</div>
+			
+		</center>
+	</ui:define>
+</ui:composition>
