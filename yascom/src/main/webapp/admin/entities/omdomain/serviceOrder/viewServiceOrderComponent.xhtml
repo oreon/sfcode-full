@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editServiceOrderComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{serviceOrderAction.load(serviceOrderId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_serviceOrder == null }"> 
+      <c:set var="${_serviceOrder}" value="#{departmentAction.department}"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelServiceOrder eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ServiceOrder}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.serviceOrder_dateRequested}  " rendered="#{true}"/>  
+      <h:outputText id="dateRequested" value="#{_serviceOrder.dateRequested}"/>  
+      <h:outputText value="#{msg.serviceOrder_location}  " rendered="#{true}"/>  
+      <h:outputText id="location" value="#{_serviceOrder.location}"/>  
+      <h:outputText value="#{msg.serviceOrder_comments}  " rendered="#{true}"/>  
+      <h:outputText id="comments" value="#{_serviceOrder.comments}" escape="false"/>  
+      <h:outputText value="#{msg.serviceOrder_currentStatus}  " rendered="#{true}"/>  
+      <h:outputText id="currentStatus" value="#{_serviceOrder.currentStatus}"/>  
+      <h:outputText value="#{msg.serviceOrder_status}  " rendered="#{true}"/>  
+      <h:outputText id="status" value="#{_serviceOrder.status}"/>  
+      <h:outputText value="#{msg.serviceOrder_subscriber}  " rendered="#{true}"/>  
+      <h:link value="#{_serviceOrder.subscriber.displayName}" outcome="/admin/entities/omdomain/subscriber/viewSubscriber.xhtml"> 
+        <f:param name="id" value="#{_serviceOrder.subscriber.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <p:dataTable id="serviceOrderItems" var="_serviceOrderItem" rendered="#{not empty serviceOrderAction.listServiceOrderItems and true }" value="#{serviceOrderAction.listServiceOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column>
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.serviceOrderItem_customerServiceSpec}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:link value="#{_serviceOrderItem.customerServiceSpec.displayName}" outcome="/admin/entities/omdomain/customerServiceSpec/viewCustomerServiceSpec.xhtml"> 
+          <f:param name="id" value="#{_serviceOrderItem.customerServiceSpec.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column>
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.serviceOrderItem_additionalInfo}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText id="additionalInfo" value="#{_serviceOrderItem.additionalInfo}"/> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dataTable id="serviceOrderTrails" var="_serviceOrderTrail" rendered="#{not empty serviceOrderAction.listServiceOrderTrails and true }" value="#{serviceOrderAction.listServiceOrderTrails}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"></p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

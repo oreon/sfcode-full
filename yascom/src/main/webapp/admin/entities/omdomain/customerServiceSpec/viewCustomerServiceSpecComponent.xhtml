@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCustomerServiceSpecComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{customerServiceSpecAction.load(customerServiceSpecId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_customerServiceSpec == null }"> 
+      <c:set var="${_customerServiceSpec}" value="#{departmentAction.department}"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomerServiceSpec eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.CustomerServiceSpec}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.customerServiceSpec_name} * " rendered="#{true}"/>  
+      <h:outputText id="name" value="#{_customerServiceSpec.name}"/>  
+      <h:outputText value="#{msg.customerServiceSpec_price}  " rendered="#{true}"/>  
+      <h:outputText id="price" value="#{_customerServiceSpec.price}"/>  
+      <h:outputText value="#{msg.customerServiceSpec_description}  " rendered="#{true}"/>  
+      <h:outputText id="description" value="#{_customerServiceSpec.description}" escape="false"/>  
+      <h:outputText value="#{msg.customerServiceSpec_workflow}  " rendered="#{true}"/>  
+      <h:link value="#{_customerServiceSpec.workflow.displayName}" outcome="/admin/entities/omdomain/workflow/viewWorkflow.xhtml"> 
+        <f:param name="id" value="#{_customerServiceSpec.workflow.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <p:dataTable id="resourceServiceSpecs" var="_resourceServiceSpec" rendered="#{not empty customerServiceSpecAction.listResourceServiceSpecs and true }" value="#{customerServiceSpecAction.listResourceServiceSpecs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column>
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.resourceServiceSpec_telecomResource}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:link value="#{_resourceServiceSpec.telecomResource.displayName}" outcome="/admin/entities/omdomain/telecomResource/viewTelecomResource.xhtml"> 
+          <f:param name="id" value="#{_resourceServiceSpec.telecomResource.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column>
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.resourceServiceSpec_name}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText id="name" value="#{_resourceServiceSpec.name}"/> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,6 +1,5 @@
 package org.witchcraft.seam.action;
 
-import java.awt.print.Book;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,7 +41,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
-import org.hibernate.search.query.dsl.QueryBuilder;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -74,8 +72,8 @@ public abstract class BaseAction<T extends BaseEntity> {
 	@Inject
 	protected Conversation conversation;
 
-	//@Inject
-	@PersistenceContext
+	@Inject
+	//@PersistenceContext
 	protected EntityManager entityManager;
 
 	private String searchText;

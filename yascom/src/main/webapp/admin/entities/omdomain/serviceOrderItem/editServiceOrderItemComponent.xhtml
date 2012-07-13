@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editServiceOrderItemComponentPanel"> 
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelServiceOrderItem eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ServiceOrderItem}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.serviceOrderItem_additionalInfo}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="additionalInfo#{entityId}" rendered="#{true}" label="#{msg.serviceOrderItem_additionalInfo}" required="false" disabled="false" value="#{serviceOrderItemAction.serviceOrderItem.additionalInfo}"></h:inputText>  
+        <h:message for="additionalInfo" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.serviceOrderItem_serviceOrder}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{serviceOrderAction.converter}" id="serviceOrder" value="#{serviceOrderItemAction.serviceOrderItem.serviceOrder}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{serviceOrderAction.all}" var="serviceOrder" itemLabel="#{serviceOrder.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="serviceOrder" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.serviceOrderItem_customerServiceSpec}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{customerServiceSpecAction.converter}" id="customerServiceSpec" value="#{serviceOrderItemAction.serviceOrderItem.customerServiceSpec}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{customerServiceSpecAction.all}" var="customerServiceSpec" itemLabel="#{customerServiceSpec.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="customerServiceSpec" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

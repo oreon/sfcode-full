@@ -5,17 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
-import org.apache.solr.analysis.LowerCaseFilterFactory;
-import org.apache.solr.analysis.PhoneticFilterFactory;
-import org.apache.solr.analysis.SnowballPorterFilterFactory;
-import org.apache.solr.analysis.StandardTokenizerFactory;
-import org.apache.solr.analysis.StopFilterFactory;
 import org.hibernate.annotations.Filter;
-import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Parameter;
-import org.hibernate.search.annotations.TokenFilterDef;
-import org.hibernate.search.annotations.TokenizerDef;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.seam.action.EventTypes;
 
@@ -24,7 +15,7 @@ import org.witchcraft.seam.action.EventTypes;
  *
  */
 @Entity
-@Filter(name = "archiveFilterDef")
+//@Filter(name = "archiveFilterDef")
 @Indexed
 public class AuditLog<T> extends BaseEntity{
 	private EventTypes action;

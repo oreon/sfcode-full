@@ -8,7 +8,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "comment")
+@Table(name = "entityComment")
 @NamedQuery(name="commentsForRecord", query= "Select c from EntityComment c where c.entityId = ?1 and c.entityName = ?2 ")
 public class EntityComment extends BaseEntity {
 

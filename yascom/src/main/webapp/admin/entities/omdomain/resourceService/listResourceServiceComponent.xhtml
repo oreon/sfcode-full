@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_resourceService" value="#{resourceServiceAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{resourceServiceAction.resourceService}" id="ResourceServiceTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="ResourceServiceDialog.show()" listener="#{resourceServiceAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_resourceService.id}"> 
+        <h:link outcome="viewResourceService.xthml"> 
+          <f:param name="id" value="#{_resourceService.id}"/>  
+          <h:outputText value="#{_resourceService.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column groupOn="#{resourceService.customerService.displayName}"> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_resourceService.customerService.displayName}" view="/admin/entities/omdomain/customerService/viewCustomerService.xhtml" propagation="none"> 
+          <f:param name="customerServiceId" value="#{_resourceService.customerService.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.resourceService_name}" sortBy="#{_resourceService.name}" filterBy="#{_resourceService.name}"> 
+        <h:outputText value="#{_resourceService.name}"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_resourceService.telecomResource.displayName}" view="/admin/entities/omdomain/telecomResource/viewTelecomResource.xhtml" propagation="none"> 
+          <f:param name="telecomResourceId" value="#{_resourceService.telecomResource.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column> 
+        <h:outputText value="#{_resourceService.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="ResourceService Detail" widgetVar="ResourceServiceDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/omdomain/resourceService/editResourceServiceComponent.xhtml"/> 
+      </h:panelGrid>  
+      <p:commandButton value="Save" action="#{resourceServiceAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, ResourceServiceDialog)"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

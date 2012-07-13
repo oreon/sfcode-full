@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEmployeeComponentPanel"> 
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEmployee eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Employee}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="firstName#{entityId}" rendered="#{true}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{employeeAction.employee.firstName}"></h:inputText>  
+        <h:message for="firstName" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="lastName#{entityId}" rendered="#{true}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{employeeAction.employee.lastName}"></h:inputText>  
+        <h:message for="lastName" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="employeeNumber#{entityId}" rendered="#{true}" label="#{msg.employee_employeeNumber}" required="true" disabled="false" value="#{employeeAction.employee.employeeNumber}"></h:inputText>  
+        <h:message for="employeeNumber" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.employee_employeeType} * " rendered="#{true}"/>  
+      <h:selectOneMenu id="employeeType" rendered="#{true}" value="#{employeeAction.employee.employeeType}" required="true" label="#{msg.employee_employeeType}"> 
+        <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+        <f:selectItem itemValue="FULL_TIME" itemLabel="#{msg.FULL_TIME}"/>  
+        <f:selectItem itemValue="CONTRACT" itemLabel="#{msg.CONTRACT}"/>  
+        <f:selectItem itemValue="PART_TIME" itemLabel="#{msg.PART_TIME}"/> 
+      </h:selectOneMenu>  
+      <h:outputText value="#{msg.employee_department} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{departmentAction.converter}" id="department" value="#{employeeAction.employee.department}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{departmentAction.all}" var="department" itemLabel="#{department.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="department" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.contactDetails_phone} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="contactDetails_phone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_phone}" required="true" disabled="false" value="#{employeeAction.employee.contactDetails.phone}"></h:inputText>  
+        <h:message for="contactDetails_phone" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_secondaryPhone}" required="true" disabled="false" value="#{employeeAction.employee.contactDetails.secondaryPhone}"></h:inputText>  
+        <h:message for="contactDetails_secondaryPhone" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.contactDetails_city} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="contactDetails_city#{entityId}" rendered="#{true}" label="#{msg.contactDetails_city}" required="true" disabled="false" value="#{employeeAction.employee.contactDetails.city}"></h:inputText>  
+        <h:message for="contactDetails_city" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

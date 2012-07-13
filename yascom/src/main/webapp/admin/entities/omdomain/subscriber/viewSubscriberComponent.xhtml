@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editSubscriberComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{subscriberAction.load(subscriberId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_subscriber == null }"> 
+      <c:set var="${_subscriber}" value="#{departmentAction.department}"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelSubscriber eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Subscriber}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{true}"/>  
+      <h:outputText id="firstName" value="#{_subscriber.firstName}"/>  
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{true}"/>  
+      <h:outputText id="lastName" value="#{_subscriber.lastName}"/> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_contactDetails == null }"> 
+      <c:set var="${_contactDetails}" value="#{departmentAction.department}"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.contactDetails_phone} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_phone" value="#{_subscriber.contactDetails.phone}"/>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_secondaryPhone" value="#{_subscriber.contactDetails.secondaryPhone}"/>  
+      <h:outputText value="#{msg.contactDetails_city} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_city" value="#{_subscriber.contactDetails.city}"/> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

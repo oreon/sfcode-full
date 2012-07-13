@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCustomerServiceComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{customerServiceAction.load(customerServiceId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_customerService == null }"> 
+      <c:set var="${_customerService}" value="#{departmentAction.department}"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomerService eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.CustomerService}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.customerService_description}  " rendered="#{true}"/>  
+      <h:outputText id="description" value="#{_customerService.description}" escape="false"/>  
+      <h:outputText value="#{msg.customerService_customerServiceSpec}  " rendered="#{true}"/>  
+      <h:link value="#{_customerService.customerServiceSpec.displayName}" outcome="/admin/entities/omdomain/customerServiceSpec/viewCustomerServiceSpec.xhtml"> 
+        <f:param name="id" value="#{_customerService.customerServiceSpec.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

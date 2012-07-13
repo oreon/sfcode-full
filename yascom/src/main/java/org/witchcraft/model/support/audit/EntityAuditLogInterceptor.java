@@ -20,6 +20,8 @@ import org.witchcraft.seam.action.EventTypes;
  * @author jsingh
  * 
  */
+
+/*
 @Named
 public class EntityAuditLogInterceptor extends BaseAction<AuditLog>{
 
@@ -86,3 +88,4 @@ public class EntityAuditLogInterceptor extends BaseAction<AuditLog>{
 	
 
 }
+*/

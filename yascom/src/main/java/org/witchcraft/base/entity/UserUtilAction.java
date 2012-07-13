@@ -6,6 +6,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import com.sasktel.om.users.AppUser;
+
 
 @SessionScoped
 public class UserUtilAction implements Serializable{
@@ -21,7 +23,7 @@ public class UserUtilAction implements Serializable{
 	@Inject
 	EntityManager entityManager;
 
-	/*
+	
 	private AppUser currentUser;
 	
 	public AppUser getCurrentUser() {
@@ -30,5 +32,5 @@ public class UserUtilAction implements Serializable{
 
 	public void setCurrentUser(AppUser currentUser) {
 		this.currentUser = entityManager.merge(currentUser);	
-	}*/
+	}
 }

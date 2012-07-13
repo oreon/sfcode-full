@@ -22,9 +22,16 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.international.status.Messages;
+import org.jboss.seam.security.Authenticator;
+import org.jboss.seam.security.BaseAuthenticator;
+import org.jboss.seam.security.Credentials;
 import org.jboss.solder.logging.Logger;
-import org.witchcraft.users.AppUser;
-import org.witchcraft.users.action.AppUserAction;
+import org.picketlink.idm.impl.api.PasswordCredential;
+import org.picketlink.idm.impl.api.model.SimpleUser;
+import org.witchcraft.utils.DefaultBundleKey;
+
+import com.sasktel.om.users.AppUser;
+import com.sasktel.om.web.action.users.AppUserAction;
 
 /**
  * This implementation of a <strong>Authenticator</strong> that uses Seam security.
