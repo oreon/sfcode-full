@@ -7,7 +7,10 @@ public class Restrictions {
 	public @Secures
 	@Admin
 	boolean isAdmin( Identity identity ) {
-		return identity.hasRole( "admin", "USERS", "GROUP" ) || identity.hasRole("manager", "USERS", "GROUP" ) || identity.hasRole("support", "USERS", "GROUP" );
+		if(identity.getUser() == null)
+			return false;
+		System.out.println(identity.getUser().getId()); //  + " " + identity.getRoles().iterator().next().toString()) ;
+		return true;
 	}
 	
 	/*
