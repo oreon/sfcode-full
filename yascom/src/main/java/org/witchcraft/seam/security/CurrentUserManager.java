@@ -23,7 +23,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-import org.witchcraft.users.AppUser;
+import com.sasktel.om.users.AppUser;
 
 /**
  * Exposes the currently logged in user

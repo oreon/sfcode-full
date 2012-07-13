@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCustomerServiceSpecComponentPanel"> 
+    <p:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.customerServiceSpec_workflow}  " rendered="#{true}"/>
+      </f:facet>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{workflowAction.converter}" id="workflow" value="#{_customerServiceSpec.workflow}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{workflowAction.all}" var="workflow" itemLabel="#{workflow.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="workflow" styleClass="error"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.customerServiceSpec_name} * " rendered="#{true}"/>
+      </f:facet>  
+      <h:panelGroup> 
+        <h:inputText id="name#{entityId}" rendered="#{true}" label="#{msg.customerServiceSpec_name}" required="true" disabled="false" value="#{_customerServiceSpec.name}"></h:inputText>  
+        <h:message for="name" styleClass="error"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.customerServiceSpec_price}  " rendered="#{true}"/>
+      </f:facet>  
+      <h:panelGroup> 
+        <h:inputText id="price#{entityId}" rendered="#{true}" label="#{msg.customerServiceSpec_price}" required="false" disabled="false" value="#{_customerServiceSpec.price}"></h:inputText>  
+        <h:message for="price" styleClass="error"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.customerServiceSpec_description}  " rendered="#{true}"/>
+      </f:facet>  
+      <h:panelGroup> 
+        <p:editor id="description#{entityId}" rendered="#{true}" label="#{msg.customerServiceSpec_description}" required="false" disabled="false" value="#{_customerServiceSpec.description}"></p:editor>  
+        <h:message for="description" styleClass="error"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <br/>  
+    <h:commandButton value="New ResourceServiceSpec" action="#{customerServiceSpecAction.addResourceServiceSpecs}" update="resourceServiceSpecs" rendered="#{true}"> 
+      <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+    </h:commandButton>  
+    <p:dataTable id="resourceServiceSpecs" var="_resourceServiceSpec" rendered="#{true}" value="#{customerServiceSpecAction.listResourceServiceSpecs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column>
+        <f:facet name="header">
+          <h:outputText value="#{msg.resourceServiceSpec_telecomResource}  " rendered="#{true}"/>
+        </f:facet>  
+        <h:panelGroup> 
+          <h:selectOneMenu converter="#{telecomResourceAction.converter}" id="telecomResource" value="#{_resourceServiceSpec.telecomResource}"> 
+            <f:selectItem itemLabel="Please Select ..."/>  
+            <f:selectItems value="#{telecomResourceAction.all}" var="telecomResource" itemLabel="#{telecomResource.displayName}"/> 
+          </h:selectOneMenu>  
+          <h:message for="telecomResource" styleClass="error"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column>
+        <f:facet name="header">
+          <h:outputText value="#{msg.resourceServiceSpec_name}  " rendered="#{true}"/>
+        </f:facet>  
+        <h:panelGroup> 
+          <h:inputText id="name#{entityId}" rendered="#{true}" label="#{msg.resourceServiceSpec_name}" required="false" disabled="false" value="#{_resourceServiceSpec.name}"></h:inputText>  
+          <h:message for="name" styleClass="error"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column> 
+        <h:commandButton value="New ResourceServiceSpec" action="#{customerServiceSpecAction.addResourceServiceSpecs}" update="resourceServiceSpecs" rendered="#{true}"> 
+          <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+        </h:commandButton> 
+      </p:column>  
+      <p:column> 
+        <h:commandButton value="Delete" immediate="true" action="#{customerServiceSpecAction.deleteResourceServiceSpecs(rowIndex)}" reRender="resourceServiceSpecs"> 
+          <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+        </h:commandButton> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

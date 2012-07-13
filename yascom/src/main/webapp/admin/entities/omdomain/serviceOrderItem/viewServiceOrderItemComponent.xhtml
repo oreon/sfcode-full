@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editServiceOrderItemComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{serviceOrderItemAction.load(serviceOrderItemId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_serviceOrderItem == null }"> 
+      <c:set var="${_serviceOrderItem}" value="#{departmentAction.department}"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelServiceOrderItem eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ServiceOrderItem}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.serviceOrderItem_additionalInfo}  " rendered="#{true}"/>  
+      <h:outputText id="additionalInfo" value="#{_serviceOrderItem.additionalInfo}"/>  
+      <h:outputText value="#{msg.serviceOrderItem_serviceOrder}  " rendered="#{true}"/>  
+      <h:link value="#{_serviceOrderItem.serviceOrder.displayName}" outcome="/admin/entities/omdomain/serviceOrder/viewServiceOrder.xhtml"> 
+        <f:param name="id" value="#{_serviceOrderItem.serviceOrder.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.serviceOrderItem_customerServiceSpec}  " rendered="#{true}"/>  
+      <h:link value="#{_serviceOrderItem.customerServiceSpec.displayName}" outcome="/admin/entities/omdomain/customerServiceSpec/viewCustomerServiceSpec.xhtml"> 
+        <f:param name="id" value="#{_serviceOrderItem.customerServiceSpec.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

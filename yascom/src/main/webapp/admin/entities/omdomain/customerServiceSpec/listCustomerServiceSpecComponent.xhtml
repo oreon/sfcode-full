@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_customerServiceSpec" value="#{customerServiceSpecAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{customerServiceSpecAction.customerServiceSpec}" id="CustomerServiceSpecTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="CustomerServiceSpecDialog.show()" listener="#{customerServiceSpecAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_customerServiceSpec.id}"> 
+        <h:link outcome="viewCustomerServiceSpec.xthml"> 
+          <f:param name="id" value="#{_customerServiceSpec.id}"/>  
+          <h:outputText value="#{_customerServiceSpec.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.customerServiceSpec_name}" sortBy="#{_customerServiceSpec.name}" filterBy="#{_customerServiceSpec.name}"> 
+        <h:outputText value="#{_customerServiceSpec.name}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.customerServiceSpec_price}" sortBy="#{_customerServiceSpec.price}" filterBy="#{_customerServiceSpec.price}"> 
+        <h:outputText value="#{_customerServiceSpec.price}"> 
+          <f:convertNumber pattern="$#,##0.00"/> 
+        </h:outputText> 
+      </p:column>  
+      <p:column headerText="#{msg.customerServiceSpec_description}" sortBy="#{_customerServiceSpec.description}" filterBy="#{_customerServiceSpec.description}"> 
+        <p:tooltip value="#{_customerServiceSpec.description}" for="descriptionAbbr"></p:tooltip>  
+        <h:outputText id="descriptionAbbr" value="#{_customerServiceSpec.descriptionAbbreviated}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.customerServiceSpec_workflow}" sortBy="#{_customerServiceSpec.workflow}"> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_customerServiceSpec.workflow.displayName}" view="/admin/entities/omdomain/workflow/viewWorkflow.xhtml" propagation="none"> 
+          <f:param name="workflowId" value="#{_customerServiceSpec.workflow.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.dateCreated}"> 
+        <h:outputText value="#{_customerServiceSpec.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="CustomerServiceSpec Detail" widgetVar="CustomerServiceSpecDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/omdomain/customerServiceSpec/editCustomerServiceSpecComponent.xhtml"/> 
+      </h:panelGrid>  
+      <p:commandButton value="Save" action="#{customerServiceSpecAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, CustomerServiceSpecDialog)"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

@@ -32,7 +32,8 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
-import org.witchcraft.users.AppUser;
+
+import com.sasktel.om.users.AppUser;
 
 @MappedSuperclass
 @AnalyzerDef( name = "entityAnalyzer", tokenizer = @TokenizerDef( factory = StandardTokenizerFactory.class ), filters = {

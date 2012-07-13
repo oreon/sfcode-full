@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_serviceOrderItem" value="#{serviceOrderItemAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{serviceOrderItemAction.serviceOrderItem}" id="ServiceOrderItemTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="ServiceOrderItemDialog.show()" listener="#{serviceOrderItemAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_serviceOrderItem.id}"> 
+        <h:link outcome="viewServiceOrderItem.xthml"> 
+          <f:param name="id" value="#{_serviceOrderItem.id}"/>  
+          <h:outputText value="#{_serviceOrderItem.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.serviceOrderItem_serviceOrder}" sortBy="#{_serviceOrderItem.serviceOrder}" groupOn="#{serviceOrderItem.serviceOrder.displayName}"> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_serviceOrderItem.serviceOrder.displayName}" view="/admin/entities/omdomain/serviceOrder/viewServiceOrder.xhtml" propagation="none"> 
+          <f:param name="serviceOrderId" value="#{_serviceOrderItem.serviceOrder.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.serviceOrderItem_additionalInfo}" sortBy="#{_serviceOrderItem.additionalInfo}" filterBy="#{_serviceOrderItem.additionalInfo}"> 
+        <h:outputText value="#{_serviceOrderItem.additionalInfo}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.serviceOrderItem_customerServiceSpec}" sortBy="#{_serviceOrderItem.customerServiceSpec}"> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_serviceOrderItem.customerServiceSpec.displayName}" view="/admin/entities/omdomain/customerServiceSpec/viewCustomerServiceSpec.xhtml" propagation="none"> 
+          <f:param name="customerServiceSpecId" value="#{_serviceOrderItem.customerServiceSpec.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.dateCreated}"> 
+        <h:outputText value="#{_serviceOrderItem.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="ServiceOrderItem Detail" widgetVar="ServiceOrderItemDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/omdomain/serviceOrderItem/editServiceOrderItemComponent.xhtml"/> 
+      </h:panelGrid>  
+      <p:commandButton value="Save" action="#{serviceOrderItemAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, ServiceOrderItemDialog)"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

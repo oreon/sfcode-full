@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEmployeeComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{employeeAction.load(employeeId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_employee == null }"> 
+      <c:set var="${_employee}" value="#{departmentAction.department}"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEmployee eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Employee}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{true}"/>  
+      <h:outputText id="firstName" value="#{_employee.firstName}"/>  
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{true}"/>  
+      <h:outputText id="lastName" value="#{_employee.lastName}"/>  
+      <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{true}"/>  
+      <h:outputText id="employeeNumber" value="#{_employee.employeeNumber}"/>  
+      <h:outputText value="#{msg.employee_employeeType} * " rendered="#{true}"/>  
+      <h:outputText id="employeeType" value="#{_employee.employeeType}"/>  
+      <h:outputText value="#{msg.employee_department} * " rendered="#{true}"/>  
+      <h:link value="#{_employee.department.displayName}" outcome="/admin/entities/domain/department/viewDepartment.xhtml"> 
+        <f:param name="id" value="#{_employee.department.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <c:if test="${_contactDetails == null }"> 
+      <c:set var="${_contactDetails}" value="#{departmentAction.department}"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.contactDetails_phone} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_phone" value="#{_employee.contactDetails.phone}"/>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_secondaryPhone" value="#{_employee.contactDetails.secondaryPhone}"/>  
+      <h:outputText value="#{msg.contactDetails_city} * " rendered="#{true}"/>  
+      <h:outputText id="contactDetails_city" value="#{_employee.contactDetails.city}"/> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

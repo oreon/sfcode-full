@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editQuestionComponentPanel"> 
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelQuestion eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Question}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:editor id="text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{questionAction.question.text}"></p:editor>  
+        <h:message for="text" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.question_exam}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{examAction.converter}" id="exam" value="#{questionAction.question.exam}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{examAction.all}" var="exam" itemLabel="#{exam.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="exam" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

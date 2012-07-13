@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editExamComponentPanel"> 
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelExam eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Exam}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.exam_title} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="title#{entityId}" rendered="#{true}" label="#{msg.exam_title}" required="true" disabled="false" value="#{examAction.exam.title}"></h:inputText>  
+        <h:message for="title" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.exam_description}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:editor id="description#{entityId}" rendered="#{true}" label="#{msg.exam_description}" required="false" disabled="false" value="#{examAction.exam.description}"></p:editor>  
+        <h:message for="description" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <h:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{true}"> 
+      <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+    </h:commandButton>  
+    <p:dataTable id="questions" var="_question" rendered="#{true}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column>
+        <f:facet name="header">
+          <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>
+        </f:facet>  
+        <h:panelGroup> 
+          <p:editor id="text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{_question.text}"></p:editor>  
+          <h:message for="text" styleClass="error"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column> 
+        <h:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{true}"> 
+          <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+        </h:commandButton> 
+      </p:column>  
+      <p:column> 
+        <h:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" reRender="questions"> 
+          <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+        </h:commandButton> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

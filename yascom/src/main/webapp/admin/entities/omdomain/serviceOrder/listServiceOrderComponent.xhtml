@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_serviceOrder" value="#{serviceOrderAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{serviceOrderAction.serviceOrder}" id="ServiceOrderTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="ServiceOrderDialog.show()" listener="#{serviceOrderAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_serviceOrder.id}"> 
+        <h:link outcome="viewServiceOrder.xthml"> 
+          <f:param name="id" value="#{_serviceOrder.id}"/>  
+          <h:outputText value="#{_serviceOrder.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.serviceOrder_subscriber}" sortBy="#{_serviceOrder.subscriber}"> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_serviceOrder.subscriber.displayName}" view="/admin/entities/omdomain/subscriber/viewSubscriber.xhtml" propagation="none"> 
+          <f:param name="subscriberId" value="#{_serviceOrder.subscriber.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.serviceOrder_dateRequested}" sortBy="#{_serviceOrder.dateRequested}" filterBy="#{_serviceOrder.dateRequested}"> 
+        <h:outputText value="#{_serviceOrder.dateRequested}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column>  
+      <p:column headerText="#{msg.serviceOrder_location}" sortBy="#{_serviceOrder.location}" filterBy="#{_serviceOrder.location}"> 
+        <h:outputText value="#{_serviceOrder.location}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.serviceOrder_comments}" sortBy="#{_serviceOrder.comments}" filterBy="#{_serviceOrder.comments}"> 
+        <p:tooltip value="#{_serviceOrder.comments}" for="commentsAbbr"></p:tooltip>  
+        <h:outputText id="commentsAbbr" value="#{_serviceOrder.commentsAbbreviated}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.serviceOrder_currentStatus}" sortBy="#{_serviceOrder.currentStatus}" filterBy="#{_serviceOrder.currentStatus}"> 
+        <h:outputText value="#{_serviceOrder.currentStatus}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.serviceOrder_status}" sortBy="#{_serviceOrder.status}" filterBy="#{_serviceOrder.status}"> 
+        <h:outputText value="#{_serviceOrder.status}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.dateCreated}"> 
+        <h:outputText value="#{_serviceOrder.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="ServiceOrder Detail" widgetVar="ServiceOrderDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/omdomain/serviceOrder/editServiceOrderComponent.xhtml"/> 
+      </h:panelGrid>  
+      <p:commandButton value="Save" action="#{serviceOrderAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, ServiceOrderDialog)"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>

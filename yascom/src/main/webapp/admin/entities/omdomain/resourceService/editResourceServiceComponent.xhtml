@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editResourceServiceComponentPanel"> 
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelResourceService eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ResourceService}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.resourceService_name} * " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:inputText id="name#{entityId}" rendered="#{true}" label="#{msg.resourceService_name}" required="true" disabled="false" value="#{resourceServiceAction.resourceService.name}"></h:inputText>  
+        <h:message for="name" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.resourceService_customerService}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{customerServiceAction.converter}" id="customerService" value="#{resourceServiceAction.resourceService.customerService}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{customerServiceAction.all}" var="customerService" itemLabel="#{customerService.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="customerService" styleClass="error"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.resourceService_telecomResource}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <h:selectOneMenu converter="#{telecomResourceAction.converter}" id="telecomResource" value="#{resourceServiceAction.resourceService.telecomResource}"> 
+          <f:selectItem itemLabel="Please Select ..."/>  
+          <f:selectItems value="#{telecomResourceAction.all}" var="telecomResource" itemLabel="#{telecomResource.displayName}"/> 
+        </h:selectOneMenu>  
+        <h:message for="telecomResource" styleClass="error"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <h:commandButton value="New ResourceInstance" action="#{resourceServiceAction.addResourceInstances}" update="resourceInstances" rendered="#{true}"> 
+      <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+    </h:commandButton>  
+    <p:dataTable id="resourceInstances" var="_resourceInstance" rendered="#{true}" value="#{resourceServiceAction.listResourceInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column> 
+        <h:commandButton value="New ResourceInstance" action="#{resourceServiceAction.addResourceInstances}" update="resourceInstances" rendered="#{true}"> 
+          <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+        </h:commandButton> 
+      </p:column>  
+      <p:column> 
+        <h:commandButton value="Delete" immediate="true" action="#{resourceServiceAction.deleteResourceInstances(rowIndex)}" reRender="resourceInstances"> 
+          <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
+        </h:commandButton> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

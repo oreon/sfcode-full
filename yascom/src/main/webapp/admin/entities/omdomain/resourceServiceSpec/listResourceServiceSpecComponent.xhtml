@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">  
+  <h:form id="form"> 
+    <p:dataTable var="_resourceServiceSpec" value="#{resourceServiceSpecAction.model}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{resourceServiceSpecAction.resourceServiceSpec}" id="ResourceServiceSpecTable"> 
+      <p:ajax event="rowSelect" update=":form:display" oncomplete="ResourceServiceSpecDialog.show()" listener="#{resourceServiceSpecAction.onRowSelect}"/>  
+      <p:column headerText="Id" sortBy="#{_resourceServiceSpec.id}"> 
+        <h:link outcome="viewResourceServiceSpec.xthml"> 
+          <f:param name="id" value="#{_resourceServiceSpec.id}"/>  
+          <h:outputText value="#{_resourceServiceSpec.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.resourceServiceSpec_customerServiceSpec}" sortBy="#{_resourceServiceSpec.customerServiceSpec}" groupOn="#{resourceServiceSpec.customerServiceSpec.displayName}"> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_resourceServiceSpec.customerServiceSpec.displayName}" view="/admin/entities/omdomain/customerServiceSpec/viewCustomerServiceSpec.xhtml" propagation="none"> 
+          <f:param name="customerServiceSpecId" value="#{_resourceServiceSpec.customerServiceSpec.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.resourceServiceSpec_name}" sortBy="#{_resourceServiceSpec.name}" filterBy="#{_resourceServiceSpec.name}"> 
+        <h:outputText value="#{_resourceServiceSpec.name}"/> 
+      </p:column>  
+      <p:column headerText="#{msg.resourceServiceSpec_telecomResource}" sortBy="#{_resourceServiceSpec.telecomResource}"> 
+        <f:facet name="header"></f:facet>  
+        <h:commandLink value="#{_resourceServiceSpec.telecomResource.displayName}" view="/admin/entities/omdomain/telecomResource/viewTelecomResource.xhtml" propagation="none"> 
+          <f:param name="telecomResourceId" value="#{_resourceServiceSpec.telecomResource.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:commandLink> 
+      </p:column>  
+      <p:column headerText="#{msg.dateCreated}"> 
+        <h:outputText value="#{_resourceServiceSpec.dateCreated}"> 
+          <f:convertDateTime pattern="dd-MMM-yyyy "/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <p:dialog header="ResourceServiceSpec Detail" widgetVar="ResourceServiceSpecDialog" resizable="true"> 
+      <h:panelGrid id="display" columns="2" cellpadding="4"> 
+        <ui:include src="/admin/entities/omdomain/resourceServiceSpec/editResourceServiceSpecComponent.xhtml"/> 
+      </h:panelGrid>  
+      <p:commandButton value="Save" action="#{resourceServiceSpecAction.persistAndClear}" update=":form:display  :form" oncomplete="handleDialogSubmit(xhr, status, args, ResourceServiceSpecDialog)"/> 
+    </p:dialog> 
+  </h:form> 
+</ui:composition>
