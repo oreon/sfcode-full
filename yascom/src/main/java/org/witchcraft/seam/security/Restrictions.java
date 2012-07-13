@@ -10,9 +10,10 @@ public class Restrictions {
 		return identity.hasRole( "admin", "USERS", "GROUP" ) || identity.hasRole("manager", "USERS", "GROUP" ) || identity.hasRole("support", "USERS", "GROUP" );
 	}
 	
+	/*
 	public @Secures
 	@Authenticated
 	boolean isAuthenticated( Identity identity ) {
-		return identity.isLoggedIn();
-	}
+		return identity != null && identity.isLoggedIn();
+	}*/
 }
