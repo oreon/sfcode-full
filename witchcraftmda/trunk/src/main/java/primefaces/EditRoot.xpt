@@ -420,7 +420,9 @@
 
 «DEFINE gentEditableTable FOR uml::Property-»
 	«setCurrentMultiMode(true)-»
-	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
+	«IF !isColumn() || (isColumn() &&  systemModifyOnly == false) »
+	
+	«IF isCurrentEditMode() && !isPreloadedComposition()  -» «EXPAND genNewButton FOR this» «ENDIF»
 	<p:dataTable id="«name»" var="_«type.asVar()»" 
 		«IF !isCurrentEditMode()» 
 			rendered="#{not empty «class.getAction()».list«name.toFirstUpper()» and «genViewPermission()» }"
@@ -440,6 +442,7 @@
 		«ENDIF»	
 	</p:dataTable>
 	«setCurrentMultiMode(false)-»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genDelete FOR uml::Property»
