@@ -545,6 +545,7 @@
 
 
 «DEFINE gentEditableTable FOR uml::Property-»
+	«IF !isColumn() || (isColumn() &&  systemModifyOnly == false) »
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
 	<rich:dataTable id="«name»" var="_«type.asVar()»" 
@@ -566,6 +567,7 @@
 		«ENDIF»	
 	</rich:dataTable>
 	«setCurrentMultiMode(false)-»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genDelete FOR uml::Property»

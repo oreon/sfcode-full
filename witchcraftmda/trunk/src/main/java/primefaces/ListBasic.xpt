@@ -27,12 +27,13 @@
 				<!-- <ui:include src="search«name».«getExtension()»" /> -->
 				<br/> <br/>
 				«EXPAND genButtons FOR this»
+				<br/>
 				<ui:include src="list«name»Component.«getExtension()»"  >
 					<ui:param name="records" value="#{«asVar()»List.resultList}" />
          		</ui:include>
+         		<br/>
 				«EXPAND genButtons FOR this»
-				
-				
+			
 	</ui:define>
 			
 			
@@ -89,9 +90,9 @@
 		
 «DEFINE genFullTextBtn FOR uml::Class»
  <h:form> 
-	   <h:button value="Full Text Search" outcome="textSearchResults«name».xhtml" > 
+	   <p:button value="Full Text Search" outcome="textSearchResults«name».xhtml" > 
         <f:param name="cid" value="#{javax.enterprise.context.conversation.id}"/> 
-       </h:button> 
+       </p:button> 
 </h:form>
 «ENDDEFINE»
 
@@ -140,10 +141,8 @@
 
 «DEFINE genButtons FOR wcprofile::Entity»
 	<h:form>
-		<h:button value="Create New" outcome="«getViewFile("edit")»"  />
-		
+		<p:button value="Create New" outcome="«getViewFile("edit")»"  />
 		<p:commandButton  oncomplete="«name»Dialog.show()" value="Quick Create" />
-				
 	</h:form>
 		«IF templatable»
 		 <h:commandButton value="Create Template" view="«getTemplateViewFileName("edit")»"/>
@@ -256,7 +255,7 @@
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property»
-	<p:column «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»    «EXPAND genPermission FOR this»>
+	<p:column   headerText="«msgBundleKey()-»" sortBy="#{_«genPropertyLabel()»}" «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»    «EXPAND genPermission FOR this»>
 		<f:facet name="header">
 			
 		</f:facet>
@@ -267,7 +266,7 @@
 
 «DEFINE genAssoc FOR uml::Property»
 	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
-	<h:commandLink «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
+	<h:commandLink «getEscape()»   value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
 			<f:param name="«type.name.toFirstLower()»Id" value="#{_«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
@@ -352,7 +351,7 @@
 
 
 «DEFINE genCreationDate FOR uml::Class»
-	<p:column «EXPAND genPermission FOR 'creationDate'»>
+	<p:column headerText="#{msg.dateCreated}" «EXPAND genPermission FOR 'creationDate'»>
 		<h:outputText    value="#{_«getCurrentEntity().asVar()».dateCreated}"  >
 			 <f:convertDateTime pattern="dd-MMM-yyyy " />
 		</h:outputText>
