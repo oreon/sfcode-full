@@ -419,8 +419,8 @@
 
 
 «DEFINE gentEditableTable FOR uml::Property-»
-	«setCurrentMultiMode(true)-»
 	«IF !isColumn() || (isColumn() &&  systemModifyOnly == false) »
+	«setCurrentMultiMode(true)-»
 	
 	«IF isCurrentEditMode() && !isPreloadedComposition()  -» «EXPAND genNewButton FOR this» «ENDIF»
 	<p:dataTable id="«name»" var="_«type.asVar()»" 
