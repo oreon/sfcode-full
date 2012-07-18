@@ -360,3 +360,8 @@ genAjaxValidator():
 getRestExtension():
 readPropertyDef("restfulExtension", "Service");
 
+genPropertyGetter(Property property):
+(getCurrentEmbeddable() != null ?  getSimpleGetter(getCurrentEmbeddableName()) + ".": ""  ) + getSimpleGetter(property.name); 
+
+getSimpleGetter(String name):
+"get" + name.toFirstUpper() + "()";

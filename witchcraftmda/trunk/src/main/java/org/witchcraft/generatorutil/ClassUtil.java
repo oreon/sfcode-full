@@ -161,6 +161,7 @@ public class ClassUtil {
 		// //system.out.println("setting embeddable to " +
 		// currentEmbeddable.getName());
 		ClassUtil.currentEmbeddable = currentEmbeddable;
+		setCurrentEmbeddableName(currentEmbeddable.getName());
 	}
 
 	public static void clearCurrentEmbeddable() {
