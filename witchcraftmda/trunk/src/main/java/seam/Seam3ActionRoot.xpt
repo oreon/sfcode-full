@@ -100,25 +100,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«ENDFOREACH»
 	 
 
-	protected Predicate[] getSearchPredicates(Root<«name»> root) {
+	
 
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		List<Predicate> predicatesList = new ArrayList<Predicate>();
-
-		/*
-		String name = search.getName();
-		if (name != null && !"".equals(name)) {
-			predicatesList.add(builder.like(root.<String> get("name"),
-					'%' + name + '%'));
-		}
-		
-		int stock = search.getStock();
-		if (stock != 0) {
-			predicatesList.add(builder.equal(root.get("stock"), stock));
-		}*/
-
-		return predicatesList.toArray(new Predicate[predicatesList.size()]);
-	}
 
 	@Override
 	protected Class<«name»> getEntityClass() {
@@ -207,6 +190,23 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	
 	«EXPAND template::Root::genUnqNamedQryOp  FOREACH getAllAttributes()»
 	
+	
+	
+	«EXPAND genAttribAsOutput(true) FOR this»
+   
+   	protected Predicate[] getSearchPredicates(Root<«name»> root)  {
+   		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		List<Predicate> predicatesList = new ArrayList<Predicate>();
+   	
+   		//"«asVar()».id = #{«asVar()»List.«asVar()».id}",
+   	
+		«EXPAND genAttribAsOutput(false) FOR this»
+		
+		//"«asVar()».dateCreated <= #{«asVar()»List.dateCreatedRange.end}",
+		//"«asVar()».dateCreated >= #{«asVar()»List.dateCreatedRange.begin}",
+		
+		return predicatesList.toArray(new Predicate[predicatesList.size()]);
+	}
 	
 }
 «ENDFILE»
@@ -311,6 +311,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 «DEFINE genImports FOR uml::Class»
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -331,8 +332,100 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.utils.ViewUtils;
 import javax.inject.Inject;
 
+import org.witchcraft.base.entity.Range;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+«ENDDEFINE»
+
+
+«REM» .....Search Stuff .........«ENDREM»
+
+
+
+«DEFINE genAttribAsOutput(boolean createRangeDeclarations)  FOR uml::Class-»
+	«FOREACH allParents() AS e-»
+	 «EXPAND genPropertyRec(createRangeDeclarations) FOREACH e.getAllAttributes().select(a|a.isSearchable()  ) -»
+	«ENDFOREACH»
+	«EXPAND genPropertyRec(createRangeDeclarations) FOREACH getAllAttributes().select(a|a.isSearchable()  ) -»
+«ENDDEFINE»
+
+«DEFINE genPropertyRec(boolean createRangeDeclarations)  FOR uml::Property-»
+	«IF isExpandableAssoc() -» 
+		«setCurrentEmbeddable()-» 
+		«EXPAND genPropertyRec(createRangeDeclarations) FOREACH type.getAllAttributes().select(a|a.isSearchable()  ) -»
+		«clearCurrentEmbeddable()-»
+	«ELSE-»
+		«EXPAND genAttribute(createRangeDeclarations) -»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genManyToManySearch FOR uml::Property»
+		private «type.fqn()» «name»ToSearch;
+   		
+   		public void set«name.toFirstUpper()»ToSearch(«type.fqn()» «type.asVar()»ToSearch){
+   			this.«name»ToSearch = «type.asVar()»ToSearch;
+   		}
+   		
+   		public «type.fqn()» get«name.toFirstUpper()»ToSearch(){
+   			return «name»ToSearch;
+   		}
+«ENDDEFINE»
+
+
+«DEFINE genAttribute(boolean createRangeDeclarations) FOR uml::Property -»
+	«EXPAND genProperty(createRangeDeclarations) FOR this-»
+«ENDDEFINE»
+
+«DEFINE genProperty(boolean createRangeDeclarations) FOR uml::Property-»
+	«IF createRangeDeclarations == true »
+		«IF this.type.isRangeType()»
+			private Range<«type.name.getTypeName()»> «name»Range = new Range<«type.name.getTypeName()»>();
+			
+			public Range<«type.name.getTypeName()»> get«name.toFirstUpper()»Range(){
+				return «name»Range;
+			}
+			public void  set«name.toFirstUpper()»(Range<«type.name.getTypeName()»> «name»Range ){
+				this.«name»Range = «name»Range;
+			}
+		«ENDIF»	
+	«ELSE»
+		«EXPAND genPropertyRestrictions»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genPropertyRestrictions FOR uml::Property»
+
+	«IF this.isString()-»
+	 if (!StringUtils.isEmpty(search.«genPropertyGetter()»)) {
+			predicatesList.add(builder.like(root.<String> get("«name»"),'%' + search.«genPropertyGetter()» + '%'));
+	 }
+	«ELSEIF this.type.isRangeType()»
+		if («name»Range.getBegin() != null) {
+			predicatesList.add(builder.greaterThanOrEqualTo(root.<«type.name»> get("«name»"), «name»Range.getBegin() ));
+	 	}
+	 	if («name»Range.getEnd() != null) {
+			predicatesList.add(builder.lessThanOrEqualTo(root.<«type.name»> get("«name»"), «name»Range.getEnd() ));
+	 	}	
+	«ELSE»
+	   «IF isManyToMany() »
+	   	«IF getCurrentEmbeddable() == null»
+	   	//	"#{«getCurrentEntity().asVar()»List.«name»ToSearch} in elements(«genPropertyLabel()»)",
+	   	«ENDIF»
+	   «ELSE»
+	  //	"«genPropertyLabel()»«association != null ? ".id" : "" » = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«association != null ? ".id" : "" »}",
+	  	«ENDIF»
+	«ENDIF»
+
+«ENDDEFINE»
+
+
+
+«DEFINE genProperty(boolean createRangeDeclarations) FOR uml::Enumeration-»	
+«IF !createRangeDeclarations»
+" «genPropertyLabel()» = #{«getCurrentEntity().asVar()»List.«genPropertyLabel()»})",
+«ENDIF»
+ 
 «ENDDEFINE»
 
