@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_immunization" value="#{records}" id="immunizationList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'immunizationView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{immunizationList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_immunization.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('date', 'immunizationView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewDate')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{immunizationList}"/>  
@@ -33,7 +33,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('patient', 'immunizationView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{immunizationList}"/>  
@@ -49,7 +49,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('vaccine', 'immunizationView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewVaccine')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{immunizationList}"/>  
@@ -62,7 +62,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'immunizationView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{immunizationList}"/>  

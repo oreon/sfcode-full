@@ -16,5 +16,18 @@
     <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{trackedVitalList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{trackedVitalList.dateCreatedRange.end}"/> 
-  </h:panelGrid> 
+  </h:panelGrid>  
+  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
+    <h:inputText value="#{trackedVitalList.searchName}"/>  
+    <h:commandButton id="savesearch" value="Save Search" action="#{trackedVitalList.saveSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <h:selectOneMenu id="svdsearches" value="#{trackedVitalList.currentSavedSearch}"> 
+      <s:selectItems value="#{trackedVitalList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
+      <s:convertEntity/> 
+    </h:selectOneMenu>  
+    <h:commandButton value="Load Search" action="#{trackedVitalList.executeSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton> 
+  </div> 
 </ui:composition>

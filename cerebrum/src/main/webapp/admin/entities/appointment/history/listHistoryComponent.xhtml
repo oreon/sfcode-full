@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_history" value="#{records}" id="historyList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'historyView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{historyList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_history.id}"></h:outputText> 
         </h:column>  
-        <h:column groupOn="#{history.encounter.displayName}" rendered="#{s:hasPermission('encounter', 'historyView'  )}"> 
+        <h:column groupOn="#{history.encounter.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewEncounter')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{historyList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('history', 'historyView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'viewHistory')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{historyList}"/>  
@@ -44,7 +44,7 @@
           </f:facet>  
           <h:outputText value="#{_history.history}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'historyView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{historyList}"/>  

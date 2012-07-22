@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_vitalValue" value="#{records}" id="vitalValueList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'vitalValueView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{vitalValueList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_vitalValue.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('remarks', 'vitalValueView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{vitalValueList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_vitalValue.remarks}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('value', 'vitalValueView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{vitalValueList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_vitalValue.value}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('trackedVital', 'vitalValueView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{vitalValueList}"/>  
@@ -54,7 +54,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('patient', 'vitalValueView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{vitalValueList}"/>  
@@ -70,7 +70,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'vitalValueView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{vitalValueList}"/>  

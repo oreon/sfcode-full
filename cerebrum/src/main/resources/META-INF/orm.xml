@@ -245,5 +245,65 @@
   <!--  InvoiceItem  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.billing.InvoiceItem" name="InvoiceItem"> 
     <table name="invoiceitem"></table> 
+  </entity>  
+  <!--  Finding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.Finding" name="Finding"> 
+    <table name="finding"></table>  
+    <named-query name="finding.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Finding u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  PhysicalFinding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.PhysicalFinding" name="PhysicalFinding"> 
+    <table name="physicalfinding"></table> 
+  </entity>  
+  <!--  LabFinding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.LabFinding" name="LabFinding"> 
+    <table name="labfinding"></table> 
+  </entity>  
+  <!--  Disease  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.Disease" name="Disease"> 
+    <table name="disease"></table>  
+    <named-query name="disease.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Disease u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  ConditionFinding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.ConditionFinding" name="ConditionFinding"> 
+    <table name="conditionfinding"></table> 
+  </entity>  
+  <!--  ConditionCategory  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.ConditionCategory" name="ConditionCategory"> 
+    <table name="conditioncategory"></table>  
+    <named-query name="conditionCategory.findByUnqName"> 
+      <query> <![CDATA[
+			select u from ConditionCategory u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  DifferentialDx  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.DifferentialDx" name="DifferentialDx"> 
+    <table name="differentialdx"></table> 
+  </entity>  
+  <!--  DxCategory  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.DxCategory" name="DxCategory"> 
+    <table name="dxcategory"></table>  
+    <named-query name="dxCategory.findByUnqName"> 
+      <query> <![CDATA[
+			select u from DxCategory u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  PatientFinding  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.PatientFinding" name="PatientFinding"> 
+    <table name="patientfinding"></table> 
+  </entity>  
+  <!--  PatientDiffDx  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.ddx.PatientDiffDx" name="PatientDiffDx"> 
+    <table name="patientdiffdx"></table> 
   </entity> 
 </entity-mappings>

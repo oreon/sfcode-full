@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_drug" value="#{records}" id="drugList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'drugView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('absorption', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAbsorption')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.absorption}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('biotransformation', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewBiotransformation')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -51,7 +51,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.biotransformation}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('atcCodes', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAtcCodes')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -61,7 +61,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.atcCodes}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('contraIndication', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewContraIndication')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -71,7 +71,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.contraIndication}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('description', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDescription')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -81,7 +81,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.description}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('dosageForm', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDosageForm')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -91,7 +91,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.dosageForm}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('foodInteractions', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewFoodInteractions')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -101,7 +101,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.foodInteractions}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('halfLife', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLife')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -111,7 +111,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.halfLife}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('halfLifeNumberOfHours', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLifeNumberOfHours')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -123,7 +123,7 @@
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('indication', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewIndication')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -133,7 +133,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.indication}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('mechanismOfAction', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewMechanismOfAction')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -143,7 +143,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.mechanismOfAction}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('patientInfo', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPatientInfo')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -153,7 +153,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.patientInfo}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('pharmacology', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPharmacology')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -163,7 +163,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.pharmacology}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('toxicity', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewToxicity')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -173,7 +173,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.toxicity}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('routeOfElimination', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewRouteOfElimination')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -183,7 +183,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.routeOfElimination}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('volumeOfDistribution', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewVolumeOfDistribution')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -193,7 +193,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.volumeOfDistribution}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drugBankId', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDrugBankId')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -203,7 +203,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.drugBankId}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('categories', 'drugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewCategories')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -213,7 +213,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.categories}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'drugView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPhysicalFindingComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{physicalFindingAction.load(physicalFindingId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPhysicalFinding eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.PhysicalFinding}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewName')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewName')}" value="#{physicalFindingAction.physicalFinding.name}"></h:outputText>  
+        <h:outputText value="#{msg.physicalFinding_icdCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewIcdCode')}"/>  
+        <h:outputText id="icdCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewIcdCode')}" value="#{physicalFindingAction.physicalFinding.icdCode}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewDifferentialDxs') }" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewDxCategory')}"/> 
+          </f:facet>  
+          <s:link value="#{_differentialDx.dxCategory.displayName}" action="viewdxCategory" propagation="none"> 
+            <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}"/> 
+          </f:facet>  
+          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}" value="#{_differentialDx.name}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

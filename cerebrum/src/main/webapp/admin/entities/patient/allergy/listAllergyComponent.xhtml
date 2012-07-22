@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_allergy" value="#{records}" id="allergyList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'allergyView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{allergyList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_allergy.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('patient', 'allergyView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{allergyList}"/>  
@@ -37,7 +37,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('allergen', 'allergyView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewAllergen')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{allergyList}"/>  
@@ -50,7 +50,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('severity', 'allergyView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewSeverity')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{allergyList}"/>  
@@ -60,7 +60,7 @@
           </f:facet>  
           <h:outputText value="#{_allergy.severity}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'allergyView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{allergyList}"/>  

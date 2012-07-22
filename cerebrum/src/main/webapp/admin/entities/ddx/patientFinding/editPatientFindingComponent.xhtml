@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editPatientFindingComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{patientFindingAction.load(patientFindingId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPatientFinding eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.PatientFinding}"/> 
+        </f:facet>  
+        <s:decorate id="findingDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>
+          </ui:define>  
+          <h:panelGroup> 
+            <a:region> 
+              <h:inputText value="#{patientFindingAction.patientFinding.finding.displayName}" label="#{msg.patientFinding_finding}" id="finding" required="true"/>  
+              <rich:suggestionbox for="finding" rules="all" suggestionAction="#{findingList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
+                <h:column> 
+                  <h:outputText value="#{_result.name}"/> 
+                </h:column>  
+                <a:support event="onselect"> 
+                  <f:setPropertyActionListener value="#{_result}" target="#{patientFindingAction.patientFinding.finding}"/> 
+                </a:support> 
+              </rich:suggestionbox> 
+            </a:region> 
+          </h:panelGroup> 
+        </s:decorate>  
+        <s:decorate id="patientDiffDxDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="patientDiffDx" label="#{msg.patientFinding_patientDiffDx}" value="#{patientFindingAction.patientFinding.patientDiffDx}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}" disabled="false"> 
+            <s:selectItems value="#{patientDiffDxList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

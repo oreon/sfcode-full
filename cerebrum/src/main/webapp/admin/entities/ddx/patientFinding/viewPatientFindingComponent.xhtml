@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPatientFindingComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{patientFindingAction.load(patientFindingId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPatientFinding eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.PatientFinding}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewFinding')}"/>  
+        <s:link value="#{patientFindingAction.patientFinding.finding.displayName}" action="viewfinding" propagation="none"> 
+          <f:param name="findingId" value="#{patientFindingAction.patientFinding.finding.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewPatientDiffDx')}"/>  
+        <s:link value="#{patientFindingAction.patientFinding.patientDiffDx.displayName}" action="viewpatientDiffDx" propagation="none"> 
+          <f:param name="patientDiffDxId" value="#{patientFindingAction.patientFinding.patientDiffDx.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

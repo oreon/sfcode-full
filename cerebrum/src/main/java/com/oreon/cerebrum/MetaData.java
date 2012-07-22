@@ -524,6 +524,96 @@ public class MetaData {
 
 	},
 
+	{"com.oreon.cerebrum.ddx.Finding",
+
+	"name", "java.lang.String",
+
+	"differentialDxsCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.PhysicalFinding",
+
+	"name", "java.lang.String",
+
+	"differentialDxsCount", "java.lang.Integer",
+
+	"icdCode", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.LabFinding",
+
+	"name", "java.lang.String",
+
+	"differentialDxsCount", "java.lang.Integer",
+
+	"testName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.Disease",
+
+	"gender.name", "java.lang.String",
+
+	"name", "java.lang.String",
+
+	"differentialDiagnosesCount", "java.lang.Integer",
+
+	"relatedDisease.displayName", "java.lang.String",
+
+	"conditionCategory.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.ConditionFinding",
+
+	"disease.displayName", "java.lang.String",
+
+	"falsePositive", "java.lang.Boolean",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.ConditionCategory",
+
+	"name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.DifferentialDx",
+
+	"name", "java.lang.String",
+
+	"dxCategory.displayName", "java.lang.String",
+
+	"finding.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.DxCategory",
+
+	"name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.PatientFinding",
+
+	"finding.displayName", "java.lang.String",
+
+	"patientDiffDx.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.PatientDiffDx",
+
+	"patientFindingsCount", "java.lang.Integer",
+
+	"patient.displayName", "java.lang.String",
+
+	"notes", "java.lang.String",
+
+	},
+
 	};
 
 }

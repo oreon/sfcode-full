@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_prescriptionItem" value="#{records}" id="prescriptionItemList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'prescriptionItemView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_prescriptionItem.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drug', 'prescriptionItemView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDrug')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  
@@ -37,7 +37,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('qty', 'prescriptionItemView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewQty')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  
@@ -49,7 +49,7 @@
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('route', 'prescriptionItemView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRoute')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  
@@ -59,7 +59,7 @@
           </f:facet>  
           <h:outputText value="#{_prescriptionItem.route}" escape="false"/> 
         </h:column>  
-        <h:column groupOn="#{prescriptionItem.prescription.displayName}" rendered="#{s:hasPermission('prescription', 'prescriptionItemView'  )}"> 
+        <h:column groupOn="#{prescriptionItem.prescription.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewPrescription')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  
@@ -72,7 +72,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('duration', 'prescriptionItemView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDuration')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  
@@ -82,7 +82,7 @@
           </f:facet>  
           <h:outputText value="#{_prescriptionItem.duration}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('remarks', 'prescriptionItemView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRemarks')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  
@@ -92,7 +92,7 @@
           </f:facet>  
           <h:outputText value="#{_prescriptionItem.remarks}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('frequecy', 'prescriptionItemView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewFrequecy')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  
@@ -105,7 +105,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'prescriptionItemView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  

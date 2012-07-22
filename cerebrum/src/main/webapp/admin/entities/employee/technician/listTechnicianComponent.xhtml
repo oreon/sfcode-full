@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_technician" value="#{records}" id="technicianList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'technicianView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('employeeNumber', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEmployeeNumber')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.employeeNumber}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('userName', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewUserName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.appUser.userName}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('enabled', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEnabled')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -51,7 +51,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.appUser.enabled? msg.yes : msg.no }"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('email', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEmail')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -61,7 +61,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.appUser.email}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('firstName', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewFirstName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -71,7 +71,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.firstName}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('lastName', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewLastName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -81,7 +81,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.lastName}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('dateOfBirth', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewDateOfBirth')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -93,7 +93,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('gender', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewGender')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -103,7 +103,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.gender}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('primaryPhone', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewPrimaryPhone')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -113,7 +113,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.contactDetails.primaryPhone}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('secondaryPhone', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewSecondaryPhone')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -123,7 +123,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.contactDetails.secondaryPhone}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('email', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEmail')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -133,7 +133,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.contactDetails.email}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('age', 'technicianView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewAge')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  
@@ -143,7 +143,7 @@
           </f:facet>  
           <h:outputText value="#{_technician.age}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'technicianView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{technicianList}"/>  

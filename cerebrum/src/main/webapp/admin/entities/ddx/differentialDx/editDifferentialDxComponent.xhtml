@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editDifferentialDxComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{differentialDxAction.load(differentialDxId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDifferentialDx eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.DifferentialDx}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{differentialDxAction.differentialDx.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="dxCategoryDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="dxCategory" label="#{msg.differentialDx_dxCategory}" value="#{differentialDxAction.differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false"> 
+            <s:selectItems value="#{dxCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="findingDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.differentialDx_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="finding" label="#{msg.differentialDx_finding}" value="#{differentialDxAction.differentialDx.finding}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}" disabled="false"> 
+            <s:selectItems value="#{findingList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

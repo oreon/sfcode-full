@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewDiseaseComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{diseaseAction.load(diseaseId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDisease eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Disease}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.disease_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewGender')}"/>  
+        <h:outputText value="#{diseaseAction.disease.gender}"/>  
+        <h:outputText value="#{msg.disease_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewName')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewName')}" value="#{diseaseAction.disease.name}"></h:outputText>  
+        <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewRelatedDisease')}"/>  
+        <s:link value="#{diseaseAction.disease.relatedDisease.displayName}" action="viewrelatedDisease" propagation="none"> 
+          <f:param name="relatedDiseaseId" value="#{diseaseAction.disease.relatedDisease.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewConditionCategory')}"/>  
+        <s:link value="#{diseaseAction.disease.conditionCategory.displayName}" action="viewconditionCategory" propagation="none"> 
+          <f:param name="conditionCategoryId" value="#{diseaseAction.disease.conditionCategory.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

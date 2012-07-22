@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_invoiceItem" value="#{records}" id="invoiceItemList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'invoiceItemView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceItemList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_invoiceItem.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('units', 'invoiceItemView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceItemList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_invoiceItem.units}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('service', 'invoiceItemView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewService')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceItemList}"/>  
@@ -44,7 +44,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column groupOn="#{invoiceItem.invoice.displayName}" rendered="#{s:hasPermission('invoice', 'invoiceItemView'  )}"> 
+        <h:column groupOn="#{invoiceItem.invoice.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewInvoice')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceItemList}"/>  
@@ -57,7 +57,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('total', 'invoiceItemView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceItemList}"/>  
@@ -69,7 +69,7 @@
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'invoiceItemView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceItemList}"/>  
