@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_ward" value="#{records}" id="wardList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'wardView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{wardList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_ward.id}"></h:outputText> 
         </h:column>  
-        <h:column groupOn="#{ward.facility.displayName}" rendered="#{s:hasPermission('facility', 'wardView'  )}"> 
+        <h:column groupOn="#{ward.facility.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{wardList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'wardView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{wardList}"/>  
@@ -44,7 +44,7 @@
           </f:facet>  
           <h:outputText value="#{_ward.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('gender', 'wardView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{wardList}"/>  
@@ -54,7 +54,7 @@
           </f:facet>  
           <h:outputText value="#{_ward.gender}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'wardView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{wardList}"/>  

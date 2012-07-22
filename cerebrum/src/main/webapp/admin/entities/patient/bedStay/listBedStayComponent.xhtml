@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_bedStay" value="#{records}" id="bedStayList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'bedStayView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedStayList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_bedStay.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('fromDate', 'bedStayView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedStayList}"/>  
@@ -33,7 +33,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('toDate', 'bedStayView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedStayList}"/>  
@@ -45,7 +45,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column groupOn="#{bedStay.admission.displayName}" rendered="#{s:hasPermission('admission', 'bedStayView'  )}"> 
+        <h:column groupOn="#{bedStay.admission.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewAdmission')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedStayList}"/>  
@@ -58,7 +58,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('bed', 'bedStayView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewBed')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedStayList}"/>  
@@ -71,7 +71,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'bedStayView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedStayList}"/>  

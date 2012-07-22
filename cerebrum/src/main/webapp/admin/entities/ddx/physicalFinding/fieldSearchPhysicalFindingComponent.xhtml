@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editName')}"/>  
+      <br/>  
+      <h:inputText id="name" value="#{physicalFindingList.physicalFinding.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.physicalFinding_icdCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editIcdCode')}"/>  
+      <br/>  
+      <h:inputText id="icdCode" value="#{physicalFindingList.physicalFinding.icdCode}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{physicalFindingList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{physicalFindingList.dateCreatedRange.end}"/> 
+  </h:panelGrid>  
+  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
+    <h:inputText value="#{physicalFindingList.searchName}"/>  
+    <h:commandButton id="savesearch" value="Save Search" action="#{physicalFindingList.saveSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <h:selectOneMenu id="svdsearches" value="#{physicalFindingList.currentSavedSearch}"> 
+      <s:selectItems value="#{physicalFindingList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
+      <s:convertEntity/> 
+    </h:selectOneMenu>  
+    <h:commandButton value="Load Search" action="#{physicalFindingList.executeSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton> 
+  </div> 
+</ui:composition>

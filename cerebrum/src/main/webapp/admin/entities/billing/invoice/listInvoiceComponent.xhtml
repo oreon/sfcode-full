@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_invoice" value="#{records}" id="invoiceList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'invoiceView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_invoice.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('patient', 'invoiceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceList}"/>  
@@ -37,7 +37,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('notes', 'invoiceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceList}"/>  
@@ -47,7 +47,7 @@
           </f:facet>  
           <h:outputText value="#{_invoice.notes}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'invoiceView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{invoiceList}"/>  

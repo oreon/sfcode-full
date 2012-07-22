@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_appointment" value="#{records}" id="appointmentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'appointmentView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{appointmentList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_appointment.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('start', 'appointmentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewStart')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{appointmentList}"/>  
@@ -33,7 +33,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('end', 'appointmentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewEnd')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{appointmentList}"/>  
@@ -45,7 +45,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('physician', 'appointmentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewPhysician')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{appointmentList}"/>  
@@ -58,7 +58,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('patient', 'appointmentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{appointmentList}"/>  
@@ -74,7 +74,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('remarks', 'appointmentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewRemarks')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{appointmentList}"/>  
@@ -85,7 +85,7 @@
           <rich:toolTip value="#{_appointment.remarks}" for="remarksAbbr"></rich:toolTip>  
           <h:outputText id="remarksAbbr" value="#{_appointment.remarksAbbreviated}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('units', 'appointmentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewUnits')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{appointmentList}"/>  
@@ -95,7 +95,7 @@
           </f:facet>  
           <h:outputText value="#{_appointment.units}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'appointmentView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{appointmentList}"/>  

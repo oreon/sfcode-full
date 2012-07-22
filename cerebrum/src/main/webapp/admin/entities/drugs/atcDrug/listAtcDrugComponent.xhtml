@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_atcDrug" value="#{records}" id="atcDrugList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'atcDrugView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{atcDrugList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_atcDrug.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('code', 'atcDrugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{atcDrugList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_atcDrug.code}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'atcDrugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{atcDrugList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_atcDrug.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drug', 'atcDrugView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{atcDrugList}"/>  
@@ -57,7 +57,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column groupOn="#{atcDrug.parent.displayName}" rendered="#{s:hasPermission('parent', 'atcDrugView'  )}"> 
+        <h:column groupOn="#{atcDrug.parent.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{atcDrugList}"/>  
@@ -70,7 +70,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'atcDrugView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{atcDrugList}"/>  

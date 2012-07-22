@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_roomType" value="#{records}" id="roomTypeList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'roomTypeView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roomTypeList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_roomType.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'roomTypeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roomTypeList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_roomType.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('description', 'roomTypeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewDescription')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roomTypeList}"/>  
@@ -42,7 +42,7 @@
           <rich:toolTip value="#{_roomType.description}" for="descriptionAbbr"></rich:toolTip>  
           <h:outputText id="descriptionAbbr" value="#{_roomType.descriptionAbbreviated}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('rate', 'roomTypeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewRate')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roomTypeList}"/>  
@@ -54,7 +54,7 @@
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('numberOfRooms', 'roomTypeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewNumberOfRooms')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roomTypeList}"/>  
@@ -64,7 +64,7 @@
           </f:facet>  
           <h:outputText value="#{_roomType.numberOfRooms}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'roomTypeView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roomTypeList}"/>  

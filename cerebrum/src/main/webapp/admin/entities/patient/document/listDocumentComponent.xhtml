@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_document" value="#{records}" id="documentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'documentView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{documentList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_document.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'documentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{documentList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_document.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('file', 'documentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewFile')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{documentList}"/>  
@@ -46,7 +46,7 @@
             <f:param name="currentEnt ityId" value="#{_document.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('notes', 'documentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewNotes')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{documentList}"/>  
@@ -57,7 +57,7 @@
           <rich:toolTip value="#{_document.notes}" for="notesAbbr"></rich:toolTip>  
           <h:outputText id="notesAbbr" value="#{_document.notesAbbreviated}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('patient', 'documentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'viewPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{documentList}"/>  
@@ -73,7 +73,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'documentView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{documentList}"/>  

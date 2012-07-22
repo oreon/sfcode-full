@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_occurenceType" value="#{records}" id="occurenceTypeList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'occurenceTypeView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{occurenceTypeList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_occurenceType.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'occurenceTypeView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('occurenceType', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{occurenceTypeList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_occurenceType.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'occurenceTypeView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{occurenceTypeList}"/>  

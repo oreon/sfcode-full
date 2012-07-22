@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_allergen" value="#{records}" id="allergenList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'allergenView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{allergenList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_allergen.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'allergenView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergen', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{allergenList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_allergen.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'allergenView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{allergenList}"/>  

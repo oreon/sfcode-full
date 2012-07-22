@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_frequecy" value="#{records}" id="frequecyList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'frequecyView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{frequecyList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_frequecy.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'frequecyView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{frequecyList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_frequecy.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('qtyPerDay', 'frequecyView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequecy', 'viewQtyPerDay')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{frequecyList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_frequecy.qtyPerDay}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'frequecyView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{frequecyList}"/>  

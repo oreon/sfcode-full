@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_unusualOccurence" value="#{records}" id="unusualOccurenceList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'unusualOccurenceView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{unusualOccurenceList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_unusualOccurence.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('occurenceType', 'unusualOccurenceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewOccurenceType')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{unusualOccurenceList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('category', 'unusualOccurenceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCategory')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{unusualOccurenceList}"/>  
@@ -44,7 +44,7 @@
           </f:facet>  
           <h:outputText value="#{_unusualOccurence.category}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('severity', 'unusualOccurenceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewSeverity')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{unusualOccurenceList}"/>  
@@ -54,7 +54,7 @@
           </f:facet>  
           <h:outputText value="#{_unusualOccurence.severity}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('description', 'unusualOccurenceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{unusualOccurenceList}"/>  
@@ -64,7 +64,7 @@
           </f:facet>  
           <h:outputText value="#{_unusualOccurence.description}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('patient', 'unusualOccurenceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{unusualOccurenceList}"/>  
@@ -80,7 +80,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('createdBy', 'unusualOccurenceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCreatedBy')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{unusualOccurenceList}"/>  
@@ -93,7 +93,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'unusualOccurenceView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{unusualOccurenceList}"/>  

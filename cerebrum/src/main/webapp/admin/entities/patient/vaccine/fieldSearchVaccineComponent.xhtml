@@ -16,5 +16,18 @@
     <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{vaccineList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{vaccineList.dateCreatedRange.end}"/> 
-  </h:panelGrid> 
+  </h:panelGrid>  
+  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
+    <h:inputText value="#{vaccineList.searchName}"/>  
+    <h:commandButton id="savesearch" value="Save Search" action="#{vaccineList.saveSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <h:selectOneMenu id="svdsearches" value="#{vaccineList.currentSavedSearch}"> 
+      <s:selectItems value="#{vaccineList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
+      <s:convertEntity/> 
+    </h:selectOneMenu>  
+    <h:commandButton value="Load Search" action="#{vaccineList.executeSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton> 
+  </div> 
 </ui:composition>

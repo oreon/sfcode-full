@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editFindingComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{findingAction.load(findingId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFinding eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Finding}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editName')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editName')}" label="#{msg.finding_name}" required="true" disabled="false" value="#{findingAction.finding.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" reRender="differentialDxs" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editDifferentialDxs')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="differentialDxs" var="_differentialDx" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editDifferentialDxs')}" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>
+          </f:facet>  
+          <s:decorate id="dxCategoryDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="dxCategory" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false"> 
+              <s:selectItems value="#{dxCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}"/>
+          </f:facet>  
+          <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{_differentialDx.name}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" reRender="differentialDxs" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDifferentialDxs')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{findingAction.deleteDifferentialDxs(rowIndex)}" reRender="differentialDxs"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

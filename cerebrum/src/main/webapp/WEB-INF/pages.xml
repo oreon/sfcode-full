@@ -527,6 +527,126 @@
       <rule if-outcome="editInvoiceItem"> 
         <redirect view-id="/admin/entities/billing/invoiceItem/editInvoiceItem.xhtml"/>  
         <end-conversation/> 
+      </rule>  
+      <rule if-outcome="finding"> 
+        <redirect view-id="/admin/entities/ddx/finding/listFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewFinding"> 
+        <redirect view-id="/admin/entities/ddx/finding/viewFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editFinding"> 
+        <redirect view-id="/admin/entities/ddx/finding/editFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="physicalFinding"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/listPhysicalFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewPhysicalFinding"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/viewPhysicalFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editPhysicalFinding"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="labFinding"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/listLabFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewLabFinding"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/viewLabFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editLabFinding"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/editLabFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="disease"> 
+        <redirect view-id="/admin/entities/ddx/disease/listDisease.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewDisease"> 
+        <redirect view-id="/admin/entities/ddx/disease/viewDisease.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editDisease"> 
+        <redirect view-id="/admin/entities/ddx/disease/editDisease.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="conditionFinding"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/listConditionFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewConditionFinding"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/viewConditionFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editConditionFinding"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/editConditionFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="conditionCategory"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/listConditionCategory.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewConditionCategory"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editConditionCategory"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/editConditionCategory.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="differentialDx"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/listDifferentialDx.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewDifferentialDx"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/viewDifferentialDx.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editDifferentialDx"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="dxCategory"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/listDxCategory.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewDxCategory"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editDxCategory"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/editDxCategory.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="patientFinding"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/listPatientFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewPatientFinding"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/viewPatientFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editPatientFinding"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/editPatientFinding.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="patientDiffDx"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/listPatientDiffDx.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewPatientDiffDx"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editPatientDiffDx"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/editPatientDiffDx.xhtml"/>  
+        <end-conversation/> 
       </rule> 
     </navigation> 
   </page>  
@@ -2511,6 +2631,454 @@
     <param name="units" value="#{invoiceItemList.invoiceItem.units}" validateModel="false"/>  
     <param name="service" value="#{invoiceItemList.invoiceItem.service.id}" validateModel="false"/>  
     <param name="invoice" value="#{invoiceItemList.invoiceItem.invoice.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/finding/editFinding.xhtml"> 
+    <!-- <description>Edit Finding: #{finding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/finding/viewFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/finding/listFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="findingId" value="#{findingAction.findingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/finding/viewFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Finding: #{finding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/finding/editFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/finding/listFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="findingId" value="#{findingAction.findingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/finding/listFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewFinding"> 
+        <redirect view-id="/admin/entities/ddx/finding/viewFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/finding/editFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/finding/textSearchResultsFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{findingList.firstResult}"/>  
+    <param name="sort" value="#{findingList.orderColumn}"/>  
+    <param name="dir" value="#{findingList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{findingList.finding.id}"/>  
+    <param name="name" value="#{findingList.finding.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml"> 
+    <!-- <description>Edit PhysicalFinding: #{physicalFinding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/viewPhysicalFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/listPhysicalFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="physicalFindingId" value="#{physicalFindingAction.physicalFindingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/physicalFinding/viewPhysicalFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View PhysicalFinding: #{physicalFinding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/listPhysicalFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="physicalFindingId" value="#{physicalFindingAction.physicalFindingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/physicalFinding/listPhysicalFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewPhysicalFinding"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/viewPhysicalFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/physicalFinding/textSearchResultsPhysicalFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{physicalFindingList.firstResult}"/>  
+    <param name="sort" value="#{physicalFindingList.orderColumn}"/>  
+    <param name="dir" value="#{physicalFindingList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{physicalFindingList.physicalFinding.id}"/>  
+    <param name="name" value="#{physicalFindingList.physicalFinding.name}" validateModel="false"/>  
+    <param name="icdCode" value="#{physicalFindingList.physicalFinding.icdCode}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/labFinding/editLabFinding.xhtml"> 
+    <!-- <description>Edit LabFinding: #{labFinding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/viewLabFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/listLabFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="labFindingId" value="#{labFindingAction.labFindingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/labFinding/viewLabFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View LabFinding: #{labFinding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/editLabFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/listLabFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="labFindingId" value="#{labFindingAction.labFindingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/labFinding/listLabFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewLabFinding"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/viewLabFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/editLabFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/labFinding/textSearchResultsLabFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{labFindingList.firstResult}"/>  
+    <param name="sort" value="#{labFindingList.orderColumn}"/>  
+    <param name="dir" value="#{labFindingList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{labFindingList.labFinding.id}"/>  
+    <param name="name" value="#{labFindingList.labFinding.name}" validateModel="false"/>  
+    <param name="testName" value="#{labFindingList.labFinding.testName}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/disease/editDisease.xhtml"> 
+    <!-- <description>Edit Disease: #{disease.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/disease/viewDisease.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/disease/listDisease.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="diseaseId" value="#{diseaseAction.diseaseId}"/>  
+    <param name="relatedDiseaseId" value="#{diseaseAction.relatedDiseaseId}"/>  
+    <param name="conditionCategoryId" value="#{diseaseAction.conditionCategoryId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/disease/viewDisease.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Disease: #{disease.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/disease/editDisease.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/disease/listDisease.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="diseaseId" value="#{diseaseAction.diseaseId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/disease/listDisease.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewDisease"> 
+        <redirect view-id="/admin/entities/ddx/disease/viewDisease.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/disease/editDisease.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/disease/textSearchResultsDisease.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{diseaseList.firstResult}"/>  
+    <param name="sort" value="#{diseaseList.orderColumn}"/>  
+    <param name="dir" value="#{diseaseList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{diseaseList.disease.id}"/>  
+    <param name="gender" value="#{diseaseList.disease.gender}" validateModel="false"/>  
+    <param name="name" value="#{diseaseList.disease.name}" validateModel="false"/>  
+    <param name="relatedDisease" value="#{diseaseList.disease.relatedDisease.id}" validateModel="false"/>  
+    <param name="conditionCategory" value="#{diseaseList.disease.conditionCategory.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/conditionFinding/editConditionFinding.xhtml"> 
+    <!-- <description>Edit ConditionFinding: #{conditionFinding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/viewConditionFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/listConditionFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="conditionFindingId" value="#{conditionFindingAction.conditionFindingId}"/>  
+    <param name="diseaseId" value="#{conditionFindingAction.diseaseId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/conditionFinding/viewConditionFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View ConditionFinding: #{conditionFinding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/editConditionFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/listConditionFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="conditionFindingId" value="#{conditionFindingAction.conditionFindingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/conditionFinding/listConditionFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewConditionFinding"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/viewConditionFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/editConditionFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/conditionFinding/textSearchResultsConditionFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{conditionFindingList.firstResult}"/>  
+    <param name="sort" value="#{conditionFindingList.orderColumn}"/>  
+    <param name="dir" value="#{conditionFindingList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{conditionFindingList.conditionFinding.id}"/>  
+    <param name="disease" value="#{conditionFindingList.conditionFinding.disease.id}" validateModel="false"/>  
+    <param name="falsePositive" value="#{conditionFindingList.conditionFinding.falsePositive}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/conditionCategory/editConditionCategory.xhtml"> 
+    <!-- <description>Edit ConditionCategory: #{conditionCategory.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/listConditionCategory.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="conditionCategoryId" value="#{conditionCategoryAction.conditionCategoryId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View ConditionCategory: #{conditionCategory.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/editConditionCategory.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/listConditionCategory.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="conditionCategoryId" value="#{conditionCategoryAction.conditionCategoryId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/conditionCategory/listConditionCategory.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewConditionCategory"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/editConditionCategory.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/conditionCategory/textSearchResultsConditionCategory.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{conditionCategoryList.firstResult}"/>  
+    <param name="sort" value="#{conditionCategoryList.orderColumn}"/>  
+    <param name="dir" value="#{conditionCategoryList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{conditionCategoryList.conditionCategory.id}"/>  
+    <param name="name" value="#{conditionCategoryList.conditionCategory.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml"> 
+    <!-- <description>Edit DifferentialDx: #{differentialDx.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/viewDifferentialDx.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/listDifferentialDx.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="differentialDxId" value="#{differentialDxAction.differentialDxId}"/>  
+    <param name="dxCategoryId" value="#{differentialDxAction.dxCategoryId}"/>  
+    <param name="findingId" value="#{differentialDxAction.findingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/differentialDx/viewDifferentialDx.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View DifferentialDx: #{differentialDx.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/listDifferentialDx.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="differentialDxId" value="#{differentialDxAction.differentialDxId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/differentialDx/listDifferentialDx.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewDifferentialDx"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/viewDifferentialDx.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/differentialDx/textSearchResultsDifferentialDx.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{differentialDxList.firstResult}"/>  
+    <param name="sort" value="#{differentialDxList.orderColumn}"/>  
+    <param name="dir" value="#{differentialDxList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{differentialDxList.differentialDx.id}"/>  
+    <param name="name" value="#{differentialDxList.differentialDx.name}" validateModel="false"/>  
+    <param name="dxCategory" value="#{differentialDxList.differentialDx.dxCategory.id}" validateModel="false"/>  
+    <param name="finding" value="#{differentialDxList.differentialDx.finding.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/dxCategory/editDxCategory.xhtml"> 
+    <!-- <description>Edit DxCategory: #{dxCategory.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/listDxCategory.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="dxCategoryId" value="#{dxCategoryAction.dxCategoryId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View DxCategory: #{dxCategory.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/editDxCategory.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/listDxCategory.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="dxCategoryId" value="#{dxCategoryAction.dxCategoryId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/dxCategory/listDxCategory.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewDxCategory"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/editDxCategory.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/dxCategory/textSearchResultsDxCategory.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{dxCategoryList.firstResult}"/>  
+    <param name="sort" value="#{dxCategoryList.orderColumn}"/>  
+    <param name="dir" value="#{dxCategoryList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{dxCategoryList.dxCategory.id}"/>  
+    <param name="name" value="#{dxCategoryList.dxCategory.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/patientFinding/editPatientFinding.xhtml"> 
+    <!-- <description>Edit PatientFinding: #{patientFinding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/viewPatientFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/listPatientFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="patientFindingId" value="#{patientFindingAction.patientFindingId}"/>  
+    <param name="findingId" value="#{patientFindingAction.findingId}"/>  
+    <param name="patientDiffDxId" value="#{patientFindingAction.patientDiffDxId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/patientFinding/viewPatientFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View PatientFinding: #{patientFinding.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/editPatientFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/listPatientFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="patientFindingId" value="#{patientFindingAction.patientFindingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/patientFinding/listPatientFinding.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewPatientFinding"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/viewPatientFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/editPatientFinding.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/patientFinding/textSearchResultsPatientFinding.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{patientFindingList.firstResult}"/>  
+    <param name="sort" value="#{patientFindingList.orderColumn}"/>  
+    <param name="dir" value="#{patientFindingList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{patientFindingList.patientFinding.id}"/>  
+    <param name="finding" value="#{patientFindingList.patientFinding.finding.id}" validateModel="false"/>  
+    <param name="patientDiffDx" value="#{patientFindingList.patientFinding.patientDiffDx.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/patientDiffDx/editPatientDiffDx.xhtml"> 
+    <!-- <description>Edit PatientDiffDx: #{patientDiffDx.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/listPatientDiffDx.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="patientDiffDxId" value="#{patientDiffDxAction.patientDiffDxId}"/>  
+    <param name="patientId" value="#{patientDiffDxAction.patientId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View PatientDiffDx: #{patientDiffDx.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/editPatientDiffDx.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/listPatientDiffDx.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="patientDiffDxId" value="#{patientDiffDxAction.patientDiffDxId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/patientDiffDx/listPatientDiffDx.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewPatientDiffDx"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/editPatientDiffDx.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/patientDiffDx/textSearchResultsPatientDiffDx.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{patientDiffDxList.firstResult}"/>  
+    <param name="sort" value="#{patientDiffDxList.orderColumn}"/>  
+    <param name="dir" value="#{patientDiffDxList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{patientDiffDxList.patientDiffDx.id}"/>  
+    <param name="patient" value="#{patientDiffDxList.patientDiffDx.patient.id}" validateModel="false"/>  
+    <param name="notes" value="#{patientDiffDxList.patientDiffDx.notes}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 

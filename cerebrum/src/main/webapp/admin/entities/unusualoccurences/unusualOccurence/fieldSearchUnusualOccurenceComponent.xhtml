@@ -64,5 +64,18 @@
     <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{unusualOccurenceList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{unusualOccurenceList.dateCreatedRange.end}"/> 
-  </h:panelGrid> 
+  </h:panelGrid>  
+  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
+    <h:inputText value="#{unusualOccurenceList.searchName}"/>  
+    <h:commandButton id="savesearch" value="Save Search" action="#{unusualOccurenceList.saveSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <h:selectOneMenu id="svdsearches" value="#{unusualOccurenceList.currentSavedSearch}"> 
+      <s:selectItems value="#{unusualOccurenceList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
+      <s:convertEntity/> 
+    </h:selectOneMenu>  
+    <h:commandButton value="Load Search" action="#{unusualOccurenceList.executeSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton> 
+  </div> 
 </ui:composition>

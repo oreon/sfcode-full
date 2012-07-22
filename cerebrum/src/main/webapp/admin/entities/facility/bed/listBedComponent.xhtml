@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_bed" value="#{records}" id="bedList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'bedView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_bed.id}"></h:outputText> 
         </h:column>  
-        <h:column groupOn="#{bed.room.displayName}" rendered="#{s:hasPermission('room', 'bedView'  )}"> 
+        <h:column groupOn="#{bed.room.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewRoom')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'bedView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedList}"/>  
@@ -44,7 +44,7 @@
           </f:facet>  
           <h:outputText value="#{_bed.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('patient', 'bedView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedList}"/>  
@@ -60,7 +60,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'bedView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{bedList}"/>  
