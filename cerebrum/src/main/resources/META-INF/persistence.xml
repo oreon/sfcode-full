@@ -5,6 +5,7 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" 
              version="1.0">
 
+<!-- 
    <persistence-unit name="appEntityManager" transaction-type="RESOURCE_LOCAL">
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
       <properties>
@@ -23,4 +24,24 @@
          <property name="hibernate.search.default.indexBase" value="/usr/srchIndexes/cerebrum"/>
       </properties>
    </persistence-unit> 
+  -->
+  
+  <persistence-unit name="appEntityManager" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.archive.autodetection" value="class" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.connection.url"
+				value="jdbc:derby:target/database/callosumemrdb;create=true" />
+			<property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.EmbeddedDriver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="root" />
+		</properties>
+	</persistence-unit>
+  
+  
+  
 </persistence>
