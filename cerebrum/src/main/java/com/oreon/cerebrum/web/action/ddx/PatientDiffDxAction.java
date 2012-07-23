@@ -1,49 +1,57 @@
-
-	
 package com.oreon.cerebrum.web.action.ddx;
-	
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.commons.lang.StringUtils;
-
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Scope;
-
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.Component;
-import org.jboss.seam.security.Identity;
 
-import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
-import org.jboss.seam.annotations.Observer;
+import com.oreon.cerebrum.ddx.DifferentialDx;
+import com.oreon.cerebrum.ddx.Finding;
+import com.oreon.cerebrum.ddx.PatientFinding;
 
-import org.witchcraft.base.entity.FileAttachment;
-
-import org.apache.commons.io.FileUtils;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
-
-	
 //@Scope(ScopeType.CONVERSATION)
 @Name("patientDiffDxAction")
-public class PatientDiffDxAction extends PatientDiffDxActionBase implements java.io.Serializable{
+public class PatientDiffDxAction extends PatientDiffDxActionBase implements
+		java.io.Serializable {
 	
+	final ConcurrentMap<String, AtomicLong> map = new ConcurrentHashMap<String, AtomicLong>();
+
+	public String addFinding(Finding finding) {
+
+		finding.getDifferentialDxs();
+		StringBuilder warnings = new StringBuilder();
+
+		List<PatientFinding> items = getListPatientFindings();
+		
+		
+	    
+
+		//TODO: search for patinetFinding.finding
+		//if (items.contains(finding))
+		//	return "nothing";
+
+		for (PatientFinding patientFinding : items) {
+			List<DifferentialDx> dxs = patientFinding.getFinding().getListDifferentialDxs();
+			for (DifferentialDx differentialDx : dxs) {
+				map.putIfAbsent(differentialDx.getName(), new AtomicLong(0));
+			    map.get(differentialDx.getName()).incrementAndGet();
+			}
+		}
+
+		if (!StringUtils.isEmpty(warnings.toString())) {
+			addErrorMessage(warnings.toString());
+			System.out.println(warnings.toString());
+		}
+		return "success";
+	}
+
+	// @Override
+	public void setNewFinding(Finding finding) {
+		addFinding(finding);
+		// this.finding = finding;
+	}
+
 }
-	
