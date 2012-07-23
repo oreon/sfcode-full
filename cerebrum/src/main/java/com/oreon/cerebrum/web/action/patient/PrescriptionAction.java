@@ -52,6 +52,7 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 		return null;
 	}
 
+	//@Override
 	public void setNewDrug(Drug newDrug) {
 		addDrug(newDrug);
 		this.newDrug = newDrug;
