@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components xmlns="http://jboss.com/products/seam/components"
-	xmlns:core="http://jboss.com/products/seam/core" 
-	xmlns:drools="http://jboss.com/products/seam/drools"
-	xmlns:bpm="http://jboss.com/products/seam/bpm"
-	xmlns:international="http://jboss.com/products/seam/international"
+	xmlns:core="http://jboss.com/products/seam/core" xmlns:drools="http://jboss.com/products/seam/drools"
+	xmlns:bpm="http://jboss.com/products/seam/bpm" xmlns:international="http://jboss.com/products/seam/international"
 	xmlns:security="http://jboss.com/products/seam/security" xmlns:web="http://jboss.com/products/seam/web"
 	xmlns:mail="http://jboss.com/products/seam/mail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	
+
 	xmlns:persistence="http://jboss.com/products/seam/persistence"
 	xmlns:transaction="http://jboss.com/products/seam/transaction"
 	xmlns:navigation="http://jboss.com/products/seam/navigation"
@@ -48,6 +46,15 @@
 		</persistence:parameters>
 	</persistence:filter>
 
+	<persistence:filter name="tenantFilter">
+		<persistence:name>tenantFilterDef</persistence:name>
+		<persistence:parameters>
+			<key>tenantId</key>
+			<value>#{userUtilAction.currentTenantId}</value>
+		</persistence:parameters>
+	</persistence:filter>
+
+
 	<persistence:entity-manager-factory
 		name="entityManagerFactory" persistence-unit-name="appEntityManager" />
 
@@ -57,11 +64,12 @@
 
 		<persistence:filters>
 			<value>#{archivedFilter}</value>
+			<value>#{tenantFilter}</value>
 		</persistence:filters>
 
 	</persistence:managed-persistence-context>
-	
-		<mail:mail-session host="smtp.gmail.com" username="neonwc@gmail.com"
+
+	<mail:mail-session host="smtp.gmail.com" username="neonwc@gmail.com"
 		password="witchcraft" ssl="true" port="465" />
 
 	<transaction:entity-transaction
@@ -87,16 +95,15 @@
 	<event type="org.jboss.seam.security.postAuthenticate">
 		<action execute="#{redirect.returnToCapturedView}" />
 	</event>
-	
-	<security:jpa-permission-store user-permission-class="org.witchcraft.seam.security.AccountPermission" />
-	
-	<web:cache-control-filter name="commonTypesCacheControlFilter" regex-url-pattern=".*(\.gif|\.png|\.jpg|\.jpeg|\.css|\.js)" value="max-age=86400"/> <!-- 1 day -->
-	
-	<!--
-		<bpm:jbpm> <bpm:process-definitions>
-		<value>processes/processdefinition.xml</value>
-		</bpm:process-definitions> </bpm:jbpm>
-	-->
+
+	<security:jpa-permission-store
+		user-permission-class="org.witchcraft.seam.security.AccountPermission" />
+
+	<web:cache-control-filter name="commonTypesCacheControlFilter"
+		regex-url-pattern=".*(\.gif|\.png|\.jpg|\.jpeg|\.css|\.js)" value="max-age=86400" /> <!-- 1 day -->
+
+	<!-- <bpm:jbpm> <bpm:process-definitions> <value>processes/processdefinition.xml</value> 
+		</bpm:process-definitions> </bpm:jbpm> -->
 
 
 </components>

@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_dashboardComponent" value="#{records}" id="dashboardComponentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'dashboardComponentView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{dashboardComponentList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_dashboardComponent.id}"></h:outputText> 
         </h:column>  
-        <h:column groupOn="#{dashboardComponent.dashboard.displayName}" rendered="#{s:hasPermission('dashboard', 'dashboardComponentView'  )}"> 
+        <h:column groupOn="#{dashboardComponent.dashboard.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'viewDashboard')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{dashboardComponentList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('contents', 'dashboardComponentView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'viewContents')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{dashboardComponentList}"/>  
@@ -44,7 +44,7 @@
           </f:facet>  
           <h:outputText value="#{_dashboardComponent.contents}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'dashboardComponentView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{dashboardComponentList}"/>  

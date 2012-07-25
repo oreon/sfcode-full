@@ -26,5 +26,18 @@
     <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{customerList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{customerList.dateCreatedRange.end}"/> 
-  </h:panelGrid> 
+  </h:panelGrid>  
+  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
+    <h:inputText value="#{customerList.searchName}"/>  
+    <h:commandButton id="savesearch" value="Save Search" action="#{customerList.saveSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <h:selectOneMenu id="svdsearches" value="#{customerList.currentSavedSearch}"> 
+      <s:selectItems value="#{customerList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
+      <s:convertEntity/> 
+    </h:selectOneMenu>  
+    <h:commandButton value="Load Search" action="#{customerList.executeSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton> 
+  </div> 
 </ui:composition>
