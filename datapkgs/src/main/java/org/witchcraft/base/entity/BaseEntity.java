@@ -209,7 +209,7 @@ public class BaseEntity implements Serializable{
 	}
 	
 	
-	@PrePersist @PreUpdate
+	@PrePersist //@PreUpdate
 	public void updateTenant(){
 		if (this instanceof AppUser)
 			return;
