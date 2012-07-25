@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -24,8 +26,12 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
+import org.jboss.seam.Component;
+import org.jboss.seam.annotations.In;
 
+import com.pcas.datapkg.domain.Employee;
 import com.pcas.datapkg.users.AppUser;
+import com.pcas.datapkg.web.action.domain.EmployeeAction;
 
 //import com.oreon.trkincidents.users.User;
 
@@ -200,6 +206,26 @@ public class BaseEntity implements Serializable{
 
 	public void setTenant( Long tenant ) {
 		this.tenant = tenant;
+	}
+	
+	
+	@PrePersist @PreUpdate
+	public void updateTenant(){
+		if (this instanceof AppUser)
+			return;
+		
+		if(this instanceof Employee){
+			Long tenantId = ((Employee)this).getCustomer().getId();
+			setTenant( tenantId);
+			((Employee)this).getAppUser().setTenant( tenantId );
+		}else{
+			EmployeeAction employeeAction = (EmployeeAction)Component.getInstance("employeeAction");
+			Employee currentEmployee = employeeAction.getCurrentLoggedInEmployee();
+			if(currentEmployee == null)
+				return;
+			setTenant( currentEmployee.getCustomer().getId() );
+		}
+		
 	}
 	
 /*

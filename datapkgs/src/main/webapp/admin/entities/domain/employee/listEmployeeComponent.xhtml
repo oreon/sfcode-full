@@ -181,6 +181,13 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewLastLogin')}"> 
+          <f:facet name="header"> 
+            TENANT
+          </f:facet>  
+          <h:outputText value="#{_employee.tenant}" /> 
+           
+        </h:column>  
         <h:column rendered="#{s:hasPermission('_employee', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
