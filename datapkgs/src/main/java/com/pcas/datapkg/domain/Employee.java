@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
+
 import org.hibernate.validator.*;
 
 import org.apache.solr.analysis.LowerCaseFilterFactory;
@@ -212,4 +213,6 @@ public class Employee extends com.pcas.datapkg.domain.Person
 		return builder.toString();
 	}
 
+	
+	
 }

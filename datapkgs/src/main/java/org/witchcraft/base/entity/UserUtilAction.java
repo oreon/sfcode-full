@@ -36,6 +36,7 @@ public class UserUtilAction implements Serializable{
 	}
 	
 	public Long getCurrentTenantId(){
-		return currentUser == null || currentUser.getTenant() == null  ?  0 : currentUser.getTenant();
+		Long result =  currentUser == null || currentUser.getTenant() == null  ?  0 : currentUser.getTenant();
+		return result;
 	}
 }
