@@ -43,11 +43,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.pcas.datapkg.ProjectUtils;
 
@@ -64,7 +65,7 @@ public class Customer extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "customer_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<Machine> machines = new HashSet<Machine>();
 
@@ -109,7 +110,7 @@ public class Customer extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "customer_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<com.pcas.datapkg.domain.Employee> employees = new HashSet<com.pcas.datapkg.domain.Employee>();
 

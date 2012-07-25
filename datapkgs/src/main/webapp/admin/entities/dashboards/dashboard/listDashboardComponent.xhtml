@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
       <rich:dataTable var="_dashboard" value="#{records}" id="dashboardList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
-        <h:column rendered="#{s:hasPermission('id', 'dashboardView' )}"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{dashboardList}"/>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_dashboard.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('appUser', 'dashboardView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'viewAppUser')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{dashboardList}"/>  
@@ -34,7 +34,7 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'dashboardView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'viewName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{dashboardList}"/>  
@@ -44,7 +44,7 @@
           </f:facet>  
           <h:outputText value="#{_dashboard.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('creationDate', 'dashboardView' )}"> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{dashboardList}"/>  

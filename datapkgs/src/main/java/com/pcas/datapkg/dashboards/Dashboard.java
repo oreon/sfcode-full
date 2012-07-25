@@ -43,11 +43,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.pcas.datapkg.ProjectUtils;
 
@@ -71,7 +72,7 @@ public class Dashboard extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "dashboard", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "dashboard_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<DashboardComponent> dashboardComponents = new HashSet<DashboardComponent>();
 

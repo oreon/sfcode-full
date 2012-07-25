@@ -48,6 +48,7 @@ import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.web.RequestParameter;
+import org.jboss.seam.core.Conversation;
 import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
@@ -76,7 +77,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	private Class<E> entityClass = null;
 
-	protected E instance;
+	protected E instance = createInstance();
 
 	@Logger
 	protected Log log;
@@ -86,6 +87,9 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	
 	@In(create=true)
 	AppUserAction appUserAction;
+	
+	@In
+	Conversation conversation;
 
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
@@ -499,8 +503,10 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	}
 
 	
-	
+	@Begin(join=true)
 	public void saveSearch(){
+		
+		System.out.println(conversation.getId());
 		
 		if(searchName == null || StringUtils.isEmpty(searchName)){
 			addErrorMessage("Search name is required");
@@ -522,7 +528,12 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		entityManager.persist(search);
 	}
 	
+	@Begin(join=true)
 	public void executeSearch(){
+		if(currentSavedSearch == null){
+			addErrorMessage( "Please specify a search" );
+			return;
+		}
 		SavedSearch savedSearch = findSavedSearchByName( currentSavedSearch.getSearchName());
 		decode(savedSearch);
 	}
@@ -557,7 +568,9 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(1024 * 20);
 		XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(bos ));
 		E entity = getInstance();
+		
 		Hibernate.initialize(entity);
+		
 		if (entity instanceof HibernateProxy) {
 			entity = (E) ((HibernateProxy) entity)
 					.getHibernateLazyInitializer().getImplementation();
@@ -570,7 +583,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		
 		encoder.writeObject(this);
 		encoder.close();
-		//System.out.println(" ecoded xml : " + new String(bos.toByteArray()));
+		System.out.println(" ecoded xml : " + new String(bos.toByteArray()));
 		return (new String(bos.toByteArray()));
 	}
 	
@@ -578,6 +591,10 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	
 	@SuppressWarnings("unchecked")
 	public void decode(SavedSearch savedSearch){
+		
+		if(savedSearch == null)
+			return;
+		
 		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new ByteArrayInputStream(savedSearch.getEncodedXml().getBytes()) ));
 		BaseQuery<BaseEntity, Long> temp = ((BaseQuery<BaseEntity, Long>) decoder.readObject());
 		try {

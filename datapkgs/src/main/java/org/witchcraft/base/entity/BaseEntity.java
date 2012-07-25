@@ -61,6 +61,9 @@ public class BaseEntity implements Serializable{
     @Transient
     private String higlightedFragment;
     
+    //@Column()
+    private Long tenant ;
+    
      
     @ManyToOne(optional=true, fetch=FetchType.LAZY)
     @JoinColumn(name="created_by_user_id", nullable=true)
@@ -77,10 +80,6 @@ public class BaseEntity implements Serializable{
 	public String getHighlightedFragment() {
 		return highlightedFragment;
 	}
-
-	
-    
-    
     
     public Boolean isArchived() {
 		return archived;
@@ -193,6 +192,14 @@ public class BaseEntity implements Serializable{
 
 	public String getSearchData() {
 		return searchData;
+	}
+
+	public Long getTenant() {
+		return tenant;
+	}
+
+	public void setTenant( Long tenant ) {
+		this.tenant = tenant;
 	}
 	
 /*

@@ -57,6 +57,46 @@
           </f:facet>  
           <h:outputText value="#{_entityFieldPrivilege.privilegeType}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewReadAllowed')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{entityFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.entityFieldPrivilege_readAllowed}"/>  
+              <ui:param name="propertyPath" value="entityFieldPrivilege.readAllowed"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_entityFieldPrivilege.readAllowed? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewWriteAllowed')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{entityFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.entityFieldPrivilege_writeAllowed}"/>  
+              <ui:param name="propertyPath" value="entityFieldPrivilege.writeAllowed"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_entityFieldPrivilege.writeAllowed? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewEditAllowed')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{entityFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.entityFieldPrivilege_editAllowed}"/>  
+              <ui:param name="propertyPath" value="entityFieldPrivilege.editAllowed"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_entityFieldPrivilege.editAllowed? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewDeleteAllowed')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{entityFieldPrivilegeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.entityFieldPrivilege_deleteAllowed}"/>  
+              <ui:param name="propertyPath" value="entityFieldPrivilege.deleteAllowed"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_entityFieldPrivilege.deleteAllowed? msg.yes : msg.no }"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

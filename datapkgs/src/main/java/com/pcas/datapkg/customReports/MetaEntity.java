@@ -43,11 +43,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.pcas.datapkg.ProjectUtils;
 
@@ -73,7 +74,7 @@ public class MetaEntity extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "metaEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "metaEntity_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<MetaField> metaFields = new HashSet<MetaField>();
 
@@ -95,7 +96,7 @@ public class MetaEntity extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "metaEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "metaEntity_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<EntityFieldPrivilege> entityFieldPrivileges = new HashSet<EntityFieldPrivilege>();
 
