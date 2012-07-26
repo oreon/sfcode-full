@@ -71,12 +71,17 @@ package «packageNamePck()»;
 «DEFINE GenPackageInfo FOR wcprofile::EntitiesPackage»
 «FILE packagePathPck() +"/package-info.java"  »
 «IF getCurrentCartridge() == "RICH"»
-@FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", 
-		parameters = @ParamDef(name = "aArchived", type = "string")) 
+@FilterDefs({
+@FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", parameters = @ParamDef(name = "aArchived", type = "string")),
+«IF isMultiTenanted()»
+	@FilterDef(name="tenantFilterDef", defaultCondition="(tenant is null or tenant = :tenantId )", parameters=@ParamDef(name="tenantId", type="long"))
+«ENDIF»
+}) 
 «ENDIF»
 package «packageNamePck()»; 
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.FilterDefs;
 «ENDFILE»
 «ENDDEFINE»
 
@@ -183,7 +188,11 @@ import org.hibernate.annotations.ParamDef;
 «DEFINE genClassBody FOR wcprofile::Entity»
 	@Entity
 	@Table(name="«getTableName()»")
-	«IF getCartridge() == "RICH"»@Filter(name = "archiveFilterDef")«ENDIF» 
+	«IF getCartridge() == "RICH"»
+		@Filters( {  @Filter(name = "archiveFilterDef") , 
+		«IF isMultiTenanted()»  @Filter(name = "tenantFilterDef")  «ENDIF»
+		})
+	«ENDIF» 
 	«IF !isAbstract »   
 		«IF getCurrentCartridge() == "RICH"» @Name("«asVar()»")   «ENDIF»
 		@Indexed
@@ -686,6 +695,7 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.hibernate.annotations.Formula;
 	import org.hibernate.annotations.CacheConcurrencyStrategy;
 	import org.hibernate.annotations.Filter;
+	import org.hibernate.annotations.Filters;
 	import org.hibernate.annotations.Cascade;
 	
 	import org.hibernate.search.annotations.AnalyzerDef;
