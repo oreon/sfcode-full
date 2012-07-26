@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.inventory.Machine;
 
-@Name("machineResourceQuery")
-@Path("machine")
+//@Name("machineResourceQuery")
+//@Path("machine")
 public class MachineResourceQuery extends ResourceQuery<Machine> {
 
 }

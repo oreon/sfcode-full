@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.drugInventory_drugAbstract}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editDrugAbstract')}"/>  
       <br/>  
-      <h:selectOneMenu id="drugAbstract" value="#{ drugInventoryList.drugInventory.drugAbstract}"> 
+      <h:selectOneMenu id="#{prefix}_drugAbstractdrugAbstract" value="#{ drugInventoryList.drugInventory.drugAbstract}"> 
         <s:selectItems value="#{drugAbstractList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -16,7 +16,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.drugInventory_machine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editMachine')}"/>  
       <br/>  
-      <h:selectOneMenu id="machine" value="#{ drugInventoryList.drugInventory.machine}"> 
+      <h:selectOneMenu id="#{prefix}_machinemachine" value="#{ drugInventoryList.drugInventory.machine}"> 
         <s:selectItems value="#{machineList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -24,10 +24,10 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.drugInventory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editQty')}"/>  
       <br/>  
-      <h:inputText id="qty_begin" value="#{drugInventoryList.qtyRange.begin}"> 
+      <h:inputText id="#{prefix}_qty_begin" value="#{drugInventoryList.qtyRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText>  
-      <h:inputText id="qty_end" value="#{drugInventoryList.qtyRange.end}"> 
+      <h:inputText id="#{prefix}_qty_end" value="#{drugInventoryList.qtyRange.end}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
     </h:panelGroup> 

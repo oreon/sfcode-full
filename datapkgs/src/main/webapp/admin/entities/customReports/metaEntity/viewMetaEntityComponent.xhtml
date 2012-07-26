@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.MetaEntity}"/> 
         </f:facet>  
         <h:outputText value="#{msg.metaEntity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'viewName')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'viewName')}" value="#{metaEntityAction.metaEntity.name}"></h:outputText> 
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'viewName')}" value="#{metaEntityAction.metaEntity.name}"></h:outputText> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="metaFields" var="_metaField" rendered="#{not empty metaEntityAction.listMetaFields and skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'viewMetaFields') }" value="#{metaEntityAction.listMetaFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -20,13 +20,13 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewName')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewName')}" value="#{_metaField.name}"></h:outputText> 
+          <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewName')}" value="#{_metaField.name}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 
             <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewType')}"/> 
           </f:facet>  
-          <h:outputText id="type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewType')}" value="#{_metaField.type}"></h:outputText> 
+          <h:outputText id="#{prefix}_type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewType')}" value="#{_metaField.type}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <rich:dataTable id="entityFieldPrivileges" var="_entityFieldPrivilege" rendered="#{not empty metaEntityAction.listEntityFieldPrivileges and skipPermissionCheck == 'true' || s:hasPermission('metaField', 'viewEntityFieldPrivileges') }" value="#{metaEntityAction.listEntityFieldPrivileges}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -49,25 +49,25 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.entityFieldPrivilege_readAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewReadAllowed')}"/> 
           </f:facet>  
-          <h:outputText id="readAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewReadAllowed')}" value="#{_entityFieldPrivilege.readAllowed}"></h:outputText> 
+          <h:outputText id="#{prefix}_readAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewReadAllowed')}" value="#{_entityFieldPrivilege.readAllowed}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 
             <h:outputText value="#{msg.entityFieldPrivilege_writeAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewWriteAllowed')}"/> 
           </f:facet>  
-          <h:outputText id="writeAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewWriteAllowed')}" value="#{_entityFieldPrivilege.writeAllowed}"></h:outputText> 
+          <h:outputText id="#{prefix}_writeAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewWriteAllowed')}" value="#{_entityFieldPrivilege.writeAllowed}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 
             <h:outputText value="#{msg.entityFieldPrivilege_editAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewEditAllowed')}"/> 
           </f:facet>  
-          <h:outputText id="editAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewEditAllowed')}" value="#{_entityFieldPrivilege.editAllowed}"></h:outputText> 
+          <h:outputText id="#{prefix}_editAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewEditAllowed')}" value="#{_entityFieldPrivilege.editAllowed}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 
             <h:outputText value="#{msg.entityFieldPrivilege_deleteAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewDeleteAllowed')}"/> 
           </f:facet>  
-          <h:outputText id="deleteAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewDeleteAllowed')}" value="#{_entityFieldPrivilege.deleteAllowed}"></h:outputText> 
+          <h:outputText id="#{prefix}_deleteAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewDeleteAllowed')}" value="#{_entityFieldPrivilege.deleteAllowed}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

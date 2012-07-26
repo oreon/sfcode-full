@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.Department;
 
-@Name("departmentResourceQuery")
-@Path("department")
+//@Name("departmentResourceQuery")
+//@Path("department")
 public class DepartmentResourceQuery extends ResourceQuery<Department> {
 
 }

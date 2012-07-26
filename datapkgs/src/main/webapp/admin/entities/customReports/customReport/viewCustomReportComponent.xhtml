@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.CustomReport}"/> 
         </f:facet>  
         <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'viewName')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'viewName')}" value="#{customReportAction.customReport.name}"></h:outputText>  
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'viewName')}" value="#{customReportAction.customReport.name}"></h:outputText>  
         <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'viewMetaEntity')}"/>  
         <s:link value="#{customReportAction.customReport.metaEntity.displayName}" action="viewmetaEntity" propagation="none"> 
           <f:param name="metaEntityId" value="#{customReportAction.customReport.metaEntity.id}"/>  
@@ -40,19 +40,19 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.reportParameter_mandatory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'viewMandatory')}"/> 
           </f:facet>  
-          <h:outputText id="mandatory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'viewMandatory')}" value="#{_reportParameter.mandatory}"></h:outputText> 
+          <h:outputText id="#{prefix}_mandatory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'viewMandatory')}" value="#{_reportParameter.mandatory}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 
             <h:outputText value="#{msg.reportParameter_defaultValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'viewDefaultValue')}"/> 
           </f:facet>  
-          <h:outputText id="defaultValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'viewDefaultValue')}" value="#{_reportParameter.defaultValue}"></h:outputText> 
+          <h:outputText id="#{prefix}_defaultValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'viewDefaultValue')}" value="#{_reportParameter.defaultValue}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 
             <h:outputText value="#{msg.reportParameter_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'viewName')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'viewName')}" value="#{_reportParameter.name}"></h:outputText> 
+          <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'viewName')}" value="#{_reportParameter.name}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/>  

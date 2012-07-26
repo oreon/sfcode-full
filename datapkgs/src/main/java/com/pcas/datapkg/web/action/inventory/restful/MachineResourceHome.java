@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.inventory.Machine;
 
-@Name("machineResourceHome")
-@Path("machine")
+//@Name("machineResourceHome")
+//@Path("machine")
 public class MachineResourceHome extends ResourceHome<Machine, Long> {
 	@In(create = true)
 	private EntityHome<Machine> machineAction;

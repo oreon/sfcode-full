@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.customReports.MetaField;
 
-@Name("metaFieldResourceQuery")
-@Path("metaField")
+//@Name("metaFieldResourceQuery")
+//@Path("metaField")
 public class MetaFieldResourceQuery extends ResourceQuery<MetaField> {
 
 }

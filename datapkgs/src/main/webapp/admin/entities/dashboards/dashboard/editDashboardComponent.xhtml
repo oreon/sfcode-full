@@ -11,19 +11,19 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Dashboard}"/> 
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.dashboard_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editName')}" label="#{msg.dashboard_name}" required="false" disabled="false" value="#{dashboardAction.dashboard.name}"> 
+          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editName')}" label="#{msg.dashboard_name}" required="false" disabled="false" value="#{dashboardAction.dashboard.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="appUserDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_appUserappUserDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.dashboard_appUser}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editAppUser')}"/>
           </ui:define>  
-          <h:selectOneMenu id="appUser" label="#{msg.dashboard_appUser}" value="#{dashboardAction.dashboard.appUser}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editAppUser')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_appUserappUser" label="#{msg.dashboard_appUser}" value="#{dashboardAction.dashboard.appUser}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editAppUser')}" disabled="false"> 
             <s:selectItems value="#{appUserList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -39,9 +39,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.dashboardComponent_contents}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'editContents')}"/>
           </f:facet>  
-          <s:decorate id="contentsDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_contentsDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="contents#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'editContents')}" label="#{msg.dashboardComponent_contents}" required="true" disabled="false" value="#{_dashboardComponent.contents}"> 
+            <h:inputText id="#{prefix}_contents#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'editContents')}" label="#{msg.dashboardComponent_contents}" required="true" disabled="false" value="#{_dashboardComponent.contents}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 

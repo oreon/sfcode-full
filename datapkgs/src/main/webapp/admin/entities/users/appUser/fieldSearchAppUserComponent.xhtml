@@ -8,12 +8,12 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editUserName')}"/>  
       <br/>  
-      <h:inputText id="userName" value="#{appUserList.appUser.userName}"/> 
+      <h:inputText id="#{prefix}_userName" value="#{appUserList.appUser.userName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}"/>  
       <br/>  
-      <h:selectOneMenu id="enabled" value="#{appUserList.appUser.enabled}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_enabled" value="#{appUserList.appUser.enabled}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
@@ -22,7 +22,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.appUser_appRoles}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editAppRoles')}"/>  
       <br/>  
-      <h:selectOneMenu id="appRoles" value="#{ appUserList.appRolesToSearch}"> 
+      <h:selectOneMenu id="#{prefix}_appRolesappRoles" value="#{ appUserList.appRolesToSearch}"> 
         <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
@@ -31,7 +31,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}"/>  
       <br/>  
-      <h:inputText id="email" value="#{appUserList.appUser.email}"/> 
+      <h:inputText id="#{prefix}_email" value="#{appUserList.appUser.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appUser_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editLastLogin')}"/>  

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.inventory.Location;
 
-@Name("locationResourceQuery")
-@Path("location")
+//@Name("locationResourceQuery")
+//@Path("location")
 public class LocationResourceQuery extends ResourceQuery<Location> {
 
 }

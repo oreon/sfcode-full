@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.dashboardComponent_dashboard}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'editDashboard')}"/>  
       <br/>  
-      <h:selectOneMenu id="dashboard" value="#{ dashboardComponentList.dashboardComponent.dashboard}"> 
+      <h:selectOneMenu id="#{prefix}_dashboarddashboard" value="#{ dashboardComponentList.dashboardComponent.dashboard}"> 
         <s:selectItems value="#{dashboardList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -16,7 +16,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.dashboardComponent_contents}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'editContents')}"/>  
       <br/>  
-      <h:inputText id="contents" value="#{dashboardComponentList.dashboardComponent.contents}"/> 
+      <h:inputText id="#{prefix}_contents" value="#{dashboardComponentList.dashboardComponent.contents}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

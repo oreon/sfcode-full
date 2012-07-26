@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.Machine}"/> 
         </f:facet>  
         <h:outputText value="#{msg.machine_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'viewName')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'viewName')}" value="#{machineAction.machine.name}"></h:outputText>  
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'viewName')}" value="#{machineAction.machine.name}"></h:outputText>  
         <h:outputText value="#{msg.machine_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'viewCustomer')}"/>  
         <s:link value="#{machineAction.machine.customer.displayName}" action="viewcustomer" propagation="none"> 
           <f:param name="customerId" value="#{machineAction.machine.customer.id}"/>  
@@ -39,7 +39,7 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.drugInventory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'viewQty')}"/> 
           </f:facet>  
-          <h:outputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'viewQty')}" value="#{_drugInventory.qty}"></h:outputText> 
+          <h:outputText id="#{prefix}_qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'viewQty')}" value="#{_drugInventory.qty}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

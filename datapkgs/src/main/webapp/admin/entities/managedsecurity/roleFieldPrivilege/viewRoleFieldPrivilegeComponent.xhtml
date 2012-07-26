@@ -12,9 +12,9 @@
           <h:outputText value="#{msg.RoleFieldPrivilege}"/> 
         </f:facet>  
         <h:outputText value="#{msg.roleFieldPrivilege_readAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewReadAccess')}"/>  
-        <h:outputText id="readAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewReadAccess')}" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.readAccess}"></h:outputText>  
+        <h:outputText id="#{prefix}_readAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewReadAccess')}" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.readAccess}"></h:outputText>  
         <h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewWriteAccess')}"/>  
-        <h:outputText id="writeAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewWriteAccess')}" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.writeAccess}"></h:outputText>  
+        <h:outputText id="#{prefix}_writeAccess#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewWriteAccess')}" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.writeAccess}"></h:outputText>  
         <h:outputText value="#{msg.roleFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'viewAppRole')}"/>  
         <s:link value="#{roleFieldPrivilegeAction.roleFieldPrivilege.appRole.displayName}" action="viewappRole" propagation="none"> 
           <f:param name="appRoleId" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.appRole.id}"/>  

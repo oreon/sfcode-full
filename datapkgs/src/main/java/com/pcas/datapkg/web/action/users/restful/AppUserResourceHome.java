@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.users.AppUser;
 
-@Name("appUserResourceHome")
-@Path("appUser")
+//@Name("appUserResourceHome")
+//@Path("appUser")
 public class AppUserResourceHome extends ResourceHome<AppUser, Long> {
 	@In(create = true)
 	private EntityHome<AppUser> appUserAction;

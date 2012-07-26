@@ -9,14 +9,14 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.drugAbstract_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editName')}"/>  
         <br/>  
-        <h:inputText id="name" value="#{drugAbstractAction.drugAbstract.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editName')}"/> 
+        <h:inputText id="#{prefix}_name" value="#{drugAbstractAction.drugAbstract.name}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.drugAbstract_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editPrice')}"/>  
         <br/>  
-        <h:inputText id="price" value="#{drugAbstractAction.drugAbstract.price}"/>  
-        <rich:message styleClass="error errors" for="price" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editPrice')}"/> 
+        <h:inputText id="#{prefix}_price" value="#{drugAbstractAction.drugAbstract.price}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_price" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugAbstract', 'editPrice')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

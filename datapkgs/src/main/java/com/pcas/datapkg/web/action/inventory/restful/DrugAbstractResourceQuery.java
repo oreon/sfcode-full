@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.inventory.DrugAbstract;
 
-@Name("drugAbstractResourceQuery")
-@Path("drugAbstract")
+//@Name("drugAbstractResourceQuery")
+//@Path("drugAbstract")
 public class DrugAbstractResourceQuery extends ResourceQuery<DrugAbstract> {
 
 }

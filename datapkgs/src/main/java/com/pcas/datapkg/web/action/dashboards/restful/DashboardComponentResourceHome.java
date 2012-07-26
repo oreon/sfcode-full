@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.dashboards.DashboardComponent;
 
-@Name("dashboardComponentResourceHome")
-@Path("dashboardComponent")
+//@Name("dashboardComponentResourceHome")
+//@Path("dashboardComponent")
 public class DashboardComponentResourceHome
 		extends
 			ResourceHome<DashboardComponent, Long> {

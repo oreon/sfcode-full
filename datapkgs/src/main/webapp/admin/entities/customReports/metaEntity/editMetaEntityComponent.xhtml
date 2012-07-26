@@ -11,11 +11,11 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.MetaEntity}"/> 
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.metaEntity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'editName')}" label="#{msg.metaEntity_name}" required="true" disabled="false" value="#{metaEntityAction.metaEntity.name}"> 
+          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'editName')}" label="#{msg.metaEntity_name}" required="true" disabled="false" value="#{metaEntityAction.metaEntity.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 
@@ -29,9 +29,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editName')}"/>
           </f:facet>  
-          <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editName')}" label="#{msg.metaField_name}" required="true" disabled="false" value="#{_metaField.name}"> 
+            <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editName')}" label="#{msg.metaField_name}" required="true" disabled="false" value="#{_metaField.name}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
@@ -40,9 +40,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editType')}"/>
           </f:facet>  
-          <s:decorate id="typeDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_typeDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editType')}" label="#{msg.metaField_type}" required="false" disabled="false" value="#{_metaField.type}"> 
+            <h:inputText id="#{prefix}_type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'editType')}" label="#{msg.metaField_type}" required="false" disabled="false" value="#{_metaField.type}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
@@ -66,9 +66,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}"/>
           </f:facet>  
-          <s:decorate id="appRoleDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_appRoleappRoleDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="appRole" label="#{msg.entityFieldPrivilege_appRole}" value="#{_entityFieldPrivilege.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}" disabled="false"> 
+            <h:selectOneMenu id="#{prefix}_appRoleappRole" label="#{msg.entityFieldPrivilege_appRole}" value="#{_entityFieldPrivilege.appRole}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}" disabled="false"> 
               <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
               <rich:ajaxValidator event="onsubmit"/>  
               <s:convertEntity/> 
@@ -79,9 +79,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}"/>
           </f:facet>  
-          <s:decorate id="privilegeTypeDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_privilegeTypeDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="privilegeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}" value="#{_entityFieldPrivilege.privilegeType}" required="false" label="#{msg.entityFieldPrivilege_privilegeType}"> 
+            <h:selectOneMenu id="#{prefix}_privilegeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}" value="#{_entityFieldPrivilege.privilegeType}" required="false" label="#{msg.entityFieldPrivilege_privilegeType}"> 
               <f:selectItem itemLabel="Please Select..." itemValue=""/>  
               <f:selectItem itemValue="READ" itemLabel="#{msg.READ}"/>  
               <f:selectItem itemValue="WRITE" itemLabel="#{msg.WRITE}"/>  
@@ -95,9 +95,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.entityFieldPrivilege_readAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editReadAllowed')}"/>
           </f:facet>  
-          <s:decorate id="readAllowedDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_readAllowedDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectBooleanCheckbox id="readAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editReadAllowed')}" label="#{msg.entityFieldPrivilege_readAllowed}" required="false" disabled="false" value="#{_entityFieldPrivilege.readAllowed}"> 
+            <h:selectBooleanCheckbox id="#{prefix}_readAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editReadAllowed')}" label="#{msg.entityFieldPrivilege_readAllowed}" required="false" disabled="false" value="#{_entityFieldPrivilege.readAllowed}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:selectBooleanCheckbox> 
           </s:decorate> 
@@ -106,9 +106,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.entityFieldPrivilege_writeAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editWriteAllowed')}"/>
           </f:facet>  
-          <s:decorate id="writeAllowedDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_writeAllowedDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectBooleanCheckbox id="writeAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editWriteAllowed')}" label="#{msg.entityFieldPrivilege_writeAllowed}" required="false" disabled="false" value="#{_entityFieldPrivilege.writeAllowed}"> 
+            <h:selectBooleanCheckbox id="#{prefix}_writeAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editWriteAllowed')}" label="#{msg.entityFieldPrivilege_writeAllowed}" required="false" disabled="false" value="#{_entityFieldPrivilege.writeAllowed}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:selectBooleanCheckbox> 
           </s:decorate> 
@@ -117,9 +117,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.entityFieldPrivilege_editAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editEditAllowed')}"/>
           </f:facet>  
-          <s:decorate id="editAllowedDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_editAllowedDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectBooleanCheckbox id="editAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editEditAllowed')}" label="#{msg.entityFieldPrivilege_editAllowed}" required="false" disabled="false" value="#{_entityFieldPrivilege.editAllowed}"> 
+            <h:selectBooleanCheckbox id="#{prefix}_editAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editEditAllowed')}" label="#{msg.entityFieldPrivilege_editAllowed}" required="false" disabled="false" value="#{_entityFieldPrivilege.editAllowed}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:selectBooleanCheckbox> 
           </s:decorate> 
@@ -128,9 +128,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.entityFieldPrivilege_deleteAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editDeleteAllowed')}"/>
           </f:facet>  
-          <s:decorate id="deleteAllowedDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_deleteAllowedDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectBooleanCheckbox id="deleteAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editDeleteAllowed')}" label="#{msg.entityFieldPrivilege_deleteAllowed}" required="false" disabled="false" value="#{_entityFieldPrivilege.deleteAllowed}"> 
+            <h:selectBooleanCheckbox id="#{prefix}_deleteAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editDeleteAllowed')}" label="#{msg.entityFieldPrivilege_deleteAllowed}" required="false" disabled="false" value="#{_entityFieldPrivilege.deleteAllowed}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:selectBooleanCheckbox> 
           </s:decorate> 

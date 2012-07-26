@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.roleFieldPrivilege_readAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editReadAccess')}"/>  
       <br/>  
-      <h:selectOneMenu id="readAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.readAccess}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_readAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.readAccess}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
@@ -17,7 +17,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editWriteAccess')}"/>  
       <br/>  
-      <h:selectOneMenu id="writeAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.writeAccess}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_writeAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.writeAccess}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
@@ -26,7 +26,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.roleFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editAppRole')}"/>  
       <br/>  
-      <h:selectOneMenu id="appRole" value="#{ roleFieldPrivilegeList.roleFieldPrivilege.appRole}"> 
+      <h:selectOneMenu id="#{prefix}_appRoleappRole" value="#{ roleFieldPrivilegeList.roleFieldPrivilege.appRole}"> 
         <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -34,7 +34,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.roleFieldPrivilege_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editMetaField')}"/>  
       <br/>  
-      <h:selectOneMenu id="metaField" value="#{ roleFieldPrivilegeList.roleFieldPrivilege.metaField}"> 
+      <h:selectOneMenu id="#{prefix}_metaFieldmetaField" value="#{ roleFieldPrivilegeList.roleFieldPrivilege.metaField}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 

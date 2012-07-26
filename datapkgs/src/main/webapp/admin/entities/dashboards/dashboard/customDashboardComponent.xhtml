@@ -9,17 +9,17 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.dashboard_appUser}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editAppUser')}"/>  
         <br/>  
-        <h:selectOneMenu id="appUser" value="#{dashboardAction.dashboard.appUser}"> 
+        <h:selectOneMenu id="#{prefix}_appUserappUser" value="#{dashboardAction.dashboard.appUser}"> 
           <s:selectItems value="#{appUserList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="appUser" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editAppUser')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_appUserappUser" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editAppUser')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.dashboard_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editName')}"/>  
         <br/>  
-        <h:inputText id="name" value="#{dashboardAction.dashboard.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editName')}"/> 
+        <h:inputText id="#{prefix}_name" value="#{dashboardAction.dashboard.name}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboard', 'editName')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

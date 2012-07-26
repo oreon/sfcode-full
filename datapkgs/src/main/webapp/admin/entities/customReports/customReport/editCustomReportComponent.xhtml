@@ -11,19 +11,19 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.CustomReport}"/> 
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editName')}" label="#{msg.customReport_name}" required="true" disabled="false" value="#{customReportAction.customReport.name}"> 
+          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editName')}" label="#{msg.customReport_name}" required="true" disabled="false" value="#{customReportAction.customReport.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="metaEntityDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_metaEntitymetaEntityDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editMetaEntity')}"/>
           </ui:define>  
-          <h:selectOneMenu id="metaEntity" label="#{msg.customReport_metaEntity}" value="#{customReportAction.customReport.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editMetaEntity')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_metaEntitymetaEntity" label="#{msg.customReport_metaEntity}" value="#{customReportAction.customReport.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editMetaEntity')}" disabled="false"> 
             <a:support event="onchange" action="#{customReportAction.onChangeMetaEntity}" reRender="fields, groupFields, reportParameter" ajaxSingle="true"/>  
             <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
@@ -40,9 +40,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.reportParameter_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editMetaField')}"/>
           </f:facet>  
-          <s:decorate id="metaFieldDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_metaFieldmetaFieldDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="metaField" label="#{msg.reportParameter_metaField}" value="#{_reportParameter.metaField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editMetaField')}" disabled="false"> 
+            <h:selectOneMenu id="#{prefix}_metaFieldmetaField" label="#{msg.reportParameter_metaField}" value="#{_reportParameter.metaField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editMetaField')}" disabled="false"> 
               <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
               <rich:ajaxValidator event="onsubmit"/>  
               <s:convertEntity/> 
@@ -53,9 +53,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.reportParameter_comparison}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editComparison')}"/>
           </f:facet>  
-          <s:decorate id="comparisonDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_comparisonDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="comparison" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editComparison')}" value="#{_reportParameter.comparison}" required="false" label="#{msg.reportParameter_comparison}"> 
+            <h:selectOneMenu id="#{prefix}_comparison" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editComparison')}" value="#{_reportParameter.comparison}" required="false" label="#{msg.reportParameter_comparison}"> 
               <f:selectItem itemLabel="Please Select..." itemValue=""/>  
               <f:selectItem itemValue="GREATER_THAN" itemLabel="#{msg.GREATER_THAN}"/>  
               <f:selectItem itemValue="LESS_THAN" itemLabel="#{msg.LESS_THAN}"/>  
@@ -69,9 +69,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.reportParameter_mandatory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editMandatory')}"/>
           </f:facet>  
-          <s:decorate id="mandatoryDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_mandatoryDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectBooleanCheckbox id="mandatory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editMandatory')}" label="#{msg.reportParameter_mandatory}" required="false" disabled="false" value="#{_reportParameter.mandatory}"> 
+            <h:selectBooleanCheckbox id="#{prefix}_mandatory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editMandatory')}" label="#{msg.reportParameter_mandatory}" required="false" disabled="false" value="#{_reportParameter.mandatory}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:selectBooleanCheckbox> 
           </s:decorate> 
@@ -80,9 +80,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.reportParameter_defaultValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editDefaultValue')}"/>
           </f:facet>  
-          <s:decorate id="defaultValueDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_defaultValueDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="defaultValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editDefaultValue')}" label="#{msg.reportParameter_defaultValue}" required="false" disabled="false" value="#{_reportParameter.defaultValue}"> 
+            <h:inputText id="#{prefix}_defaultValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editDefaultValue')}" label="#{msg.reportParameter_defaultValue}" required="false" disabled="false" value="#{_reportParameter.defaultValue}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
@@ -91,9 +91,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.reportParameter_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editName')}"/>
           </f:facet>  
-          <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editName')}" label="#{msg.reportParameter_name}" required="true" disabled="false" value="#{_reportParameter.name}"> 
+            <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editName')}" label="#{msg.reportParameter_name}" required="true" disabled="false" value="#{_reportParameter.name}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 

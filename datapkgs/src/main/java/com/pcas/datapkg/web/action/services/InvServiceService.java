@@ -21,8 +21,8 @@ import org.jboss.seam.resteasy.ResourceQuery;
 import java.util.Date;
 import java.util.List;
 
-@Name("invServiceService")
-@Path("invServiceService")
+//@Name("invServiceService")
+//@Path("invServiceService")
 public class InvServiceService implements java.io.Serializable {
 
 	@In(create = true)

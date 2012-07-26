@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.dashboards.DashboardComponent;
 
-@Name("dashboardComponentResourceQuery")
-@Path("dashboardComponent")
+//@Name("dashboardComponentResourceQuery")
+//@Path("dashboardComponent")
 public class DashboardComponentResourceQuery
 		extends
 			ResourceQuery<DashboardComponent> {

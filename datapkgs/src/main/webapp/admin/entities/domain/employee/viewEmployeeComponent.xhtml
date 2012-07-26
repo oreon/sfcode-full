@@ -12,15 +12,15 @@
           <h:outputText value="#{msg.Employee}"/> 
         </f:facet>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewFirstName')}"/>  
-        <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewFirstName')}" value="#{employeeAction.employee.firstName}"></h:outputText>  
+        <h:outputText id="#{prefix}_firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewFirstName')}" value="#{employeeAction.employee.firstName}"></h:outputText>  
         <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewLastName')}"/>  
-        <h:outputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewLastName')}" value="#{employeeAction.employee.lastName}"></h:outputText>  
+        <h:outputText id="#{prefix}_lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewLastName')}" value="#{employeeAction.employee.lastName}"></h:outputText>  
         <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeNumber')}"/>  
-        <h:outputText id="employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeNumber')}" value="#{employeeAction.employee.employeeNumber}"></h:outputText>  
+        <h:outputText id="#{prefix}_employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeNumber')}" value="#{employeeAction.employee.employeeNumber}"></h:outputText>  
         <h:outputText value="#{msg.employee_employeeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeType')}"/>  
         <h:outputText value="#{employeeAction.employee.employeeType}"/>  
         <h:outputText value="#{msg.employee_salary}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewSalary')}"/>  
-        <h:outputText id="salary#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewSalary')}" value="#{employeeAction.employee.salary}"></h:outputText>  
+        <h:outputText id="#{prefix}_salary#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewSalary')}" value="#{employeeAction.employee.salary}"></h:outputText>  
         <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewDepartment')}"/>  
         <s:link value="#{employeeAction.employee.department.displayName}" action="viewdepartment" propagation="none"> 
           <f:param name="departmentId" value="#{employeeAction.employee.department.id}"/>  
@@ -40,11 +40,11 @@
           <h:outputText value="#{msg.ContactDetails}"/> 
         </f:facet>  
         <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewPhone')}"/>  
-        <h:outputText id="contactDetails_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewPhone')}" value="#{employeeAction.employee.contactDetails.phone}"></h:outputText>  
+        <h:outputText id="#{prefix}_contactDetails_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewPhone')}" value="#{employeeAction.employee.contactDetails.phone}"></h:outputText>  
         <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewSecondaryPhone')}"/>  
-        <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewSecondaryPhone')}" value="#{employeeAction.employee.contactDetails.secondaryPhone}"></h:outputText>  
+        <h:outputText id="#{prefix}_contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewSecondaryPhone')}" value="#{employeeAction.employee.contactDetails.secondaryPhone}"></h:outputText>  
         <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewCity')}"/>  
-        <h:outputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewCity')}" value="#{employeeAction.employee.contactDetails.city}"></h:outputText> 
+        <h:outputText id="#{prefix}_contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewCity')}" value="#{employeeAction.employee.contactDetails.city}"></h:outputText> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
@@ -54,13 +54,13 @@
           <h:outputText value="#{msg.AppUser}"/> 
         </f:facet>  
         <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewUserName')}"/>  
-        <h:outputText id="appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewUserName')}" value="#{employeeAction.employee.appUser.userName}"></h:outputText>  
+        <h:outputText id="#{prefix}_appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewUserName')}" value="#{employeeAction.employee.appUser.userName}"></h:outputText>  
         <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEnabled')}"/>  
-        <h:outputText id="appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEnabled')}" value="#{employeeAction.employee.appUser.enabled}"></h:outputText>  
+        <h:outputText id="#{prefix}_appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEnabled')}" value="#{employeeAction.employee.appUser.enabled}"></h:outputText>  
         <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmail')}"/>  
-        <h:outputText id="appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmail')}" value="#{employeeAction.employee.appUser.email}"></h:outputText>  
+        <h:outputText id="#{prefix}_appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmail')}" value="#{employeeAction.employee.appUser.email}"></h:outputText>  
         <h:outputText value="#{msg.appUser_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewLastLogin')}"/>  
-        <h:outputText direction="auto" id="appUser_lastLogin#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewLastLogin')}" value="#{employeeAction.employee.appUser.lastLogin}"></h:outputText> 
+        <h:outputText direction="auto" id="#{prefix}_appUser_lastLogin#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewLastLogin')}" value="#{employeeAction.employee.appUser.lastLogin}"></h:outputText> 
       </h:panelGrid>  
       <br/>  
       <br/> 

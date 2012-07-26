@@ -310,20 +310,20 @@
     <param name="dir" value="#{employeeList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{employeeList.employee.id}"/>  
-    <param name="firstName" value="#{employeeList.employee.firstName}" validateModel="false"/>  
-    <param name="lastName" value="#{employeeList.employee.lastName}" validateModel="false"/>  
-    <param name="contactDetails_phone" value="#{employeeList.employee.contactDetails.phone}" validateModel="false"/>  
-    <param name="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}" validateModel="false"/>  
-    <param name="contactDetails_city" value="#{employeeList.employee.contactDetails.city}" validateModel="false"/>  
-    <param name="department" value="#{employeeList.employee.department.id}" validateModel="false"/>  
-    <param name="employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false"/>  
-    <param name="employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/>  
-    <param name="salary" value="#{employeeList.employee.salary}" validateModel="false"/>  
-    <param name="customer" value="#{employeeList.employee.customer.id}" validateModel="false"/>  
-    <param name="appUser_userName" value="#{employeeList.employee.appUser.userName}" validateModel="false"/>  
-    <param name="appUser_enabled" value="#{employeeList.employee.appUser.enabled}" validateModel="false"/>  
-    <param name="appUser_email" value="#{employeeList.employee.appUser.email}" validateModel="false"/>  
-    <param name="appUser_lastLogin" value="#{employeeList.employee.appUser.lastLogin}" validateModel="false"/> 
+    <param name="#{prefix}_firstName" value="#{employeeList.employee.firstName}" validateModel="false"/>  
+    <param name="#{prefix}_lastName" value="#{employeeList.employee.lastName}" validateModel="false"/>  
+    <param name="#{prefix}_contactDetails_phone" value="#{employeeList.employee.contactDetails.phone}" validateModel="false"/>  
+    <param name="#{prefix}_contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}" validateModel="false"/>  
+    <param name="#{prefix}_contactDetails_city" value="#{employeeList.employee.contactDetails.city}" validateModel="false"/>  
+    <param name="#{prefix}_departmentdepartment" value="#{employeeList.employee.department.id}" validateModel="false"/>  
+    <param name="#{prefix}_employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false"/>  
+    <param name="#{prefix}_employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/>  
+    <param name="#{prefix}_salary" value="#{employeeList.employee.salary}" validateModel="false"/>  
+    <param name="#{prefix}_customercustomer" value="#{employeeList.employee.customer.id}" validateModel="false"/>  
+    <param name="#{prefix}_appUser_userName" value="#{employeeList.employee.appUser.userName}" validateModel="false"/>  
+    <param name="#{prefix}_appUser_enabled" value="#{employeeList.employee.appUser.enabled}" validateModel="false"/>  
+    <param name="#{prefix}_appUser_email" value="#{employeeList.employee.appUser.email}" validateModel="false"/>  
+    <param name="#{prefix}_appUser_lastLogin" value="#{employeeList.employee.appUser.lastLogin}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/department/editDepartment.xhtml"> 
     <!-- <description>Edit Department: #{department.displayName}</description> -->  
@@ -366,7 +366,7 @@
     <param name="dir" value="#{departmentList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{departmentList.department.id}"/>  
-    <param name="name" value="#{departmentList.department.name}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{departmentList.department.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/dataPackage/editDataPackage.xhtml"> 
     <!-- <description>Edit DataPackage: #{dataPackage.displayName}</description> -->  
@@ -409,7 +409,7 @@
     <param name="dir" value="#{dataPackageList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{dataPackageList.dataPackage.id}"/>  
-    <param name="name" value="#{dataPackageList.dataPackage.name}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{dataPackageList.dataPackage.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/inventory/drugAbstract/editDrugAbstract.xhtml"> 
     <!-- <description>Edit DrugAbstract: #{drugAbstract.displayName}</description> -->  
@@ -452,8 +452,8 @@
     <param name="dir" value="#{drugAbstractList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{drugAbstractList.drugAbstract.id}"/>  
-    <param name="name" value="#{drugAbstractList.drugAbstract.name}" validateModel="false"/>  
-    <param name="price" value="#{drugAbstractList.drugAbstract.price}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{drugAbstractList.drugAbstract.name}" validateModel="false"/>  
+    <param name="#{prefix}_price" value="#{drugAbstractList.drugAbstract.price}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/inventory/drugInventory/editDrugInventory.xhtml"> 
     <!-- <description>Edit DrugInventory: #{drugInventory.displayName}</description> -->  
@@ -498,9 +498,9 @@
     <param name="dir" value="#{drugInventoryList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{drugInventoryList.drugInventory.id}"/>  
-    <param name="drugAbstract" value="#{drugInventoryList.drugInventory.drugAbstract.id}" validateModel="false"/>  
-    <param name="machine" value="#{drugInventoryList.drugInventory.machine.id}" validateModel="false"/>  
-    <param name="qty" value="#{drugInventoryList.drugInventory.qty}" validateModel="false"/> 
+    <param name="#{prefix}_drugAbstractdrugAbstract" value="#{drugInventoryList.drugInventory.drugAbstract.id}" validateModel="false"/>  
+    <param name="#{prefix}_machinemachine" value="#{drugInventoryList.drugInventory.machine.id}" validateModel="false"/>  
+    <param name="#{prefix}_qty" value="#{drugInventoryList.drugInventory.qty}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/inventory/machine/editMachine.xhtml"> 
     <!-- <description>Edit Machine: #{machine.displayName}</description> -->  
@@ -545,9 +545,9 @@
     <param name="dir" value="#{machineList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{machineList.machine.id}"/>  
-    <param name="customer" value="#{machineList.machine.customer.id}" validateModel="false"/>  
-    <param name="name" value="#{machineList.machine.name}" validateModel="false"/>  
-    <param name="location" value="#{machineList.machine.location.id}" validateModel="false"/> 
+    <param name="#{prefix}_customercustomer" value="#{machineList.machine.customer.id}" validateModel="false"/>  
+    <param name="#{prefix}_name" value="#{machineList.machine.name}" validateModel="false"/>  
+    <param name="#{prefix}_locationlocation" value="#{machineList.machine.location.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/inventory/customer/editCustomer.xhtml"> 
     <!-- <description>Edit Customer: #{customer.displayName}</description> -->  
@@ -590,9 +590,9 @@
     <param name="dir" value="#{customerList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{customerList.customer.id}"/>  
-    <param name="name" value="#{customerList.customer.name}" validateModel="false"/>  
-    <param name="country" value="#{customerList.customer.country}" validateModel="false"/>  
-    <param name="telephone" value="#{customerList.customer.telephone}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{customerList.customer.name}" validateModel="false"/>  
+    <param name="#{prefix}_country" value="#{customerList.customer.country}" validateModel="false"/>  
+    <param name="#{prefix}_telephone" value="#{customerList.customer.telephone}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/inventory/location/editLocation.xhtml"> 
     <!-- <description>Edit Location: #{location.displayName}</description> -->  
@@ -635,7 +635,7 @@
     <param name="dir" value="#{locationList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{locationList.location.id}"/>  
-    <param name="name" value="#{locationList.location.name}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{locationList.location.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/inventory/inventoryHistory/editInventoryHistory.xhtml"> 
     <!-- <description>Edit InventoryHistory: #{inventoryHistory.displayName}</description> -->  
@@ -679,9 +679,9 @@
     <param name="dir" value="#{inventoryHistoryList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{inventoryHistoryList.inventoryHistory.id}"/>  
-    <param name="drugInventory" value="#{inventoryHistoryList.inventoryHistory.drugInventory.id}" validateModel="false"/>  
-    <param name="date" value="#{inventoryHistoryList.inventoryHistory.date}" validateModel="false"/>  
-    <param name="qty" value="#{inventoryHistoryList.inventoryHistory.qty}" validateModel="false"/> 
+    <param name="#{prefix}_drugInventorydrugInventory" value="#{inventoryHistoryList.inventoryHistory.drugInventory.id}" validateModel="false"/>  
+    <param name="#{prefix}_date" value="#{inventoryHistoryList.inventoryHistory.date}" validateModel="false"/>  
+    <param name="#{prefix}_qty" value="#{inventoryHistoryList.inventoryHistory.qty}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/customReports/customReport/editCustomReport.xhtml"> 
     <!-- <description>Edit CustomReport: #{customReport.displayName}</description> -->  
@@ -725,8 +725,8 @@
     <param name="dir" value="#{customReportList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{customReportList.customReport.id}"/>  
-    <param name="name" value="#{customReportList.customReport.name}" validateModel="false"/>  
-    <param name="metaEntity" value="#{customReportList.customReport.metaEntity.id}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{customReportList.customReport.name}" validateModel="false"/>  
+    <param name="#{prefix}_metaEntitymetaEntity" value="#{customReportList.customReport.metaEntity.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/customReports/metaEntity/editMetaEntity.xhtml"> 
     <!-- <description>Edit MetaEntity: #{metaEntity.displayName}</description> -->  
@@ -769,7 +769,7 @@
     <param name="dir" value="#{metaEntityList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{metaEntityList.metaEntity.id}"/>  
-    <param name="name" value="#{metaEntityList.metaEntity.name}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{metaEntityList.metaEntity.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/customReports/metaField/editMetaField.xhtml"> 
     <!-- <description>Edit MetaField: #{metaField.displayName}</description> -->  
@@ -813,9 +813,9 @@
     <param name="dir" value="#{metaFieldList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{metaFieldList.metaField.id}"/>  
-    <param name="name" value="#{metaFieldList.metaField.name}" validateModel="false"/>  
-    <param name="metaEntity" value="#{metaFieldList.metaField.metaEntity.id}" validateModel="false"/>  
-    <param name="type" value="#{metaFieldList.metaField.type}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{metaFieldList.metaField.name}" validateModel="false"/>  
+    <param name="#{prefix}_metaEntitymetaEntity" value="#{metaFieldList.metaField.metaEntity.id}" validateModel="false"/>  
+    <param name="#{prefix}_type" value="#{metaFieldList.metaField.type}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/customReports/reportParameter/editReportParameter.xhtml"> 
     <!-- <description>Edit ReportParameter: #{reportParameter.displayName}</description> -->  
@@ -860,12 +860,12 @@
     <param name="dir" value="#{reportParameterList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{reportParameterList.reportParameter.id}"/>  
-    <param name="customReport" value="#{reportParameterList.reportParameter.customReport.id}" validateModel="false"/>  
-    <param name="metaField" value="#{reportParameterList.reportParameter.metaField.id}" validateModel="false"/>  
-    <param name="comparison" value="#{reportParameterList.reportParameter.comparison}" validateModel="false"/>  
-    <param name="mandatory" value="#{reportParameterList.reportParameter.mandatory}" validateModel="false"/>  
-    <param name="defaultValue" value="#{reportParameterList.reportParameter.defaultValue}" validateModel="false"/>  
-    <param name="name" value="#{reportParameterList.reportParameter.name}" validateModel="false"/> 
+    <param name="#{prefix}_customReportcustomReport" value="#{reportParameterList.reportParameter.customReport.id}" validateModel="false"/>  
+    <param name="#{prefix}_metaFieldmetaField" value="#{reportParameterList.reportParameter.metaField.id}" validateModel="false"/>  
+    <param name="#{prefix}_comparison" value="#{reportParameterList.reportParameter.comparison}" validateModel="false"/>  
+    <param name="#{prefix}_mandatory" value="#{reportParameterList.reportParameter.mandatory}" validateModel="false"/>  
+    <param name="#{prefix}_defaultValue" value="#{reportParameterList.reportParameter.defaultValue}" validateModel="false"/>  
+    <param name="#{prefix}_name" value="#{reportParameterList.reportParameter.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/customReports/entityFieldPrivilege/editEntityFieldPrivilege.xhtml"> 
     <!-- <description>Edit EntityFieldPrivilege: #{entityFieldPrivilege.displayName}</description> -->  
@@ -910,13 +910,13 @@
     <param name="dir" value="#{entityFieldPrivilegeList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{entityFieldPrivilegeList.entityFieldPrivilege.id}"/>  
-    <param name="metaEntity" value="#{entityFieldPrivilegeList.entityFieldPrivilege.metaEntity.id}" validateModel="false"/>  
-    <param name="appRole" value="#{entityFieldPrivilegeList.entityFieldPrivilege.appRole.id}" validateModel="false"/>  
-    <param name="privilegeType" value="#{entityFieldPrivilegeList.entityFieldPrivilege.privilegeType}" validateModel="false"/>  
-    <param name="readAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.readAllowed}" validateModel="false"/>  
-    <param name="writeAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.writeAllowed}" validateModel="false"/>  
-    <param name="editAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.editAllowed}" validateModel="false"/>  
-    <param name="deleteAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.deleteAllowed}" validateModel="false"/> 
+    <param name="#{prefix}_metaEntitymetaEntity" value="#{entityFieldPrivilegeList.entityFieldPrivilege.metaEntity.id}" validateModel="false"/>  
+    <param name="#{prefix}_appRoleappRole" value="#{entityFieldPrivilegeList.entityFieldPrivilege.appRole.id}" validateModel="false"/>  
+    <param name="#{prefix}_privilegeType" value="#{entityFieldPrivilegeList.entityFieldPrivilege.privilegeType}" validateModel="false"/>  
+    <param name="#{prefix}_readAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.readAllowed}" validateModel="false"/>  
+    <param name="#{prefix}_writeAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.writeAllowed}" validateModel="false"/>  
+    <param name="#{prefix}_editAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.editAllowed}" validateModel="false"/>  
+    <param name="#{prefix}_deleteAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.deleteAllowed}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/users/appUser/editAppUser.xhtml"> 
     <!-- <description>Edit AppUser: #{appUser.displayName}</description> -->  
@@ -959,10 +959,10 @@
     <param name="dir" value="#{appUserList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{appUserList.appUser.id}"/>  
-    <param name="userName" value="#{appUserList.appUser.userName}" validateModel="false"/>  
-    <param name="enabled" value="#{appUserList.appUser.enabled}" validateModel="false"/>  
-    <param name="email" value="#{appUserList.appUser.email}" validateModel="false"/>  
-    <param name="lastLogin" value="#{appUserList.appUser.lastLogin}" validateModel="false"/> 
+    <param name="#{prefix}_userName" value="#{appUserList.appUser.userName}" validateModel="false"/>  
+    <param name="#{prefix}_enabled" value="#{appUserList.appUser.enabled}" validateModel="false"/>  
+    <param name="#{prefix}_email" value="#{appUserList.appUser.email}" validateModel="false"/>  
+    <param name="#{prefix}_lastLogin" value="#{appUserList.appUser.lastLogin}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/users/appRole/editAppRole.xhtml"> 
     <!-- <description>Edit AppRole: #{appRole.displayName}</description> -->  
@@ -1005,7 +1005,7 @@
     <param name="dir" value="#{appRoleList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{appRoleList.appRole.id}"/>  
-    <param name="name" value="#{appRoleList.appRole.name}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{appRoleList.appRole.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/managedsecurity/roleFieldPrivilege/editRoleFieldPrivilege.xhtml"> 
     <!-- <description>Edit RoleFieldPrivilege: #{roleFieldPrivilege.displayName}</description> -->  
@@ -1050,10 +1050,10 @@
     <param name="dir" value="#{roleFieldPrivilegeList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{roleFieldPrivilegeList.roleFieldPrivilege.id}"/>  
-    <param name="readAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.readAccess}" validateModel="false"/>  
-    <param name="writeAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.writeAccess}" validateModel="false"/>  
-    <param name="appRole" value="#{roleFieldPrivilegeList.roleFieldPrivilege.appRole.id}" validateModel="false"/>  
-    <param name="metaField" value="#{roleFieldPrivilegeList.roleFieldPrivilege.metaField.id}" validateModel="false"/> 
+    <param name="#{prefix}_readAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.readAccess}" validateModel="false"/>  
+    <param name="#{prefix}_writeAccess" value="#{roleFieldPrivilegeList.roleFieldPrivilege.writeAccess}" validateModel="false"/>  
+    <param name="#{prefix}_appRoleappRole" value="#{roleFieldPrivilegeList.roleFieldPrivilege.appRole.id}" validateModel="false"/>  
+    <param name="#{prefix}_metaFieldmetaField" value="#{roleFieldPrivilegeList.roleFieldPrivilege.metaField.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/dashboards/dashboard/editDashboard.xhtml"> 
     <!-- <description>Edit Dashboard: #{dashboard.displayName}</description> -->  
@@ -1097,8 +1097,8 @@
     <param name="dir" value="#{dashboardList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{dashboardList.dashboard.id}"/>  
-    <param name="appUser" value="#{dashboardList.dashboard.appUser.id}" validateModel="false"/>  
-    <param name="name" value="#{dashboardList.dashboard.name}" validateModel="false"/> 
+    <param name="#{prefix}_appUserappUser" value="#{dashboardList.dashboard.appUser.id}" validateModel="false"/>  
+    <param name="#{prefix}_name" value="#{dashboardList.dashboard.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/dashboards/dashboardComponent/editDashboardComponent.xhtml"> 
     <!-- <description>Edit DashboardComponent: #{dashboardComponent.displayName}</description> -->  
@@ -1142,8 +1142,8 @@
     <param name="dir" value="#{dashboardComponentList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{dashboardComponentList.dashboardComponent.id}"/>  
-    <param name="dashboard" value="#{dashboardComponentList.dashboardComponent.dashboard.id}" validateModel="false"/>  
-    <param name="contents" value="#{dashboardComponentList.dashboardComponent.contents}" validateModel="false"/> 
+    <param name="#{prefix}_dashboarddashboard" value="#{dashboardComponentList.dashboardComponent.dashboard.id}" validateModel="false"/>  
+    <param name="#{prefix}_contents" value="#{dashboardComponentList.dashboardComponent.contents}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 

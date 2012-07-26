@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.customReports.MetaField;
 
-@Name("metaFieldResourceHome")
-@Path("metaField")
+//@Name("metaFieldResourceHome")
+//@Path("metaField")
 public class MetaFieldResourceHome extends ResourceHome<MetaField, Long> {
 	@In(create = true)
 	private EntityHome<MetaField> metaFieldAction;

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.users.AppRole;
 
-@Name("appRoleResourceQuery")
-@Path("appRole")
+//@Name("appRoleResourceQuery")
+//@Path("appRole")
 public class AppRoleResourceQuery extends ResourceQuery<AppRole> {
 
 }

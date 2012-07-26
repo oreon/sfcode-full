@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.inventory.DrugAbstract;
 
-@Name("drugAbstractResourceHome")
-@Path("drugAbstract")
+//@Name("drugAbstractResourceHome")
+//@Path("drugAbstract")
 public class DrugAbstractResourceHome extends ResourceHome<DrugAbstract, Long> {
 	@In(create = true)
 	private EntityHome<DrugAbstract> drugAbstractAction;

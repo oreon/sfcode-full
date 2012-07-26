@@ -9,8 +9,8 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.department_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'editName')}"/>  
         <br/>  
-        <h:inputText id="name" value="#{departmentAction.department.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'editName')}"/> 
+        <h:inputText id="#{prefix}_name" value="#{departmentAction.department.name}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'editName')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

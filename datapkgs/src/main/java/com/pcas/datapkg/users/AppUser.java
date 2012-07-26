@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
-
 import org.hibernate.validator.*;
 
 import org.apache.solr.analysis.LowerCaseFilterFactory;
@@ -18,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -55,7 +55,7 @@ import com.pcas.datapkg.ProjectUtils;
 
 @Entity
 @Table(name = "appuser")
-@Filter(name = "archiveFilterDef")
+@Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Name("appUser")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
@@ -207,7 +207,5 @@ public class AppUser extends BaseEntity implements java.io.Serializable {
 
 		return builder.toString();
 	}
-	
-	
 
 }

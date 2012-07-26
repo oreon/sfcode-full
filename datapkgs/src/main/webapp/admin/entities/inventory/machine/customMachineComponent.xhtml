@@ -9,26 +9,26 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.machine_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editCustomer')}"/>  
         <br/>  
-        <h:selectOneMenu id="customer" value="#{machineAction.machine.customer}"> 
+        <h:selectOneMenu id="#{prefix}_customercustomer" value="#{machineAction.machine.customer}"> 
           <s:selectItems value="#{customerList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="customer" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editCustomer')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_customercustomer" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editCustomer')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.machine_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editName')}"/>  
         <br/>  
-        <h:inputText id="name" value="#{machineAction.machine.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editName')}"/> 
+        <h:inputText id="#{prefix}_name" value="#{machineAction.machine.name}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.machine_location}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editLocation')}"/>  
         <br/>  
-        <h:selectOneMenu id="location" value="#{machineAction.machine.location}"> 
+        <h:selectOneMenu id="#{prefix}_locationlocation" value="#{machineAction.machine.location}"> 
           <s:selectItems value="#{locationList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="location" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editLocation')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_locationlocation" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editLocation')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 
