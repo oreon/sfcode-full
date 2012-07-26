@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.customReports.EntityFieldPrivilege;
 
-@Name("entityFieldPrivilegeResourceHome")
-@Path("entityFieldPrivilege")
+//@Name("entityFieldPrivilegeResourceHome")
+//@Path("entityFieldPrivilege")
 public class EntityFieldPrivilegeResourceHome
 		extends
 			ResourceHome<EntityFieldPrivilege, Long> {

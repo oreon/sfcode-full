@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.dashboards.Dashboard;
 
-@Name("dashboardResourceHome")
-@Path("dashboard")
+//@Name("dashboardResourceHome")
+//@Path("dashboard")
 public class DashboardResourceHome extends ResourceHome<Dashboard, Long> {
 	@In(create = true)
 	private EntityHome<Dashboard> dashboardAction;

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.managedsecurity.RoleFieldPrivilege;
 
-@Name("roleFieldPrivilegeResourceQuery")
-@Path("roleFieldPrivilege")
+//@Name("roleFieldPrivilegeResourceQuery")
+//@Path("roleFieldPrivilege")
 public class RoleFieldPrivilegeResourceQuery
 		extends
 			ResourceQuery<RoleFieldPrivilege> {

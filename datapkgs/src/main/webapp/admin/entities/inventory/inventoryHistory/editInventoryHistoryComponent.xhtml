@@ -11,27 +11,27 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.InventoryHistory}"/> 
         </f:facet>  
-        <s:decorate id="dateDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_dateDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.inventoryHistory_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editDate')}"/>
           </ui:define>  
-          <rich:calendar direction="auto" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editDate')}" label="#{msg.inventoryHistory_date}" required="false" disabled="false" value="#{inventoryHistoryAction.inventoryHistory.date}"> 
+          <rich:calendar direction="auto" id="#{prefix}_date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editDate')}" label="#{msg.inventoryHistory_date}" required="false" disabled="false" value="#{inventoryHistoryAction.inventoryHistory.date}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  
-        <s:decorate id="qtyDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_qtyDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.inventoryHistory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editQty')}"/>
           </ui:define>  
-          <h:inputText id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editQty')}" label="#{msg.inventoryHistory_qty}" required="false" disabled="false" value="#{inventoryHistoryAction.inventoryHistory.qty}"> 
+          <h:inputText id="#{prefix}_qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editQty')}" label="#{msg.inventoryHistory_qty}" required="false" disabled="false" value="#{inventoryHistoryAction.inventoryHistory.qty}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="drugInventoryDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_drugInventorydrugInventoryDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.inventoryHistory_drugInventory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editDrugInventory')}"/>
           </ui:define>  
-          <h:selectOneMenu id="drugInventory" label="#{msg.inventoryHistory_drugInventory}" value="#{inventoryHistoryAction.inventoryHistory.drugInventory}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editDrugInventory')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_drugInventorydrugInventory" label="#{msg.inventoryHistory_drugInventory}" value="#{inventoryHistoryAction.inventoryHistory.drugInventory}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editDrugInventory')}" disabled="false"> 
             <s:selectItems value="#{drugInventoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.DataPackage;
 
-@Name("dataPackageResourceQuery")
-@Path("dataPackage")
+//@Name("dataPackageResourceQuery")
+//@Path("dataPackage")
 public class DataPackageResourceQuery extends ResourceQuery<DataPackage> {
 
 }

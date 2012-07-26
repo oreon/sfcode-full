@@ -8,12 +8,12 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.appRole_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appRole', 'editName')}"/>  
       <br/>  
-      <h:inputText id="name" value="#{appRoleList.appRole.name}"/> 
+      <h:inputText id="#{prefix}_name" value="#{appRoleList.appRole.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appRole_appUsers}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appRole', 'editAppUsers')}"/>  
       <br/>  
-      <h:selectOneMenu id="appUsers" value="#{ appRoleList.appUsersToSearch}"> 
+      <h:selectOneMenu id="#{prefix}_appUsersappUsers" value="#{ appRoleList.appUsersToSearch}"> 
         <s:selectItems value="#{appUserList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 

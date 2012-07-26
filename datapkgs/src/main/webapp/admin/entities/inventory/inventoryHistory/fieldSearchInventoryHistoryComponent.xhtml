@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.inventoryHistory_drugInventory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editDrugInventory')}"/>  
       <br/>  
-      <h:selectOneMenu id="drugInventory" value="#{ inventoryHistoryList.inventoryHistory.drugInventory}"> 
+      <h:selectOneMenu id="#{prefix}_drugInventorydrugInventory" value="#{ inventoryHistoryList.inventoryHistory.drugInventory}"> 
         <s:selectItems value="#{drugInventoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -25,10 +25,10 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.inventoryHistory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('inventoryHistory', 'editQty')}"/>  
       <br/>  
-      <h:inputText id="qty_begin" value="#{inventoryHistoryList.qtyRange.begin}"> 
+      <h:inputText id="#{prefix}_qty_begin" value="#{inventoryHistoryList.qtyRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText>  
-      <h:inputText id="qty_end" value="#{inventoryHistoryList.qtyRange.end}"> 
+      <h:inputText id="#{prefix}_qty_end" value="#{inventoryHistoryList.qtyRange.end}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
     </h:panelGroup> 

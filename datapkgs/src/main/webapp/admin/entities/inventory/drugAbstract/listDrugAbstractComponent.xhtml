@@ -53,12 +53,11 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewLastLogin')}"> 
-          <f:facet name="header"> 
-            TENANT
-          </f:facet>  
-          <h:outputText value="#{_drugAbstract.tenant}" /> 
+         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
+         
+          <h:outputText value="#{_drugAbstract.tenant}"> 
            
+          </h:outputText> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('_drugAbstract', 'view')}"> 
           <f:facet name="header"> 

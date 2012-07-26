@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.customReports.MetaEntity;
 
-@Name("metaEntityResourceHome")
-@Path("metaEntity")
+//@Name("metaEntityResourceHome")
+//@Path("metaEntity")
 public class MetaEntityResourceHome extends ResourceHome<MetaEntity, Long> {
 	@In(create = true)
 	private EntityHome<MetaEntity> metaEntityAction;

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.inventory.Customer;
 
-@Name("customerResourceHome")
-@Path("customer")
+//@Name("customerResourceHome")
+//@Path("customer")
 public class CustomerResourceHome extends ResourceHome<Customer, Long> {
 	@In(create = true)
 	private EntityHome<Customer> customerAction;

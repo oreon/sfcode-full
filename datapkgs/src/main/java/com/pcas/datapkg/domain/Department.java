@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -54,7 +55,7 @@ import com.pcas.datapkg.ProjectUtils;
 
 @Entity
 @Table(name = "department")
-@Filter(name = "archiveFilterDef")
+@Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Name("department")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)

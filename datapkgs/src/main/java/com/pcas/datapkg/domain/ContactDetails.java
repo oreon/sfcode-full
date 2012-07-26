@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -57,24 +58,21 @@ import com.pcas.datapkg.ProjectUtils;
 public class ContactDetails implements java.io.Serializable {
 	private static final long serialVersionUID = 369764046L;
 
-	@NotNull
-	@Column(name = "phone", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String phone
 
 	;
 
-	@NotNull
-	@Column(name = "secondaryPhone", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String secondaryPhone
 
 	;
 
-	@NotNull
-	@Column(name = "city", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String city

@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.customReports.CustomReport;
 
-@Name("customReportResourceHome")
-@Path("customReport")
+//@Name("customReportResourceHome")
+//@Path("customReport")
 public class CustomReportResourceHome extends ResourceHome<CustomReport, Long> {
 	@In(create = true)
 	private EntityHome<CustomReport> customReportAction;

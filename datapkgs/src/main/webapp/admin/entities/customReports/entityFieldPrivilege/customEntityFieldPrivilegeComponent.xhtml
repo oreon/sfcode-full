@@ -9,56 +9,56 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editMetaEntity')}"/>  
         <br/>  
-        <h:selectOneMenu id="metaEntity" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity}"> 
+        <h:selectOneMenu id="#{prefix}_metaEntitymetaEntity" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity}"> 
           <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="metaEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editMetaEntity')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_metaEntitymetaEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editMetaEntity')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}"/>  
         <br/>  
-        <h:selectOneMenu id="appRole" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.appRole}"> 
+        <h:selectOneMenu id="#{prefix}_appRoleappRole" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.appRole}"> 
           <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="appRole" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_appRoleappRole" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}"/>  
         <br/>  
-        <h:selectOneMenu id="privilegeType" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.privilegeType}" required="false"> 
+        <h:selectOneMenu id="#{prefix}_privilegeType" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.privilegeType}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="READ" itemLabel="Read"/>  
           <f:selectItem itemValue="WRITE" itemLabel="Write"/>  
           <f:selectItem itemValue="DELETE" itemLabel="Delete"/>  
           <f:selectItem itemValue="CREATE" itemLabel="Create"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="privilegeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_privilegeType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.entityFieldPrivilege_readAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editReadAllowed')}"/>  
         <br/>  
-        <h:selectBooleanCheckbox id="readAllowed" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.readAllowed}"/>  
-        <rich:message styleClass="error errors" for="readAllowed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editReadAllowed')}"/> 
+        <h:selectBooleanCheckbox id="#{prefix}_readAllowed" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.readAllowed}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_readAllowed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editReadAllowed')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.entityFieldPrivilege_writeAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editWriteAllowed')}"/>  
         <br/>  
-        <h:selectBooleanCheckbox id="writeAllowed" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.writeAllowed}"/>  
-        <rich:message styleClass="error errors" for="writeAllowed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editWriteAllowed')}"/> 
+        <h:selectBooleanCheckbox id="#{prefix}_writeAllowed" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.writeAllowed}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_writeAllowed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editWriteAllowed')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.entityFieldPrivilege_editAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editEditAllowed')}"/>  
         <br/>  
-        <h:selectBooleanCheckbox id="editAllowed" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.editAllowed}"/>  
-        <rich:message styleClass="error errors" for="editAllowed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editEditAllowed')}"/> 
+        <h:selectBooleanCheckbox id="#{prefix}_editAllowed" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.editAllowed}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_editAllowed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editEditAllowed')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.entityFieldPrivilege_deleteAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editDeleteAllowed')}"/>  
         <br/>  
-        <h:selectBooleanCheckbox id="deleteAllowed" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.deleteAllowed}"/>  
-        <rich:message styleClass="error errors" for="deleteAllowed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editDeleteAllowed')}"/> 
+        <h:selectBooleanCheckbox id="#{prefix}_deleteAllowed" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.deleteAllowed}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_deleteAllowed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editDeleteAllowed')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

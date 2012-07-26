@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.inventory.InventoryHistory;
 
-@Name("inventoryHistoryResourceQuery")
-@Path("inventoryHistory")
+//@Name("inventoryHistoryResourceQuery")
+//@Path("inventoryHistory")
 public class InventoryHistoryResourceQuery
 		extends
 			ResourceQuery<InventoryHistory> {

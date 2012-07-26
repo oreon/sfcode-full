@@ -9,32 +9,32 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.roleFieldPrivilege_readAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editReadAccess')}"/>  
         <br/>  
-        <h:selectBooleanCheckbox id="readAccess" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.readAccess}"/>  
-        <rich:message styleClass="error errors" for="readAccess" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editReadAccess')}"/> 
+        <h:selectBooleanCheckbox id="#{prefix}_readAccess" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.readAccess}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_readAccess" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editReadAccess')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.roleFieldPrivilege_writeAccess}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editWriteAccess')}"/>  
         <br/>  
-        <h:selectBooleanCheckbox id="writeAccess" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.writeAccess}"/>  
-        <rich:message styleClass="error errors" for="writeAccess" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editWriteAccess')}"/> 
+        <h:selectBooleanCheckbox id="#{prefix}_writeAccess" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.writeAccess}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_writeAccess" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editWriteAccess')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.roleFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editAppRole')}"/>  
         <br/>  
-        <h:selectOneMenu id="appRole" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.appRole}"> 
+        <h:selectOneMenu id="#{prefix}_appRoleappRole" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.appRole}"> 
           <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="appRole" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editAppRole')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_appRoleappRole" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editAppRole')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.roleFieldPrivilege_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editMetaField')}"/>  
         <br/>  
-        <h:selectOneMenu id="metaField" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.metaField}"> 
+        <h:selectOneMenu id="#{prefix}_metaFieldmetaField" value="#{roleFieldPrivilegeAction.roleFieldPrivilege.metaField}"> 
           <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="metaField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editMetaField')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_metaFieldmetaField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roleFieldPrivilege', 'editMetaField')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

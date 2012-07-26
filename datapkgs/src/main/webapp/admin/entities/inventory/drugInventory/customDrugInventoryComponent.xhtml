@@ -9,26 +9,26 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInventory_drugAbstract}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editDrugAbstract')}"/>  
         <br/>  
-        <h:selectOneMenu id="drugAbstract" value="#{drugInventoryAction.drugInventory.drugAbstract}"> 
+        <h:selectOneMenu id="#{prefix}_drugAbstractdrugAbstract" value="#{drugInventoryAction.drugInventory.drugAbstract}"> 
           <s:selectItems value="#{drugAbstractList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="drugAbstract" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editDrugAbstract')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_drugAbstractdrugAbstract" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editDrugAbstract')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInventory_machine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editMachine')}"/>  
         <br/>  
-        <h:selectOneMenu id="machine" value="#{drugInventoryAction.drugInventory.machine}"> 
+        <h:selectOneMenu id="#{prefix}_machinemachine" value="#{drugInventoryAction.drugInventory.machine}"> 
           <s:selectItems value="#{machineList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="machine" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editMachine')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_machinemachine" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editMachine')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInventory_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editQty')}"/>  
         <br/>  
-        <h:inputText id="qty" value="#{drugInventoryAction.drugInventory.qty}"/>  
-        <rich:message styleClass="error errors" for="qty" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editQty')}"/> 
+        <h:inputText id="#{prefix}_qty" value="#{drugInventoryAction.drugInventory.qty}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_qty" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInventory', 'editQty')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

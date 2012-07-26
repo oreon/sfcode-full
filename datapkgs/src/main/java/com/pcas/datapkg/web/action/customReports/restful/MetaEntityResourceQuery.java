@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.customReports.MetaEntity;
 
-@Name("metaEntityResourceQuery")
-@Path("metaEntity")
+//@Name("metaEntityResourceQuery")
+//@Path("metaEntity")
 public class MetaEntityResourceQuery extends ResourceQuery<MetaEntity> {
 
 }

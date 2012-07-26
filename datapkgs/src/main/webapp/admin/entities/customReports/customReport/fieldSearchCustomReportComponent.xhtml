@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.customReport_fields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editFields')}"/>  
       <br/>  
-      <h:selectOneMenu id="fields" value="#{ customReportList.fieldsToSearch}"> 
+      <h:selectOneMenu id="#{prefix}_fieldsfields" value="#{ customReportList.fieldsToSearch}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
@@ -17,7 +17,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.customReport_groupFields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editGroupFields')}"/>  
       <br/>  
-      <h:selectOneMenu id="groupFields" value="#{ customReportList.groupFieldsToSearch}"> 
+      <h:selectOneMenu id="#{prefix}_groupFieldsgroupFields" value="#{ customReportList.groupFieldsToSearch}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
@@ -26,12 +26,12 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editName')}"/>  
       <br/>  
-      <h:inputText id="name" value="#{customReportList.customReport.name}"/> 
+      <h:inputText id="#{prefix}_name" value="#{customReportList.customReport.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'editMetaEntity')}"/>  
       <br/>  
-      <h:selectOneMenu id="metaEntity" value="#{ customReportList.customReport.metaEntity}"> 
+      <h:selectOneMenu id="#{prefix}_metaEntitymetaEntity" value="#{ customReportList.customReport.metaEntity}"> 
         <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 

@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.machine_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editCustomer')}"/>  
       <br/>  
-      <h:selectOneMenu id="customer" value="#{ machineList.machine.customer}"> 
+      <h:selectOneMenu id="#{prefix}_customercustomer" value="#{ machineList.machine.customer}"> 
         <s:selectItems value="#{customerList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -16,12 +16,12 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.machine_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editName')}"/>  
       <br/>  
-      <h:inputText id="name" value="#{machineList.machine.name}"/> 
+      <h:inputText id="#{prefix}_name" value="#{machineList.machine.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.machine_location}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('machine', 'editLocation')}"/>  
       <br/>  
-      <h:selectOneMenu id="location" value="#{ machineList.machine.location}"> 
+      <h:selectOneMenu id="#{prefix}_locationlocation" value="#{ machineList.machine.location}"> 
         <s:selectItems value="#{locationList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 

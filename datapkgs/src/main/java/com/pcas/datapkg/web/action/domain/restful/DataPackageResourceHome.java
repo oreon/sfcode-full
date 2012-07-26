@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.DataPackage;
 
-@Name("dataPackageResourceHome")
-@Path("dataPackage")
+//@Name("dataPackageResourceHome")
+//@Path("dataPackage")
 public class DataPackageResourceHome extends ResourceHome<DataPackage, Long> {
 	@In(create = true)
 	private EntityHome<DataPackage> dataPackageAction;

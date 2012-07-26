@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.Employee;
 
-@Name("employeeResourceHome")
-@Path("employee")
+//@Name("employeeResourceHome")
+//@Path("employee")
 public class EmployeeResourceHome extends ResourceHome<Employee, Long> {
 	@In(create = true)
 	private EntityHome<Employee> employeeAction;

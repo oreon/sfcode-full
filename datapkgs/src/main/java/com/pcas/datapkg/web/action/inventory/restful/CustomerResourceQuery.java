@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.inventory.Customer;
 
-@Name("customerResourceQuery")
-@Path("customer")
+//@Name("customerResourceQuery")
+//@Path("customer")
 public class CustomerResourceQuery extends ResourceQuery<Customer> {
 
 }

@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editMetaEntity')}"/>  
       <br/>  
-      <h:selectOneMenu id="metaEntity" value="#{ entityFieldPrivilegeList.entityFieldPrivilege.metaEntity}"> 
+      <h:selectOneMenu id="#{prefix}_metaEntitymetaEntity" value="#{ entityFieldPrivilegeList.entityFieldPrivilege.metaEntity}"> 
         <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -16,7 +16,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.entityFieldPrivilege_appRole}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editAppRole')}"/>  
       <br/>  
-      <h:selectOneMenu id="appRole" value="#{ entityFieldPrivilegeList.entityFieldPrivilege.appRole}"> 
+      <h:selectOneMenu id="#{prefix}_appRoleappRole" value="#{ entityFieldPrivilegeList.entityFieldPrivilege.appRole}"> 
         <s:selectItems value="#{appRoleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -24,7 +24,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editPrivilegeType')}"/>  
       <br/>  
-      <h:selectOneMenu id="privilegeType" value="#{entityFieldPrivilegeList.entityFieldPrivilege.privilegeType}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_privilegeType" value="#{entityFieldPrivilegeList.entityFieldPrivilege.privilegeType}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="None" itemValue=""/>  
         <f:selectItem itemValue="READ" itemLabel="Read"/>  
@@ -36,7 +36,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.entityFieldPrivilege_readAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editReadAllowed')}"/>  
       <br/>  
-      <h:selectOneMenu id="readAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.readAllowed}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_readAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.readAllowed}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
@@ -45,7 +45,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.entityFieldPrivilege_writeAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editWriteAllowed')}"/>  
       <br/>  
-      <h:selectOneMenu id="writeAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.writeAllowed}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_writeAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.writeAllowed}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
@@ -54,7 +54,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.entityFieldPrivilege_editAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editEditAllowed')}"/>  
       <br/>  
-      <h:selectOneMenu id="editAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.editAllowed}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_editAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.editAllowed}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
@@ -63,7 +63,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.entityFieldPrivilege_deleteAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'editDeleteAllowed')}"/>  
       <br/>  
-      <h:selectOneMenu id="deleteAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.deleteAllowed}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_deleteAllowed" value="#{entityFieldPrivilegeList.entityFieldPrivilege.deleteAllowed}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 

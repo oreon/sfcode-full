@@ -14,13 +14,13 @@
         <h:outputText value="#{msg.entityFieldPrivilege_privilegeType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewPrivilegeType')}"/>  
         <h:outputText value="#{entityFieldPrivilegeAction.entityFieldPrivilege.privilegeType}"/>  
         <h:outputText value="#{msg.entityFieldPrivilege_readAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewReadAllowed')}"/>  
-        <h:outputText id="readAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewReadAllowed')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.readAllowed}"></h:outputText>  
+        <h:outputText id="#{prefix}_readAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewReadAllowed')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.readAllowed}"></h:outputText>  
         <h:outputText value="#{msg.entityFieldPrivilege_writeAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewWriteAllowed')}"/>  
-        <h:outputText id="writeAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewWriteAllowed')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.writeAllowed}"></h:outputText>  
+        <h:outputText id="#{prefix}_writeAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewWriteAllowed')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.writeAllowed}"></h:outputText>  
         <h:outputText value="#{msg.entityFieldPrivilege_editAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewEditAllowed')}"/>  
-        <h:outputText id="editAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewEditAllowed')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.editAllowed}"></h:outputText>  
+        <h:outputText id="#{prefix}_editAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewEditAllowed')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.editAllowed}"></h:outputText>  
         <h:outputText value="#{msg.entityFieldPrivilege_deleteAllowed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewDeleteAllowed')}"/>  
-        <h:outputText id="deleteAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewDeleteAllowed')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.deleteAllowed}"></h:outputText>  
+        <h:outputText id="#{prefix}_deleteAllowed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewDeleteAllowed')}" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.deleteAllowed}"></h:outputText>  
         <h:outputText value="#{msg.entityFieldPrivilege_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityFieldPrivilege', 'viewMetaEntity')}"/>  
         <s:link value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity.displayName}" action="viewmetaEntity" propagation="none"> 
           <f:param name="metaEntityId" value="#{entityFieldPrivilegeAction.entityFieldPrivilege.metaEntity.id}"/>  

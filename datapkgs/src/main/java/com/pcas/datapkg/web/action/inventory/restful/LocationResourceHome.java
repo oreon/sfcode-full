@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.domain.inventory.Location;
 
-@Name("locationResourceHome")
-@Path("location")
+//@Name("locationResourceHome")
+//@Path("location")
 public class LocationResourceHome extends ResourceHome<Location, Long> {
 	@In(create = true)
 	private EntityHome<Location> locationAction;

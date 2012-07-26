@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.DashboardComponent}"/> 
         </f:facet>  
         <h:outputText value="#{msg.dashboardComponent_contents}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'viewContents')}"/>  
-        <h:outputText id="contents#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'viewContents')}" value="#{dashboardComponentAction.dashboardComponent.contents}"></h:outputText>  
+        <h:outputText id="#{prefix}_contents#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'viewContents')}" value="#{dashboardComponentAction.dashboardComponent.contents}"></h:outputText>  
         <h:outputText value="#{msg.dashboardComponent_dashboard}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dashboardComponent', 'viewDashboard')}"/>  
         <s:link value="#{dashboardComponentAction.dashboardComponent.dashboard.displayName}" action="viewdashboard" propagation="none"> 
           <f:param name="dashboardId" value="#{dashboardComponentAction.dashboardComponent.dashboard.id}"/>  

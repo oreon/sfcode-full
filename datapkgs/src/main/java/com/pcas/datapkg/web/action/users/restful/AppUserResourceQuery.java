@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.users.AppUser;
 
-@Name("appUserResourceQuery")
-@Path("appUser")
+//@Name("appUserResourceQuery")
+//@Path("appUser")
 public class AppUserResourceQuery extends ResourceQuery<AppUser> {
 
 }

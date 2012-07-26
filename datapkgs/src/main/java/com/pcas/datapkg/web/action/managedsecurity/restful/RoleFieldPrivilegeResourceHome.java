@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.managedsecurity.RoleFieldPrivilege;
 
-@Name("roleFieldPrivilegeResourceHome")
-@Path("roleFieldPrivilege")
+//@Name("roleFieldPrivilegeResourceHome")
+//@Path("roleFieldPrivilege")
 public class RoleFieldPrivilegeResourceHome
 		extends
 			ResourceHome<RoleFieldPrivilege, Long> {

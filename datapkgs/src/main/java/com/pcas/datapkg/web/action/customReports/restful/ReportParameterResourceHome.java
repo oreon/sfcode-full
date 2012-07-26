@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.customReports.ReportParameter;
 
-@Name("reportParameterResourceHome")
-@Path("reportParameter")
+//@Name("reportParameterResourceHome")
+//@Path("reportParameter")
 public class ReportParameterResourceHome
 		extends
 			ResourceHome<ReportParameter, Long> {

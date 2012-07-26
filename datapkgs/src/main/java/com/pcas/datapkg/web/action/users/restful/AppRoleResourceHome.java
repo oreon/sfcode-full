@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.pcas.datapkg.users.AppRole;
 
-@Name("appRoleResourceHome")
-@Path("appRole")
+//@Name("appRoleResourceHome")
+//@Path("appRole")
 public class AppRoleResourceHome extends ResourceHome<AppRole, Long> {
 	@In(create = true)
 	private EntityHome<AppRole> appRoleAction;

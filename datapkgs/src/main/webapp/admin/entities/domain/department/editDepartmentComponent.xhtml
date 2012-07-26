@@ -11,11 +11,11 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Department}"/> 
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.department_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'editName')}" label="#{msg.department_name}" required="true" disabled="false" value="#{departmentAction.department.name}"> 
+          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'editName')}" label="#{msg.department_name}" required="true" disabled="false" value="#{departmentAction.department.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.reportParameter_customReport}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editCustomReport')}"/>  
       <br/>  
-      <h:selectOneMenu id="customReport" value="#{ reportParameterList.reportParameter.customReport}"> 
+      <h:selectOneMenu id="#{prefix}_customReportcustomReport" value="#{ reportParameterList.reportParameter.customReport}"> 
         <s:selectItems value="#{customReportList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -16,7 +16,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.reportParameter_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editMetaField')}"/>  
       <br/>  
-      <h:selectOneMenu id="metaField" value="#{ reportParameterList.reportParameter.metaField}"> 
+      <h:selectOneMenu id="#{prefix}_metaFieldmetaField" value="#{ reportParameterList.reportParameter.metaField}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -24,7 +24,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.reportParameter_comparison}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editComparison')}"/>  
       <br/>  
-      <h:selectOneMenu id="comparison" value="#{reportParameterList.reportParameter.comparison}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_comparison" value="#{reportParameterList.reportParameter.comparison}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="None" itemValue=""/>  
         <f:selectItem itemValue="GREATER_THAN" itemLabel="Greater_than"/>  
@@ -36,7 +36,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.reportParameter_mandatory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editMandatory')}"/>  
       <br/>  
-      <h:selectOneMenu id="mandatory" value="#{reportParameterList.reportParameter.mandatory}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_mandatory" value="#{reportParameterList.reportParameter.mandatory}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
@@ -45,12 +45,12 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.reportParameter_defaultValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editDefaultValue')}"/>  
       <br/>  
-      <h:inputText id="defaultValue" value="#{reportParameterList.reportParameter.defaultValue}"/> 
+      <h:inputText id="#{prefix}_defaultValue" value="#{reportParameterList.reportParameter.defaultValue}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.reportParameter_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'editName')}"/>  
       <br/>  
-      <h:inputText id="name" value="#{reportParameterList.reportParameter.name}"/> 
+      <h:inputText id="#{prefix}_name" value="#{reportParameterList.reportParameter.name}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 
