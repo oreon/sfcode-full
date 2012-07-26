@@ -39,7 +39,11 @@ import «getTopLevelPackage()».ProjectUtils;
 
 «IF hasCollections» import «fqn()»;«ENDIF»
 
+«IF getCartridge() == "RICH"»
+@Name("«getAction()»")
+«ELSE»
 @Named
+«ENDIF»
 public class «name»Action extends BaseReportAction {
 
  «FOREACH allOwnedElements().typeSelect(wcprofile::ReportParameter) AS param»
