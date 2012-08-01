@@ -40,6 +40,21 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	
 	private Bed nonPreferredBed ;
 	
+	private Integer preferredBedsCount = 0;
+	private Integer nonPreferredBedsCount = 0;
+	
+	public Integer getNonPreferredBedsCount() {
+		return getNonPreferredBedsList().size();
+	}
+	
+	public Integer getpreferredBedsCount() {
+		return getPrefferedBeds().size();
+	}
+
+	public void setNonPreferredBedsCount(Integer nonPreferredBedsCount) {
+		this.nonPreferredBedsCount = nonPreferredBedsCount;
+	}
+
 	@In
 	Conversation conversation;
 	
@@ -49,6 +64,10 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 
 	public void setPreferredBed(Bed preferredBed) {
 		this.preferredBed = preferredBed;
+	}
+
+	public void setPreferredBedsCount(Integer preferredBedsCount) {
+		this.preferredBedsCount = preferredBedsCount;
 	}
 
 	
@@ -79,6 +98,8 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		System.out.println("looking for " + ward.getName() + " " + roomType.getName());
 		List<Room> rooms =  executeQuery(qryPref, ward.getId(), roomType );
 		
+		
+		
 		return rooms;
 	}
 	
@@ -93,7 +114,7 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 			Hibernate.initialize(room.getBeds());
 			beds.addAll(room.getBeds());
 		}
-		
+		setPreferredBedsCount(beds.size());
 		
 		return beds;
 	}
@@ -116,6 +137,8 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 			Hibernate.initialize(room.getBeds());
 			beds.addAll(room.getBeds());
 		}
+		
+		setNonPreferredBedsCount(beds.size());
 		return beds;
 	}
 	
