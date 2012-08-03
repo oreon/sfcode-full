@@ -268,5 +268,12 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		//this.selectedBed = this.bed;
 	}
 	
+	public List<Ward> getWardList(){
+		if(instance.getPatient() == null || instance.getPatient().getGender() == null )
+			return new ArrayList<Ward>();
+		System.out.println(instance.getPatient().getGender());
+		String qry = "Select e from Ward e where e.gender = ?  or e.gender is null ";
+		return executeQuery(qry, instance.getPatient().getGender());
+	}
 }
 	
