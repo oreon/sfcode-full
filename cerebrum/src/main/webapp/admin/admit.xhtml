@@ -62,10 +62,10 @@
 										<h:column>
 											<h:outputText value="#{_result.address.phone}" />
 										</h:column>
-										<a:support event="onselect">
+										<a:support event="onselect" reRender="wardDecorate" >
 											<f:setPropertyActionListener value="#{_result}"
 												target="#{admissionAction.admission.patient}" />
-
+											<s:conversationId />
 										</a:support>
 									</rich:suggestionbox>
 								</a:region>
@@ -82,7 +82,7 @@
 								value="#{admissionAction.ward}" required="true"
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"
 								disabled="false">
-								<s:selectItems value="#{wardList}" var="itemIter"
+								<s:selectItems value="#{admissionAction.wardList}" var="itemIter"
 									label="#{itemIter.displayName}"
 									noSelectionLabel="Please Select..." />
 								<rich:ajaxValidator event="onsubmit" />
