@@ -429,7 +429,7 @@
 		«IF isColumn() && this.controls != null » <a:support event="onchange" 
 			action="#{«class.getAction()».onChange«name.toFirstUpper()»}"  reRender="«controls»" ajaxSingle="true" />
 		«ENDIF»
-		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List"»}" var="itemIter"
+		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.all"»}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		«genAjaxValidator()»
