@@ -281,14 +281,14 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	
 	public BigDecimal getTotalCharges(){
 		List<BedStay> stays = instance.getListBedStays();
-		BigDecimal total = new BigDecimal(0.0);
+		Double total = 0.0; //new BigDecimal(0.0);
 		for (BedStay bedStay : stays) {
 			Days days = Days.daysBetween(new DateTime(bedStay.getFromDate()),new DateTime( bedStay.getToDate()) );
-
-			total.add( new BigDecimal ( bedStay.getBed().getRoom().getRoomType().getRate() * (days.getDays()) ) ); 
+			Double current = bedStay.getBed().getRoom().getRoomType().getRate() * (days.getDays()) ;
+			total += current; 
 		}
 		
-		return total;
+		return new BigDecimal(total);
 		
 	}
 }
