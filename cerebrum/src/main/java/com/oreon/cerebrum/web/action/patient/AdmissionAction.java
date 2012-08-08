@@ -3,6 +3,7 @@
 package com.oreon.cerebrum.web.action.patient;
 	
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,8 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Conversation;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.witchcraft.exceptions.BusinessException;
 
 import com.oreon.cerebrum.facility.Bed;
@@ -274,6 +277,19 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		System.out.println(instance.getPatient().getGender());
 		String qry = "Select e from Ward e where e.gender = ?  or e.gender is null ";
 		return executeQuery(qry, instance.getPatient().getGender());
+	}
+	
+	public BigDecimal getTotalCharges(){
+		List<BedStay> stays = instance.getListBedStays();
+		BigDecimal total = new BigDecimal(0.0);
+		for (BedStay bedStay : stays) {
+			Days days = Days.daysBetween(new DateTime(bedStay.getFromDate()),new DateTime( bedStay.getToDate()) );
+
+			total.add( new BigDecimal ( bedStay.getBed().getRoom().getRoomType().getRate() * (days.getDays()) ) ); 
+		}
+		
+		return total;
+		
 	}
 }
 	
