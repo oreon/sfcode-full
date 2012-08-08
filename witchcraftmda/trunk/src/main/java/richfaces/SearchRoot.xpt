@@ -258,7 +258,7 @@
 	<h:panelGroup>
 	«getOutputMessage()» <br/>
 	<h:selectOneMenu id="«getId()»" value="#{ «getCurrentEntity().asVar()»List.«isManyToMany() ? name +"ToSearch": genPropertyLabel()»}" >
-		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
+		<s:selectItems value="#{«type.asVar()»List.all}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Any..." />
 		<s:convertEntity />
