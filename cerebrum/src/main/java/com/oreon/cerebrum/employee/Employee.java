@@ -58,6 +58,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @XmlRootElement
 public class Employee extends com.oreon.cerebrum.patient.Person
 		implements
