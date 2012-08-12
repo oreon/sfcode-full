@@ -53,14 +53,12 @@ import org.jboss.seam.persistence.PersistenceProvider;
 import org.jboss.seam.security.Identity;
 import org.witchcraft.exceptions.ContractViolationException;
 
+
 import com.oreon.cerebrum.web.action.users.AppUserAction;
-
-
-
 
 /**
  * @author User
- *
+ * 
  * @param <E>
  * @param <PK>
  */
@@ -76,21 +74,19 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	@Logger
 	protected Log log;
-	
+
 	@In
 	protected StatusMessages statusMessages;
-	
-	@In(create=true)
+
+	@In(create = true)
 	AppUserAction appUserAction;
 
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
-	
 	private String searchName;
-	
+
 	private SavedSearch currentSavedSearch;
-	
-	
+
 	public String getSearchName() {
 		return searchName;
 	}
@@ -103,7 +99,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	@RequestParameter
 	protected String searchText;
-	
+
 	@In
 	Identity identity;
 
@@ -227,6 +223,11 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		return (E) getEntityManager().find(getEntityClass(), id);
 	}
 
+	public List<E> getAll() {
+		setMaxResults(100000);
+		return getResultList();
+	}
+
 	/**
 	 * Get records by a named query. Can also optionally get all records
 	 * starting at a start position and the count of records to return
@@ -309,14 +310,13 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 		if (searchText == null)
 			searchText = textToSearch;
-		if (searchText == null){
+		if (searchText == null) {
 			log.error("no object to search");
 			return "";
 		}
-		
-		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA ,
-			 entityManager.getSearchFactory()
-						.getAnalyzer("entityAnalyzer"));
+
+		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA,
+				entityManager.getSearchFactory().getAnalyzer("entityAnalyzer"));
 
 		org.apache.lucene.search.Query query = null;
 
@@ -324,26 +324,26 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 			query = parser.parse(searchText);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
-		} 
+		}
 
 		QueryScorer scorer = new QueryScorer(query, SEARCH_DATA);
 		// Highlight using a CSS style
 		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter(
 				"<span style='background-color:yellow;'>", "</span>");
-		Highlighter highlighter = new Highlighter(formatter, scorer); 
+		Highlighter highlighter = new Highlighter(formatter, scorer);
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
 
 		FullTextQuery ftq = entityManager.createFullTextQuery(query,
 				getEntityClass());
 
 		List<E> result = ftq.getResultList();
-		
+
 		for (E e : result) {
 			try {
 				String fragment = highlighter.getBestFragment(entityManager
 						.getSearchFactory().getAnalyzer("entityAnalyzer"),
-						SEARCH_DATA, e.getSearchData() );
-				
+						SEARCH_DATA, e.getSearchData());
+
 				e.setHiglightedFragment(fragment);
 			} catch (Exception ex) {
 				throw new ContractViolationException(ex.getMessage());
@@ -359,10 +359,10 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		this.entityList = list;
 	}
 
-	//@Begin(join=true)
+	// @Begin(join=true)
 	public List<E> getEntityList() {
-		//if(entityList == null )
-		//	textSearch();
+		// if(entityList == null )
+		// textSearch();
 		return entityList;
 	}
 
@@ -450,7 +450,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	public void exportToCsv() {
 		int originalMaxResults = getMaxResults();
 		setMaxResults(50000);
-		
+
 		List<E> results = getResultList();
 
 		StringBuilder builder = new StringBuilder();
@@ -463,80 +463,83 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		setMaxResults(originalMaxResults);
 		downloadAttachment(builder.toString().getBytes());
 	}
-	
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	public void createCsvString(StringBuilder builder, E e){
-	}
-	
 
-	
-	/** create the headings 
+	/**
+	 * create comma delimited row
+	 * 
 	 * @param builder
 	 */
-	public void createCSvTitles(StringBuilder builder ){
-	
+	public void createCsvString(StringBuilder builder, E e) {
 	}
-	
-	
+
+	/**
+	 * create the headings
+	 * 
+	 * @param builder
+	 */
+	public void createCSvTitles(StringBuilder builder) {
+
+	}
+
 	protected boolean isPostBack() {
 		ResponseStateManager rtm = FacesContext.getCurrentInstance()
 				.getRenderKit().getResponseStateManager();
 		return rtm.isPostback(FacesContext.getCurrentInstance());
 	}
-	
-	/** Creates a string for export to csv, if null, blank string is returned
+
+	/**
+	 * Creates a string for export to csv, if null, blank string is returned
+	 * 
 	 * @param e
 	 * @return
 	 */
 	protected String getFieldForCSV(String e) {
-		return (e != null ? e.replace("," , "") : "");
+		return (e != null ? e.replace(",", "") : "");
 	}
 
-	
-	
-	public void saveSearch(){
-		
-		if(searchName == null || StringUtils.isEmpty(searchName)){
+	public void saveSearch() {
+
+		if (searchName == null || StringUtils.isEmpty(searchName)) {
 			addErrorMessage("Search name is required");
 			return;
 		}
-		
-		SavedSearch search  = null;
-		
-		//if(searchName!=null)
+
+		SavedSearch search = null;
+
+		// if(searchName!=null)
 		search = findSavedSearchByName(searchName);
-		if(search == null)
+		if (search == null)
 			search = new SavedSearch();
-		
+
 		search.setSearchName(searchName);
 		search.setEntityName(getEntityClass().getSimpleName());
 		search.setEncodedXml(encode());
-		search.setCreatedByUser(appUserAction.findByUnqUserName(identity.getCredentials().getUsername()));
+		search.setCreatedByUser(appUserAction.findByUnqUserName(identity
+				.getCredentials().getUsername()));
 
 		entityManager.persist(search);
 	}
-	
-	public void executeSearch(){
-		SavedSearch savedSearch = findSavedSearchByName( currentSavedSearch.getSearchName());
+
+	public void executeSearch() {
+		SavedSearch savedSearch = findSavedSearchByName(currentSavedSearch
+				.getSearchName());
 		decode(savedSearch);
 	}
-	
-	public SavedSearch findSavedSearchByName(String searchNameStr){
-		return executeSingleResultNamedQuery("savedSearch.searchByName", getEntityClass().getSimpleName(), 
-				searchNameStr, identity.getCredentials().getUsername());
+
+	public SavedSearch findSavedSearchByName(String searchNameStr) {
+		return executeSingleResultNamedQuery("savedSearch.searchByName",
+				getEntityClass().getSimpleName(), searchNameStr, identity
+						.getCredentials().getUsername());
 	}
-	
-	public List<E> executeSearch(String searchName){
-		if(currentSavedSearch == null) 
+
+	public List<E> executeSearch(String searchName) {
+		if (currentSavedSearch == null)
 			currentSavedSearch = new SavedSearch();
-		currentSavedSearch.setSearchName( searchName );
+		currentSavedSearch.setSearchName(searchName);
 		executeSearch();
 		return getResultList();
 	}
-	
-	
+
 	protected void addInfoMessage(String message, Object... params) {
 		statusMessages.add(message, params);
 	}
@@ -544,38 +547,42 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	protected void addErrorMessage(String message, Object... params) {
 		statusMessages.add(Severity.ERROR, message, params);
 	}
-	public List<SavedSearch> getSavedSearches(){
-		return executeNamedQuery( "savedSearch.searchesForEntity",  getEntityClass().getSimpleName() , identity.getCredentials().getUsername());
-		//return null;
+
+	public List<SavedSearch> getSavedSearches() {
+		return executeNamedQuery("savedSearch.searchesForEntity",
+				getEntityClass().getSimpleName(), identity.getCredentials()
+						.getUsername());
+		// return null;
 	}
-	
+
 	public String encode() {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(1024 * 20);
-		XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(bos ));
+		XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(bos));
 		E entity = getInstance();
 		Hibernate.initialize(entity);
 		if (entity instanceof HibernateProxy) {
 			entity = (E) ((HibernateProxy) entity)
 					.getHibernateLazyInitializer().getImplementation();
 		}
-		
+
 		setInstance(entity);
-		
-		PersistenceDelegate pd=encoder.getPersistenceDelegate(Integer.class); 
-		encoder.setPersistenceDelegate(BigDecimal.class,pd );
-		
+
+		PersistenceDelegate pd = encoder.getPersistenceDelegate(Integer.class);
+		encoder.setPersistenceDelegate(BigDecimal.class, pd);
+
 		encoder.writeObject(this);
 		encoder.close();
-		//System.out.println(" ecoded xml : " + new String(bos.toByteArray()));
+		// System.out.println(" ecoded xml : " + new String(bos.toByteArray()));
 		return (new String(bos.toByteArray()));
 	}
-	
-	
-	
+
 	@SuppressWarnings("unchecked")
-	public void decode(SavedSearch savedSearch){
-		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new ByteArrayInputStream(savedSearch.getEncodedXml().getBytes()) ));
-		BaseQuery<BaseEntity, Long> temp = ((BaseQuery<BaseEntity, Long>) decoder.readObject());
+	public void decode(SavedSearch savedSearch) {
+		XMLDecoder decoder = new XMLDecoder(
+				new BufferedInputStream(new ByteArrayInputStream(savedSearch
+						.getEncodedXml().getBytes())));
+		BaseQuery<BaseEntity, Long> temp = ((BaseQuery<BaseEntity, Long>) decoder
+				.readObject());
 		try {
 			BeanUtils.copyProperties(this, temp);
 		} catch (IllegalAccessException e) {
@@ -587,9 +594,6 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		}
 		decoder.close();
 	}
-	
-	
-	
 
 	@SuppressWarnings("unchecked")
 	public <S> List<S> executeQuery(String queryString, Object... params) {
@@ -613,8 +617,6 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 			return null;
 		}
 	}
-
-
 
 	@SuppressWarnings("unchecked")
 	public <S> List<S> executeNamedQuery(String queryString, Object... params) {
