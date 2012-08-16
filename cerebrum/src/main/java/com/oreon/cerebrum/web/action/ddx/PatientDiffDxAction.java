@@ -61,6 +61,29 @@ public class PatientDiffDxAction extends PatientDiffDxActionBase implements
 		
 		return "success";
 	}
+	
+	
+	@Override
+	public void deletePatientFindings(int index) {
+		// TODO Auto-generated method stub
+		Finding finding = getListPatientFindings().get(index).getFinding();
+		
+		super.deletePatientFindings(index);
+		
+		List<DifferentialDx> dxs = finding.getListDifferentialDxs();
+
+		for (DifferentialDx differentialDx : dxs) {
+			Integer value = map.get(differentialDx.getName());
+			value--;
+			if (value == 0) {
+				map.remove(differentialDx.getName());
+			} else {
+				map.put(differentialDx.getName(), value);
+			}
+		}
+		
+		updateDiff();
+	}
 
 	// @Override
 	public void setNewFinding(Finding finding) {
