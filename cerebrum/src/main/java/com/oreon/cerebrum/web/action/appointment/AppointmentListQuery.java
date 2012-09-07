@@ -15,6 +15,8 @@ import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
+
+import java.math.BigDecimal;
 	
 	
 @Name("appointmentList")

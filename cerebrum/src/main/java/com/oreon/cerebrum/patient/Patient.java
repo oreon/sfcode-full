@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -43,17 +44,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "patient")
-@Filter(name = "archiveFilterDef")
+@Filters({@Filter(name = "archiveFilterDef"),
+
+})
 @Name("patient")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
@@ -66,7 +70,7 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<Admission> admissions = new HashSet<Admission>();
 
@@ -87,7 +91,7 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<Prescription> prescriptions = new HashSet<Prescription>();
 
@@ -123,7 +127,7 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> unusualOccurences = new HashSet<com.oreon.cerebrum.unusualoccurences.UnusualOccurence>();
 
@@ -146,28 +150,29 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
-	private Set<Document> documents = new HashSet<Document>();
+	private Set<PatientDocument> patientDocuments = new HashSet<PatientDocument>();
 
-	public void addDocument(Document document) {
-		document.setPatient(this);
-		this.documents.add(document);
+	public void addPatientDocument(PatientDocument patientDocument) {
+		patientDocument.setPatient(this);
+		this.patientDocuments.add(patientDocument);
 	}
 
 	@Transient
-	public List<com.oreon.cerebrum.patient.Document> getListDocuments() {
-		return new ArrayList<com.oreon.cerebrum.patient.Document>(documents);
+	public List<com.oreon.cerebrum.patient.PatientDocument> getListPatientDocuments() {
+		return new ArrayList<com.oreon.cerebrum.patient.PatientDocument>(
+				patientDocuments);
 	}
 
 	//JSF Friendly function to get count of collections
-	public int getDocumentsCount() {
-		return documents.size();
+	public int getPatientDocumentsCount() {
+		return patientDocuments.size();
 	}
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<Allergy> allergys = new HashSet<Allergy>();
 
@@ -188,7 +193,7 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<Immunization> immunizations = new HashSet<Immunization>();
 
@@ -208,8 +213,7 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 		return immunizations.size();
 	}
 
-	@NotNull
-	@Column(name = "healthNumber", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String healthNumber
@@ -218,7 +222,7 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<VitalValue> vitalValues = new HashSet<VitalValue>();
 
@@ -235,6 +239,43 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	//JSF Friendly function to get count of collections
 	public int getVitalValuesCount() {
 		return vitalValues.size();
+	}
+
+	@IndexedEmbedded
+	@AttributeOverrides({
+
+			@AttributeOverride(name = "medicalHistory", column = @Column(name = "history_medicalHistory")),
+
+			@AttributeOverride(name = "socialHistory", column = @Column(name = "history_socialHistory")),
+
+			@AttributeOverride(name = "familyHistory", column = @Column(name = "history_familyHistory")),
+
+			@AttributeOverride(name = "medications", column = @Column(name = "history_medications")),
+
+			@AttributeOverride(name = "allergies", column = @Column(name = "history_allergies"))
+
+	})
+	protected History history = new History();
+
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "patient_ID", nullable = true)
+	@OrderBy("id DESC")
+	@IndexedEmbedded
+	private Set<com.oreon.cerebrum.encounter.Encounter> encounters = new HashSet<com.oreon.cerebrum.encounter.Encounter>();
+
+	public void addEncounter(com.oreon.cerebrum.encounter.Encounter encounter) {
+		encounter.setPatient(this);
+		this.encounters.add(encounter);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.encounter.Encounter> getListEncounters() {
+		return new ArrayList<com.oreon.cerebrum.encounter.Encounter>(encounters);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getEncountersCount() {
+		return encounters.size();
 	}
 
 	public void setAdmissions(Set<Admission> admissions) {
@@ -272,12 +313,12 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 		return unusualOccurences;
 	}
 
-	public void setDocuments(Set<Document> documents) {
-		this.documents = documents;
+	public void setPatientDocuments(Set<PatientDocument> patientDocuments) {
+		this.patientDocuments = patientDocuments;
 	}
 
-	public Set<Document> getDocuments() {
-		return documents;
+	public Set<PatientDocument> getPatientDocuments() {
+		return patientDocuments;
 	}
 
 	public void setAllergys(Set<Allergy> allergys) {
@@ -312,6 +353,25 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	public Set<VitalValue> getVitalValues() {
 		return vitalValues;
+	}
+
+	public void setHistory(History history) {
+		this.history = history;
+	}
+
+	public History getHistory() {
+
+		return history;
+
+	}
+
+	public void setEncounters(
+			Set<com.oreon.cerebrum.encounter.Encounter> encounters) {
+		this.encounters = encounters;
+	}
+
+	public Set<com.oreon.cerebrum.encounter.Encounter> getEncounters() {
+		return encounters;
 	}
 
 	@Transient
@@ -354,6 +414,16 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 		listSearchableFields.add("address.phone");
 
+		listSearchableFields.add("history.medicalHistory");
+
+		listSearchableFields.add("history.socialHistory");
+
+		listSearchableFields.add("history.familyHistory");
+
+		listSearchableFields.add("history.medications");
+
+		listSearchableFields.add("history.allergies");
+
 		return listSearchableFields;
 	}
 
@@ -376,7 +446,7 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BaseEntity e : documents) {
+		for (BaseEntity e : patientDocuments) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
@@ -389,6 +459,10 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 		}
 
 		for (BaseEntity e : vitalValues) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BaseEntity e : encounters) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

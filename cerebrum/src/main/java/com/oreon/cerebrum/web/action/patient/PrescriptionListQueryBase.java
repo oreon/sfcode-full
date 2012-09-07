@@ -58,7 +58,7 @@ public abstract class PrescriptionListQueryBase
 
 			"prescription.patient.id = #{prescriptionList.prescription.patient.id}",
 
-			"lower(prescription.notes) like concat(lower(#{prescriptionList.prescription.notes}),'%')",
+			"lower(prescription.directivesForPatient) like concat(lower(#{prescriptionList.prescription.directivesForPatient}),'%')",
 
 			"prescription.active = #{prescriptionList.prescription.active}",
 
@@ -88,7 +88,8 @@ public abstract class PrescriptionListQueryBase
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getNotes() != null ? e.getNotes().replace(",", "") : "")
+				+ (e.getDirectivesForPatient() != null ? e
+						.getDirectivesForPatient().replace(",", "") : "")
 				+ "\",");
 
 		builder.append("\"" + (e.getActive() != null ? e.getActive() : "")
@@ -105,7 +106,7 @@ public abstract class PrescriptionListQueryBase
 
 		builder.append("Patient" + ",");
 
-		builder.append("Notes" + ",");
+		builder.append("DirectivesForPatient" + ",");
 
 		builder.append("Active" + ",");
 

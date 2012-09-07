@@ -78,6 +78,8 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 			"lower(patient.contactDetails.email) like concat(lower(#{patientList.patient.contactDetails.email}),'%')",
 
+			"patient.title = #{patientList.patient.title}",
+
 			"lower(patient.address.streetAddress) like concat(lower(#{patientList.patient.address.streetAddress}),'%')",
 
 			"lower(patient.address.city) like concat(lower(#{patientList.patient.address.city}),'%')",
@@ -87,6 +89,16 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 			"lower(patient.address.phone) like concat(lower(#{patientList.patient.address.phone}),'%')",
 
 			"lower(patient.healthNumber) like concat(lower(#{patientList.patient.healthNumber}),'%')",
+
+			"lower(patient.history.medicalHistory) like concat(lower(#{patientList.patient.history.medicalHistory}),'%')",
+
+			"lower(patient.history.socialHistory) like concat(lower(#{patientList.patient.history.socialHistory}),'%')",
+
+			"lower(patient.history.familyHistory) like concat(lower(#{patientList.patient.history.familyHistory}),'%')",
+
+			"lower(patient.history.medications) like concat(lower(#{patientList.patient.history.medications}),'%')",
+
+			"lower(patient.history.allergies) like concat(lower(#{patientList.patient.history.allergies}),'%')",
 
 			"patient.dateCreated <= #{patientList.dateCreatedRange.end}",
 			"patient.dateCreated >= #{patientList.dateCreatedRange.begin}",};
@@ -120,6 +132,9 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 				+ (e.getHealthNumber() != null ? e.getHealthNumber().replace(
 						",", "") : "") + "\",");
 
+		builder.append("\"" + (e.getHistory() != null ? e.getHistory() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -132,6 +147,8 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 		builder.append("Address" + ",");
 
 		builder.append("HealthNumber" + ",");
+
+		builder.append("History" + ",");
 
 		builder.append("\r\n");
 	}

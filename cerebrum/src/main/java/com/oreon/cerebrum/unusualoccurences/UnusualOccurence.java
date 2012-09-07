@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -43,17 +44,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "unusualoccurence")
-@Filter(name = "archiveFilterDef")
+@Filters({@Filter(name = "archiveFilterDef"),
+
+})
 @Name("unusualOccurence")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
@@ -67,26 +71,22 @@ public class UnusualOccurence extends BaseEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "occurenceType_id", nullable = false, updatable = true)
 	@ContainedIn
-	@NotNull
 	protected OccurenceType occurenceType
 
 	;
 
-	@NotNull
-	@Column(name = "category", unique = false)
+	@Column(unique = false)
 	protected TreatmentCategory category
 
 	;
 
-	@NotNull
-	@Column(name = "severity", unique = false)
+	@Column(unique = false)
 	protected Severity severity
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "description", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String description
@@ -96,7 +96,6 @@ public class UnusualOccurence extends BaseEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	@ContainedIn
-	@NotNull
 	protected com.oreon.cerebrum.patient.Patient patient
 
 	;
@@ -104,7 +103,6 @@ public class UnusualOccurence extends BaseEntity
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "createdBy_id", nullable = false, updatable = true)
 	@ContainedIn
-	@NotNull
 	protected com.oreon.cerebrum.employee.Employee createdBy
 
 	;

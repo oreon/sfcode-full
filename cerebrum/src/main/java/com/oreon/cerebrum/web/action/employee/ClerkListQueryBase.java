@@ -86,6 +86,8 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 
 			"lower(clerk.contactDetails.email) like concat(lower(#{clerkList.clerk.contactDetails.email}),'%')",
 
+			"clerk.title = #{clerkList.clerk.title}",
+
 			"clerk.dateCreated <= #{clerkList.dateCreatedRange.end}",
 			"clerk.dateCreated >= #{clerkList.dateCreatedRange.begin}",};
 
