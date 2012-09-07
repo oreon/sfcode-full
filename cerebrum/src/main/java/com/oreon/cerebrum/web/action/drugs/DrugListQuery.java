@@ -21,4 +21,8 @@ import org.jboss.seam.annotations.Observer;
 //@Scope(ScopeType.CONVERSATION)
 public class DrugListQuery extends DrugListQueryBase implements java.io.Serializable{
 	
+	public DrugListQuery() {
+		setOrder("drug.name");
+	}
+	
 }

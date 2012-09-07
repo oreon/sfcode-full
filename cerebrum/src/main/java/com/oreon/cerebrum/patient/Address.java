@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -43,11 +44,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
@@ -56,32 +58,28 @@ import com.oreon.cerebrum.ProjectUtils;
 public class Address implements java.io.Serializable {
 	private static final long serialVersionUID = -855511539L;
 
-	@NotNull
-	@Column(name = "streetAddress", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String streetAddress
 
 	;
 
-	@NotNull
-	@Column(name = "city", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String city
 
 	;
 
-	@NotNull
-	@Column(name = "State", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String State
 
 	;
 
-	@NotNull
-	@Column(name = "phone", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String phone

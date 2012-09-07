@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -43,17 +44,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "atcdrug")
-@Filter(name = "archiveFilterDef")
+@Filters({@Filter(name = "archiveFilterDef"),
+
+})
 @Name("atcDrug")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
@@ -62,8 +66,7 @@ import com.oreon.cerebrum.ProjectUtils;
 public class AtcDrug extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1623432457L;
 
-	@NotNull
-	@Column(name = "code", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String code
@@ -81,7 +84,7 @@ public class AtcDrug extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "parent_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	private Set<AtcDrug> subcategories = new HashSet<AtcDrug>();
 
 	public void addSubcategorie(AtcDrug subcategorie) {
@@ -102,14 +105,12 @@ public class AtcDrug extends BaseEntity implements java.io.Serializable {
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "drug_id", nullable = true, updatable = true)
 	@ContainedIn
-	@NotNull
 	protected Drug drug
 
 	;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id", nullable = true, updatable = true)
-	@NotNull
 	protected AtcDrug parent
 
 	;

@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -43,11 +44,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
@@ -73,14 +75,12 @@ public class Person extends BaseEntity {
 
 	;
 
-	@NotNull
-	@Column(name = "dateOfBirth", unique = false)
+	@Column(unique = false)
 	protected Date dateOfBirth
 
 	;
 
-	@NotNull
-	@Column(name = "gender", unique = false)
+	@Column(unique = false)
 	protected Gender gender
 
 	;
@@ -99,6 +99,11 @@ public class Person extends BaseEntity {
 
 	@Transient
 	protected Integer age
+
+	;
+
+	@Column(unique = false)
+	protected Title title
 
 	;
 
@@ -165,6 +170,16 @@ public class Person extends BaseEntity {
 			return 0;
 
 		}
+
+	}
+
+	public void setTitle(Title title) {
+		this.title = title;
+	}
+
+	public Title getTitle() {
+
+		return title;
 
 	}
 

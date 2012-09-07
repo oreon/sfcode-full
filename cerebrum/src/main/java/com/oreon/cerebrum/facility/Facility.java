@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -43,17 +44,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "facility")
-@Filter(name = "archiveFilterDef")
+@Filters({@Filter(name = "archiveFilterDef"),
+
+})
 @Name("facility")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
@@ -71,7 +75,7 @@ public class Facility extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "facility", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "facility_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<Ward> wards = new HashSet<Ward>();
 

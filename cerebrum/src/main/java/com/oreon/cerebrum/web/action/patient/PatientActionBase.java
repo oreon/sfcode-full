@@ -44,10 +44,11 @@ import org.richfaces.model.UploadItem;
 import com.oreon.cerebrum.patient.Admission;
 import com.oreon.cerebrum.patient.Prescription;
 import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
-import com.oreon.cerebrum.patient.Document;
+import com.oreon.cerebrum.patient.PatientDocument;
 import com.oreon.cerebrum.patient.Allergy;
 import com.oreon.cerebrum.patient.Immunization;
 import com.oreon.cerebrum.patient.VitalValue;
+import com.oreon.cerebrum.encounter.Encounter;
 
 public abstract class PatientActionBase
 		extends
@@ -69,8 +70,8 @@ public abstract class PatientActionBase
 	@In(create = true, value = "unusualOccurenceAction")
 	com.oreon.cerebrum.web.action.unusualoccurences.UnusualOccurenceAction unusualOccurencesAction;
 
-	@In(create = true, value = "documentAction")
-	com.oreon.cerebrum.web.action.patient.DocumentAction documentsAction;
+	@In(create = true, value = "patientDocumentAction")
+	com.oreon.cerebrum.web.action.patient.PatientDocumentAction patientDocumentsAction;
 
 	@In(create = true, value = "allergyAction")
 	com.oreon.cerebrum.web.action.patient.AllergyAction allergysAction;
@@ -80,6 +81,9 @@ public abstract class PatientActionBase
 
 	@In(create = true, value = "vitalValueAction")
 	com.oreon.cerebrum.web.action.patient.VitalValueAction vitalValuesAction;
+
+	@In(create = true, value = "encounterAction")
+	com.oreon.cerebrum.web.action.encounter.EncounterAction encountersAction;
 
 	@DataModel
 	private List<Patient> patientRecordList;
@@ -173,13 +177,15 @@ public abstract class PatientActionBase
 
 		initListUnusualOccurences();
 
-		initListDocuments();
+		initListPatientDocuments();
 
 		initListAllergys();
 
 		initListImmunizations();
 
 		initListVitalValues();
+
+		initListEncounters();
 
 	}
 
@@ -200,10 +206,10 @@ public abstract class PatientActionBase
 		unusualOccurences.setPatient(patient);
 		events.raiseTransactionSuccessEvent("archivedUnusualOccurence");
 
-		com.oreon.cerebrum.patient.Document documents = (com.oreon.cerebrum.patient.Document) org.jboss.seam.Component
-				.getInstance("document");
-		documents.setPatient(patient);
-		events.raiseTransactionSuccessEvent("archivedDocument");
+		com.oreon.cerebrum.patient.PatientDocument patientDocuments = (com.oreon.cerebrum.patient.PatientDocument) org.jboss.seam.Component
+				.getInstance("patientDocument");
+		patientDocuments.setPatient(patient);
+		events.raiseTransactionSuccessEvent("archivedPatientDocument");
 
 		com.oreon.cerebrum.patient.Allergy allergys = (com.oreon.cerebrum.patient.Allergy) org.jboss.seam.Component
 				.getInstance("allergy");
@@ -219,6 +225,11 @@ public abstract class PatientActionBase
 				.getInstance("vitalValue");
 		vitalValues.setPatient(patient);
 		events.raiseTransactionSuccessEvent("archivedVitalValue");
+
+		com.oreon.cerebrum.encounter.Encounter encounters = (com.oreon.cerebrum.encounter.Encounter) org.jboss.seam.Component
+				.getInstance("encounter");
+		encounters.setPatient(patient);
+		events.raiseTransactionSuccessEvent("archivedEncounter");
 
 	}
 
@@ -333,41 +344,41 @@ public abstract class PatientActionBase
 		getListUnusualOccurences().add(unusualOccurences);
 	}
 
-	protected List<com.oreon.cerebrum.patient.Document> listDocuments = new ArrayList<com.oreon.cerebrum.patient.Document>();
+	protected List<com.oreon.cerebrum.patient.PatientDocument> listPatientDocuments = new ArrayList<com.oreon.cerebrum.patient.PatientDocument>();
 
-	void initListDocuments() {
+	void initListPatientDocuments() {
 
-		if (listDocuments.isEmpty())
-			listDocuments.addAll(getInstance().getDocuments());
+		if (listPatientDocuments.isEmpty())
+			listPatientDocuments.addAll(getInstance().getPatientDocuments());
 
 	}
 
-	public List<com.oreon.cerebrum.patient.Document> getListDocuments() {
+	public List<com.oreon.cerebrum.patient.PatientDocument> getListPatientDocuments() {
 
-		prePopulateListDocuments();
-		return listDocuments;
+		prePopulateListPatientDocuments();
+		return listPatientDocuments;
 	}
 
-	public void prePopulateListDocuments() {
+	public void prePopulateListPatientDocuments() {
 	}
 
-	public void setListDocuments(
-			List<com.oreon.cerebrum.patient.Document> listDocuments) {
-		this.listDocuments = listDocuments;
+	public void setListPatientDocuments(
+			List<com.oreon.cerebrum.patient.PatientDocument> listPatientDocuments) {
+		this.listPatientDocuments = listPatientDocuments;
 	}
 
-	public void deleteDocuments(int index) {
-		listDocuments.remove(index);
+	public void deletePatientDocuments(int index) {
+		listPatientDocuments.remove(index);
 	}
 
 	@Begin(join = true)
-	public void addDocuments() {
-		initListDocuments();
-		Document documents = new Document();
+	public void addPatientDocuments() {
+		initListPatientDocuments();
+		PatientDocument patientDocuments = new PatientDocument();
 
-		documents.setPatient(getInstance());
+		patientDocuments.setPatient(getInstance());
 
-		getListDocuments().add(documents);
+		getListPatientDocuments().add(patientDocuments);
 	}
 
 	protected List<com.oreon.cerebrum.patient.Allergy> listAllergys = new ArrayList<com.oreon.cerebrum.patient.Allergy>();
@@ -481,6 +492,43 @@ public abstract class PatientActionBase
 		getListVitalValues().add(vitalValues);
 	}
 
+	protected List<com.oreon.cerebrum.encounter.Encounter> listEncounters = new ArrayList<com.oreon.cerebrum.encounter.Encounter>();
+
+	void initListEncounters() {
+
+		if (listEncounters.isEmpty())
+			listEncounters.addAll(getInstance().getEncounters());
+
+	}
+
+	public List<com.oreon.cerebrum.encounter.Encounter> getListEncounters() {
+
+		prePopulateListEncounters();
+		return listEncounters;
+	}
+
+	public void prePopulateListEncounters() {
+	}
+
+	public void setListEncounters(
+			List<com.oreon.cerebrum.encounter.Encounter> listEncounters) {
+		this.listEncounters = listEncounters;
+	}
+
+	public void deleteEncounters(int index) {
+		listEncounters.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addEncounters() {
+		initListEncounters();
+		Encounter encounters = new Encounter();
+
+		encounters.setPatient(getInstance());
+
+		getListEncounters().add(encounters);
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listAdmissions != null) {
@@ -498,9 +546,9 @@ public abstract class PatientActionBase
 			getInstance().getUnusualOccurences().addAll(listUnusualOccurences);
 		}
 
-		if (listDocuments != null) {
-			getInstance().getDocuments().clear();
-			getInstance().getDocuments().addAll(listDocuments);
+		if (listPatientDocuments != null) {
+			getInstance().getPatientDocuments().clear();
+			getInstance().getPatientDocuments().addAll(listPatientDocuments);
 		}
 
 		if (listAllergys != null) {
@@ -517,16 +565,22 @@ public abstract class PatientActionBase
 			getInstance().getVitalValues().clear();
 			getInstance().getVitalValues().addAll(listVitalValues);
 		}
+
+		if (listEncounters != null) {
+			getInstance().getEncounters().clear();
+			getInstance().getEncounters().addAll(listEncounters);
+		}
 	}
 
 	public void clearLists() {
 		listAdmissions.clear();
 		listPrescriptions.clear();
 		listUnusualOccurences.clear();
-		listDocuments.clear();
+		listPatientDocuments.clear();
 		listAllergys.clear();
 		listImmunizations.clear();
 		listVitalValues.clear();
+		listEncounters.clear();
 
 	}
 

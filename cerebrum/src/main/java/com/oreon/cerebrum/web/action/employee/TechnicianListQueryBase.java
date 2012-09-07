@@ -88,6 +88,8 @@ public abstract class TechnicianListQueryBase
 
 			"lower(technician.contactDetails.email) like concat(lower(#{technicianList.technician.contactDetails.email}),'%')",
 
+			"technician.title = #{technicianList.technician.title}",
+
 			"technician.dateCreated <= #{technicianList.dateCreatedRange.end}",
 			"technician.dateCreated >= #{technicianList.dateCreatedRange.begin}",};
 

@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -43,17 +44,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "prescription")
-@Filter(name = "archiveFilterDef")
+@Filters({@Filter(name = "archiveFilterDef"),
+
+})
 @Name("prescription")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
@@ -64,7 +68,7 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "prescription", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "prescription_ID", nullable = false)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<PrescriptionItem> prescriptionItems = new HashSet<PrescriptionItem>();
 
@@ -87,17 +91,15 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	@ContainedIn
-	@NotNull
 	protected Patient patient
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "notes", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String notes
+	protected String directivesForPatient
 
 	;
 
@@ -124,13 +126,13 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 
 	}
 
-	public void setNotes(String notes) {
-		this.notes = notes;
+	public void setDirectivesForPatient(String directivesForPatient) {
+		this.directivesForPatient = directivesForPatient;
 	}
 
-	public String getNotes() {
+	public String getDirectivesForPatient() {
 
-		return notes;
+		return directivesForPatient;
 
 	}
 
@@ -154,12 +156,12 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 	}
 
 	@Transient
-	public String getNotesAbbreviated() {
+	public String getDirectivesForPatientAbbreviated() {
 		try {
-			return org.apache.commons.lang.WordUtils.abbreviate(notes.trim(),
-					100, 200, "...");
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					directivesForPatient.trim(), 100, 200, "...");
 		} catch (Exception e) {
-			return notes != null ? notes : "";
+			return directivesForPatient != null ? directivesForPatient : "";
 		}
 	}
 
@@ -175,7 +177,7 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("notes");
+		listSearchableFields.add("directivesForPatient");
 
 		listSearchableFields.add("prescriptionItems.remarks");
 
@@ -187,7 +189,7 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(getNotes() + " ");
+		builder.append(getDirectivesForPatient() + " ");
 
 		if (getPatient() != null)
 			builder.append("patient:" + getPatient().getDisplayName() + " ");

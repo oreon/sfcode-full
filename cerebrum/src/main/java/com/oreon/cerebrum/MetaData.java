@@ -102,6 +102,8 @@ public class MetaData {
 
 	"contactDetails.age", "java.lang.Integer",
 
+	"contactDetails.title.name", "java.lang.String",
+
 	"admissionsCount", "java.lang.Integer",
 
 	"prescriptionsCount", "java.lang.Integer",
@@ -116,7 +118,7 @@ public class MetaData {
 
 	"unusualOccurencesCount", "java.lang.Integer",
 
-	"documentsCount", "java.lang.Integer",
+	"patientDocumentsCount", "java.lang.Integer",
 
 	"allergysCount", "java.lang.Integer",
 
@@ -126,6 +128,18 @@ public class MetaData {
 
 	"vitalValuesCount", "java.lang.Integer",
 
+	"history.medicalHistory", "java.lang.String",
+
+	"history.socialHistory", "java.lang.String",
+
+	"history.familyHistory", "java.lang.String",
+
+	"history.medications", "java.lang.String",
+
+	"history.allergies", "java.lang.String",
+
+	"encountersCount", "java.lang.Integer",
+
 	},
 
 	{"com.oreon.cerebrum.patient.Prescription",
@@ -134,7 +148,7 @@ public class MetaData {
 
 	"patient.displayName", "java.lang.String",
 
-	"notes", "java.lang.String",
+	"directivesForPatient", "java.lang.String",
 
 	"active", "java.lang.Boolean",
 
@@ -176,7 +190,7 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.cerebrum.patient.Document",
+	{"com.oreon.cerebrum.patient.PatientDocument",
 
 	"name", "java.lang.String",
 
@@ -297,6 +311,8 @@ public class MetaData {
 	"contactDetails.email", "java.lang.String",
 
 	"contactDetails.age", "java.lang.Integer",
+
+	"contactDetails.title.name", "java.lang.String",
 
 	"employeeNumber", "java.lang.String",
 
@@ -454,46 +470,6 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.cerebrum.appointment.Encounter",
-
-	"historysCount", "java.lang.Integer",
-
-	"patient.displayName", "java.lang.String",
-
-	"physician.displayName", "java.lang.String",
-
-	"notes", "java.lang.String",
-
-	"prescribedTestsCount", "java.lang.Integer",
-
-	},
-
-	{"com.oreon.cerebrum.appointment.History",
-
-	"encounter.displayName", "java.lang.String",
-
-	"history", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.appointment.DxTest",
-
-	"name", "java.lang.String",
-
-	"description", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.appointment.PrescribedTest",
-
-	"remarks", "java.lang.String",
-
-	"dxTest.displayName", "java.lang.String",
-
-	"encounter.displayName", "java.lang.String",
-
-	},
-
 	{"com.oreon.cerebrum.billing.Invoice",
 
 	"invoiceItemsCount", "java.lang.Integer",
@@ -521,6 +497,54 @@ public class MetaData {
 	"invoice.displayName", "java.lang.String",
 
 	"total", "java.lang.Double",
+
+	},
+
+	{"com.oreon.cerebrum.encounter.Encounter",
+
+	"physician.displayName", "java.lang.String",
+
+	"chiefComplaint", "java.lang.String",
+
+	"prescribedTestsCount", "java.lang.Integer",
+
+	"progressNotes", "java.lang.String",
+
+	"vitals.SysBP", "java.lang.Integer",
+
+	"vitals.DiasBP", "java.lang.Integer",
+
+	"vitals.Temperature", "java.lang.Double",
+
+	"vitals.Pulse", "java.lang.Integer",
+
+	"vitals.RespirationRate", "java.lang.Integer",
+
+	"prescription.displayName", "java.lang.String",
+
+	"differentialsCount", "java.lang.Integer",
+
+	"physicalExamFindings", "java.lang.String",
+
+	"patient.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.encounter.PrescribedTest",
+
+	"remarks", "java.lang.String",
+
+	"dxTest.displayName", "java.lang.String",
+
+	"encounter.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.encounter.Differential",
+
+	"encounter.displayName", "java.lang.String",
+
+	"remarks", "java.lang.String",
 
 	},
 
@@ -611,6 +635,14 @@ public class MetaData {
 	"patient.displayName", "java.lang.String",
 
 	"notes", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.DxTest",
+
+	"name", "java.lang.String",
+
+	"description", "java.lang.String",
 
 	},
 

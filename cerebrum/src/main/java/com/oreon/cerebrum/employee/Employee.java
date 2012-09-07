@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -43,22 +44,24 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "employee")
-@Filter(name = "archiveFilterDef")
+@Filters({@Filter(name = "archiveFilterDef"),
+
+})
 @Name("employee")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @XmlRootElement
 public class Employee extends com.oreon.cerebrum.patient.Person
 		implements
@@ -76,7 +79,7 @@ public class Employee extends com.oreon.cerebrum.patient.Person
 
 	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "createdBy_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> unusualOccurences = new HashSet<com.oreon.cerebrum.unusualoccurences.UnusualOccurence>();
 

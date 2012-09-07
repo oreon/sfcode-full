@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
 import org.hibernate.annotations.Cascade;
 
 import org.hibernate.search.annotations.AnalyzerDef;
@@ -43,17 +44,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
 
 import org.witchcraft.utils.*;
+
+import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "drug")
-@Filter(name = "archiveFilterDef")
+@Filters({@Filter(name = "archiveFilterDef"),
+
+})
 @Name("drug")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
@@ -71,112 +75,99 @@ public class Drug extends BaseEntity implements java.io.Serializable {
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "absorption", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String absorption
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "biotransformation", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String biotransformation
 
 	;
 
-	@NotNull
-	@Column(name = "atcCodes", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String atcCodes
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "contraIndication", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String contraIndication
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "description", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String description
 
 	;
 
-	@NotNull
-	@Column(name = "dosageForm", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String dosageForm
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "foodInteractions", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String foodInteractions
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "halfLife", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String halfLife
 
 	;
 
-	@NotNull
-	@Column(name = "halfLifeNumberOfHours", unique = false)
+	@Column(unique = false)
 	protected Double halfLifeNumberOfHours
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "indication", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String indication
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "mechanismOfAction", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String mechanismOfAction
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "patientInfo", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String patientInfo
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "pharmacology", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String pharmacology
@@ -185,7 +176,7 @@ public class Drug extends BaseEntity implements java.io.Serializable {
 
 	@OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "drug_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
+	@OrderBy("id DESC")
 	@IndexedEmbedded
 	private Set<DrugInteraction> drugInteractions = new HashSet<DrugInteraction>();
 
@@ -208,26 +199,23 @@ public class Drug extends BaseEntity implements java.io.Serializable {
 	@ManyToMany(mappedBy = "drugs")
 	private Set<DrugCategory> drugCategorys = new HashSet<DrugCategory>();
 
-	@NotNull
 	@Lob
-	@Column(name = "toxicity", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String toxicity
 
 	;
 
-	@NotNull
 	@Lob
-	@Column(name = "routeOfElimination", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String routeOfElimination
 
 	;
 
-	@NotNull
-	@Column(name = "volumeOfDistribution", unique = false)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String volumeOfDistribution
