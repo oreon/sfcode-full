@@ -195,9 +195,8 @@ import org.hibernate.annotations.FilterDefs;
 	«ENDIF» 
 	«IF !isAbstract »   
 		«IF getCurrentCartridge() == "RICH"» @Name("«asVar()»")   «ENDIF»
-		@Indexed
+		«EXPAND genIndexed»
 		«IF cacheType != null »@Cache(usage = CacheConcurrencyStrategy.«cacheType.name»)«ENDIF»
-		@Analyzer(definition="entityAnalyzer")
 	«ELSE»
 		@Inheritance(strategy=InheritanceType.«inheritanceType.name»)
 	«ENDIF»
@@ -342,7 +341,7 @@ import org.hibernate.annotations.FilterDefs;
 
 «DEFINE genClassBody FOR wcprofile::Embeddable»
 	@Embeddable
-	@Indexed
+	«EXPAND genIndexed FOR this»
 	public class «name» «getParent()» «getInterfaces()» implements  java.io.Serializable{
 		private static final long serialVersionUID = «serialver()»;
 		
@@ -356,7 +355,13 @@ import org.hibernate.annotations.FilterDefs;
 «ENDDEFINE»
 
 
-
+«DEFINE genIndexed FOR wcprofile::AbstractEntity»
+	
+	«IF readPropertyDefB("allClassesFullTextSearchable","false") || fullTextSearchable»
+		@Indexed
+		@Analyzer(definition="entityAnalyzer")
+	«ENDIF»
+«ENDDEFINE»
 
 
 «DEFINE genClassBody FOR wcprofile::MappedSuperClass»
