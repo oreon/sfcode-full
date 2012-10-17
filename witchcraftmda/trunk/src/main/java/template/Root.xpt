@@ -357,7 +357,7 @@ import org.hibernate.annotations.FilterDefs;
 
 «DEFINE genIndexed FOR wcprofile::AbstractEntity»
 	
-	«IF readPropertyDefB("allClassesFullTextSearchable","false") || fullTextSearchable»
+	«IF isFullTextSearchable()»
 		@Indexed
 		@Analyzer(definition="entityAnalyzer")
 	«ENDIF»
@@ -536,7 +536,7 @@ import org.hibernate.annotations.FilterDefs;
 			«REM»comment//«isOneOnOne()» unq «isUnique» opp is unq«opposite.isUnique» mult «isMultivalued()» opp mult «opposite.isMultivalued()» «opposite.isMultivalued() == null ? "unspec" : "spec-blank" » «ENDREM»
 			@« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 			«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = «getAssocUpdatable()») «ENDIF»
-    		«IF type.name != class.name»@ContainedIn«ENDIF»
+    		«IF type.name != class.name  && class.isFullTextSearchable()»@ContainedIn«ENDIF»
 		«ENDIF» 
 		«IF type.isEmbeddable() || isContainedAssoc() || (isColumn()  && autocomplete)»
 			«IF type.name != class.name && type.isEmbeddable() »@IndexedEmbedded «EXPAND EmbeddedAttributes FOR this»  «ENDIF»
