@@ -85,7 +85,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private «name» «asVar()»;
 	
 	«FOREACH getOutgoingAssociations() AS e»
@@ -103,8 +103,8 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«ENDFOREACH»
 	
 
-	@DataModel
-	private List<«name»> «asVar()»RecordList;	
+	//@DataModel
+	//private List<«name»> «asVar()»RecordList;	
 	
 	public void set«name»Id(Long id) {
 		if(id == 0){
@@ -114,6 +114,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 			return;
 		}
 		setId(id);
+		«asVar()» = loadInstance();
 		if(!isPostBack())
 			loadAssociations();
 	}
@@ -123,6 +124,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	 */
 	public void set«name»IdForModalDlg(Long id) {
 		setId(id);
+		«asVar()» = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -274,6 +276,7 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 		«IF !e.type.isAbstract»
 		if («asVar()».get«e.name.toFirstUpper()»() != null) {
 			«e.name»Action.setInstance(getInstance().get«e.name.toFirstUpper()»());
+			«e.name»Action.loadAssociations();
 		}
 		«ENDIF»
 		«ENDFOREACH»
