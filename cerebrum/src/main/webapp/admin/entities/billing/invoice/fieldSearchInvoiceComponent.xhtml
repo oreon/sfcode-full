@@ -8,15 +8,15 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patient" value="#{ invoiceList.invoice.patient}"> 
-        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ invoiceList.invoice.patient}"> 
+        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}"/>  
       <br/>  
-      <h:inputText id="notes" value="#{invoiceList.invoice.notes}"/> 
+      <h:inputText id="#{prefix}_notes" value="#{invoiceList.invoice.notes}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

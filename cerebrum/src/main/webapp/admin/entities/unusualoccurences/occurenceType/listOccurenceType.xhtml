@@ -18,9 +18,11 @@
       <a:commandButton action="#{occurenceTypeAction.setOccurenceTypeId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{occurenceTypeList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listOccurenceTypeComponent.xhtml"> 
-      <ui:param name="records" value="#{occurenceTypeList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listOccurenceTypeComponent.xhtml"> 
+        <ui:param name="records" value="#{occurenceTypeList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/unusualoccurences/occurenceType/editOccurenceType.xhtml" propagation="none"> 
         <f:param name="occurenceTypeId" value="0"/> 

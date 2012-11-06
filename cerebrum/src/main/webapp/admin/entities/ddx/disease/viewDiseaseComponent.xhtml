@@ -14,7 +14,7 @@
         <h:outputText value="#{msg.disease_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewGender')}"/>  
         <h:outputText value="#{diseaseAction.disease.gender}"/>  
         <h:outputText value="#{msg.disease_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewName')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewName')}" value="#{diseaseAction.disease.name}"></h:outputText>  
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewName')}" value="#{diseaseAction.disease.name}"></h:outputText>  
         <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewRelatedDisease')}"/>  
         <s:link value="#{diseaseAction.disease.relatedDisease.displayName}" action="viewrelatedDisease" propagation="none"> 
           <f:param name="relatedDiseaseId" value="#{diseaseAction.disease.relatedDisease.id}"/>  

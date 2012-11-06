@@ -19,9 +19,11 @@
       <s:button value="Export to Excel" action="#{prescriptionList.exportToCsv}"/> 
     </a:form>  
     <s:button value="Create Template" view="/admin/entities/patient/prescriptionTemplate/editPrescription"/>  
-    <ui:include src="listPrescriptionComponent.xhtml"> 
-      <ui:param name="records" value="#{prescriptionList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listPrescriptionComponent.xhtml"> 
+        <ui:param name="records" value="#{prescriptionList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/patient/prescription/editPrescription.xhtml" propagation="none"> 
         <f:param name="prescriptionId" value="0"/> 

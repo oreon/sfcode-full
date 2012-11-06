@@ -8,21 +8,21 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}"/>  
       <br/>  
-      <h:selectOneMenu id="room" value="#{ bedList.bed.room}"> 
-        <s:selectItems value="#{roomList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_roomroom" value="#{ bedList.bed.room}"> 
+        <s:selectItems value="#{roomList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editName')}"/>  
       <br/>  
-      <h:inputText id="name" value="#{bedList.bed.name}"/> 
+      <h:inputText id="#{prefix}_name" value="#{bedList.bed.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.bed_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patient" value="#{ bedList.bed.patient}"> 
-        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ bedList.bed.patient}"> 
+        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 

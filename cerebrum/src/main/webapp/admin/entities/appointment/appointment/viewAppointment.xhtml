@@ -7,7 +7,9 @@
       <!--PROTECTED REGION END-->  
       <rich:tabPanel switchType="ajax"> 
         <rich:tab label="Appointment"> 
-          <ui:include src="/admin/entities/appointment/appointment/viewAppointmentComponent.xhtml"/>  
+          <div id="printable"> 
+            <ui:include src="/admin/entities/appointment/appointment/viewAppointmentComponent.xhtml"/> 
+          </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('appointment', 'edit', appointmentAction.instance)}" action="edit"></h:commandButton>  
             <h:outputText value=" "/>  

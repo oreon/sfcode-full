@@ -62,7 +62,8 @@
               <ui:param name="propertyPath" value="unusualOccurence.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_unusualOccurence.description}" escape="false"/> 
+          <rich:toolTip value="#{_unusualOccurence.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{_unusualOccurence.descriptionAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewPatient')}"> 
           <f:facet name="header"> 

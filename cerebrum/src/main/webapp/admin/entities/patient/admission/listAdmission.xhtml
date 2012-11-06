@@ -18,9 +18,11 @@
       <a:commandButton action="#{admissionAction.setAdmissionId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{admissionList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listAdmissionComponent.xhtml"> 
-      <ui:param name="records" value="#{admissionList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listAdmissionComponent.xhtml"> 
+        <ui:param name="records" value="#{admissionList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/patient/admission/editAdmission.xhtml" propagation="none"> 
         <f:param name="admissionId" value="0"/> 

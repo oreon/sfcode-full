@@ -18,9 +18,11 @@
       <a:commandButton action="#{differentialDxAction.setDifferentialDxId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{differentialDxList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listDifferentialDxComponent.xhtml"> 
-      <ui:param name="records" value="#{differentialDxList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listDifferentialDxComponent.xhtml"> 
+        <ui:param name="records" value="#{differentialDxList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml" propagation="none"> 
         <f:param name="differentialDxId" value="0"/> 

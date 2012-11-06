@@ -18,9 +18,11 @@
       <a:commandButton action="#{vitalValueAction.setVitalValueId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{vitalValueList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listVitalValueComponent.xhtml"> 
-      <ui:param name="records" value="#{vitalValueList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listVitalValueComponent.xhtml"> 
+        <ui:param name="records" value="#{vitalValueList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/patient/vitalValue/editVitalValue.xhtml" propagation="none"> 
         <f:param name="vitalValueId" value="0"/> 

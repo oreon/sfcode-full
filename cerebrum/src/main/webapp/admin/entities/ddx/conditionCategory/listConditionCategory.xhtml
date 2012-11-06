@@ -18,9 +18,11 @@
       <a:commandButton action="#{conditionCategoryAction.setConditionCategoryId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{conditionCategoryList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listConditionCategoryComponent.xhtml"> 
-      <ui:param name="records" value="#{conditionCategoryList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listConditionCategoryComponent.xhtml"> 
+        <ui:param name="records" value="#{conditionCategoryList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/ddx/conditionCategory/editConditionCategory.xhtml" propagation="none"> 
         <f:param name="conditionCategoryId" value="0"/> 

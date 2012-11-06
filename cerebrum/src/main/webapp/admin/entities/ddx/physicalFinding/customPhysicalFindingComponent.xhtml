@@ -9,14 +9,14 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editName')}"/>  
         <br/>  
-        <h:inputText id="name" value="#{physicalFindingAction.physicalFinding.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editName')}"/> 
+        <h:inputText id="#{prefix}_name" value="#{physicalFindingAction.physicalFinding.name}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.physicalFinding_icdCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editIcdCode')}"/>  
         <br/>  
-        <h:inputText id="icdCode" value="#{physicalFindingAction.physicalFinding.icdCode}"/>  
-        <rich:message styleClass="error errors" for="icdCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editIcdCode')}"/> 
+        <h:inputText id="#{prefix}_icdCode" value="#{physicalFindingAction.physicalFinding.icdCode}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_icdCode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editIcdCode')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

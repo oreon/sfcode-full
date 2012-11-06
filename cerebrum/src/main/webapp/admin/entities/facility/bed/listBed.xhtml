@@ -18,9 +18,11 @@
       <a:commandButton action="#{bedAction.setBedId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{bedList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listBedComponent.xhtml"> 
-      <ui:param name="records" value="#{bedList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listBedComponent.xhtml"> 
+        <ui:param name="records" value="#{bedList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/facility/bed/editBed.xhtml" propagation="none"> 
         <f:param name="bedId" value="0"/> 

@@ -12,9 +12,9 @@
           <h:outputText value="#{msg.BedStay}"/> 
         </f:facet>  
         <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}"/>  
-        <h:outputText direction="auto" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}" value="#{bedStayAction.bedStay.fromDate}"></h:outputText>  
+        <h:outputText direction="auto" id="#{prefix}_fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}" value="#{bedStayAction.bedStay.fromDate}"></h:outputText>  
         <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}"/>  
-        <h:outputText direction="auto" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}" value="#{bedStayAction.bedStay.toDate}"></h:outputText>  
+        <h:outputText direction="auto" id="#{prefix}_toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}" value="#{bedStayAction.bedStay.toDate}"></h:outputText>  
         <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewAdmission')}"/>  
         <s:link value="#{bedStayAction.bedStay.admission.displayName}" action="viewadmission" propagation="none"> 
           <f:param name="admissionId" value="#{bedStayAction.bedStay.admission.id}"/>  

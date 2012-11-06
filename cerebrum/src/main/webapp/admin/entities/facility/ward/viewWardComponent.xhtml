@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.Ward}"/> 
         </f:facet>  
         <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}" value="#{wardAction.ward.name}"></h:outputText>  
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}" value="#{wardAction.ward.name}"></h:outputText>  
         <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')}"/>  
         <h:outputText value="#{wardAction.ward.gender}"/>  
         <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')}"/>  
@@ -36,7 +36,7 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}" value="#{_room.name}"></h:outputText> 
+          <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}" value="#{_room.name}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

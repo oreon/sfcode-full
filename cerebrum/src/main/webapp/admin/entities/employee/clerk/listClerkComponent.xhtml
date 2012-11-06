@@ -143,6 +143,16 @@
           </f:facet>  
           <h:outputText value="#{_clerk.age}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewTitle')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{clerkList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_title}"/>  
+              <ui:param name="propertyPath" value="clerk.title"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_clerk.title}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

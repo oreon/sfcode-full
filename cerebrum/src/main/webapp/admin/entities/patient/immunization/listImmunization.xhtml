@@ -18,9 +18,11 @@
       <a:commandButton action="#{immunizationAction.setImmunizationId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{immunizationList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listImmunizationComponent.xhtml"> 
-      <ui:param name="records" value="#{immunizationList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listImmunizationComponent.xhtml"> 
+        <ui:param name="records" value="#{immunizationList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/patient/immunization/editImmunization.xhtml" propagation="none"> 
         <f:param name="immunizationId" value="0"/> 

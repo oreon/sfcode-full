@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.Finding}"/> 
         </f:facet>  
         <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewName')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewName')}" value="#{findingAction.finding.name}"></h:outputText> 
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewName')}" value="#{findingAction.finding.name}"></h:outputText> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewDifferentialDxs') }" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -29,7 +29,7 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}" value="#{_differentialDx.name}"></h:outputText> 
+          <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}" value="#{_differentialDx.name}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

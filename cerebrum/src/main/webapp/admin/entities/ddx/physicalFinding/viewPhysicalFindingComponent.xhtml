@@ -12,9 +12,9 @@
           <h:outputText value="#{msg.PhysicalFinding}"/> 
         </f:facet>  
         <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewName')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewName')}" value="#{physicalFindingAction.physicalFinding.name}"></h:outputText>  
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewName')}" value="#{physicalFindingAction.physicalFinding.name}"></h:outputText>  
         <h:outputText value="#{msg.physicalFinding_icdCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewIcdCode')}"/>  
-        <h:outputText id="icdCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewIcdCode')}" value="#{physicalFindingAction.physicalFinding.icdCode}"></h:outputText> 
+        <h:outputText id="#{prefix}_icdCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewIcdCode')}" value="#{physicalFindingAction.physicalFinding.icdCode}"></h:outputText> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewDifferentialDxs') }" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -31,7 +31,7 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}" value="#{_differentialDx.name}"></h:outputText> 
+          <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}" value="#{_differentialDx.name}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

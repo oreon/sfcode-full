@@ -18,9 +18,11 @@
       <a:commandButton action="#{physicianAction.setPhysicianId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{physicianList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listPhysicianComponent.xhtml"> 
-      <ui:param name="records" value="#{physicianList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listPhysicianComponent.xhtml"> 
+        <ui:param name="records" value="#{physicianList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/employee/physician/editPhysician.xhtml" propagation="none"> 
         <f:param name="physicianId" value="0"/> 

@@ -26,31 +26,31 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.appointment_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}"/>  
       <br/>  
-      <h:selectOneMenu id="physician" value="#{ appointmentList.appointment.physician}"> 
-        <s:selectItems value="#{physicianList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_physicianphysician" value="#{ appointmentList.appointment.physician}"> 
+        <s:selectItems value="#{physicianList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appointment_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patient" value="#{ appointmentList.appointment.patient}"> 
-        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ appointmentList.appointment.patient}"> 
+        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appointment_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editRemarks')}"/>  
       <br/>  
-      <h:inputText id="remarks" value="#{appointmentList.appointment.remarks}"/> 
+      <h:inputText id="#{prefix}_remarks" value="#{appointmentList.appointment.remarks}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appointment_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editUnits')}"/>  
       <br/>  
-      <h:inputText id="units_begin" value="#{appointmentList.unitsRange.begin}"> 
+      <h:inputText id="#{prefix}_units_begin" value="#{appointmentList.unitsRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText>  
-      <h:inputText id="units_end" value="#{appointmentList.unitsRange.end}"> 
+      <h:inputText id="#{prefix}_units_end" value="#{appointmentList.unitsRange.end}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
     </h:panelGroup> 

@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.Bed}"/> 
         </f:facet>  
         <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')}" value="#{bedAction.bed.name}"></h:outputText>  
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')}" value="#{bedAction.bed.name}"></h:outputText>  
         <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewRoom')}"/>  
         <s:link value="#{bedAction.bed.room.displayName}" action="viewroom" propagation="none"> 
           <f:param name="roomId" value="#{bedAction.bed.room.id}"/>  

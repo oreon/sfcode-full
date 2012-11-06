@@ -9,37 +9,37 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDescription')}"/>  
         <br/>  
-        <rich:editor id="description" value="#{drugInteractionAction.drugInteraction.description}"/>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDescription')}"/> 
+        <rich:editor id="#{prefix}_description" value="#{drugInteractionAction.drugInteraction.description}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDescription')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/>  
         <br/>  
-        <h:selectOneMenu id="drug" value="#{drugInteractionAction.drugInteraction.drug}"> 
+        <h:selectOneMenu id="#{prefix}_drugdrug" value="#{drugInteractionAction.drugInteraction.drug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="drug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_drugdrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/>  
         <br/>  
-        <h:selectOneMenu id="interactingDrug" value="#{drugInteractionAction.drugInteraction.interactingDrug}"> 
+        <h:selectOneMenu id="#{prefix}_interactingDruginteractingDrug" value="#{drugInteractionAction.drugInteraction.interactingDrug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="interactingDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_interactingDruginteractingDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editSeverity')}"/>  
         <br/>  
-        <h:selectOneMenu id="severity" value="#{drugInteractionAction.drugInteraction.severity}" required="false"> 
+        <h:selectOneMenu id="#{prefix}_severity" value="#{drugInteractionAction.drugInteraction.severity}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="MILD" itemLabel="Mild"/>  
           <f:selectItem itemValue="MODERATE" itemLabel="Moderate"/>  
           <f:selectItem itemValue="SEVERE" itemLabel="Severe"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editSeverity')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editSeverity')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

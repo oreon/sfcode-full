@@ -18,9 +18,11 @@
       <a:commandButton action="#{labFindingAction.setLabFindingId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{labFindingList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listLabFindingComponent.xhtml"> 
-      <ui:param name="records" value="#{labFindingList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listLabFindingComponent.xhtml"> 
+        <ui:param name="records" value="#{labFindingList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/ddx/labFinding/editLabFinding.xhtml" propagation="none"> 
         <f:param name="labFindingId" value="0"/> 

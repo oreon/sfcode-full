@@ -11,11 +11,11 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.TrackedVital}"/> 
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.trackedVital_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}" label="#{msg.trackedVital_name}" required="true" disabled="false" value="#{trackedVitalAction.trackedVital.name}"> 
+          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}" label="#{msg.trackedVital_name}" required="true" disabled="false" value="#{trackedVitalAction.trackedVital.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

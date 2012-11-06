@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editPatientDocumentComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{patientDocumentAction.load(patientDocumentId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPatientDocument eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.PatientDocument}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.patientDocument_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}"/>
+          </ui:define>  
+          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}" label="#{msg.patientDocument_name}" required="true" disabled="false" value="#{patientDocumentAction.patientDocument.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_fileDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.patientDocument_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editFile')}"/>
+          </ui:define>  
+          <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editFile')}"> 
+            <h:outputText value="Current File:"/>  
+            <s:link value="#{patientDocumentAction.patientDocument.file.name}" id="file_file" action="#{patientDocumentAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{patientDocumentAction.instance.id}"/> 
+            </s:link>  
+            <rich:fileUpload fileUploadListener="#{patientDocumentAction.fileUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="30" listWidth="250"> 
+              <s:conversationPropagation type="join"/>  
+              <a:support event="onuploadcomplete" reRender="file_file"/> 
+            </rich:fileUpload> 
+          </h:panelGroup> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_notesDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="#{prefix}_notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}" label="#{msg.patientDocument_notes}" required="false" disabled="false" value="#{patientDocumentAction.patientDocument.notes}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_patientpatient" label="#{msg.patientDocument_patient}" value="#{patientDocumentAction.patientDocument.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}" disabled="false"> 
+            <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

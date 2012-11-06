@@ -8,15 +8,15 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patient" value="#{ admissionList.admission.patient}"> 
-        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ admissionList.admission.patient}"> 
+        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>  
       <br/>  
-      <h:inputText id="admissionNote" value="#{admissionList.admission.admissionNote}"/> 
+      <h:inputText id="#{prefix}_admissionNote" value="#{admissionList.admission.admissionNote}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeDate')}"/>  
@@ -30,8 +30,8 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>  
       <br/>  
-      <h:selectOneMenu id="bed" value="#{ admissionList.admission.bed}"> 
-        <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_bedbed" value="#{ admissionList.admission.bed}"> 
+        <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 
@@ -39,12 +39,12 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>  
       <br/>  
-      <h:inputText id="dischargeNote" value="#{admissionList.admission.dischargeNote}"/> 
+      <h:inputText id="#{prefix}_dischargeNote" value="#{admissionList.admission.dischargeNote}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}"/>  
       <br/>  
-      <h:selectOneMenu id="dischargeCode" value="#{admissionList.admission.dischargeCode}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_dischargeCode" value="#{admissionList.admission.dischargeCode}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="None" itemValue=""/>  
         <f:selectItem itemValue="REGULAR" itemLabel="Regular"/>  

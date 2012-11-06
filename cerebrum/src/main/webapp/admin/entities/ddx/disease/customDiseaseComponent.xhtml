@@ -9,27 +9,27 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.disease_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editGender')}"/>  
         <br/>  
-        <h:selectOneMenu id="gender" value="#{diseaseAction.disease.gender}" required="false"> 
+        <h:selectOneMenu id="#{prefix}_gender" value="#{diseaseAction.disease.gender}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="F" itemLabel="F"/>  
           <f:selectItem itemValue="M" itemLabel="M"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editGender')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editGender')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.disease_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editName')}"/>  
         <br/>  
-        <h:inputText id="name" value="#{diseaseAction.disease.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editName')}"/> 
+        <h:inputText id="#{prefix}_name" value="#{diseaseAction.disease.name}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/>  
         <br/>  
-        <h:selectOneMenu id="conditionCategory" value="#{diseaseAction.disease.conditionCategory}"> 
+        <h:selectOneMenu id="#{prefix}_conditionCategoryconditionCategory" value="#{diseaseAction.disease.conditionCategory}"> 
           <s:selectItems value="#{conditionCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="conditionCategory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_conditionCategoryconditionCategory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

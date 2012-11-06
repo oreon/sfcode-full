@@ -11,20 +11,20 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.ConditionFinding}"/> 
         </f:facet>  
-        <s:decorate id="falsePositiveDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_falsePositiveDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}"/>
           </ui:define>  
-          <h:selectBooleanCheckbox id="falsePositive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}" label="#{msg.conditionFinding_falsePositive}" required="false" disabled="false" value="#{conditionFindingAction.conditionFinding.falsePositive}"> 
+          <h:selectBooleanCheckbox id="#{prefix}_falsePositive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}" label="#{msg.conditionFinding_falsePositive}" required="false" disabled="false" value="#{conditionFindingAction.conditionFinding.falsePositive}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectBooleanCheckbox> 
         </s:decorate>  
-        <s:decorate id="diseaseDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_diseasediseaseDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}"/>
           </ui:define>  
-          <h:selectOneMenu id="disease" label="#{msg.conditionFinding_disease}" value="#{conditionFindingAction.conditionFinding.disease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}" disabled="false"> 
-            <s:selectItems value="#{diseaseList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <h:selectOneMenu id="#{prefix}_diseasedisease" label="#{msg.conditionFinding_disease}" value="#{conditionFindingAction.conditionFinding.disease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}" disabled="false"> 
+            <s:selectItems value="#{diseaseList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 

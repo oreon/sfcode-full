@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.PatientDiffDx}"/> 
         </f:facet>  
         <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')}"/>  
-        <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')}" value="#{patientDiffDxAction.patientDiffDx.notes}"></h:outputText>  
+        <h:outputText escape="false" id="#{prefix}_notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')}" value="#{patientDiffDxAction.patientDiffDx.notes}"></h:outputText>  
         <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')}"/>  
         <s:link value="#{patientDiffDxAction.patientDiffDx.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{patientDiffDxAction.patientDiffDx.patient.id}"/>  
