@@ -47,7 +47,7 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private VitalValue vitalValue;
 
 	@In(create = true, value = "trackedVitalAction")
@@ -56,8 +56,8 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	@DataModel
-	private List<VitalValue> vitalValueRecordList;
+	//@DataModel
+	//private List<VitalValue> vitalValueRecordList;	
 
 	public void setVitalValueId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 			return;
 		}
 		setId(id);
+		vitalValue = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	 */
 	public void setVitalValueIdForModalDlg(Long id) {
 		setId(id);
+		vitalValue = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -200,10 +202,12 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 
 		if (vitalValue.getTrackedVital() != null) {
 			trackedVitalAction.setInstance(getInstance().getTrackedVital());
+			trackedVitalAction.loadAssociations();
 		}
 
 		if (vitalValue.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 	}

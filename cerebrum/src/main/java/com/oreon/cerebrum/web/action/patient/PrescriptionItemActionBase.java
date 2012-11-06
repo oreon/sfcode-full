@@ -47,7 +47,7 @@ public abstract class PrescriptionItemActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private PrescriptionItem prescriptionItem;
 
 	@In(create = true, value = "drugAction")
@@ -59,8 +59,8 @@ public abstract class PrescriptionItemActionBase
 	@In(create = true, value = "frequecyAction")
 	com.oreon.cerebrum.web.action.patient.FrequecyAction frequecyAction;
 
-	@DataModel
-	private List<PrescriptionItem> prescriptionItemRecordList;
+	//@DataModel
+	//private List<PrescriptionItem> prescriptionItemRecordList;	
 
 	public void setPrescriptionItemId(Long id) {
 		if (id == 0) {
@@ -70,6 +70,7 @@ public abstract class PrescriptionItemActionBase
 			return;
 		}
 		setId(id);
+		prescriptionItem = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -79,6 +80,7 @@ public abstract class PrescriptionItemActionBase
 	 */
 	public void setPrescriptionItemIdForModalDlg(Long id) {
 		setId(id);
+		prescriptionItem = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -226,14 +228,17 @@ public abstract class PrescriptionItemActionBase
 
 		if (prescriptionItem.getDrug() != null) {
 			drugAction.setInstance(getInstance().getDrug());
+			drugAction.loadAssociations();
 		}
 
 		if (prescriptionItem.getPrescription() != null) {
 			prescriptionAction.setInstance(getInstance().getPrescription());
+			prescriptionAction.loadAssociations();
 		}
 
 		if (prescriptionItem.getFrequecy() != null) {
 			frequecyAction.setInstance(getInstance().getFrequecy());
+			frequecyAction.loadAssociations();
 		}
 
 	}

@@ -49,11 +49,11 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Finding finding;
 
-	@DataModel
-	private List<Finding> findingRecordList;
+	//@DataModel
+	//private List<Finding> findingRecordList;	
 
 	public void setFindingId(Long id) {
 		if (id == 0) {
@@ -63,6 +63,7 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 			return;
 		}
 		setId(id);
+		finding = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,6 +73,7 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 	 */
 	public void setFindingIdForModalDlg(Long id) {
 		setId(id);
+		finding = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

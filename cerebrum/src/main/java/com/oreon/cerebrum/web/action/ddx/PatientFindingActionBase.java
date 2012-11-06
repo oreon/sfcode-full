@@ -47,7 +47,7 @@ public abstract class PatientFindingActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private PatientFinding patientFinding;
 
 	@In(create = true, value = "findingAction")
@@ -56,8 +56,8 @@ public abstract class PatientFindingActionBase
 	@In(create = true, value = "patientDiffDxAction")
 	com.oreon.cerebrum.web.action.ddx.PatientDiffDxAction patientDiffDxAction;
 
-	@DataModel
-	private List<PatientFinding> patientFindingRecordList;
+	//@DataModel
+	//private List<PatientFinding> patientFindingRecordList;	
 
 	public void setPatientFindingId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class PatientFindingActionBase
 			return;
 		}
 		setId(id);
+		patientFinding = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class PatientFindingActionBase
 	 */
 	public void setPatientFindingIdForModalDlg(Long id) {
 		setId(id);
+		patientFinding = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -200,10 +202,12 @@ public abstract class PatientFindingActionBase
 
 		if (patientFinding.getFinding() != null) {
 			findingAction.setInstance(getInstance().getFinding());
+			findingAction.loadAssociations();
 		}
 
 		if (patientFinding.getPatientDiffDx() != null) {
 			patientDiffDxAction.setInstance(getInstance().getPatientDiffDx());
+			patientDiffDxAction.loadAssociations();
 		}
 
 	}

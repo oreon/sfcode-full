@@ -47,7 +47,7 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Appointment appointment;
 
 	@In(create = true, value = "physicianAction")
@@ -56,8 +56,8 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	@DataModel
-	private List<Appointment> appointmentRecordList;
+	//@DataModel
+	//private List<Appointment> appointmentRecordList;	
 
 	public void setAppointmentId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 			return;
 		}
 		setId(id);
+		appointment = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	 */
 	public void setAppointmentIdForModalDlg(Long id) {
 		setId(id);
+		appointment = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -200,10 +202,12 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 
 		if (appointment.getPhysician() != null) {
 			physicianAction.setInstance(getInstance().getPhysician());
+			physicianAction.loadAssociations();
 		}
 
 		if (appointment.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 	}

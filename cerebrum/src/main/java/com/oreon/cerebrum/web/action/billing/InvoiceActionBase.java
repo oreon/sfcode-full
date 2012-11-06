@@ -49,14 +49,14 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Invoice invoice;
 
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	@DataModel
-	private List<Invoice> invoiceRecordList;
+	//@DataModel
+	//private List<Invoice> invoiceRecordList;	
 
 	public void setInvoiceId(Long id) {
 		if (id == 0) {
@@ -66,6 +66,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 			return;
 		}
 		setId(id);
+		invoice = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -75,6 +76,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	 */
 	public void setInvoiceIdForModalDlg(Long id) {
 		setId(id);
+		invoice = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -175,6 +177,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 
 		if (invoice.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 		initListInvoiceItems();

@@ -47,14 +47,14 @@ public abstract class PatientDocumentActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private PatientDocument patientDocument;
 
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	@DataModel
-	private List<PatientDocument> patientDocumentRecordList;
+	//@DataModel
+	//private List<PatientDocument> patientDocumentRecordList;	
 
 	public void setPatientDocumentId(Long id) {
 		if (id == 0) {
@@ -64,6 +64,7 @@ public abstract class PatientDocumentActionBase
 			return;
 		}
 		setId(id);
+		patientDocument = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -73,6 +74,7 @@ public abstract class PatientDocumentActionBase
 	 */
 	public void setPatientDocumentIdForModalDlg(Long id) {
 		setId(id);
+		patientDocument = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -191,6 +193,7 @@ public abstract class PatientDocumentActionBase
 
 		if (patientDocument.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 	}

@@ -58,7 +58,7 @@ public abstract class PatientActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Patient patient;
 
 	@In(create = true, value = "admissionAction")
@@ -85,8 +85,8 @@ public abstract class PatientActionBase
 	@In(create = true, value = "encounterAction")
 	com.oreon.cerebrum.web.action.encounter.EncounterAction encountersAction;
 
-	@DataModel
-	private List<Patient> patientRecordList;
+	//@DataModel
+	//private List<Patient> patientRecordList;	
 
 	public void setPatientId(Long id) {
 		if (id == 0) {
@@ -96,6 +96,7 @@ public abstract class PatientActionBase
 			return;
 		}
 		setId(id);
+		patient = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -105,6 +106,7 @@ public abstract class PatientActionBase
 	 */
 	public void setPatientIdForModalDlg(Long id) {
 		setId(id);
+		patient = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -177,7 +179,7 @@ public abstract class PatientActionBase
 
 		initListUnusualOccurences();
 
-		initListPatientDocuments();
+		//initListPatientDocuments();
 
 		initListAllergys();
 

@@ -47,7 +47,7 @@ public abstract class PrescribedTestActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private PrescribedTest prescribedTest;
 
 	@In(create = true, value = "dxTestAction")
@@ -56,8 +56,8 @@ public abstract class PrescribedTestActionBase
 	@In(create = true, value = "encounterAction")
 	com.oreon.cerebrum.web.action.encounter.EncounterAction encounterAction;
 
-	@DataModel
-	private List<PrescribedTest> prescribedTestRecordList;
+	//@DataModel
+	//private List<PrescribedTest> prescribedTestRecordList;	
 
 	public void setPrescribedTestId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class PrescribedTestActionBase
 			return;
 		}
 		setId(id);
+		prescribedTest = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class PrescribedTestActionBase
 	 */
 	public void setPrescribedTestIdForModalDlg(Long id) {
 		setId(id);
+		prescribedTest = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -200,10 +202,12 @@ public abstract class PrescribedTestActionBase
 
 		if (prescribedTest.getDxTest() != null) {
 			dxTestAction.setInstance(getInstance().getDxTest());
+			dxTestAction.loadAssociations();
 		}
 
 		if (prescribedTest.getEncounter() != null) {
 			encounterAction.setInstance(getInstance().getEncounter());
+			encounterAction.loadAssociations();
 		}
 
 	}

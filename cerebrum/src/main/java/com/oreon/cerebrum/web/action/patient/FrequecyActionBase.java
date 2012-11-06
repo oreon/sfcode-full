@@ -47,11 +47,11 @@ public abstract class FrequecyActionBase extends BaseAction<Frequecy>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Frequecy frequecy;
 
-	@DataModel
-	private List<Frequecy> frequecyRecordList;
+	//@DataModel
+	//private List<Frequecy> frequecyRecordList;	
 
 	public void setFrequecyId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class FrequecyActionBase extends BaseAction<Frequecy>
 			return;
 		}
 		setId(id);
+		frequecy = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class FrequecyActionBase extends BaseAction<Frequecy>
 	 */
 	public void setFrequecyIdForModalDlg(Long id) {
 		setId(id);
+		frequecy = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

@@ -47,14 +47,14 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Differential differential;
 
 	@In(create = true, value = "encounterAction")
 	com.oreon.cerebrum.web.action.encounter.EncounterAction encounterAction;
 
-	@DataModel
-	private List<Differential> differentialRecordList;
+	//@DataModel
+	//private List<Differential> differentialRecordList;	
 
 	public void setDifferentialId(Long id) {
 		if (id == 0) {
@@ -64,6 +64,7 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 			return;
 		}
 		setId(id);
+		differential = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -73,6 +74,7 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	 */
 	public void setDifferentialIdForModalDlg(Long id) {
 		setId(id);
+		differential = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -173,6 +175,7 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 
 		if (differential.getEncounter() != null) {
 			encounterAction.setInstance(getInstance().getEncounter());
+			encounterAction.loadAssociations();
 		}
 
 	}

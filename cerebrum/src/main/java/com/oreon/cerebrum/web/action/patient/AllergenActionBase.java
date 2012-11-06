@@ -47,11 +47,11 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Allergen allergen;
 
-	@DataModel
-	private List<Allergen> allergenRecordList;
+	//@DataModel
+	//private List<Allergen> allergenRecordList;	
 
 	public void setAllergenId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 			return;
 		}
 		setId(id);
+		allergen = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 	 */
 	public void setAllergenIdForModalDlg(Long id) {
 		setId(id);
+		allergen = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

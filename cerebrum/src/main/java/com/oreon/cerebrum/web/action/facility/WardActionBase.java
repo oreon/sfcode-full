@@ -49,14 +49,14 @@ public abstract class WardActionBase extends BaseAction<Ward>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Ward ward;
 
 	@In(create = true, value = "facilityAction")
 	com.oreon.cerebrum.web.action.facility.FacilityAction facilityAction;
 
-	@DataModel
-	private List<Ward> wardRecordList;
+	//@DataModel
+	//private List<Ward> wardRecordList;	
 
 	public void setWardId(Long id) {
 		if (id == 0) {
@@ -66,6 +66,7 @@ public abstract class WardActionBase extends BaseAction<Ward>
 			return;
 		}
 		setId(id);
+		ward = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -75,6 +76,7 @@ public abstract class WardActionBase extends BaseAction<Ward>
 	 */
 	public void setWardIdForModalDlg(Long id) {
 		setId(id);
+		ward = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -179,6 +181,7 @@ public abstract class WardActionBase extends BaseAction<Ward>
 
 		if (ward.getFacility() != null) {
 			facilityAction.setInstance(getInstance().getFacility());
+			facilityAction.loadAssociations();
 		}
 
 		initListRooms();

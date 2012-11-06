@@ -47,7 +47,7 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private BedStay bedStay;
 
 	@In(create = true, value = "admissionAction")
@@ -56,8 +56,8 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	@In(create = true, value = "bedAction")
 	com.oreon.cerebrum.web.action.facility.BedAction bedAction;
 
-	@DataModel
-	private List<BedStay> bedStayRecordList;
+	//@DataModel
+	//private List<BedStay> bedStayRecordList;	
 
 	public void setBedStayId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 			return;
 		}
 		setId(id);
+		bedStay = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	 */
 	public void setBedStayIdForModalDlg(Long id) {
 		setId(id);
+		bedStay = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -199,10 +201,12 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 
 		if (bedStay.getAdmission() != null) {
 			admissionAction.setInstance(getInstance().getAdmission());
+			admissionAction.loadAssociations();
 		}
 
 		if (bedStay.getBed() != null) {
 			bedAction.setInstance(getInstance().getBed());
+			bedAction.loadAssociations();
 		}
 
 	}

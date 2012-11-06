@@ -54,6 +54,10 @@ public class EncounterAction extends EncounterActionBase implements java.io.Seri
 	public String save() {
 		instance.setPhysician(physicianAction.getCurrentLoggedInPhysician());
 		
+	
+		prescriptionAction.save();
+		
+		instance.setPrescription(prescriptionAction.getInstance());
 		// TODO Auto-generated method stub
 		return super.save();
 	}

@@ -51,7 +51,7 @@ public abstract class EmployeeActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Employee employee;
 
 	@In(create = true, value = "appUserAction")
@@ -60,8 +60,8 @@ public abstract class EmployeeActionBase
 	@In(create = true, value = "unusualOccurenceAction")
 	com.oreon.cerebrum.web.action.unusualoccurences.UnusualOccurenceAction unusualOccurencesAction;
 
-	@DataModel
-	private List<Employee> employeeRecordList;
+	//@DataModel
+	//private List<Employee> employeeRecordList;	
 
 	public void setEmployeeId(Long id) {
 		if (id == 0) {
@@ -71,6 +71,7 @@ public abstract class EmployeeActionBase
 			return;
 		}
 		setId(id);
+		employee = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -80,6 +81,7 @@ public abstract class EmployeeActionBase
 	 */
 	public void setEmployeeIdForModalDlg(Long id) {
 		setId(id);
+		employee = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -186,6 +188,7 @@ public abstract class EmployeeActionBase
 
 		if (employee.getAppUser() != null) {
 			appUserAction.setInstance(getInstance().getAppUser());
+			appUserAction.loadAssociations();
 		}
 
 		initListUnusualOccurences();

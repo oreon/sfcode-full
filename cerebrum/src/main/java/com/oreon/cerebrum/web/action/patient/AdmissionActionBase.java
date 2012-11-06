@@ -49,7 +49,7 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Admission admission;
 
 	@In(create = true, value = "patientAction")
@@ -58,8 +58,8 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	@In(create = true, value = "bedAction")
 	com.oreon.cerebrum.web.action.facility.BedAction bedAction;
 
-	@DataModel
-	private List<Admission> admissionRecordList;
+	//@DataModel
+	//private List<Admission> admissionRecordList;	
 
 	public void setAdmissionId(Long id) {
 		if (id == 0) {
@@ -69,6 +69,7 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 			return;
 		}
 		setId(id);
+		admission = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,6 +79,7 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	 */
 	public void setAdmissionIdForModalDlg(Long id) {
 		setId(id);
+		admission = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -201,10 +203,12 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 
 		if (admission.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 		if (admission.getBed() != null) {
 			bedAction.setInstance(getInstance().getBed());
+			bedAction.loadAssociations();
 		}
 
 		initListBedStays();

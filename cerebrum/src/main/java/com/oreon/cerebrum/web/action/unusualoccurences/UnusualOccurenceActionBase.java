@@ -47,7 +47,7 @@ public abstract class UnusualOccurenceActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private UnusualOccurence unusualOccurence;
 
 	@In(create = true, value = "occurenceTypeAction")
@@ -59,8 +59,8 @@ public abstract class UnusualOccurenceActionBase
 	@In(create = true, value = "employeeAction")
 	com.oreon.cerebrum.web.action.employee.EmployeeAction createdByAction;
 
-	@DataModel
-	private List<UnusualOccurence> unusualOccurenceRecordList;
+	//@DataModel
+	//private List<UnusualOccurence> unusualOccurenceRecordList;	
 
 	public void setUnusualOccurenceId(Long id) {
 		if (id == 0) {
@@ -70,6 +70,7 @@ public abstract class UnusualOccurenceActionBase
 			return;
 		}
 		setId(id);
+		unusualOccurence = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -79,6 +80,7 @@ public abstract class UnusualOccurenceActionBase
 	 */
 	public void setUnusualOccurenceIdForModalDlg(Long id) {
 		setId(id);
+		unusualOccurence = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -227,14 +229,17 @@ public abstract class UnusualOccurenceActionBase
 
 		if (unusualOccurence.getOccurenceType() != null) {
 			occurenceTypeAction.setInstance(getInstance().getOccurenceType());
+			occurenceTypeAction.loadAssociations();
 		}
 
 		if (unusualOccurence.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 		if (unusualOccurence.getCreatedBy() != null) {
 			createdByAction.setInstance(getInstance().getCreatedBy());
+			createdByAction.loadAssociations();
 		}
 
 	}

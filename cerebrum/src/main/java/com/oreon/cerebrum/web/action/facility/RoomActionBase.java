@@ -49,7 +49,7 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Room room;
 
 	@In(create = true, value = "roomTypeAction")
@@ -58,8 +58,8 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	@In(create = true, value = "wardAction")
 	com.oreon.cerebrum.web.action.facility.WardAction wardAction;
 
-	@DataModel
-	private List<Room> roomRecordList;
+	//@DataModel
+	//private List<Room> roomRecordList;	
 
 	public void setRoomId(Long id) {
 		if (id == 0) {
@@ -69,6 +69,7 @@ public abstract class RoomActionBase extends BaseAction<Room>
 			return;
 		}
 		setId(id);
+		room = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,6 +79,7 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	 */
 	public void setRoomIdForModalDlg(Long id) {
 		setId(id);
+		room = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -201,10 +203,12 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 		if (room.getRoomType() != null) {
 			roomTypeAction.setInstance(getInstance().getRoomType());
+			roomTypeAction.loadAssociations();
 		}
 
 		if (room.getWard() != null) {
 			wardAction.setInstance(getInstance().getWard());
+			wardAction.loadAssociations();
 		}
 
 		initListBeds();

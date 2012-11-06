@@ -47,11 +47,11 @@ public abstract class PhysicalFindingActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private PhysicalFinding physicalFinding;
 
-	@DataModel
-	private List<PhysicalFinding> physicalFindingRecordList;
+	//@DataModel
+	//private List<PhysicalFinding> physicalFindingRecordList;	
 
 	public void setPhysicalFindingId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class PhysicalFindingActionBase
 			return;
 		}
 		setId(id);
+		physicalFinding = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class PhysicalFindingActionBase
 	 */
 	public void setPhysicalFindingIdForModalDlg(Long id) {
 		setId(id);
+		physicalFinding = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

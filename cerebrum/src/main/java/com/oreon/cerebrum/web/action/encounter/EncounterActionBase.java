@@ -50,7 +50,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Encounter encounter;
 
 	@In(create = true, value = "physicianAction")
@@ -62,8 +62,8 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	@DataModel
-	private List<Encounter> encounterRecordList;
+	//@DataModel
+	//private List<Encounter> encounterRecordList;	
 
 	public void setEncounterId(Long id) {
 		if (id == 0) {
@@ -73,6 +73,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 			return;
 		}
 		setId(id);
+		encounter = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -82,6 +83,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	 */
 	public void setEncounterIdForModalDlg(Long id) {
 		setId(id);
+		encounter = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -230,14 +232,17 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 		if (encounter.getPhysician() != null) {
 			physicianAction.setInstance(getInstance().getPhysician());
+			physicianAction.loadAssociations();
 		}
 
 		if (encounter.getPrescription() != null) {
 			prescriptionAction.setInstance(getInstance().getPrescription());
+			prescriptionAction.loadAssociations();
 		}
 
 		if (encounter.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 		initListPrescribedTests();

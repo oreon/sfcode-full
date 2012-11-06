@@ -47,14 +47,14 @@ public abstract class ConditionFindingActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private ConditionFinding conditionFinding;
 
 	@In(create = true, value = "diseaseAction")
 	com.oreon.cerebrum.web.action.ddx.DiseaseAction diseaseAction;
 
-	@DataModel
-	private List<ConditionFinding> conditionFindingRecordList;
+	//@DataModel
+	//private List<ConditionFinding> conditionFindingRecordList;	
 
 	public void setConditionFindingId(Long id) {
 		if (id == 0) {
@@ -64,6 +64,7 @@ public abstract class ConditionFindingActionBase
 			return;
 		}
 		setId(id);
+		conditionFinding = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -73,6 +74,7 @@ public abstract class ConditionFindingActionBase
 	 */
 	public void setConditionFindingIdForModalDlg(Long id) {
 		setId(id);
+		conditionFinding = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -173,6 +175,7 @@ public abstract class ConditionFindingActionBase
 
 		if (conditionFinding.getDisease() != null) {
 			diseaseAction.setInstance(getInstance().getDisease());
+			diseaseAction.loadAssociations();
 		}
 
 	}

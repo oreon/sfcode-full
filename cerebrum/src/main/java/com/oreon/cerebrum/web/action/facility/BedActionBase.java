@@ -47,7 +47,7 @@ public abstract class BedActionBase extends BaseAction<Bed>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Bed bed;
 
 	@In(create = true, value = "roomAction")
@@ -56,8 +56,8 @@ public abstract class BedActionBase extends BaseAction<Bed>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	@DataModel
-	private List<Bed> bedRecordList;
+	//@DataModel
+	//private List<Bed> bedRecordList;	
 
 	public void setBedId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class BedActionBase extends BaseAction<Bed>
 			return;
 		}
 		setId(id);
+		bed = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class BedActionBase extends BaseAction<Bed>
 	 */
 	public void setBedIdForModalDlg(Long id) {
 		setId(id);
+		bed = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -199,10 +201,12 @@ public abstract class BedActionBase extends BaseAction<Bed>
 
 		if (bed.getRoom() != null) {
 			roomAction.setInstance(getInstance().getRoom());
+			roomAction.loadAssociations();
 		}
 
 		if (bed.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 	}

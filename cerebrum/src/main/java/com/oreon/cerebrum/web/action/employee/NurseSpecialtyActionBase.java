@@ -47,11 +47,11 @@ public abstract class NurseSpecialtyActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private NurseSpecialty nurseSpecialty;
 
-	@DataModel
-	private List<NurseSpecialty> nurseSpecialtyRecordList;
+	//@DataModel
+	//private List<NurseSpecialty> nurseSpecialtyRecordList;	
 
 	public void setNurseSpecialtyId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class NurseSpecialtyActionBase
 			return;
 		}
 		setId(id);
+		nurseSpecialty = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class NurseSpecialtyActionBase
 	 */
 	public void setNurseSpecialtyIdForModalDlg(Long id) {
 		setId(id);
+		nurseSpecialty = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

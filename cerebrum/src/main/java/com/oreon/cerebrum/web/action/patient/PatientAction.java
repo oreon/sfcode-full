@@ -1,49 +1,40 @@
-
-	
 package com.oreon.cerebrum.web.action.patient;
-	
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-
-import org.apache.commons.lang.StringUtils;
-
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Scope;
-
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.Component;
-import org.jboss.seam.security.Identity;
+import org.joda.time.DateTime;
 
-import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
-import org.jboss.seam.annotations.Observer;
-
-import org.witchcraft.base.entity.FileAttachment;
-
-import org.apache.commons.io.FileUtils;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
-
-	
 //@Scope(ScopeType.CONVERSATION)
 @Name("patientAction")
-public class PatientAction extends PatientActionBase implements java.io.Serializable{
+public class PatientAction extends PatientActionBase implements
+		java.io.Serializable {
+
+	private List<Birth> births;
+
+	public  PatientAction() {
+		// TODO Auto-generated constructor stub
+
+	}
+	
+	public void initBirths(){
+		
+		births = new ArrayList<Birth>();
+		births.add(new Birth(new Date(), 120, 52));
+		births.add(new Birth(new DateTime(2012, 5, 6, 6, 6, 7, 6).toDate(), 100, 60));
+		births.add(new Birth(new DateTime(2012, 5, 8, 6, 6, 7, 6).toDate(), 44, 110));
+		births.add(new Birth(new DateTime(2012, 5, 9, 6, 6, 7, 6).toDate(), 150, 135));
+		births.add(new Birth(new DateTime(2012, 5, 22, 6, 6, 7, 6).toDate(), 125, 120));
+	}
+
+	public List<Birth> getBirths() {
+		if(births == null)
+			initBirths();
+		return births;
+	}
+
+	
 	
 }
-	
