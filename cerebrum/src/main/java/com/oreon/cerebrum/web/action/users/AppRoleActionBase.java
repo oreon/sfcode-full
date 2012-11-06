@@ -47,11 +47,11 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private AppRole appRole;
 
-	@DataModel
-	private List<AppRole> appRoleRecordList;
+	//@DataModel
+	//private List<AppRole> appRoleRecordList;	
 
 	public void setAppRoleId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 			return;
 		}
 		setId(id);
+		appRole = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 	 */
 	public void setAppRoleIdForModalDlg(Long id) {
 		setId(id);
+		appRole = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
