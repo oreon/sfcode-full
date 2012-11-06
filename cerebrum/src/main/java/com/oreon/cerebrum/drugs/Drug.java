@@ -60,8 +60,8 @@ import com.oreon.cerebrum.ProjectUtils;
 })
 @Name("drug")
 @Indexed
-@Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class Drug extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -16274297L;

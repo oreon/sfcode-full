@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("appointment")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Appointment extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1553847728L;
@@ -79,14 +77,12 @@ public class Appointment extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "physician_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.employee.Physician physician
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.patient.Patient patient
 
 	;

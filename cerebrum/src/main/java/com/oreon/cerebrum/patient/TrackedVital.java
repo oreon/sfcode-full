@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("trackedVital")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class TrackedVital extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 700076891L;

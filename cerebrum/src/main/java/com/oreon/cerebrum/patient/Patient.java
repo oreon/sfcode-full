@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("patient")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Patient extends com.oreon.cerebrum.patient.Person
 		implements
@@ -71,7 +69,6 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<Admission> admissions = new HashSet<Admission>();
 
 	public void addAdmission(Admission admission) {
@@ -92,7 +89,6 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<Prescription> prescriptions = new HashSet<Prescription>();
 
 	public void addPrescription(Prescription prescription) {
@@ -128,7 +124,6 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> unusualOccurences = new HashSet<com.oreon.cerebrum.unusualoccurences.UnusualOccurence>();
 
 	public void addUnusualOccurence(
@@ -151,7 +146,6 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<PatientDocument> patientDocuments = new HashSet<PatientDocument>();
 
 	public void addPatientDocument(PatientDocument patientDocument) {
@@ -173,7 +167,6 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<Allergy> allergys = new HashSet<Allergy>();
 
 	public void addAllergy(Allergy allergy) {
@@ -194,7 +187,6 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<Immunization> immunizations = new HashSet<Immunization>();
 
 	public void addImmunization(Immunization immunization) {
@@ -223,7 +215,6 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<VitalValue> vitalValues = new HashSet<VitalValue>();
 
 	public void addVitalValue(VitalValue vitalValue) {
@@ -260,7 +251,6 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<com.oreon.cerebrum.encounter.Encounter> encounters = new HashSet<com.oreon.cerebrum.encounter.Encounter>();
 
 	public void addEncounter(com.oreon.cerebrum.encounter.Encounter encounter) {

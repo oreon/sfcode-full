@@ -59,16 +59,13 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("bed")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Bed extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1419594382L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "room_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Room room
 
 	;
@@ -84,7 +81,6 @@ public class Bed extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = true, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.patient.Patient patient
 
 	;

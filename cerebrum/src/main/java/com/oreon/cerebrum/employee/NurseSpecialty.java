@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("nurseSpecialty")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class NurseSpecialty extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 811142267L;

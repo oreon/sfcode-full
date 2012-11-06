@@ -59,21 +59,17 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("patientFinding")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class PatientFinding extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -901678194L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "finding_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Finding finding = new Finding();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patientDiffDx_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected PatientDiffDx patientDiffDx
 
 	;

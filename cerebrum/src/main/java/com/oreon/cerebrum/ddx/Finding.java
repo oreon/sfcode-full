@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("finding")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Finding extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1511370859L;
@@ -78,7 +76,6 @@ public class Finding extends BaseEntity implements java.io.Serializable {
 	@OneToMany(mappedBy = "finding", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "finding_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<DifferentialDx> differentialDxs = new HashSet<DifferentialDx>();
 
 	public void addDifferentialDx(DifferentialDx differentialDx) {

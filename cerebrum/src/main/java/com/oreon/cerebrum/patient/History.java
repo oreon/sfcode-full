@@ -54,7 +54,6 @@ import org.witchcraft.base.entity.BaseEntity;
 import com.oreon.cerebrum.ProjectUtils;
 
 @Embeddable
-@Indexed
 public class History implements java.io.Serializable {
 	private static final long serialVersionUID = 178755245L;
 
@@ -154,6 +153,56 @@ public class History implements java.io.Serializable {
 			return medicalHistory + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getMedicalHistoryAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(medicalHistory
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return medicalHistory != null ? medicalHistory : "";
+		}
+	}
+
+	@Transient
+	public String getSocialHistoryAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(socialHistory
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return socialHistory != null ? socialHistory : "";
+		}
+	}
+
+	@Transient
+	public String getFamilyHistoryAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(familyHistory
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return familyHistory != null ? familyHistory : "";
+		}
+	}
+
+	@Transient
+	public String getMedicationsAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(medications
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return medications != null ? medications : "";
+		}
+	}
+
+	@Transient
+	public String getAllergiesAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(allergies
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return allergies != null ? allergies : "";
 		}
 	}
 

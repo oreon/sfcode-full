@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("patientDocument")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class PatientDocument extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -2128826023L;
@@ -93,7 +91,6 @@ public class PatientDocument extends BaseEntity implements java.io.Serializable 
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Patient patient
 
 	;

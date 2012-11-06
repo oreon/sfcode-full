@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("prescription")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Prescription extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1101851763L;
@@ -69,7 +67,6 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 	@OneToMany(mappedBy = "prescription", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "prescription_ID", nullable = false)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<PrescriptionItem> prescriptionItems = new HashSet<PrescriptionItem>();
 
 	public void addPrescriptionItem(PrescriptionItem prescriptionItem) {
@@ -90,7 +87,6 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Patient patient
 
 	;
@@ -179,7 +175,11 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 
 		listSearchableFields.add("directivesForPatient");
 
+		listSearchableFields.add("prescriptionItems.strength");
+
 		listSearchableFields.add("prescriptionItems.remarks");
+
+		listSearchableFields.add("prescriptionItems.brandName");
 
 		return listSearchableFields;
 	}

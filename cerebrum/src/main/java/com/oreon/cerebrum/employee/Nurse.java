@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("nurse")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Nurse extends com.oreon.cerebrum.employee.Employee
 		implements
@@ -70,7 +68,6 @@ public class Nurse extends com.oreon.cerebrum.employee.Employee
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "nurseSpecialty_id", nullable = true, updatable = true)
-	@ContainedIn
 	protected NurseSpecialty nurseSpecialty
 
 	;

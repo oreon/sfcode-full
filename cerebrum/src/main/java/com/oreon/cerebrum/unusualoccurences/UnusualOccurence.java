@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("unusualOccurence")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class UnusualOccurence extends BaseEntity
 		implements
@@ -70,7 +68,6 @@ public class UnusualOccurence extends BaseEntity
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "occurenceType_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected OccurenceType occurenceType
 
 	;
@@ -95,14 +92,12 @@ public class UnusualOccurence extends BaseEntity
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.patient.Patient patient
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "createdBy_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.employee.Employee createdBy
 
 	;

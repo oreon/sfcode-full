@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("invoiceItem")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class InvoiceItem extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -843792017L;
@@ -73,14 +71,12 @@ public class InvoiceItem extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "service_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Service service
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "invoice_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Invoice invoice
 
 	;

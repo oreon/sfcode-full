@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("prescribedTest")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class PrescribedTest extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1220063154L;
@@ -75,14 +73,12 @@ public class PrescribedTest extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "dxTest_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.ddx.DxTest dxTest
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "encounter_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Encounter encounter
 
 	;

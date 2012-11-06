@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("conditionFinding")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class ConditionFinding extends BaseEntity
 		implements
@@ -70,7 +68,6 @@ public class ConditionFinding extends BaseEntity
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "disease_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Disease disease
 
 	;
