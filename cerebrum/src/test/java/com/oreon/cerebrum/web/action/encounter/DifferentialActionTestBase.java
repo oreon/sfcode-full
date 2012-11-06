@@ -1,4 +1,4 @@
-package com.oreon.cerebrum.web.action.appointment;
+package com.oreon.cerebrum.web.action.encounter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -10,13 +10,13 @@ import org.hibernate.annotations.Filter;
 
 import org.testng.annotations.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
-import com.oreon.cerebrum.appointment.Encounter;
+import com.oreon.cerebrum.encounter.Differential;
 
-public class EncounterActionTestBase
+public class DifferentialActionTestBase
 		extends
-			org.witchcraft.action.test.BaseTest<Encounter> {
+			org.witchcraft.action.test.BaseTest<Differential> {
 
-	EncounterAction encounterAction = new EncounterAction();
+	DifferentialAction differentialAction = new DifferentialAction();
 
 	@BeforeClass
 	public void init() {
@@ -24,8 +24,8 @@ public class EncounterActionTestBase
 	}
 
 	@Override
-	public BaseAction<Encounter> getAction() {
-		return encounterAction;
+	public BaseAction<Differential> getAction() {
+		return differentialAction;
 	}
 
 }

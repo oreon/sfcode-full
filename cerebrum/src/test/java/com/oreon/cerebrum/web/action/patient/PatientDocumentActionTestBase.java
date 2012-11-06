@@ -1,4 +1,4 @@
-package com.oreon.cerebrum.web.action.appointment;
+package com.oreon.cerebrum.web.action.patient;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -10,13 +10,13 @@ import org.hibernate.annotations.Filter;
 
 import org.testng.annotations.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
-import com.oreon.cerebrum.appointment.PrescribedTest;
+import com.oreon.cerebrum.patient.PatientDocument;
 
-public class PrescribedTestActionTestBase
+public class PatientDocumentActionTestBase
 		extends
-			org.witchcraft.action.test.BaseTest<PrescribedTest> {
+			org.witchcraft.action.test.BaseTest<PatientDocument> {
 
-	PrescribedTestAction prescribedTestAction = new PrescribedTestAction();
+	PatientDocumentAction patientDocumentAction = new PatientDocumentAction();
 
 	@BeforeClass
 	public void init() {
@@ -24,8 +24,8 @@ public class PrescribedTestActionTestBase
 	}
 
 	@Override
-	public BaseAction<PrescribedTest> getAction() {
-		return prescribedTestAction;
+	public BaseAction<PatientDocument> getAction() {
+		return patientDocumentAction;
 	}
 
 }

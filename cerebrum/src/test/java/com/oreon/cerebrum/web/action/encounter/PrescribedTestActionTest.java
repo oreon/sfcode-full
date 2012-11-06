@@ -1,6 +1,6 @@
 
 
-package com.oreon.cerebrum.web.action.appointment;
+package com.oreon.cerebrum.web.action.encounter;
 
 
 	import javax.persistence.EntityManager;
@@ -13,9 +13,9 @@ package com.oreon.cerebrum.web.action.appointment;
 	
 	import org.testng.annotations.BeforeClass;
 	import org.witchcraft.seam.action.BaseAction;
-	import com.oreon.cerebrum.appointment.Encounter;
+	import com.oreon.cerebrum.encounter.PrescribedTest;
 
 
-public class EncounterActionTest extends EncounterActionTestBase{
+public class PrescribedTestActionTest extends PrescribedTestActionTestBase{
 	
 }
