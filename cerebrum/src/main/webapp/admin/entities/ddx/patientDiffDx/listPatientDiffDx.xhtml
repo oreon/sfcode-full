@@ -18,9 +18,11 @@
       <a:commandButton action="#{patientDiffDxAction.setPatientDiffDxId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{patientDiffDxList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listPatientDiffDxComponent.xhtml"> 
-      <ui:param name="records" value="#{patientDiffDxList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listPatientDiffDxComponent.xhtml"> 
+        <ui:param name="records" value="#{patientDiffDxList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/ddx/patientDiffDx/editPatientDiffDx.xhtml" propagation="none"> 
         <f:param name="patientDiffDxId" value="0"/> 

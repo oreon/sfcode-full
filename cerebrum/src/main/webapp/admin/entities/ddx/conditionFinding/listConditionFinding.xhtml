@@ -18,9 +18,11 @@
       <a:commandButton action="#{conditionFindingAction.setConditionFindingId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{conditionFindingList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listConditionFindingComponent.xhtml"> 
-      <ui:param name="records" value="#{conditionFindingList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listConditionFindingComponent.xhtml"> 
+        <ui:param name="records" value="#{conditionFindingList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/ddx/conditionFinding/editConditionFinding.xhtml" propagation="none"> 
         <f:param name="conditionFindingId" value="0"/> 

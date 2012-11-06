@@ -8,25 +8,38 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDrug')}"/>  
       <br/>  
-      <h:selectOneMenu id="drug" value="#{ prescriptionItemList.prescriptionItem.drug}"> 
-        <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_drugdrug" value="#{ prescriptionItemList.prescriptionItem.drug}"> 
+        <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editQty')}"/>  
       <br/>  
-      <h:inputText id="qty_begin" value="#{prescriptionItemList.qtyRange.begin}"> 
+      <h:inputText id="#{prefix}_qty_begin" value="#{prescriptionItemList.qtyRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 
       </h:inputText>  
-      <h:inputText id="qty_end" value="#{prescriptionItemList.qtyRange.end}"> 
+      <h:inputText id="#{prefix}_qty_end" value="#{prescriptionItemList.qtyRange.end}"> 
         <f:converter converterId="javax.faces.Double"/> 
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editStrength')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_strength" value="#{prescriptionItemList.prescriptionItem.strength}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescription')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_prescriptionprescription" value="#{ prescriptionItemList.prescriptionItem.prescription}"> 
+        <s:selectItems value="#{prescriptionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRoute')}"/>  
       <br/>  
-      <h:selectOneMenu id="route" value="#{prescriptionItemList.prescriptionItem.route}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_route" value="#{prescriptionItemList.prescriptionItem.route}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="None" itemValue=""/>  
         <f:selectItem itemValue="PO" itemLabel="Po"/>  
@@ -37,35 +50,32 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescription')}"/>  
-      <br/>  
-      <h:selectOneMenu id="prescription" value="#{ prescriptionItemList.prescriptionItem.prescription}"> 
-        <s:selectItems value="#{prescriptionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDuration')}"/>  
       <br/>  
-      <h:inputText id="duration_begin" value="#{prescriptionItemList.durationRange.begin}"> 
+      <h:inputText id="#{prefix}_duration_begin" value="#{prescriptionItemList.durationRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText>  
-      <h:inputText id="duration_end" value="#{prescriptionItemList.durationRange.end}"> 
+      <h:inputText id="#{prefix}_duration_end" value="#{prescriptionItemList.durationRange.end}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRemarks')}"/>  
-      <br/>  
-      <h:inputText id="remarks" value="#{prescriptionItemList.prescriptionItem.remarks}"/> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_frequecy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequecy')}"/>  
       <br/>  
-      <h:selectOneMenu id="frequecy" value="#{ prescriptionItemList.prescriptionItem.frequecy}"> 
-        <s:selectItems value="#{frequecyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_frequecyfrequecy" value="#{ prescriptionItemList.prescriptionItem.frequecy}"> 
+        <s:selectItems value="#{frequecyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRemarks')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_remarks" value="#{prescriptionItemList.prescriptionItem.remarks}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editBrandName')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_brandName" value="#{prescriptionItemList.prescriptionItem.brandName}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

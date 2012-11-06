@@ -18,9 +18,11 @@
       <a:commandButton action="#{physicalFindingAction.setPhysicalFindingId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{physicalFindingList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listPhysicalFindingComponent.xhtml"> 
-      <ui:param name="records" value="#{physicalFindingList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listPhysicalFindingComponent.xhtml"> 
+        <ui:param name="records" value="#{physicalFindingList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml" propagation="none"> 
         <f:param name="physicalFindingId" value="0"/> 

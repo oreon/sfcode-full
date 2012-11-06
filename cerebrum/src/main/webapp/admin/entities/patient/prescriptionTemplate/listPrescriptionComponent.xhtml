@@ -37,15 +37,16 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewNotes')}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.prescription_notes}"/>  
-              <ui:param name="propertyPath" value="prescription.notes"/> 
+              <ui:param name="propertyLabel" value="#{msg.prescription_directivesForPatient}"/>  
+              <ui:param name="propertyPath" value="prescription.directivesForPatient"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_prescription.notes}" escape="false"/> 
+          <rich:toolTip value="#{_prescription.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
+          <h:outputText id="directivesForPatientAbbr" value="#{_prescription.directivesForPatientAbbreviated}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')}"> 
           <f:facet name="header"> 

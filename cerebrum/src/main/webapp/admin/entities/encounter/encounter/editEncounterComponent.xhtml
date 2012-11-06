@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEncounterComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{encounterAction.load(encounterId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEncounter eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Encounter}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_chiefComplaintDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.encounter_chiefComplaint}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="#{prefix}_chiefComplaint#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}" label="#{msg.encounter_chiefComplaint}" required="false" disabled="false" value="#{encounterAction.encounter.chiefComplaint}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_progressNotesDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.encounter_progressNotes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editProgressNotes')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="#{prefix}_progressNotes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editProgressNotes')}" label="#{msg.encounter_progressNotes}" required="false" disabled="false" value="#{encounterAction.encounter.progressNotes}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_physicalExamFindingsDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.encounter_physicalExamFindings}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="#{prefix}_physicalExamFindings#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}" label="#{msg.encounter_physicalExamFindings}" required="false" disabled="false" value="#{encounterAction.encounter.physicalExamFindings}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_physicianphysicianDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_physicianphysician" label="#{msg.encounter_physician}" value="#{encounterAction.encounter.physician}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}" disabled="false"> 
+            <s:selectItems value="#{physicianList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_prescriptionprescriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_prescriptionprescription" label="#{msg.encounter_prescription}" value="#{encounterAction.encounter.prescription}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}" disabled="false"> 
+            <s:selectItems value="#{prescriptionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_patientpatient" label="#{msg.encounter_patient}" value="#{encounterAction.encounter.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}" disabled="false"> 
+            <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelVitals eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Vitals}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_vitals_SysBPDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.vitals_SysBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}"/>
+          </ui:define>  
+          <h:inputText id="#{prefix}_vitals_SysBP#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}" label="#{msg.vitals_SysBP}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.sysBP}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_vitals_DiasBPDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.vitals_DiasBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}"/>
+          </ui:define>  
+          <h:inputText id="#{prefix}_vitals_DiasBP#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}" label="#{msg.vitals_DiasBP}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.diasBP}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_vitals_TemperatureDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.vitals_Temperature}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}"/>
+          </ui:define>  
+          <h:inputText id="#{prefix}_vitals_Temperature#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}" label="#{msg.vitals_Temperature}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.temperature}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_vitals_PulseDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.vitals_Pulse}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}"/>
+          </ui:define>  
+          <h:inputText id="#{prefix}_vitals_Pulse#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}" label="#{msg.vitals_Pulse}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.pulse}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_vitals_RespirationRateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.vitals_RespirationRate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}"/>
+          </ui:define>  
+          <h:inputText id="#{prefix}_vitals_RespirationRate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}" label="#{msg.vitals_RespirationRate}" required="false" disabled="false" value="#{encounterAction.encounter.vitals.respirationRate}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_dxTestdxTestDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="#{prefix}_dxTestdxTest" label="#{msg.prescribedTest_dxTest}" value="#{_prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false"> 
+              <s:selectItems value="#{dxTestList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_remarksDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}" label="#{msg.prescribedTest_remarks}" required="false" disabled="false" value="#{_prescribedTest.remarks}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editPrescribedTests')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{encounterAction.deletePrescribedTests(rowIndex)}" reRender="prescribedTests"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <a:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" reRender="differentials" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="differentials" var="_differential" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}" value="#{encounterAction.listDifferentials}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_remarksDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}" label="#{msg.differential_remarks}" required="false" disabled="false" value="#{_differential.remarks}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" reRender="differentials" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editDifferentials')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{encounterAction.deleteDifferentials(rowIndex)}" reRender="differentials"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

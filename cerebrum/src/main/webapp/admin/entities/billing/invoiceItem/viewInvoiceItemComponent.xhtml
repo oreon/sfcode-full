@@ -12,9 +12,9 @@
           <h:outputText value="#{msg.InvoiceItem}"/> 
         </f:facet>  
         <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}"/>  
-        <h:outputText id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}" value="#{invoiceItemAction.invoiceItem.units}"></h:outputText>  
+        <h:outputText id="#{prefix}_units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}" value="#{invoiceItemAction.invoiceItem.units}"></h:outputText>  
         <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}"/>  
-        <h:outputText id="total#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}" value="#{invoiceItemAction.invoiceItem.total}"></h:outputText>  
+        <h:outputText id="#{prefix}_total#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}" value="#{invoiceItemAction.invoiceItem.total}"></h:outputText>  
         <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewService')}"/>  
         <s:link value="#{invoiceItemAction.invoiceItem.service.displayName}" action="viewservice" propagation="none"> 
           <f:param name="serviceId" value="#{invoiceItemAction.invoiceItem.service.id}"/>  

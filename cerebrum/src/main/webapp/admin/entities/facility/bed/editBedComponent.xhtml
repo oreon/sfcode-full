@@ -11,20 +11,20 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Bed}"/> 
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editName')}" label="#{msg.bed_name}" required="true" disabled="false" value="#{bedAction.bed.name}"> 
+          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editName')}" label="#{msg.bed_name}" required="true" disabled="false" value="#{bedAction.bed.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="roomDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_roomroomDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}"/>
           </ui:define>  
-          <h:selectOneMenu id="room" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}" disabled="false"> 
-            <s:selectItems value="#{roomList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <h:selectOneMenu id="#{prefix}_roomroom" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}" disabled="false"> 
+            <s:selectItems value="#{roomList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 

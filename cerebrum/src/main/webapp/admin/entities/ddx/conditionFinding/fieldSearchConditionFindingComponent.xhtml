@@ -8,15 +8,15 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}"/>  
       <br/>  
-      <h:selectOneMenu id="disease" value="#{ conditionFindingList.conditionFinding.disease}"> 
-        <s:selectItems value="#{diseaseList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_diseasedisease" value="#{ conditionFindingList.conditionFinding.disease}"> 
+        <s:selectItems value="#{diseaseList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}"/>  
       <br/>  
-      <h:selectOneMenu id="falsePositive" value="#{conditionFindingList.conditionFinding.falsePositive}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_falsePositive" value="#{conditionFindingList.conditionFinding.falsePositive}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 

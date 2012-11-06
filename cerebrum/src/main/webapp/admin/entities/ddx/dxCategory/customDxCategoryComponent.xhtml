@@ -9,8 +9,8 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.dxCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxCategory', 'editName')}"/>  
         <br/>  
-        <h:inputText id="name" value="#{dxCategoryAction.dxCategory.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxCategory', 'editName')}"/> 
+        <h:inputText id="#{prefix}_name" value="#{dxCategoryAction.dxCategory.name}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxCategory', 'editName')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

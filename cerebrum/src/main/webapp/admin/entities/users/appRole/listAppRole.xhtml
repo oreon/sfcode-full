@@ -18,9 +18,11 @@
       <a:commandButton action="#{appRoleAction.setAppRoleId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{appRoleList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listAppRoleComponent.xhtml"> 
-      <ui:param name="records" value="#{appRoleList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listAppRoleComponent.xhtml"> 
+        <ui:param name="records" value="#{appRoleList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/users/appRole/editAppRole.xhtml" propagation="none"> 
         <f:param name="appRoleId" value="0"/> 

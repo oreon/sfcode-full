@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.disease_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editGender')}"/>  
       <br/>  
-      <h:selectOneMenu id="gender" value="#{diseaseList.disease.gender}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_gender" value="#{diseaseList.disease.gender}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="None" itemValue=""/>  
         <f:selectItem itemValue="F" itemLabel="F"/>  
@@ -18,13 +18,13 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.disease_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editName')}"/>  
       <br/>  
-      <h:inputText id="name" value="#{diseaseList.disease.name}"/> 
+      <h:inputText id="#{prefix}_name" value="#{diseaseList.disease.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/>  
       <br/>  
-      <h:selectOneMenu id="conditionCategory" value="#{ diseaseList.disease.conditionCategory}"> 
-        <s:selectItems value="#{conditionCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_conditionCategoryconditionCategory" value="#{ diseaseList.disease.conditionCategory}"> 
+        <s:selectItems value="#{conditionCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 

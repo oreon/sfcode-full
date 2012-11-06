@@ -16,7 +16,7 @@
         <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewSeverity')}"/>  
         <h:outputText value="#{unusualOccurenceAction.unusualOccurence.severity}"/>  
         <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')}"/>  
-        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')}" value="#{unusualOccurenceAction.unusualOccurence.description}"></h:outputText>  
+        <h:outputText escape="false" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')}" value="#{unusualOccurenceAction.unusualOccurence.description}"></h:outputText>  
         <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewOccurenceType')}"/>  
         <s:link value="#{unusualOccurenceAction.unusualOccurence.occurenceType.displayName}" action="viewoccurenceType" propagation="none"> 
           <f:param name="occurenceTypeId" value="#{unusualOccurenceAction.unusualOccurence.occurenceType.id}"/>  

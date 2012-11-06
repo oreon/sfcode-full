@@ -9,8 +9,8 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.conditionCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionCategory', 'editName')}"/>  
         <br/>  
-        <h:inputText id="name" value="#{conditionCategoryAction.conditionCategory.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionCategory', 'editName')}"/> 
+        <h:inputText id="#{prefix}_name" value="#{conditionCategoryAction.conditionCategory.name}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionCategory', 'editName')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

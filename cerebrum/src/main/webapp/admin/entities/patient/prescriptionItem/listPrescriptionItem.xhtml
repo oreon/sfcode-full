@@ -18,9 +18,11 @@
       <a:commandButton action="#{prescriptionItemAction.setPrescriptionItemId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{prescriptionItemList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listPrescriptionItemComponent.xhtml"> 
-      <ui:param name="records" value="#{prescriptionItemList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listPrescriptionItemComponent.xhtml"> 
+        <ui:param name="records" value="#{prescriptionItemList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/patient/prescriptionItem/editPrescriptionItem.xhtml" propagation="none"> 
         <f:param name="prescriptionItemId" value="0"/> 

@@ -17,16 +17,16 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.immunization_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patient" value="#{ immunizationList.immunization.patient}"> 
-        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ immunizationList.immunization.patient}"> 
+        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}"/>  
       <br/>  
-      <h:selectOneMenu id="vaccine" value="#{ immunizationList.immunization.vaccine}"> 
-        <s:selectItems value="#{vaccineList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_vaccinevaccine" value="#{ immunizationList.immunization.vaccine}"> 
+        <s:selectItems value="#{vaccineList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup> 

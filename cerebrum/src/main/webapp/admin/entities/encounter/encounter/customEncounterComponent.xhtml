@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_physicianphysician" value="#{encounterAction.encounter.physician}"> 
+          <s:selectItems value="#{physicianList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_physicianphysician" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_chiefComplaint}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_chiefComplaint" value="#{encounterAction.encounter.chiefComplaint}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_chiefComplaint" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_progressNotes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editProgressNotes')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_progressNotes" value="#{encounterAction.encounter.progressNotes}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_progressNotes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editProgressNotes')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_SysBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_SysBP" value="#{encounterAction.encounter.vitals.sysBP}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_vitals_SysBP" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_DiasBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_DiasBP" value="#{encounterAction.encounter.vitals.diasBP}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_vitals_DiasBP" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_Temperature}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_Temperature" value="#{encounterAction.encounter.vitals.temperature}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_vitals_Temperature" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_Pulse}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_Pulse" value="#{encounterAction.encounter.vitals.pulse}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_vitals_Pulse" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitals_RespirationRate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_vitals_RespirationRate" value="#{encounterAction.encounter.vitals.respirationRate}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_vitals_RespirationRate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_prescriptionprescription" value="#{encounterAction.encounter.prescription}"> 
+          <s:selectItems value="#{prescriptionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_prescriptionprescription" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_physicalExamFindings}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_physicalExamFindings" value="#{encounterAction.encounter.physicalExamFindings}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_physicalExamFindings" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_patientpatient" value="#{encounterAction.encounter.patient}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

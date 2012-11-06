@@ -8,31 +8,31 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>  
       <br/>  
-      <h:inputText id="remarks" value="#{vitalValueList.vitalValue.remarks}"/> 
+      <h:inputText id="#{prefix}_remarks" value="#{vitalValueList.vitalValue.remarks}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}"/>  
       <br/>  
-      <h:inputText id="value_begin" value="#{vitalValueList.valueRange.begin}"> 
+      <h:inputText id="#{prefix}_value_begin" value="#{vitalValueList.valueRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText>  
-      <h:inputText id="value_end" value="#{vitalValueList.valueRange.end}"> 
+      <h:inputText id="#{prefix}_value_end" value="#{vitalValueList.valueRange.end}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/>  
       <br/>  
-      <h:selectOneMenu id="trackedVital" value="#{ vitalValueList.vitalValue.trackedVital}"> 
-        <s:selectItems value="#{trackedVitalList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_trackedVitaltrackedVital" value="#{ vitalValueList.vitalValue.trackedVital}"> 
+        <s:selectItems value="#{trackedVitalList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patient" value="#{ vitalValueList.vitalValue.patient}"> 
-        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ vitalValueList.vitalValue.patient}"> 
+        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup> 

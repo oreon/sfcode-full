@@ -18,9 +18,11 @@
       <a:commandButton action="#{facilityAction.setFacilityId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{facilityList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listFacilityComponent.xhtml"> 
-      <ui:param name="records" value="#{facilityList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listFacilityComponent.xhtml"> 
+        <ui:param name="records" value="#{facilityList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/facility/facility/editFacility.xhtml" propagation="none"> 
         <f:param name="facilityId" value="0"/> 

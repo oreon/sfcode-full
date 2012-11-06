@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_physicianphysician" value="#{ encounterList.encounter.physician}"> 
+        <s:selectItems value="#{physicianList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.encounter_chiefComplaint}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_chiefComplaint" value="#{encounterList.encounter.chiefComplaint}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.encounter_progressNotes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editProgressNotes')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_progressNotes" value="#{encounterList.encounter.progressNotes}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.vitals_SysBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editSysBP')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_vitals_SysBP_begin" value="#{encounterList.vitals_SysBPRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_vitals_SysBP_end" value="#{encounterList.vitals_SysBPRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.vitals_DiasBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editDiasBP')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_vitals_DiasBP_begin" value="#{encounterList.vitals_DiasBPRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_vitals_DiasBP_end" value="#{encounterList.vitals_DiasBPRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.vitals_Temperature}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editTemperature')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_vitals_Temperature_begin" value="#{encounterList.vitals_TemperatureRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_vitals_Temperature_end" value="#{encounterList.vitals_TemperatureRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.vitals_Pulse}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPulse')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_vitals_Pulse_begin" value="#{encounterList.vitals_PulseRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_vitals_Pulse_end" value="#{encounterList.vitals_PulseRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.vitals_RespirationRate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editRespirationRate')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_vitals_RespirationRate_begin" value="#{encounterList.vitals_RespirationRateRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_vitals_RespirationRate_end" value="#{encounterList.vitals_RespirationRateRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_prescriptionprescription" value="#{ encounterList.encounter.prescription}"> 
+        <s:selectItems value="#{prescriptionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.encounter_physicalExamFindings}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_physicalExamFindings" value="#{encounterList.encounter.physicalExamFindings}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ encounterList.encounter.patient}"> 
+        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{encounterList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{encounterList.dateCreatedRange.end}"/> 
+  </h:panelGrid>  
+  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
+    <h:inputText value="#{encounterList.searchName}"/>  
+    <h:commandButton id="savesearch" value="Save Search" action="#{encounterList.saveSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <h:selectOneMenu id="svdsearches" value="#{encounterList.currentSavedSearch}"> 
+      <s:selectItems value="#{encounterList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
+      <s:convertEntity/> 
+    </h:selectOneMenu>  
+    <h:commandButton value="Load Search" action="#{encounterList.executeSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton> 
+  </div> 
+</ui:composition>

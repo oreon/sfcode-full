@@ -18,9 +18,11 @@
       <a:commandButton action="#{dxCategoryAction.setDxCategoryId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{dxCategoryList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listDxCategoryComponent.xhtml"> 
-      <ui:param name="records" value="#{dxCategoryList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listDxCategoryComponent.xhtml"> 
+        <ui:param name="records" value="#{dxCategoryList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/ddx/dxCategory/editDxCategory.xhtml" propagation="none"> 
         <f:param name="dxCategoryId" value="0"/> 

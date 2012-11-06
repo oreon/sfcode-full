@@ -8,13 +8,13 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.drugCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'editName')}"/>  
       <br/>  
-      <h:inputText id="name" value="#{drugCategoryList.drugCategory.name}"/> 
+      <h:inputText id="#{prefix}_name" value="#{drugCategoryList.drugCategory.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.drugCategory_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'editDrugs')}"/>  
       <br/>  
-      <h:selectOneMenu id="drugs" value="#{ drugCategoryList.drugsToSearch}"> 
-        <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_drugsdrugs" value="#{ drugCategoryList.drugsToSearch}"> 
+        <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 

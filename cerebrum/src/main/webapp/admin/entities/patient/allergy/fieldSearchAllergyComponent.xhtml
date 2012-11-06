@@ -8,23 +8,23 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patient" value="#{ allergyList.allergy.patient}"> 
-        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ allergyList.allergy.patient}"> 
+        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}"/>  
       <br/>  
-      <h:selectOneMenu id="allergen" value="#{ allergyList.allergy.allergen}"> 
-        <s:selectItems value="#{allergenList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="#{prefix}_allergenallergen" value="#{ allergyList.allergy.allergen}"> 
+        <s:selectItems value="#{allergenList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}"/>  
       <br/>  
-      <h:selectOneMenu id="severity" value="#{allergyList.allergy.severity}" required="false"> 
+      <h:selectOneMenu id="#{prefix}_severity" value="#{allergyList.allergy.severity}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="None" itemValue=""/>  
         <f:selectItem itemValue="SEVERE" itemLabel="Severe"/>  

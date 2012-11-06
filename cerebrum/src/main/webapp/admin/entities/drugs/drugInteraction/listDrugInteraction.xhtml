@@ -18,9 +18,11 @@
       <a:commandButton action="#{drugInteractionAction.setDrugInteractionId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{drugInteractionList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listDrugInteractionComponent.xhtml"> 
-      <ui:param name="records" value="#{drugInteractionList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listDrugInteractionComponent.xhtml"> 
+        <ui:param name="records" value="#{drugInteractionList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/drugs/drugInteraction/editDrugInteraction.xhtml" propagation="none"> 
         <f:param name="drugInteractionId" value="0"/> 

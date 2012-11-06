@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.DrugInteraction}"/> 
         </f:facet>  
         <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')}"/>  
-        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')}" value="#{drugInteractionAction.drugInteraction.description}"></h:outputText>  
+        <h:outputText escape="false" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')}" value="#{drugInteractionAction.drugInteraction.description}"></h:outputText>  
         <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewSeverity')}"/>  
         <h:outputText value="#{drugInteractionAction.drugInteraction.severity}"/>  
         <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDrug')}"/>  

@@ -18,9 +18,11 @@
       <a:commandButton action="#{appUserAction.setAppUserId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{appUserList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listAppUserComponent.xhtml"> 
-      <ui:param name="records" value="#{appUserList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listAppUserComponent.xhtml"> 
+        <ui:param name="records" value="#{appUserList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/users/appUser/editAppUser.xhtml" propagation="none"> 
         <f:param name="appUserId" value="0"/> 

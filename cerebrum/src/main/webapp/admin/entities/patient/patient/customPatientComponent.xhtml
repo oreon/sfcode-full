@@ -9,84 +9,126 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}"/>  
         <br/>  
-        <h:inputText id="firstName" value="#{patientAction.patient.firstName}"/>  
-        <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}"/> 
+        <h:inputText id="#{prefix}_firstName" value="#{patientAction.patient.firstName}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}"/>  
         <br/>  
-        <h:inputText id="lastName" value="#{patientAction.patient.lastName}"/>  
-        <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}"/> 
+        <h:inputText id="#{prefix}_lastName" value="#{patientAction.patient.lastName}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editDateOfBirth')}"/>  
         <br/>  
-        <rich:calendar id="dateOfBirth" value="#{patientAction.patient.dateOfBirth}"/>  
-        <rich:message styleClass="error errors" for="dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editDateOfBirth')}"/> 
+        <rich:calendar id="#{prefix}_dateOfBirth" value="#{patientAction.patient.dateOfBirth}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_dateOfBirth" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editDateOfBirth')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editGender')}"/>  
         <br/>  
-        <h:selectOneMenu id="gender" value="#{patientAction.patient.gender}" required="false"> 
+        <h:selectOneMenu id="#{prefix}_gender" value="#{patientAction.patient.gender}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="F" itemLabel="F"/>  
           <f:selectItem itemValue="M" itemLabel="M"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editGender')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editGender')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPrimaryPhone')}"/>  
         <br/>  
-        <h:inputText id="contactDetails_primaryPhone" value="#{patientAction.patient.contactDetails.primaryPhone}"/>  
-        <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPrimaryPhone')}"/> 
+        <h:inputText id="#{prefix}_contactDetails_primaryPhone" value="#{patientAction.patient.contactDetails.primaryPhone}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPrimaryPhone')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSecondaryPhone')}"/>  
         <br/>  
-        <h:inputText id="contactDetails_secondaryPhone" value="#{patientAction.patient.contactDetails.secondaryPhone}"/>  
-        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSecondaryPhone')}"/> 
+        <h:inputText id="#{prefix}_contactDetails_secondaryPhone" value="#{patientAction.patient.contactDetails.secondaryPhone}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSecondaryPhone')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editEmail')}"/>  
         <br/>  
-        <h:inputText id="contactDetails_email" value="#{patientAction.patient.contactDetails.email}"/>  
-        <rich:message styleClass="error errors" for="contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editEmail')}"/> 
+        <h:inputText id="#{prefix}_contactDetails_email" value="#{patientAction.patient.contactDetails.email}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_contactDetails_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editEmail')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAge')}"/>  
         <br/>  
-        <h:inputText id="age" value="#{patientAction.patient.age}"/>  
-        <rich:message styleClass="error errors" for="age" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAge')}"/> 
+        <h:inputText id="#{prefix}_age" value="#{patientAction.patient.age}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_age" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAge')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editTitle')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_title" value="#{patientAction.patient.title}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Mr" itemLabel="Mr"/>  
+          <f:selectItem itemValue="Mrs" itemLabel="Mrs"/>  
+          <f:selectItem itemValue="Ms" itemLabel="Ms"/>  
+          <f:selectItem itemValue="Dr" itemLabel="Dr"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editTitle')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.address_streetAddress}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editStreetAddress')}"/>  
         <br/>  
-        <h:inputText id="address_streetAddress" value="#{patientAction.patient.address.streetAddress}"/>  
-        <rich:message styleClass="error errors" for="address_streetAddress" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editStreetAddress')}"/> 
+        <h:inputText id="#{prefix}_address_streetAddress" value="#{patientAction.patient.address.streetAddress}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_address_streetAddress" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editStreetAddress')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editCity')}"/>  
         <br/>  
-        <h:inputText id="address_city" value="#{patientAction.patient.address.city}"/>  
-        <rich:message styleClass="error errors" for="address_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editCity')}"/> 
+        <h:inputText id="#{prefix}_address_city" value="#{patientAction.patient.address.city}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_address_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editCity')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.address_State}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editState')}"/>  
         <br/>  
-        <h:inputText id="address_State" value="#{patientAction.patient.address.state}"/>  
-        <rich:message styleClass="error errors" for="address_State" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editState')}"/> 
+        <h:inputText id="#{prefix}_address_State" value="#{patientAction.patient.address.state}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_address_State" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editState')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPhone')}"/>  
         <br/>  
-        <h:inputText id="address_phone" value="#{patientAction.patient.address.phone}"/>  
-        <rich:message styleClass="error errors" for="address_phone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPhone')}"/> 
+        <h:inputText id="#{prefix}_address_phone" value="#{patientAction.patient.address.phone}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_address_phone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPhone')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}"/>  
         <br/>  
-        <h:inputText id="healthNumber" value="#{patientAction.patient.healthNumber}"/>  
-        <rich:message styleClass="error errors" for="healthNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}"/> 
+        <h:inputText id="#{prefix}_healthNumber" value="#{patientAction.patient.healthNumber}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_healthNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedicalHistory')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_history_medicalHistory" value="#{patientAction.patient.history.medicalHistory}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_history_medicalHistory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedicalHistory')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_socialHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSocialHistory')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_history_socialHistory" value="#{patientAction.patient.history.socialHistory}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_history_socialHistory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSocialHistory')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_familyHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFamilyHistory')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_history_familyHistory" value="#{patientAction.patient.history.familyHistory}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_history_familyHistory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFamilyHistory')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_medications}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedications')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_history_medications" value="#{patientAction.patient.history.medications}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_history_medications" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedications')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.history_allergies}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAllergies')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_history_allergies" value="#{patientAction.patient.history.allergies}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_history_allergies" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAllergies')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

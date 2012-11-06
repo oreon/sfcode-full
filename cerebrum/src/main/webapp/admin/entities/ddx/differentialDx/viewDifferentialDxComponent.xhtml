@@ -12,7 +12,7 @@
           <h:outputText value="#{msg.DifferentialDx}"/> 
         </f:facet>  
         <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}" value="#{differentialDxAction.differentialDx.name}"></h:outputText>  
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}" value="#{differentialDxAction.differentialDx.name}"></h:outputText>  
         <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewDxCategory')}"/>  
         <s:link value="#{differentialDxAction.differentialDx.dxCategory.displayName}" action="viewdxCategory" propagation="none"> 
           <f:param name="dxCategoryId" value="#{differentialDxAction.differentialDx.dxCategory.id}"/>  

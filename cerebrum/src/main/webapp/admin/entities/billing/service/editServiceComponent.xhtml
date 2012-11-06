@@ -11,19 +11,19 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Service}"/> 
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.service_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editName')}" label="#{msg.service_name}" required="true" disabled="false" value="#{serviceAction.service.name}"> 
+          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editName')}" label="#{msg.service_name}" required="true" disabled="false" value="#{serviceAction.service.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="priceDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_priceDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.service_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editPrice')}"/>
           </ui:define>  
-          <h:inputText id="price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editPrice')}" label="#{msg.service_price}" required="false" disabled="false" value="#{serviceAction.service.price}"> 
+          <h:inputText id="#{prefix}_price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editPrice')}" label="#{msg.service_price}" required="false" disabled="false" value="#{serviceAction.service.price}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

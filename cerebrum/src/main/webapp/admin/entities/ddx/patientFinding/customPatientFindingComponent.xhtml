@@ -9,20 +9,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>  
         <br/>  
-        <h:selectOneMenu id="finding" value="#{patientFindingAction.patientFinding.finding}"> 
+        <h:selectOneMenu id="#{prefix}_findingfinding" value="#{patientFindingAction.patientFinding.finding}"> 
           <s:selectItems value="#{findingList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="finding" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_findingfinding" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}"/>  
         <br/>  
-        <h:selectOneMenu id="patientDiffDx" value="#{patientFindingAction.patientFinding.patientDiffDx}"> 
+        <h:selectOneMenu id="#{prefix}_patientDiffDxpatientDiffDx" value="#{patientFindingAction.patientFinding.patientDiffDx}"> 
           <s:selectItems value="#{patientDiffDxList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patientDiffDx" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_patientDiffDxpatientDiffDx" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -18,9 +18,11 @@
       <a:commandButton action="#{allergyAction.setAllergyId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{allergyList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listAllergyComponent.xhtml"> 
-      <ui:param name="records" value="#{allergyList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listAllergyComponent.xhtml"> 
+        <ui:param name="records" value="#{allergyList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/patient/allergy/editAllergy.xhtml" propagation="none"> 
         <f:param name="allergyId" value="0"/> 

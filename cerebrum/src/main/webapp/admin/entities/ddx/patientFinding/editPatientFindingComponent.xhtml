@@ -11,31 +11,30 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.PatientFinding}"/> 
         </f:facet>  
-        <s:decorate id="findingDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_findingfindingDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>
           </ui:define>  
           <h:panelGroup> 
             <a:region> 
-              <h:inputText value="#{patientFindingAction.patientFinding.finding.displayName}" label="#{msg.patientFinding_finding}" id="finding" required="true"/>  
-              <rich:suggestionbox for="finding" rules="all" suggestionAction="#{findingList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
+              <h:inputText value="#{patientFindingAction.patientFinding.finding.displayName}" label="#{msg.patientFinding_finding}" id="#{prefix}_findingfinding" required="true"/>  
+              <rich:suggestionbox for="#{prefix}_findingfinding" rules="all" suggestionAction="#{findingList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
                 <h:column> 
                   <h:outputText value="#{_result.name}"/> 
                 </h:column>  
                 <a:support event="onselect"> 
                   <f:setPropertyActionListener value="#{_result}" target="#{patientFindingAction.patientFinding.finding}"/> 
-                  <f:setPropertyActionListener value="#{_result}" target="#{patientDiffDxAction.newFinding}" />
                 </a:support> 
               </rich:suggestionbox> 
             </a:region> 
           </h:panelGroup> 
         </s:decorate>  
-        <s:decorate id="patientDiffDxDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientDiffDxpatientDiffDxDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}"/>
           </ui:define>  
-          <h:selectOneMenu id="patientDiffDx" label="#{msg.patientFinding_patientDiffDx}" value="#{patientFindingAction.patientFinding.patientDiffDx}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}" disabled="false"> 
-            <s:selectItems value="#{patientDiffDxList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <h:selectOneMenu id="#{prefix}_patientDiffDxpatientDiffDx" label="#{msg.patientFinding_patientDiffDx}" value="#{patientFindingAction.patientFinding.patientDiffDx}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}" disabled="false"> 
+            <s:selectItems value="#{patientDiffDxList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 

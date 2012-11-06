@@ -9,23 +9,23 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPatient')}"/>  
         <br/>  
-        <h:selectOneMenu id="patient" value="#{prescriptionAction.prescription.patient}"> 
+        <h:selectOneMenu id="#{prefix}_patientpatient" value="#{prescriptionAction.prescription.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPatient')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.prescription_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editNotes')}"/>  
+        <h:outputText value="#{msg.prescription_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDirectivesForPatient')}"/>  
         <br/>  
-        <rich:editor id="notes" value="#{prescriptionAction.prescription.notes}"/>  
-        <rich:message styleClass="error errors" for="notes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editNotes')}"/> 
+        <rich:editor id="#{prefix}_directivesForPatient" value="#{prescriptionAction.prescription.directivesForPatient}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_directivesForPatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDirectivesForPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editActive')}"/>  
         <br/>  
-        <h:selectBooleanCheckbox id="active" value="#{prescriptionAction.prescription.active}"/>  
-        <rich:message styleClass="error errors" for="active" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editActive')}"/> 
+        <h:selectBooleanCheckbox id="#{prefix}_active" value="#{prescriptionAction.prescription.active}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_active" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editActive')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

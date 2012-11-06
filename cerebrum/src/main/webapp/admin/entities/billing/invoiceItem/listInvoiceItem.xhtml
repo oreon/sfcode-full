@@ -18,9 +18,11 @@
       <a:commandButton action="#{invoiceItemAction.setInvoiceItemId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{invoiceItemList.exportToCsv}"/> 
     </a:form>  
-    <ui:include src="listInvoiceItemComponent.xhtml"> 
-      <ui:param name="records" value="#{invoiceItemList.resultList}"/> 
-    </ui:include>  
+    <div id="printable"> 
+      <ui:include src="listInvoiceItemComponent.xhtml"> 
+        <ui:param name="records" value="#{invoiceItemList.resultList}"/> 
+      </ui:include> 
+    </div>  
     <a:form> 
       <s:button value="Create New" action="/admin/entities/billing/invoiceItem/editInvoiceItem.xhtml" propagation="none"> 
         <f:param name="invoiceItemId" value="0"/> 

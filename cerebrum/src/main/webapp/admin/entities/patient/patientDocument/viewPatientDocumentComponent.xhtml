@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPatientDocumentComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{patientDocumentAction.load(patientDocumentId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPatientDocument eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.PatientDocument}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.patientDocument_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewName')}"/>  
+        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewName')}" value="#{patientDocumentAction.patientDocument.name}"></h:outputText>  
+        <h:outputText value="#{msg.patientDocument_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewFile')}"/>  
+        <c:choose> 
+          <c:when test="${patientDocumentAction.patientDocument.file.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{patientDocumentAction.patientDocument.file.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{patientDocumentAction.patientDocument.file.name}" action="#{patientDocumentAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{patientDocumentAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose>  
+        <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewNotes')}"/>  
+        <h:outputText escape="false" id="#{prefix}_notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewNotes')}" value="#{patientDocumentAction.patientDocument.notes}"></h:outputText>  
+        <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewPatient')}"/>  
+        <s:link value="#{patientDocumentAction.patientDocument.patient.displayName}" action="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{patientDocumentAction.patientDocument.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{patientDocumentAction.patientDocument.patient.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
