@@ -47,11 +47,11 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private AppUser appUser;
 
-	@DataModel
-	private List<AppUser> appUserRecordList;
+	//@DataModel
+	//private List<AppUser> appUserRecordList;	
 
 	public void setAppUserId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 			return;
 		}
 		setId(id);
+		appUser = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 	 */
 	public void setAppUserIdForModalDlg(Long id) {
 		setId(id);
+		appUser = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
