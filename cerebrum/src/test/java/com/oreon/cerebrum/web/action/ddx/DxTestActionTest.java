@@ -1,6 +1,6 @@
 
 
-package com.oreon.cerebrum.web.action.appointment;
+package com.oreon.cerebrum.web.action.ddx;
 
 
 	import javax.persistence.EntityManager;
@@ -13,9 +13,9 @@ package com.oreon.cerebrum.web.action.appointment;
 	
 	import org.testng.annotations.BeforeClass;
 	import org.witchcraft.seam.action.BaseAction;
-	import com.oreon.cerebrum.appointment.PrescribedTest;
+	import com.oreon.cerebrum.ddx.DxTest;
 
 
-public class PrescribedTestActionTest extends PrescribedTestActionTestBase{
+public class DxTestActionTest extends DxTestActionTestBase{
 	
 }
