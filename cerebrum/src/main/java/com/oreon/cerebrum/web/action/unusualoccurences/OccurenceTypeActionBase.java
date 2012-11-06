@@ -47,11 +47,11 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private OccurenceType occurenceType;
 
-	@DataModel
-	private List<OccurenceType> occurenceTypeRecordList;
+	//@DataModel
+	//private List<OccurenceType> occurenceTypeRecordList;	
 
 	public void setOccurenceTypeId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 			return;
 		}
 		setId(id);
+		occurenceType = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 	 */
 	public void setOccurenceTypeIdForModalDlg(Long id) {
 		setId(id);
+		occurenceType = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

@@ -47,11 +47,11 @@ public abstract class ClerkActionBase extends BaseAction<Clerk>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Clerk clerk;
 
-	@DataModel
-	private List<Clerk> clerkRecordList;
+	//@DataModel
+	//private List<Clerk> clerkRecordList;	
 
 	public void setClerkId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class ClerkActionBase extends BaseAction<Clerk>
 			return;
 		}
 		setId(id);
+		clerk = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class ClerkActionBase extends BaseAction<Clerk>
 	 */
 	public void setClerkIdForModalDlg(Long id) {
 		setId(id);
+		clerk = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

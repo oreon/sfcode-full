@@ -47,11 +47,11 @@ public abstract class ConditionCategoryActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private ConditionCategory conditionCategory;
 
-	@DataModel
-	private List<ConditionCategory> conditionCategoryRecordList;
+	//@DataModel
+	//private List<ConditionCategory> conditionCategoryRecordList;	
 
 	public void setConditionCategoryId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class ConditionCategoryActionBase
 			return;
 		}
 		setId(id);
+		conditionCategory = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class ConditionCategoryActionBase
 	 */
 	public void setConditionCategoryIdForModalDlg(Long id) {
 		setId(id);
+		conditionCategory = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

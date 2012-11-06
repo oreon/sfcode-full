@@ -79,16 +79,20 @@ public abstract class PrescriptionItemListQueryBase
 			"prescriptionItem.qty >= #{prescriptionItemList.qtyRange.begin}",
 			"prescriptionItem.qty <= #{prescriptionItemList.qtyRange.end}",
 
-			"prescriptionItem.route = #{prescriptionItemList.prescriptionItem.route}",
+			"lower(prescriptionItem.strength) like concat(lower(#{prescriptionItemList.prescriptionItem.strength}),'%')",
 
 			"prescriptionItem.prescription.id = #{prescriptionItemList.prescriptionItem.prescription.id}",
+
+			"prescriptionItem.route = #{prescriptionItemList.prescriptionItem.route}",
 
 			"prescriptionItem.duration >= #{prescriptionItemList.durationRange.begin}",
 			"prescriptionItem.duration <= #{prescriptionItemList.durationRange.end}",
 
+			"prescriptionItem.frequecy.id = #{prescriptionItemList.prescriptionItem.frequecy.id}",
+
 			"lower(prescriptionItem.remarks) like concat(lower(#{prescriptionItemList.prescriptionItem.remarks}),'%')",
 
-			"prescriptionItem.frequecy.id = #{prescriptionItemList.prescriptionItem.frequecy.id}",
+			"lower(prescriptionItem.brandName) like concat(lower(#{prescriptionItemList.prescriptionItem.brandName}),'%')",
 
 			"prescriptionItem.dateCreated <= #{prescriptionItemList.dateCreatedRange.end}",
 			"prescriptionItem.dateCreated >= #{prescriptionItemList.dateCreatedRange.begin}",};
@@ -117,15 +121,24 @@ public abstract class PrescriptionItemListQueryBase
 
 		builder.append("\"" + (e.getQty() != null ? e.getQty() : "") + "\",");
 
-		builder.append("\"" + (e.getRoute() != null ? e.getRoute() : "")
-				+ "\",");
+		builder.append("\""
+				+ (e.getStrength() != null
+						? e.getStrength().replace(",", "")
+						: "") + "\",");
 
 		builder.append("\""
 				+ (e.getPrescription() != null ? e.getPrescription()
 						.getDisplayName().replace(",", "") : "") + "\",");
 
+		builder.append("\"" + (e.getRoute() != null ? e.getRoute() : "")
+				+ "\",");
+
 		builder.append("\"" + (e.getDuration() != null ? e.getDuration() : "")
 				+ "\",");
+
+		builder.append("\""
+				+ (e.getFrequecy() != null ? e.getFrequecy().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getRemarks() != null
@@ -133,8 +146,9 @@ public abstract class PrescriptionItemListQueryBase
 						: "") + "\",");
 
 		builder.append("\""
-				+ (e.getFrequecy() != null ? e.getFrequecy().getDisplayName()
-						.replace(",", "") : "") + "\",");
+				+ (e.getBrandName() != null
+						? e.getBrandName().replace(",", "")
+						: "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -149,15 +163,19 @@ public abstract class PrescriptionItemListQueryBase
 
 		builder.append("Qty" + ",");
 
-		builder.append("Route" + ",");
+		builder.append("Strength" + ",");
 
 		builder.append("Prescription" + ",");
 
+		builder.append("Route" + ",");
+
 		builder.append("Duration" + ",");
+
+		builder.append("Frequecy" + ",");
 
 		builder.append("Remarks" + ",");
 
-		builder.append("Frequecy" + ",");
+		builder.append("BrandName" + ",");
 
 		builder.append("\r\n");
 	}

@@ -47,14 +47,14 @@ public abstract class PhysicianActionBase extends BaseAction<Physician>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Physician physician;
 
 	@In(create = true, value = "specializationAction")
 	com.oreon.cerebrum.web.action.employee.SpecializationAction specializationAction;
 
-	@DataModel
-	private List<Physician> physicianRecordList;
+	//@DataModel
+	//private List<Physician> physicianRecordList;	
 
 	public void setPhysicianId(Long id) {
 		if (id == 0) {
@@ -64,6 +64,7 @@ public abstract class PhysicianActionBase extends BaseAction<Physician>
 			return;
 		}
 		setId(id);
+		physician = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -73,6 +74,7 @@ public abstract class PhysicianActionBase extends BaseAction<Physician>
 	 */
 	public void setPhysicianIdForModalDlg(Long id) {
 		setId(id);
+		physician = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -174,6 +176,7 @@ public abstract class PhysicianActionBase extends BaseAction<Physician>
 
 		if (physician.getSpecialization() != null) {
 			specializationAction.setInstance(getInstance().getSpecialization());
+			specializationAction.loadAssociations();
 		}
 
 	}

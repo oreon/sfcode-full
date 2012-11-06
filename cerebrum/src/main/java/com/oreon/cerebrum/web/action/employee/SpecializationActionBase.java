@@ -47,11 +47,11 @@ public abstract class SpecializationActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Specialization specialization;
 
-	@DataModel
-	private List<Specialization> specializationRecordList;
+	//@DataModel
+	//private List<Specialization> specializationRecordList;	
 
 	public void setSpecializationId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class SpecializationActionBase
 			return;
 		}
 		setId(id);
+		specialization = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class SpecializationActionBase
 	 */
 	public void setSpecializationIdForModalDlg(Long id) {
 		setId(id);
+		specialization = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

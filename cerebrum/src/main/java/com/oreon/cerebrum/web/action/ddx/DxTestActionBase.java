@@ -47,11 +47,11 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private DxTest dxTest;
 
-	@DataModel
-	private List<DxTest> dxTestRecordList;
+	//@DataModel
+	//private List<DxTest> dxTestRecordList;	
 
 	public void setDxTestId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 			return;
 		}
 		setId(id);
+		dxTest = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	 */
 	public void setDxTestIdForModalDlg(Long id) {
 		setId(id);
+		dxTest = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

@@ -47,11 +47,11 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private DrugCategory drugCategory;
 
-	@DataModel
-	private List<DrugCategory> drugCategoryRecordList;
+	//@DataModel
+	//private List<DrugCategory> drugCategoryRecordList;	
 
 	public void setDrugCategoryId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 			return;
 		}
 		setId(id);
+		drugCategory = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 	 */
 	public void setDrugCategoryIdForModalDlg(Long id) {
 		setId(id);
+		drugCategory = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

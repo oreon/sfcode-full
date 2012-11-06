@@ -47,11 +47,11 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private DxCategory dxCategory;
 
-	@DataModel
-	private List<DxCategory> dxCategoryRecordList;
+	//@DataModel
+	//private List<DxCategory> dxCategoryRecordList;	
 
 	public void setDxCategoryId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 			return;
 		}
 		setId(id);
+		dxCategory = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 	 */
 	public void setDxCategoryIdForModalDlg(Long id) {
 		setId(id);
+		dxCategory = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

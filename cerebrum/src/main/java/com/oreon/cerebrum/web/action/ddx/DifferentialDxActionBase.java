@@ -47,7 +47,7 @@ public abstract class DifferentialDxActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private DifferentialDx differentialDx;
 
 	@In(create = true, value = "dxCategoryAction")
@@ -56,8 +56,8 @@ public abstract class DifferentialDxActionBase
 	@In(create = true, value = "findingAction")
 	com.oreon.cerebrum.web.action.ddx.FindingAction findingAction;
 
-	@DataModel
-	private List<DifferentialDx> differentialDxRecordList;
+	//@DataModel
+	//private List<DifferentialDx> differentialDxRecordList;	
 
 	public void setDifferentialDxId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class DifferentialDxActionBase
 			return;
 		}
 		setId(id);
+		differentialDx = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class DifferentialDxActionBase
 	 */
 	public void setDifferentialDxIdForModalDlg(Long id) {
 		setId(id);
+		differentialDx = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -200,10 +202,12 @@ public abstract class DifferentialDxActionBase
 
 		if (differentialDx.getDxCategory() != null) {
 			dxCategoryAction.setInstance(getInstance().getDxCategory());
+			dxCategoryAction.loadAssociations();
 		}
 
 		if (differentialDx.getFinding() != null) {
 			findingAction.setInstance(getInstance().getFinding());
+			findingAction.loadAssociations();
 		}
 
 	}

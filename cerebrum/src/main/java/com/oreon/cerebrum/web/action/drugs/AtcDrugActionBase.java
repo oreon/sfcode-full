@@ -49,7 +49,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private AtcDrug atcDrug;
 
 	@In(create = true, value = "drugAction")
@@ -58,8 +58,8 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	@In(create = true, value = "atcDrugAction")
 	com.oreon.cerebrum.web.action.drugs.AtcDrugAction parentAction;
 
-	@DataModel
-	private List<AtcDrug> atcDrugRecordList;
+	//@DataModel
+	//private List<AtcDrug> atcDrugRecordList;	
 
 	public void setAtcDrugId(Long id) {
 		if (id == 0) {
@@ -69,6 +69,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 			return;
 		}
 		setId(id);
+		atcDrug = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,6 +79,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	 */
 	public void setAtcDrugIdForModalDlg(Long id) {
 		setId(id);
+		atcDrug = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -207,10 +209,12 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 
 		if (atcDrug.getDrug() != null) {
 			drugAction.setInstance(getInstance().getDrug());
+			drugAction.loadAssociations();
 		}
 
 		if (atcDrug.getParent() != null) {
 			parentAction.setInstance(getInstance().getParent());
+			parentAction.loadAssociations();
 		}
 
 		initListSubcategories();

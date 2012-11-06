@@ -49,11 +49,11 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Drug drug;
 
-	@DataModel
-	private List<Drug> drugRecordList;
+	//@DataModel
+	//private List<Drug> drugRecordList;	
 
 	public void setDrugId(Long id) {
 		if (id == 0) {
@@ -63,6 +63,7 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 			return;
 		}
 		setId(id);
+		drug = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,6 +73,7 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 	 */
 	public void setDrugIdForModalDlg(Long id) {
 		setId(id);
+		drug = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

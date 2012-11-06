@@ -49,7 +49,7 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Disease disease;
 
 	@In(create = true, value = "diseaseAction")
@@ -61,8 +61,8 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	@In(create = true, value = "diseaseAction")
 	com.oreon.cerebrum.web.action.ddx.DiseaseAction differentialDiagnosesAction;
 
-	@DataModel
-	private List<Disease> diseaseRecordList;
+	//@DataModel
+	//private List<Disease> diseaseRecordList;	
 
 	public void setDiseaseId(Long id) {
 		if (id == 0) {
@@ -72,6 +72,7 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 			return;
 		}
 		setId(id);
+		disease = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -81,6 +82,7 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	 */
 	public void setDiseaseIdForModalDlg(Long id) {
 		setId(id);
+		disease = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -211,11 +213,13 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 
 		if (disease.getRelatedDisease() != null) {
 			relatedDiseaseAction.setInstance(getInstance().getRelatedDisease());
+			relatedDiseaseAction.loadAssociations();
 		}
 
 		if (disease.getConditionCategory() != null) {
 			conditionCategoryAction.setInstance(getInstance()
 					.getConditionCategory());
+			conditionCategoryAction.loadAssociations();
 		}
 
 		initListDifferentialDiagnoses();

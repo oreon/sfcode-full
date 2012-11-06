@@ -49,11 +49,11 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Facility facility;
 
-	@DataModel
-	private List<Facility> facilityRecordList;
+	//@DataModel
+	//private List<Facility> facilityRecordList;	
 
 	public void setFacilityId(Long id) {
 		if (id == 0) {
@@ -63,6 +63,7 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 			return;
 		}
 		setId(id);
+		facility = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,6 +73,7 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	 */
 	public void setFacilityIdForModalDlg(Long id) {
 		setId(id);
+		facility = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

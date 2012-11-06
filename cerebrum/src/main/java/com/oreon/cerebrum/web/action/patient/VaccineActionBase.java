@@ -47,11 +47,11 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Vaccine vaccine;
 
-	@DataModel
-	private List<Vaccine> vaccineRecordList;
+	//@DataModel
+	//private List<Vaccine> vaccineRecordList;	
 
 	public void setVaccineId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 			return;
 		}
 		setId(id);
+		vaccine = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 	 */
 	public void setVaccineIdForModalDlg(Long id) {
 		setId(id);
+		vaccine = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

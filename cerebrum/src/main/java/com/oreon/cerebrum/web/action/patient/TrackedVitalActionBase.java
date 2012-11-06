@@ -47,11 +47,11 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private TrackedVital trackedVital;
 
-	@DataModel
-	private List<TrackedVital> trackedVitalRecordList;
+	//@DataModel
+	//private List<TrackedVital> trackedVitalRecordList;	
 
 	public void setTrackedVitalId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 			return;
 		}
 		setId(id);
+		trackedVital = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	 */
 	public void setTrackedVitalIdForModalDlg(Long id) {
 		setId(id);
+		trackedVital = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

@@ -49,14 +49,14 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private PatientDiffDx patientDiffDx;
 
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	@DataModel
-	private List<PatientDiffDx> patientDiffDxRecordList;
+	//@DataModel
+	//private List<PatientDiffDx> patientDiffDxRecordList;	
 
 	public void setPatientDiffDxId(Long id) {
 		if (id == 0) {
@@ -66,6 +66,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 			return;
 		}
 		setId(id);
+		patientDiffDx = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -75,6 +76,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	 */
 	public void setPatientDiffDxIdForModalDlg(Long id) {
 		setId(id);
+		patientDiffDx = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -175,6 +177,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 
 		if (patientDiffDx.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 		initListPatientFindings();

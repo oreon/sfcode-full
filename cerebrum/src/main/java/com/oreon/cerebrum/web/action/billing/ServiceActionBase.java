@@ -47,11 +47,11 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Service service;
 
-	@DataModel
-	private List<Service> serviceRecordList;
+	//@DataModel
+	//private List<Service> serviceRecordList;	
 
 	public void setServiceId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 			return;
 		}
 		setId(id);
+		service = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 	 */
 	public void setServiceIdForModalDlg(Long id) {
 		setId(id);
+		service = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

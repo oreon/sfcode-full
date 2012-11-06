@@ -47,11 +47,11 @@ public abstract class TechnicianActionBase extends BaseAction<Technician>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Technician technician;
 
-	@DataModel
-	private List<Technician> technicianRecordList;
+	//@DataModel
+	//private List<Technician> technicianRecordList;	
 
 	public void setTechnicianId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class TechnicianActionBase extends BaseAction<Technician>
 			return;
 		}
 		setId(id);
+		technician = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class TechnicianActionBase extends BaseAction<Technician>
 	 */
 	public void setTechnicianIdForModalDlg(Long id) {
 		setId(id);
+		technician = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

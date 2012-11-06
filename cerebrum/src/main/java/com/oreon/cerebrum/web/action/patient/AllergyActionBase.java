@@ -47,7 +47,7 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Allergy allergy;
 
 	@In(create = true, value = "patientAction")
@@ -56,8 +56,8 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	@In(create = true, value = "allergenAction")
 	com.oreon.cerebrum.web.action.patient.AllergenAction allergenAction;
 
-	@DataModel
-	private List<Allergy> allergyRecordList;
+	//@DataModel
+	//private List<Allergy> allergyRecordList;	
 
 	public void setAllergyId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 			return;
 		}
 		setId(id);
+		allergy = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	 */
 	public void setAllergyIdForModalDlg(Long id) {
 		setId(id);
+		allergy = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -200,10 +202,12 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 
 		if (allergy.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 		if (allergy.getAllergen() != null) {
 			allergenAction.setInstance(getInstance().getAllergen());
+			allergenAction.loadAssociations();
 		}
 
 	}

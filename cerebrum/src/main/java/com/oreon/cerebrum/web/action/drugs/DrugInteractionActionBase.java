@@ -47,7 +47,7 @@ public abstract class DrugInteractionActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private DrugInteraction drugInteraction;
 
 	@In(create = true, value = "drugAction")
@@ -56,8 +56,8 @@ public abstract class DrugInteractionActionBase
 	@In(create = true, value = "drugAction")
 	com.oreon.cerebrum.web.action.drugs.DrugAction interactingDrugAction;
 
-	@DataModel
-	private List<DrugInteraction> drugInteractionRecordList;
+	//@DataModel
+	//private List<DrugInteraction> drugInteractionRecordList;	
 
 	public void setDrugInteractionId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class DrugInteractionActionBase
 			return;
 		}
 		setId(id);
+		drugInteraction = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class DrugInteractionActionBase
 	 */
 	public void setDrugInteractionIdForModalDlg(Long id) {
 		setId(id);
+		drugInteraction = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -200,11 +202,13 @@ public abstract class DrugInteractionActionBase
 
 		if (drugInteraction.getDrug() != null) {
 			drugAction.setInstance(getInstance().getDrug());
+			drugAction.loadAssociations();
 		}
 
 		if (drugInteraction.getInteractingDrug() != null) {
 			interactingDrugAction.setInstance(getInstance()
 					.getInteractingDrug());
+			interactingDrugAction.loadAssociations();
 		}
 
 	}

@@ -47,11 +47,11 @@ public abstract class LabFindingActionBase extends BaseAction<LabFinding>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private LabFinding labFinding;
 
-	@DataModel
-	private List<LabFinding> labFindingRecordList;
+	//@DataModel
+	//private List<LabFinding> labFindingRecordList;	
 
 	public void setLabFindingId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class LabFindingActionBase extends BaseAction<LabFinding>
 			return;
 		}
 		setId(id);
+		labFinding = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class LabFindingActionBase extends BaseAction<LabFinding>
 	 */
 	public void setLabFindingIdForModalDlg(Long id) {
 		setId(id);
+		labFinding = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

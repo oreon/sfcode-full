@@ -47,11 +47,11 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private RoomType roomType;
 
-	@DataModel
-	private List<RoomType> roomTypeRecordList;
+	//@DataModel
+	//private List<RoomType> roomTypeRecordList;	
 
 	public void setRoomTypeId(Long id) {
 		if (id == 0) {
@@ -61,6 +61,7 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 			return;
 		}
 		setId(id);
+		roomType = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -70,6 +71,7 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 	 */
 	public void setRoomTypeIdForModalDlg(Long id) {
 		setId(id);
+		roomType = loadInstance();
 		clearLists();
 		loadAssociations();
 	}

@@ -47,7 +47,7 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Immunization immunization;
 
 	@In(create = true, value = "patientAction")
@@ -56,8 +56,8 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	@In(create = true, value = "vaccineAction")
 	com.oreon.cerebrum.web.action.patient.VaccineAction vaccineAction;
 
-	@DataModel
-	private List<Immunization> immunizationRecordList;
+	//@DataModel
+	//private List<Immunization> immunizationRecordList;	
 
 	public void setImmunizationId(Long id) {
 		if (id == 0) {
@@ -67,6 +67,7 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 			return;
 		}
 		setId(id);
+		immunization = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,6 +77,7 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	 */
 	public void setImmunizationIdForModalDlg(Long id) {
 		setId(id);
+		immunization = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -200,10 +202,12 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 
 		if (immunization.getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+			patientAction.loadAssociations();
 		}
 
 		if (immunization.getVaccine() != null) {
 			vaccineAction.setInstance(getInstance().getVaccine());
+			vaccineAction.loadAssociations();
 		}
 
 	}

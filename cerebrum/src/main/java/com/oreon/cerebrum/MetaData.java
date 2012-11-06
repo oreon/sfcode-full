@@ -160,15 +160,19 @@ public class MetaData {
 
 	"qty", "java.lang.Double",
 
-	"route.name", "java.lang.String",
+	"strength", "java.lang.String",
 
 	"prescription.displayName", "java.lang.String",
 
+	"route.name", "java.lang.String",
+
 	"duration", "java.lang.Integer",
+
+	"frequecy.displayName", "java.lang.String",
 
 	"remarks", "java.lang.String",
 
-	"frequecy.displayName", "java.lang.String",
+	"brandName", "java.lang.String",
 
 	},
 

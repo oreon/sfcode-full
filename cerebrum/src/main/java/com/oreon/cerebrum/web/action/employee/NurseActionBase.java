@@ -47,14 +47,14 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 
 	@In(create = true)
 	@Out(required = false)
-	@DataModelSelection
+	//@DataModelSelection
 	private Nurse nurse;
 
 	@In(create = true, value = "nurseSpecialtyAction")
 	com.oreon.cerebrum.web.action.employee.NurseSpecialtyAction nurseSpecialtyAction;
 
-	@DataModel
-	private List<Nurse> nurseRecordList;
+	//@DataModel
+	//private List<Nurse> nurseRecordList;	
 
 	public void setNurseId(Long id) {
 		if (id == 0) {
@@ -64,6 +64,7 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 			return;
 		}
 		setId(id);
+		nurse = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -73,6 +74,7 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 	 */
 	public void setNurseIdForModalDlg(Long id) {
 		setId(id);
+		nurse = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -174,6 +176,7 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 
 		if (nurse.getNurseSpecialty() != null) {
 			nurseSpecialtyAction.setInstance(getInstance().getNurseSpecialty());
+			nurseSpecialtyAction.loadAssociations();
 		}
 
 	}
