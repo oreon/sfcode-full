@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("specialization")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Specialization extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1474550929L;

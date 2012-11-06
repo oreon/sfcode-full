@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("appRole")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class AppRole extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1618836781L;

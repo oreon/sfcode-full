@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("drugInteraction")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class DrugInteraction extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1546590855L;
@@ -76,14 +74,12 @@ public class DrugInteraction extends BaseEntity implements java.io.Serializable 
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "drug_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Drug drug
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "interactingDrug_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Drug interactingDrug
 
 	;

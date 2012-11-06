@@ -54,7 +54,6 @@ import org.witchcraft.base.entity.BaseEntity;
 import com.oreon.cerebrum.ProjectUtils;
 
 @Embeddable
-@Indexed
 public class Address implements java.io.Serializable {
 	private static final long serialVersionUID = -855511539L;
 

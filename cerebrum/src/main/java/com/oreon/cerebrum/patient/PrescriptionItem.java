@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("prescriptionItem")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class PrescriptionItem extends BaseEntity
 		implements
@@ -70,7 +68,6 @@ public class PrescriptionItem extends BaseEntity
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "drug_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.drugs.Drug drug = new com.oreon.cerebrum.drugs.Drug();
 
 	@Column(unique = false)
@@ -79,19 +76,31 @@ public class PrescriptionItem extends BaseEntity
 	;
 
 	@Column(unique = false)
-	protected Route route
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String strength
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "prescription_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Prescription prescription
 
 	;
 
 	@Column(unique = false)
+	protected Route route
+
+	;
+
+	@Column(unique = false)
 	protected Integer duration
+
+	;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "frequecy_id", nullable = false, updatable = true)
+	protected Frequecy frequecy
 
 	;
 
@@ -102,10 +111,10 @@ public class PrescriptionItem extends BaseEntity
 
 	;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "frequecy_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected Frequecy frequecy
+	@Column(unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String brandName
 
 	;
 
@@ -129,13 +138,13 @@ public class PrescriptionItem extends BaseEntity
 
 	}
 
-	public void setRoute(Route route) {
-		this.route = route;
+	public void setStrength(String strength) {
+		this.strength = strength;
 	}
 
-	public Route getRoute() {
+	public String getStrength() {
 
-		return route;
+		return strength;
 
 	}
 
@@ -149,6 +158,16 @@ public class PrescriptionItem extends BaseEntity
 
 	}
 
+	public void setRoute(Route route) {
+		this.route = route;
+	}
+
+	public Route getRoute() {
+
+		return route;
+
+	}
+
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
@@ -156,16 +175,6 @@ public class PrescriptionItem extends BaseEntity
 	public Integer getDuration() {
 
 		return duration;
-
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-
-	public String getRemarks() {
-
-		return remarks;
 
 	}
 
@@ -179,10 +188,30 @@ public class PrescriptionItem extends BaseEntity
 
 	}
 
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getRemarks() {
+
+		return remarks;
+
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getBrandName() {
+
+		return brandName;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
-			return remarks;
+			return strength;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -200,7 +229,11 @@ public class PrescriptionItem extends BaseEntity
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("strength");
+
 		listSearchableFields.add("remarks");
+
+		listSearchableFields.add("brandName");
 
 		return listSearchableFields;
 	}
@@ -210,7 +243,11 @@ public class PrescriptionItem extends BaseEntity
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
+		builder.append(getStrength() + " ");
+
 		builder.append(getRemarks() + " ");
+
+		builder.append(getBrandName() + " ");
 
 		if (getDrug() != null)
 			builder.append("drug:" + getDrug().getDisplayName() + " ");

@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("disease")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Disease extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 714241030L;
@@ -109,7 +107,6 @@ public class Disease extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "conditionCategory_id", nullable = true, updatable = true)
-	@ContainedIn
 	protected ConditionCategory conditionCategory
 
 	;

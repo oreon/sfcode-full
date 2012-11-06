@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("patientDiffDx")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class PatientDiffDx extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1910013848L;
@@ -69,7 +67,6 @@ public class PatientDiffDx extends BaseEntity implements java.io.Serializable {
 	@OneToMany(mappedBy = "patientDiffDx", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patientDiffDx_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<PatientFinding> patientFindings = new HashSet<PatientFinding>();
 
 	public void addPatientFinding(PatientFinding patientFinding) {
@@ -90,7 +87,6 @@ public class PatientDiffDx extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.patient.Patient patient
 
 	;

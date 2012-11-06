@@ -59,23 +59,19 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("allergy")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Allergy extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -2117506663L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Patient patient
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "allergen_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Allergen allergen
 
 	;

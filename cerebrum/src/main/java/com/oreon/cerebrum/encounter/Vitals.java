@@ -54,7 +54,6 @@ import org.witchcraft.base.entity.BaseEntity;
 import com.oreon.cerebrum.ProjectUtils;
 
 @Embeddable
-@Indexed
 public class Vitals implements java.io.Serializable {
 	private static final long serialVersionUID = -946647828L;
 

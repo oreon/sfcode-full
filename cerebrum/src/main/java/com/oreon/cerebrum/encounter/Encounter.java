@@ -59,16 +59,13 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("encounter")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Encounter extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1171400456L;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "physician_id", nullable = true, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.employee.Physician physician
 
 	;
@@ -84,7 +81,6 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	@OneToMany(mappedBy = "encounter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "encounter_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<PrescribedTest> prescribedTests = new HashSet<PrescribedTest>();
 
 	public void addPrescribedTest(PrescribedTest prescribedTest) {
@@ -129,7 +125,6 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "prescription_id", nullable = true, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.patient.Prescription prescription
 
 	;
@@ -137,7 +132,6 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	@OneToMany(mappedBy = "encounter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "encounter_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<Differential> differentials = new HashSet<Differential>();
 
 	public void addDifferential(Differential differential) {
@@ -166,7 +160,6 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.patient.Patient patient
 
 	;

@@ -59,16 +59,13 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("differential")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Differential extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1769032064L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "encounter_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Encounter encounter
 
 	;

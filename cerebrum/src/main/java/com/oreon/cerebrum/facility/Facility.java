@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("facility")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Facility extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -840267156L;
@@ -76,7 +74,6 @@ public class Facility extends BaseEntity implements java.io.Serializable {
 	@OneToMany(mappedBy = "facility", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "facility_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<Ward> wards = new HashSet<Ward>();
 
 	public void addWard(Ward ward) {

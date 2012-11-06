@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("employee")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Employee extends com.oreon.cerebrum.patient.Person
 		implements
@@ -80,7 +78,6 @@ public class Employee extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "createdBy_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> unusualOccurences = new HashSet<com.oreon.cerebrum.unusualoccurences.UnusualOccurence>();
 
 	public void addUnusualOccurence(
@@ -102,7 +99,6 @@ public class Employee extends com.oreon.cerebrum.patient.Person
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "appUser_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.users.AppUser appUser = new com.oreon.cerebrum.users.AppUser();
 
 	public void setEmployeeNumber(String employeeNumber) {

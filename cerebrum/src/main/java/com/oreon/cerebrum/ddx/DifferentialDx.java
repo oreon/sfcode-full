@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("differentialDx")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class DifferentialDx extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -105796933L;
@@ -77,14 +75,12 @@ public class DifferentialDx extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "dxCategory_id", nullable = true, updatable = true)
-	@ContainedIn
 	protected DxCategory dxCategory
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "finding_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Finding finding
 
 	;

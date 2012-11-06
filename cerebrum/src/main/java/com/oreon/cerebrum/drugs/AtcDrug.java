@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("atcDrug")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class AtcDrug extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1623432457L;
@@ -104,7 +102,6 @@ public class AtcDrug extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "drug_id", nullable = true, updatable = true)
-	@ContainedIn
 	protected Drug drug
 
 	;

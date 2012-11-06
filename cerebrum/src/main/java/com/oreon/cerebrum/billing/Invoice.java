@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("invoice")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Invoice extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 948339642L;
@@ -69,7 +67,6 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 	@OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "invoice_ID", nullable = false)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<InvoiceItem> invoiceItems = new HashSet<InvoiceItem>();
 
 	public void addInvoiceItem(InvoiceItem invoiceItem) {
@@ -90,7 +87,6 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected com.oreon.cerebrum.patient.Patient patient
 
 	;

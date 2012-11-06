@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("room")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class Room extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 2085840692L;
@@ -69,7 +67,6 @@ public class Room extends BaseEntity implements java.io.Serializable {
 	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "room_ID", nullable = true)
 	@OrderBy("id DESC")
-	@IndexedEmbedded
 	private Set<Bed> beds = new HashSet<Bed>();
 
 	public void addBed(Bed bed) {
@@ -98,14 +95,12 @@ public class Room extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "roomType_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected RoomType roomType
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ward_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Ward ward
 
 	;

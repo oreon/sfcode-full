@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("occurenceType")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class OccurenceType extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 460584456L;

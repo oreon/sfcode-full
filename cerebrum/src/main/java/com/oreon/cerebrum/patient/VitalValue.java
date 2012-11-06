@@ -59,9 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 })
 @Name("vitalValue")
-@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
 public class VitalValue extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1119654372L;
@@ -80,14 +78,12 @@ public class VitalValue extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "trackedVital_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected TrackedVital trackedVital
 
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	@ContainedIn
 	protected Patient patient
 
 	;
