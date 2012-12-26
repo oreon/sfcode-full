@@ -11,18 +11,37 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 	<h:panelGroup id="editPrescriptionComponentPanel">
-		<br/>
-		<s:div style="background-color:pink; border: 1px solid red" id="ixmsgs" rendered="#{ prescriptionAction.interactions.size > 0 }">
-		<a:outputPanel id="interactionMsg" style="background-color:#fee">
-			<ul>
-			<c:forEach var="interaction" items="#{prescriptionAction.interactions}">
-    			<li><b>${interaction.drug.name} + ${interaction.interactingDrug.name}</b> :${interaction.description}</li>
-			</c:forEach>
-			</ul>
-		</a:outputPanel>
+	
+	<h3> Prescription XXX</h3>
+
+		<h:outputText value="Template" />
+		<h:selectOneMenu id="template" label="Template 22"
+			value="#{prescriptionAction.currentPrescriptionTemplate}" required="false">
+			<s:selectItems value="#{prescriptionTemplateList22}" var="itemIter"
+				label="#{itemIter.displayName}" noSelectionLabel="Select Template" />
+			<s:convertEntity />
+			<a:support event="onchange"
+				action="#{prescriptionAciton.loadDrugsFromTemplate}"
+				reRender="prescriptionItems" ajaxSingle="true">
+				<s:conversationPropagation type="begin" />
+			</a:support>
+		</h:selectOneMenu>
+
+		<br />
+		<s:div style="background-color:pink; border: 1px solid red"
+			id="ixmsgs" rendered="#{ prescriptionAction.interactions.size > 0 }">
+			<a:outputPanel id="interactionMsg" style="background-color:#fee">
+				<ul>
+					<c:forEach var="interaction"
+						items="#{prescriptionAction.interactions}">
+						<li><b>${interaction.drug.name} +
+						${interaction.interactingDrug.name}</b> :${interaction.description}</li>
+					</c:forEach>
+				</ul>
+			</a:outputPanel>
 		</s:div>
-		<br/>
-		
+		<br />
+
 		<s:validateAll>
 			<h:panelGrid columns="1"
 				onload="#{prescriptionAction.load(prescriptionId )  }" />
@@ -34,7 +53,7 @@
 				<f:facet name="header">
 					<h:outputText value="#{msg.Prescription}" />
 				</f:facet>
-				
+
 				<s:decorate id="patientDecorate" template="/layout/edit.xhtml">
 					<ui:define name="label">
 						<h:outputText value="#{msg.prescription_patient}  "

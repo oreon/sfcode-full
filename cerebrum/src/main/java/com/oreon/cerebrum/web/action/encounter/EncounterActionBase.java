@@ -57,7 +57,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	com.oreon.cerebrum.web.action.employee.PhysicianAction physicianAction;
 
 	@In(create = true, value = "prescriptionAction")
-	com.oreon.cerebrum.web.action.patient.PrescriptionAction prescriptionAction;
+	com.oreon.cerebrum.web.action.prescription.PrescriptionAction prescriptionAction;
 
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
@@ -167,7 +167,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 			getInstance().setPhysician(physician);
 		}
 
-		com.oreon.cerebrum.patient.Prescription prescription = prescriptionAction
+		com.oreon.cerebrum.prescription.Prescription prescription = prescriptionAction
 				.getDefinedInstance();
 		if (prescription != null && isNew()) {
 			getInstance().setPrescription(prescription);

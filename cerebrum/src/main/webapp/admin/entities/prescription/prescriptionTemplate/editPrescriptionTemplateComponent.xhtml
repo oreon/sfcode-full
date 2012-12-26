@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editPrescriptionTemplateComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{prescriptionTemplateAction.load(prescriptionTemplateId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPrescriptionTemplate eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.PrescriptionTemplate}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editName')}"/>
+          </ui:define>  
+          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editName')}" label="#{msg.prescriptionTemplate_name}" required="true" disabled="false" value="#{prescriptionTemplateAction.prescriptionTemplate.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_directivesForPatientDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editDirectivesForPatient')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="#{prefix}_directivesForPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editDirectivesForPatient')}" label="#{msg.prescriptionTemplate_directivesForPatient}" required="false" disabled="false" value="#{prescriptionTemplateAction.prescriptionTemplate.directivesForPatient}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" reRender="prescriptionItemTemplates" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editPrescriptionItemTemplates')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editPrescriptionItemTemplates')}" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDrug')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="#{prefix}_drugdrug" label="#{msg.prescriptionItemTemplate_drug}" value="#{_prescriptionItemTemplate.drug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDrug')}" disabled="false"> 
+              <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItemTemplate_frequecy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editFrequecy')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_frequecyfrequecyDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="#{prefix}_frequecyfrequecy" label="#{msg.prescriptionItemTemplate_frequecy}" value="#{_prescriptionItemTemplate.frequecy}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editFrequecy')}" disabled="false"> 
+              <s:selectItems value="#{frequecyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editQty')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_qtyDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="#{prefix}_qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editQty')}" label="#{msg.prescriptionItemTemplate_qty}" required="false" disabled="false" value="#{_prescriptionItemTemplate.qty}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editStrength')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_strengthDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="#{prefix}_strength#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editStrength')}" label="#{msg.prescriptionItemTemplate_strength}" required="false" disabled="false" value="#{_prescriptionItemTemplate.strength}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRoute')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_routeDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="#{prefix}_route" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRoute')}" value="#{_prescriptionItemTemplate.route}" required="false" label="#{msg.prescriptionItemTemplate_route}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="PO" itemLabel="#{msg.PO}"/>  
+              <f:selectItem itemValue="IV" itemLabel="#{msg.IV}"/>  
+              <f:selectItem itemValue="IM" itemLabel="#{msg.IM}"/>  
+              <f:selectItem itemValue="SC" itemLabel="#{msg.SC}"/>  
+              <f:selectItem itemValue="TOPICAL" itemLabel="#{msg.TOPICAL}"/>  
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_durationDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="#{prefix}_duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}" label="#{msg.prescriptionItemTemplate_duration}" required="false" disabled="false" value="#{_prescriptionItemTemplate.duration}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRemarks')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_remarksDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRemarks')}" label="#{msg.prescriptionItemTemplate_remarks}" required="false" disabled="false" value="#{_prescriptionItemTemplate.remarks}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editBrandName')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_brandNameDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="#{prefix}_brandName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editBrandName')}" label="#{msg.prescriptionItemTemplate_brandName}" required="false" disabled="false" value="#{_prescriptionItemTemplate.brandName}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" reRender="prescriptionItemTemplates" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionItemTemplates')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{prescriptionTemplateAction.deletePrescriptionItemTemplates(rowIndex)}" reRender="prescriptionItemTemplates"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

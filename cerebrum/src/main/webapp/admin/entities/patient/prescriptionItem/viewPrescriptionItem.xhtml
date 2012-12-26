@@ -35,6 +35,12 @@
             <ui:param name="entityId" value="3"/>  
             <ui:param name="frequecyId" value="#{prescriptionItemAction.instance.frequecy.id}"/> 
           </ui:include> 
+        </rich:tab>  
+        <rich:tab label="PrescriptionTemplate" rendered="#{prescriptionItemAction.instance.prescriptionTemplate != null}"> 
+          <ui:include src="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplateComponent.xhtml"> 
+            <ui:param name="entityId" value="4"/>  
+            <ui:param name="prescriptionTemplateId" value="#{prescriptionItemAction.instance.prescriptionTemplate.id}"/> 
+          </ui:include> 
         </rich:tab> 
       </rich:tabPanel>  
       <div class="buttonBox"></div> 

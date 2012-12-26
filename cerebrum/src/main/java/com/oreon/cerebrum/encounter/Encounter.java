@@ -125,7 +125,7 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "prescription_id", nullable = true, updatable = true)
-	protected com.oreon.cerebrum.patient.Prescription prescription
+	protected com.oreon.cerebrum.prescription.Prescription prescription
 
 	;
 
@@ -213,11 +213,11 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	}
 
 	public void setPrescription(
-			com.oreon.cerebrum.patient.Prescription prescription) {
+			com.oreon.cerebrum.prescription.Prescription prescription) {
 		this.prescription = prescription;
 	}
 
-	public com.oreon.cerebrum.patient.Prescription getPrescription() {
+	public com.oreon.cerebrum.prescription.Prescription getPrescription() {
 
 		return prescription;
 

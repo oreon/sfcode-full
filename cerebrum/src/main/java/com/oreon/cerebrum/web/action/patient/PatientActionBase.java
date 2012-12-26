@@ -42,7 +42,7 @@ import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
 import com.oreon.cerebrum.patient.Admission;
-import com.oreon.cerebrum.patient.Prescription;
+import com.oreon.cerebrum.prescription.Prescription;
 import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
 import com.oreon.cerebrum.patient.PatientDocument;
 import com.oreon.cerebrum.patient.Allergy;
@@ -65,7 +65,7 @@ public abstract class PatientActionBase
 	com.oreon.cerebrum.web.action.patient.AdmissionAction admissionsAction;
 
 	@In(create = true, value = "prescriptionAction")
-	com.oreon.cerebrum.web.action.patient.PrescriptionAction prescriptionsAction;
+	com.oreon.cerebrum.web.action.prescription.PrescriptionAction prescriptionsAction;
 
 	@In(create = true, value = "unusualOccurenceAction")
 	com.oreon.cerebrum.web.action.unusualoccurences.UnusualOccurenceAction unusualOccurencesAction;
@@ -179,7 +179,7 @@ public abstract class PatientActionBase
 
 		initListUnusualOccurences();
 
-		//initListPatientDocuments();
+		initListPatientDocuments();
 
 		initListAllergys();
 
@@ -198,7 +198,7 @@ public abstract class PatientActionBase
 		admissions.setPatient(patient);
 		events.raiseTransactionSuccessEvent("archivedAdmission");
 
-		com.oreon.cerebrum.patient.Prescription prescriptions = (com.oreon.cerebrum.patient.Prescription) org.jboss.seam.Component
+		com.oreon.cerebrum.prescription.Prescription prescriptions = (com.oreon.cerebrum.prescription.Prescription) org.jboss.seam.Component
 				.getInstance("prescription");
 		prescriptions.setPatient(patient);
 		events.raiseTransactionSuccessEvent("archivedPrescription");
@@ -272,7 +272,7 @@ public abstract class PatientActionBase
 		getListAdmissions().add(admissions);
 	}
 
-	protected List<com.oreon.cerebrum.patient.Prescription> listPrescriptions = new ArrayList<com.oreon.cerebrum.patient.Prescription>();
+	protected List<com.oreon.cerebrum.prescription.Prescription> listPrescriptions = new ArrayList<com.oreon.cerebrum.prescription.Prescription>();
 
 	void initListPrescriptions() {
 
@@ -281,7 +281,7 @@ public abstract class PatientActionBase
 
 	}
 
-	public List<com.oreon.cerebrum.patient.Prescription> getListPrescriptions() {
+	public List<com.oreon.cerebrum.prescription.Prescription> getListPrescriptions() {
 
 		prePopulateListPrescriptions();
 		return listPrescriptions;
@@ -291,7 +291,7 @@ public abstract class PatientActionBase
 	}
 
 	public void setListPrescriptions(
-			List<com.oreon.cerebrum.patient.Prescription> listPrescriptions) {
+			List<com.oreon.cerebrum.prescription.Prescription> listPrescriptions) {
 		this.listPrescriptions = listPrescriptions;
 	}
 

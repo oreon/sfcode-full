@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDrug')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_drugdrug" value="#{ prescriptionItemTemplateList.prescriptionItemTemplate.drug}"> 
+        <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editQty')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_qty_begin" value="#{prescriptionItemTemplateList.qtyRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_qty_end" value="#{prescriptionItemTemplateList.qtyRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_frequecy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editFrequecy')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_frequecyfrequecy" value="#{ prescriptionItemTemplateList.prescriptionItemTemplate.frequecy}"> 
+        <s:selectItems value="#{frequecyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editStrength')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_strength" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.strength}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRoute')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_route" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.route}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="PO" itemLabel="Po"/>  
+        <f:selectItem itemValue="IV" itemLabel="Iv"/>  
+        <f:selectItem itemValue="IM" itemLabel="Im"/>  
+        <f:selectItem itemValue="SC" itemLabel="Sc"/>  
+        <f:selectItem itemValue="TOPICAL" itemLabel="Topical"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_duration_begin" value="#{prescriptionItemTemplateList.durationRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_duration_end" value="#{prescriptionItemTemplateList.durationRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRemarks')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_remarks" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.remarks}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editBrandName')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_brandName" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.brandName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_prescriptionTemplate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionTemplate')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_prescriptionTemplateprescriptionTemplate" value="#{ prescriptionItemTemplateList.prescriptionItemTemplate.prescriptionTemplate}"> 
+        <s:selectItems value="#{prescriptionTemplateList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{prescriptionItemTemplateList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{prescriptionItemTemplateList.dateCreatedRange.end}"/> 
+  </h:panelGrid>  
+  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
+    <h:inputText value="#{prescriptionItemTemplateList.searchName}"/>  
+    <h:commandButton id="savesearch" value="Save Search" action="#{prescriptionItemTemplateList.saveSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <h:selectOneMenu id="svdsearches" value="#{prescriptionItemTemplateList.currentSavedSearch}"> 
+      <s:selectItems value="#{prescriptionItemTemplateList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
+      <s:convertEntity/> 
+    </h:selectOneMenu>  
+    <h:commandButton value="Load Search" action="#{prescriptionItemTemplateList.executeSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton> 
+  </div> 
+</ui:composition>

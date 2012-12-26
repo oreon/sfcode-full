@@ -91,6 +91,15 @@
           <h:outputText value="#{msg.prescriptionItem_brandName}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.brandName}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItem_prescriptionTemplate}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.prescriptionTemplate.displayName}" view="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml"> 
+          <f:param name="id" value="#{_entity.prescriptionTemplate.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

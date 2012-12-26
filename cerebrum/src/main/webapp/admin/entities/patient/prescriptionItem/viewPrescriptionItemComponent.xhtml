@@ -40,6 +40,11 @@
         <s:link value="#{prescriptionItemAction.prescriptionItem.frequecy.displayName}" action="viewfrequecy" propagation="none"> 
           <f:param name="frequecyId" value="#{prescriptionItemAction.prescriptionItem.frequecy.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.prescriptionItem_prescriptionTemplate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewPrescriptionTemplate')}"/>  
+        <s:link value="#{prescriptionItemAction.prescriptionItem.prescriptionTemplate.displayName}" action="viewprescriptionTemplate" propagation="none"> 
+          <f:param name="prescriptionTemplateId" value="#{prescriptionItemAction.prescriptionItem.prescriptionTemplate.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <br/>  

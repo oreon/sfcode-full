@@ -89,16 +89,17 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	private Set<Prescription> prescriptions = new HashSet<Prescription>();
+	private Set<com.oreon.cerebrum.prescription.Prescription> prescriptions = new HashSet<com.oreon.cerebrum.prescription.Prescription>();
 
-	public void addPrescription(Prescription prescription) {
+	public void addPrescription(
+			com.oreon.cerebrum.prescription.Prescription prescription) {
 		prescription.setPatient(this);
 		this.prescriptions.add(prescription);
 	}
 
 	@Transient
-	public List<com.oreon.cerebrum.patient.Prescription> getListPrescriptions() {
-		return new ArrayList<com.oreon.cerebrum.patient.Prescription>(
+	public List<com.oreon.cerebrum.prescription.Prescription> getListPrescriptions() {
+		return new ArrayList<com.oreon.cerebrum.prescription.Prescription>(
 				prescriptions);
 	}
 
@@ -276,11 +277,12 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 		return admissions;
 	}
 
-	public void setPrescriptions(Set<Prescription> prescriptions) {
+	public void setPrescriptions(
+			Set<com.oreon.cerebrum.prescription.Prescription> prescriptions) {
 		this.prescriptions = prescriptions;
 	}
 
-	public Set<Prescription> getPrescriptions() {
+	public Set<com.oreon.cerebrum.prescription.Prescription> getPrescriptions() {
 		return prescriptions;
 	}
 
