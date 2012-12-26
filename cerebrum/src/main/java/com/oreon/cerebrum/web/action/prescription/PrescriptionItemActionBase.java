@@ -1,0 +1,262 @@
+package com.oreon.cerebrum.web.action.prescription;
+
+import com.oreon.cerebrum.prescription.PrescriptionItem;
+
+import org.witchcraft.seam.action.BaseAction;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
+import org.apache.commons.lang.StringUtils;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Scope;
+
+import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.Factory;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
+import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
+
+import org.jboss.seam.annotations.datamodel.DataModel;
+import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.log.Log;
+import org.jboss.seam.annotations.Observer;
+
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
+public abstract class PrescriptionItemActionBase
+		extends
+			BaseAction<PrescriptionItem> implements java.io.Serializable {
+
+	@In(create = true)
+	@Out(required = false)
+	//@DataModelSelection
+	private PrescriptionItem prescriptionItem;
+
+	@In(create = true, value = "drugAction")
+	com.oreon.cerebrum.web.action.drugs.DrugAction drugAction;
+
+	@In(create = true, value = "prescriptionAction")
+	com.oreon.cerebrum.web.action.prescription.PrescriptionAction prescriptionAction;
+
+	@In(create = true, value = "frequecyAction")
+	com.oreon.cerebrum.web.action.prescription.FrequecyAction frequecyAction;
+
+	//@DataModel
+	//private List<PrescriptionItem> prescriptionItemRecordList;	
+
+	public void setPrescriptionItemId(Long id) {
+		if (id == 0) {
+			clearInstance();
+			clearLists();
+			loadAssociations();
+			return;
+		}
+		setId(id);
+		prescriptionItem = loadInstance();
+		if (!isPostBack())
+			loadAssociations();
+	}
+
+	/** for modal dlg we need to load associaitons regardless of postback
+	 * @param id
+	 */
+	public void setPrescriptionItemIdForModalDlg(Long id) {
+		setId(id);
+		prescriptionItem = loadInstance();
+		clearLists();
+		loadAssociations();
+	}
+
+	public void setDrugId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setDrug(drugAction.loadFromId(id));
+
+	}
+
+	public Long getDrugId() {
+		if (getInstance().getDrug() != null)
+			return getInstance().getDrug().getId();
+		return 0L;
+	}
+
+	public void setPrescriptionId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setPrescription(prescriptionAction.loadFromId(id));
+
+	}
+
+	public Long getPrescriptionId() {
+		if (getInstance().getPrescription() != null)
+			return getInstance().getPrescription().getId();
+		return 0L;
+	}
+
+	public void setFrequecyId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setFrequecy(frequecyAction.loadFromId(id));
+
+	}
+
+	public Long getFrequecyId() {
+		if (getInstance().getFrequecy() != null)
+			return getInstance().getFrequecy().getId();
+		return 0L;
+	}
+
+	public Long getPrescriptionItemId() {
+		return (Long) getId();
+	}
+
+	public PrescriptionItem getEntity() {
+		return prescriptionItem;
+	}
+
+	//@Override
+	public void setEntity(PrescriptionItem t) {
+		this.prescriptionItem = t;
+		loadAssociations();
+	}
+
+	public PrescriptionItem getPrescriptionItem() {
+		return (PrescriptionItem) getInstance();
+	}
+
+	@Override
+	protected PrescriptionItem createInstance() {
+		PrescriptionItem instance = super.createInstance();
+
+		return instance;
+	}
+
+	public void load() {
+		if (isIdDefined()) {
+			wire();
+		}
+	}
+
+	public void wire() {
+		getInstance();
+
+		com.oreon.cerebrum.drugs.Drug drug = drugAction.getDefinedInstance();
+		if (drug != null && isNew()) {
+			getInstance().setDrug(drug);
+		}
+
+		com.oreon.cerebrum.prescription.Prescription prescription = prescriptionAction
+				.getDefinedInstance();
+		if (prescription != null && isNew()) {
+			getInstance().setPrescription(prescription);
+		}
+
+		com.oreon.cerebrum.prescription.Frequecy frequecy = frequecyAction
+				.getDefinedInstance();
+		if (frequecy != null && isNew()) {
+			getInstance().setFrequecy(frequecy);
+		}
+
+	}
+
+	public boolean isWired() {
+		return true;
+	}
+
+	public PrescriptionItem getDefinedInstance() {
+		return (PrescriptionItem) (isIdDefined() ? getInstance() : null);
+	}
+
+	public void setPrescriptionItem(PrescriptionItem t) {
+		this.prescriptionItem = t;
+		if (prescriptionItem != null)
+			setPrescriptionItemId(t.getId());
+		loadAssociations();
+	}
+
+	@Override
+	public Class<PrescriptionItem> getEntityClass() {
+		return PrescriptionItem.class;
+	}
+
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	@Override
+	public void addAssociations(Criteria criteria) {
+
+		if (prescriptionItem.getDrug() != null) {
+			criteria = criteria.add(Restrictions.eq("drug.id", prescriptionItem
+					.getDrug().getId()));
+		}
+
+		if (prescriptionItem.getPrescription() != null) {
+			criteria = criteria.add(Restrictions.eq("prescription.id",
+					prescriptionItem.getPrescription().getId()));
+		}
+
+		if (prescriptionItem.getFrequecy() != null) {
+			criteria = criteria.add(Restrictions.eq("frequecy.id",
+					prescriptionItem.getFrequecy().getId()));
+		}
+
+	}
+
+	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
+	 * that customer can be shown on the customer tab within viewOrder.xhtml
+	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
+	 */
+	public void loadAssociations() {
+
+		if (prescriptionItem.getDrug() != null) {
+			drugAction.setInstance(getInstance().getDrug());
+			drugAction.loadAssociations();
+		}
+
+		if (prescriptionItem.getPrescription() != null) {
+			prescriptionAction.setInstance(getInstance().getPrescription());
+			prescriptionAction.loadAssociations();
+		}
+
+		if (prescriptionItem.getFrequecy() != null) {
+			frequecyAction.setInstance(getInstance().getFrequecy());
+			frequecyAction.loadAssociations();
+		}
+
+	}
+
+	public void updateAssociations() {
+
+	}
+
+	public void updateComposedAssociations() {
+	}
+
+	public void clearLists() {
+
+	}
+
+	public String viewPrescriptionItem() {
+		load(currentEntityId);
+		return "viewPrescriptionItem";
+	}
+
+}

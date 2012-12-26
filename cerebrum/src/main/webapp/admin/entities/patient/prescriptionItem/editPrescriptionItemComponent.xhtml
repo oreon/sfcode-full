@@ -102,6 +102,16 @@
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_prescriptionTemplateprescriptionTemplateDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.prescriptionItem_prescriptionTemplate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionTemplate')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_prescriptionTemplateprescriptionTemplate" label="#{msg.prescriptionItem_prescriptionTemplate}" value="#{prescriptionItemAction.prescriptionItem.prescriptionTemplate}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionTemplate')}" disabled="false"> 
+            <s:selectItems value="#{prescriptionTemplateList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

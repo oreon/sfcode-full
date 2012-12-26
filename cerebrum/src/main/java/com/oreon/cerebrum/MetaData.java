@@ -142,40 +142,6 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.cerebrum.patient.Prescription",
-
-	"prescriptionItemsCount", "java.lang.Integer",
-
-	"patient.displayName", "java.lang.String",
-
-	"directivesForPatient", "java.lang.String",
-
-	"active", "java.lang.Boolean",
-
-	},
-
-	{"com.oreon.cerebrum.patient.PrescriptionItem",
-
-	"drug.displayName", "java.lang.String",
-
-	"qty", "java.lang.Double",
-
-	"strength", "java.lang.String",
-
-	"prescription.displayName", "java.lang.String",
-
-	"route.name", "java.lang.String",
-
-	"duration", "java.lang.Integer",
-
-	"frequecy.displayName", "java.lang.String",
-
-	"remarks", "java.lang.String",
-
-	"brandName", "java.lang.String",
-
-	},
-
 	{"com.oreon.cerebrum.patient.Admission",
 
 	"patient.displayName", "java.lang.String",
@@ -235,14 +201,6 @@ public class MetaData {
 	{"com.oreon.cerebrum.patient.Vaccine",
 
 	"name", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.patient.Frequecy",
-
-	"name", "java.lang.String",
-
-	"qtyPerDay", "java.lang.Integer",
 
 	},
 
@@ -647,6 +605,80 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"description", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.prescription.PrescriptionTemplate",
+
+	"name", "java.lang.String",
+
+	"directivesForPatient", "java.lang.String",
+
+	"prescriptionItemTemplatesCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.prescription.Prescription",
+
+	"prescriptionItemsCount", "java.lang.Integer",
+
+	"patient.displayName", "java.lang.String",
+
+	"directivesForPatient", "java.lang.String",
+
+	"active", "java.lang.Boolean",
+
+	},
+
+	{"com.oreon.cerebrum.prescription.PrescriptionItem",
+
+	"drug.displayName", "java.lang.String",
+
+	"qty", "java.lang.Double",
+
+	"strength", "java.lang.String",
+
+	"prescription.displayName", "java.lang.String",
+
+	"route.name", "java.lang.String",
+
+	"duration", "java.lang.Integer",
+
+	"frequecy.displayName", "java.lang.String",
+
+	"remarks", "java.lang.String",
+
+	"brandName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.prescription.PrescriptionItemTemplate",
+
+	"drug.displayName", "java.lang.String",
+
+	"qty", "java.lang.Double",
+
+	"frequecy.displayName", "java.lang.String",
+
+	"strength", "java.lang.String",
+
+	"route.name", "java.lang.String",
+
+	"duration", "java.lang.Integer",
+
+	"remarks", "java.lang.String",
+
+	"brandName", "java.lang.String",
+
+	"prescriptionTemplate.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.prescription.Frequecy",
+
+	"name", "java.lang.String",
+
+	"qtyPerDay", "java.lang.Integer",
 
 	},
 

@@ -37,14 +37,6 @@
   <entity class="com.oreon.cerebrum.patient.Patient" name="Patient"> 
     <table name="patient"></table> 
   </entity>  
-  <!--  Prescription  JPA Configurations -->  
-  <entity class="com.oreon.cerebrum.patient.Prescription" name="Prescription"> 
-    <table name="prescription"></table> 
-  </entity>  
-  <!--  PrescriptionItem  JPA Configurations -->  
-  <entity class="com.oreon.cerebrum.patient.PrescriptionItem" name="PrescriptionItem"> 
-    <table name="prescriptionitem"></table> 
-  </entity>  
   <!--  Admission  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.patient.Admission" name="Admission"> 
     <table name="admission"></table> 
@@ -76,15 +68,6 @@
     <named-query name="vaccine.findByUnqName"> 
       <query> <![CDATA[
 			select u from Vaccine u where u.name = ?1
-			]]> </query> 
-    </named-query> 
-  </entity>  
-  <!--  Frequecy  JPA Configurations -->  
-  <entity class="com.oreon.cerebrum.patient.Frequecy" name="Frequecy"> 
-    <table name="frequecy"></table>  
-    <named-query name="frequecy.findByUnqName"> 
-      <query> <![CDATA[
-			select u from Frequecy u where u.name = ?1
 			]]> </query> 
     </named-query> 
   </entity>  
@@ -305,5 +288,35 @@
   <!--  DxTest  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.ddx.DxTest" name="DxTest"> 
     <table name="dxtest"></table> 
+  </entity>  
+  <!--  PrescriptionTemplate  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.PrescriptionTemplate" name="PrescriptionTemplate"> 
+    <table name="prescriptiontemplate"></table>  
+    <named-query name="prescriptionTemplate.findByUnqName"> 
+      <query> <![CDATA[
+			select u from PrescriptionTemplate u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Prescription  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.Prescription" name="Prescription"> 
+    <table name="prescription"></table> 
+  </entity>  
+  <!--  PrescriptionItem  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.PrescriptionItem" name="PrescriptionItem"> 
+    <table name="prescriptionitem"></table> 
+  </entity>  
+  <!--  PrescriptionItemTemplate  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.PrescriptionItemTemplate" name="PrescriptionItemTemplate"> 
+    <table name="prescriptionitemtemplate"></table> 
+  </entity>  
+  <!--  Frequecy  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.prescription.Frequecy" name="Frequecy"> 
+    <table name="frequecy"></table>  
+    <named-query name="frequecy.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Frequecy u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity> 
 </entity-mappings>

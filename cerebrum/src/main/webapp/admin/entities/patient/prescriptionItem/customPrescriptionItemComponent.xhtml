@@ -75,6 +75,15 @@
         <br/>  
         <h:inputText id="#{prefix}_brandName" value="#{prescriptionItemAction.prescriptionItem.brandName}"/>  
         <rich:message styleClass="error errors" for="#{prefix}_brandName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editBrandName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItem_prescriptionTemplate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionTemplate')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_prescriptionTemplateprescriptionTemplate" value="#{prescriptionItemAction.prescriptionItem.prescriptionTemplate}"> 
+          <s:selectItems value="#{prescriptionTemplateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_prescriptionTemplateprescriptionTemplate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionTemplate')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

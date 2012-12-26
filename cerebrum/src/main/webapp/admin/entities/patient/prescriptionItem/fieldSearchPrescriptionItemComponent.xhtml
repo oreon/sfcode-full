@@ -76,6 +76,14 @@
       <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editBrandName')}"/>  
       <br/>  
       <h:inputText id="#{prefix}_brandName" value="#{prescriptionItemList.prescriptionItem.brandName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_prescriptionTemplate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionTemplate')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_prescriptionTemplateprescriptionTemplate" value="#{ prescriptionItemList.prescriptionItem.prescriptionTemplate}"> 
+        <s:selectItems value="#{prescriptionTemplateList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

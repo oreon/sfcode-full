@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="PrescriptionItemTemplateModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="PrescriptionItemTemplate Search Results (#{empty records ? 0 : (prescriptionItemTemplateList.paginated ? prescriptionItemTemplateList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_prescriptionItemTemplate" value="#{records}" id="prescriptionItemTemplateList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDrug')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_drug}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.drug"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_prescriptionItemTemplate.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_prescriptionItemTemplate.drug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_prescriptionItemTemplate.drug.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewQty')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_qty}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.qty"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.qty}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewFrequecy')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_frequecy}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.frequecy"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_prescriptionItemTemplate.frequecy.displayName}" view="/admin/entities/prescription/frequecy/viewFrequecy.xhtml" propagation="none"> 
+            <f:param name="frequecyId" value="#{_prescriptionItemTemplate.frequecy.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewStrength')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_strength}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.strength"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.strength}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRoute')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_route}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.route"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.route}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDuration')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_duration}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.duration"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.duration}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRemarks')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_remarks}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.remarks"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.remarks}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewBrandName')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_brandName}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.brandName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.brandName}" escape="false"/> 
+        </h:column>  
+        <h:column groupOn="#{prescriptionItemTemplate.prescriptionTemplate.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewPrescriptionTemplate')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_prescriptionTemplate}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.prescriptionTemplate"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_prescriptionItemTemplate.prescriptionTemplate.displayName}" view="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml" propagation="none"> 
+            <f:param name="prescriptionTemplateId" value="#{_prescriptionItemTemplate.prescriptionTemplate.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_prescriptionItemTemplate', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/prescription/prescriptionItemTemplate/viewPrescriptionItemTemplate.xhtml" rendered="#{s:hasPermission(_prescriptionItemTemplate, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="prescriptionItemTemplateId" value="#{_prescriptionItemTemplate.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_prescriptionItemTemplate', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/prescription/prescriptionItemTemplate/editPrescriptionItemTemplate.xhtml" rendered="#{s:hasPermission(_prescriptionItemTemplate, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="prescriptionItemTemplateId" value="#{_prescriptionItemTemplate.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('prescriptionItemTemplateAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{prescriptionItemTemplateAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_prescriptionItemTemplate.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_prescriptionItemTemplate.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{prescriptionItemTemplateAction.setPrescriptionItemTemplateIdForModalDlg(_prescriptionItemTemplate.id)}" rendered="#{s:hasPermission(_prescriptionItemTemplate, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{prescriptionItemTemplateList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{prescriptionItemTemplateList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{prescriptionItemTemplateList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{prescriptionItemTemplateList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{prescriptionItemTemplateList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{prescriptionItemTemplateList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{prescriptionItemTemplateList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

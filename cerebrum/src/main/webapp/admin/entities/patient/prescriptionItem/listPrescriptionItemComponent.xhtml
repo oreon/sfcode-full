@@ -125,6 +125,19 @@
           </f:facet>  
           <h:outputText value="#{_prescriptionItem.brandName}" escape="false"/> 
         </h:column>  
+        <h:column groupOn="#{prescriptionItem.prescriptionTemplate.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewPrescriptionTemplate')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItem_prescriptionTemplate}"/>  
+              <ui:param name="propertyPath" value="prescriptionItem.prescriptionTemplate"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_prescriptionItem.prescriptionTemplate.displayName}" view="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml" propagation="none"> 
+            <f:param name="prescriptionTemplateId" value="#{_prescriptionItem.prescriptionTemplate.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
