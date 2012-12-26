@@ -35,7 +35,9 @@
         </s:decorate>
 		«ENDIF»
 	
+		<div id="printable" >
 		<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
+		</div>
 		«EXPAND genCancelSaveBtns(true) FOR this»
 		</h:form>
 		
@@ -61,7 +63,9 @@
 			«ENDPROTECT»	
 			<rich:tabPanel switchType="ajax">
 				<rich:tab label="«name»">
+					<div id="printable" >
 					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" />
+					</div>
 					«EXPAND genCancelSaveBtns(false) FOR this»
 				</rich:tab>
 			«FOREACH getOutgoingAssociations() AS a ITERATOR iter»

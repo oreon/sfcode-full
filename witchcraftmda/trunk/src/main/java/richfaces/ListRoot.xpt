@@ -19,9 +19,11 @@
 				<ui:include src="search«name».«getExtension()»" />
 				<br/> <br/>
 				«EXPAND genButtons FOR this»
+				<div id="printable" >
 				<ui:include src="list«name»Component.«getExtension()»"  >
 					<ui:param name="records" value="#{«asVar()»List.resultList}" />
          		</ui:include>
+         		</div>
 				«EXPAND genButtons FOR this»
 				<ui:include src="«getComponentViewFile("modalDlg")»" >
 					<ui:param name="modalId" value="${modalId}"/> 
