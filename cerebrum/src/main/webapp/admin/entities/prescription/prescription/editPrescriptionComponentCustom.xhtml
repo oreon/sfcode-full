@@ -11,13 +11,14 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 	<h:panelGroup id="editPrescriptionComponentPanel">
-	
-	<h3> Prescription </h3>
+
+		<h3>Prescription</h3>
 
 		<h:outputText value="Template" />
-		<br/>
+		<br />
 		<h:selectOneMenu id="template" label="Template"
-			value="#{prescriptionAction.currentPrescriptionTemplate}" required="false">
+			value="#{prescriptionAction.currentPrescriptionTemplate}"
+			required="false">
 			<s:selectItems value="#{prescriptionTemplateList}" var="itemIter"
 				label="#{itemIter.displayName}" noSelectionLabel="Select Template" />
 			<s:convertEntity />
@@ -162,9 +163,10 @@
 							value="#{_prescriptionItem.route}" required="false"
 							label="#{msg.prescriptionItem_route}">
 							<f:selectItem itemLabel="Please Select..." itemValue="" />
-							<f:selectItem itemValue="PIO" itemLabel="#{msg.PIO}" />
-							<f:selectItem itemValue="IM" itemLabel="#{msg.IM}" />
+							<f:selectItem itemValue="PO" itemLabel="#{msg.PO}" />
 							<f:selectItem itemValue="IV" itemLabel="#{msg.IV}" />
+							<f:selectItem itemValue="IM" itemLabel="#{msg.IM}" />
+							<f:selectItem itemValue="SC" itemLabel="#{msg.SC}" />
 							<f:selectItem itemValue="TOPICAL" itemLabel="#{msg.TOPICAL}" />
 							<rich:ajaxValidator event="onsubmit" />
 						</h:selectOneMenu>
