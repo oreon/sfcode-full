@@ -88,22 +88,32 @@ public class PrescriptionAction extends PrescriptionActionBase implements java.i
 		Set<PrescriptionItemTemplate> items = currentPrescriptionTemplate.getPrescriptionItemTemplates();
 		
 		for (PrescriptionItemTemplate prescriptionItemTemplate : items) {
+			if(containsDrug( prescriptionItemTemplate.getDrug()))
+				continue;
+			
 			prescriptionItemTemplate = initializeAndUnproxy(prescriptionItemTemplate);
 			PrescriptionItem prescriptionItem = new PrescriptionItem();
 			
 			try {
 				BeanUtils.copyProperties(prescriptionItem, prescriptionItemTemplate);
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			prescriptionItem.setPrescription(getInstance());
 			listPrescriptionItems.add(prescriptionItem);
 		}
 		
+	}
+
+	private boolean containsDrug(Drug drug) {
+		System.out.println(" drug " + drug.getName());
+		for (PrescriptionItem prescriptionItem : listPrescriptionItems){
+			if(prescriptionItem.getDrug().getName().equals(drug.getName())){
+				System.out.println("found drug " + drug.getName());
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void setCurrentPrescriptionTemplate(
