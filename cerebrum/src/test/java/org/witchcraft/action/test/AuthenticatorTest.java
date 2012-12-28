@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import org.witchcraft.seam.action.BaseAction;
 
 import com.oreon.cerebrum.drugs.Drug;
-import com.oreon.cerebrum.prescription.Frequecy;
+import com.oreon.cerebrum.prescription.Frequency;
 import com.oreon.cerebrum.users.AppRole;
 import com.oreon.cerebrum.users.AppUser;
 import com.oreon.cerebrum.web.action.users.AppUserAction;
@@ -113,7 +113,7 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 	}
 
 	private void createFrequency(String name, int qtyPerDay) {
-		Frequecy frequecy = new Frequecy();
+		Frequency frequecy = new Frequency();
 		frequecy.setName(name);
 		frequecy.setQtyPerDay(qtyPerDay);
 		em.persist(frequecy);

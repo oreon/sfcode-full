@@ -1,6 +1,6 @@
 package com.oreon.cerebrum.web.action.prescription;
 
-import com.oreon.cerebrum.prescription.Frequecy;
+import com.oreon.cerebrum.prescription.Frequency;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -19,21 +19,21 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
-import com.oreon.cerebrum.prescription.Frequecy;
+import com.oreon.cerebrum.prescription.Frequency;
 
 /**
  * 
  * @author WitchcraftMDA Seam Cartridge - 
  *
  */
-public abstract class FrequecyListQueryBase extends BaseQuery<Frequecy, Long> {
+public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> {
 
-	private static final String EJBQL = "select frequecy from Frequecy frequecy";
+	private static final String EJBQL = "select frequency from Frequency frequency";
 
-	protected Frequecy frequecy = new Frequecy();
+	protected Frequency frequency = new Frequency();
 
-	public Frequecy getFrequecy() {
-		return frequecy;
+	public Frequency getFrequency() {
+		return frequency;
 	}
 
 	@Override
@@ -42,8 +42,8 @@ public abstract class FrequecyListQueryBase extends BaseQuery<Frequecy, Long> {
 	}
 
 	@Override
-	public Class<Frequecy> getEntityClass() {
-		return Frequecy.class;
+	public Class<Frequency> getEntityClass() {
+		return Frequency.class;
 	}
 
 	@Override
@@ -61,17 +61,17 @@ public abstract class FrequecyListQueryBase extends BaseQuery<Frequecy, Long> {
 	}
 
 	private static final String[] RESTRICTIONS = {
-			"frequecy.id = #{frequecyList.frequecy.id}",
+			"frequency.id = #{frequencyList.frequency.id}",
 
-			"lower(frequecy.name) like concat(lower(#{frequecyList.frequecy.name}),'%')",
+			"lower(frequency.name) like concat(lower(#{frequencyList.frequency.name}),'%')",
 
-			"frequecy.qtyPerDay >= #{frequecyList.qtyPerDayRange.begin}",
-			"frequecy.qtyPerDay <= #{frequecyList.qtyPerDayRange.end}",
+			"frequency.qtyPerDay >= #{frequencyList.qtyPerDayRange.begin}",
+			"frequency.qtyPerDay <= #{frequencyList.qtyPerDayRange.end}",
 
-			"frequecy.dateCreated <= #{frequecyList.dateCreatedRange.end}",
-			"frequecy.dateCreated >= #{frequecyList.dateCreatedRange.begin}",};
+			"frequency.dateCreated <= #{frequencyList.dateCreatedRange.end}",
+			"frequency.dateCreated >= #{frequencyList.dateCreatedRange.begin}",};
 
-	@Observer("archivedFrequecy")
+	@Observer("archivedFrequency")
 	public void onArchive() {
 		refresh();
 	}
@@ -80,7 +80,7 @@ public abstract class FrequecyListQueryBase extends BaseQuery<Frequecy, Long> {
 	 * @param builder
 	 */
 	//@Override
-	public void createCsvString(StringBuilder builder, Frequecy e) {
+	public void createCsvString(StringBuilder builder, Frequency e) {
 
 		builder.append("\""
 				+ (e.getName() != null ? e.getName().replace(",", "") : "")

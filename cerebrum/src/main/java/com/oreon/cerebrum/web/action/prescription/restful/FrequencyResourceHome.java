@@ -21,10 +21,17 @@ import org.jboss.seam.resteasy.ResourceQuery;
 import java.util.Date;
 import java.util.List;
 
-import com.oreon.cerebrum.prescription.Frequecy;
+import com.oreon.cerebrum.prescription.Frequency;
 
-//@Name("frequecyResourceQuery")
-//@Path("frequecy")
-public class FrequecyResourceQuery extends ResourceQuery<Frequecy> {
+//@Name("frequencyResourceHome")
+//@Path("frequency")
+public class FrequencyResourceHome extends ResourceHome<Frequency, Long> {
+	@In(create = true)
+	private EntityHome<Frequency> frequencyAction;
+
+	@Override
+	public Home<?, Frequency> getEntityHome() {
+		return frequencyAction;
+	}
 
 }

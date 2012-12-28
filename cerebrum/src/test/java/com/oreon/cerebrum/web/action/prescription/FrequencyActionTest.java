@@ -13,9 +13,9 @@ package com.oreon.cerebrum.web.action.prescription;
 	
 	import org.testng.annotations.BeforeClass;
 	import org.witchcraft.seam.action.BaseAction;
-	import com.oreon.cerebrum.prescription.Frequecy;
+	import com.oreon.cerebrum.prescription.Frequency;
 
 
-public class FrequecyActionTest extends FrequecyActionTestBase{
+public class FrequencyActionTest extends FrequencyActionTestBase{
 	
 }

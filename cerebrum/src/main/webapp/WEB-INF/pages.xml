@@ -660,16 +660,16 @@
         <redirect view-id="/admin/entities/prescription/prescriptionItemTemplate/editPrescriptionItemTemplate.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="frequecy"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/listFrequecy.xhtml"/>  
+      <rule if-outcome="frequency"> 
+        <redirect view-id="/admin/entities/prescription/frequency/listFrequency.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="viewFrequecy"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/viewFrequecy.xhtml"/>  
+      <rule if-outcome="viewFrequency"> 
+        <redirect view-id="/admin/entities/prescription/frequency/viewFrequency.xhtml"/>  
         <end-conversation/> 
       </rule>  
-      <rule if-outcome="editFrequecy"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/editFrequecy.xhtml"/>  
+      <rule if-outcome="editFrequency"> 
+        <redirect view-id="/admin/entities/prescription/frequency/editFrequency.xhtml"/>  
         <end-conversation/> 
       </rule> 
     </navigation> 
@@ -3049,7 +3049,7 @@
     <param name="prescriptionItemId" value="#{prescriptionItemAction.prescriptionItemId}"/>  
     <param name="drugId" value="#{prescriptionItemAction.drugId}"/>  
     <param name="prescriptionId" value="#{prescriptionItemAction.prescriptionId}"/>  
-    <param name="frequecyId" value="#{prescriptionItemAction.frequecyId}"/> 
+    <param name="frequencyId" value="#{prescriptionItemAction.frequencyId}"/> 
   </page>  
   <page view-id="/admin/entities/prescription/prescriptionItem/viewPrescriptionItem.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View PrescriptionItem: #{prescriptionItem.displayName}</description> -->  
@@ -3086,7 +3086,7 @@
     <param name="#{prefix}_prescriptionprescription" value="#{prescriptionItemList.prescriptionItem.prescription.id}" validateModel="false"/>  
     <param name="#{prefix}_route" value="#{prescriptionItemList.prescriptionItem.route}" validateModel="false"/>  
     <param name="#{prefix}_duration" value="#{prescriptionItemList.prescriptionItem.duration}" validateModel="false"/>  
-    <param name="#{prefix}_frequecyfrequecy" value="#{prescriptionItemList.prescriptionItem.frequecy.id}" validateModel="false"/>  
+    <param name="#{prefix}_frequencyfrequency" value="#{prescriptionItemList.prescriptionItem.frequency.id}" validateModel="false"/>  
     <param name="#{prefix}_remarks" value="#{prescriptionItemList.prescriptionItem.remarks}" validateModel="false"/>  
     <param name="#{prefix}_brandName" value="#{prescriptionItemList.prescriptionItem.brandName}" validateModel="false"/> 
   </page>  
@@ -3102,7 +3102,7 @@
     </navigation>  
     <param name="prescriptionItemTemplateId" value="#{prescriptionItemTemplateAction.prescriptionItemTemplateId}"/>  
     <param name="drugId" value="#{prescriptionItemTemplateAction.drugId}"/>  
-    <param name="frequecyId" value="#{prescriptionItemTemplateAction.frequecyId}"/>  
+    <param name="frequencyId" value="#{prescriptionItemTemplateAction.frequencyId}"/>  
     <param name="prescriptionTemplateId" value="#{prescriptionItemTemplateAction.prescriptionTemplateId}"/> 
   </page>  
   <page view-id="/admin/entities/prescription/prescriptionItemTemplate/viewPrescriptionItemTemplate.xhtml" action="#{redirect.captureCurrentView()}"> 
@@ -3136,7 +3136,7 @@
     <param name="id" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.id}"/>  
     <param name="#{prefix}_drugdrug" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.drug.id}" validateModel="false"/>  
     <param name="#{prefix}_qty" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.qty}" validateModel="false"/>  
-    <param name="#{prefix}_frequecyfrequecy" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.frequecy.id}" validateModel="false"/>  
+    <param name="#{prefix}_frequencyfrequency" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.frequency.id}" validateModel="false"/>  
     <param name="#{prefix}_strength" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.strength}" validateModel="false"/>  
     <param name="#{prefix}_route" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.route}" validateModel="false"/>  
     <param name="#{prefix}_duration" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.duration}" validateModel="false"/>  
@@ -3144,49 +3144,49 @@
     <param name="#{prefix}_brandName" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.brandName}" validateModel="false"/>  
     <param name="#{prefix}_prescriptionTemplateprescriptionTemplate" value="#{prescriptionItemTemplateList.prescriptionItemTemplate.prescriptionTemplate.id}" validateModel="false"/> 
   </page>  
-  <page view-id="/admin/entities/prescription/frequecy/editFrequecy.xhtml"> 
-    <!-- <description>Edit Frequecy: #{frequecy.displayName}</description> -->  
+  <page view-id="/admin/entities/prescription/frequency/editFrequency.xhtml"> 
+    <!-- <description>Edit Frequency: #{frequency.displayName}</description> -->  
     <navigation> 
       <rule if-outcome="save"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/viewFrequecy.xhtml"/> 
+        <redirect view-id="/admin/entities/prescription/frequency/viewFrequency.xhtml"/> 
       </rule>  
       <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/listFrequecy.xhtml"/> 
+        <redirect view-id="/admin/entities/prescription/frequency/listFrequency.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="frequecyId" value="#{frequecyAction.frequecyId}"/> 
+    <param name="frequencyId" value="#{frequencyAction.frequencyId}"/> 
   </page>  
-  <page view-id="/admin/entities/prescription/frequecy/viewFrequecy.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View Frequecy: #{frequecy.displayName}</description> -->  
+  <page view-id="/admin/entities/prescription/frequency/viewFrequency.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Frequency: #{frequency.displayName}</description> -->  
     <navigation> 
       <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/editFrequecy.xhtml"/> 
+        <redirect view-id="/admin/entities/prescription/frequency/editFrequency.xhtml"/> 
       </rule>  
       <rule if-outcome="cancel"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/listFrequecy.xhtml"/> 
+        <redirect view-id="/admin/entities/prescription/frequency/listFrequency.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="frequecyId" value="#{frequecyAction.frequecyId}"/> 
+    <param name="frequencyId" value="#{frequencyAction.frequencyId}"/> 
   </page>  
-  <page view-id="/admin/entities/prescription/frequecy/listFrequecy.xhtml" action="#{redirect.captureCurrentView()}"> 
+  <page view-id="/admin/entities/prescription/frequency/listFrequency.xhtml" action="#{redirect.captureCurrentView()}"> 
     <navigation> 
-      <rule if-outcome="viewFrequecy"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/viewFrequecy.xhtml"/> 
+      <rule if-outcome="viewFrequency"> 
+        <redirect view-id="/admin/entities/prescription/frequency/viewFrequency.xhtml"/> 
       </rule>  
       <rule if-outcome="edit"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/editFrequecy.xhtml"/> 
+        <redirect view-id="/admin/entities/prescription/frequency/editFrequency.xhtml"/> 
       </rule>  
       <rule if-outcome="textSearch"> 
-        <redirect view-id="/admin/entities/prescription/frequecy/textSearchResultsFrequecy.xhtml"/> 
+        <redirect view-id="/admin/entities/prescription/frequency/textSearchResultsFrequency.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="firstResult" value="#{frequecyList.firstResult}"/>  
-    <param name="sort" value="#{frequecyList.orderColumn}"/>  
-    <param name="dir" value="#{frequecyList.orderDirection}"/>  
+    <param name="firstResult" value="#{frequencyList.firstResult}"/>  
+    <param name="sort" value="#{frequencyList.orderColumn}"/>  
+    <param name="dir" value="#{frequencyList.orderDirection}"/>  
     <param name="from"/>  
-    <param name="id" value="#{frequecyList.frequecy.id}"/>  
-    <param name="#{prefix}_name" value="#{frequecyList.frequecy.name}" validateModel="false"/>  
-    <param name="#{prefix}_qtyPerDay" value="#{frequecyList.frequecy.qtyPerDay}" validateModel="false"/> 
+    <param name="id" value="#{frequencyList.frequency.id}"/>  
+    <param name="#{prefix}_name" value="#{frequencyList.frequency.name}" validateModel="false"/>  
+    <param name="#{prefix}_qtyPerDay" value="#{frequencyList.frequency.qtyPerDay}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 

@@ -222,9 +222,7 @@ public class Drug extends BaseEntity implements java.io.Serializable {
 
 	;
 
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = true)
+	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String drugBankId

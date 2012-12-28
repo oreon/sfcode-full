@@ -19,8 +19,8 @@ import org.jboss.seam.annotations.Observer;
 import java.math.BigDecimal;
 	
 	
-@Name("frequecyList")
+@Name("frequencyList")
 //@Scope(ScopeType.CONVERSATION)
-public class FrequecyListQuery extends FrequecyListQueryBase implements java.io.Serializable{
+public class FrequencyListQuery extends FrequencyListQueryBase implements java.io.Serializable{
 	
 }

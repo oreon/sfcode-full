@@ -54,15 +54,15 @@ import org.witchcraft.base.entity.BaseEntity;
 import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
-@Table(name = "frequecy")
+@Table(name = "frequency")
 @Filters({@Filter(name = "archiveFilterDef"),
 
 })
-@Name("frequecy")
+@Name("frequency")
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class Frequecy extends BaseEntity implements java.io.Serializable {
-	private static final long serialVersionUID = -422108184L;
+public class Frequency extends BaseEntity implements java.io.Serializable {
+	private static final long serialVersionUID = -1337883382L;
 
 	@NotNull
 	@Length(min = 1, max = 250)
