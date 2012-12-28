@@ -1,6 +1,6 @@
 package com.oreon.cerebrum.web.action.prescription;
 
-import com.oreon.cerebrum.prescription.Frequecy;
+import com.oreon.cerebrum.prescription.Frequency;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -41,19 +41,19 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-public abstract class FrequecyActionBase extends BaseAction<Frequecy>
+public abstract class FrequencyActionBase extends BaseAction<Frequency>
 		implements
 			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	//@DataModelSelection
-	private Frequecy frequecy;
+	private Frequency frequency;
 
 	//@DataModel
-	//private List<Frequecy> frequecyRecordList;	
+	//private List<Frequency> frequencyRecordList;	
 
-	public void setFrequecyId(Long id) {
+	public void setFrequencyId(Long id) {
 		if (id == 0) {
 			clearInstance();
 			clearLists();
@@ -61,7 +61,7 @@ public abstract class FrequecyActionBase extends BaseAction<Frequecy>
 			return;
 		}
 		setId(id);
-		frequecy = loadInstance();
+		frequency = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -69,34 +69,34 @@ public abstract class FrequecyActionBase extends BaseAction<Frequecy>
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
-	public void setFrequecyIdForModalDlg(Long id) {
+	public void setFrequencyIdForModalDlg(Long id) {
 		setId(id);
-		frequecy = loadInstance();
+		frequency = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
 
-	public Long getFrequecyId() {
+	public Long getFrequencyId() {
 		return (Long) getId();
 	}
 
-	public Frequecy getEntity() {
-		return frequecy;
+	public Frequency getEntity() {
+		return frequency;
 	}
 
 	//@Override
-	public void setEntity(Frequecy t) {
-		this.frequecy = t;
+	public void setEntity(Frequency t) {
+		this.frequency = t;
 		loadAssociations();
 	}
 
-	public Frequecy getFrequecy() {
-		return (Frequecy) getInstance();
+	public Frequency getFrequency() {
+		return (Frequency) getInstance();
 	}
 
 	@Override
-	protected Frequecy createInstance() {
-		Frequecy instance = super.createInstance();
+	protected Frequency createInstance() {
+		Frequency instance = super.createInstance();
 
 		return instance;
 	}
@@ -116,24 +116,24 @@ public abstract class FrequecyActionBase extends BaseAction<Frequecy>
 		return true;
 	}
 
-	public Frequecy getDefinedInstance() {
-		return (Frequecy) (isIdDefined() ? getInstance() : null);
+	public Frequency getDefinedInstance() {
+		return (Frequency) (isIdDefined() ? getInstance() : null);
 	}
 
-	public void setFrequecy(Frequecy t) {
-		this.frequecy = t;
-		if (frequecy != null)
-			setFrequecyId(t.getId());
+	public void setFrequency(Frequency t) {
+		this.frequency = t;
+		if (frequency != null)
+			setFrequencyId(t.getId());
 		loadAssociations();
 	}
 
 	@Override
-	public Class<Frequecy> getEntityClass() {
-		return Frequecy.class;
+	public Class<Frequency> getEntityClass() {
+		return Frequency.class;
 	}
 
-	public com.oreon.cerebrum.prescription.Frequecy findByUnqName(String name) {
-		return executeSingleResultNamedQuery("frequecy.findByUnqName", name);
+	public com.oreon.cerebrum.prescription.Frequency findByUnqName(String name) {
+		return executeSingleResultNamedQuery("frequency.findByUnqName", name);
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -155,9 +155,9 @@ public abstract class FrequecyActionBase extends BaseAction<Frequecy>
 
 	}
 
-	public String viewFrequecy() {
+	public String viewFrequency() {
 		load(currentEntityId);
-		return "viewFrequecy";
+		return "viewFrequency";
 	}
 
 }

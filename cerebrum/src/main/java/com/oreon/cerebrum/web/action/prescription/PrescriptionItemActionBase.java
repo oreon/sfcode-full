@@ -56,8 +56,8 @@ public abstract class PrescriptionItemActionBase
 	@In(create = true, value = "prescriptionAction")
 	com.oreon.cerebrum.web.action.prescription.PrescriptionAction prescriptionAction;
 
-	@In(create = true, value = "frequecyAction")
-	com.oreon.cerebrum.web.action.prescription.FrequecyAction frequecyAction;
+	@In(create = true, value = "frequencyAction")
+	com.oreon.cerebrum.web.action.prescription.FrequencyAction frequencyAction;
 
 	//@DataModel
 	//private List<PrescriptionItem> prescriptionItemRecordList;	
@@ -111,16 +111,16 @@ public abstract class PrescriptionItemActionBase
 		return 0L;
 	}
 
-	public void setFrequecyId(Long id) {
+	public void setFrequencyId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setFrequecy(frequecyAction.loadFromId(id));
+			getInstance().setFrequency(frequencyAction.loadFromId(id));
 
 	}
 
-	public Long getFrequecyId() {
-		if (getInstance().getFrequecy() != null)
-			return getInstance().getFrequecy().getId();
+	public Long getFrequencyId() {
+		if (getInstance().getFrequency() != null)
+			return getInstance().getFrequency().getId();
 		return 0L;
 	}
 
@@ -169,10 +169,10 @@ public abstract class PrescriptionItemActionBase
 			getInstance().setPrescription(prescription);
 		}
 
-		com.oreon.cerebrum.prescription.Frequecy frequecy = frequecyAction
+		com.oreon.cerebrum.prescription.Frequency frequency = frequencyAction
 				.getDefinedInstance();
-		if (frequecy != null && isNew()) {
-			getInstance().setFrequecy(frequecy);
+		if (frequency != null && isNew()) {
+			getInstance().setFrequency(frequency);
 		}
 
 	}
@@ -213,9 +213,9 @@ public abstract class PrescriptionItemActionBase
 					prescriptionItem.getPrescription().getId()));
 		}
 
-		if (prescriptionItem.getFrequecy() != null) {
-			criteria = criteria.add(Restrictions.eq("frequecy.id",
-					prescriptionItem.getFrequecy().getId()));
+		if (prescriptionItem.getFrequency() != null) {
+			criteria = criteria.add(Restrictions.eq("frequency.id",
+					prescriptionItem.getFrequency().getId()));
 		}
 
 	}
@@ -236,9 +236,9 @@ public abstract class PrescriptionItemActionBase
 			prescriptionAction.loadAssociations();
 		}
 
-		if (prescriptionItem.getFrequecy() != null) {
-			frequecyAction.setInstance(getInstance().getFrequecy());
-			frequecyAction.loadAssociations();
+		if (prescriptionItem.getFrequency() != null) {
+			frequencyAction.setInstance(getInstance().getFrequency());
+			frequencyAction.loadAssociations();
 		}
 
 	}

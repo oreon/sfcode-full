@@ -42,8 +42,8 @@ import org.richfaces.model.UploadItem;
 
 	
 //@Scope(ScopeType.CONVERSATION)
-@Name("frequecyAction")
-public class FrequecyAction extends FrequecyActionBase implements java.io.Serializable{
+@Name("frequencyAction")
+public class FrequencyAction extends FrequencyActionBase implements java.io.Serializable{
 	
 }
 	

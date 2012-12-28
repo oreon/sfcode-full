@@ -644,7 +644,7 @@ public class MetaData {
 
 	"duration", "java.lang.Integer",
 
-	"frequecy.displayName", "java.lang.String",
+	"frequency.displayName", "java.lang.String",
 
 	"remarks", "java.lang.String",
 
@@ -658,7 +658,7 @@ public class MetaData {
 
 	"qty", "java.lang.Double",
 
-	"frequecy.displayName", "java.lang.String",
+	"frequency.displayName", "java.lang.String",
 
 	"strength", "java.lang.String",
 
@@ -674,7 +674,7 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.cerebrum.prescription.Frequecy",
+	{"com.oreon.cerebrum.prescription.Frequency",
 
 	"name", "java.lang.String",
 

@@ -138,11 +138,6 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 		return executeSingleResultNamedQuery("drug.findByUnqName", name);
 	}
 
-	public com.oreon.cerebrum.drugs.Drug findByUnqDrugBankId(String drugBankId) {
-		return executeSingleResultNamedQuery("drug.findByUnqDrugBankId",
-				drugBankId);
-	}
-
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()

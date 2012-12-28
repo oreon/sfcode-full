@@ -89,7 +89,7 @@ public class PrescriptionItem extends BaseEntity
 	;
 
 	@Column(unique = false)
-	protected com.oreon.cerebrum.patient.Route route
+	protected com.oreon.cerebrum.patient.Route route = com.oreon.cerebrum.patient.Route.PO
 
 	;
 
@@ -99,8 +99,8 @@ public class PrescriptionItem extends BaseEntity
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "frequecy_id", nullable = false, updatable = true)
-	protected Frequecy frequecy
+	@JoinColumn(name = "frequency_id", nullable = false, updatable = true)
+	protected Frequency frequency
 
 	;
 
@@ -178,13 +178,13 @@ public class PrescriptionItem extends BaseEntity
 
 	}
 
-	public void setFrequecy(Frequecy frequecy) {
-		this.frequecy = frequecy;
+	public void setFrequency(Frequency frequency) {
+		this.frequency = frequency;
 	}
 
-	public Frequecy getFrequecy() {
+	public Frequency getFrequency() {
 
-		return frequecy;
+		return frequency;
 
 	}
 
@@ -256,8 +256,10 @@ public class PrescriptionItem extends BaseEntity
 			builder.append("prescription:" + getPrescription().getDisplayName()
 					+ " ");
 
-		if (getFrequecy() != null)
-			builder.append("frequecy:" + getFrequecy().getDisplayName() + " ");
+		if (getFrequency() != null)
+			builder
+					.append("frequency:" + getFrequency().getDisplayName()
+							+ " ");
 
 		return builder.toString();
 	}

@@ -92,16 +92,16 @@
           </f:facet>  
           <h:outputText value="#{_prescriptionItem.duration}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewFrequecy')}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewFrequency')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.prescriptionItem_frequecy}"/>  
-              <ui:param name="propertyPath" value="prescriptionItem.frequecy"/> 
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItem_frequency}"/>  
+              <ui:param name="propertyPath" value="prescriptionItem.frequency"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_prescriptionItem.frequecy.displayName}" view="/admin/entities/prescription/frequecy/viewFrequecy.xhtml" propagation="none"> 
-            <f:param name="frequecyId" value="#{_prescriptionItem.frequecy.id}"/>  
+          <s:link value="#{_prescriptionItem.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+            <f:param name="frequencyId" value="#{_prescriptionItem.frequency.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  

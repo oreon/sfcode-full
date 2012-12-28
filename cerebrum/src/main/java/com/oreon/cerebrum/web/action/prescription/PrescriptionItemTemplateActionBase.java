@@ -55,8 +55,8 @@ public abstract class PrescriptionItemTemplateActionBase
 	@In(create = true, value = "drugAction")
 	com.oreon.cerebrum.web.action.drugs.DrugAction drugAction;
 
-	@In(create = true, value = "frequecyAction")
-	com.oreon.cerebrum.web.action.prescription.FrequecyAction frequecyAction;
+	@In(create = true, value = "frequencyAction")
+	com.oreon.cerebrum.web.action.prescription.FrequencyAction frequencyAction;
 
 	@In(create = true, value = "prescriptionTemplateAction")
 	com.oreon.cerebrum.web.action.prescription.PrescriptionTemplateAction prescriptionTemplateAction;
@@ -100,16 +100,16 @@ public abstract class PrescriptionItemTemplateActionBase
 		return 0L;
 	}
 
-	public void setFrequecyId(Long id) {
+	public void setFrequencyId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setFrequecy(frequecyAction.loadFromId(id));
+			getInstance().setFrequency(frequencyAction.loadFromId(id));
 
 	}
 
-	public Long getFrequecyId() {
-		if (getInstance().getFrequecy() != null)
-			return getInstance().getFrequecy().getId();
+	public Long getFrequencyId() {
+		if (getInstance().getFrequency() != null)
+			return getInstance().getFrequency().getId();
 		return 0L;
 	}
 
@@ -166,10 +166,10 @@ public abstract class PrescriptionItemTemplateActionBase
 			getInstance().setDrug(drug);
 		}
 
-		com.oreon.cerebrum.prescription.Frequecy frequecy = frequecyAction
+		com.oreon.cerebrum.prescription.Frequency frequency = frequencyAction
 				.getDefinedInstance();
-		if (frequecy != null && isNew()) {
-			getInstance().setFrequecy(frequecy);
+		if (frequency != null && isNew()) {
+			getInstance().setFrequency(frequency);
 		}
 
 		com.oreon.cerebrum.prescription.PrescriptionTemplate prescriptionTemplate = prescriptionTemplateAction
@@ -211,9 +211,9 @@ public abstract class PrescriptionItemTemplateActionBase
 					prescriptionItemTemplate.getDrug().getId()));
 		}
 
-		if (prescriptionItemTemplate.getFrequecy() != null) {
-			criteria = criteria.add(Restrictions.eq("frequecy.id",
-					prescriptionItemTemplate.getFrequecy().getId()));
+		if (prescriptionItemTemplate.getFrequency() != null) {
+			criteria = criteria.add(Restrictions.eq("frequency.id",
+					prescriptionItemTemplate.getFrequency().getId()));
 		}
 
 		if (prescriptionItemTemplate.getPrescriptionTemplate() != null) {
@@ -236,9 +236,9 @@ public abstract class PrescriptionItemTemplateActionBase
 			drugAction.loadAssociations();
 		}
 
-		if (prescriptionItemTemplate.getFrequecy() != null) {
-			frequecyAction.setInstance(getInstance().getFrequecy());
-			frequecyAction.loadAssociations();
+		if (prescriptionItemTemplate.getFrequency() != null) {
+			frequencyAction.setInstance(getInstance().getFrequency());
+			frequencyAction.loadAssociations();
 		}
 
 		if (prescriptionItemTemplate.getPrescriptionTemplate() != null) {

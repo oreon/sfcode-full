@@ -88,7 +88,7 @@ public abstract class PrescriptionItemListQueryBase
 			"prescriptionItem.duration >= #{prescriptionItemList.durationRange.begin}",
 			"prescriptionItem.duration <= #{prescriptionItemList.durationRange.end}",
 
-			"prescriptionItem.frequecy.id = #{prescriptionItemList.prescriptionItem.frequecy.id}",
+			"prescriptionItem.frequency.id = #{prescriptionItemList.prescriptionItem.frequency.id}",
 
 			"lower(prescriptionItem.remarks) like concat(lower(#{prescriptionItemList.prescriptionItem.remarks}),'%')",
 
@@ -137,7 +137,7 @@ public abstract class PrescriptionItemListQueryBase
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getFrequecy() != null ? e.getFrequecy().getDisplayName()
+				+ (e.getFrequency() != null ? e.getFrequency().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
@@ -171,7 +171,7 @@ public abstract class PrescriptionItemListQueryBase
 
 		builder.append("Duration" + ",");
 
-		builder.append("Frequecy" + ",");
+		builder.append("Frequency" + ",");
 
 		builder.append("Remarks" + ",");
 

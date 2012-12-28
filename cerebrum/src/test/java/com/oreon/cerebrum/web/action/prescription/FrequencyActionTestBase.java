@@ -10,13 +10,13 @@ import org.hibernate.annotations.Filter;
 
 import org.testng.annotations.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
-import com.oreon.cerebrum.prescription.Frequecy;
+import com.oreon.cerebrum.prescription.Frequency;
 
-public class FrequecyActionTestBase
+public class FrequencyActionTestBase
 		extends
-			org.witchcraft.action.test.BaseTest<Frequecy> {
+			org.witchcraft.action.test.BaseTest<Frequency> {
 
-	FrequecyAction frequecyAction = new FrequecyAction();
+	FrequencyAction frequencyAction = new FrequencyAction();
 
 	@BeforeClass
 	public void init() {
@@ -24,8 +24,8 @@ public class FrequecyActionTestBase
 	}
 
 	@Override
-	public BaseAction<Frequecy> getAction() {
-		return frequecyAction;
+	public BaseAction<Frequency> getAction() {
+		return frequencyAction;
 	}
 
 }

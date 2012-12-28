@@ -49,16 +49,16 @@
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewFrequecy')}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewFrequency')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{prescriptionItemTemplateList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_frequecy}"/>  
-              <ui:param name="propertyPath" value="prescriptionItemTemplate.frequecy"/> 
+              <ui:param name="propertyLabel" value="#{msg.prescriptionItemTemplate_frequency}"/>  
+              <ui:param name="propertyPath" value="prescriptionItemTemplate.frequency"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_prescriptionItemTemplate.frequecy.displayName}" view="/admin/entities/prescription/frequecy/viewFrequecy.xhtml" propagation="none"> 
-            <f:param name="frequecyId" value="#{_prescriptionItemTemplate.frequecy.id}"/>  
+          <s:link value="#{_prescriptionItemTemplate.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+            <f:param name="frequencyId" value="#{_prescriptionItemTemplate.frequency.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  

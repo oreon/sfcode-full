@@ -79,7 +79,7 @@ public abstract class PrescriptionItemTemplateListQueryBase
 			"prescriptionItemTemplate.qty >= #{prescriptionItemTemplateList.qtyRange.begin}",
 			"prescriptionItemTemplate.qty <= #{prescriptionItemTemplateList.qtyRange.end}",
 
-			"prescriptionItemTemplate.frequecy.id = #{prescriptionItemTemplateList.prescriptionItemTemplate.frequecy.id}",
+			"prescriptionItemTemplate.frequency.id = #{prescriptionItemTemplateList.prescriptionItemTemplate.frequency.id}",
 
 			"lower(prescriptionItemTemplate.strength) like concat(lower(#{prescriptionItemTemplateList.prescriptionItemTemplate.strength}),'%')",
 
@@ -123,7 +123,7 @@ public abstract class PrescriptionItemTemplateListQueryBase
 		builder.append("\"" + (e.getQty() != null ? e.getQty() : "") + "\",");
 
 		builder.append("\""
-				+ (e.getFrequecy() != null ? e.getFrequecy().getDisplayName()
+				+ (e.getFrequency() != null ? e.getFrequency().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
@@ -165,7 +165,7 @@ public abstract class PrescriptionItemTemplateListQueryBase
 
 		builder.append("Qty" + ",");
 
-		builder.append("Frequecy" + ",");
+		builder.append("Frequency" + ",");
 
 		builder.append("Strength" + ",");
 

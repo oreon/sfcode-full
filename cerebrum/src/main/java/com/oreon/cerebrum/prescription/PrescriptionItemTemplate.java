@@ -78,8 +78,8 @@ public class PrescriptionItemTemplate extends BaseEntity
 	;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "frequecy_id", nullable = false, updatable = true)
-	protected Frequecy frequecy
+	@JoinColumn(name = "frequency_id", nullable = false, updatable = true)
+	protected Frequency frequency
 
 	;
 
@@ -140,13 +140,13 @@ public class PrescriptionItemTemplate extends BaseEntity
 
 	}
 
-	public void setFrequecy(Frequecy frequecy) {
-		this.frequecy = frequecy;
+	public void setFrequency(Frequency frequency) {
+		this.frequency = frequency;
 	}
 
-	public Frequecy getFrequecy() {
+	public Frequency getFrequency() {
 
-		return frequecy;
+		return frequency;
 
 	}
 
@@ -255,8 +255,10 @@ public class PrescriptionItemTemplate extends BaseEntity
 		if (getDrug() != null)
 			builder.append("drug:" + getDrug().getDisplayName() + " ");
 
-		if (getFrequecy() != null)
-			builder.append("frequecy:" + getFrequecy().getDisplayName() + " ");
+		if (getFrequency() != null)
+			builder
+					.append("frequency:" + getFrequency().getDisplayName()
+							+ " ");
 
 		if (getPrescriptionTemplate() != null)
 			builder.append("prescriptionTemplate:"

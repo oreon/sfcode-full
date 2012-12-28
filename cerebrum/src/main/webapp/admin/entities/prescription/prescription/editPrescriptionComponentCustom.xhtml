@@ -119,16 +119,16 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="#{msg.prescriptionItem_frequecy}  "
-							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}" />
+						<h:outputText value="#{msg.prescriptionItem_frequency}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequencyEdit')}" />
 					</f:facet>
-					<s:decorate id="frequecyDecorate" template="/layout/edit.xhtml">
+					<s:decorate id="frequencyDecorate" template="/layout/edit.xhtml">
 						<ui:define name="label"></ui:define>
-						<h:selectOneMenu id="frequecy"
-							label="#{msg.prescriptionItem_frequecy}"
-							value="#{_prescriptionItem.frequecy}" required="true"
-							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequecyEdit')}">
-							<s:selectItems value="#{frequecyList}" var="itemIter"
+						<h:selectOneMenu id="frequency"
+							label="#{msg.prescriptionItem_frequency}"
+							value="#{_prescriptionItem.frequency}" required="true"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequencyEdit')}">
+							<s:selectItems value="#{frequencyList}" var="itemIter"
 								label="#{itemIter.displayName}"
 								noSelectionLabel="Please Select..." />
 							<rich:ajaxValidator event="onsubmit" />
