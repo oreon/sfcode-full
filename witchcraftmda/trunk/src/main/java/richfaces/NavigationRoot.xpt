@@ -19,11 +19,13 @@
 	    <rich:panelMenuGroup label="«p.name.toFirstUpper()»"   expanded="#{panelMenuStateBean.state['«p.name.toFirstUpper()»']}" >
 		
 		«FOREACH p.packagedElement.typeSelect(wcprofile::Entity) AS e-»
-		<rich:panelMenuItem>
-			<h:commandLink  value="«e.name»" action="«e.asVar()»" >
-			<s:conversationPropagation type="none" />
-			</h:commandLink>
-		</rich:panelMenuItem>
+		 «IF e.navigable != false »
+			<rich:panelMenuItem>
+				<h:commandLink  value="«e.name»" action="«e.asVar()»" >
+				<s:conversationPropagation type="none" />
+				</h:commandLink>
+			</rich:panelMenuItem>
+		 «ENDIF»
 		«ENDFOREACH»
 		
 		</rich:panelMenuGroup>
