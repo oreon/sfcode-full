@@ -7,6 +7,7 @@ import org.jboss.seam.security.Role;
      
 //admin should have all previliges     
 rule "CanAdminDoEverything"
+salience 15
 no-loop 
 when
   $c : PermissionCheck( )
@@ -15,14 +16,33 @@ then
   $c.grant();
 end
 
-//dummy rule to hide 'id' from non admins  
-rule "CanNonAdminDoEverything"
-no-loop
-dialect "java"
+//dummy rule to hide 'id' from non admins 
+
+rule "PhysicianCanViewPrescriptions"
+salience  10
+activation-group "view"
+no-loop 
 when
-  principal: Principal()
-  c : PermissionCheck(  )
-  eval (   ! c.getTarget().equals( "id" )  )
+  $principal: Principal()
+  $c : PermissionCheck(target == "prescriptionPackage" )
+  $r : Role(name == "physician" || name == "nurse")
 then
-  c.grant();
+  System.out.println("viewpres " + $c.getTarget() + " " + $r.getName() ); 
+  $c.grant();
+end
+
+
+rule "CanNonAdminDoEverything"
+salience 3
+activation-group "view"
+no-loop
+//dialect "java"
+when
+  $principal: Principal()
+  $c : PermissionCheck( target != "id" &&  target != "prescriptionPackage" )
+then
+  $c.grant();
+  System.out.println("nonadmin " + $c.getTarget() + " "  ); 
 end         
+
+

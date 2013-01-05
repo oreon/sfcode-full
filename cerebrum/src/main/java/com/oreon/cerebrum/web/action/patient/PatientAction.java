@@ -1,18 +1,25 @@
 package com.oreon.cerebrum.web.action.patient;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.jboss.seam.annotations.Name;
-import org.joda.time.DateTime;
+
+import com.oreon.cerebrum.encounter.Encounter;
+import com.oreon.cerebrum.patient.TrackedVital;
+import com.oreon.cerebrum.patient.VitalValue;
 
 //@Scope(ScopeType.CONVERSATION)
 @Name("patientAction")
 public class PatientAction extends PatientActionBase implements
 		java.io.Serializable {
 
-	private List<Birth> births;
+	private ArrayList<BloodPressure> bpList;
 
 	public  PatientAction() {
 		// TODO Auto-generated constructor stub
@@ -21,20 +28,48 @@ public class PatientAction extends PatientActionBase implements
 	
 	public void initBirths(){
 		
-		births = new ArrayList<Birth>();
-		births.add(new Birth(new Date(), 120, 52));
-		births.add(new Birth(new DateTime(2012, 5, 6, 6, 6, 7, 6).toDate(), 100, 60));
-		births.add(new Birth(new DateTime(2012, 5, 8, 6, 6, 7, 6).toDate(), 44, 110));
-		births.add(new Birth(new DateTime(2012, 5, 9, 6, 6, 7, 6).toDate(), 150, 135));
-		births.add(new Birth(new DateTime(2012, 5, 22, 6, 6, 7, 6).toDate(), 125, 120));
+		bpList = new ArrayList<BloodPressure>();
+		
+		Set<Encounter> encounters = instance.getEncounters();
+		for (Encounter encounter : encounters) {
+			bpList.add(new BloodPressure(encounter.getDateCreated(), encounter.getVitals().getSysBP(), encounter.getVitals().getDiasBP()));
+		}
 	}
 
-	public List<Birth> getBirths() {
-		if(births == null)
+	public List<BloodPressure> getBirths() {
+		if(bpList == null)
 			initBirths();
-		return births;
+		return bpList;
 	}
 
+	public List<List<VitalValue>> getTrackedVals(){
+		List<List<VitalValue>>  listVitals = new ArrayList<List<VitalValue>>();
+		Map<TrackedVital, List<VitalValue>> mapVitals = new HashMap<TrackedVital, List<VitalValue>>();
+		
+		Set<VitalValue> vitals = getInstance().getVitalValues();
+		for (VitalValue vitalValue : vitals) {
+			if(!mapVitals.containsKey(vitalValue.getTrackedVital())){
+				mapVitals.put(vitalValue.getTrackedVital(), new ArrayList<VitalValue>());
+			}
+			mapVitals.get(vitalValue.getTrackedVital()).add(vitalValue);
+		}
+		Set<TrackedVital>  tvs = mapVitals.keySet();
+		for (TrackedVital trackedVital : tvs) {
+			listVitals.add(mapVitals.get(trackedVital));
+		}
+		return listVitals;
+	}
 	
+	class DateComparator implements Comparator<BloodPressure>{
+
+		@Override
+		public int compare(BloodPressure bp1, BloodPressure bp2) {
+
+			if(bp1.getDate().getTime() > bp2.getDate().getTime())
+				return 1;
+			return 0;
+		}
+		
+	}
 	
 }
