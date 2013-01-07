@@ -17,6 +17,16 @@
       <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}"/>  
       <br/>  
       <h:inputText id="#{prefix}_notes" value="#{invoiceList.invoice.notes}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.invoice_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editTotal')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_total_begin" value="#{invoiceList.totalRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_total_end" value="#{invoiceList.totalRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

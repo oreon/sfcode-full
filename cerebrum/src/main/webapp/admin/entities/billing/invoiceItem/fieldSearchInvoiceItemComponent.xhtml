@@ -30,6 +30,16 @@
         <s:selectItems value="#{invoiceList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_appliedPrice_begin" value="#{invoiceItemList.appliedPriceRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_appliedPrice_end" value="#{invoiceItemList.appliedPriceRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

@@ -62,6 +62,15 @@ public abstract class InvoiceItemListQueryBase
 		this.unitsRange = unitsRange;
 	}
 
+	private Range<Double> appliedPriceRange = new Range<Double>();
+
+	public Range<Double> getAppliedPriceRange() {
+		return appliedPriceRange;
+	}
+	public void setAppliedPrice(Range<Double> appliedPriceRange) {
+		this.appliedPriceRange = appliedPriceRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"invoiceItem.id = #{invoiceItemList.invoiceItem.id}",
 
@@ -71,6 +80,9 @@ public abstract class InvoiceItemListQueryBase
 			"invoiceItem.service.id = #{invoiceItemList.invoiceItem.service.id}",
 
 			"invoiceItem.invoice.id = #{invoiceItemList.invoiceItem.invoice.id}",
+
+			"invoiceItem.appliedPrice >= #{invoiceItemList.appliedPriceRange.begin}",
+			"invoiceItem.appliedPrice <= #{invoiceItemList.appliedPriceRange.end}",
 
 			"invoiceItem.dateCreated <= #{invoiceItemList.dateCreatedRange.end}",
 			"invoiceItem.dateCreated >= #{invoiceItemList.dateCreatedRange.begin}",};
@@ -104,6 +116,10 @@ public abstract class InvoiceItemListQueryBase
 				+ (e.getInvoice() != null ? e.getInvoice().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getAppliedPrice() != null ? e.getAppliedPrice() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -118,6 +134,8 @@ public abstract class InvoiceItemListQueryBase
 		builder.append("Service" + ",");
 
 		builder.append("Invoice" + ",");
+
+		builder.append("AppliedPrice" + ",");
 
 		builder.append("\r\n");
 	}
