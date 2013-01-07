@@ -19,6 +19,14 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
+        <s:decorate id="#{prefix}_appliedPriceDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>
+          </ui:define>  
+          <h:inputText id="#{prefix}_appliedPrice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}" label="#{msg.invoiceItem_appliedPrice}" required="false" disabled="false" value="#{invoiceItemAction.invoiceItem.appliedPrice}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
         <s:decorate id="#{prefix}_serviceserviceDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>

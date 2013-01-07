@@ -13,6 +13,8 @@
         </f:facet>  
         <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}"/>  
         <h:outputText id="#{prefix}_notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}" value="#{invoiceAction.invoice.notes}"></h:outputText>  
+        <h:outputText value="#{msg.invoice_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotal')}"/>  
+        <h:outputText id="#{prefix}_total#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotal')}" value="#{invoiceAction.invoice.total}"></h:outputText>  
         <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')}"/>  
         <s:link value="#{invoiceAction.invoice.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{invoiceAction.invoice.patient.id}"/>  
@@ -38,6 +40,12 @@
             <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}"/> 
           </f:facet>  
           <h:outputText id="#{prefix}_units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}" value="#{_invoiceItem.units}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewAppliedPrice')}"/> 
+          </f:facet>  
+          <h:outputText id="#{prefix}_appliedPrice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewAppliedPrice')}" value="#{_invoiceItem.appliedPrice}"></h:outputText> 
         </h:column>  
         <h:column>
           <f:facet name="header"> 

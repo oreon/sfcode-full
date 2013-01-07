@@ -51,12 +51,24 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 		return RESTRICTIONS;
 	}
 
+	private Range<Double> totalRange = new Range<Double>();
+
+	public Range<Double> getTotalRange() {
+		return totalRange;
+	}
+	public void setTotal(Range<Double> totalRange) {
+		this.totalRange = totalRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"invoice.id = #{invoiceList.invoice.id}",
 
 			"invoice.patient.id = #{invoiceList.invoice.patient.id}",
 
 			"lower(invoice.notes) like concat(lower(#{invoiceList.invoice.notes}),'%')",
+
+			"invoice.total >= #{invoiceList.totalRange.begin}",
+			"invoice.total <= #{invoiceList.totalRange.end}",
 
 			"invoice.dateCreated <= #{invoiceList.dateCreatedRange.end}",
 			"invoice.dateCreated >= #{invoiceList.dateCreatedRange.begin}",};
@@ -80,6 +92,9 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 				+ (e.getNotes() != null ? e.getNotes().replace(",", "") : "")
 				+ "\",");
 
+		builder.append("\"" + (e.getTotal() != null ? e.getTotal() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -92,6 +107,8 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 		builder.append("Patient" + ",");
 
 		builder.append("Notes" + ",");
+
+		builder.append("Total" + ",");
 
 		builder.append("\r\n");
 	}

@@ -65,7 +65,7 @@ public class InvoiceItem extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -843792017L;
 
 	@Column(unique = false)
-	protected Integer units
+	protected Integer units = 1
 
 	;
 
@@ -80,6 +80,9 @@ public class InvoiceItem extends BaseEntity implements java.io.Serializable {
 	protected Invoice invoice
 
 	;
+
+	@Column(name = "appliedPrice", unique = false)
+	protected Double appliedPrice = service != null ? service.getPrice() : 0;
 
 	@Transient
 	protected Double total
@@ -113,6 +116,16 @@ public class InvoiceItem extends BaseEntity implements java.io.Serializable {
 	public Invoice getInvoice() {
 
 		return invoice;
+
+	}
+
+	public void setAppliedPrice(Double appliedPrice) {
+		this.appliedPrice = appliedPrice;
+	}
+
+	public Double getAppliedPrice() {
+
+		return appliedPrice;
 
 	}
 

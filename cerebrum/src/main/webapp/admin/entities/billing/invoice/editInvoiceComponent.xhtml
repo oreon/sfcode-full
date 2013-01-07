@@ -59,6 +59,17 @@
             </h:inputText> 
           </s:decorate> 
         </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_appliedPriceDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="#{prefix}_appliedPrice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}" label="#{msg.invoiceItem_appliedPrice}" required="false" disabled="false" value="#{_invoiceItem.appliedPrice}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
         <h:column> 
           <a:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" reRender="invoiceItems" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}"> 
             <s:conversationId/> 

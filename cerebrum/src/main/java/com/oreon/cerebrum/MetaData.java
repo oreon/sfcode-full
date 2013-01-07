@@ -440,6 +440,8 @@ public class MetaData {
 
 	"notes", "java.lang.String",
 
+	"total", "java.lang.Double",
+
 	},
 
 	{"com.oreon.cerebrum.billing.Service",
@@ -457,6 +459,8 @@ public class MetaData {
 	"service.displayName", "java.lang.String",
 
 	"invoice.displayName", "java.lang.String",
+
+	"appliedPrice", "java.lang.Double",
 
 	"total", "java.lang.Double",
 
