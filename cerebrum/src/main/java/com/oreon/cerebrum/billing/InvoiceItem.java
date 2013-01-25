@@ -82,7 +82,9 @@ public class InvoiceItem extends BaseEntity implements java.io.Serializable {
 	;
 
 	@Column(name = "appliedPrice", unique = false)
-	protected Double appliedPrice = service != null ? service.getPrice() : 0;
+	protected Double appliedPrice
+
+	= service != null ? service.getPrice() : 0;
 
 	@Transient
 	protected Double total
