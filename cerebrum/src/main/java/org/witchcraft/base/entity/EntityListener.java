@@ -27,6 +27,8 @@ public class EntityListener {
 		try {
 
 			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
+			if(userUtilAction == null)
+				return;
 			AppUser currentUser = userUtilAction.getCurrentUser();
 
 			if (currentUser != null) {

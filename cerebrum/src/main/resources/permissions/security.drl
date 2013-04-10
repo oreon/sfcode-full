@@ -27,7 +27,7 @@ when
   $c : PermissionCheck(target == "prescriptionPackage" )
   $r : Role(name == "physician" || name == "nurse")
 then
-  System.out.println("viewpres " + $c.getTarget() + " " + $r.getName() ); 
+  //System.out.println("viewpres " + $c.getTarget() + " " + $r.getName() ); 
   $c.grant();
 end
 
@@ -42,7 +42,7 @@ when
   $c : PermissionCheck( target != "id" &&  target != "prescriptionPackage" )
 then
   $c.grant();
-  System.out.println("nonadmin " + $c.getTarget() + " "  ); 
+  //System.out.println("nonadmin " + $c.getTarget() + " "  ); 
 end         
 
 
