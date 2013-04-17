@@ -378,8 +378,7 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	@Transient
 	public String getPopupInfo() {
 		try {
-			return (age != null ? age : "") + " "
-					+ (gender != null ? gender : "");
+			return age + " " + gender;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

@@ -85,8 +85,7 @@ public class Physician extends com.oreon.cerebrum.employee.Employee
 	@Transient
 	public String getDisplayName() {
 		try {
-			return (specialization != null ? specialization + " " : "")
-					+ super.getDisplayName();
+			return specialization + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

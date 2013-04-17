@@ -57,6 +57,9 @@ public abstract class EmployeeActionBase
 	@In(create = true, value = "appUserAction")
 	com.oreon.cerebrum.web.action.users.AppUserAction appUserAction;
 
+	@In(create = true, value = "facilityAction")
+	com.oreon.cerebrum.web.action.facility.FacilityAction facilityAction;
+
 	@In(create = true, value = "unusualOccurenceAction")
 	com.oreon.cerebrum.web.action.unusualoccurences.UnusualOccurenceAction unusualOccurencesAction;
 
@@ -96,6 +99,19 @@ public abstract class EmployeeActionBase
 	public Long getAppUserId() {
 		if (getInstance().getAppUser() != null)
 			return getInstance().getAppUser().getId();
+		return 0L;
+	}
+
+	public void setFacilityId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setFacility(facilityAction.loadFromId(id));
+
+	}
+
+	public Long getFacilityId() {
+		if (getInstance().getFacility() != null)
+			return getInstance().getFacility().getId();
 		return 0L;
 	}
 
@@ -139,6 +155,12 @@ public abstract class EmployeeActionBase
 			getInstance().setAppUser(appUser);
 		}
 
+		com.oreon.cerebrum.facility.Facility facility = facilityAction
+				.getDefinedInstance();
+		if (facility != null && isNew()) {
+			getInstance().setFacility(facility);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -178,6 +200,11 @@ public abstract class EmployeeActionBase
 					.getAppUser().getId()));
 		}
 
+		if (employee.getFacility() != null) {
+			criteria = criteria.add(Restrictions.eq("facility.id", employee
+					.getFacility().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -189,6 +216,11 @@ public abstract class EmployeeActionBase
 		if (employee.getAppUser() != null) {
 			appUserAction.setInstance(getInstance().getAppUser());
 			appUserAction.loadAssociations();
+		}
+
+		if (employee.getFacility() != null) {
+			facilityAction.setInstance(getInstance().getFacility());
+			facilityAction.loadAssociations();
 		}
 
 		initListUnusualOccurences();

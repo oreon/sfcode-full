@@ -66,6 +66,16 @@
             <f:selectItem itemValue="Dr" itemLabel="#{msg.Dr}"/>  
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_facilityfacility" label="#{msg.employee_facility}" value="#{clerkAction.clerk.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}" disabled="false"> 
+            <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
         </s:decorate> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 

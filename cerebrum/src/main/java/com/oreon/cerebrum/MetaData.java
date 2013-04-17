@@ -282,6 +282,8 @@ public class MetaData {
 
 	"appUser.displayName", "java.lang.String",
 
+	"facility.displayName", "java.lang.String",
+
 	},
 
 	{"com.oreon.cerebrum.employee.Physician",
@@ -291,6 +293,8 @@ public class MetaData {
 	"unusualOccurencesCount", "java.lang.Integer",
 
 	"appUser.displayName", "java.lang.String",
+
+	"facility.displayName", "java.lang.String",
 
 	"specialization.displayName", "java.lang.String",
 
@@ -304,6 +308,8 @@ public class MetaData {
 
 	"appUser.displayName", "java.lang.String",
 
+	"facility.displayName", "java.lang.String",
+
 	"nurseSpecialty.displayName", "java.lang.String",
 
 	},
@@ -316,6 +322,8 @@ public class MetaData {
 
 	"appUser.displayName", "java.lang.String",
 
+	"facility.displayName", "java.lang.String",
+
 	},
 
 	{"com.oreon.cerebrum.employee.Clerk",
@@ -325,6 +333,8 @@ public class MetaData {
 	"unusualOccurencesCount", "java.lang.Integer",
 
 	"appUser.displayName", "java.lang.String",
+
+	"facility.displayName", "java.lang.String",
 
 	},
 
@@ -439,8 +449,6 @@ public class MetaData {
 	"patient.displayName", "java.lang.String",
 
 	"notes", "java.lang.String",
-
-	"total", "java.lang.Double",
 
 	},
 

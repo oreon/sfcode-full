@@ -40,10 +40,16 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.oreon.cerebrum.billing.InvoiceItem;
+
 	
 //@Scope(ScopeType.CONVERSATION)
 @Name("invoiceItemAction")
 public class InvoiceItemAction extends InvoiceItemActionBase implements java.io.Serializable{
+	
+	public void onChangeService(InvoiceItem item){
+		item.setAppliedPrice(item.getService().getPrice());	
+	}
 	
 }
 	

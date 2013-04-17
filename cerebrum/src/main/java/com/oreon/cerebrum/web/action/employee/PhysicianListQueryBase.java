@@ -71,6 +71,8 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 
 			"lower(physician.appUser.email) like concat(lower(#{physicianList.physician.appUser.email}),'%')",
 
+			"physician.facility.id = #{physicianList.physician.facility.id}",
+
 			"lower(physician.firstName) like concat(lower(#{physicianList.physician.firstName}),'%')",
 
 			"lower(physician.lastName) like concat(lower(#{physicianList.physician.lastName}),'%')",

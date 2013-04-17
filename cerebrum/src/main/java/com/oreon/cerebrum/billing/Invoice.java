@@ -55,7 +55,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "invoice")
-@Filters( { @Filter(name = "archiveFilterDef"),
+@Filters({@Filter(name = "archiveFilterDef"),
 
 })
 @Name("invoice")
@@ -65,7 +65,7 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 948339642L;
 
 	@OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	// @JoinColumn(name = "invoice_ID", nullable = false)
+	//@JoinColumn(name = "invoice_ID", nullable = false)
 	@OrderBy("id DESC")
 	private Set<InvoiceItem> invoiceItems = new HashSet<InvoiceItem>();
 
@@ -80,7 +80,7 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 				invoiceItems);
 	}
 
-	// JSF Friendly function to get count of collections
+	//JSF Friendly function to get count of collections
 	public int getInvoiceItemsCount() {
 		return invoiceItems.size();
 	}
@@ -95,11 +95,6 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String notes
-
-	;
-
-	@Formula(value = "( select sum(li.appliedPrice * li.units )  from InvoiceItem li  where  li.invoice_Id = id )")
-	protected Double total
 
 	;
 
@@ -131,16 +126,6 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 
 	}
 
-	public void setTotal(Double total) {
-		this.total = total;
-	}
-
-	public Double getTotal() {
-
-		return total;
-
-	}
-
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -150,14 +135,11 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 		}
 	}
 
-	// Empty setter , needed for richfaces autocomplete to work
+	//Empty setter , needed for richfaces autocomplete to work 
 	public void setDisplayName(String name) {
 	}
 
-	/**
-	 * This method is used by hibernate full text search - override to add
-	 * additional fields
-	 * 
+	/** This method is used by hibernate full text search - override to add additional fields
 	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override

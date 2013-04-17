@@ -73,6 +73,8 @@ public abstract class TechnicianListQueryBase
 
 			"lower(technician.appUser.email) like concat(lower(#{technicianList.technician.appUser.email}),'%')",
 
+			"technician.facility.id = #{technicianList.technician.facility.id}",
+
 			"lower(technician.firstName) like concat(lower(#{technicianList.technician.firstName}),'%')",
 
 			"lower(technician.lastName) like concat(lower(#{technicianList.technician.lastName}),'%')",
