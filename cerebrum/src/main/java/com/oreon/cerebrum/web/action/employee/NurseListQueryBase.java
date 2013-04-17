@@ -71,6 +71,8 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 
 			"lower(nurse.appUser.email) like concat(lower(#{nurseList.nurse.appUser.email}),'%')",
 
+			"nurse.facility.id = #{nurseList.nurse.facility.id}",
+
 			"lower(nurse.firstName) like concat(lower(#{nurseList.nurse.firstName}),'%')",
 
 			"lower(nurse.lastName) like concat(lower(#{nurseList.nurse.lastName}),'%')",

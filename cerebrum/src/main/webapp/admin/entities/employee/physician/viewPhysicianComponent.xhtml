@@ -25,6 +25,11 @@
         <h:outputText id="#{prefix}_age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewAge')}" value="#{physicianAction.physician.age}"></h:outputText>  
         <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewTitle')}"/>  
         <h:outputText value="#{physicianAction.physician.title}"/>  
+        <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewFacility')}"/>  
+        <s:link value="#{physicianAction.physician.facility.displayName}" action="viewfacility" propagation="none"> 
+          <f:param name="facilityId" value="#{physicianAction.physician.facility.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
         <h:outputText value="#{msg.physician_specialization}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewSpecialization')}"/>  
         <s:link value="#{physicianAction.physician.specialization.displayName}" action="viewspecialization" propagation="none"> 
           <f:param name="specializationId" value="#{physicianAction.physician.specialization.id}"/>  

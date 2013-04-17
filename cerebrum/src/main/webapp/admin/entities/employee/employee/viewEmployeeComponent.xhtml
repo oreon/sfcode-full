@@ -24,7 +24,12 @@
         <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewTitle')}"/>  
         <h:outputText value="#{employeeAction.employee.title}"/>  
         <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeNumber')}"/>  
-        <h:outputText id="#{prefix}_employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeNumber')}" value="#{employeeAction.employee.employeeNumber}"></h:outputText> 
+        <h:outputText id="#{prefix}_employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeNumber')}" value="#{employeeAction.employee.employeeNumber}"></h:outputText>  
+        <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewFacility')}"/>  
+        <s:link value="#{employeeAction.employee.facility.displayName}" action="viewfacility" propagation="none"> 
+          <f:param name="facilityId" value="#{employeeAction.employee.facility.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 

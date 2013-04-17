@@ -93,6 +93,15 @@
         <br/>  
         <h:inputText id="#{prefix}_appUser_email" value="#{employeeAction.employee.appUser.email}"/>  
         <rich:message styleClass="error errors" for="#{prefix}_appUser_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmail')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{employeeAction.employee.facility}"> 
+          <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_facilityfacility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

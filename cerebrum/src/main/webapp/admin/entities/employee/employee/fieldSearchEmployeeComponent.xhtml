@@ -84,6 +84,14 @@
       <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmail')}"/>  
       <br/>  
       <h:inputText id="#{prefix}_appUser_email" value="#{employeeList.employee.appUser.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{ employeeList.employee.facility}"> 
+        <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

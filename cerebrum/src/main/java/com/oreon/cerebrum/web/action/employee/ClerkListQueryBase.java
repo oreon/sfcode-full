@@ -71,6 +71,8 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 
 			"lower(clerk.appUser.email) like concat(lower(#{clerkList.clerk.appUser.email}),'%')",
 
+			"clerk.facility.id = #{clerkList.clerk.facility.id}",
+
 			"lower(clerk.firstName) like concat(lower(#{clerkList.clerk.firstName}),'%')",
 
 			"lower(clerk.lastName) like concat(lower(#{clerkList.clerk.lastName}),'%')",

@@ -46,6 +46,15 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
+          <h:outputText value="#{msg.employee_facility}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml"> 
+          <f:param name="id" value="#{_entity.facility.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
           <h:outputText value="#{msg.person_firstName}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.firstName}"/> 

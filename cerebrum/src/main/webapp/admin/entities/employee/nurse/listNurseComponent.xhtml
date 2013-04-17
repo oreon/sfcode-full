@@ -61,6 +61,19 @@
           </f:facet>  
           <h:outputText value="#{_nurse.appUser.email}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewFacility')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_facility}"/>  
+              <ui:param name="propertyPath" value="nurse.facility"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_nurse.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+            <f:param name="facilityId" value="#{_nurse.facility.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewFirstName')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

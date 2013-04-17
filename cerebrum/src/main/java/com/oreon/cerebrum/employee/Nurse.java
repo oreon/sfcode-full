@@ -85,8 +85,7 @@ public class Nurse extends com.oreon.cerebrum.employee.Employee
 	@Transient
 	public String getDisplayName() {
 		try {
-			return (nurseSpecialty != null ? nurseSpecialty + " " : "")
-					+ super.getDisplayName();
+			return nurseSpecialty + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

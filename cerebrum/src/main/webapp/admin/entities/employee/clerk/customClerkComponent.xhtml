@@ -31,6 +31,15 @@
         <rich:message styleClass="error errors" for="#{prefix}_appUser_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmail')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
+        <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{clerkAction.clerk.facility}"> 
+          <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_facilityfacility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFirstName')}"/>  
         <br/>  
         <h:inputText id="#{prefix}_firstName" value="#{clerkAction.clerk.firstName}"/>  

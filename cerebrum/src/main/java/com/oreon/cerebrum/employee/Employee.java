@@ -101,6 +101,12 @@ public class Employee extends com.oreon.cerebrum.patient.Person
 	@JoinColumn(name = "appUser_id", nullable = false, updatable = true)
 	protected com.oreon.cerebrum.users.AppUser appUser = new com.oreon.cerebrum.users.AppUser();
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "facility_id", nullable = false, updatable = true)
+	protected com.oreon.cerebrum.facility.Facility facility
+
+	;
+
 	public void setEmployeeNumber(String employeeNumber) {
 		this.employeeNumber = employeeNumber;
 	}
@@ -127,6 +133,16 @@ public class Employee extends com.oreon.cerebrum.patient.Person
 	public com.oreon.cerebrum.users.AppUser getAppUser() {
 
 		return appUser;
+
+	}
+
+	public void setFacility(com.oreon.cerebrum.facility.Facility facility) {
+		this.facility = facility;
+	}
+
+	public com.oreon.cerebrum.facility.Facility getFacility() {
+
+		return facility;
 
 	}
 
@@ -165,6 +181,9 @@ public class Employee extends com.oreon.cerebrum.patient.Person
 
 		if (getAppUser() != null)
 			builder.append("appUser:" + getAppUser().getDisplayName() + " ");
+
+		if (getFacility() != null)
+			builder.append("facility:" + getFacility().getDisplayName() + " ");
 
 		for (BaseEntity e : unusualOccurences) {
 			builder.append(e.getDisplayName() + " ");

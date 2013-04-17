@@ -66,6 +66,16 @@
           <h:inputText id="#{prefix}_employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmployeeNumber')}" label="#{msg.employee_employeeNumber}" required="true" disabled="false" value="#{employeeAction.employee.employeeNumber}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_facilityfacility" label="#{msg.employee_facility}" value="#{employeeAction.employee.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}" disabled="false"> 
+            <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
         </s:decorate> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
