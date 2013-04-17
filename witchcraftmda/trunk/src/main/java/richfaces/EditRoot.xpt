@@ -430,8 +430,16 @@
 	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" 
 		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}" 
 		disabled="false" >
-		«IF isColumn() && this.controls != null » <a:support event="onchange" 
-			action="#{«class.getAction()».onChange«name.toFirstUpper()»}"  reRender="«controls»" ajaxSingle="true" />
+		«IF isColumn() && this.controls != null » 
+			«IF !isCurrentMultiMode()»
+			<a:support event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  reRender="«controls»" ajaxSingle="true" />
+			«ELSE» «REM»For multimode we need to send the variable «ENDREM»
+			  <a:support event="onchange"
+				action="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"
+				reRender="«class.asVar()»s" ajaxSingle="true">  «REM»TODO: Replace with actual name of relationship «ENDREM»
+				<s:conversationPropagation type="join" />
+			  </a:support>
+			«ENDIF»
 		«ENDIF»
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.all"»}" var="itemIter"
 			label="#{itemIter.displayName}"
