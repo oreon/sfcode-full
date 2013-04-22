@@ -32,7 +32,7 @@
             <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>
           </ui:define>  
           <h:selectOneMenu id="#{prefix}_serviceservice" label="#{msg.invoiceItem_service}" value="#{invoiceItemAction.invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false"> 
-            <a:support event="onchange" action="#{invoiceItemAction.onChangeService(invoiceItemAction.instance)}" reRender="@all" ajaxSingle="true"/>  
+            <a:support event="onchange" action="#{invoiceItemAction.onChangeService(invoiceItemAction.instance)}" reRender="appliedPrice" ajaxSingle="true"/>  
             <s:selectItems value="#{serviceList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

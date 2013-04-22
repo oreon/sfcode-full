@@ -65,9 +65,7 @@
               <ui:param name="propertyPath" value="invoiceItem.appliedPrice"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_invoiceItem.appliedPrice}"> 
-            <f:convertNumber pattern="$#,##0.00"/> 
-          </h:outputText> 
+          <h:outputText value="#{_invoiceItem.appliedPrice}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}"> 
           <f:facet name="header"> 
@@ -77,9 +75,7 @@
               <ui:param name="propertyPath" value="invoiceItem.total"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_invoiceItem.total}"> 
-            <f:convertNumber pattern="$#,##0.00"/> 
-          </h:outputText> 
+          <h:outputText value="#{_invoiceItem.total}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 

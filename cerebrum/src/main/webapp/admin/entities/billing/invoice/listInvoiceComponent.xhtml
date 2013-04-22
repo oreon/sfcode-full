@@ -47,6 +47,16 @@
           </f:facet>  
           <h:outputText value="#{_invoice.notes}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotalAmount')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{invoiceList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.invoice_totalAmount}"/>  
+              <ui:param name="propertyPath" value="invoice.totalAmount"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_invoice.totalAmount}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

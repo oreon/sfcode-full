@@ -15,6 +15,8 @@
         <h:outputText escape="false" id="#{prefix}_directivesForPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')}" value="#{prescriptionAction.prescription.directivesForPatient}"></h:outputText>  
         <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')}"/>  
         <h:outputText id="#{prefix}_active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')}" value="#{prescriptionAction.prescription.active}"></h:outputText>  
+        <h:outputText value="#{msg.prescription_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')}"/>  
+        <h:outputText id="#{prefix}_drugs#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')}" value="#{prescriptionAction.prescription.drugs}"></h:outputText>  
         <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewPatient')}"/>  
         <s:link value="#{prescriptionAction.prescription.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{prescriptionAction.prescription.patient.id}"/>  

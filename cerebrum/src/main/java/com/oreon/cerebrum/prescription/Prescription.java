@@ -104,6 +104,13 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 
 	;
 
+	@Transient
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String drugs
+
+	;
+
 	public void setPrescriptionItems(Set<PrescriptionItem> prescriptionItems) {
 		this.prescriptionItems = prescriptionItems;
 	}
@@ -142,10 +149,26 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 
 	}
 
+	public void setDrugs(String drugs) {
+		this.drugs = drugs;
+	}
+
+	public String getDrugs() {
+
+		try {
+			return ProjectUtils.getPrescripitonItems(this);
+		} catch (Exception e) {
+
+			return "";
+
+		}
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
-			return prescriptionItems + "";
+			return drugs;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -175,6 +198,8 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 
 		listSearchableFields.add("directivesForPatient");
 
+		listSearchableFields.add("drugs");
+
 		listSearchableFields.add("prescriptionItems.strength");
 
 		listSearchableFields.add("prescriptionItems.remarks");
@@ -190,6 +215,8 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(getDirectivesForPatient() + " ");
+
+		builder.append(getDrugs() + " ");
 
 		if (getPatient() != null)
 			builder.append("patient:" + getPatient().getDisplayName() + " ");

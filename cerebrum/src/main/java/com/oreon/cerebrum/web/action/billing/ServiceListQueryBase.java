@@ -51,12 +51,12 @@ public abstract class ServiceListQueryBase extends BaseQuery<Service, Long> {
 		return RESTRICTIONS;
 	}
 
-	private Range<Double> priceRange = new Range<Double>();
+	private Range<BigDecimal> priceRange = new Range<BigDecimal>();
 
-	public Range<Double> getPriceRange() {
+	public Range<BigDecimal> getPriceRange() {
 		return priceRange;
 	}
-	public void setPrice(Range<Double> priceRange) {
+	public void setPrice(Range<BigDecimal> priceRange) {
 		this.priceRange = priceRange;
 	}
 
