@@ -3,17 +3,288 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:form> 
     <rich:panelMenu style="width:162px" mode="ajax" iconExpandedGroup="disc" iconCollapsedGroup="disc" iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right"> 
-      <rich:panelMenuGroup label="Drugs" expanded="#{panelMenuStateBean.state['Drugs']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Patient" expanded="#{panelMenuStateBean.state['Patient']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Unusualoccurences" expanded="#{panelMenuStateBean.state['Unusualoccurences']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Employee" expanded="#{panelMenuStateBean.state['Employee']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Users" expanded="#{panelMenuStateBean.state['Users']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Facility" expanded="#{panelMenuStateBean.state['Facility']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Appointment" expanded="#{panelMenuStateBean.state['Appointment']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Billing" expanded="#{panelMenuStateBean.state['Billing']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Encounter" expanded="#{panelMenuStateBean.state['Encounter']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Ddx" expanded="#{panelMenuStateBean.state['Ddx']}"></rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Prescription" expanded="#{panelMenuStateBean.state['Prescription']}"></rich:panelMenuGroup> 
+      <rich:panelMenuGroup label="Drugs" expanded="#{panelMenuStateBean.state['Drugs']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="AtcDrug" action="atcDrug"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Drug" action="drug"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DrugInteraction" action="drugInteraction"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DrugCategory" action="drugCategory"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Patient" expanded="#{panelMenuStateBean.state['Patient']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Patient" action="patient"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Admission" action="admission"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PatientDocument" action="patientDocument"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Allergy" action="allergy"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Allergen" action="allergen"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Immunization" action="immunization"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Vaccine" action="vaccine"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="TrackedVital" action="trackedVital"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="VitalValue" action="vitalValue"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="BedStay" action="bedStay"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Unusualoccurences" expanded="#{panelMenuStateBean.state['Unusualoccurences']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="UnusualOccurence" action="unusualOccurence"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="OccurenceType" action="occurenceType"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Employee" expanded="#{panelMenuStateBean.state['Employee']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Employee" action="employee"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Physician" action="physician"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Nurse" action="nurse"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Technician" action="technician"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Clerk" action="clerk"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Specialization" action="specialization"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="NurseSpecialty" action="nurseSpecialty"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Users" expanded="#{panelMenuStateBean.state['Users']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="AppUser" action="appUser"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="AppRole" action="appRole"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Facility" expanded="#{panelMenuStateBean.state['Facility']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Facility" action="facility"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Room" action="room"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Bed" action="bed"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Ward" action="ward"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="RoomType" action="roomType"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Appointment" expanded="#{panelMenuStateBean.state['Appointment']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Appointment" action="appointment"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Billing" expanded="#{panelMenuStateBean.state['Billing']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Invoice" action="invoice"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Service" action="service"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Encounter" expanded="#{panelMenuStateBean.state['Encounter']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Encounter" action="encounter"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PrescribedTest" action="prescribedTest"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Differential" action="differential"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Ddx" expanded="#{panelMenuStateBean.state['Ddx']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Finding" action="finding"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PhysicalFinding" action="physicalFinding"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="LabFinding" action="labFinding"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Disease" action="disease"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="ConditionFinding" action="conditionFinding"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="ConditionCategory" action="conditionCategory"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DifferentialDx" action="differentialDx"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DxCategory" action="dxCategory"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PatientFinding" action="patientFinding"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PatientDiffDx" action="patientDiffDx"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DxTest" action="dxTest"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Prescription" expanded="#{panelMenuStateBean.state['Prescription']}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="PrescriptionTemplate" action="prescriptionTemplate"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Prescription" action="prescription"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PrescriptionItem" action="prescriptionItem"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PrescriptionItemTemplate" action="prescriptionItemTemplate"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Frequency" action="frequency"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup> 
     </rich:panelMenu> 
   </h:form> 
 </ui:composition>

@@ -20,6 +20,12 @@
         <br/>  
         <h:inputText id="#{prefix}_notes" value="#{invoiceAction.invoice.notes}"/>  
         <rich:message styleClass="error errors" for="#{prefix}_notes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.invoice_totalAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editTotalAmount')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_totalAmount" value="#{invoiceAction.invoice.totalAmount}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_totalAmount" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editTotalAmount')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

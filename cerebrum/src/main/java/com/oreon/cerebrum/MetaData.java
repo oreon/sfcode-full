@@ -450,13 +450,15 @@ public class MetaData {
 
 	"notes", "java.lang.String",
 
+	"totalAmount", "BigDecimal",
+
 	},
 
 	{"com.oreon.cerebrum.billing.Service",
 
 	"name", "java.lang.String",
 
-	"price", "java.lang.Double",
+	"price", "BigDecimal",
 
 	},
 
@@ -468,9 +470,9 @@ public class MetaData {
 
 	"invoice.displayName", "java.lang.String",
 
-	"appliedPrice", "java.lang.Double",
+	"appliedPrice", "BigDecimal",
 
-	"total", "java.lang.Double",
+	"total", "BigDecimal",
 
 	},
 
@@ -639,6 +641,8 @@ public class MetaData {
 	"directivesForPatient", "java.lang.String",
 
 	"active", "java.lang.Boolean",
+
+	"drugs", "java.lang.String",
 
 	},
 

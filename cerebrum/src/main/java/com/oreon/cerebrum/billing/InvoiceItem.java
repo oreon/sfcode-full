@@ -82,12 +82,12 @@ public class InvoiceItem extends BaseEntity implements java.io.Serializable {
 	;
 
 	@Column(unique = false)
-	protected Double appliedPrice
+	protected BigDecimal appliedPrice
 
 	;
 
 	@Transient
-	protected Double total
+	protected BigDecimal total
 
 	;
 
@@ -121,27 +121,27 @@ public class InvoiceItem extends BaseEntity implements java.io.Serializable {
 
 	}
 
-	public void setAppliedPrice(Double appliedPrice) {
+	public void setAppliedPrice(BigDecimal appliedPrice) {
 		this.appliedPrice = appliedPrice;
 	}
 
-	public Double getAppliedPrice() {
+	public BigDecimal getAppliedPrice() {
 
 		return appliedPrice;
 
 	}
 
-	public void setTotal(Double total) {
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
 
-	public Double getTotal() {
+	public BigDecimal getTotal() {
 
 		try {
-			return units * appliedPrice;
+			return appliedPrice.multiply(new BigDecimal(units));
 		} catch (Exception e) {
 
-			return 0.0;
+			return null;
 
 		}
 

@@ -74,7 +74,7 @@ public class Service extends BaseEntity implements java.io.Serializable {
 	;
 
 	@Column(unique = false)
-	protected Double price
+	protected BigDecimal price
 
 	;
 
@@ -88,11 +88,11 @@ public class Service extends BaseEntity implements java.io.Serializable {
 
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 
 		return price;
 

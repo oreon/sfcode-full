@@ -58,6 +58,16 @@
           </f:facet>  
           <h:outputText value="#{_prescription.active? msg.yes : msg.no }"/> 
         </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{prescriptionList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.prescription_drugs}"/>  
+              <ui:param name="propertyPath" value="prescription.drugs"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_prescription.drugs}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

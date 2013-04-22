@@ -39,9 +39,7 @@
               <ui:param name="propertyPath" value="service.price"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_service.price}"> 
-            <f:convertNumber pattern="$#,##0.00"/> 
-          </h:outputText> 
+          <h:outputText value="#{_service.price}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 

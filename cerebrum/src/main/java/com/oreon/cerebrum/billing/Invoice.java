@@ -98,6 +98,11 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 
 	;
 
+	@Transient
+	protected BigDecimal totalAmount
+
+	;
+
 	public void setInvoiceItems(Set<InvoiceItem> invoiceItems) {
 		this.invoiceItems = invoiceItems;
 	}
@@ -123,6 +128,22 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 	public String getNotes() {
 
 		return notes;
+
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public BigDecimal getTotalAmount() {
+
+		try {
+			return new BigDecimal(0.0);
+		} catch (Exception e) {
+
+			return null;
+
+		}
 
 	}
 

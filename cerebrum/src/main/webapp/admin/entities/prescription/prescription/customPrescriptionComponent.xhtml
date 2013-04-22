@@ -26,6 +26,12 @@
         <br/>  
         <h:selectBooleanCheckbox id="#{prefix}_active" value="#{prescriptionAction.prescription.active}"/>  
         <rich:message styleClass="error errors" for="#{prefix}_active" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editActive')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescription_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDrugs')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_drugs" value="#{prescriptionAction.prescription.drugs}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_drugs" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDrugs')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

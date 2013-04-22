@@ -13,6 +13,8 @@
         </f:facet>  
         <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}"/>  
         <h:outputText id="#{prefix}_notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}" value="#{invoiceAction.invoice.notes}"></h:outputText>  
+        <h:outputText value="#{msg.invoice_totalAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotalAmount')}"/>  
+        <h:outputText id="#{prefix}_totalAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotalAmount')}" value="#{invoiceAction.invoice.totalAmount}"></h:outputText>  
         <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')}"/>  
         <s:link value="#{invoiceAction.invoice.patient.displayName}" action="viewpatient" propagation="none"> 
           <f:param name="patientId" value="#{invoiceAction.invoice.patient.id}"/>  

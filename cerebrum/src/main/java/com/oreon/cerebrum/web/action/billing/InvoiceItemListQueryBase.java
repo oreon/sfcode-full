@@ -62,12 +62,12 @@ public abstract class InvoiceItemListQueryBase
 		this.unitsRange = unitsRange;
 	}
 
-	private Range<Double> appliedPriceRange = new Range<Double>();
+	private Range<BigDecimal> appliedPriceRange = new Range<BigDecimal>();
 
-	public Range<Double> getAppliedPriceRange() {
+	public Range<BigDecimal> getAppliedPriceRange() {
 		return appliedPriceRange;
 	}
-	public void setAppliedPrice(Range<Double> appliedPriceRange) {
+	public void setAppliedPrice(Range<BigDecimal> appliedPriceRange) {
 		this.appliedPriceRange = appliedPriceRange;
 	}
 
