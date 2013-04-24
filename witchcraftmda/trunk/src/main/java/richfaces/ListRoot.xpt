@@ -217,20 +217,20 @@
 				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
 			</ui:include>
 		</f:facet>
-		«EXPAND genAssoc FOR this»
+		«EXPAND genPropertyValue("_") FOR this»
 	</h:column>
 «ENDDEFINE»
 
 
-«DEFINE genAssoc FOR uml::Property»
+«DEFINE genAssocValue(String prefix) FOR uml::Property»
 	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
-	<s:link «getEscape()»  value="#{_«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
-			<f:param name="«type.name.toFirstLower()»Id" value="#{_«genPropertyLabel()».id}" />
+	<s:link «getEscape()»  value="#{«prefix»«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
+			<f:param name="«type.name.toFirstLower()»Id" value="#{«prefix»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
 			 <rich:toolTip>
 	            <span>
-	              #{_«genPropertyLabel()».popupInfo} 
+	              #{«prefix»«genPropertyLabel()».popupInfo} 
 	            </span>
 	        </rich:toolTip>
 	        «ENDIF»
@@ -248,36 +248,46 @@
 				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
 			</ui:include>
 		</f:facet>
-		«IF isFile()»
-				<s:graphicImage rendered="#{_«genPropertyLabel()» ne null and  _«genPropertyLabel()».contentType.startsWith('image')}" value="#{_«genPropertyLabel()».data}">
+		«EXPAND genPropertyValue("_") FOR this»
+	</h:column>
+«ENDDEFINE»
+
+«DEFINE genPropertyValue(String prefix) FOR uml::Property»
+		«IF association != null -»
+			«EXPAND genAssocValue(prefix) FOR this»
+		«ELSEIF isFile()»
+				<s:graphicImage rendered="#{«prefix»«genPropertyLabel()» ne null and  «prefix»«genPropertyLabel()».contentType.startsWith('image')}" value="#{«prefix»«genPropertyLabel()».data}">
 					<s:transformImageSize height="100" maintainRatio="true"/>
 				</s:graphicImage>
 		
-				<s:link value="#{_«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(_«class.asVar()».id)}" 
-					propagation="none"  rendered="#{not _«genPropertyLabel()».contentType.startsWith('image')}" >
-					<f:param name="currentEnt	ityId" value="#{_«class.asVar()».id}" />
+				<s:link value="#{«prefix»«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(«prefix»«class.asVar()».id)}" 
+					propagation="none"  rendered="#{not «prefix»«genPropertyLabel()».contentType.startsWith('image')}" >
+					<f:param name="currentEnt	ityId" value="#{«prefix»«class.asVar()».id}" />
           		</s:link> 
 		«ELSEIF isDate()»
-			<h:outputText value="#{_«genPropertyLabel()»}">
+			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
 				<s:convertDateTime type="date" dateStyle="medium" />
 			</h:outputText>
 		«ELSEIF isBoolean()»
-			<h:outputText value="#{_«genPropertyLabel()»? msg.yes : msg.no }" />	
-		«ELSEIF isDouble()»
-			<h:outputText value="#{_«genPropertyLabel()»}">
+			<h:outputText value="#{«prefix»«genPropertyLabel()»? msg.yes : msg.no }" />	
+		«ELSEIF isCurrency()»
+			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
 				<f:convertNumber pattern="$#,##0.00"/>
+			</h:outputText>
+		«ELSEIF isDouble()»
+			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
+				<f:convertNumber pattern="000.00"/>
 			</h:outputText>
 		«ELSEIF isLargeText()»
 			«IF isColumn() && !abbreviateInListing»
-				<h:outputText value="#{_«genPropertyLabel()»}"  escape="false" />	
+				<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
 			«ELSE»
-			 <rich:toolTip value="#{_«genPropertyLabel()»}" for="«name»Abbr">  </rich:toolTip>
-	         <h:outputText id="«name»Abbr" value="#{_«genPropertyLabel()»Abbreviated}" escape="false"/> 
+			 <rich:toolTip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr">  </rich:toolTip>
+	         <h:outputText id="«name»Abbr" value="#{«prefix»«genPropertyLabel()»Abbreviated}" escape="false"/> 
 	         «ENDIF»				
 		«ELSE»
-			<h:outputText value="#{_«genPropertyLabel()»}"  escape="false" />	
+			<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
 		«ENDIF»
-	</h:column>
 «ENDDEFINE»
 
 «DEFINE genProperty FOR String-»
@@ -296,6 +306,8 @@
 «DEFINE genPermission FOR String»
 	rendered="#{s:hasPermission('«this»', 'view«this.toFirstUpper()»' )}"
 «ENDDEFINE»
+
+
 
 
 

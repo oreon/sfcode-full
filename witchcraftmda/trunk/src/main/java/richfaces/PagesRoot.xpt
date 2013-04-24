@@ -73,18 +73,18 @@
             
         «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
             <rule if-outcome="«e.asVar()»">
+            	<end-conversation/> 
                 <redirect view-id="«e.getViewFile("list")»" />
-                <end-conversation/> 
             </rule>
             
             <rule if-outcome="view«e.name»">
+            	<end-conversation/> 
                 <redirect view-id="«e.getViewFile("view")»" />
-                <end-conversation/> 
             </rule>
             
             <rule if-outcome="edit«e.name»">
+            	<end-conversation/> 
                 <redirect view-id="«e.getViewFile("edit")»" />
-                <end-conversation/> 
             </rule>
         «ENDFOREACH»
         </navigation>
@@ -97,11 +97,14 @@
     «setAsCurrentEntity(e)-»
     <page view-id="«e.getViewFile("edit")»"  >
     	<!-- <description>Edit «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
+    	<begin-conversation join="true"/>
     	<navigation> 
 			 <rule if-outcome="save">
+			 	<end-conversation/>
  				<redirect view-id="«e.getViewFile("view")»" />
             </rule>	
              <rule if-outcome="cancel">
+             	<end-conversation/>
  				<redirect view-id="«e.getViewFile("list")»" />
             </rule>			
 		</navigation>
@@ -115,9 +118,11 @@
 	 	<!-- <description>View «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
 	 	<navigation> 
 			 <rule if-outcome="edit">
+			 	<end-conversation/>
  				<redirect view-id="«e.getViewFile("edit")»" />
             </rule>	
              <rule if-outcome="cancel">
+             	<end-conversation/>
  				<redirect view-id="«e.getViewFile("list")»" />
             </rule>			
 		</navigation>
@@ -127,9 +132,11 @@
 	<page view-id="«e.getViewFile("list")»" action="#{redirect.captureCurrentView()}" >
 		<navigation>
 			<rule if-outcome="view«e.name»">
+				<end-conversation/>
 				<redirect view-id="«e.getViewFile("view")»" />
 			</rule> 
 			 <rule if-outcome="edit">
+			 	<end-conversation/>
  				<redirect view-id="«e.getViewFile("edit")»" />
             </rule>			
             <rule if-outcome="textSearch"> 

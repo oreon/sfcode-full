@@ -302,8 +302,8 @@
 
 «DEFINE genLabelAndInput FOR uml::Property-»
 	«IF !isDerived() && !type.isEmbeddable() && !systemModify() && !currentUser()»
-		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>":""»
-		<s:decorate id="«getId()»Decorate" template="/layout/edit.xhtml">
+		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>":""» 
+		<s:decorate id="«getId()»Decorate" template="/layout/edit«isCurrentMultiMode()?"TableField":""».xhtml">
 		<ui:define name="label"> «!isCurrentMultiMode()?getOutputMessage():" "»</ui:define> 
 		«IF association != null-»
 			«EXPAND genAssociation-»
@@ -317,17 +317,25 @@
 
 «DEFINE genLabelAndOutput FOR uml::Property-»
 	«IF !isSecret()  »
-		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">":""»
-		«getOutputMessage()-»
-		«isCurrentMultiMode()?"</f:facet>":""»
-		«IF association != null»
-			«EXPAND genAssociation-»
+	
+		«IF isCurrentMultiMode()»
+			«EXPAND genLabelAndOutputTabular FOR this»
 		«ELSE»
-			«EXPAND genPropertyEntry(type) FOR this-»
+			«getOutputMessage()-» 
+			«EXPAND ListRoot::genPropertyValue("") FOR this»
 		«ENDIF»
-		«getErrorMessageHolder()-»
-		«isCurrentMultiMode()?"</h:column>":""»
+		
 	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genLabelAndOutputTabular FOR uml::Property-»
+<h:column>
+	<f:facet name="header">
+		«getOutputMessage()-» 
+	</f:facet>
+		«EXPAND ListRoot::genPropertyValue("_") FOR this»
+</h:column>
 «ENDDEFINE»
 
 
@@ -431,7 +439,7 @@
 		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}" 
 		disabled="false" >
 		«IF isColumn() && this.controls != null » 
-			«IF !isCurrentMultiMode()»
+			«IF !isCurrentMultiMode()»   «REM»TODO: rerender=controls need to be id aware «ENDREM»
 			<a:support event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  reRender="«controls»" ajaxSingle="true" />
 			«ELSE» «REM»For multimode we need to send the variable «ENDREM»
 			  <a:support event="onchange"
@@ -455,14 +463,15 @@
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
 «IF isFile()-» «EXPAND genFilePropertyEntry»
 «ELSE-»
-<«getTextControl()»  
+<«getTextControl()» «getEscape()» 
 	 «IF type.name == "largeText"»
-	 	«IF isCurrentEditMode()» useSeamText="true" «ELSE» escape="false" «ENDIF»
+	 	«IF isCurrentEditMode()» useSeamText="true"  «ENDIF»
 	 «ENDIF»  
 	 «IF isColumn() && secret»
 	 	«IF isCurrentEditMode()»  redisplay="true" «ENDIF»
 	 «ENDIF»  
 	 «IF isType("Date")»  direction="auto" «ENDIF»
+	  
 	 
 	 id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
 	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"" + " disabled=\"" + getDisabled() + "\"" :""

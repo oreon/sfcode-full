@@ -108,7 +108,8 @@ isCurrentEditMode()?prop.genEditPermission():prop.genViewPermission() ;
 //isCurrentEditMode() && (prop.getRequired() == "true" || ( prop.association != null && !prop.getAssocOptional() ) )?"*":"";
 
 getRequiredStar(Property prop):
-getCartridge() == "SEAM3" && prop.isRequired() ? "*" : "";
+prop.isRequired() ? "*" : "";
+//(getCartridge() == "SEAM3" )&& prop.isRequired() ? "*" : "";
 
 
 String getTextControl(Property prop):
@@ -117,7 +118,8 @@ isCurrentEditMode() ? getInputControl(prop):getOutputControl(prop);
 
 //In case of lob properties e.g. description we need to escape the html 
 String getEscape(Property prop):
-prop.isType("largeText")?" escape=\"false\" ":" ";
+"escape=\"false\"";
+//prop.isType("largeText")?" escape=\"false\" ":" ";
 
 getDisabled(Property prop):
 "false"; //todo 
