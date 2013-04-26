@@ -53,7 +53,7 @@
               <ui:param name="propertyPath" value="appointment.physician"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_appointment.physician.displayName}" view="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
+          <s:link escape="false" value="#{_appointment.physician.displayName}" view="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
             <f:param name="physicianId" value="#{_appointment.physician.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -66,7 +66,7 @@
               <ui:param name="propertyPath" value="appointment.patient"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_appointment.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <s:link escape="false" value="#{_appointment.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_appointment.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 

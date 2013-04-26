@@ -47,6 +47,14 @@
 			<value>#{'0'}</value>
 		</persistence:parameters>
 	</persistence:filter>
+	
+	<persistence:filter name="tenantFilter">
+		<persistence:name>tenantFilterDef</persistence:name>
+		<persistence:parameters>
+			<key>tenantId</key>
+			<value>#{userUtilAction.currentTenantId}</value>
+		</persistence:parameters>
+	</persistence:filter>
 
 	<persistence:entity-manager-factory
 		name="entityManagerFactory" persistence-unit-name="appEntityManager" />
@@ -57,6 +65,7 @@
 
 		<persistence:filters>
 			<value>#{archivedFilter}</value>
+			<value>#{tenantFilter}</value>
 		</persistence:filters>
 
 	</persistence:managed-persistence-context>

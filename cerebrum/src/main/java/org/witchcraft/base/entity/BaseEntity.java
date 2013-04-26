@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -24,8 +25,11 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
+import org.jboss.seam.Component;
 
+import com.oreon.cerebrum.employee.Employee;
 import com.oreon.cerebrum.users.AppUser;
+import com.oreon.cerebrum.web.action.employee.EmployeeAction;
 
 //import com.oreon.trkincidents.users.User;
 
@@ -52,6 +56,8 @@ public class BaseEntity implements Serializable{
     @Version
     @Column(name="version")
     transient private Long version;
+    
+    private Long tenant ;
     
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -195,10 +201,39 @@ public class BaseEntity implements Serializable{
 		return searchData;
 	}
 	
+	public Long getTenant() {
+		return tenant;
+	}
+
+	public void setTenant( Long tenant ) {
+		this.tenant = tenant;
+	}
+	
 /*
 	public Object onCycleDetected(Context context) {
 		return null;
 	}
+
 */
+	
+	
+	@PrePersist //@PreUpdate
+	public void updateTenant(){
+		if (this instanceof AppUser)
+			return;
+		
+		if(this instanceof Employee){
+			Long tenantId = ((Employee)this).getFacility().getId();
+			setTenant( tenantId);
+			((Employee)this).getAppUser().setTenant( tenantId );
+		}else{
+			EmployeeAction employeeAction = (EmployeeAction)Component.getInstance("employeeAction");
+			Employee currentEmployee = employeeAction.getCurrentLoggedInEmployee();
+			if(currentEmployee == null)
+				return;
+			setTenant( currentEmployee.getFacility().getId() );
+		}
+		
+	}
 	
 }

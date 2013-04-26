@@ -13,9 +13,9 @@
         </f:facet>  
         <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.frequency_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}"/>
+            <h:outputText value="#{msg.frequency_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}" label="#{msg.frequency_name}" required="true" disabled="false" value="#{frequencyAction.frequency.name}"> 
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}" label="#{msg.frequency_name}" required="true" disabled="false" value="#{frequencyAction.frequency.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -23,7 +23,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}" label="#{msg.frequency_qtyPerDay}" required="false" disabled="false" value="#{frequencyAction.frequency.qtyPerDay}"> 
+          <h:inputText escape="false" id="#{prefix}_qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}" label="#{msg.frequency_qtyPerDay}" required="false" disabled="false" value="#{frequencyAction.frequency.qtyPerDay}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

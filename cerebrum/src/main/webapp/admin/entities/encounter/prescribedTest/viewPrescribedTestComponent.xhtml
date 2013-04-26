@@ -12,15 +12,15 @@
           <h:outputText value="#{msg.PrescribedTest}"/> 
         </f:facet>  
         <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}"/>  
-        <h:outputText id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}" value="#{prescribedTestAction.prescribedTest.remarks}"></h:outputText>  
+        <h:outputText value="#{prescribedTest.remarks}" escape="false"/>  
         <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}"/>  
-        <s:link value="#{prescribedTestAction.prescribedTest.dxTest.displayName}" action="viewdxTest" propagation="none"> 
-          <f:param name="dxTestId" value="#{prescribedTestAction.prescribedTest.dxTest.id}"/>  
+        <s:link escape="false" value="#{prescribedTest.dxTest.displayName}" view="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+          <f:param name="dxTestId" value="#{prescribedTest.dxTest.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewEncounter')}"/>  
-        <s:link value="#{prescribedTestAction.prescribedTest.encounter.displayName}" action="viewencounter" propagation="none"> 
-          <f:param name="encounterId" value="#{prescribedTestAction.prescribedTest.encounter.id}"/>  
+        <s:link escape="false" value="#{prescribedTest.encounter.displayName}" view="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+          <f:param name="encounterId" value="#{prescribedTest.encounter.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  

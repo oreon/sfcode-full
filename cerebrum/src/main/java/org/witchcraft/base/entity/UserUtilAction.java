@@ -34,4 +34,9 @@ public class UserUtilAction implements Serializable{
 	public void setCurrentUser(AppUser currentUser) {
 		this.currentUser = entityManager.merge(currentUser);	
 	}
+	
+	public Long getCurrentTenantId(){
+		Long result =  currentUser == null || currentUser.getTenant() == null  ?  0 : currentUser.getTenant();
+		return result;
+	}
 }

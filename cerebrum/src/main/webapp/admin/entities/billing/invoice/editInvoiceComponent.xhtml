@@ -15,7 +15,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}" label="#{msg.invoice_notes}" required="false" disabled="false" value="#{invoiceAction.invoice.notes}"> 
+          <h:inputText escape="false" id="#{prefix}_notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}" label="#{msg.invoice_notes}" required="false" disabled="false" value="#{invoiceAction.invoice.notes}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -39,7 +39,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_serviceserviceDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_serviceserviceDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_serviceservice" label="#{msg.invoiceItem_service}" value="#{_invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false"> 
               <a:support event="onchange" action="#{invoiceItemAction.onChangeService(_invoiceItem)}" reRender="invoiceItems" ajaxSingle="true"> 
@@ -55,21 +55,22 @@
           <f:facet name="header">
             <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_unitsDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_unitsDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="#{prefix}_units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{_invoiceItem.units}"> 
+            <h:inputText escape="false" id="#{prefix}_units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{_invoiceItem.units}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>
+            <h:outputText value="#{msg.invoiceItem_appliedPrice} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_appliedPriceDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_appliedPriceDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="#{prefix}_appliedPrice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}" label="#{msg.invoiceItem_appliedPrice}" required="false" disabled="false" value="#{_invoiceItem.appliedPrice}"> 
-              <rich:ajaxValidator event="onsubmit"/> 
+            <h:inputText escape="false" id="#{prefix}_appliedPrice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}" label="#{msg.invoiceItem_appliedPrice}" required="true" disabled="false" value="#{_invoiceItem.appliedPrice}"> 
+              <rich:ajaxValidator event="onsubmit"/>  
+              <f:converter converterId="javax.faces.BigDecimal"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  

@@ -13,17 +13,17 @@
         </f:facet>  
         <s:decorate id="#{prefix}_userNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editUserName')}"/>
+            <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editUserName')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editUserName')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{appUserAction.appUser.userName}"> 
+          <h:inputText escape="false" id="#{prefix}_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editUserName')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{appUserAction.appUser.userName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_passwordDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.appUser_password}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}"/>
+            <h:outputText value="#{msg.appUser_password} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}"/>
           </ui:define>  
-          <h:inputSecret redisplay="true" id="#{prefix}_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{appUserAction.appUser.password}"> 
+          <h:inputSecret escape="false" redisplay="true" id="#{prefix}_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{appUserAction.appUser.password}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputSecret> 
         </s:decorate>  
@@ -31,15 +31,15 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}"/>
           </ui:define>  
-          <h:selectBooleanCheckbox id="#{prefix}_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{appUserAction.appUser.enabled}"> 
+          <h:selectBooleanCheckbox escape="false" id="#{prefix}_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{appUserAction.appUser.enabled}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectBooleanCheckbox> 
         </s:decorate>  
         <s:decorate id="#{prefix}_emailDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}"/>
+            <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{appUserAction.appUser.email}"> 
+          <h:inputText escape="false" id="#{prefix}_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{appUserAction.appUser.email}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

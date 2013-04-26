@@ -15,7 +15,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}"/>
           </ui:define>  
-          <h:selectBooleanCheckbox id="#{prefix}_falsePositive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}" label="#{msg.conditionFinding_falsePositive}" required="false" disabled="false" value="#{conditionFindingAction.conditionFinding.falsePositive}"> 
+          <h:selectBooleanCheckbox escape="false" id="#{prefix}_falsePositive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}" label="#{msg.conditionFinding_falsePositive}" required="false" disabled="false" value="#{conditionFindingAction.conditionFinding.falsePositive}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectBooleanCheckbox> 
         </s:decorate>  

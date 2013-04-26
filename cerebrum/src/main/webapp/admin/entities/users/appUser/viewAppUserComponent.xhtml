@@ -11,12 +11,12 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.AppUser}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewUserName')}"/>  
-        <h:outputText id="#{prefix}_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewUserName')}" value="#{appUserAction.appUser.userName}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewUserName')}"/>  
+        <h:outputText value="#{appUser.userName}" escape="false"/>  
         <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewEnabled')}"/>  
-        <h:outputText id="#{prefix}_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewEnabled')}" value="#{appUserAction.appUser.enabled}"></h:outputText>  
-        <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewEmail')}"/>  
-        <h:outputText id="#{prefix}_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewEmail')}" value="#{appUserAction.appUser.email}"></h:outputText> 
+        <h:outputText value="#{appUser.enabled? msg.yes : msg.no }"/>  
+        <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'viewEmail')}"/>  
+        <h:outputText value="#{appUser.email}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <br/>  

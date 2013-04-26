@@ -13,9 +13,9 @@
         </f:facet>  
         <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.roomType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}"/>
+            <h:outputText value="#{msg.roomType_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}" label="#{msg.roomType_name}" required="true" disabled="false" value="#{roomTypeAction.roomType.name}"> 
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}" label="#{msg.roomType_name}" required="true" disabled="false" value="#{roomTypeAction.roomType.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -23,7 +23,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}" label="#{msg.roomType_description}" required="false" disabled="false" value="#{roomTypeAction.roomType.description}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}" label="#{msg.roomType_description}" required="false" disabled="false" value="#{roomTypeAction.roomType.description}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
@@ -31,7 +31,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.roomType_rate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_rate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}" label="#{msg.roomType_rate}" required="false" disabled="false" value="#{roomTypeAction.roomType.rate}"> 
+          <h:inputText escape="false" id="#{prefix}_rate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}" label="#{msg.roomType_rate}" required="false" disabled="false" value="#{roomTypeAction.roomType.rate}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -39,7 +39,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.roomType_numberOfRooms}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfRooms')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_numberOfRooms#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfRooms')}" label="#{msg.roomType_numberOfRooms}" required="false" disabled="false" value="#{roomTypeAction.roomType.numberOfRooms}"> 
+          <h:inputText escape="false" id="#{prefix}_numberOfRooms#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfRooms')}" label="#{msg.roomType_numberOfRooms}" required="false" disabled="false" value="#{roomTypeAction.roomType.numberOfRooms}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 

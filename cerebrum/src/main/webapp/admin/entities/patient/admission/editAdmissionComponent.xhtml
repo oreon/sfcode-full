@@ -15,7 +15,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="#{prefix}_admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}" label="#{msg.admission_admissionNote}" required="false" disabled="false" value="#{admissionAction.admission.admissionNote}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}" label="#{msg.admission_admissionNote}" required="false" disabled="false" value="#{admissionAction.admission.admissionNote}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
@@ -23,7 +23,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="#{prefix}_dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{admissionAction.admission.dischargeNote}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{admissionAction.admission.dischargeNote}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
@@ -83,7 +83,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_bedbed" label="#{msg.bedStay_bed}" value="#{_bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false"> 
               <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -96,9 +96,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_fromDateDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_fromDateDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <rich:calendar direction="auto" id="#{prefix}_fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{_bedStay.fromDate}"> 
+            <rich:calendar escape="false" direction="auto" id="#{prefix}_fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{_bedStay.fromDate}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </rich:calendar> 
           </s:decorate> 
@@ -107,9 +107,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_toDateDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_toDateDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <rich:calendar direction="auto" id="#{prefix}_toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{_bedStay.toDate}"> 
+            <rich:calendar escape="false" direction="auto" id="#{prefix}_toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{_bedStay.toDate}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </rich:calendar> 
           </s:decorate> 

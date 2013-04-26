@@ -11,10 +11,10 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Frequency}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.frequency_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewName')}"/>  
-        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewName')}" value="#{frequencyAction.frequency.name}"></h:outputText>  
+        <h:outputText value="#{msg.frequency_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewName')}"/>  
+        <h:outputText value="#{frequency.name}" escape="false"/>  
         <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewQtyPerDay')}"/>  
-        <h:outputText id="#{prefix}_qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewQtyPerDay')}" value="#{frequencyAction.frequency.qtyPerDay}"></h:outputText> 
+        <h:outputText value="#{frequency.qtyPerDay}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <br/> 

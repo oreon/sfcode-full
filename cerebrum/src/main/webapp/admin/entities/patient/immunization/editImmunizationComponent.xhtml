@@ -15,7 +15,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.immunization_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editDate')}"/>
           </ui:define>  
-          <rich:calendar direction="auto" id="#{prefix}_date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editDate')}" label="#{msg.immunization_date}" required="false" disabled="false" value="#{immunizationAction.immunization.date}"> 
+          <rich:calendar escape="false" direction="auto" id="#{prefix}_date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editDate')}" label="#{msg.immunization_date}" required="false" disabled="false" value="#{immunizationAction.immunization.date}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  

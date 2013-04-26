@@ -12,10 +12,10 @@
           <h:outputText value="#{msg.ConditionFinding}"/> 
         </f:facet>  
         <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewFalsePositive')}"/>  
-        <h:outputText id="#{prefix}_falsePositive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewFalsePositive')}" value="#{conditionFindingAction.conditionFinding.falsePositive}"></h:outputText>  
+        <h:outputText value="#{conditionFinding.falsePositive? msg.yes : msg.no }"/>  
         <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewDisease')}"/>  
-        <s:link value="#{conditionFindingAction.conditionFinding.disease.displayName}" action="viewdisease" propagation="none"> 
-          <f:param name="diseaseId" value="#{conditionFindingAction.conditionFinding.disease.id}"/>  
+        <s:link escape="false" value="#{conditionFinding.disease.displayName}" view="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
+          <f:param name="diseaseId" value="#{conditionFinding.disease.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  

@@ -11,14 +11,17 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.RoomType}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.roomType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewName')}"/>  
-        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewName')}" value="#{roomTypeAction.roomType.name}"></h:outputText>  
+        <h:outputText value="#{msg.roomType_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewName')}"/>  
+        <h:outputText value="#{roomType.name}" escape="false"/>  
         <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewDescription')}"/>  
-        <h:outputText escape="false" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewDescription')}" value="#{roomTypeAction.roomType.description}"></h:outputText>  
+        <rich:toolTip value="#{roomType.description}" for="descriptionAbbr"></rich:toolTip>  
+        <h:outputText id="descriptionAbbr" value="#{roomType.descriptionAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.roomType_rate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewRate')}"/>  
-        <h:outputText id="#{prefix}_rate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewRate')}" value="#{roomTypeAction.roomType.rate}"></h:outputText>  
+        <h:outputText value="#{roomType.rate}"> 
+          <f:convertNumber pattern="000.00"/> 
+        </h:outputText>  
         <h:outputText value="#{msg.roomType_numberOfRooms}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewNumberOfRooms')}"/>  
-        <h:outputText id="#{prefix}_numberOfRooms#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewNumberOfRooms')}" value="#{roomTypeAction.roomType.numberOfRooms}"></h:outputText> 
+        <h:outputText value="#{roomType.numberOfRooms}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <br/> 
