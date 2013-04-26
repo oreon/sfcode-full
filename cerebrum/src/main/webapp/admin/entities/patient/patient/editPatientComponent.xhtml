@@ -13,17 +13,17 @@
         </f:facet>  
         <s:decorate id="#{prefix}_firstNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}"/>
+            <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{patientAction.patient.firstName}"> 
+          <h:inputText escape="false" id="#{prefix}_firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{patientAction.patient.firstName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_lastNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}"/>
+            <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{patientAction.patient.lastName}"> 
+          <h:inputText escape="false" id="#{prefix}_lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{patientAction.patient.lastName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -31,7 +31,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editDateOfBirth')}"/>
           </ui:define>  
-          <rich:calendar direction="auto" id="#{prefix}_dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editDateOfBirth')}" label="#{msg.person_dateOfBirth}" required="false" disabled="false" value="#{patientAction.patient.dateOfBirth}"> 
+          <rich:calendar escape="false" direction="auto" id="#{prefix}_dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editDateOfBirth')}" label="#{msg.person_dateOfBirth}" required="false" disabled="false" value="#{patientAction.patient.dateOfBirth}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  
@@ -63,7 +63,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_healthNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}" label="#{msg.patient_healthNumber}" required="false" disabled="false" value="#{patientAction.patient.healthNumber}"> 
+          <h:inputText escape="false" id="#{prefix}_healthNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}" label="#{msg.patient_healthNumber}" required="false" disabled="false" value="#{patientAction.patient.healthNumber}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 
@@ -79,7 +79,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPrimaryPhone')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPrimaryPhone')}" label="#{msg.contactDetails_primaryPhone}" required="false" disabled="false" value="#{patientAction.patient.contactDetails.primaryPhone}"> 
+          <h:inputText escape="false" id="#{prefix}_contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPrimaryPhone')}" label="#{msg.contactDetails_primaryPhone}" required="false" disabled="false" value="#{patientAction.patient.contactDetails.primaryPhone}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -87,7 +87,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSecondaryPhone')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSecondaryPhone')}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{patientAction.patient.contactDetails.secondaryPhone}"> 
+          <h:inputText escape="false" id="#{prefix}_contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSecondaryPhone')}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{patientAction.patient.contactDetails.secondaryPhone}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -95,7 +95,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editEmail')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_contactDetails_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editEmail')}" label="#{msg.contactDetails_email}" required="false" disabled="false" value="#{patientAction.patient.contactDetails.email}"> 
+          <h:inputText escape="false" id="#{prefix}_contactDetails_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editEmail')}" label="#{msg.contactDetails_email}" required="false" disabled="false" value="#{patientAction.patient.contactDetails.email}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 
@@ -111,7 +111,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.address_streetAddress}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editStreetAddress')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_address_streetAddress#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editStreetAddress')}" label="#{msg.address_streetAddress}" required="false" disabled="false" value="#{patientAction.patient.address.streetAddress}"> 
+          <h:inputText escape="false" id="#{prefix}_address_streetAddress#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editStreetAddress')}" label="#{msg.address_streetAddress}" required="false" disabled="false" value="#{patientAction.patient.address.streetAddress}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -119,7 +119,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editCity')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_address_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editCity')}" label="#{msg.address_city}" required="false" disabled="false" value="#{patientAction.patient.address.city}"> 
+          <h:inputText escape="false" id="#{prefix}_address_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editCity')}" label="#{msg.address_city}" required="false" disabled="false" value="#{patientAction.patient.address.city}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -127,7 +127,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.address_State}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editState')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_address_State#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editState')}" label="#{msg.address_State}" required="false" disabled="false" value="#{patientAction.patient.address.state}"> 
+          <h:inputText escape="false" id="#{prefix}_address_State#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editState')}" label="#{msg.address_State}" required="false" disabled="false" value="#{patientAction.patient.address.state}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -135,7 +135,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPhone')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_address_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPhone')}" label="#{msg.address_phone}" required="false" disabled="false" value="#{patientAction.patient.address.phone}"> 
+          <h:inputText escape="false" id="#{prefix}_address_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editPhone')}" label="#{msg.address_phone}" required="false" disabled="false" value="#{patientAction.patient.address.phone}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 
@@ -151,7 +151,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedicalHistory')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="#{prefix}_history_medicalHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedicalHistory')}" label="#{msg.history_medicalHistory}" required="false" disabled="false" value="#{patientAction.patient.history.medicalHistory}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_history_medicalHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedicalHistory')}" label="#{msg.history_medicalHistory}" required="false" disabled="false" value="#{patientAction.patient.history.medicalHistory}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
@@ -159,7 +159,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.history_socialHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSocialHistory')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="#{prefix}_history_socialHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSocialHistory')}" label="#{msg.history_socialHistory}" required="false" disabled="false" value="#{patientAction.patient.history.socialHistory}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_history_socialHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSocialHistory')}" label="#{msg.history_socialHistory}" required="false" disabled="false" value="#{patientAction.patient.history.socialHistory}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
@@ -167,7 +167,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.history_familyHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFamilyHistory')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="#{prefix}_history_familyHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFamilyHistory')}" label="#{msg.history_familyHistory}" required="false" disabled="false" value="#{patientAction.patient.history.familyHistory}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_history_familyHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFamilyHistory')}" label="#{msg.history_familyHistory}" required="false" disabled="false" value="#{patientAction.patient.history.familyHistory}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
@@ -175,7 +175,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.history_medications}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedications')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="#{prefix}_history_medications#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedications')}" label="#{msg.history_medications}" required="false" disabled="false" value="#{patientAction.patient.history.medications}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_history_medications#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedications')}" label="#{msg.history_medications}" required="false" disabled="false" value="#{patientAction.patient.history.medications}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
@@ -183,7 +183,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.history_allergies}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAllergies')}"/>
           </ui:define>  
-          <rich:editor useSeamText="true" id="#{prefix}_history_allergies#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAllergies')}" label="#{msg.history_allergies}" required="false" disabled="false" value="#{patientAction.patient.history.allergies}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_history_allergies#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAllergies')}" label="#{msg.history_allergies}" required="false" disabled="false" value="#{patientAction.patient.history.allergies}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate> 

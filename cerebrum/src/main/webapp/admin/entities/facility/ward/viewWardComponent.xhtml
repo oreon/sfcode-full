@@ -11,32 +11,32 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Ward}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}"/>  
-        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}" value="#{wardAction.ward.name}"></h:outputText>  
+        <h:outputText value="#{msg.ward_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}"/>  
+        <h:outputText value="#{ward.name}" escape="false"/>  
         <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')}"/>  
-        <h:outputText value="#{wardAction.ward.gender}"/>  
+        <h:outputText value="#{ward.gender}" escape="false"/>  
         <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')}"/>  
-        <s:link value="#{wardAction.ward.facility.displayName}" action="viewfacility" propagation="none"> 
-          <f:param name="facilityId" value="#{wardAction.ward.facility.id}"/>  
+        <s:link escape="false" value="#{ward.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+          <f:param name="facilityId" value="#{ward.facility.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="rooms" var="_room" rendered="#{not empty wardAction.listRooms and skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewRooms') }" value="#{wardAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewRoomType')}"/> 
           </f:facet>  
-          <s:link value="#{_room.roomType.displayName}" action="viewroomType" propagation="none"> 
+          <s:link escape="false" value="#{_room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
             <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}"/> 
+            <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}"/> 
           </f:facet>  
-          <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}" value="#{_room.name}"></h:outputText> 
+          <h:outputText value="#{_room.name}" escape="false"/> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

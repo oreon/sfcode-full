@@ -11,28 +11,30 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Nurse}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEmployeeNumber')}"/>  
-        <h:outputText id="#{prefix}_employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEmployeeNumber')}" value="#{nurseAction.nurse.employeeNumber}"></h:outputText>  
-        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewFirstName')}"/>  
-        <h:outputText id="#{prefix}_firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewFirstName')}" value="#{nurseAction.nurse.firstName}"></h:outputText>  
-        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewLastName')}"/>  
-        <h:outputText id="#{prefix}_lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewLastName')}" value="#{nurseAction.nurse.lastName}"></h:outputText>  
+        <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEmployeeNumber')}"/>  
+        <h:outputText value="#{nurse.employeeNumber}" escape="false"/>  
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewFirstName')}"/>  
+        <h:outputText value="#{nurse.firstName}" escape="false"/>  
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewLastName')}"/>  
+        <h:outputText value="#{nurse.lastName}" escape="false"/>  
         <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewDateOfBirth')}"/>  
-        <h:outputText direction="auto" id="#{prefix}_dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewDateOfBirth')}" value="#{nurseAction.nurse.dateOfBirth}"></h:outputText>  
+        <h:outputText value="#{nurse.dateOfBirth}"> 
+          <s:convertDateTime type="date" dateStyle="medium"/> 
+        </h:outputText>  
         <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewGender')}"/>  
-        <h:outputText value="#{nurseAction.nurse.gender}"/>  
+        <h:outputText value="#{nurse.gender}" escape="false"/>  
         <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewAge')}"/>  
-        <h:outputText id="#{prefix}_age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewAge')}" value="#{nurseAction.nurse.age}"></h:outputText>  
+        <h:outputText value="#{nurse.age}" escape="false"/>  
         <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewTitle')}"/>  
-        <h:outputText value="#{nurseAction.nurse.title}"/>  
+        <h:outputText value="#{nurse.title}" escape="false"/>  
         <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewFacility')}"/>  
-        <s:link value="#{nurseAction.nurse.facility.displayName}" action="viewfacility" propagation="none"> 
-          <f:param name="facilityId" value="#{nurseAction.nurse.facility.id}"/>  
+        <s:link escape="false" value="#{nurse.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+          <f:param name="facilityId" value="#{nurse.facility.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.nurse_nurseSpecialty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewNurseSpecialty')}"/>  
-        <s:link value="#{nurseAction.nurse.nurseSpecialty.displayName}" action="viewnurseSpecialty" propagation="none"> 
-          <f:param name="nurseSpecialtyId" value="#{nurseAction.nurse.nurseSpecialty.id}"/>  
+        <s:link escape="false" value="#{nurse.nurseSpecialty.displayName}" view="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml" propagation="none"> 
+          <f:param name="nurseSpecialtyId" value="#{nurse.nurseSpecialty.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
@@ -43,12 +45,12 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.AppUser}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewUserName')}"/>  
-        <h:outputText id="#{prefix}_appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewUserName')}" value="#{nurseAction.nurse.appUser.userName}"></h:outputText>  
+        <h:outputText value="#{msg.appUser_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewUserName')}"/>  
+        <h:outputText value="#{nurse.appUser.userName}" escape="false"/>  
         <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEnabled')}"/>  
-        <h:outputText id="#{prefix}_appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEnabled')}" value="#{nurseAction.nurse.appUser.enabled}"></h:outputText>  
-        <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEmail')}"/>  
-        <h:outputText id="#{prefix}_appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEmail')}" value="#{nurseAction.nurse.appUser.email}"></h:outputText> 
+        <h:outputText value="#{nurse.appUser.enabled? msg.yes : msg.no }"/>  
+        <h:outputText value="#{msg.appUser_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEmail')}"/>  
+        <h:outputText value="#{nurse.appUser.email}" escape="false"/> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
@@ -58,11 +60,11 @@
           <h:outputText value="#{msg.ContactDetails}"/> 
         </f:facet>  
         <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewPrimaryPhone')}"/>  
-        <h:outputText id="#{prefix}_contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewPrimaryPhone')}" value="#{nurseAction.nurse.contactDetails.primaryPhone}"></h:outputText>  
+        <h:outputText value="#{nurse.contactDetails.primaryPhone}" escape="false"/>  
         <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewSecondaryPhone')}"/>  
-        <h:outputText id="#{prefix}_contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewSecondaryPhone')}" value="#{nurseAction.nurse.contactDetails.secondaryPhone}"></h:outputText>  
+        <h:outputText value="#{nurse.contactDetails.secondaryPhone}" escape="false"/>  
         <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEmail')}"/>  
-        <h:outputText id="#{prefix}_contactDetails_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'viewEmail')}" value="#{nurseAction.nurse.contactDetails.email}"></h:outputText> 
+        <h:outputText value="#{nurse.contactDetails.email}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <br/> 

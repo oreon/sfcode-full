@@ -12,23 +12,24 @@
           <h:outputText value="#{msg.PatientDiffDx}"/> 
         </f:facet>  
         <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')}"/>  
-        <h:outputText escape="false" id="#{prefix}_notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')}" value="#{patientDiffDxAction.patientDiffDx.notes}"></h:outputText>  
+        <rich:toolTip value="#{patientDiffDx.notes}" for="notesAbbr"></rich:toolTip>  
+        <h:outputText id="notesAbbr" value="#{patientDiffDx.notesAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')}"/>  
-        <s:link value="#{patientDiffDxAction.patientDiffDx.patient.displayName}" action="viewpatient" propagation="none"> 
-          <f:param name="patientId" value="#{patientDiffDxAction.patientDiffDx.patient.id}"/>  
+        <s:link escape="false" value="#{patientDiffDx.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{patientDiffDx.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{patientDiffDxAction.patientDiffDx.patient.popupInfo}</span> 
+            <span>#{patientDiffDx.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="patientFindings" var="_patientFinding" rendered="#{not empty patientDiffDxAction.listPatientFindings and skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatientFindings') }" value="#{patientDiffDxAction.listPatientFindings}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewFinding')}"/> 
           </f:facet>  
-          <s:link value="#{_patientFinding.finding.displayName}" action="viewfinding" propagation="none"> 
+          <s:link escape="false" value="#{_patientFinding.finding.displayName}" view="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
             <f:param name="findingId" value="#{_patientFinding.finding.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

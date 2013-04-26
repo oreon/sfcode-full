@@ -301,7 +301,9 @@ public abstract class BaseAction<T extends BaseEntity> extends
 	}
 
 	public String save() {
-		return doSave();
+		String result = doSave();
+		Conversation.instance().end();
+		return result;
 	}
 
 	@End(beforeRedirect=true)

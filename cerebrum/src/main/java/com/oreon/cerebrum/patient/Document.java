@@ -31,7 +31,7 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
-import org.hibernate.annotations.Filter;
+
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;

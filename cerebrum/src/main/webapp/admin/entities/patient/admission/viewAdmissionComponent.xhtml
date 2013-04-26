@@ -12,49 +12,57 @@
           <h:outputText value="#{msg.Admission}"/> 
         </f:facet>  
         <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewAdmissionNote')}"/>  
-        <h:outputText escape="false" id="#{prefix}_admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewAdmissionNote')}" value="#{admissionAction.admission.admissionNote}"></h:outputText>  
+        <rich:toolTip value="#{admission.admissionNote}" for="admissionNoteAbbr"></rich:toolTip>  
+        <h:outputText id="admissionNoteAbbr" value="#{admission.admissionNoteAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeDate')}"/>  
-        <h:outputText direction="auto" id="#{prefix}_dischargeDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeDate')}" value="#{admissionAction.admission.dischargeDate}"></h:outputText>  
+        <h:outputText value="#{admission.dischargeDate}"> 
+          <s:convertDateTime type="date" dateStyle="medium"/> 
+        </h:outputText>  
         <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeNote')}"/>  
-        <h:outputText escape="false" id="#{prefix}_dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeNote')}" value="#{admissionAction.admission.dischargeNote}"></h:outputText>  
+        <rich:toolTip value="#{admission.dischargeNote}" for="dischargeNoteAbbr"></rich:toolTip>  
+        <h:outputText id="dischargeNoteAbbr" value="#{admission.dischargeNoteAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeCode')}"/>  
-        <h:outputText value="#{admissionAction.admission.dischargeCode}"/>  
+        <h:outputText value="#{admission.dischargeCode}" escape="false"/>  
         <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewPatient')}"/>  
-        <s:link value="#{admissionAction.admission.patient.displayName}" action="viewpatient" propagation="none"> 
-          <f:param name="patientId" value="#{admissionAction.admission.patient.id}"/>  
+        <s:link escape="false" value="#{admission.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{admission.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{admissionAction.admission.patient.popupInfo}</span> 
+            <span>#{admission.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link>  
         <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewBed')}"/>  
-        <s:link value="#{admissionAction.admission.bed.displayName}" action="viewbed" propagation="none"> 
-          <f:param name="bedId" value="#{admissionAction.admission.bed.id}"/>  
+        <s:link escape="false" value="#{admission.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+          <f:param name="bedId" value="#{admission.bed.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="bedStays" var="_bedStay" rendered="#{not empty admissionAction.listBedStays and skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewBedStays') }" value="#{admissionAction.listBedStays}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewBed')}"/> 
           </f:facet>  
-          <s:link value="#{_bedStay.bed.displayName}" action="viewbed" propagation="none"> 
+          <s:link escape="false" value="#{_bedStay.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
             <f:param name="bedId" value="#{_bedStay.bed.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}"/> 
           </f:facet>  
-          <h:outputText direction="auto" id="#{prefix}_fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}" value="#{_bedStay.fromDate}"></h:outputText> 
+          <h:outputText value="#{_bedStay.fromDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}"/> 
           </f:facet>  
-          <h:outputText direction="auto" id="#{prefix}_toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}" value="#{_bedStay.toDate}"></h:outputText> 
+          <h:outputText value="#{_bedStay.toDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

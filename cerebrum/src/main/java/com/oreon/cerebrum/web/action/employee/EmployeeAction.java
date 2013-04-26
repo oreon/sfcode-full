@@ -40,10 +40,18 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.oreon.cerebrum.employee.Physician;
+
 	
 //@Scope(ScopeType.CONVERSATION)
 @Name("employeeAction")
 public class EmployeeAction extends EmployeeActionBase implements java.io.Serializable{
+	
+	public Physician getCurrentLoggedInEmployee() {
+		String query = "Select e from Employee e where e.appUser.userName = ?1";
+		return (Physician) executeSingleResultQuery(query, Identity.instance()
+				.getCredentials().getUsername());
+	}
 	
 }
 	

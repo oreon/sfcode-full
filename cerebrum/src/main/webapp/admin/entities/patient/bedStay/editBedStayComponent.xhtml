@@ -15,7 +15,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}"/>
           </ui:define>  
-          <rich:calendar direction="auto" id="#{prefix}_fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.fromDate}"> 
+          <rich:calendar escape="false" direction="auto" id="#{prefix}_fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.fromDate}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  
@@ -23,7 +23,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}"/>
           </ui:define>  
-          <rich:calendar direction="auto" id="#{prefix}_toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.toDate}"> 
+          <rich:calendar escape="false" direction="auto" id="#{prefix}_toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.toDate}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  

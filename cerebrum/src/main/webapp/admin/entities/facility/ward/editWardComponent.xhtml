@@ -13,9 +13,9 @@
         </f:facet>  
         <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}"/>
+            <h:outputText value="#{msg.ward_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}" label="#{msg.ward_name}" required="true" disabled="false" value="#{wardAction.ward.name}"> 
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}" label="#{msg.ward_name}" required="true" disabled="false" value="#{wardAction.ward.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -50,7 +50,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_roomTyperoomTypeDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_roomTyperoomTypeDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_roomTyperoomType" label="#{msg.room_roomType}" value="#{_room.roomType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}" disabled="false"> 
               <s:selectItems value="#{roomTypeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -61,11 +61,11 @@
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editName')}"/>
+            <h:outputText value="#{msg.room_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editName')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_nameDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editName')}" label="#{msg.room_name}" required="true" disabled="false" value="#{_room.name}"> 
+            <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editName')}" label="#{msg.room_name}" required="true" disabled="false" value="#{_room.name}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 

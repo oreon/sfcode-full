@@ -13,9 +13,9 @@
         </f:facet>  
         <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}"/>
+            <h:outputText value="#{msg.differentialDx_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{differentialDxAction.differentialDx.name}"> 
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{differentialDxAction.differentialDx.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  

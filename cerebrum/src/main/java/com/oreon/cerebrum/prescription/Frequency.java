@@ -10,6 +10,9 @@ import javax.ws.rs.core.Response;
 import javax.persistence.*;
 import org.hibernate.validator.*;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import org.apache.solr.analysis.LowerCaseFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
@@ -55,9 +58,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "frequency")
-@Filters({@Filter(name = "archiveFilterDef"),
-
-})
+@Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Name("frequency")
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
@@ -132,6 +133,12 @@ public class Frequency extends BaseEntity implements java.io.Serializable {
 		builder.append(getName() + " ");
 
 		return builder.toString();
+	}
+
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this,
+				ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

@@ -15,15 +15,15 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{atcDrugAction.atcDrug.code}"> 
+          <h:inputText escape="false" id="#{prefix}_code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{atcDrugAction.atcDrug.code}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/>
+            <h:outputText value="#{msg.atcDrug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{atcDrugAction.atcDrug.name}"> 
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{atcDrugAction.atcDrug.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -57,7 +57,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_drugdrug" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false"> 
               <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -70,20 +70,20 @@
           <f:facet name="header">
             <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_codeDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_codeDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="#{prefix}_code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{_atcDrug.code}"> 
+            <h:inputText escape="false" id="#{prefix}_code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{_atcDrug.code}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/>
+            <h:outputText value="#{msg.atcDrug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_nameDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{_atcDrug.name}"> 
+            <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{_atcDrug.name}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 

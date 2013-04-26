@@ -12,27 +12,28 @@
           <h:outputText value="#{msg.Prescription}"/> 
         </f:facet>  
         <h:outputText value="#{msg.prescription_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')}"/>  
-        <h:outputText escape="false" id="#{prefix}_directivesForPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')}" value="#{prescriptionAction.prescription.directivesForPatient}"></h:outputText>  
+        <rich:toolTip value="#{prescription.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
+        <h:outputText id="directivesForPatientAbbr" value="#{prescription.directivesForPatientAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')}"/>  
-        <h:outputText id="#{prefix}_active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')}" value="#{prescriptionAction.prescription.active}"></h:outputText>  
+        <h:outputText value="#{prescription.active? msg.yes : msg.no }"/>  
         <h:outputText value="#{msg.prescription_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')}"/>  
-        <h:outputText id="#{prefix}_drugs#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')}" value="#{prescriptionAction.prescription.drugs}"></h:outputText>  
+        <h:outputText value="#{prescription.drugs}" escape="false"/>  
         <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewPatient')}"/>  
-        <s:link value="#{prescriptionAction.prescription.patient.displayName}" action="viewpatient" propagation="none"> 
-          <f:param name="patientId" value="#{prescriptionAction.prescription.patient.id}"/>  
+        <s:link escape="false" value="#{prescription.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{prescription.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{prescriptionAction.prescription.patient.popupInfo}</span> 
+            <span>#{prescription.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{not empty prescriptionAction.listPrescriptionItems and skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewPrescriptionItems') }" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDrug')}"/> 
           </f:facet>  
-          <s:link value="#{_prescriptionItem.drug.displayName}" action="viewdrug" propagation="none"> 
+          <s:link escape="false" value="#{_prescriptionItem.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
             <f:param name="drugId" value="#{_prescriptionItem.drug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
@@ -40,50 +41,52 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewFrequency')}"/> 
           </f:facet>  
-          <s:link value="#{_prescriptionItem.frequency.displayName}" action="viewfrequency" propagation="none"> 
+          <s:link escape="false" value="#{_prescriptionItem.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
             <f:param name="frequencyId" value="#{_prescriptionItem.frequency.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewQty')}"/> 
           </f:facet>  
-          <h:outputText id="#{prefix}_qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewQty')}" value="#{_prescriptionItem.qty}"></h:outputText> 
+          <h:outputText value="#{_prescriptionItem.qty}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewStrength')}"/> 
           </f:facet>  
-          <h:outputText id="#{prefix}_strength#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewStrength')}" value="#{_prescriptionItem.strength}"></h:outputText> 
+          <h:outputText value="#{_prescriptionItem.strength}" escape="false"/> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRoute')}"/> 
           </f:facet>  
-          <h:outputText value="#{_prescriptionItem.route}"/> 
+          <h:outputText value="#{_prescriptionItem.route}" escape="false"/> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDuration')}"/> 
           </f:facet>  
-          <h:outputText id="#{prefix}_duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDuration')}" value="#{_prescriptionItem.duration}"></h:outputText> 
+          <h:outputText value="#{_prescriptionItem.duration}" escape="false"/> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRemarks')}"/> 
           </f:facet>  
-          <h:outputText id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRemarks')}" value="#{_prescriptionItem.remarks}"></h:outputText> 
+          <h:outputText value="#{_prescriptionItem.remarks}" escape="false"/> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewBrandName')}"/> 
           </f:facet>  
-          <h:outputText id="#{prefix}_brandName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewBrandName')}" value="#{_prescriptionItem.brandName}"></h:outputText> 
+          <h:outputText value="#{_prescriptionItem.brandName}" escape="false"/> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

@@ -39,7 +39,7 @@
               <ui:param name="propertyPath" value="invoiceItem.service"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_invoiceItem.service.displayName}" view="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+          <s:link escape="false" value="#{_invoiceItem.service.displayName}" view="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
             <f:param name="serviceId" value="#{_invoiceItem.service.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -52,7 +52,7 @@
               <ui:param name="propertyPath" value="invoiceItem.invoice"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_invoiceItem.invoice.displayName}" view="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+          <s:link escape="false" value="#{_invoiceItem.invoice.displayName}" view="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
             <f:param name="invoiceId" value="#{_invoiceItem.invoice.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -65,7 +65,9 @@
               <ui:param name="propertyPath" value="invoiceItem.appliedPrice"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_invoiceItem.appliedPrice}" escape="false"/> 
+          <h:outputText value="#{_invoiceItem.appliedPrice}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}"> 
           <f:facet name="header"> 
@@ -75,7 +77,9 @@
               <ui:param name="propertyPath" value="invoiceItem.total"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_invoiceItem.total}" escape="false"/> 
+          <h:outputText value="#{_invoiceItem.total}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 

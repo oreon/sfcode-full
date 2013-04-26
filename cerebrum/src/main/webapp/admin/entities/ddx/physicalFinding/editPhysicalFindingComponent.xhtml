@@ -13,9 +13,9 @@
         </f:facet>  
         <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editName')}"/>
+            <h:outputText value="#{msg.finding_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editName')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editName')}" label="#{msg.finding_name}" required="true" disabled="false" value="#{physicalFindingAction.physicalFinding.name}"> 
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editName')}" label="#{msg.finding_name}" required="true" disabled="false" value="#{physicalFindingAction.physicalFinding.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
@@ -23,7 +23,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.physicalFinding_icdCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editIcdCode')}"/>
           </ui:define>  
-          <h:inputText id="#{prefix}_icdCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editIcdCode')}" label="#{msg.physicalFinding_icdCode}" required="false" disabled="false" value="#{physicalFindingAction.physicalFinding.icdCode}"> 
+          <h:inputText escape="false" id="#{prefix}_icdCode#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editIcdCode')}" label="#{msg.physicalFinding_icdCode}" required="false" disabled="false" value="#{physicalFindingAction.physicalFinding.icdCode}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate> 
@@ -37,7 +37,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_dxCategorydxCategoryDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_dxCategorydxCategoryDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_dxCategorydxCategory" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false"> 
               <s:selectItems value="#{dxCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -48,11 +48,11 @@
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}"/>
+            <h:outputText value="#{msg.differentialDx_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+          <s:decorate id="#{prefix}_nameDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{_differentialDx.name}"> 
+            <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{_differentialDx.name}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </h:inputText> 
           </s:decorate> 

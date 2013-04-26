@@ -11,10 +11,12 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Service}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.service_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'viewName')}"/>  
-        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'viewName')}" value="#{serviceAction.service.name}"></h:outputText>  
-        <h:outputText value="#{msg.service_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'viewPrice')}"/>  
-        <h:outputText id="#{prefix}_price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'viewPrice')}" value="#{serviceAction.service.price}"></h:outputText> 
+        <h:outputText value="#{msg.service_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'viewName')}"/>  
+        <h:outputText value="#{service.name}" escape="false"/>  
+        <h:outputText value="#{msg.service_price} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'viewPrice')}"/>  
+        <h:outputText value="#{service.price}"> 
+          <f:convertNumber pattern="$#,##0.00"/> 
+        </h:outputText> 
       </h:panelGrid>  
       <br/>  
       <br/> 

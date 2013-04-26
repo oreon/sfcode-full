@@ -11,70 +11,85 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Drug}"/> 
         </f:facet>  
-        <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewName')}"/>  
-        <h:outputText id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewName')}" value="#{drugAction.drug.name}"></h:outputText>  
+        <h:outputText value="#{msg.drug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewName')}"/>  
+        <h:outputText value="#{drug.name}" escape="false"/>  
         <h:outputText value="#{msg.drug_absorption}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAbsorption')}"/>  
-        <h:outputText escape="false" id="#{prefix}_absorption#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAbsorption')}" value="#{drugAction.drug.absorption}"></h:outputText>  
+        <rich:toolTip value="#{drug.absorption}" for="absorptionAbbr"></rich:toolTip>  
+        <h:outputText id="absorptionAbbr" value="#{drug.absorptionAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewBiotransformation')}"/>  
-        <h:outputText escape="false" id="#{prefix}_biotransformation#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewBiotransformation')}" value="#{drugAction.drug.biotransformation}"></h:outputText>  
+        <rich:toolTip value="#{drug.biotransformation}" for="biotransformationAbbr"></rich:toolTip>  
+        <h:outputText id="biotransformationAbbr" value="#{drug.biotransformationAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAtcCodes')}"/>  
-        <h:outputText id="#{prefix}_atcCodes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAtcCodes')}" value="#{drugAction.drug.atcCodes}"></h:outputText>  
+        <h:outputText value="#{drug.atcCodes}" escape="false"/>  
         <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewContraIndication')}"/>  
-        <h:outputText escape="false" id="#{prefix}_contraIndication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewContraIndication')}" value="#{drugAction.drug.contraIndication}"></h:outputText>  
+        <rich:toolTip value="#{drug.contraIndication}" for="contraIndicationAbbr"></rich:toolTip>  
+        <h:outputText id="contraIndicationAbbr" value="#{drug.contraIndicationAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDescription')}"/>  
-        <h:outputText escape="false" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDescription')}" value="#{drugAction.drug.description}"></h:outputText>  
+        <rich:toolTip value="#{drug.description}" for="descriptionAbbr"></rich:toolTip>  
+        <h:outputText id="descriptionAbbr" value="#{drug.descriptionAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDosageForm')}"/>  
-        <h:outputText id="#{prefix}_dosageForm#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDosageForm')}" value="#{drugAction.drug.dosageForm}"></h:outputText>  
+        <h:outputText value="#{drug.dosageForm}" escape="false"/>  
         <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewFoodInteractions')}"/>  
-        <h:outputText escape="false" id="#{prefix}_foodInteractions#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewFoodInteractions')}" value="#{drugAction.drug.foodInteractions}"></h:outputText>  
+        <rich:toolTip value="#{drug.foodInteractions}" for="foodInteractionsAbbr"></rich:toolTip>  
+        <h:outputText id="foodInteractionsAbbr" value="#{drug.foodInteractionsAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_halfLife}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLife')}"/>  
-        <h:outputText escape="false" id="#{prefix}_halfLife#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLife')}" value="#{drugAction.drug.halfLife}"></h:outputText>  
+        <rich:toolTip value="#{drug.halfLife}" for="halfLifeAbbr"></rich:toolTip>  
+        <h:outputText id="halfLifeAbbr" value="#{drug.halfLifeAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLifeNumberOfHours')}"/>  
-        <h:outputText id="#{prefix}_halfLifeNumberOfHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLifeNumberOfHours')}" value="#{drugAction.drug.halfLifeNumberOfHours}"></h:outputText>  
+        <h:outputText value="#{drug.halfLifeNumberOfHours}"> 
+          <f:convertNumber pattern="000.00"/> 
+        </h:outputText>  
         <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewIndication')}"/>  
-        <h:outputText escape="false" id="#{prefix}_indication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewIndication')}" value="#{drugAction.drug.indication}"></h:outputText>  
+        <rich:toolTip value="#{drug.indication}" for="indicationAbbr"></rich:toolTip>  
+        <h:outputText id="indicationAbbr" value="#{drug.indicationAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewMechanismOfAction')}"/>  
-        <h:outputText escape="false" id="#{prefix}_mechanismOfAction#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewMechanismOfAction')}" value="#{drugAction.drug.mechanismOfAction}"></h:outputText>  
+        <rich:toolTip value="#{drug.mechanismOfAction}" for="mechanismOfActionAbbr"></rich:toolTip>  
+        <h:outputText id="mechanismOfActionAbbr" value="#{drug.mechanismOfActionAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPatientInfo')}"/>  
-        <h:outputText escape="false" id="#{prefix}_patientInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPatientInfo')}" value="#{drugAction.drug.patientInfo}"></h:outputText>  
+        <rich:toolTip value="#{drug.patientInfo}" for="patientInfoAbbr"></rich:toolTip>  
+        <h:outputText id="patientInfoAbbr" value="#{drug.patientInfoAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPharmacology')}"/>  
-        <h:outputText escape="false" id="#{prefix}_pharmacology#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPharmacology')}" value="#{drugAction.drug.pharmacology}"></h:outputText>  
+        <rich:toolTip value="#{drug.pharmacology}" for="pharmacologyAbbr"></rich:toolTip>  
+        <h:outputText id="pharmacologyAbbr" value="#{drug.pharmacologyAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_toxicity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewToxicity')}"/>  
-        <h:outputText escape="false" id="#{prefix}_toxicity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewToxicity')}" value="#{drugAction.drug.toxicity}"></h:outputText>  
+        <rich:toolTip value="#{drug.toxicity}" for="toxicityAbbr"></rich:toolTip>  
+        <h:outputText id="toxicityAbbr" value="#{drug.toxicityAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewRouteOfElimination')}"/>  
-        <h:outputText escape="false" id="#{prefix}_routeOfElimination#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewRouteOfElimination')}" value="#{drugAction.drug.routeOfElimination}"></h:outputText>  
+        <rich:toolTip value="#{drug.routeOfElimination}" for="routeOfEliminationAbbr"></rich:toolTip>  
+        <h:outputText id="routeOfEliminationAbbr" value="#{drug.routeOfEliminationAbbreviated}" escape="false"/>  
         <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewVolumeOfDistribution')}"/>  
-        <h:outputText id="#{prefix}_volumeOfDistribution#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewVolumeOfDistribution')}" value="#{drugAction.drug.volumeOfDistribution}"></h:outputText>  
+        <h:outputText value="#{drug.volumeOfDistribution}" escape="false"/>  
         <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDrugBankId')}"/>  
-        <h:outputText id="#{prefix}_drugBankId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDrugBankId')}" value="#{drugAction.drug.drugBankId}"></h:outputText>  
+        <h:outputText value="#{drug.drugBankId}" escape="false"/>  
         <h:outputText value="#{msg.drug_categories}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewCategories')}"/>  
-        <h:outputText id="#{prefix}_categories#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewCategories')}" value="#{drugAction.drug.categories}"></h:outputText> 
+        <h:outputText value="#{drug.categories}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{not empty drugAction.listDrugInteractions and skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDrugInteractions') }" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewInteractingDrug')}"/> 
           </f:facet>  
-          <s:link value="#{_drugInteraction.interactingDrug.displayName}" action="viewinteractingDrug" propagation="none"> 
-            <f:param name="interactingDrugId" value="#{_drugInteraction.interactingDrug.id}"/>  
+          <s:link escape="false" value="#{_drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_drugInteraction.interactingDrug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
               <span>#{_drugInteraction.interactingDrug.popupInfo}</span> 
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')}"/> 
           </f:facet>  
-          <h:outputText escape="false" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')}" value="#{_drugInteraction.description}"></h:outputText> 
+          <rich:toolTip value="#{_drugInteraction.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{_drugInteraction.descriptionAbbreviated}" escape="false"/> 
         </h:column>  
-        <h:column>
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewSeverity')}"/> 
           </f:facet>  
-          <h:outputText value="#{_drugInteraction.severity}"/> 
+          <h:outputText value="#{_drugInteraction.severity}" escape="false"/> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

@@ -29,7 +29,7 @@
               <ui:param name="propertyPath" value="encounter.physician"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_encounter.physician.displayName}" view="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
+          <s:link escape="false" value="#{_encounter.physician.displayName}" view="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
             <f:param name="physicianId" value="#{_encounter.physician.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -85,7 +85,7 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_encounter.vitals.temperature}"> 
-            <f:convertNumber pattern="$#,##0.00"/> 
+            <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPulse')}"> 
@@ -116,7 +116,7 @@
               <ui:param name="propertyPath" value="encounter.prescription"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_encounter.prescription.displayName}" view="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
+          <s:link escape="false" value="#{_encounter.prescription.displayName}" view="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
             <f:param name="prescriptionId" value="#{_encounter.prescription.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -140,7 +140,7 @@
               <ui:param name="propertyPath" value="encounter.patient"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_encounter.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <s:link escape="false" value="#{_encounter.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_encounter.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
