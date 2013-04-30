@@ -40,10 +40,27 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import com.oreon.cerebrum.web.action.users.AppRoleAction;
+
 	
 //@Scope(ScopeType.CONVERSATION)
 @Name("physicianAction")
 public class PhysicianAction extends PhysicianActionBase implements java.io.Serializable{
 	
+	@In
+	(create=true)
+	AppRoleAction appRoleAction;
+	
+	@Override
+	public String save() {
+		// TODO Auto-generated method stub
+		addRole();
+		return super.save();
+	}
+	
+	public void addRole(){
+	
+		getInstance().getAppUser().getAppRoles().add(appRoleAction.findByUnqName("physician"));
+	}
 }
 	

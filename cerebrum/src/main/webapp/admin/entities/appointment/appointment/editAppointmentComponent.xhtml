@@ -13,7 +13,7 @@
         </f:facet>  
         <s:decorate id="#{prefix}_startDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.appointment_start} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}"/>
+            <h:outputText value="#{msg.appointment_start}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}"/>
           </ui:define>  
           <rich:calendar escape="false" direction="auto" id="#{prefix}_start#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editStart')}" label="#{msg.appointment_start}" required="true" disabled="false" value="#{appointmentAction.appointment.start}"> 
             <rich:ajaxValidator event="onsubmit"/> 

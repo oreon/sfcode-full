@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="#{prefix}_appliedPriceDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.invoiceItem_appliedPrice} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>
+            <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_appliedPrice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}" label="#{msg.invoiceItem_appliedPrice}" required="true" disabled="false" value="#{invoiceItemAction.invoiceItem.appliedPrice}"> 
             <rich:ajaxValidator event="onsubmit"/>  
