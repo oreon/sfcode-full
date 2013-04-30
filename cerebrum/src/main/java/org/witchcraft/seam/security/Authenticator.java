@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import org.hibernate.Session;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -39,6 +40,10 @@ public class Authenticator {
 	public boolean authenticate() {
 
 		try {
+			
+			Session session = (Session)entityManager.getDelegate();
+			
+			session.disableFilter("tenantFilterDef");
 
 			AppUser user = (AppUser) entityManager
 					.createQuery(
@@ -46,6 +51,12 @@ public class Authenticator {
 					.setParameter("username", credentials.getUsername())
 					.setParameter("password", credentials.getPassword())
 					.getSingleResult();
+			
+			
+			if(!user.getEnabled()){
+				//add message not enalbed
+				return false;
+			}
 
 			if (user.getAppRoles() != null) {
 				Set<AppRole> roles = user.getAppRoles();
@@ -64,6 +75,9 @@ public class Authenticator {
 			}
 
 			userUtilAction.setCurrentUser(user);
+			
+			
+			session.enableFilter("tenantFilterDef");
 			/*
 			user.setLastLogin(new Date());
 			UserAction userAction = (UserAction) Component.getInstance("userAction");

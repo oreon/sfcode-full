@@ -13,7 +13,7 @@
         </f:facet>  
         <s:decorate id="#{prefix}_firstNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}"/>
+            <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{patientAction.patient.firstName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
@@ -21,7 +21,7 @@
         </s:decorate>  
         <s:decorate id="#{prefix}_lastNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}"/>
+            <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editLastName')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{patientAction.patient.lastName}"> 
             <rich:ajaxValidator event="onsubmit"/> 
