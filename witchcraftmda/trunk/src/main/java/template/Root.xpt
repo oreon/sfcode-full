@@ -331,6 +331,12 @@ import org.hibernate.annotations.FilterDefs;
 			
 		return builder.toString();
 	}
+	
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
 «ENDDEFINE»
 
 «DEFINE genEmbeddedAndAssociatedSearch FOR uml::Property»
@@ -492,7 +498,7 @@ import org.hibernate.annotations.FilterDefs;
 «DEFINE genDecl FOR wcprofile::DerivedFormula»
 	
 «ENDDEFINE»
-
+a
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
@@ -515,9 +521,13 @@ import org.hibernate.annotations.FilterDefs;
 		«IF type.name != class.name && class.isFullTextSearchable()»@IndexedEmbedded«ENDIF»
 		«ENDIF»
 		private Set<«type.fqnForPackage(this.class)»> «name» = new HashSet<«type.fqnForPackage(this.class)»>();
-		«IF !opposite.isMultivalued()»
+		«IF !opposite.isMultivalued() || isManyToMany()»
 		public void add«name.toFirstUpper().getSingular()» («type.fqnForPackage(this.class)» «name.getSingular()»){
-			«name.getSingular()».set«opposite.name.toFirstUpper()»(this);
+			«IF !isManyToMany()»
+			 «name.getSingular()».set«opposite.name.toFirstUpper()»(this);
+			«ELSE»
+			 «name.getSingular()».add«opposite.name.getSingular().toFirstUpper()»(this);
+			«ENDIF»
 			this.«name».add(«name.getSingular()»);
 		}
 		
@@ -694,6 +704,9 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 «DEFINE genPersistenceImports FOR uml::Class»
 	import javax.persistence.*;
 	import org.hibernate.validator.*;
+	
+	import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+	import org.apache.commons.lang.builder.ToStringStyle;
 	
 	import org.apache.solr.analysis.LowerCaseFilterFactory;
 	import org.apache.solr.analysis.SnowballPorterFilterFactory;

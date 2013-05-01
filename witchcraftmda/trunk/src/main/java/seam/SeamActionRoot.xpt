@@ -102,9 +102,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 	«ENDIF»
 	«ENDFOREACH»
 	
-
-	//@DataModel
-	//private List<«name»> «asVar()»RecordList;	
+	
+	«IF getAppliedStereotype("wcprofile::SystemUser") != null && defaultRole != null»
+		public static final String DEFAULT_ROLE_NAME = "«defaultRole»"; 
+	«ENDIF»
 	
 	public void set«name»Id(Long id) {
 		if(id == 0){
