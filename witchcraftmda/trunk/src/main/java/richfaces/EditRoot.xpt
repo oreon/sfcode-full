@@ -465,19 +465,21 @@
 «ELSE-»
 <«getTextControl()» «getEscape()» 
 	 «IF type.name == "largeText"»
-	 	«IF isCurrentEditMode()» useSeamText="true"  «ENDIF»
+	 	 useSeamText="true" 
 	 «ENDIF»  
 	 «IF isColumn() && secret»
-	 	«IF isCurrentEditMode()»  redisplay="true" «ENDIF»
+	 	 redisplay="true" 
 	 «ENDIF»  
 	 «IF isType("Date")»  direction="auto" «ENDIF»
 	  
-	 
-	 id="«getId()»#{entityId}"  rendered="#{«isCurrentEditMode()?genEditPermission():genViewPermission()»}"  
+	 id="«getId()»#{entityId}"  rendered="#{«genEditPermission()»}"  
 	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"" + " disabled=\"" + getDisabled() + "\"" :""
 	 » 
 	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
-	 «IF isCurrentEditMode()» «genAjaxValidator()» «ENDIF»
+	  «genAjaxValidator()»
+	   «IF isCurrency()»
+	   	<f:converter converterId="javax.faces.BigDecimal"/>
+	   «ENDIF»
 </«getTextControl()»>
 «ENDIF»
 «ENDDEFINE»
