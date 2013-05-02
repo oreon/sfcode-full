@@ -53,9 +53,6 @@ public abstract class ConditionFindingActionBase
 	@In(create = true, value = "diseaseAction")
 	com.oreon.cerebrum.web.action.ddx.DiseaseAction diseaseAction;
 
-	//@DataModel
-	//private List<ConditionFinding> conditionFindingRecordList;	
-
 	public void setConditionFindingId(Long id) {
 		if (id == 0) {
 			clearInstance();

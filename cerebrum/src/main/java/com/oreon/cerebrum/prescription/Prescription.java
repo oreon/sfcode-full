@@ -71,7 +71,9 @@ public class Prescription extends BaseEntity implements java.io.Serializable {
 	private Set<PrescriptionItem> prescriptionItems = new HashSet<PrescriptionItem>();
 
 	public void addPrescriptionItem(PrescriptionItem prescriptionItem) {
+
 		prescriptionItem.setPrescription(this);
+
 		this.prescriptionItems.add(prescriptionItem);
 	}
 

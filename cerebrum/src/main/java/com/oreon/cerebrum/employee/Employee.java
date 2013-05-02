@@ -83,7 +83,9 @@ public class Employee extends com.oreon.cerebrum.patient.Person
 
 	public void addUnusualOccurence(
 			com.oreon.cerebrum.unusualoccurences.UnusualOccurence unusualOccurence) {
+
 		unusualOccurence.setCreatedBy(this);
+
 		this.unusualOccurences.add(unusualOccurence);
 	}
 

@@ -50,9 +50,6 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 	//@DataModelSelection
 	private Service service;
 
-	//@DataModel
-	//private List<Service> serviceRecordList;	
-
 	public void setServiceId(Long id) {
 		if (id == 0) {
 			clearInstance();

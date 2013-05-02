@@ -56,9 +56,6 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	//@DataModel
-	//private List<VitalValue> vitalValueRecordList;	
-
 	public void setVitalValueId(Long id) {
 		if (id == 0) {
 			clearInstance();

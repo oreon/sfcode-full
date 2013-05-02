@@ -85,7 +85,9 @@ public class Disease extends BaseEntity implements java.io.Serializable {
 	private Set<Disease> differentialDiagnoses = new HashSet<Disease>();
 
 	public void addDifferentialDiagnose(Disease differentialDiagnose) {
+
 		differentialDiagnose.setRelatedDisease(this);
+
 		this.differentialDiagnoses.add(differentialDiagnose);
 	}
 

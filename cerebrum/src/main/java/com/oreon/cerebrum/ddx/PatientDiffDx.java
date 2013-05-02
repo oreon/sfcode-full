@@ -71,7 +71,9 @@ public class PatientDiffDx extends BaseEntity implements java.io.Serializable {
 	private Set<PatientFinding> patientFindings = new HashSet<PatientFinding>();
 
 	public void addPatientFinding(PatientFinding patientFinding) {
+
 		patientFinding.setPatientDiffDx(this);
+
 		this.patientFindings.add(patientFinding);
 	}
 

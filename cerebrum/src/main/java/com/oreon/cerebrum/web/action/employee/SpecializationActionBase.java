@@ -50,9 +50,6 @@ public abstract class SpecializationActionBase
 	//@DataModelSelection
 	private Specialization specialization;
 
-	//@DataModel
-	//private List<Specialization> specializationRecordList;	
-
 	public void setSpecializationId(Long id) {
 		if (id == 0) {
 			clearInstance();

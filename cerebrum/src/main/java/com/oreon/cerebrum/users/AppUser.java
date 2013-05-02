@@ -93,6 +93,21 @@ public class AppUser extends BaseEntity implements java.io.Serializable {
 	@JoinTable(name = "appUsers_appRoles", joinColumns = @JoinColumn(name = "appUsers_ID"), inverseJoinColumns = @JoinColumn(name = "appRoles_ID"))
 	private Set<AppRole> appRoles = new HashSet<AppRole>();
 
+	public void addAppRole(AppRole appRole) {
+		//appRole.addAppUser(this);
+		this.appRoles.add(appRole);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.users.AppRole> getListAppRoles() {
+		return new ArrayList<com.oreon.cerebrum.users.AppRole>(appRoles);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getAppRolesCount() {
+		return appRoles.size();
+	}
+
 	@NotNull
 	@Length(min = 1, max = 250)
 	@Column(unique = true)

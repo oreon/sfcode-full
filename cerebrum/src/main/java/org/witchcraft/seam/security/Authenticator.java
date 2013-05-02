@@ -55,7 +55,7 @@ public class Authenticator {
 			
 			if(!user.getEnabled()){
 				//add message not enalbed
-				return false;
+				//return false;
 			}
 
 			if (user.getAppRoles() != null) {

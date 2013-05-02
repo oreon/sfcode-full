@@ -50,9 +50,6 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 	//@DataModelSelection
 	private RoomType roomType;
 
-	//@DataModel
-	//private List<RoomType> roomTypeRecordList;	
-
 	public void setRoomTypeId(Long id) {
 		if (id == 0) {
 			clearInstance();

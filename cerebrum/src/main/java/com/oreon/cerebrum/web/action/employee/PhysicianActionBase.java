@@ -28,6 +28,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.Component;
 import org.jboss.seam.security.Identity;
+import org.jboss.seam.security.permission.PermissionCheck;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
@@ -53,10 +54,12 @@ public abstract class PhysicianActionBase extends BaseAction<Physician>
 	@In(create = true, value = "specializationAction")
 	com.oreon.cerebrum.web.action.employee.SpecializationAction specializationAction;
 
-	//@DataModel
-	//private List<Physician> physicianRecordList;	
+	public static final String DEFAULT_ROLE_NAME = "physician";
 
 	public void setPhysicianId(Long id) {
+		
+		//PermissionCheck pc;
+		
 		if (id == 0) {
 			clearInstance();
 			clearLists();
@@ -196,6 +199,10 @@ public abstract class PhysicianActionBase extends BaseAction<Physician>
 		String query = "Select e from Physician e where e.appUser.userName = ?1";
 		return (Physician) executeSingleResultQuery(query, Identity.instance()
 				.getCredentials().getUsername());
+	}
+	
+	public String getDefaultRoleName(){
+		return DEFAULT_ROLE_NAME;
 	}
 
 	public String viewPhysician() {

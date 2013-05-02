@@ -56,9 +56,6 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	@In(create = true, value = "bedAction")
 	com.oreon.cerebrum.web.action.facility.BedAction bedAction;
 
-	//@DataModel
-	//private List<BedStay> bedStayRecordList;	
-
 	public void setBedStayId(Long id) {
 		if (id == 0) {
 			clearInstance();

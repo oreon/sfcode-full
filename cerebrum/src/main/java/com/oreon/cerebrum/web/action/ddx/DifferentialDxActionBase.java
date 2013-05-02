@@ -56,9 +56,6 @@ public abstract class DifferentialDxActionBase
 	@In(create = true, value = "findingAction")
 	com.oreon.cerebrum.web.action.ddx.FindingAction findingAction;
 
-	//@DataModel
-	//private List<DifferentialDx> differentialDxRecordList;	
-
 	public void setDifferentialDxId(Long id) {
 		if (id == 0) {
 			clearInstance();

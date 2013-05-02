@@ -59,9 +59,6 @@ public abstract class PrescriptionItemActionBase
 	@In(create = true, value = "frequencyAction")
 	com.oreon.cerebrum.web.action.prescription.FrequencyAction frequencyAction;
 
-	//@DataModel
-	//private List<PrescriptionItem> prescriptionItemRecordList;	
-
 	public void setPrescriptionItemId(Long id) {
 		if (id == 0) {
 			clearInstance();

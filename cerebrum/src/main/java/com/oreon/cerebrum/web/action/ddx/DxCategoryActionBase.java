@@ -50,9 +50,6 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 	//@DataModelSelection
 	private DxCategory dxCategory;
 
-	//@DataModel
-	//private List<DxCategory> dxCategoryRecordList;	
-
 	public void setDxCategoryId(Long id) {
 		if (id == 0) {
 			clearInstance();

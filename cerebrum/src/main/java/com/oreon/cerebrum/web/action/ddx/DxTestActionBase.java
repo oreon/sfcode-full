@@ -50,9 +50,6 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	//@DataModelSelection
 	private DxTest dxTest;
 
-	//@DataModel
-	//private List<DxTest> dxTestRecordList;	
-
 	public void setDxTestId(Long id) {
 		if (id == 0) {
 			clearInstance();

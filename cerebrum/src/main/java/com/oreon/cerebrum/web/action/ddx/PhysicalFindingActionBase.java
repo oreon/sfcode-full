@@ -50,9 +50,6 @@ public abstract class PhysicalFindingActionBase
 	//@DataModelSelection
 	private PhysicalFinding physicalFinding;
 
-	//@DataModel
-	//private List<PhysicalFinding> physicalFindingRecordList;	
-
 	public void setPhysicalFindingId(Long id) {
 		if (id == 0) {
 			clearInstance();

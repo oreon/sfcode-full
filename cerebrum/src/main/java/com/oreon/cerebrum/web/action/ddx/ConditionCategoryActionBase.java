@@ -50,9 +50,6 @@ public abstract class ConditionCategoryActionBase
 	//@DataModelSelection
 	private ConditionCategory conditionCategory;
 
-	//@DataModel
-	//private List<ConditionCategory> conditionCategoryRecordList;	
-
 	public void setConditionCategoryId(Long id) {
 		if (id == 0) {
 			clearInstance();

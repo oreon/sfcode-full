@@ -53,9 +53,6 @@ public abstract class PatientDocumentActionBase
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	//@DataModel
-	//private List<PatientDocument> patientDocumentRecordList;	
-
 	public void setPatientDocumentId(Long id) {
 		if (id == 0) {
 			clearInstance();

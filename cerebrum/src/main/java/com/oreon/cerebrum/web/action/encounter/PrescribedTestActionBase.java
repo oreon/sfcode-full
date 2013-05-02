@@ -56,9 +56,6 @@ public abstract class PrescribedTestActionBase
 	@In(create = true, value = "encounterAction")
 	com.oreon.cerebrum.web.action.encounter.EncounterAction encounterAction;
 
-	//@DataModel
-	//private List<PrescribedTest> prescribedTestRecordList;	
-
 	public void setPrescribedTestId(Long id) {
 		if (id == 0) {
 			clearInstance();

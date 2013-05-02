@@ -79,6 +79,22 @@ public class AppRole extends BaseEntity implements java.io.Serializable {
 	@ManyToMany(mappedBy = "appRoles")
 	private Set<AppUser> appUsers = new HashSet<AppUser>();
 
+	public void addAppUser(AppUser appUser) {
+
+		//appUser.addAppRole(this);
+		this.appUsers.add(appUser);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.users.AppUser> getListAppUsers() {
+		return new ArrayList<com.oreon.cerebrum.users.AppUser>(appUsers);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getAppUsersCount() {
+		return appUsers.size();
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

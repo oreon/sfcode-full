@@ -50,9 +50,6 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 	//@DataModelSelection
 	private Vaccine vaccine;
 
-	//@DataModel
-	//private List<Vaccine> vaccineRecordList;	
-
 	public void setVaccineId(Long id) {
 		if (id == 0) {
 			clearInstance();

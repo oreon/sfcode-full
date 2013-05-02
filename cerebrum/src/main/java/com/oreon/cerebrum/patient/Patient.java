@@ -73,7 +73,9 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	private Set<Admission> admissions = new HashSet<Admission>();
 
 	public void addAdmission(Admission admission) {
+
 		admission.setPatient(this);
+
 		this.admissions.add(admission);
 	}
 
@@ -94,7 +96,9 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	public void addPrescription(
 			com.oreon.cerebrum.prescription.Prescription prescription) {
+
 		prescription.setPatient(this);
+
 		this.prescriptions.add(prescription);
 	}
 
@@ -130,7 +134,9 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	public void addUnusualOccurence(
 			com.oreon.cerebrum.unusualoccurences.UnusualOccurence unusualOccurence) {
+
 		unusualOccurence.setPatient(this);
+
 		this.unusualOccurences.add(unusualOccurence);
 	}
 
@@ -151,7 +157,9 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	private Set<PatientDocument> patientDocuments = new HashSet<PatientDocument>();
 
 	public void addPatientDocument(PatientDocument patientDocument) {
+
 		patientDocument.setPatient(this);
+
 		this.patientDocuments.add(patientDocument);
 	}
 
@@ -172,7 +180,9 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	private Set<Allergy> allergys = new HashSet<Allergy>();
 
 	public void addAllergy(Allergy allergy) {
+
 		allergy.setPatient(this);
+
 		this.allergys.add(allergy);
 	}
 
@@ -192,7 +202,9 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	private Set<Immunization> immunizations = new HashSet<Immunization>();
 
 	public void addImmunization(Immunization immunization) {
+
 		immunization.setPatient(this);
+
 		this.immunizations.add(immunization);
 	}
 
@@ -220,7 +232,9 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	private Set<VitalValue> vitalValues = new HashSet<VitalValue>();
 
 	public void addVitalValue(VitalValue vitalValue) {
+
 		vitalValue.setPatient(this);
+
 		this.vitalValues.add(vitalValue);
 	}
 
@@ -256,7 +270,9 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 	private Set<com.oreon.cerebrum.encounter.Encounter> encounters = new HashSet<com.oreon.cerebrum.encounter.Encounter>();
 
 	public void addEncounter(com.oreon.cerebrum.encounter.Encounter encounter) {
+
 		encounter.setPatient(this);
+
 		this.encounters.add(encounter);
 	}
 

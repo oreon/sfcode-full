@@ -58,9 +58,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	@In(create = true, value = "bedAction")
 	com.oreon.cerebrum.web.action.facility.BedAction bedAction;
 
-	//@DataModel
-	//private List<Admission> admissionRecordList;	
-
 	public void setAdmissionId(Long id) {
 		if (id == 0) {
 			clearInstance();

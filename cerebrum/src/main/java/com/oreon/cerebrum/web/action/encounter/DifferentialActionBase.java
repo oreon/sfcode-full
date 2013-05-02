@@ -53,9 +53,6 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	@In(create = true, value = "encounterAction")
 	com.oreon.cerebrum.web.action.encounter.EncounterAction encounterAction;
 
-	//@DataModel
-	//private List<Differential> differentialRecordList;	
-
 	public void setDifferentialId(Long id) {
 		if (id == 0) {
 			clearInstance();

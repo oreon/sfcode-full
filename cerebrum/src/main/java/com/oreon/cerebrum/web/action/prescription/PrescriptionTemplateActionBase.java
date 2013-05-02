@@ -52,9 +52,6 @@ public abstract class PrescriptionTemplateActionBase
 	//@DataModelSelection
 	private PrescriptionTemplate prescriptionTemplate;
 
-	//@DataModel
-	//private List<PrescriptionTemplate> prescriptionTemplateRecordList;	
-
 	public void setPrescriptionTemplateId(Long id) {
 		if (id == 0) {
 			clearInstance();

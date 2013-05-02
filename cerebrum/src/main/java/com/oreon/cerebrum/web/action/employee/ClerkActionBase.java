@@ -50,9 +50,6 @@ public abstract class ClerkActionBase extends BaseAction<Clerk>
 	//@DataModelSelection
 	private Clerk clerk;
 
-	//@DataModel
-	//private List<Clerk> clerkRecordList;	
-
 	public void setClerkId(Long id) {
 		if (id == 0) {
 			clearInstance();

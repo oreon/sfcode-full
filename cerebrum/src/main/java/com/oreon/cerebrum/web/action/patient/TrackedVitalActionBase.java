@@ -50,9 +50,6 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	//@DataModelSelection
 	private TrackedVital trackedVital;
 
-	//@DataModel
-	//private List<TrackedVital> trackedVitalRecordList;	
-
 	public void setTrackedVitalId(Long id) {
 		if (id == 0) {
 			clearInstance();

@@ -55,9 +55,6 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	//@DataModel
-	//private List<Prescription> prescriptionRecordList;	
-
 	public void setPrescriptionId(Long id) {
 		if (id == 0) {
 			clearInstance();

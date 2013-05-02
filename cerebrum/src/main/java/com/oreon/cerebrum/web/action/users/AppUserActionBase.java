@@ -50,9 +50,6 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 	//@DataModelSelection
 	private AppUser appUser;
 
-	//@DataModel
-	//private List<AppUser> appUserRecordList;	
-
 	public void setAppUserId(Long id) {
 		if (id == 0) {
 			clearInstance();

@@ -88,7 +88,9 @@ public class Admission extends BaseEntity implements java.io.Serializable {
 	private Set<BedStay> bedStays = new HashSet<BedStay>();
 
 	public void addBedStay(BedStay bedStay) {
+
 		bedStay.setAdmission(this);
+
 		this.bedStays.add(bedStay);
 	}
 

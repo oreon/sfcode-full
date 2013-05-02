@@ -85,7 +85,9 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	private Set<PrescribedTest> prescribedTests = new HashSet<PrescribedTest>();
 
 	public void addPrescribedTest(PrescribedTest prescribedTest) {
+
 		prescribedTest.setEncounter(this);
+
 		this.prescribedTests.add(prescribedTest);
 	}
 
@@ -136,7 +138,9 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	private Set<Differential> differentials = new HashSet<Differential>();
 
 	public void addDifferential(Differential differential) {
+
 		differential.setEncounter(this);
+
 		this.differentials.add(differential);
 	}
 
