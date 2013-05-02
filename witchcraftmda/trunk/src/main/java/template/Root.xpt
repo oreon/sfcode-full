@@ -525,8 +525,7 @@ a
 		public void add«name.toFirstUpper().getSingular()» («type.fqnForPackage(this.class)» «name.getSingular()»){
 			«IF !isManyToMany()»
 			 «name.getSingular()».set«opposite.name.toFirstUpper()»(this);
-			«ELSE»
-			 «name.getSingular()».add«opposite.name.getSingular().toFirstUpper()»(this);
+			
 			«ENDIF»
 			this.«name».add(«name.getSingular()»);
 		}
