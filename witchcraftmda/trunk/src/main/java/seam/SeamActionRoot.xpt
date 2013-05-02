@@ -336,6 +336,10 @@ public abstract class «name»ActionBase extends «getFirstParent() == null || getF
 			String query = "Select e from «name» e where e.appUser.userName = ?1";
 			return («name») executeSingleResultQuery(query, Identity.instance().getCredentials().getUsername());
 		}
+		
+		public String getDefaultRoleName(){
+			return DEFAULT_ROLE_NAME;
+		}
 	«ENDIF»
 	
 	public String view«name»(){
