@@ -52,9 +52,6 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	//@DataModelSelection
 	private Facility facility;
 
-	//@DataModel
-	//private List<Facility> facilityRecordList;	
-
 	public void setFacilityId(Long id) {
 		if (id == 0) {
 			clearInstance();

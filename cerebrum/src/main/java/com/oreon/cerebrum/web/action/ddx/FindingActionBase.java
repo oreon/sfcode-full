@@ -52,9 +52,6 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 	//@DataModelSelection
 	private Finding finding;
 
-	//@DataModel
-	//private List<Finding> findingRecordList;	
-
 	public void setFindingId(Long id) {
 		if (id == 0) {
 			clearInstance();

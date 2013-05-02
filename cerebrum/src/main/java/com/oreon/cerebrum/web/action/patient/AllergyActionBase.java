@@ -56,9 +56,6 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	@In(create = true, value = "allergenAction")
 	com.oreon.cerebrum.web.action.patient.AllergenAction allergenAction;
 
-	//@DataModel
-	//private List<Allergy> allergyRecordList;	
-
 	public void setAllergyId(Long id) {
 		if (id == 0) {
 			clearInstance();

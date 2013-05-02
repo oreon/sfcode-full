@@ -87,7 +87,9 @@ public class AtcDrug extends BaseEntity implements java.io.Serializable {
 	private Set<AtcDrug> subcategories = new HashSet<AtcDrug>();
 
 	public void addSubcategorie(AtcDrug subcategorie) {
+
 		subcategorie.setParent(this);
+
 		this.subcategories.add(subcategorie);
 	}
 

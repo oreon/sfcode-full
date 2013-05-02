@@ -80,7 +80,9 @@ public class Finding extends BaseEntity implements java.io.Serializable {
 	private Set<DifferentialDx> differentialDxs = new HashSet<DifferentialDx>();
 
 	public void addDifferentialDx(DifferentialDx differentialDx) {
+
 		differentialDx.setFinding(this);
+
 		this.differentialDxs.add(differentialDx);
 	}
 

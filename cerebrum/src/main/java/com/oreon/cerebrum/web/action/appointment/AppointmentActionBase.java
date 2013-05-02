@@ -56,9 +56,6 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	//@DataModel
-	//private List<Appointment> appointmentRecordList;	
-
 	public void setAppointmentId(Long id) {
 		if (id == 0) {
 			clearInstance();

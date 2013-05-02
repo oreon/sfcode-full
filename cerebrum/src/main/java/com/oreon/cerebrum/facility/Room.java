@@ -71,7 +71,9 @@ public class Room extends BaseEntity implements java.io.Serializable {
 	private Set<Bed> beds = new HashSet<Bed>();
 
 	public void addBed(Bed bed) {
+
 		bed.setRoom(this);
+
 		this.beds.add(bed);
 	}
 

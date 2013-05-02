@@ -31,7 +31,22 @@ then
   $c.grant();
 end
 
+//only users with no tenant id (super-mgt ) users can edit facilty 
+rule "CanEditFacility"
+salience  10
+activation-group "view"
+no-loop 
+when
+  $principal: Principal()
+  $c : PermissionCheck(target == "physician" && action == "editFacility")
+  $r : Role(name == "admin" || name == "support")
+then
+  System.out.println("viewpres " + $c.getTarget() + " " + $r.getName() ); 
+  $c.grant();
+end
 
+
+//include the fields that need to be permission checked here 
 rule "CanNonAdminDoEverything"
 salience 3
 activation-group "view"
@@ -39,7 +54,7 @@ no-loop
 //dialect "java"
 when
   $principal: Principal()
-  $c : PermissionCheck( target != "id" &&  target != "prescriptionPackage" )
+  $c : PermissionCheck( target != "id" &&  target != "prescriptionPackage"   && action != "editFacility")
 then
   $c.grant();
   //System.out.println("nonadmin " + $c.getTarget() + " "  ); 

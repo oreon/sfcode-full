@@ -50,9 +50,6 @@ public abstract class TechnicianActionBase extends BaseAction<Technician>
 	//@DataModelSelection
 	private Technician technician;
 
-	//@DataModel
-	//private List<Technician> technicianRecordList;	
-
 	public void setTechnicianId(Long id) {
 		if (id == 0) {
 			clearInstance();

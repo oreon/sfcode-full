@@ -50,9 +50,6 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 	//@DataModelSelection
 	private OccurenceType occurenceType;
 
-	//@DataModel
-	//private List<OccurenceType> occurenceTypeRecordList;	
-
 	public void setOccurenceTypeId(Long id) {
 		if (id == 0) {
 			clearInstance();

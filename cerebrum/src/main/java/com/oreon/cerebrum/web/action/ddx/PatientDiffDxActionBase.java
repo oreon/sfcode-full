@@ -55,9 +55,6 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	//@DataModel
-	//private List<PatientDiffDx> patientDiffDxRecordList;	
-
 	public void setPatientDiffDxId(Long id) {
 		if (id == 0) {
 			clearInstance();

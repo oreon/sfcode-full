@@ -61,9 +61,6 @@ public abstract class PrescriptionItemTemplateActionBase
 	@In(create = true, value = "prescriptionTemplateAction")
 	com.oreon.cerebrum.web.action.prescription.PrescriptionTemplateAction prescriptionTemplateAction;
 
-	//@DataModel
-	//private List<PrescriptionItemTemplate> prescriptionItemTemplateRecordList;	
-
 	public void setPrescriptionItemTemplateId(Long id) {
 		if (id == 0) {
 			clearInstance();

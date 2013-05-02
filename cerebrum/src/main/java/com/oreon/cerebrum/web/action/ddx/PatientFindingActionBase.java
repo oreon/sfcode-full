@@ -56,9 +56,6 @@ public abstract class PatientFindingActionBase
 	@In(create = true, value = "patientDiffDxAction")
 	com.oreon.cerebrum.web.action.ddx.PatientDiffDxAction patientDiffDxAction;
 
-	//@DataModel
-	//private List<PatientFinding> patientFindingRecordList;	
-
 	public void setPatientFindingId(Long id) {
 		if (id == 0) {
 			clearInstance();

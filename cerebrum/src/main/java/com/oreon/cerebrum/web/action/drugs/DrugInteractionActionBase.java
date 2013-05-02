@@ -56,9 +56,6 @@ public abstract class DrugInteractionActionBase
 	@In(create = true, value = "drugAction")
 	com.oreon.cerebrum.web.action.drugs.DrugAction interactingDrugAction;
 
-	//@DataModel
-	//private List<DrugInteraction> drugInteractionRecordList;	
-
 	public void setDrugInteractionId(Long id) {
 		if (id == 0) {
 			clearInstance();

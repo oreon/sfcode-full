@@ -53,8 +53,7 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 	@In(create = true, value = "nurseSpecialtyAction")
 	com.oreon.cerebrum.web.action.employee.NurseSpecialtyAction nurseSpecialtyAction;
 
-	//@DataModel
-	//private List<Nurse> nurseRecordList;	
+	public static final String DEFAULT_ROLE_NAME = "nurse";
 
 	public void setNurseId(Long id) {
 		if (id == 0) {

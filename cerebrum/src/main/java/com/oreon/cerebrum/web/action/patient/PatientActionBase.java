@@ -85,9 +85,6 @@ public abstract class PatientActionBase
 	@In(create = true, value = "encounterAction")
 	com.oreon.cerebrum.web.action.encounter.EncounterAction encountersAction;
 
-	//@DataModel
-	//private List<Patient> patientRecordList;	
-
 	public void setPatientId(Long id) {
 		if (id == 0) {
 			clearInstance();

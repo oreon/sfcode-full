@@ -56,9 +56,6 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	@In(create = true, value = "vaccineAction")
 	com.oreon.cerebrum.web.action.patient.VaccineAction vaccineAction;
 
-	//@DataModel
-	//private List<Immunization> immunizationRecordList;	
-
 	public void setImmunizationId(Long id) {
 		if (id == 0) {
 			clearInstance();

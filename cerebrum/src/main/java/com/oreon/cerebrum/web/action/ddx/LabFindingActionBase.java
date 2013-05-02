@@ -50,9 +50,6 @@ public abstract class LabFindingActionBase extends BaseAction<LabFinding>
 	//@DataModelSelection
 	private LabFinding labFinding;
 
-	//@DataModel
-	//private List<LabFinding> labFindingRecordList;	
-
 	public void setLabFindingId(Long id) {
 		if (id == 0) {
 			clearInstance();

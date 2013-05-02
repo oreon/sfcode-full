@@ -50,9 +50,6 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 	//@DataModelSelection
 	private AppRole appRole;
 
-	//@DataModel
-	//private List<AppRole> appRoleRecordList;	
-
 	public void setAppRoleId(Long id) {
 		if (id == 0) {
 			clearInstance();

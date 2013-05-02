@@ -182,7 +182,9 @@ public class Drug extends BaseEntity implements java.io.Serializable {
 	private Set<DrugInteraction> drugInteractions = new HashSet<DrugInteraction>();
 
 	public void addDrugInteraction(DrugInteraction drugInteraction) {
+
 		drugInteraction.setDrug(this);
+
 		this.drugInteractions.add(drugInteraction);
 	}
 
@@ -199,6 +201,24 @@ public class Drug extends BaseEntity implements java.io.Serializable {
 
 	@ManyToMany(mappedBy = "drugs")
 	private Set<DrugCategory> drugCategorys = new HashSet<DrugCategory>();
+
+	public void addDrugCategory(DrugCategory drugCategory) {
+
+		drugCategory.addDrug(this);
+
+		this.drugCategorys.add(drugCategory);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.drugs.DrugCategory> getListDrugCategorys() {
+		return new ArrayList<com.oreon.cerebrum.drugs.DrugCategory>(
+				drugCategorys);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getDrugCategorysCount() {
+		return drugCategorys.size();
+	}
 
 	@Lob
 	@Column(unique = false)

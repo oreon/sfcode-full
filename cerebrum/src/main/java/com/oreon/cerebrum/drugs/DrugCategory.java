@@ -78,6 +78,23 @@ public class DrugCategory extends BaseEntity implements java.io.Serializable {
 	@JoinTable(name = "drugCategorys_drugs", joinColumns = @JoinColumn(name = "drugCategorys_ID"), inverseJoinColumns = @JoinColumn(name = "drugs_ID"))
 	private Set<Drug> drugs = new HashSet<Drug>();
 
+	public void addDrug(Drug drug) {
+
+		drug.addDrugCategory(this);
+
+		this.drugs.add(drug);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.drugs.Drug> getListDrugs() {
+		return new ArrayList<com.oreon.cerebrum.drugs.Drug>(drugs);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getDrugsCount() {
+		return drugs.size();
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -78,7 +78,9 @@ public class Facility extends BaseEntity implements java.io.Serializable {
 	private Set<Ward> wards = new HashSet<Ward>();
 
 	public void addWard(Ward ward) {
+
 		ward.setFacility(this);
+
 		this.wards.add(ward);
 	}
 

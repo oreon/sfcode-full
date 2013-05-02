@@ -55,9 +55,6 @@ public abstract class WardActionBase extends BaseAction<Ward>
 	@In(create = true, value = "facilityAction")
 	com.oreon.cerebrum.web.action.facility.FacilityAction facilityAction;
 
-	//@DataModel
-	//private List<Ward> wardRecordList;	
-
 	public void setWardId(Long id) {
 		if (id == 0) {
 			clearInstance();

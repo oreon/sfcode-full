@@ -61,9 +61,6 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	@In(create = true, value = "diseaseAction")
 	com.oreon.cerebrum.web.action.ddx.DiseaseAction differentialDiagnosesAction;
 
-	//@DataModel
-	//private List<Disease> diseaseRecordList;	
-
 	public void setDiseaseId(Long id) {
 		if (id == 0) {
 			clearInstance();

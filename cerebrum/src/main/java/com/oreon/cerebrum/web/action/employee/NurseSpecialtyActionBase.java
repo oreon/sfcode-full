@@ -50,9 +50,6 @@ public abstract class NurseSpecialtyActionBase
 	//@DataModelSelection
 	private NurseSpecialty nurseSpecialty;
 
-	//@DataModel
-	//private List<NurseSpecialty> nurseSpecialtyRecordList;	
-
 	public void setNurseSpecialtyId(Long id) {
 		if (id == 0) {
 			clearInstance();

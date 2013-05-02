@@ -59,9 +59,6 @@ public abstract class UnusualOccurenceActionBase
 	@In(create = true, value = "employeeAction")
 	com.oreon.cerebrum.web.action.employee.EmployeeAction createdByAction;
 
-	//@DataModel
-	//private List<UnusualOccurence> unusualOccurenceRecordList;	
-
 	public void setUnusualOccurenceId(Long id) {
 		if (id == 0) {
 			clearInstance();

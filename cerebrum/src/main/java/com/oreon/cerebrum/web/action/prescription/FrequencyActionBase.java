@@ -50,9 +50,6 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 	//@DataModelSelection
 	private Frequency frequency;
 
-	//@DataModel
-	//private List<Frequency> frequencyRecordList;	
-
 	public void setFrequencyId(Long id) {
 		if (id == 0) {
 			clearInstance();

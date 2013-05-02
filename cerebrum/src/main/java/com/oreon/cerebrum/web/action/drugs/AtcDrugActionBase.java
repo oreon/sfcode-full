@@ -58,9 +58,6 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	@In(create = true, value = "atcDrugAction")
 	com.oreon.cerebrum.web.action.drugs.AtcDrugAction parentAction;
 
-	//@DataModel
-	//private List<AtcDrug> atcDrugRecordList;	
-
 	public void setAtcDrugId(Long id) {
 		if (id == 0) {
 			clearInstance();

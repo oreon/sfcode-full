@@ -71,7 +71,9 @@ public class Invoice extends BaseEntity implements java.io.Serializable {
 	private Set<InvoiceItem> invoiceItems = new HashSet<InvoiceItem>();
 
 	public void addInvoiceItem(InvoiceItem invoiceItem) {
+
 		invoiceItem.setInvoice(this);
+
 		this.invoiceItems.add(invoiceItem);
 	}
 

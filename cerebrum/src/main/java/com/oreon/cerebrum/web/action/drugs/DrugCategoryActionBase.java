@@ -50,9 +50,6 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 	//@DataModelSelection
 	private DrugCategory drugCategory;
 
-	//@DataModel
-	//private List<DrugCategory> drugCategoryRecordList;	
-
 	public void setDrugCategoryId(Long id) {
 		if (id == 0) {
 			clearInstance();

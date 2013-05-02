@@ -50,9 +50,6 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 	//@DataModelSelection
 	private Allergen allergen;
 
-	//@DataModel
-	//private List<Allergen> allergenRecordList;	
-
 	public void setAllergenId(Long id) {
 		if (id == 0) {
 			clearInstance();

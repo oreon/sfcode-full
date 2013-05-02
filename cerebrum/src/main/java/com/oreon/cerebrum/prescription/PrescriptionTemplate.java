@@ -91,7 +91,9 @@ public class PrescriptionTemplate extends BaseEntity
 
 	public void addPrescriptionItemTemplate(
 			PrescriptionItemTemplate prescriptionItemTemplate) {
+
 		prescriptionItemTemplate.setPrescriptionTemplate(this);
+
 		this.prescriptionItemTemplates.add(prescriptionItemTemplate);
 	}
 

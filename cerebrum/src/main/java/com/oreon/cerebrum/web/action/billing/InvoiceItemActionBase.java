@@ -56,9 +56,6 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 	@In(create = true, value = "invoiceAction")
 	com.oreon.cerebrum.web.action.billing.InvoiceAction invoiceAction;
 
-	//@DataModel
-	//private List<InvoiceItem> invoiceItemRecordList;	
-
 	public void setInvoiceItemId(Long id) {
 		if (id == 0) {
 			clearInstance();
