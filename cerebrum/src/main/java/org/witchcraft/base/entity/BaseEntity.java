@@ -33,50 +33,45 @@ import com.oreon.cerebrum.web.action.employee.EmployeeAction;
 
 //import com.oreon.trkincidents.users.User;
 
-
-
-
 @MappedSuperclass
-@EntityListeners({EntityListener.class})
-public class BaseEntity implements Serializable{
+@EntityListeners( { EntityListener.class })
+public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = -2225862673125944610L;
 
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="id")
-    @DocumentId
-    private Long id;
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	@DocumentId
+	private Long id;
+
 	@Transient
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	private String searchData;
-    
-    private boolean archived;
-    
-    @Version
-    @Column(name="version")
-    transient private Long version;
-    
-    private Long tenant ;
-    
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="date_created")
-    private Date dateCreated;
-    
-    @Transient
-    private String higlightedFragment;
-    
-     
-    @ManyToOne(optional=true, fetch=FetchType.LAZY)
-    @JoinColumn(name="created_by_user_id", nullable=true)
-    private AppUser createdByUser;
-    
-    
-    @Transient
-    private String highlightedFragment;
-    
-    public void setHighlightedFragment(String highlightedFragment) {
+
+	private boolean archived;
+
+	@Version
+	@Column(name = "version")
+	transient private Long version;
+
+	private Long tenant;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "date_created")
+	private Date dateCreated;
+
+	@Transient
+	private String higlightedFragment;
+
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "created_by_user_id", nullable = true)
+	private AppUser createdByUser;
+
+	@Transient
+	private String highlightedFragment;
+
+	public void setHighlightedFragment(String highlightedFragment) {
 		this.highlightedFragment = highlightedFragment;
 	}
 
@@ -84,100 +79,92 @@ public class BaseEntity implements Serializable{
 		return highlightedFragment;
 	}
 
-	
-    
-    
-    
-    public Boolean isArchived() {
+	public Boolean isArchived() {
 		return archived;
 	}
-    
-    public Boolean getArchived(){
-    	return archived;
-    }
+
+	public Boolean getArchived() {
+		return archived;
+	}
 
 	public void setArchived(boolean archived) {
 		this.archived = archived;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-    @Column(name="date_updated")
-    private Date dateUpdated;
-    
-    public BaseEntity() {
-        super();
-    }
+	@Column(name = "date_updated")
+	private Date dateUpdated;
 
-    public Long getId() {
-        return id;
-    }
+	public BaseEntity() {
+		super();
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Long getVersion() {
-    
-        return version;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setVersion(Long version) {
-        this.version = version;
-    }
+	public Long getVersion() {
 
-    
-    public AppUser getCreatedByUser() {
-        return createdByUser;
-    }
+		return version;
+	}
 
-    public void setCreatedByUser(AppUser createdByUser) {
-        this.createdByUser = createdByUser;
-    }
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 
-    public Date getDateCreated() {
-        return dateCreated;
-    }
+	public AppUser getCreatedByUser() {
+		return createdByUser;
+	}
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+	public void setCreatedByUser(AppUser createdByUser) {
+		this.createdByUser = createdByUser;
+	}
 
-    public Date getDateUpdated() {
-        return dateUpdated;
-    }
+	public Date getDateCreated() {
+		return dateCreated;
+	}
 
-    public void setDateUpdated(Date dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-    
-    @Transient
-    public String getDisplayName(){
-    	return toString();
-    }
-   
-    
-    
-    
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(Date dateUpdated) {
+		this.dateUpdated = dateUpdated;
+	}
+
+	@Transient
+	public String getDisplayName() {
+		return toString();
+	}
+
 	public List<String> listSearchableFields() {
-    	return new ArrayList<String>();
-    }
-	
-	public String getPopupInfo(){
+		return new ArrayList<String>();
+	}
+
+	public String getPopupInfo() {
 		return getDisplayName();
 	}
-	
-	
+
 	@Override
-    public boolean equals(Object o) {
-		if(o == null || !(o instanceof BaseEntity))
+	public boolean equals(Object o) {
+		if (o == null || !(o instanceof BaseEntity))
 			return false;
-		BaseEntity entity = ((BaseEntity)o);
-		if(getId() == null || getId() == 0 || entity.getId() == null || entity.getId() == 0)
+		BaseEntity entity = ((BaseEntity) o);
+		if (getId() == null || getId() == 0 || entity.getId() == null
+				|| entity.getId() == 0)
 			return false;
-    	return this.getId() == entity.getId();
-    }
-	
-	public String getCollectionAsString(Collection<? extends BaseEntity> list){
+		return this.getId() == entity.getId();
+	}
+
+	public String getCollectionAsString(Collection<? extends BaseEntity> list) {
 		StringBuffer ret = new StringBuffer();
 		for (BaseEntity businessEntity : list) {
 			ret.append(businessEntity.getDisplayName() + "; ");
@@ -200,40 +187,30 @@ public class BaseEntity implements Serializable{
 	public String getSearchData() {
 		return searchData;
 	}
-	
+
 	public Long getTenant() {
 		return tenant;
 	}
 
-	public void setTenant( Long tenant ) {
+	public void setTenant(Long tenant) {
 		this.tenant = tenant;
 	}
-	
-/*
-	public Object onCycleDetected(Context context) {
-		return null;
-	}
 
-*/
-	
-	
-	@PrePersist //@PreUpdate
-	public void updateTenant(){
+	/*
+	 * public Object onCycleDetected(Context context) { return null; }
+	 */
+
+	@PrePersist
+	// @PreUpdate
+	public void updateTenant() {
 		if (this instanceof AppUser)
 			return;
-		
-		if(this instanceof Employee){
-			Long tenantId = ((Employee)this).getFacility().getId();
-			setTenant( tenantId);
-			((Employee)this).getAppUser().setTenant( tenantId );
-		}else{
-			EmployeeAction employeeAction = (EmployeeAction)Component.getInstance("employeeAction");
-			Employee currentEmployee = employeeAction.getCurrentLoggedInEmployee();
-			if(currentEmployee == null)
-				return;
-			setTenant( currentEmployee.getFacility().getId() );
-		}
-		
+
+		UserUtilAction userUtilAction = (UserUtilAction) Component
+				.getInstance("userUtilAction");
+
+		setTenant(userUtilAction.getCurrentTenantId());
+
 	}
-	
+
 }

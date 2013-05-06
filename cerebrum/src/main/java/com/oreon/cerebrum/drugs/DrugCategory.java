@@ -80,8 +80,6 @@ public class DrugCategory extends BaseEntity implements java.io.Serializable {
 
 	public void addDrug(Drug drug) {
 
-		drug.addDrugCategory(this);
-
 		this.drugs.add(drug);
 	}
 

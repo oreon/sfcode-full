@@ -94,7 +94,7 @@ public class AppUser extends BaseEntity implements java.io.Serializable {
 	private Set<AppRole> appRoles = new HashSet<AppRole>();
 
 	public void addAppRole(AppRole appRole) {
-		//appRole.addAppUser(this);
+
 		this.appRoles.add(appRole);
 	}
 

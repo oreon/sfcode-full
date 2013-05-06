@@ -41,7 +41,12 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-public abstract class NurseActionBase extends BaseAction<Nurse>
+import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
+
+public abstract class NurseActionBase
+		extends
+			com.oreon.cerebrum.web.action.employee.AbstractEmployeeAction<Nurse>
 		implements
 			java.io.Serializable {
 
@@ -195,6 +200,10 @@ public abstract class NurseActionBase extends BaseAction<Nurse>
 		String query = "Select e from Nurse e where e.appUser.userName = ?1";
 		return (Nurse) executeSingleResultQuery(query, Identity.instance()
 				.getCredentials().getUsername());
+	}
+
+	public String getDefaultRoleName() {
+		return DEFAULT_ROLE_NAME;
 	}
 
 	public String viewNurse() {

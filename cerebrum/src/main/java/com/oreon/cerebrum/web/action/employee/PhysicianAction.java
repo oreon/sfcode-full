@@ -2,6 +2,7 @@ package com.oreon.cerebrum.web.action.employee;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.witchcraft.base.entity.UserUtilAction;
 
 import com.oreon.cerebrum.employee.Employee;
 import com.oreon.cerebrum.employee.Physician;
@@ -15,6 +16,9 @@ public class PhysicianAction extends PhysicianActionBase implements
 
 	@In(create = true)
 	AppRoleAction appRoleAction;
+	
+	@In(create = true)
+	UserUtilAction userUtilAction;
 
 	@Override
 	public String save() {
@@ -30,16 +34,11 @@ public class PhysicianAction extends PhysicianActionBase implements
 	}
 
 	@Override
+	//add current user's facility to the newly created employee
 	protected Physician createInstance() {
 		Physician result = super.createInstance();
-		result.setFacility(getCurrentLoggedInPhysician().getFacility());
-		//addFacility();
+		result.setFacility(userUtilAction.getCurrentFacility());
 		return result;
 	}
 
-	public void addFacility() {
-
-		
-
-	}
 }

@@ -41,9 +41,14 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
+
 public abstract class PhysicalFindingActionBase
 		extends
-			BaseAction<PhysicalFinding> implements java.io.Serializable {
+			com.oreon.cerebrum.web.action.ddx.AbstractFindingAction<PhysicalFinding>
+		implements
+			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)

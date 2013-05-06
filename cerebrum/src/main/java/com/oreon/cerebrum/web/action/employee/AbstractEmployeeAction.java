@@ -1,7 +1,4 @@
-
-	
 package com.oreon.cerebrum.web.action.employee;
-	
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,21 +32,50 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
 import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.UserUtilAction;
 
 import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
+
+import com.oreon.cerebrum.users.AppRole;
+import com.oreon.cerebrum.web.action.users.AppRoleAction;
+
+public abstract class AbstractEmployeeAction<T extends com.oreon.cerebrum.employee.Employee>
+		extends
+			com.oreon.cerebrum.web.action.patient.PersonAction<T>
+		implements
+			java.io.Serializable {
 	
-//@Scope(ScopeType.CONVERSATION)
-@Name("technicianAction")
-public class TechnicianAction extends TechnicianActionBase implements java.io.Serializable{
+	@In(create = true)
+	AppRoleAction appRoleAction;
+	
+	@In(create = true)
+	UserUtilAction userUtilAction;
+	
+	abstract String getDefaultRoleName();
 
 	@Override
-	String getDefaultRoleName() {
-		// TODO fix this should be default role name
-		return "TECH";
+	public String save() {
+		if (isNew()) {
+			addRole();
+		}
+		return super.save();
 	}
-	
+
+	public void addRole() {
+		AppRole role = appRoleAction.findByUnqName(getDefaultRoleName());
+		getInstance().getAppUser().addAppRole(role);
+	}
+
+	@Override
+	//add current user's facility to the newly created employee
+	protected T createInstance() {
+		T result = super.createInstance();
+		result.setFacility(userUtilAction.getCurrentFacility());
+		return result;
+	}
 }
-	

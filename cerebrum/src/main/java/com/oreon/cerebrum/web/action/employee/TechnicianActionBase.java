@@ -41,7 +41,12 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-public abstract class TechnicianActionBase extends BaseAction<Technician>
+import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
+
+public abstract class TechnicianActionBase
+		extends
+			com.oreon.cerebrum.web.action.employee.AbstractEmployeeAction<Technician>
 		implements
 			java.io.Serializable {
 
