@@ -139,7 +139,10 @@ organizeImports="true" format="true"/>
 	<prExcludes value="*.svn-base, *.svn"/>
 	<prDefaultExcludes value="false"/>
 	<expand value="seam::SeamActionRoot::Root FOR model"/>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<outlet name="man_path" path="${srcGenPath}/" overwrite="false">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter"  />
+	</outlet>
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter"  />

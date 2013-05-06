@@ -18,6 +18,9 @@ cls.asVar() + "List";
 String getActionFqn(Class type):
 type.getWebPackageName() + "." + type.name + "Action" ;
 
+String getActionFqn(Class type, String prefix, String postFix):
+type.getWebPackageName() + "." + prefix + type.name + "Action" + postFix;
+
 String getListFqn(Class type):
 type.getWebPackageName() + "." + type.name + "ListQuery" ;
 
@@ -156,6 +159,14 @@ else if (prop.isColumn() && prop.textSize > 0 ) then
 	prop.getJSFPrefix() + ":inputText size=\"" + prop.textSize +"\""
 else	
 	prop.getJSFPrefix() + ":inputText";
+	
+//get the parent class for a web action class - for classes that derive from non  mappedsuperclass parent , we need to return special class Abstract<Parent>Base	
+String getParentForAction(Class cls):
+if(cls.hasParent())  
+ then (  cls.getFirstParentCls().isMappedSuperClass() ? cls.getFirstParentCls().getActionFqn() : cls.getFirstParentCls().getActionFqn("Abstract","") ) + cls.getGenericType(cls.getFirstParentCls()) 
+else 
+	"BaseAction<" +  cls.name + ">";
+
 	
 	
 String getOutputControl(Property prop):
@@ -319,7 +330,8 @@ getCartridge() != "RICH" ? "true" : "skipPermissionCheck == 'true' || s:hasPermi
 
 //getgeneric type for an action, for abstract classes we have to return none
 getGenericType(Class child, Class parent):
-!parent.isMappedSuperClass() ? "": "<" + child.name + ">";
+ "<" + child.name + ">";
+//!parent.isMappedSuperClass() ? "": "<" + child.name + ">";
 
 genPropertyLabel(Property prop):
 getCurrentEntity().asVar() + "." + (prop.getEmbeddableClassName()) + prop.name.toFirstLower();
@@ -345,6 +357,9 @@ getTopLevelPackage(cls).packagePath() + "/web/action/"  +  cls.package.name + "/
 getWebPackageName(Class cls, String subpackage):
 getTopLevelPackage(cls) + ".web.action." + cls.package.name +  "." + subpackage;
 
+
+getWebPackagePathModified(Class cls, String prefix, String suffix):
+getTopLevelPackage(cls).packagePath() + "/web/action/"  + cls.package.name + "/" + prefix + cls.name + suffix + ".java";
 
 getWebPackagePath(Class cls, String ext):
 getTopLevelPackage(cls).packagePath() + "/web/action/"  + cls.package.name + "/" + cls.name + ext + ".java";
