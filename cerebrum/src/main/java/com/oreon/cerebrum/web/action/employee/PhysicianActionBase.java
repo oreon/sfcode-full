@@ -28,7 +28,6 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.Component;
 import org.jboss.seam.security.Identity;
-import org.jboss.seam.security.permission.PermissionCheck;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
@@ -42,7 +41,12 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-public abstract class PhysicianActionBase extends BaseAction<Physician>
+import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
+
+public abstract class PhysicianActionBase
+		extends
+			com.oreon.cerebrum.web.action.employee.AbstractEmployeeAction<Physician>
 		implements
 			java.io.Serializable {
 
@@ -57,9 +61,6 @@ public abstract class PhysicianActionBase extends BaseAction<Physician>
 	public static final String DEFAULT_ROLE_NAME = "physician";
 
 	public void setPhysicianId(Long id) {
-		
-		//PermissionCheck pc;
-		
 		if (id == 0) {
 			clearInstance();
 			clearLists();
@@ -200,8 +201,8 @@ public abstract class PhysicianActionBase extends BaseAction<Physician>
 		return (Physician) executeSingleResultQuery(query, Identity.instance()
 				.getCredentials().getUsername());
 	}
-	
-	public String getDefaultRoleName(){
+
+	public String getDefaultRoleName() {
 		return DEFAULT_ROLE_NAME;
 	}
 

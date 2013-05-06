@@ -41,7 +41,12 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-public abstract class LabFindingActionBase extends BaseAction<LabFinding>
+import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
+
+public abstract class LabFindingActionBase
+		extends
+			com.oreon.cerebrum.web.action.ddx.AbstractFindingAction<LabFinding>
 		implements
 			java.io.Serializable {
 

@@ -41,6 +41,9 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
+import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
+
 public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 		implements
 			java.io.Serializable {

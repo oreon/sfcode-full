@@ -1,7 +1,4 @@
-
-	
-package com.oreon.cerebrum.web.action.employee;
-	
+package com.oreon.cerebrum.web.action.ddx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,16 +37,10 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-	
-//@Scope(ScopeType.CONVERSATION)
-@Name("technicianAction")
-public class TechnicianAction extends TechnicianActionBase implements java.io.Serializable{
+import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
 
-	@Override
-	String getDefaultRoleName() {
-		// TODO fix this should be default role name
-		return "TECH";
-	}
-	
+public class AbstractFindingAction<T extends com.oreon.cerebrum.ddx.Finding>
+		extends
+			BaseAction<T> implements java.io.Serializable {
 }
-	

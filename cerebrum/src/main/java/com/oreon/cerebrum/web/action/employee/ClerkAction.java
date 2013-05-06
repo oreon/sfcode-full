@@ -45,5 +45,10 @@ import org.richfaces.model.UploadItem;
 @Name("clerkAction")
 public class ClerkAction extends ClerkActionBase implements java.io.Serializable{
 	
+	@Override
+	String getDefaultRoleName() {
+		// TODO fix this should be default role name
+		return "CLERK";
+	}
 }
 	
