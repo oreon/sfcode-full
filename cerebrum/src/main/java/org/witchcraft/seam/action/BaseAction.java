@@ -9,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +20,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.jboss.seam.Component;
@@ -57,6 +59,11 @@ import com.sun.org.apache.commons.beanutils.BeanUtils;
  * 
  * @author jsingh
  * 
+ * @param <T>
+ */
+/**
+ * @author t900058
+ *
  * @param <T>
  */
 public abstract class BaseAction<T extends BaseEntity> extends
@@ -280,6 +287,8 @@ public abstract class BaseAction<T extends BaseEntity> extends
 		try {
 
 			updateComposedAssociations();
+			
+			preSave();
 
 			if (isManaged())
 				update();
@@ -291,18 +300,43 @@ public abstract class BaseAction<T extends BaseEntity> extends
 		//	addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
 			updateAssociations();
 
-		} catch (Exception e) {
-			addErrorMessage("Error Saving record: " + e.getMessage());
-			log.error("error saving ", e);
-			return "error";
+		}catch(PersistenceException pe){
+			
+			if(pe.getCause().getCause() != null && pe.getCause() instanceof ConstraintViolationException 
+						&& pe.getCause().getCause().getMessage().startsWith("Duplicate entry")){
+					String message = pe.getCause().getCause().getMessage();
+					String errorWordsArray[] = message.split(" ");
+					addErrorMessage("There is already an existing " + getClassName() + " with  " + errorWordsArray[errorWordsArray.length -1] + " " + errorWordsArray[2]);
+				
+			}else{
+				return handlePersistenceException(pe);
+			}
+		}
+		catch (Exception e) {
+			return handlePersistenceException(e);
 		}
 		return "save";
 
 	}
 
+	
+	/**
+	 * This method should be overridden by action classes that need to do something before the instance is saved
+	 */
+	protected void preSave() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private String handlePersistenceException(Exception e) {
+		addErrorMessage("Error Saving record: " + e.getMessage());
+		log.error("error saving ", e);
+		return "error";
+	}
+
 	public String save() {
 		String result = doSave();
-		Conversation.instance().end();
+		//Conversation.instance().end();
 		return result;
 	}
 
@@ -701,5 +735,7 @@ public abstract class BaseAction<T extends BaseEntity> extends
 		}
 		return entity;
 	}
+	
+	
 
 }

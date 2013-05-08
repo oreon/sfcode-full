@@ -1,6 +1,7 @@
 package com.oreon.cerebrum.web.action.employee;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.event.ValueChangeEvent;
@@ -58,17 +59,15 @@ public abstract class AbstractEmployeeAction<T extends com.oreon.cerebrum.employ
 	
 	abstract String getDefaultRoleName();
 
+	
+	//add role and employee number 
 	@Override
-	public String save() {
-		if (isNew()) {
-			addRole();
-		}
-		return super.save();
-	}
-
-	public void addRole() {
+	public void preSave() {
+		if(!isNew())
+			return;
 		AppRole role = appRoleAction.findByUnqName(getDefaultRoleName());
 		getInstance().getAppUser().addAppRole(role);
+		//getInstance().setEmployeeNumber(createEmployeeNumber(getInstance()));
 	}
 
 	@Override
@@ -76,6 +75,12 @@ public abstract class AbstractEmployeeAction<T extends com.oreon.cerebrum.employ
 	protected T createInstance() {
 		T result = super.createInstance();
 		result.setFacility(userUtilAction.getCurrentFacility());
+		
 		return result;
+	}
+
+	private String createEmployeeNumber(T result) {
+		// TODO Auto-generated method stub
+		return getDefaultRoleName().substring(0,1) +  result.getFacility().getId() + "-" + new Date().getTime();
 	}
 }

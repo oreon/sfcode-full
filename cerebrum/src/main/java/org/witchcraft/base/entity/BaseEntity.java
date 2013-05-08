@@ -203,13 +203,14 @@ public class BaseEntity implements Serializable {
 	@PrePersist
 	// @PreUpdate
 	public void updateTenant() {
-		if (this instanceof AppUser)
-			return;
+		//if (this instanceof AppUser)
+		//	return;
 
 		UserUtilAction userUtilAction = (UserUtilAction) Component
 				.getInstance("userUtilAction");
 
-		setTenant(userUtilAction.getCurrentTenantId());
+		if( tenant == null || tenant == 0 )
+			setTenant(userUtilAction.getCurrentTenantId());
 
 	}
 

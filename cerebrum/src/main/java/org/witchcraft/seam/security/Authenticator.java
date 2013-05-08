@@ -11,6 +11,8 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.bpm.Actor;
+import org.jboss.seam.international.StatusMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
@@ -36,6 +38,9 @@ public class Authenticator {
 
 	@In
 	Identity identity;
+	
+	@In
+	protected StatusMessages statusMessages;
 
 	public boolean authenticate() {
 
@@ -54,8 +59,10 @@ public class Authenticator {
 			
 			
 			if(!user.getEnabled()){
+				addErrorMessage("Your account has been disabled - please contact support " );
+			
 				//add message not enalbed
-				//return false;
+				return false;
 			}
 
 			if (user.getAppRoles() != null) {
@@ -89,10 +96,15 @@ public class Authenticator {
 
 		catch (NoResultException ex) {
 
+			addErrorMessage("Username/Password is invalid" );
 			return false;
 
 		}
 
+	}
+	
+	protected void addErrorMessage(String message, Object... params) {
+		statusMessages.add(Severity.ERROR, message, params);
 	}
 	
 	private void updateActor(AppUser user) {

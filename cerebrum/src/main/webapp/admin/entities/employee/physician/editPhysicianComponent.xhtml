@@ -71,7 +71,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_facilityfacility" label="#{msg.employee_facility}" value="#{physicianAction.physician.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_facilityfacility" label="#{msg.employee_facility}" value="#{physicianAction.physician.facility}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}" disabled="false"> 
             <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
