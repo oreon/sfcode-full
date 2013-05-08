@@ -3,47 +3,39 @@
 package com.oreon.cerebrum.web.action.facility;
 	
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-
-import org.apache.commons.lang.StringUtils;
-
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Scope;
-
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.Component;
-import org.jboss.seam.security.Identity;
+import org.witchcraft.base.entity.UserUtilAction;
 
-import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
-import org.jboss.seam.annotations.Observer;
-
-import org.witchcraft.base.entity.FileAttachment;
-
-import org.apache.commons.io.FileUtils;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import com.oreon.cerebrum.web.action.employee.PhysicianAction;
 
 	
 //@Scope(ScopeType.CONVERSATION)
 @Name("facilityAction")
 public class FacilityAction extends FacilityActionBase implements java.io.Serializable{
+	
+	@In(create=true)
+	PhysicianAction physicianAction;
+	
+	@In(create=true)
+	UserUtilAction userUtilAction;
+	
+	
+	public String register(){
+		save();
+		instance.setTenant(instance.getId());
+		//need to do another save to update facility tenant
+		save();
+		userUtilAction.setCurrentFacility(instance);
+		//physicianAction.getInstance().setTenant(getInstance().getId());
+		physicianAction.getInstance().setFacility(getInstance());
+		
+		physicianAction.getInstance().getAppUser().setEnabled(true);
+		
+		physicianAction.save();
+		
+		return "success";
+	}
 	
 }
 	

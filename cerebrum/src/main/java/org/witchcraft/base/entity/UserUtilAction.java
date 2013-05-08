@@ -41,6 +41,9 @@ public class UserUtilAction implements Serializable {
 	}
 
 	public Long getCurrentTenantId() {
+		if(currentFacility != null)
+			return currentFacility.getTenant();
+		
 		Long result = currentUser == null || currentUser.getTenant() == null ? 0
 				: currentUser.getTenant();
 		return result;
