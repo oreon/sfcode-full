@@ -131,7 +131,7 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 		AppRole adminRole = new AppRole();
 		adminRole.setName(role);
 		admin.getAppRoles().add(adminRole);
-		admin.setEmail(username + "@gmail.com");
+		//admin.setEmail(username + "@gmail.com");
 		admin.setEnabled(true);
 
 		// setValue("#{userAction.instance}", admin);
