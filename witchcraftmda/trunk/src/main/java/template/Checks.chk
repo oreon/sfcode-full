@@ -17,7 +17,7 @@ context uml::Class ERROR 'a class name must not have a special character -> ' + 
 this.name != null && this.name.length > 0 && this.name.matches("\\w*");
 
 //TODO: see if this rule can be removed
-context wcprofile::Entity ERROR 'an entity class cannot be abstract ' + this.name:
+context wcprofile::Entity WARNING 'an entity class should not be abstract ' + this.name:
 !this.isAbstract;
 
 
