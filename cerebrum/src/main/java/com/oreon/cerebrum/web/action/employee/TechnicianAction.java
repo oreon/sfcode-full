@@ -46,7 +46,7 @@ import org.richfaces.model.UploadItem;
 public class TechnicianAction extends TechnicianActionBase implements java.io.Serializable{
 
 	@Override
-	String getDefaultRoleName() {
+	public String getDefaultRoleName() {
 		// TODO fix this should be default role name
 		return "TECH";
 	}

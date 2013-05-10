@@ -59,14 +59,6 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_employeeNumberDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmployeeNumber')}"/>
-          </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmployeeNumber')}" label="#{msg.employee_employeeNumber}" required="true" disabled="false" value="#{employeeAction.employee.employeeNumber}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText> 
-        </s:decorate>  
         <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/>
@@ -140,14 +132,6 @@
           <h:selectBooleanCheckbox escape="false" id="#{prefix}_appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEnabled')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{employeeAction.employee.appUser.enabled}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectBooleanCheckbox> 
-        </s:decorate>  
-        <s:decorate id="#{prefix}_appUser_emailDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmail')}"/>
-          </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmail')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{employeeAction.employee.appUser.email}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

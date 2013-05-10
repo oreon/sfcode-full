@@ -65,13 +65,9 @@ public abstract class TechnicianListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"technician.id = #{technicianList.technician.id}",
 
-			"lower(technician.employeeNumber) like concat(lower(#{technicianList.technician.employeeNumber}),'%')",
-
 			"lower(technician.appUser.userName) like concat(lower(#{technicianList.technician.appUser.userName}),'%')",
 
 			"technician.appUser.enabled = #{technicianList.technician.appUser.enabled}",
-
-			"lower(technician.appUser.email) like concat(lower(#{technicianList.technician.appUser.email}),'%')",
 
 			"technician.facility.id = #{technicianList.technician.facility.id}",
 

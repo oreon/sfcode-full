@@ -85,7 +85,7 @@ public class AppUser extends BaseEntity implements java.io.Serializable {
 	;
 
 	@Column(unique = false)
-	protected Boolean enabled
+	protected Boolean enabled = true
 
 	;
 
@@ -107,15 +107,6 @@ public class AppUser extends BaseEntity implements java.io.Serializable {
 	public int getAppRolesCount() {
 		return appRoles.size();
 	}
-
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = true)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String email
-
-	;
 
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -155,16 +146,6 @@ public class AppUser extends BaseEntity implements java.io.Serializable {
 		return appRoles;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getEmail() {
-
-		return email;
-
-	}
-
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -190,8 +171,6 @@ public class AppUser extends BaseEntity implements java.io.Serializable {
 
 		listSearchableFields.add("password");
 
-		listSearchableFields.add("email");
-
 		return listSearchableFields;
 	}
 
@@ -203,8 +182,6 @@ public class AppUser extends BaseEntity implements java.io.Serializable {
 		builder.append(getUserName() + " ");
 
 		builder.append(getPassword() + " ");
-
-		builder.append(getEmail() + " ");
 
 		return builder.toString();
 	}

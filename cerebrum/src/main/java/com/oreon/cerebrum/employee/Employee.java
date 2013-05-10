@@ -59,17 +59,14 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "employee")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("employee")
-@Cache(usage = CacheConcurrencyStrategy.NONE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @XmlRootElement
-public class Employee extends com.oreon.cerebrum.patient.Person
+public abstract class Employee extends com.oreon.cerebrum.patient.Person
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = -426154292L;
 
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = true)
+	@Transient
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String employeeNumber
@@ -116,7 +113,13 @@ public class Employee extends com.oreon.cerebrum.patient.Person
 
 	public String getEmployeeNumber() {
 
-		return employeeNumber;
+		try {
+			return getFacility().getId() + "-" + getId();
+		} catch (Exception e) {
+
+			return "";
+
+		}
 
 	}
 

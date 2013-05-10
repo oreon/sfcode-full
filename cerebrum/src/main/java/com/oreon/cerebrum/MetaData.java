@@ -360,8 +360,6 @@ public class MetaData {
 
 	"appRolesCount", "java.lang.Integer",
 
-	"email", "java.lang.String",
-
 	},
 
 	{"com.oreon.cerebrum.users.AppRole",

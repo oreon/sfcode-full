@@ -51,16 +51,6 @@
           </f:facet>  
           <h:outputText value="#{_clerk.appUser.enabled? msg.yes : msg.no }"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewEmail')}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{clerkList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.appUser_email}"/>  
-              <ui:param name="propertyPath" value="clerk.appUser.email"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_clerk.appUser.email}" escape="false"/> 
-        </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewFacility')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

@@ -63,13 +63,9 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 	private static final String[] RESTRICTIONS = {
 			"physician.id = #{physicianList.physician.id}",
 
-			"lower(physician.employeeNumber) like concat(lower(#{physicianList.physician.employeeNumber}),'%')",
-
 			"lower(physician.appUser.userName) like concat(lower(#{physicianList.physician.appUser.userName}),'%')",
 
 			"physician.appUser.enabled = #{physicianList.physician.appUser.enabled}",
-
-			"lower(physician.appUser.email) like concat(lower(#{physicianList.physician.appUser.email}),'%')",
 
 			"physician.facility.id = #{physicianList.physician.facility.id}",
 

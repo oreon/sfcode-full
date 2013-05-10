@@ -55,6 +55,8 @@ public abstract class TechnicianActionBase
 	//@DataModelSelection
 	private Technician technician;
 
+	public static final String DEFAULT_ROLE_NAME = "technician";
+
 	public void setTechnicianId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -151,6 +153,16 @@ public abstract class TechnicianActionBase
 
 	public void clearLists() {
 
+	}
+
+	public Technician getCurrentLoggedInTechnician() {
+		String query = "Select e from Technician e where e.appUser.userName = ?1";
+		return (Technician) executeSingleResultQuery(query, Identity.instance()
+				.getCredentials().getUsername());
+	}
+
+	public String getDefaultRoleName() {
+		return DEFAULT_ROLE_NAME;
 	}
 
 	public String viewTechnician() {
