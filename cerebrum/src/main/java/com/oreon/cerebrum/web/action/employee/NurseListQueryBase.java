@@ -63,13 +63,9 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 	private static final String[] RESTRICTIONS = {
 			"nurse.id = #{nurseList.nurse.id}",
 
-			"lower(nurse.employeeNumber) like concat(lower(#{nurseList.nurse.employeeNumber}),'%')",
-
 			"lower(nurse.appUser.userName) like concat(lower(#{nurseList.nurse.appUser.userName}),'%')",
 
 			"nurse.appUser.enabled = #{nurseList.nurse.appUser.enabled}",
-
-			"lower(nurse.appUser.email) like concat(lower(#{nurseList.nurse.appUser.email}),'%')",
 
 			"nurse.facility.id = #{nurseList.nurse.facility.id}",
 

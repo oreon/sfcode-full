@@ -34,14 +34,6 @@
           <h:selectBooleanCheckbox escape="false" id="#{prefix}_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{appUserAction.appUser.enabled}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectBooleanCheckbox> 
-        </s:decorate>  
-        <s:decorate id="#{prefix}_emailDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}"/>
-          </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{appUserAction.appUser.email}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

@@ -11,14 +11,6 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Clerk}"/> 
         </f:facet>  
-        <s:decorate id="#{prefix}_employeeNumberDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmployeeNumber')}"/>
-          </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmployeeNumber')}" label="#{msg.employee_employeeNumber}" required="true" disabled="false" value="#{clerkAction.clerk.employeeNumber}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText> 
-        </s:decorate>  
         <s:decorate id="#{prefix}_firstNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFirstName')}"/>
@@ -108,14 +100,6 @@
           <h:selectBooleanCheckbox escape="false" id="#{prefix}_appUser_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEnabled')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{clerkAction.clerk.appUser.enabled}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectBooleanCheckbox> 
-        </s:decorate>  
-        <s:decorate id="#{prefix}_appUser_emailDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmail')}"/>
-          </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_appUser_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmail')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{clerkAction.clerk.appUser.email}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText> 
         </s:decorate> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 

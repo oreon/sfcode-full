@@ -30,7 +30,7 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 	private static final String EJBQL = "select employee from Employee employee";
 
-	protected Employee employee = new Employee();
+	protected Employee employee = new com.oreon.cerebrum.employee.Physician();
 
 	public Employee getEmployee() {
 		return employee;
@@ -80,13 +80,9 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 			"employee.title = #{employeeList.employee.title}",
 
-			"lower(employee.employeeNumber) like concat(lower(#{employeeList.employee.employeeNumber}),'%')",
-
 			"lower(employee.appUser.userName) like concat(lower(#{employeeList.employee.appUser.userName}),'%')",
 
 			"employee.appUser.enabled = #{employeeList.employee.appUser.enabled}",
-
-			"lower(employee.appUser.email) like concat(lower(#{employeeList.employee.appUser.email}),'%')",
 
 			"employee.facility.id = #{employeeList.employee.facility.id}",
 
@@ -105,10 +101,6 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	public void createCsvString(StringBuilder builder, Employee e) {
 
 		builder.append("\""
-				+ (e.getEmployeeNumber() != null ? e.getEmployeeNumber()
-						.replace(",", "") : "") + "\",");
-
-		builder.append("\""
 				+ (e.getAppUser() != null ? e.getAppUser().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
@@ -124,8 +116,6 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	 */
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
-
-		builder.append("EmployeeNumber" + ",");
 
 		builder.append("AppUser" + ",");
 

@@ -78,13 +78,6 @@ public abstract class UnusualOccurenceListQueryBase
 		return getResultList();
 	}
 
-	public List<UnusualOccurence> getUnusualOccurencesByCreatedBy(
-			com.oreon.cerebrum.employee.Employee employee) {
-		//setMaxResults(10000);
-		unusualOccurence.setCreatedBy(employee);
-		return getResultList();
-	}
-
 	@Observer("archivedUnusualOccurence")
 	public void onArchive() {
 		refresh();

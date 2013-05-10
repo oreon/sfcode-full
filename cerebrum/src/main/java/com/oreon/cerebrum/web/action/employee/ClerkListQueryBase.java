@@ -63,13 +63,9 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 	private static final String[] RESTRICTIONS = {
 			"clerk.id = #{clerkList.clerk.id}",
 
-			"lower(clerk.employeeNumber) like concat(lower(#{clerkList.clerk.employeeNumber}),'%')",
-
 			"lower(clerk.appUser.userName) like concat(lower(#{clerkList.clerk.appUser.userName}),'%')",
 
 			"clerk.appUser.enabled = #{clerkList.clerk.appUser.enabled}",
-
-			"lower(clerk.appUser.email) like concat(lower(#{clerkList.clerk.appUser.email}),'%')",
 
 			"clerk.facility.id = #{clerkList.clerk.facility.id}",
 

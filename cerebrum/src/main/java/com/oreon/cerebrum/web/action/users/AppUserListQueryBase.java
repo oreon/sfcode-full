@@ -71,8 +71,6 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 
 			"#{appUserList.appRolesToSearch} in elements(appUser.appRoles)",
 
-			"lower(appUser.email) like concat(lower(#{appUserList.appUser.email}),'%')",
-
 			"appUser.dateCreated <= #{appUserList.dateCreatedRange.end}",
 			"appUser.dateCreated >= #{appUserList.dateCreatedRange.begin}",};
 
@@ -98,10 +96,6 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 		builder.append("\"" + (e.getAppRoles() != null ? e.getAppRoles() : "")
 				+ "\",");
 
-		builder.append("\""
-				+ (e.getEmail() != null ? e.getEmail().replace(",", "") : "")
-				+ "\",");
-
 		builder.append("\r\n");
 	}
 
@@ -116,8 +110,6 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 		builder.append("Enabled" + ",");
 
 		builder.append("AppRoles" + ",");
-
-		builder.append("Email" + ",");
 
 		builder.append("\r\n");
 	}
