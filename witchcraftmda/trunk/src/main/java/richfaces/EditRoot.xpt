@@ -477,6 +477,9 @@
 	 » 
 	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
 	  «genAjaxValidator()»
+	  «IF isNameType()»
+	  	 <f:converter  converterId="witchcraft.ui.jsf.capitalizeConverter"/>
+	  «ENDIF»
 	   «IF isCurrency()»
 	   	<f:converter converterId="javax.faces.BigDecimal"/>
 	   «ENDIF»
