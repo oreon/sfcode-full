@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.ddx.Finding;
 
 /**
@@ -39,6 +41,12 @@ public abstract class FindingListQueryBase extends BaseQuery<Finding, Long> {
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('finding', 'view')}")
+	public List<Finding> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

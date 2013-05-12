@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.employee.Nurse;
 
 /**
@@ -39,6 +41,12 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('nurse', 'view')}")
+	public List<Nurse> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

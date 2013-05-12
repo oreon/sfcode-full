@@ -66,7 +66,8 @@
           <s:decorate id="#{prefix}_nameDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editName')}" label="#{msg.room_name}" required="true" disabled="false" value="#{_room.name}"> 
-              <rich:ajaxValidator event="onsubmit"/> 
+              <rich:ajaxValidator event="onsubmit"/>  
+              <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  

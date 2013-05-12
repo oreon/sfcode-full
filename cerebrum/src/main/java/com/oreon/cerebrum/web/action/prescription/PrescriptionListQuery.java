@@ -15,12 +15,15 @@ import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import java.math.BigDecimal;
 	
 	
 @Name("prescriptionList")
 //@Scope(ScopeType.CONVERSATION)
+//@Restrict("#{s:hasRole('Physician')}")
+
 public class PrescriptionListQuery extends PrescriptionListQueryBase implements java.io.Serializable{
 	
 }

@@ -34,6 +34,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -124,6 +125,18 @@ public abstract class BedActionBase extends BaseAction<Bed>
 
 	public Bed getBed() {
 		return (Bed) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('bed', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('bed', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override

@@ -34,6 +34,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -124,6 +125,18 @@ public abstract class DifferentialDxActionBase
 
 	public DifferentialDx getDifferentialDx() {
 		return (DifferentialDx) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('differentialDx', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('differentialDx', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override

@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.drugs.AtcDrug;
 
 /**
@@ -39,6 +41,12 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('atcDrug', 'view')}")
+	public List<AtcDrug> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

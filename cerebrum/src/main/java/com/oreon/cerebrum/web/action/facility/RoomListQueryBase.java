@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.facility.Room;
 
 /**
@@ -39,6 +41,12 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('room', 'view')}")
+	public List<Room> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

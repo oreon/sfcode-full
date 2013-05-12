@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.ddx.Disease;
 
 /**
@@ -39,6 +41,12 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('disease', 'view')}")
+	public List<Disease> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

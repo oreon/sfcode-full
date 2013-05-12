@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.billing.InvoiceItem;
 
 /**
@@ -41,6 +43,12 @@ public abstract class InvoiceItemListQueryBase
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('invoiceItem', 'view')}")
+	public List<InvoiceItem> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

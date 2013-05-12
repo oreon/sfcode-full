@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.ddx.PatientDiffDx;
 
 /**
@@ -41,6 +43,12 @@ public abstract class PatientDiffDxListQueryBase
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('patientDiffDx', 'view')}")
+	public List<PatientDiffDx> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

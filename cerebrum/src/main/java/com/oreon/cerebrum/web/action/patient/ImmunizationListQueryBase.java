@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.patient.Immunization;
 
 /**
@@ -41,6 +43,12 @@ public abstract class ImmunizationListQueryBase
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('immunization', 'view')}")
+	public List<Immunization> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

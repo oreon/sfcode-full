@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.drugs.DrugCategory;
 
 /**
@@ -51,6 +53,12 @@ public abstract class DrugCategoryListQueryBase
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('drugCategory', 'view')}")
+	public List<DrugCategory> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

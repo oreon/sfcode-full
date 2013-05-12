@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.drugs.DrugInteraction;
 
 /**
@@ -41,6 +43,12 @@ public abstract class DrugInteractionListQueryBase
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('drugInteraction', 'view')}")
+	public List<DrugInteraction> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

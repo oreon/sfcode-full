@@ -16,7 +16,8 @@
             <h:outputText value="#{msg.service_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editName')}" label="#{msg.service_name}" required="true" disabled="false" value="#{serviceAction.service.name}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_priceDecorate" template="/layout/edit.xhtml"> 

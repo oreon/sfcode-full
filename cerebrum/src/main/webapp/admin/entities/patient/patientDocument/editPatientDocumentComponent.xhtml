@@ -16,7 +16,8 @@
             <h:outputText value="#{msg.patientDocument_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}" label="#{msg.patientDocument_name}" required="true" disabled="false" value="#{patientDocumentAction.patientDocument.name}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_fileDecorate" template="/layout/edit.xhtml"> 

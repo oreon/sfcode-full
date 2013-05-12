@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.patient.Allergy;
 
 /**
@@ -39,6 +41,12 @@ public abstract class AllergyListQueryBase extends BaseQuery<Allergy, Long> {
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('allergy', 'view')}")
+	public List<Allergy> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

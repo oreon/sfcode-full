@@ -3,13 +3,14 @@
 package com.oreon.cerebrum.web.action.prescription;
 	
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.security.permission.PermissionCheck;
 
 import com.oreon.cerebrum.drugs.Drug;
 import com.oreon.cerebrum.drugs.DrugInteraction;
@@ -21,6 +22,7 @@ import com.sun.org.apache.commons.beanutils.BeanUtils;
 	
 //@Scope(ScopeType.CONVERSATION)
 @Name("prescriptionAction")
+//@Restrict("#{s:hasRole('Physician')}")
 public class PrescriptionAction extends PrescriptionActionBase implements java.io.Serializable{
 	
 	private List<DrugInteraction> interactions = new ArrayList<DrugInteraction>();
@@ -28,6 +30,25 @@ public class PrescriptionAction extends PrescriptionActionBase implements java.i
 	private PrescriptionTemplate currentPrescriptionTemplate;
 	
 	private Drug newDrug;
+	
+	PermissionCheck pc;
+	
+	/*
+	@Override
+	@Restrict("#{s:hasPermission('prescription', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+	
+	@Override
+	@Restrict("#{s:hasPermission('prescription', 'delete'}")
+	public void archiveById() {
+		// TODO Auto-generated method stub
+		super.archiveById();
+	}
+	*/
+
+	
 
 	public String addDrug(Drug drug){
 		StringBuilder warnings = new StringBuilder();
