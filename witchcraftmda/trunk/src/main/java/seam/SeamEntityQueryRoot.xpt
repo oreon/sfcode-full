@@ -70,7 +70,11 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 		return EJBQL;
 	}
 	
-	
+	@Override
+	@Restrict("#{s:hasPermission('«asVar()»', 'view')}")
+	public List<«name»> getResultList() {
+		return super.getResultList();
+	}
 
 
 	@Override
@@ -273,5 +277,7 @@ import org.witchcraft.base.entity.Range;
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+
+import org.jboss.seam.annotations.security.Restrict;
 	
 «ENDDEFINE»

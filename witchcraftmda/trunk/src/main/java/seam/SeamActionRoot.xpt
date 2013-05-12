@@ -181,6 +181,19 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		return («name»)getInstance();
 	}
 	
+	
+	@Override
+	@Restrict("#{s:hasPermission('«asVar()»', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+	
+	@Override
+	@Restrict("#{s:hasPermission('«asVar()»', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
+	}
+	
 	«IF ! isAbstract»
 	@Override
 	protected «name» createInstance() {
@@ -471,6 +484,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -480,6 +494,9 @@ import org.richfaces.model.UploadItem;
 
 import org.witchcraft.seam.action.BaseAction; 
 import org.witchcraft.base.entity.BaseEntity;
+
+
+
 
 «ENDDEFINE»
 
