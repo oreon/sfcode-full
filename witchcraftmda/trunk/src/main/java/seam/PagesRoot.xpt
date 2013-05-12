@@ -45,6 +45,7 @@
     
     «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
     <page view-id="«e.getViewFile("edit")»" conversation-required="false">
+    	<restrict>#{s:hasPermission('prescription', 'edit')}</restrict>
     	<!-- <description>Edit «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
     	<navigation> 
 			 <rule if-outcome="save">
