@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.users.AppRole;
 
 /**
@@ -50,6 +52,12 @@ public abstract class AppRoleListQueryBase extends BaseQuery<AppRole, Long> {
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('appRole', 'view')}")
+	public List<AppRole> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

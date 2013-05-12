@@ -34,6 +34,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -92,6 +93,18 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 
 	public AppUser getAppUser() {
 		return (AppUser) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('appUser', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('appUser', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override

@@ -34,6 +34,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -110,6 +111,18 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 
 	public PatientDiffDx getPatientDiffDx() {
 		return (PatientDiffDx) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('patientDiffDx', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('patientDiffDx', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override

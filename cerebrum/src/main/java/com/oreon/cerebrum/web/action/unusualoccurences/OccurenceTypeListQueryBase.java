@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.unusualoccurences.OccurenceType;
 
 /**
@@ -41,6 +43,12 @@ public abstract class OccurenceTypeListQueryBase
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('occurenceType', 'view')}")
+	public List<OccurenceType> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

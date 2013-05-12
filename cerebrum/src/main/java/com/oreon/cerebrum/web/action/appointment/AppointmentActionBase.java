@@ -31,6 +31,7 @@ import org.jboss.seam.security.Identity;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
@@ -124,6 +125,18 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 
 	public Appointment getAppointment() {
 		return (Appointment) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('appointment', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('appointment', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override

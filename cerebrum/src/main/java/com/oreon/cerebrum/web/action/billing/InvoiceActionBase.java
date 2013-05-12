@@ -34,6 +34,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -110,6 +111,18 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 
 	public Invoice getInvoice() {
 		return (Invoice) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('invoice', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('invoice', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override

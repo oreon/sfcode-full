@@ -24,7 +24,8 @@
             <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{atcDrugAction.atcDrug.name}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml"> 
@@ -84,7 +85,8 @@
           <s:decorate id="#{prefix}_nameDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{_atcDrug.name}"> 
-              <rich:ajaxValidator event="onsubmit"/> 
+              <rich:ajaxValidator event="onsubmit"/>  
+              <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
             </h:inputText> 
           </s:decorate> 
         </h:column>  

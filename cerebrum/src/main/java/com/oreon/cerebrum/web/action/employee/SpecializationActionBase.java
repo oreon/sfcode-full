@@ -34,6 +34,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -92,6 +93,18 @@ public abstract class SpecializationActionBase
 
 	public Specialization getSpecialization() {
 		return (Specialization) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('specialization', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('specialization', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override

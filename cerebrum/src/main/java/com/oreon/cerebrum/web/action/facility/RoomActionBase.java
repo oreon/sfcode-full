@@ -34,6 +34,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -126,6 +127,18 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 	public Room getRoom() {
 		return (Room) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('room', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('room', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override

@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.encounter.Encounter;
 
 /**
@@ -39,6 +41,12 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('encounter', 'view')}")
+	public List<Encounter> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

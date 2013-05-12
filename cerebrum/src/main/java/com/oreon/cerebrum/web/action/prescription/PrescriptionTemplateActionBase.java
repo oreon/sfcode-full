@@ -34,6 +34,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -94,6 +95,18 @@ public abstract class PrescriptionTemplateActionBase
 
 	public PrescriptionTemplate getPrescriptionTemplate() {
 		return (PrescriptionTemplate) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('prescriptionTemplate', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('prescriptionTemplate', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override

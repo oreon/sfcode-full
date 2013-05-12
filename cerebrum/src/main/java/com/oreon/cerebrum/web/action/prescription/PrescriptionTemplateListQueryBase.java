@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.prescription.PrescriptionTemplate;
 
 /**
@@ -41,6 +43,12 @@ public abstract class PrescriptionTemplateListQueryBase
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('prescriptionTemplate', 'view')}")
+	public List<PrescriptionTemplate> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

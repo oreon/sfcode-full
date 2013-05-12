@@ -25,7 +25,7 @@ no-loop
 when
   $principal: Principal()
   $c : PermissionCheck(target == "prescriptionPackage" )
-  $r : Role(name == "physician" || name == "nurse")
+  $r : Role(name == "Physician" || name == "Nurse")
 then
   //System.out.println("viewpres " + $c.getTarget() + " " + $r.getName() ); 
   $c.grant();
@@ -41,8 +41,39 @@ when
   $c : PermissionCheck(target == "physician" && action == "editFacility")
   $r : Role(name == "admin" || name == "support")
 then
-  System.out.println("viewpres " + $c.getTarget() + " " + $r.getName() ); 
+  System.out.println("view pres " + $c.getTarget() + " " + $r.getName() ); 
   $c.grant();
+end
+
+
+rule "CanEditPrescription"
+salience  10
+activation-group "edit"
+no-loop 
+when
+  $principal: Principal()
+  $c : PermissionCheck(target == "prescription" ) //allow all permissions on prescription to physician 
+  $r : Role(name == "Physician" || name == "admin")
+then
+  //System.out.println("edit pres invkd " + $c.getTarget() + " " + $r.getName() ); 
+  $c.grant();
+end
+
+
+rule "CanViewPrescription"
+salience  10
+activation-group "view"
+no-loop
+dialect "java"  
+when
+  principal: Principal()
+  c : PermissionCheck(     )
+  r : Role( )
+eval(  c.getTarget().equals("prescription") && c.getAction().startsWith("view")  && r.getName().equals("Nurse") )  
+  
+then
+  //System.out.println("viewpres " + $c.getTarget() + " " + $r.getName() ); 
+  c.grant();
 end
 
 
@@ -54,7 +85,7 @@ no-loop
 //dialect "java"
 when
   $principal: Principal()
-  $c : PermissionCheck( target != "id" &&  target != "prescriptionPackage"   && action != "editFacility")
+  $c : PermissionCheck( target != "id" &&  target != "prescriptionPackage"  && target != "prescription" && action != "editFacility")
 then
   $c.grant();
   //System.out.println("nonadmin " + $c.getTarget() + " "  ); 

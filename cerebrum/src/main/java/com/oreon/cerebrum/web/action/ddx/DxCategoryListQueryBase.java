@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.ddx.DxCategory;
 
 /**
@@ -41,6 +43,12 @@ public abstract class DxCategoryListQueryBase
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('dxCategory', 'view')}")
+	public List<DxCategory> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

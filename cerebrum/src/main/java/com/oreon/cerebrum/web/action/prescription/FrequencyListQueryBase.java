@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.prescription.Frequency;
 
 /**
@@ -39,6 +41,12 @@ public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> 
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('frequency', 'view')}")
+	public List<Frequency> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

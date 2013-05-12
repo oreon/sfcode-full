@@ -19,6 +19,8 @@ import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
 
+import org.jboss.seam.annotations.security.Restrict;
+
 import com.oreon.cerebrum.patient.BedStay;
 
 /**
@@ -39,6 +41,12 @@ public abstract class BedStayListQueryBase extends BaseQuery<BedStay, Long> {
 	@Override
 	protected String getql() {
 		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('bedStay', 'view')}")
+	public List<BedStay> getResultList() {
+		return super.getResultList();
 	}
 
 	@Override

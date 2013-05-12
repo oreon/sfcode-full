@@ -16,7 +16,8 @@
             <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFirstName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFirstName')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{employeeAction.employee.firstName}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_lastNameDecorate" template="/layout/edit.xhtml"> 
@@ -24,7 +25,8 @@
             <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editLastName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editLastName')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{employeeAction.employee.lastName}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_dateOfBirthDecorate" template="/layout/edit.xhtml"> 
@@ -114,7 +116,8 @@
             <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editUserName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editUserName')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{employeeAction.employee.appUser.userName}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_appUser_passwordDecorate" template="/layout/edit.xhtml"> 

@@ -34,6 +34,7 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -108,6 +109,18 @@ public abstract class PatientDocumentActionBase
 
 	public PatientDocument getPatientDocument() {
 		return (PatientDocument) getInstance();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('patientDocument', 'edit'}")
+	public String doSave() {
+		return super.doSave();
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('patientDocument', 'delete'}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 	@Override
