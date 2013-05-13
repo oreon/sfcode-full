@@ -39,8 +39,10 @@
               <ui:param name="propertyPath" value="roomType.description"/> 
             </ui:include> 
           </f:facet>  
-          <rich:toolTip value="#{_roomType.description}" for="descriptionAbbr"></rich:toolTip>  
-          <h:outputText id="descriptionAbbr" value="#{_roomType.descriptionAbbreviated}" escape="false"/> 
+          <h:panelGroup> 
+            <rich:toolTip value="#{_roomType.description}" for="descriptionAbbr"></rich:toolTip>  
+            <h:outputText id="descriptionAbbr" value="#{_roomType.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewRate')}"> 
           <f:facet name="header"> 

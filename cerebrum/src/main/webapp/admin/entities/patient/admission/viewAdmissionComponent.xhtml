@@ -12,15 +12,19 @@
           <h:outputText value="#{msg.Admission}"/> 
         </f:facet>  
         <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewAdmissionNote')}"/>  
-        <rich:toolTip value="#{admission.admissionNote}" for="admissionNoteAbbr"></rich:toolTip>  
-        <h:outputText id="admissionNoteAbbr" value="#{admission.admissionNoteAbbreviated}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{admission.admissionNote}" for="admissionNoteAbbr"></rich:toolTip>  
+          <h:outputText id="admissionNoteAbbr" value="#{admission.admissionNoteAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeDate')}"/>  
         <h:outputText value="#{admission.dischargeDate}"> 
           <s:convertDateTime type="date" dateStyle="medium"/> 
         </h:outputText>  
         <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeNote')}"/>  
-        <rich:toolTip value="#{admission.dischargeNote}" for="dischargeNoteAbbr"></rich:toolTip>  
-        <h:outputText id="dischargeNoteAbbr" value="#{admission.dischargeNoteAbbreviated}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{admission.dischargeNote}" for="dischargeNoteAbbr"></rich:toolTip>  
+          <h:outputText id="dischargeNoteAbbr" value="#{admission.dischargeNoteAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeCode')}"/>  
         <h:outputText value="#{admission.dischargeCode}" escape="false"/>  
         <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewPatient')}"/>  

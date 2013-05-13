@@ -14,8 +14,10 @@
         <h:outputText value="#{msg.dxTest_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewName')}"/>  
         <h:outputText value="#{dxTest.name}" escape="false"/>  
         <h:outputText value="#{msg.dxTest_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewDescription')}"/>  
-        <rich:toolTip value="#{dxTest.description}" for="descriptionAbbr"></rich:toolTip>  
-        <h:outputText id="descriptionAbbr" value="#{dxTest.descriptionAbbreviated}" escape="false"/> 
+        <h:panelGroup> 
+          <rich:toolTip value="#{dxTest.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{dxTest.descriptionAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
       </h:panelGrid>  
       <br/>  
       <br/> 

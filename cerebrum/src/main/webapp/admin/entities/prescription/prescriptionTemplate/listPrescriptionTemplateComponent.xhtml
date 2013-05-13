@@ -39,8 +39,10 @@
               <ui:param name="propertyPath" value="prescriptionTemplate.directivesForPatient"/> 
             </ui:include> 
           </f:facet>  
-          <rich:toolTip value="#{_prescriptionTemplate.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
-          <h:outputText id="directivesForPatientAbbr" value="#{_prescriptionTemplate.directivesForPatientAbbreviated}" escape="false"/> 
+          <h:panelGroup> 
+            <rich:toolTip value="#{_prescriptionTemplate.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
+            <h:outputText id="directivesForPatientAbbr" value="#{_prescriptionTemplate.directivesForPatientAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 

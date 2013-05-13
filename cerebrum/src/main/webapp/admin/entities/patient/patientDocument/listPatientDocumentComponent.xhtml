@@ -54,8 +54,10 @@
               <ui:param name="propertyPath" value="patientDocument.notes"/> 
             </ui:include> 
           </f:facet>  
-          <rich:toolTip value="#{_patientDocument.notes}" for="notesAbbr"></rich:toolTip>  
-          <h:outputText id="notesAbbr" value="#{_patientDocument.notesAbbreviated}" escape="false"/> 
+          <h:panelGroup> 
+            <rich:toolTip value="#{_patientDocument.notes}" for="notesAbbr"></rich:toolTip>  
+            <h:outputText id="notesAbbr" value="#{_patientDocument.notesAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewPatient')}"> 
           <f:facet name="header"> 

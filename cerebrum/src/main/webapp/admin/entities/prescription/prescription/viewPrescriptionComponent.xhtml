@@ -12,8 +12,10 @@
           <h:outputText value="#{msg.Prescription}"/> 
         </f:facet>  
         <h:outputText value="#{msg.prescription_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')}"/>  
-        <rich:toolTip value="#{prescription.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
-        <h:outputText id="directivesForPatientAbbr" value="#{prescription.directivesForPatientAbbreviated}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{prescription.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
+          <h:outputText id="directivesForPatientAbbr" value="#{prescription.directivesForPatientAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')}"/>  
         <h:outputText value="#{prescription.active? msg.yes : msg.no }"/>  
         <h:outputText value="#{msg.prescription_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')}"/>  
