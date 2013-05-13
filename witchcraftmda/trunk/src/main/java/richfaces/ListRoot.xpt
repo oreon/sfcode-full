@@ -282,8 +282,10 @@
 			«IF isColumn() && !abbreviateInListing»
 				<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
 			«ELSE»
+			 <h:panelGroup>
 			 <rich:toolTip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr">  </rich:toolTip>
 	         <h:outputText id="«name»Abbr" value="#{«prefix»«genPropertyLabel()»Abbreviated}" escape="false"/> 
+	         </h:panelGroup>
 	         «ENDIF»				
 		«ELSE»
 			<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
