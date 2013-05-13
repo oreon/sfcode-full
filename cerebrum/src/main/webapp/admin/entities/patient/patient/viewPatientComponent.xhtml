@@ -66,20 +66,30 @@
           <h:outputText value="#{msg.History}"/> 
         </f:facet>  
         <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedicalHistory')}"/>  
-        <rich:toolTip value="#{patient.history.medicalHistory}" for="medicalHistoryAbbr"></rich:toolTip>  
-        <h:outputText id="medicalHistoryAbbr" value="#{patient.history.medicalHistoryAbbreviated}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{patient.history.medicalHistory}" for="medicalHistoryAbbr"></rich:toolTip>  
+          <h:outputText id="medicalHistoryAbbr" value="#{patient.history.medicalHistoryAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.history_socialHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewSocialHistory')}"/>  
-        <rich:toolTip value="#{patient.history.socialHistory}" for="socialHistoryAbbr"></rich:toolTip>  
-        <h:outputText id="socialHistoryAbbr" value="#{patient.history.socialHistoryAbbreviated}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{patient.history.socialHistory}" for="socialHistoryAbbr"></rich:toolTip>  
+          <h:outputText id="socialHistoryAbbr" value="#{patient.history.socialHistoryAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.history_familyHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewFamilyHistory')}"/>  
-        <rich:toolTip value="#{patient.history.familyHistory}" for="familyHistoryAbbr"></rich:toolTip>  
-        <h:outputText id="familyHistoryAbbr" value="#{patient.history.familyHistoryAbbreviated}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{patient.history.familyHistory}" for="familyHistoryAbbr"></rich:toolTip>  
+          <h:outputText id="familyHistoryAbbr" value="#{patient.history.familyHistoryAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.history_medications}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedications')}"/>  
-        <rich:toolTip value="#{patient.history.medications}" for="medicationsAbbr"></rich:toolTip>  
-        <h:outputText id="medicationsAbbr" value="#{patient.history.medicationsAbbreviated}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{patient.history.medications}" for="medicationsAbbr"></rich:toolTip>  
+          <h:outputText id="medicationsAbbr" value="#{patient.history.medicationsAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.history_allergies}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewAllergies')}"/>  
-        <rich:toolTip value="#{patient.history.allergies}" for="allergiesAbbr"></rich:toolTip>  
-        <h:outputText id="allergiesAbbr" value="#{patient.history.allergiesAbbreviated}" escape="false"/> 
+        <h:panelGroup> 
+          <rich:toolTip value="#{patient.history.allergies}" for="allergiesAbbr"></rich:toolTip>  
+          <h:outputText id="allergiesAbbr" value="#{patient.history.allergiesAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
       </h:panelGrid>  
       <br/>  
       <br/> 

@@ -12,8 +12,10 @@
           <h:outputText value="#{msg.PatientDiffDx}"/> 
         </f:facet>  
         <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')}"/>  
-        <rich:toolTip value="#{patientDiffDx.notes}" for="notesAbbr"></rich:toolTip>  
-        <h:outputText id="notesAbbr" value="#{patientDiffDx.notesAbbreviated}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{patientDiffDx.notes}" for="notesAbbr"></rich:toolTip>  
+          <h:outputText id="notesAbbr" value="#{patientDiffDx.notesAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')}"/>  
         <s:link escape="false" value="#{patientDiffDx.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
           <f:param name="patientId" value="#{patientDiffDx.patient.id}"/>  

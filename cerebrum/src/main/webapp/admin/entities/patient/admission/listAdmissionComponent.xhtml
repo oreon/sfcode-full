@@ -45,8 +45,10 @@
               <ui:param name="propertyPath" value="admission.admissionNote"/> 
             </ui:include> 
           </f:facet>  
-          <rich:toolTip value="#{_admission.admissionNote}" for="admissionNoteAbbr"></rich:toolTip>  
-          <h:outputText id="admissionNoteAbbr" value="#{_admission.admissionNoteAbbreviated}" escape="false"/> 
+          <h:panelGroup> 
+            <rich:toolTip value="#{_admission.admissionNote}" for="admissionNoteAbbr"></rich:toolTip>  
+            <h:outputText id="admissionNoteAbbr" value="#{_admission.admissionNoteAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeDate')}"> 
           <f:facet name="header"> 
@@ -81,8 +83,10 @@
               <ui:param name="propertyPath" value="admission.dischargeNote"/> 
             </ui:include> 
           </f:facet>  
-          <rich:toolTip value="#{_admission.dischargeNote}" for="dischargeNoteAbbr"></rich:toolTip>  
-          <h:outputText id="dischargeNoteAbbr" value="#{_admission.dischargeNoteAbbreviated}" escape="false"/> 
+          <h:panelGroup> 
+            <rich:toolTip value="#{_admission.dischargeNote}" for="dischargeNoteAbbr"></rich:toolTip>  
+            <h:outputText id="dischargeNoteAbbr" value="#{_admission.dischargeNoteAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeCode')}"> 
           <f:facet name="header"> 

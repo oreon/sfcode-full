@@ -31,10 +31,10 @@ import org.jboss.seam.security.Identity;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
 
 import org.witchcraft.base.entity.FileAttachment;
 

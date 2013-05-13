@@ -12,8 +12,10 @@
           <h:outputText value="#{msg.DrugInteraction}"/> 
         </f:facet>  
         <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')}"/>  
-        <rich:toolTip value="#{drugInteraction.description}" for="descriptionAbbr"></rich:toolTip>  
-        <h:outputText id="descriptionAbbr" value="#{drugInteraction.descriptionAbbreviated}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{drugInteraction.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{drugInteraction.descriptionAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewSeverity')}"/>  
         <h:outputText value="#{drugInteraction.severity}" escape="false"/>  
         <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDrug')}"/>  

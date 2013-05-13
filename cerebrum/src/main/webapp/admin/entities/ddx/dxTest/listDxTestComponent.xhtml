@@ -39,8 +39,10 @@
               <ui:param name="propertyPath" value="dxTest.description"/> 
             </ui:include> 
           </f:facet>  
-          <rich:toolTip value="#{_dxTest.description}" for="descriptionAbbr"></rich:toolTip>  
-          <h:outputText id="descriptionAbbr" value="#{_dxTest.descriptionAbbreviated}" escape="false"/> 
+          <h:panelGroup> 
+            <rich:toolTip value="#{_dxTest.description}" for="descriptionAbbr"></rich:toolTip>  
+            <h:outputText id="descriptionAbbr" value="#{_dxTest.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 

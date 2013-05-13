@@ -14,8 +14,10 @@
         <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewName')}"/>  
         <h:outputText value="#{prescriptionTemplate.name}" escape="false"/>  
         <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewDirectivesForPatient')}"/>  
-        <rich:toolTip value="#{prescriptionTemplate.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
-        <h:outputText id="directivesForPatientAbbr" value="#{prescriptionTemplate.directivesForPatientAbbreviated}" escape="false"/> 
+        <h:panelGroup> 
+          <rich:toolTip value="#{prescriptionTemplate.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
+          <h:outputText id="directivesForPatientAbbr" value="#{prescriptionTemplate.directivesForPatientAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{not empty prescriptionTemplateAction.listPrescriptionItemTemplates and skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewPrescriptionItemTemplates') }" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
