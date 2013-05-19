@@ -1,18 +1,12 @@
 package org.witchcraft.seam.action;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import com.pcas.datapkg.MetaData;
-import com.pcas.datapkg.customReports.MetaEntity;
-import com.pcas.datapkg.customReports.MetaField;
 
 public class MetaDataUpdater {
 	
 	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
 
 	//@Create
+	/*
 	public synchronized void start() {
 
 		EntityManagerFactory emf = Persistence
@@ -50,6 +44,6 @@ public class MetaDataUpdater {
 
 	public static void main(String[] args) {
 		new MetaDataUpdater().start();
-	}
+	}*/
 
 }
