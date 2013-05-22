@@ -57,6 +57,12 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 		return «asVar()»;
 	}
 	
+	@Override
+	public «name» getInstance() {
+		return get«name»();
+	}
+	
+	
 	«FOREACH allParents() AS e-»
 	 «EXPAND genManyToManySearch FOREACH e.getAllAttributes().select(a|a.isManyToMany()  ) -»
 	«ENDFOREACH»
@@ -102,6 +108,8 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
    
    	private static final String[] RESTRICTIONS = {
    		"«asVar()».id = #{«asVar()»List.«asVar()».id}",
+   		
+   		"«asVar()».archived = #{«asVar()»List.«asVar()».archived}",
    	
 		«EXPAND genAttribAsOutput(false) FOR this»
 		
