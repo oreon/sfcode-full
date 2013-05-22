@@ -353,13 +353,13 @@ public abstract class BaseAction<T extends BaseEntity> extends
 		return "view";
 	}
 
-	@Restrict
+	//@Restrict
 	public void archive() {
 		load((Long) getId());
 		archive(getInstance());
 	}
 
-	@Restrict
+	//@Restrict
 	public void archiveById() {
 		T t = loadFromId(idToArchive);
 		archive(t);

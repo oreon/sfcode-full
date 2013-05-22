@@ -6,10 +6,10 @@
       <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_users_AppRole) ENABLED START-->  
       <!--PROTECTED REGION END-->  
       <rich:tabPanel switchType="ajax"> 
-        <rich:tab label="AppRole"> 
+        <rich:tab header="AppRole"> 
           <ui:include src="/admin/entities/users/appRole/viewAppRoleComponent.xhtml"/>  
           <div class="buttonBox"> 
-            <h:commandButton value="Edit" rendered="#{s:hasPermission('appRole', 'edit', appRoleAction.instance)}" action="edit"></h:commandButton>  
+            <h:commandButton value="Edit"  action="edit" />  
             <h:outputText value=" "/>  
             <h:commandButton value="Back To Listing" action="#{appRoleAction.cancel}"> 
               <s:conversationPropagation type="end"/> 
@@ -20,10 +20,10 @@
       <div class="buttonBox"></div> 
     </h:form>  
     <br/>  
-    <rich:tabPanel switchType="client"></rich:tabPanel>  
+    
     <br/>  
     <rich:tabPanel switchType="client"> 
-      <rich:tab label="Notes"> 
+      <rich:tab header="Notes"> 
         <wc:comments backingAction="#{appRoleAction}"/> 
       </rich:tab> 
     </rich:tabPanel> 
