@@ -18,6 +18,8 @@
                   concurrent-request-timeout="500"
                   conversation-id-parameter="cid"/>
                   
+   <core:init debug="true" />
+                  
     <persistence:filter name="archivedFilter">
 		<persistence:name>archiveFilterDef</persistence:name>
 		<persistence:parameters>
@@ -50,6 +52,7 @@
 	<security:identity authenticate-method="#{authenticator.authenticate}"
 		remember-me="true" />
 		
+<!--  
 	<security:rule-based-permission-resolver
 		security-rules="#{securityRules}" />
 
@@ -58,7 +61,7 @@
 			<value>/permissions/security.drl</value>
 		</drools:rule-files>
 	</drools:rule-base>
-                  
+ -->         
                      <!-- 
     <transaction:entity-transaction entity-manager="#{em}"/>
                   

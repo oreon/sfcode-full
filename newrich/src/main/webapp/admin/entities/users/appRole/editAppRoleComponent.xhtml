@@ -13,10 +13,11 @@
         </f:facet>  
         <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.appRole_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appRole', 'editName')}"/>
+            <h:outputText value="#{msg.appRole_name}" />
           </ui:define>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appRole', 'editName')}" label="#{msg.appRole_name}" required="true" disabled="false" value="#{appRoleAction.appRole.name}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
+          <h:inputText id="name#{entityId}" label="#{msg.appRole_name}" 
+          	required="true" disabled="false" value="#{appRoleAction.appRole.name}"> 
+            
           </h:inputText> 
         </s:decorate> 
       </h:panelGrid>  

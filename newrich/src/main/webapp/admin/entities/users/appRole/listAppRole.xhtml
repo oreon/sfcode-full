@@ -12,11 +12,12 @@
     <br/>  
     <br/>  
     <h:form> 
-      <s:button value="Create New" action="/admin/entities/users/appRole/editAppRole.xhtml" propagation="none"> 
+    	<c:set var="modalId" value="1" />
+      <h:button value="Create New" outcome="/admin/entities/users/appRole/editAppRole.xhtml" propagation="none"> 
         <f:param name="appRoleId" value="0"/> 
-      </s:button>  
-      <a:commandButton action="#{appRoleAction.setAppRoleId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
-      <s:button value="Export to Excel" action="#{appRoleList.exportToCsv}"/> 
+      </h:button>  
+      <h:commandButton action="#{appRoleAction.setAppRoleId(0)}" oncomplete="Richfaces.showModalPanel('mdldlg',{});" value="Quick Create" reRender="mdldlg" />  
+      
     </h:form>  
     <ui:include src="listAppRoleComponent.xhtml"> 
       <ui:param name="records" value="#{appRoleList.resultList}"/> 
@@ -25,11 +26,13 @@
       <s:button value="Create New" action="/admin/entities/users/appRole/editAppRole.xhtml" propagation="none"> 
         <f:param name="appRoleId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{appRoleAction.setAppRoleId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
-      <s:button value="Export to Excel" action="#{appRoleList.exportToCsv}"/> 
+      
+      <a:commandButton action="#{appRoleAction.setAppRoleId(0)}" oncomplete="Richfaces.showModalPanel('mdldlg',{});" value="Quick Create" reRender="mdldlg"></a:commandButton>  
+     
     </h:form>  
+    
     <ui:include src="/admin/entities/users/appRole/modalDlgAppRoleComponent.xhtml"> 
-      <ui:param name="modalId" value="${modalId}"/> 
+      <ui:param name="modalId" value="mdldlg"/> 
     </ui:include> 
   </ui:define> 
 </ui:composition>
