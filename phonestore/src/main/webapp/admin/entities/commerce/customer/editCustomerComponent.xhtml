@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCustomerComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{customerAction.load(customerId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomer eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Customer}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_firstNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editFirstName')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editFirstName')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{customerAction.customer.firstName}"> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_lastNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editLastName')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editLastName')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{customerAction.customer.lastName}"> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_typeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.customer_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editType')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editType')}" value="#{customerAction.customer.type}" required="false" label="#{msg.customer_type}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="STANDARD" itemLabel="#{msg.STANDARD}"/>  
+            <f:selectItem itemValue="GOLD" itemLabel="#{msg.GOLD}"/>  
+            <f:selectItem itemValue="PLATINUM" itemLabel="#{msg.PLATINUM}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ContactDetails}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_contactDetails_phoneDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editPhone')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_contactDetails_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editPhone')}" label="#{msg.contactDetails_phone}" required="false" disabled="false" value="#{customerAction.customer.contactDetails.phone}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_contactDetails_secondaryPhoneDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editSecondaryPhone')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editSecondaryPhone')}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{customerAction.customer.contactDetails.secondaryPhone}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_contactDetails_cityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editCity')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'editCity')}" label="#{msg.contactDetails_city}" required="false" disabled="false" value="#{customerAction.customer.contactDetails.city}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
