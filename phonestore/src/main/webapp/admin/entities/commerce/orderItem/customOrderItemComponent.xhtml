@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editRemarks')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_remarks" value="#{orderItemAction.orderItem.remarks}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editRemarks')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.orderItem_customerOrder}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editCustomerOrder')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_customerOrdercustomerOrder" value="#{orderItemAction.orderItem.customerOrder}"> 
+          <s:selectItems value="#{customerOrderList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_customerOrdercustomerOrder" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editCustomerOrder')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.orderItem_product}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_productproduct" value="#{orderItemAction.orderItem.product}"> 
+          <s:selectItems value="#{productList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_productproduct" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.orderItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editUnits')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_units" value="#{orderItemAction.orderItem.units}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_units" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editUnits')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editSalePrice')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_salePrice" value="#{orderItemAction.orderItem.salePrice}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_salePrice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editSalePrice')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

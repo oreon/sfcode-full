@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editProductComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{productAction.load(productId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelProduct eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Product}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.product_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editName')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editName')}" label="#{msg.product_name}" required="true" disabled="false" value="#{productAction.product.name}"> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_imageDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.product_image}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editImage')}"/>
+          </ui:define>  
+          <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editImage')}"> 
+            <h:outputText value="Current File:"/>  
+            <s:link value="#{productAction.product.image.name}" id="image_file" action="#{productAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{productAction.instance.id}"/> 
+            </s:link>  
+            <rich:fileUpload fileUploadListener="#{productAction.imageUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="30" listWidth="250"> 
+              <s:conversationPropagation type="join"/>  
+              <a:support event="onuploadcomplete" reRender="image_file"/> 
+            </rich:fileUpload> 
+          </h:panelGroup> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_priceDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.product_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editPrice')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editPrice')}" label="#{msg.product_price}" required="false" disabled="false" value="#{productAction.product.price}"> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="javax.faces.BigDecimal"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

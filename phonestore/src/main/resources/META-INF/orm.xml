@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">  
+  <description/>  
+  <!--  Employee  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.domain.Employee" name="Employee"> 
+    <table name="employee"></table>  
+    <named-query name="findByPhone"> 
+      <query> <![CDATA[
+			select employee from Employee employee where employee.contactDetails.phone = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Department  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.domain.Department" name="Department"> 
+    <table name="department"></table>  
+    <named-query name="department.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Department u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Exam  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.domain.Exam" name="Exam"> 
+    <table name="exam"></table>  
+    <named-query name="exam.findByUnqTitle"> 
+      <query> <![CDATA[
+			select u from Exam u where u.title = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Question  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.domain.Question" name="Question"> 
+    <table name="question"></table> 
+  </entity>  
+  <!--  Product  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.domain.commerce.Product" name="Product"> 
+    <table name="product"></table> 
+  </entity>  
+  <!--  CustomerOrder  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.domain.commerce.CustomerOrder" name="CustomerOrder"> 
+    <table name="customerorder"></table> 
+  </entity>  
+  <!--  OrderItem  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.domain.commerce.OrderItem" name="OrderItem"> 
+    <table name="orderitem"></table> 
+  </entity>  
+  <!--  Customer  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.domain.commerce.Customer" name="Customer"> 
+    <table name="customer"></table> 
+  </entity> 
+</entity-mappings>

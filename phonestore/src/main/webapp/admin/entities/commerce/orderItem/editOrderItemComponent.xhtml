@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editOrderItemComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{orderItemAction.load(orderItemId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelOrderItem eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.OrderItem}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_remarksDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editRemarks')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editRemarks')}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{orderItemAction.orderItem.remarks}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_unitsDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.orderItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editUnits')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editUnits')}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{orderItemAction.orderItem.units}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_salePriceDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editSalePrice')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_salePrice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editSalePrice')}" label="#{msg.orderItem_salePrice}" required="false" disabled="false" value="#{orderItemAction.orderItem.salePrice}"> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="javax.faces.BigDecimal"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_customerOrdercustomerOrderDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.orderItem_customerOrder}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editCustomerOrder')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_customerOrdercustomerOrder" label="#{msg.orderItem_customerOrder}" value="#{orderItemAction.orderItem.customerOrder}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editCustomerOrder')}" disabled="false"> 
+            <s:selectItems value="#{customerOrderList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_productproductDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.orderItem_product}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_productproduct" label="#{msg.orderItem_product}" value="#{orderItemAction.orderItem.product}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}" disabled="false"> 
+            <s:selectItems value="#{productList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

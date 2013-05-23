@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewProductComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{productAction.load(productId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelProduct eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Product}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.product_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewName')}"/>  
+        <h:outputText value="#{product.name}" escape="false"/>  
+        <h:outputText value="#{msg.product_image}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewImage')}"/>  
+        <s:graphicImage rendered="#{product.image ne null and  product.image.contentType.startsWith('image')}" value="#{product.image.data}"> 
+          <s:transformImageSize height="100" maintainRatio="true"/> 
+        </s:graphicImage>  
+        <s:link value="#{product.image.name}" action="#{productAction.downloadImage(product.id)}" propagation="none" rendered="#{not product.image.contentType.startsWith('image')}"> 
+          <f:param name="currentEnt ityId" value="#{product.id}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.product_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewPrice')}"/>  
+        <h:outputText value="#{product.price}"> 
+          <f:convertNumber pattern="$#,##0.00"/> 
+        </h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

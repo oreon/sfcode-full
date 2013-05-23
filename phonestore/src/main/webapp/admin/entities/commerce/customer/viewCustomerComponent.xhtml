@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewCustomerComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{customerAction.load(customerId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomer eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Customer}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'viewFirstName')}"/>  
+        <h:outputText value="#{customer.firstName}" escape="false"/>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'viewLastName')}"/>  
+        <h:outputText value="#{customer.lastName}" escape="false"/>  
+        <h:outputText value="#{msg.customer_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'viewType')}"/>  
+        <h:outputText value="#{customer.type}" escape="false"/> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ContactDetails}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'viewPhone')}"/>  
+        <h:outputText value="#{customer.contactDetails.phone}" escape="false"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'viewSecondaryPhone')}"/>  
+        <h:outputText value="#{customer.contactDetails.secondaryPhone}" escape="false"/>  
+        <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customer', 'viewCity')}"/>  
+        <h:outputText value="#{customer.contactDetails.city}" escape="false"/> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
