@@ -15,7 +15,7 @@ public class EntityListener {
 	Log log = LogFactory.getLog(EntityListener.class);
 	
 	@PrePersist
-	public void setDatesAndUser(BusinessEntity modelBase) {
+	public void setDatesAndUser(BaseEntity modelBase) {
 		Date now = new Date();
 		if (modelBase.getDateCreated() == null) {
 			modelBase.setDateCreated(now);
@@ -26,6 +26,8 @@ public class EntityListener {
 		try {
 
 			UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
+			if(userUtilAction == null)
+				return;
 			AppUser currentUser = userUtilAction.getCurrentUser();
 
 			if (currentUser != null) {
@@ -44,7 +46,7 @@ public class EntityListener {
 	}
 	
 	@PreUpdate
-	public void setUpdateDateAndUser(BusinessEntity modelBase){
+	public void setUpdateDateAndUser(BaseEntity modelBase){
 		Date now = new Date();
 		modelBase.setDateUpdated(now);
 	}

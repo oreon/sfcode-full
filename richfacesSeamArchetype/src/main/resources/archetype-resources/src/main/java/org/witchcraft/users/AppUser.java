@@ -26,7 +26,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 
 
 
@@ -38,7 +38,7 @@ import org.witchcraft.base.entity.BusinessEntity;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class AppUser extends BusinessEntity
+public class AppUser extends BaseEntity
 		implements
 			java.io.Serializable{
 	private static final long serialVersionUID = -1510385050L;

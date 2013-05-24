@@ -19,17 +19,17 @@
 				<h:panelGrid columns="1" >
 					 <s:decorate id="appUser_userNameDecorate" template="/layout/edit.xhtml"> 
 			          <ui:define name="label"> 
-			            <h:outputText value="#{msg.appUser_userName} * " />
+			            <h:outputText value="UserName * " />
 			          </ui:define>  
-			          <h:inputText id="appUser_userName#{entityId}"  label="#{msg.appUser_userName}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.userName}"> 
+			          <h:inputText id="appUser_userName#{entityId}"  label="#{msg.appUser_userName}" required="true" disabled="false" value="#{credentials.username}"> 
 			            <rich:ajaxValidator /> 
 			          </h:inputText> 
 			        </s:decorate>  
 			        <s:decorate id="appUser_passwordDecorate" template="/layout/edit.xhtml"> 
 			          <ui:define name="label"> 
-			            <h:outputText value="#{msg.appUser_password} * " />
+			            <h:outputText value="Password * " />
 			          </ui:define>  
-			          <h:inputSecret redisplay="true" id="appUser_password#{entityId}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{candidateAction.candidate.appUser.password}"> 
+			          <h:inputSecret redisplay="true" id="appUser_password#{entityId}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{credentials.password}"> 
 			            <rich:ajaxValidator/> 
 			          </h:inputSecret> 
 			        </s:decorate>  
