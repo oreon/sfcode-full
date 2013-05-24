@@ -5,11 +5,14 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import org.hibernate.Session;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.bpm.Actor;
+import org.jboss.seam.international.StatusMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
@@ -34,10 +37,17 @@ public class Authenticator {
 
 	@In
 	Identity identity;
+	
+	@In
+	protected StatusMessages statusMessages;
 
 	public boolean authenticate() {
 
 		try {
+			
+			Session session = (Session)entityManager.getDelegate();
+			
+			//session.disableFilter("tenantFilterDef");
 
 			AppUser user = (AppUser) entityManager
 					.createQuery(
@@ -45,6 +55,14 @@ public class Authenticator {
 					.setParameter("username", credentials.getUsername())
 					.setParameter("password", credentials.getPassword())
 					.getSingleResult();
+			
+			
+			if(!user.getEnabled()){
+				addErrorMessage("Your account has been disabled - please contact support " );
+			
+				//add message not enalbed
+				return false;
+			}
 
 			if (user.getAppRoles() != null) {
 				Set<AppRole> roles = user.getAppRoles();
@@ -63,6 +81,9 @@ public class Authenticator {
 			}
 
 			userUtilAction.setCurrentUser(user);
+			
+	
+			//session.enableFilter("tenantFilterDef").setParameter("tenantId",user.getTenant());
 			/*
 			user.setLastLogin(new Date());
 			UserAction userAction = (UserAction) Component.getInstance("userAction");
@@ -74,10 +95,15 @@ public class Authenticator {
 
 		catch (NoResultException ex) {
 
+			addErrorMessage("Username/Password is invalid" );
 			return false;
 
 		}
 
+	}
+	
+	protected void addErrorMessage(String message, Object... params) {
+		statusMessages.add(Severity.ERROR, message, params);
 	}
 	
 	private void updateActor(AppUser user) {

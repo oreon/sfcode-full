@@ -10,27 +10,49 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.witchcraft.users.AppUser;
 
-
 @Name("userUtilAction")
 @Scope(ScopeType.SESSION)
-public class UserUtilAction implements Serializable{
-	 
-	
+public class UserUtilAction implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3320546173691963806L;
 
 	private AppUser currentUser;
-	
+
+	//private Facility currentFacility;
+
 	@In
 	EntityManager entityManager;
+	
+	
 
 	public AppUser getCurrentUser() {
 		return currentUser;
 	}
 
 	public void setCurrentUser(AppUser currentUser) {
-		this.currentUser = entityManager.merge(currentUser);	
+		this.currentUser = entityManager.merge(currentUser);
+		//if(currentUser.getTenant() != null)
+		//currentFacility =  entityManager.find(Facility.class, currentUser.getTenant());
 	}
+
+	/* this code is for multi tenanted applicaitons
+	public Long getCurrentTenantId() {
+		if(currentFacility != null)
+			return currentFacility.getTenant();
+		
+		Long result = currentUser == null || currentUser.getTenant() == null ? 0
+				: currentUser.getTenant();
+		return result;
+	}
+
+	public void setCurrentFacility(Facility currentFacility) {
+		this.currentFacility = currentFacility;
+	}
+
+	public Facility getCurrentFacility() {
+		return currentFacility;
+	}*/
 }

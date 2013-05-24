@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
@@ -11,6 +12,7 @@ import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.users.AppRole;
 import org.witchcraft.users.AppUser;
 
+@Name("appUserAction")
 public  class AppUserAction extends BaseAction<AppUser>
 		implements
 			java.io.Serializable {

@@ -1,6 +1,7 @@
 package org.witchcraft.seam.action;
 
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +20,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.jboss.seam.Component;
@@ -39,7 +42,7 @@ import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
 import org.witchcraft.base.entity.FileAttachment;
@@ -47,6 +50,8 @@ import org.witchcraft.exceptions.ContractViolationException;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
+
+import com.sun.org.apache.commons.beanutils.BeanUtils;
 
 /**
  * The base action class - contains common persistence related methods, also
@@ -56,7 +61,12 @@ import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
  * 
  * @param <T>
  */
-public abstract class BaseAction<T extends BusinessEntity> extends
+/**
+ * @author t900058
+ *
+ * @param <T>
+ */
+public abstract class BaseAction<T extends BaseEntity> extends
 		EntityHome<T> {
 
 	@Logger
@@ -211,15 +221,25 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		loadFromTemplate(entityTemplate.getId());
 	}
 
-	// @Transactional
-	// @Begin(join = true)
+	@Transactional
+	@Begin(join = true)
 	public void loadFromTemplate(Long id) {
 		entityTemplate = entityManager.find(EntityTemplate.class, id);
 		@SuppressWarnings("unused")
 		T t = (T) entityTemplate.getEntity();
 		Session session = (Session) entityManager.getDelegate();
 		// session.lock(t, LockMode.UPGRADE);
-		instance = t;
+		try {
+			BeanUtils.copyProperties(instance, t);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		instance.setId(0L);
+		//setInstance(t);
 
 		loadAssociations();
 
@@ -227,8 +247,30 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	public List<EntityTemplate<T>> getTemplateList() {
 		return executeNamedQuery("entityTemplates.templatesForEntity",
-				getClassName(getInstance()), Identity.instance()
-						.getCredentials().getUsername());
+				getClassName(getInstance()));
+	}
+	
+	
+	public void restore(){
+		Session session = (Session)entityManager.getDelegate();
+		session.disableFilter("archiveFilterDef");
+		
+		T t = loadFromId(currentEntityId);
+		t.setArchived(false);
+		persist(t);
+	
+		session.enableFilter("archiveFilterDef").setParameter("aArchived", "0");
+	}
+	
+	public void delete(){
+		
+		Session session = (Session)entityManager.getDelegate();
+		session.disableFilter("archiveFilterDef");
+		
+		T t = loadFromId(currentEntityId);
+		getEntityManager().remove(t);
+		
+		session.enableFilter("archiveFilterDef").setParameter("aArchived", "0");
 	}
 
 	public EntityTemplate getCurrentTemplate() {
@@ -268,26 +310,57 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		try {
 
 			updateComposedAssociations();
+			
+			preSave();
 
 			if (isManaged())
 				update();
-			else
+			else{
+				instance = entityManager.merge(instance);
 				persist();
+			}
 
 		//	addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
 			updateAssociations();
 
-		} catch (Exception e) {
-			addErrorMessage("Error Saving record: " + e.getMessage());
-			log.error("error saving ", e);
-			return "error";
+		}catch(PersistenceException pe){
+			
+			if(pe.getCause().getCause() != null && pe.getCause() instanceof ConstraintViolationException 
+						&& pe.getCause().getCause().getMessage().startsWith("Duplicate entry")){
+					String message = pe.getCause().getCause().getMessage();
+					String errorWordsArray[] = message.split(" ");
+					addErrorMessage("There is already an existing " + getClassName() + " with  " + errorWordsArray[errorWordsArray.length -1] + " " + errorWordsArray[2]);
+				
+			}else{
+				return handlePersistenceException(pe);
+			}
+		}
+		catch (Exception e) {
+			return handlePersistenceException(e);
 		}
 		return "save";
 
 	}
 
+	
+	/**
+	 * This method should be overridden by action classes that need to do something before the instance is saved
+	 */
+	protected void preSave() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private String handlePersistenceException(Exception e) {
+		addErrorMessage("Error Saving record: " + e.getMessage());
+		log.error("error saving ", e);
+		return "error";
+	}
+
 	public String save() {
-		return doSave();
+		String result = doSave();
+		//Conversation.instance().end();
+		return result;
 	}
 
 	@End(beforeRedirect=true)
@@ -326,8 +399,9 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 	}
 
 	public void load(Long entityId) {
-		// if (entityId == null || entityId == 0)
-		// entityId = currentEntityId;
+		if (entityId == null || entityId == 0)
+			entityId = currentEntityId;
+		
 		if (entityId == null || entityId == 0) {
 			log.info("Empty id " + entityId);
 			return;
@@ -361,7 +435,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@Restrict
 	public void archiveById() {
-		T t = loadFromId(idToArchive);
+		T t = loadFromId(currentEntityId);
 		archive(t);
 	}
 
@@ -376,6 +450,8 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			throw re;
 		}
 	}
+	
+	
 
 	@End
 	public String cancel() {
@@ -682,5 +758,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		}
 		return entity;
 	}
+	
+	
 
 }
