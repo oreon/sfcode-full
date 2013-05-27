@@ -363,9 +363,11 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 			return («name») executeSingleResultQuery(query, Identity.instance().getCredentials().getUsername());
 		}
 		
+		«IF defaultRole != null»
 		public String getDefaultRoleName(){
 			return DEFAULT_ROLE_NAME;
 		}
+		«ENDIF»
 	«ENDIF»
 	
 	public String view«name»(){

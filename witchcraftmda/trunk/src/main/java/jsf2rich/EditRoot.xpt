@@ -62,14 +62,14 @@
 
 			«ENDPROTECT»	
 			<rich:tabPanel switchType="ajax">
-				<rich:tab label="«name»">
+				<rich:tab header="«name»">
 					<div id="printable" >
 					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" />
 					</div>
 					«EXPAND genCancelSaveBtns(false) FOR this»
 				</rich:tab>
 			«FOREACH getOutgoingAssociations() AS a ITERATOR iter»
-				<rich:tab label="«a.name.toFirstUpper()»"  rendered="#{«getAction()».instance.«a.name» != null}">
+				<rich:tab header="«a.name.toFirstUpper()»"  rendered="#{«getAction()».instance.«a.name» != null}">
 					<ui:include src = "«a.type.getComponentViewFile("view")»" >
 						«REM»comment<ui:param name="entityId" value="«getRandomNumber()»" />«ENDREM»
 						<ui:param name="entityId" value="«iter.counter1»" />
@@ -84,23 +84,23 @@
 			
 			<rich:tabPanel  switchType="client" >
 			«FOREACH getNonComposedManyAssociations() AS a»
-			<rich:tab label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
+			<rich:tab header="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
 				<ui:include src = "«a.type.getComponentViewFile("list")»" >
 					<ui:param name="records" value="#{«a.type.asVar()»List.get«a.name.toFirstUpper()»By«a.opposite.name.toFirstUpper()»(«getAction()».instance)}" />
          			<ui:param name="modalId" value="${modalId}" />
          		</ui:include>
-         		<a:form> 
-		      		<s:button value="Create New" view="«a.type.getViewFile("edit")»" > 
+         		<h:form> 
+		      		<h:button value="Create New" outcome="«a.type.getViewFile("edit")»" > 
 		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
-		      		</s:button>
-		      		  <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  reRender="${modalId}" >
+		      		</h:button>
+		      		  <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  reRender="${modalId}" >
 			            <a:actionparam name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
 			         	<a:actionparam name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.opposite.name»Id}" 
 			         		value="#{«name.toFirstLower()»Action.instance.id}"  />
-			         </a:commandButton>
-		    	</a:form>
+			         </h:commandButton>
+		    	</h:form>
 		    	<ui:include src="«a.type.getComponentViewFile("modalDlg")»" > 
 		    		<ui:param name="modalId" value="${modalId}" />
 		    	</ui:include>
@@ -110,11 +110,11 @@
 		<br/>
 		
 		<rich:tabPanel switchType="client">
-			<rich:tab label="Notes">
+			<rich:tab header="Notes">
 				<wc:comments backingAction="#{«getAction()»}"/>
 			</rich:tab>
 			«IF getAuditable()-»
-			<rich:tab label="Audit">
+			<rich:tab header="Audit">
 				<ui:include
 					src="«getComponentViewFile("auditList")»" />
 			</rich:tab>
@@ -185,7 +185,7 @@
 		«IF o.hasStereo("UserOperation") »
 			«IF o.hasUI»
 			
-			<a:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)  and  «getAction()».«o.name»Allowed }" 
+			<h:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)  and  «getAction()».«o.name»Allowed }" 
 				oncomplete="Richfaces.showModalPanel('«o.name»«name.toFirstUpper()»Mdl',{});"  />
 	
 			«ELSE»
@@ -259,19 +259,19 @@
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
 	<br/>
 	«IF isCurrentEditMode()»
-	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  id="«name»">
+	<rich:togglePanel label="«msgBundleKey()»" switchType="client"  id="«name»">
 		<rich:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
 			targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
 	        <s:convertEntity />
 	        <rich:column> #{item.displayName} </rich:column>
 	     </rich:listShuttle>
-    </rich:simpleTogglePanel>
+    </rich:togglePanel>
 	«ELSE»
-	<rich:simpleTogglePanel label="«msgBundleKey()»" switchType="client"  >
+	<rich:togglePanel label="«msgBundleKey()»" switchType="client"  >
         <rich:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
         	<rich:column> #{item.displayName} </rich:column>
      	</rich:dataTable>
-     </rich:simpleTogglePanel>
+     </rich:togglePanel>
 	«ENDIF»
 «ENDDEFINE»
 
@@ -368,18 +368,18 @@
 «ENDDEFINE»
 
 «DEFINE genAssocLink FOR uml::Property»
-	<s:link «getEscape()»  value="#{«getActionForMode()»«genPropertyLabel()».displayName}"  
+	<h:link «getEscape()»  value="#{«getActionForMode()»«genPropertyLabel()».displayName}"  
 			action="view«name»" propagation="none">
 			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
-			 <rich:toolTip>
+			 <rich:tooltip>
 	            <span>
 	              #{«getActionForMode()»«genPropertyLabel()».popupInfo} 
 	            </span>
-	        </rich:toolTip>
+	        </rich:tooltip>
 	        «ENDIF»
-	</s:link>
+	</h:link>
 «ENDDEFINE»
 
 «DEFINE genAssociationEdit FOR uml::Property»
@@ -397,8 +397,8 @@
 			«ENDIF»
 		«ENDIF»
 	«REM»comment
-	<a:commandButton oncomplete="Richfaces.showModalPanel('«type.name»ModalPanel',{});" value="Create" /> 
-	<a:commandButton oncomplete="Richfaces.showModalPanel('«type.name»SelectModalPanel',{});" value="Choose" />
+	<h:commandButton oncomplete="Richfaces.showModalPanel('«type.name»ModalPanel',{});" value="Create" /> 
+	<h:commandButton oncomplete="Richfaces.showModalPanel('«type.name»SelectModalPanel',{});" value="Choose" />
 	«ENDREM» 
 	«ENDIF»	
 «ENDDEFINE»
@@ -414,7 +414,7 @@
 «ENDDEFINE»
 
 «DEFINE genSuggestionBox FOR uml::Property»
-	<rich:suggestionbox  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
+	<rich:autocomplete  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
 		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
 		«IF type.autoCompleteColumns == null»
 			<h:column>
@@ -432,7 +432,7 @@
 			<f:setPropertyActionListener value="#{_result}"
 				target="#{«getActionForMode()»«genPropertyLabel()-»}" />
 		</a:support>
-	</rich:suggestionbox>
+	</rich:autocomplete>
 «ENDDEFINE»
 
 «DEFINE genDropDown FOR uml::Property»
@@ -453,7 +453,7 @@
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.all"»}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
-		«genAjaxValidator()»
+		«genAjaxValidatorJSF2()»
 		<s:convertEntity />
 	</h:selectOneMenu>
 «ENDDEFINE»
@@ -477,7 +477,7 @@
 	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"" + " disabled=\"" + getDisabled() + "\"" :""
 	 » 
 	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
-	  «genAjaxValidator()»
+	  «genAjaxValidatorJSF2()»
 	  «IF isNameType()»
 	  	 <f:converter  converterId="witchcraft.ui.jsf.capitalizeConverter"/>
 	  «ENDIF»
@@ -498,9 +498,9 @@
 			<s:graphicImage value="#{«currentFile».data}" />
 		</c:when>
 		<c:otherwise>
-			<s:link value="#{«currentFile».name}"  action="#{«class.getAction()».download«name.toFirstUpper()»(null)}" propagation="none" >
+			<h:link value="#{«currentFile».name}"  action="#{«class.getAction()».download«name.toFirstUpper()»(null)}" propagation="none" >
 				<f:param name="currentEntityId" value="#{«class.getAction()».instance.id}" />
-			</s:link>
+			</h:link>
 		</c:otherwise>
 	</c:choose>
 «ENDLET»
@@ -509,14 +509,14 @@
 «DEFINE genFilePropertyEntry FOR uml::Property-»
 	«IF isCurrentEditMode() » 
      <h:panelGroup  rendered="#{«genEditPermission()»}"> 
-          <h:outputText value="Current File:" /> <s:link value="#{«getActionForFileMode()»«class.asVar()-».«name».name}" id="«name»_file" 
+          <h:outputText value="Current File:" /> <h:link value="#{«getActionForFileMode()»«class.asVar()-».«name».name}" id="«name»_file" 
           	action="#{«getActionForFileMode()»downloadFile(null)}" propagation="none"> 
               <f:param name="currentEntityId" value="#{«getActionForFileMode()»instance.id}" /> 
-            </s:link> 
+            </h:link> 
         <rich:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
         	autoclear="false"  listHeight="30" listWidth="250"> 	
         	<s:conversationPropagation type="join" />
-        	 <a:support event="onuploadcomplete" reRender="«name»_file" />
+        	<a:support event="onuploadcomplete" reRender="«name»_file" />
         </rich:fileUpload>
      </h:panelGroup>
     «ELSE» 
@@ -564,7 +564,7 @@
 		«FOREACH  enm.ownedLiteral AS e-»
 		<f:selectItem itemValue="«e.name»"  itemLabel="#{msg.«e.name-»}" />
 		«ENDFOREACH»
-		«genAjaxValidator()»
+		«genAjaxValidatorJSF2()»
 	</h:selectOneMenu>
 	«ENDIF»
 «ENDDEFINE»
@@ -614,10 +614,10 @@
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
-	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
+	<h:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
 		reRender="«name»"  rendered="#{«genEditPermission()»}" >
 		<s:conversationId/>
-	</a:commandButton>
+	</h:commandButton>
 «ENDDEFINE»
 
 «DEFINE genProperty FOR String-»

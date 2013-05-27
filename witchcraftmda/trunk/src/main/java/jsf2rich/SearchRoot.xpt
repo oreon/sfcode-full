@@ -16,20 +16,20 @@
 	<ui:include src="freeTypeSearch«name»Component.xhtml" />
 	</s:div>	
 	<br/>
-	<rich:simpleTogglePanel switchType="client" label="Advanced Search" opened="false">
+	<rich:togglePanel switchType="client" label="Advanced Search" opened="false">
 	
 		<rich:tabPanel>
-			<rich:tab label="Search">
+			<rich:tab header="Search">
 				<ui:include src="fieldSearch«name»Component.xhtml" />
 			</rich:tab>
 	
-			<rich:tab label="Text Search">
+			<rich:tab header="Text Search">
 				<ui:include src="textSearch«name»Component.xhtml" />
 			</rich:tab>
 		</rich:tabPanel>
 	
 		«EXPAND genCancelSaveBtns FOR this-»
-		</rich:simpleTogglePanel>
+		</rich:togglePanel>
 	</h:form>
 </ui:composition>
 «ENDFILE»
@@ -92,7 +92,7 @@
 «ENDDEFINE»
 
 «DEFINE genSuggestionBox FOR uml::Class»
-	<rich:suggestionbox  for="freeType«name»"  rules="all" suggestionAction="#{«asVar()»List.autocompletedb}"
+	<rich:autocomplete  for="freeType«name»"  rules="all" suggestionAction="#{«asVar()»List.autocompletedb}"
 		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
 		«IF autoCompleteColumns == null»
 			<h:column>
@@ -110,7 +110,7 @@
 			<f:setPropertyActionListener value="#{_result}"
 				target="#{«getAction()».instance}" />
 		</a:support>
-	</rich:suggestionbox>
+	</rich:autocomplete>
 «ENDDEFINE»
 
 
@@ -120,7 +120,7 @@
 <ui:composition «EXPAND WebRoot::genIncludes-» >
 <h:inputText value="#{«getList()».searchText}" id="srchtext" />
 
-<rich:suggestionbox id="suggestionBoxId" for="srchtext" tokens=",[]"
+<rich:autocomplete id="suggestionBoxId" for="srchtext" tokens=",[]"
 	rules="all" suggestionAction="#{«getList()».autocomplete}"
 	var="_result" fetchValue="#{_result.id}" minChars="2"
 	nothingLabel="No Results found"
@@ -134,7 +134,7 @@
 		<h:outputText value="#{_result.displayName}" />
 	</h:column>
 
-</rich:suggestionbox>
+</rich:autocomplete>
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
@@ -171,7 +171,7 @@
 	</h:commandButton>
 	
 			<rich:tabPanel switchType="client">
-				<rich:tab label="Search Results">
+				<rich:tab header="Search Results">
 					<ui:repeat var="_var" value="#{«getList()».entityList}">
 						<s:link value="${_var.displayName}"
 							action="#{«getAction()».view«name»}">
@@ -186,7 +186,7 @@
 					</ui:repeat>
 
 				</rich:tab>
-				<rich:tab label = "Tabular">
+				<rich:tab header = "Tabular">
 					<ui:include src="list«name»Component.«getExtension()»"  >
 						<ui:param name="records" value="#{«getList()».entityList}" />
 					</ui:include>

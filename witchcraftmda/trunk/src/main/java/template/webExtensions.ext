@@ -237,7 +237,7 @@ st.containingStateMachine().name + "/" + st.name + "." + getExtension();
 
 
 String getExtension():
-if( getCurrentCartridge() == "RICH"  || getCurrentCartridge() == "SEAM3") then
+if( getCurrentCartridge() == "RICH"  || getCurrentCartridge() == "SEAM3" || getCurrentCartridge() == "JSF2RICH" ) then
 	 "xhtml"
 else if ( getCurrentCartridge() == "ICE") then
 	"jspx"
@@ -373,6 +373,9 @@ getTopLevelPackage(cls).packagePath() + "/websvc/"  + cls.package.name + "/" + c
 getWebSvcPackageName(Class cls):
 getTopLevelPackage(cls) + ".websvc." + cls.package.name;
 
+//TODO : figure how to do ajax validation in jsf 2 
+genAjaxValidatorJSF2():
+ "";
 
 genAjaxValidator():
  "<rich:ajaxValidator event=\"" + readPropertyDef("ajaxValidationOn", "onsubmit") + "\" />";
