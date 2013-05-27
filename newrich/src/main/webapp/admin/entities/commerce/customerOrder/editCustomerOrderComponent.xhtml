@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCustomerOrderComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{customerOrderAction.load(customerOrderId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomerOrder eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.CustomerOrder}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_remarksDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.customerOrder_remarks}  " rendered="#{true}"/>
+          </ui:define>  
+          <p:editor escape="false" useSeamText="true" id="#{prefix}_remarks#{entityId}" rendered="#{true}" label="#{msg.customerOrder_remarks}" required="false" disabled="false" value="#{customerOrderAction.customerOrder.remarks}"></p:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_customercustomerDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.customerOrder_customer}  " rendered="#{true}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_customercustomer" label="#{msg.customerOrder_customer}" value="#{customerOrderAction.customerOrder.customer}" required="true" rendered="#{true}" disabled="false"> 
+            <s:selectItems value="#{customerList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <h:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" reRender="orderItems" rendered="#{true}"> 
+        <s:conversationId/> 
+      </h:commandButton>  
+      <rich:dataTable id="orderItems" var="_orderItem" rendered="#{true}" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_productproductDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="#{prefix}_productproduct" label="#{msg.orderItem_product}" value="#{_orderItem.product}" required="true" rendered="#{true}" disabled="false"> 
+              <s:selectItems value="#{productList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_remarksDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="#{prefix}_remarks#{entityId}" rendered="#{true}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{_orderItem.remarks}"></h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_unitsDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="#{prefix}_units#{entityId}" rendered="#{true}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{_orderItem.units}"></h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_salePriceDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="#{prefix}_salePrice#{entityId}" rendered="#{true}" label="#{msg.orderItem_salePrice}" required="false" disabled="false" value="#{_orderItem.salePrice}"> 
+              <f:converter converterId="javax.faces.BigDecimal"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" reRender="orderItems" rendered="#{true}"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{customerOrderAction.deleteOrderItems(rowIndex)}" reRender="orderItems"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

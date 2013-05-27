@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <h:commandButton value="Full Text Search" action="textSearch"> 
+        <s:conversationPropagation type="join"/> 
+      </h:commandButton> 
+    </h:form>  
+    <c:set var="modalId" value="OrderItemModalPanel-OrderItem"/>  
+    <ui:include src="searchOrderItem.xhtml"/>  
+    <br/>  
+    <br/>  
+    <h:form> 
+      <h:button value="Create New" action="/admin/entities/commerce/orderItem/editOrderItem.xhtml" propagation="none"> 
+        <f:param name="orderItemId" value="0"/> 
+      </h:button>  
+      <h:commandButton action="#{orderItemAction.setOrderItemId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></h:commandButton>  
+      <h:button value="Export to Excel" action="#{orderItemList.exportToCsv}"/> 
+    </h:form>  
+    <div id="printable"> 
+      <ui:include src="listOrderItemComponent.xhtml"> 
+        <ui:param name="records" value="#{orderItemList.resultList}"/> 
+      </ui:include> 
+    </div>  
+    <h:form> 
+      <h:button value="Create New" action="/admin/entities/commerce/orderItem/editOrderItem.xhtml" propagation="none"> 
+        <f:param name="orderItemId" value="0"/> 
+      </h:button>  
+      <h:commandButton action="#{orderItemAction.setOrderItemId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></h:commandButton>  
+      <h:button value="Export to Excel" action="#{orderItemList.exportToCsv}"/> 
+    </h:form>  
+    <ui:include src="/admin/entities/commerce/orderItem/modalDlgOrderItemComponent.xhtml"> 
+      <ui:param name="modalId" value="${modalId}"/> 
+    </ui:include> 
+  </ui:define> 
+</ui:composition>

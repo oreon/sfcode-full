@@ -1,0 +1,90 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="/defaultTemplate/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form>
+			<h:panelGroup id="editAppUserComponentPanel">
+				<s:validateAll>
+					<h:panelGrid columns="1"
+						onload="#{appUserAction.load(appUserId )  }" />
+					<c:if test="${numColumns == null }">
+						<c:set var="numColumns" value="2" />
+					</c:if>  
+      
+      ${numColumns}
+      ${skipPermissionCheck}
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo"
+						columnClasses="leftCol, rightCol"
+						rendered="#{ hidePanelAppUser eq null}">
+						<f:facet name="header">
+							<h:outputText value="#{msg.AppUser}" />
+						</f:facet>
+						<s:decorate id="userNameDecorate" template="/layout/edit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="#{msg.appUser_userName}" />
+							</ui:define>
+							<h:inputText id="userName#{entityId}"
+								label="UserName" required="true" disabled="false"
+								value="#{appUserAction.appUser.userName}">
+							</h:inputText>
+						</s:decorate>
+						<s:decorate id="passwordDecorate" template="/layout/edit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="Password"
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}" />
+							</ui:define>
+							<h:inputSecret redisplay="true" id="password#{entityId}"
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}"
+								label="#{msg.appUser_password}" required="true" disabled="false"
+								value="#{appUserAction.appUser.password}">
+
+							</h:inputSecret>
+						</s:decorate>
+						<s:decorate id="enabledDecorate" template="/layout/edit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="#{msg.appUser_enabled}  "
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}" />
+							</ui:define>
+							<h:selectBooleanCheckbox id="enabled#{entityId}"
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}"
+								label="#{msg.appUser_enabled}" required="false" disabled="false"
+								value="#{appUserAction.appUser.enabled}">
+
+							</h:selectBooleanCheckbox>
+						</s:decorate>
+						<s:decorate id="emailDecorate" template="/layout/edit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="#{msg.appUser_email}  "
+									rendered="#{ s:hasPermission('appUser', 'editEmail')}" />
+							</ui:define>
+							<h:inputText id="email#{entityId}"
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}"
+								label="#{msg.appUser_email}" required="true" disabled="false"
+								value="#{appUserAction.appUser.email}">
+
+							</h:inputText>
+						</s:decorate>
+					</h:panelGrid>
+					<br />
+					<br />
+					<br />
+					
+				</s:validateAll>
+			</h:panelGroup>
+
+			<div class="buttonBox"><h:commandButton value="Save"
+				action="#{appUserAction.save}"></h:commandButton> <h:outputText
+				value=" " /> <h:commandButton value="Cancel" immediate="true"
+				action="#{appUserAction.cancel}"></h:commandButton></div>
+		</h:form>
+	</ui:define>
+</ui:composition>

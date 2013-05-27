@@ -1,0 +1,123 @@
+package com.oreon.phonestore.web.action.domain;
+
+import java.util.List;
+
+import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
+import org.witchcraft.base.entity.BaseQuery;
+
+import com.oreon.phonestore.domain.Employee;
+
+/**
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
+ *
+ */
+public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
+
+	private static final String EJBQL = "select employee from Employee employee";
+
+	protected Employee employee = new Employee();
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	@Override
+	public Employee getInstance() {
+		return getEmployee();
+	}
+
+	@Override
+	protected String getql() {
+		return EJBQL;
+	}
+
+	@Override
+	@Restrict("#{s:hasPermission('employee', 'view')}")
+	public List<Employee> getResultList() {
+		return super.getResultList();
+	}
+
+	@Override
+	public Class<Employee> getEntityClass() {
+		return Employee.class;
+	}
+
+	@Override
+	public String[] getEntityRestrictions() {
+		return RESTRICTIONS;
+	}
+
+	private static final String[] RESTRICTIONS = {
+			"employee.id = #{employeeList.employee.id}",
+
+			"employee.archived = #{employeeList.employee.archived}",
+
+			"lower(employee.firstName) like concat(lower(#{employeeList.employee.firstName}),'%')",
+
+			"lower(employee.lastName) like concat(lower(#{employeeList.employee.lastName}),'%')",
+
+			"lower(employee.contactDetails.phone) like concat(lower(#{employeeList.employee.contactDetails.phone}),'%')",
+
+			"lower(employee.contactDetails.secondaryPhone) like concat(lower(#{employeeList.employee.contactDetails.secondaryPhone}),'%')",
+
+			"lower(employee.contactDetails.city) like concat(lower(#{employeeList.employee.contactDetails.city}),'%')",
+
+			"employee.department.id = #{employeeList.employee.department.id}",
+
+			"lower(employee.employeeNumber) like concat(lower(#{employeeList.employee.employeeNumber}),'%')",
+
+			"employee.employeeType = #{employeeList.employee.employeeType}",
+
+			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
+			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
+
+	public List<Employee> getEmployeesByDepartment(
+			com.oreon.phonestore.domain.Department department) {
+		//setMaxResults(10000);
+		employee.setDepartment(department);
+		return getResultList();
+	}
+
+	@Observer("archivedEmployee")
+	public void onArchive() {
+		refresh();
+	}
+
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Employee e) {
+
+		builder.append("\""
+				+ (e.getDepartment() != null ? e.getDepartment()
+						.getDisplayName().replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getEmployeeNumber() != null ? e.getEmployeeNumber()
+						.replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getEmployeeType() != null ? e.getEmployeeType() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Department" + ",");
+
+		builder.append("EmployeeNumber" + ",");
+
+		builder.append("EmployeeType" + ",");
+
+		builder.append("\r\n");
+	}
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEmployeeComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{employeeAction.load(employeeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEmployee eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Employee}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_firstNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_firstName#{entityId}" rendered="#{true}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{employeeAction.employee.firstName}"> 
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_lastNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_lastName#{entityId}" rendered="#{true}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{employeeAction.employee.lastName}"> 
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_employeeNumberDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{true}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_employeeNumber#{entityId}" rendered="#{true}" label="#{msg.employee_employeeNumber}" required="false" disabled="false" value="#{employeeAction.employee.employeeNumber}"></h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_employeeTypeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.employee_employeeType}  " rendered="#{true}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_employeeType" rendered="#{true}" value="#{employeeAction.employee.employeeType}" required="false" label="#{msg.employee_employeeType}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="FULL_TIME" itemLabel="#{msg.FULL_TIME}"/>  
+            <f:selectItem itemValue="CONTRACT" itemLabel="#{msg.CONTRACT}"/>  
+            <f:selectItem itemValue="PART_TIME" itemLabel="#{msg.PART_TIME}"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_departmentdepartmentDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.employee_department}  " rendered="#{true}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_departmentdepartment" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="false" rendered="#{true}" disabled="false"> 
+            <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ContactDetails}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_contactDetails_phoneDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{true}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_contactDetails_phone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_phone}" required="false" disabled="false" value="#{employeeAction.employee.contactDetails.phone}"></h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_contactDetails_secondaryPhoneDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_contactDetails_secondaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{employeeAction.employee.contactDetails.secondaryPhone}"></h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_contactDetails_cityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_city}  " rendered="#{true}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_contactDetails_city#{entityId}" rendered="#{true}" label="#{msg.contactDetails_city}" required="false" disabled="false" value="#{employeeAction.employee.contactDetails.city}"></h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -51,8 +51,8 @@ import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
 import org.jboss.seam.security.Identity;
-import org.newrich.action.AppUserAction;
 import org.witchcraft.exceptions.ContractViolationException;
+import org.witchcraft.users.action.AppUserAction;
 
 
 

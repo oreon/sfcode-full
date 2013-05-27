@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewExamComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{examAction.load(examId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelExam eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Exam}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.exam_title}  " rendered="#{true}"/>  
+        <h:outputText value="#{exam.title}" escape="false"/>  
+        <h:outputText value="#{msg.exam_description}  " rendered="#{true}"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{exam.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{exam.descriptionAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions and true }" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.question_text}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <rich:toolTip value="#{_question.text}" for="textAbbr"></rich:toolTip>  
+            <h:outputText id="textAbbr" value="#{_question.textAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
