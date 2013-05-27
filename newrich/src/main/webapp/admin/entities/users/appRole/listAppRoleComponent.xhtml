@@ -72,12 +72,13 @@
         </h:column>  
         <h:column> 
           <f:facet name="header"> 
-            <h:outputText value=" "/> 
+            <h:outputText value=" QE "/> 
           </f:facet>  
-          <a:commandLink action="#{appRoleAction.setAppRoleIdForModalDlg(_appRole.id)}" rendered="#{s:hasPermission(_appRole, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+          <h:commandLink actionListener="#{appRoleAction.setAppRoleIdForModalDlg(_appRole.id)}"   >     
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
-          </a:commandLink> 
+            <rich:componentControl target="popup" operation="show"   />
+          </h:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </h:form> 
