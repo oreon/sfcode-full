@@ -96,10 +96,9 @@ import «a.type.fqn()»;
 
 public abstract class «name»ActionBase extends «getParentForAction()» implements java.io.Serializable{
 
-	@In(create = true)
+	«IF getCartridge() == "RICH"»@In(create = true)«ENDIF»
 	@Out(required = false)
-	//@DataModelSelection
-	private «name» «asVar()»;
+	private «name» «asVar()»  «IF getCartridge() != "RICH"»=  new «name»() «ENDIF»;
 	
 	«FOREACH getOutgoingAssociations() AS e»
 	«IF !e.type.isAbstract»
@@ -183,13 +182,13 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 	
 	@Override
-	@Restrict("#{s:hasPermission('«asVar()»', 'edit')}")
+	//@Restrict("#{s:hasPermission('«asVar()»', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 	
 	@Override
-	@Restrict("#{s:hasPermission('«asVar()»', 'delete')}")
+	//@Restrict("#{s:hasPermission('«asVar()»', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -268,14 +267,28 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		return "success";
 	}
 	
-	public void «e.name»UploadListener(UploadEvent event) throws Exception {
+	
+	
+	«IF getCartridge() != "RICH"»
+		public void «e.name»UploadListener(FileUploadEvent event) throws Exception {
+		UploadedFile uploadItem = event.getUploadedFile();
+		if (getInstance().getImage() == null)
+			getInstance().setImage(new FileAttachment());
+		getInstance().getImage().setName(uploadItem.getName());
+		getInstance().getImage().setContentType(uploadItem.getContentType());
+		getInstance().getImage().setData((uploadItem.getData()));
+	  }
+	«ELSE»
+		public void «e.name»UploadListener(UploadEvent event) throws Exception {
 		  UploadItem uploadItem = event.getUploadItem();
 		  if(getInstance().get«e.name.toFirstUpper()»() == null )
 			getInstance().set«e.name.toFirstUpper()»(new FileAttachment());
 		  getInstance().get«e.name.toFirstUpper()»().setName(uploadItem.getFileName());
 		  getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
 		  getInstance().get«e.name.toFirstUpper()»().setData(FileUtils.readFileToByteArray( uploadItem.getFile() )); 
-	}
+	  }
+	«ENDIF»
+	
 	«ENDFOREACH»
 	
 	
@@ -491,8 +504,14 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
+«IF getCartridge() == "RICH"»
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
+«ELSE»
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
+«ENDIF»
 
 import org.witchcraft.seam.action.BaseAction; 
 import org.witchcraft.base.entity.BaseEntity;

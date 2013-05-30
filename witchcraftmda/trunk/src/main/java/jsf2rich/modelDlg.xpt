@@ -12,7 +12,7 @@
 
 
 «DEFINE genEditModelDlgComponent FOR uml::Class»
-	«FILE getWebPath() +"/modalDlg" + name + "Component." + getExtension()  man_path»
+	«FILE getWebPath() +"/modalDlg" + name + "Component." + getExtension()  »
 
 <ui:composition «EXPAND WebRoot::genIncludes-»>	
 
@@ -27,13 +27,10 @@
 				</h:panelGroup>
 			</f:facet>
 			<f:facet name="controls">
-				<h:panelGroup>
-					<h:graphicImage value="/images/icons/close.png" alt="Close"
-						styleClass="hidelink" id="hide${modalId}" />
-					<rich:componentControl for="${modalId}" attachTo="hide${modalId}"
-							operation="hide" event="onclick" />
-				</h:panelGroup>
-			</f:facet>
+			   <h:outputLink value="#" onclick="#{rich:component('${modalId}')}.hide(); return false;">
+                X
+       		  </h:outputLink>
+		    </f:facet>
 			
 			<s:div id="ctContent-«name.toFirstLower()»-${modalId}"  style="padding-right:15px" layout="block" >
 					<rich:messages passedLabel=""
@@ -48,9 +45,9 @@
 						reRender="«name.toFirstLower()»List, ${opId}"
 									value="Save" >
 								 <f:param name="conversationPropagation" value="end"/>
-								 <a:actionparam name="taskId" value="#{taskId}" />
+								«REM»  <a:actionparam name="taskId" value="#{taskId}" /> «ENDREM»
 						</h:commandButton>
-						<rich:spacer />
+					
 						<h:commandButton  immediate="true" oncomplete="Richfaces.hidepopupPanel('${modalId}')" value="Hide" styleClass="button" />
 						<h:outputText value=" " />
 						<h:commandButton  immediate="true" type="reset" oncomplete="Richfaces.hidepopupPanel('${modalId}');"  value="Cancel" styleClass="button"> 

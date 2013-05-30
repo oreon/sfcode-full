@@ -84,13 +84,13 @@
 «DEFINE genFreeTypeSearch FOR uml::Class»
 «FILE getWebPath() +"/" + "freeTypeSearch" + name + "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
-	<h:inputText id="freeType«name»" />
-	«EXPAND genSuggestionBox »
-	<s:button view="«getViewFile("view")»" value="GO"/>
+	<rich:autocomplete mode="cachedAjax" minChars="2" autocompleteMethod="#{«asVar()»List.autocompletedb}" />
+	<h:button outcome="«getViewFile("view")»" value="GO"/>
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
 
+«REM» comment
 «DEFINE genSuggestionBox FOR uml::Class»
 	<rich:autocomplete  for="freeType«name»"  rules="all" suggestionAction="#{«asVar()»List.autocompletedb}"
 		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
@@ -112,7 +112,7 @@
 		</a:support>
 	</rich:autocomplete>
 «ENDDEFINE»
-
+«ENDREM»
 
 
 «DEFINE genTextSearchView FOR uml::Class»

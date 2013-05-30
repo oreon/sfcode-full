@@ -96,8 +96,8 @@
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
 		      		</h:button>
 		      		  <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  reRender="${modalId}" >
-			            <a:actionparam name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
-			         	<a:actionparam name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.opposite.name»Id}" 
+			            <f:param name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
+			         	<f:param name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.opposite.name»Id}" 
 			         		value="#{«name.toFirstLower()»Action.instance.id}"  />
 			         </h:commandButton>
 		    	</h:form>
@@ -516,7 +516,7 @@
         <rich:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
         	autoclear="false"  listHeight="30" listWidth="250"> 	
         	<s:conversationPropagation type="join" />
-        	<a:support event="onuploadcomplete" reRender="«name»_file" />
+        	<a:ajax event="uploadcomplete" render="«name»_file" /> 
         </rich:fileUpload>
      </h:panelGroup>
     «ELSE» 
@@ -599,11 +599,10 @@
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
-		<h:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
-			reRender="«name»"
-			>
+		<a:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
+			render="«name»">
 			<s:conversationId/>
-		</h:commandButton>
+		</a:commandButton>
 	</h:column>
 «ENDDEFINE»
 
@@ -614,10 +613,10 @@
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
-	<h:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		reRender="«name»"  rendered="#{«genEditPermission()»}" >
+	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
+		render="«name»"  rendered="#{«genEditPermission()»}" >
 		<s:conversationId/>
-	</h:commandButton>
+	</a:commandButton>
 «ENDDEFINE»
 
 «DEFINE genProperty FOR String-»
