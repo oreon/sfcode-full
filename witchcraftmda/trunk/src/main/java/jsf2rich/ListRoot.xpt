@@ -93,12 +93,15 @@
 
 «DEFINE genButtons FOR wcprofile::Entity»
 	<h:form>
-		<h:button value="Create New" action="«getViewFile("edit")»" propagation="none" >
+		<h:button value="Create New" outcome="«getViewFile("edit")»" propagation="none" >
 			<f:param name="«asVar()»Id" value="0"/>
   		</h:button> 
-				<h:commandButton action="#{«asVar()»Action.set«name»Id(0)}" 
-				oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}" >
-			</h:commandButton>
+  		
+  		<a:commandButton  value="Quick Create" actionListener="#{«asVar()»Action.set«name»Id(0)}"  render="${modalId}" >     
+            <s:conversationPropagation type="join"/> 
+            <rich:componentControl target="${modalId}" operation="show"   />
+        </a:commandButton> 
+  		
 		<h:button value="Export to Excel" action="#{«asVar()»List.exportToCsv}" />
 	</h:form>
 		«IF templatable»
@@ -122,13 +125,13 @@
 	<f:param name="firstResult" value="#{«asVar()»List.previousFirstResult}" />
 </h:link> 
 
-<h:link view="#{request.servletPath}"
+<h:link outcome="#{request.servletPath}"
 	rendered="#{«asVar()»List.nextExists}"
 	value="Next Page #{messages.right}" >
 	<f:param name="firstResult" value="#{«asVar()»List.nextFirstResult}" />
 </h:link> 
 
-<h:link view="#{request.servletPath}"
+<h:link outcome="#{request.servletPath}"
 	rendered="#{«asVar()»List.nextExists}"
 	value="Last Page #{messages.right}#{messages.right}" >
 	<f:param name="firstResult" value="#{«asVar()»List.lastFirstResult}" />
@@ -176,7 +179,7 @@
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<h:link view="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}" propagation="none">
+		<h:link outcome="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}" propagation="none">
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" alt="«action»"/>
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
 		</h:link>
@@ -213,7 +216,7 @@
             Delete  
             <f:param name="currentEntityId" value="#{_«asVar()».id}"/>
         </h:link> 
-         <rich:spacer/>
+         
         <h:link rendered="#{_«asVar()».archived}" action="#{«asVar()»Action.restore}" > 
             Restore
             <f:param name="currentEntityId" value="#{_«asVar()».id}"/> 
@@ -297,7 +300,7 @@
 				<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
 			«ELSE»
 			 <h:panelGroup>
-			 <rich:tooltip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr">  </rich:tooltip>
+			 <rich:tooltip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr"   rendered="#{_customerOrder.remarks != null}" /> 
 	         <h:outputText id="«name»Abbr" value="#{«prefix»«genPropertyLabel()»Abbreviated}" escape="false"/> 
 	         </h:panelGroup>
 	         «ENDIF»				

@@ -128,7 +128,7 @@ getDisabled(Property prop):
 "false"; //todo 
 
 String getInputControl(Property prop):
-(getCartridge() == "RICH" ?  getInputControlRich(prop) :  getInputControlPrime(prop) ) ;
+(getCartridge() == "RICH" || getCartridge() == "JSF2RICH" )?  getInputControlRich(prop) :  getInputControlPrime(prop)  ;
 
 
 String getInputControlRich(Property prop):
@@ -177,7 +177,7 @@ String getOutputControl(Property prop):
 
 
 String getRichTextEditor():
-if (getCurrentCartridge() == "RICH" )then
+if (getCurrentCartridge() == "RICH" || getCurrentCartridge() ==  "JSF2RICH" )then
 	"rich:editor"
 else  
    "inputRichText toolbar=\"Basic\" saveOnSubmit=\"true\"";
