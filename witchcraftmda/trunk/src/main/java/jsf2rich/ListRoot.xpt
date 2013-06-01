@@ -191,11 +191,21 @@
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
-		<a:commandLink action="#{«asVar()»Action.set«name»IdForModalDlg(_«asVar()».id)}"  rendered="#{s:hasPermission(_«asVar()», 'quickEdit')}" 
-			oncomplete="Richfaces.showModalPanel('${modalId}',{});"  reRender="${modalId}" > 
-			<h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>
-			<s:conversationPropagation type="join"/>
+		
+		<a:commandLink  render="${modalId}"
+						execute="@this" oncomplete="#{rich:component('«name»ModalPanel-«name»')}.show()">
+						
+						<h:graphicImage value="/images/icons/editQuick.png"
+							style="border: 0px" alt="Quick Edit" />
+						
+						<a:param value="#{_«asVar()».id}" assignTo="#{«asVar()»Action.«asVar()»Id}" />
+						 <s:conversationPropagation type="join"/>  
+						
+						<f:setPropertyActionListener target="#{«asVar()»Action.entity}"
+							value="#{_«asVar()»}" />
+							
 		</a:commandLink>
+		
 	</h:column>
 «ENDDEFINE»
 

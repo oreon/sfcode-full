@@ -70,7 +70,7 @@ package «packageNamePck()»;
 
 «DEFINE GenPackageInfo FOR wcprofile::EntitiesPackage»
 «FILE packagePathPck() +"/package-info.java"  »
-«IF getCurrentCartridge() == "RICH"»
+«IF isSeam2()»
 @FilterDefs({
 @FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", parameters = @ParamDef(name = "aArchived", type = "string")),
 «IF isMultiTenanted()»
@@ -188,7 +188,7 @@ import org.hibernate.annotations.FilterDefs;
 «DEFINE genClassBody FOR wcprofile::Entity»
 	@Entity
 	@Table(name="«getTableName()»")
-	«IF getCartridge() == "RICH"»
+	«IF isSeam2()»
 		@Filters( {  @Filter(name = "archiveFilterDef") , 
 		«IF isMultiTenanted()»  @Filter(name = "tenantFilterDef")  «ENDIF»
 		})
