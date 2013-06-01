@@ -27,9 +27,9 @@
 				</h:panelGroup>
 			</f:facet>
 			<f:facet name="controls">
-			   <h:outputLink value="#" onclick="#{rich:component('${modalId}')}.hide(); return false;">
-                X
-       		  </h:outputLink>
+			   <a:commandLink value="X" >
+      			<rich:componentControl target="${modalId}" operation="hide"/> 
+      		   </a:commandLink>
 		    </f:facet>
 			
 			<s:div id="ctContent-«name.toFirstLower()»-${modalId}"  style="padding-right:15px" layout="block" >
@@ -40,20 +40,20 @@
 					<h:form>
 						<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 	
-						<h:commandButton action="#{«getAction()».saveWithoutConversation}" styleClass="button"
-						oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hidepopupPanel('#{modalId}'); }"
-						reRender="«name.toFirstLower()»List, ${opId}"
-									value="Save" >
-								 <f:param name="conversationPropagation" value="end"/>
-								«REM»  <a:actionparam name="taskId" value="#{taskId}" /> «ENDREM»
-						</h:commandButton>
-					
-						<h:commandButton  immediate="true" oncomplete="Richfaces.hidepopupPanel('${modalId}')" value="Hide" styleClass="button" />
-						<h:outputText value=" " />
-						<h:commandButton  immediate="true" type="reset" oncomplete="Richfaces.hidepopupPanel('${modalId}');"  value="Cancel" styleClass="button"> 
+						 <a:commandButton action="#{«asVar()»Action.save}" styleClass="button" render="«asVar()»List" execute="${modalId}"
+				          	value="Save" 
+				           oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('«name»ModalPanel-«name»')}.hide();}"
+				          /> 
+          
+				        <a:commandButton immediate="true"  value="Hide" styleClass="button">
+				        	<rich:componentControl target="${modalId}" operation="hide"/> 
+				        </a:commandButton>  
+				        
+				        <a:commandButton immediate="true" type="reset" onclick="#{rich:component('«name»ModalPanel-«name»')}.hide(); return false;"
+				        	value="Cancel" styleClass="button"> 
 				          <f:param name="conversationPropagation" value="end"/> 
-				        </h:commandButton>
-
+				        </a:commandButton> 
+												
 					</h:form>
 			</s:div>
 		</rich:popupPanel>
