@@ -40,6 +40,11 @@ public abstract class DrugCategoryListQueryBase
 		return drugCategory;
 	}
 
+	@Override
+	public DrugCategory getInstance() {
+		return getDrugCategory();
+	}
+
 	private com.oreon.cerebrum.drugs.Drug drugsToSearch;
 
 	public void setDrugsToSearch(com.oreon.cerebrum.drugs.Drug drugToSearch) {
@@ -56,7 +61,7 @@ public abstract class DrugCategoryListQueryBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('drugCategory', 'view')}")
+	//@Restrict("#{s:hasPermission('drugCategory', 'view')}")
 	public List<DrugCategory> getResultList() {
 		return super.getResultList();
 	}
@@ -73,6 +78,8 @@ public abstract class DrugCategoryListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"drugCategory.id = #{drugCategoryList.drugCategory.id}",
+
+			"drugCategory.archived = #{drugCategoryList.drugCategory.archived}",
 
 			"lower(drugCategory.name) like concat(lower(#{drugCategoryList.drugCategory.name}),'%')",
 

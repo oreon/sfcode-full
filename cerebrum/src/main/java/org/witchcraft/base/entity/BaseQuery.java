@@ -38,6 +38,7 @@ import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 import org.apache.lucene.util.Version;
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
@@ -649,6 +650,20 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		setQueryParams(query, params);
 		return query.getResultList();
 	}
+	
+	
+	public List<E> getResultListArchived(){
+		Session session = (Session)entityManager.getDelegate();
+		session.disableFilter("archiveFilterDef");
+		
+		getInstance().setArchived(true);
+		List<E> results = getResultList();
+		
+		session.enableFilter("archiveFilterDef").setParameter("aArchived", "0");
+		return results;
+	}
+	
+	
 
 	private void setQueryParams(Query query, Object... params) {
 		int counter = 1;

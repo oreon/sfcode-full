@@ -39,12 +39,17 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 	}
 
 	@Override
+	public Physician getInstance() {
+		return getPhysician();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('physician', 'view')}")
+	//@Restrict("#{s:hasPermission('physician', 'view')}")
 	public List<Physician> getResultList() {
 		return super.getResultList();
 	}
@@ -71,11 +76,15 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 	private static final String[] RESTRICTIONS = {
 			"physician.id = #{physicianList.physician.id}",
 
+			"physician.archived = #{physicianList.physician.archived}",
+
 			"lower(physician.appUser.userName) like concat(lower(#{physicianList.physician.appUser.userName}),'%')",
 
 			"physician.appUser.enabled = #{physicianList.physician.appUser.enabled}",
 
 			"physician.facility.id = #{physicianList.physician.facility.id}",
+
+			"physician.department.id = #{physicianList.physician.department.id}",
 
 			"lower(physician.firstName) like concat(lower(#{physicianList.physician.firstName}),'%')",
 

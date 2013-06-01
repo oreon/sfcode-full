@@ -41,12 +41,17 @@ public abstract class LabFindingListQueryBase
 	}
 
 	@Override
+	public LabFinding getInstance() {
+		return getLabFinding();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('labFinding', 'view')}")
+	//@Restrict("#{s:hasPermission('labFinding', 'view')}")
 	public List<LabFinding> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class LabFindingListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"labFinding.id = #{labFindingList.labFinding.id}",
+
+			"labFinding.archived = #{labFindingList.labFinding.archived}",
 
 			"lower(labFinding.name) like concat(lower(#{labFindingList.labFinding.name}),'%')",
 

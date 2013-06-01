@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class PhysicianActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Physician physician;
 
 	@In(create = true, value = "specializationAction")
@@ -117,13 +117,13 @@ public abstract class PhysicianActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('physician', 'edit'}")
+	//@Restrict("#{s:hasPermission('physician', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('physician', 'delete'}")
+	//@Restrict("#{s:hasPermission('physician', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

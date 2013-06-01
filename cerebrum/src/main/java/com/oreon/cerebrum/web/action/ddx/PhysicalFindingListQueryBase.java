@@ -41,12 +41,17 @@ public abstract class PhysicalFindingListQueryBase
 	}
 
 	@Override
+	public PhysicalFinding getInstance() {
+		return getPhysicalFinding();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('physicalFinding', 'view')}")
+	//@Restrict("#{s:hasPermission('physicalFinding', 'view')}")
 	public List<PhysicalFinding> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class PhysicalFindingListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"physicalFinding.id = #{physicalFindingList.physicalFinding.id}",
+
+			"physicalFinding.archived = #{physicalFindingList.physicalFinding.archived}",
 
 			"lower(physicalFinding.name) like concat(lower(#{physicalFindingList.physicalFinding.name}),'%')",
 

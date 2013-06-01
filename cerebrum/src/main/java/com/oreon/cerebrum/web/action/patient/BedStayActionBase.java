@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private BedStay bedStay;
 
 	@In(create = true, value = "admissionAction")
@@ -128,13 +128,13 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('bedStay', 'edit'}")
+	//@Restrict("#{s:hasPermission('bedStay', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('bedStay', 'delete'}")
+	//@Restrict("#{s:hasPermission('bedStay', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

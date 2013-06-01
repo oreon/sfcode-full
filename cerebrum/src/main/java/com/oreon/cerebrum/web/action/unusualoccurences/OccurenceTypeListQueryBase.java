@@ -41,12 +41,17 @@ public abstract class OccurenceTypeListQueryBase
 	}
 
 	@Override
+	public OccurenceType getInstance() {
+		return getOccurenceType();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('occurenceType', 'view')}")
+	//@Restrict("#{s:hasPermission('occurenceType', 'view')}")
 	public List<OccurenceType> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class OccurenceTypeListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"occurenceType.id = #{occurenceTypeList.occurenceType.id}",
+
+			"occurenceType.archived = #{occurenceTypeList.occurenceType.archived}",
 
 			"lower(occurenceType.name) like concat(lower(#{occurenceTypeList.occurenceType.name}),'%')",
 

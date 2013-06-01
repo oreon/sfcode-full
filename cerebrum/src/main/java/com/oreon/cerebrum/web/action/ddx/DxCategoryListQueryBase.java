@@ -41,12 +41,17 @@ public abstract class DxCategoryListQueryBase
 	}
 
 	@Override
+	public DxCategory getInstance() {
+		return getDxCategory();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('dxCategory', 'view')}")
+	//@Restrict("#{s:hasPermission('dxCategory', 'view')}")
 	public List<DxCategory> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class DxCategoryListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"dxCategory.id = #{dxCategoryList.dxCategory.id}",
+
+			"dxCategory.archived = #{dxCategoryList.dxCategory.archived}",
 
 			"lower(dxCategory.name) like concat(lower(#{dxCategoryList.dxCategory.name}),'%')",
 

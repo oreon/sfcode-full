@@ -41,12 +41,17 @@ public abstract class PrescriptionListQueryBase
 	}
 
 	@Override
+	public Prescription getInstance() {
+		return getPrescription();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescription', 'view')}")
+	//@Restrict("#{s:hasPermission('prescription', 'view')}")
 	public List<Prescription> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class PrescriptionListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"prescription.id = #{prescriptionList.prescription.id}",
+
+			"prescription.archived = #{prescriptionList.prescription.archived}",
 
 			"prescription.patient.id = #{prescriptionList.prescription.patient.id}",
 

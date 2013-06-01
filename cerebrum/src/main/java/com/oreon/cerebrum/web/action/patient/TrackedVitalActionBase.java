@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private TrackedVital trackedVital;
 
 	public void setTrackedVitalId(Long id) {
@@ -96,13 +96,13 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('trackedVital', 'edit'}")
+	//@Restrict("#{s:hasPermission('trackedVital', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('trackedVital', 'delete'}")
+	//@Restrict("#{s:hasPermission('trackedVital', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

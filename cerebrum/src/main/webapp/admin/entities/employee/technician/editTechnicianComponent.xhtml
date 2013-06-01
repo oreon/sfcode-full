@@ -70,6 +70,16 @@
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_departmentdepartmentDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_departmentdepartment" label="#{msg.employee_department}" value="#{technicianAction.technician.department}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}" disabled="false"> 
+            <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
         </s:decorate> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 

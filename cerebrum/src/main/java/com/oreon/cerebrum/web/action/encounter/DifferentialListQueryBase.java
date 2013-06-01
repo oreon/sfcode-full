@@ -41,12 +41,17 @@ public abstract class DifferentialListQueryBase
 	}
 
 	@Override
+	public Differential getInstance() {
+		return getDifferential();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('differential', 'view')}")
+	//@Restrict("#{s:hasPermission('differential', 'view')}")
 	public List<Differential> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class DifferentialListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"differential.id = #{differentialList.differential.id}",
+
+			"differential.archived = #{differentialList.differential.archived}",
 
 			"differential.encounter.id = #{differentialList.differential.encounter.id}",
 

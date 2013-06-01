@@ -41,12 +41,17 @@ public abstract class AppointmentListQueryBase
 	}
 
 	@Override
+	public Appointment getInstance() {
+		return getAppointment();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('appointment', 'view')}")
+	//@Restrict("#{s:hasPermission('appointment', 'view')}")
 	public List<Appointment> getResultList() {
 		return super.getResultList();
 	}
@@ -90,6 +95,8 @@ public abstract class AppointmentListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"appointment.id = #{appointmentList.appointment.id}",
+
+			"appointment.archived = #{appointmentList.appointment.archived}",
 
 			"appointment.start >= #{appointmentList.startRange.begin}",
 			"appointment.start <= #{appointmentList.startRange.end}",

@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class PrescriptionItemTemplateActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private PrescriptionItemTemplate prescriptionItemTemplate;
 
 	@In(create = true, value = "drugAction")
@@ -147,13 +147,13 @@ public abstract class PrescriptionItemTemplateActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescriptionItemTemplate', 'edit'}")
+	//@Restrict("#{s:hasPermission('prescriptionItemTemplate', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescriptionItemTemplate', 'delete'}")
+	//@Restrict("#{s:hasPermission('prescriptionItemTemplate', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

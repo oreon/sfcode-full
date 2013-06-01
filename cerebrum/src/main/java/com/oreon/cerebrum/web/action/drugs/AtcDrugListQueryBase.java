@@ -39,12 +39,17 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 	}
 
 	@Override
+	public AtcDrug getInstance() {
+		return getAtcDrug();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('atcDrug', 'view')}")
+	//@Restrict("#{s:hasPermission('atcDrug', 'view')}")
 	public List<AtcDrug> getResultList() {
 		return super.getResultList();
 	}
@@ -61,6 +66,8 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"atcDrug.id = #{atcDrugList.atcDrug.id}",
+
+			"atcDrug.archived = #{atcDrugList.atcDrug.archived}",
 
 			"lower(atcDrug.code) like concat(lower(#{atcDrugList.atcDrug.code}),'%')",
 

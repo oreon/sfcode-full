@@ -39,12 +39,17 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 	}
 
 	@Override
+	public Patient getInstance() {
+		return getPatient();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('patient', 'view')}")
+	//@Restrict("#{s:hasPermission('patient', 'view')}")
 	public List<Patient> getResultList() {
 		return super.getResultList();
 	}
@@ -70,6 +75,8 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"patient.id = #{patientList.patient.id}",
+
+			"patient.archived = #{patientList.patient.archived}",
 
 			"lower(patient.firstName) like concat(lower(#{patientList.patient.firstName}),'%')",
 

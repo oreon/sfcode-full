@@ -28,6 +28,14 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_departmentdepartment" value="#{ clerkList.clerk.department}"> 
+        <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFirstName')}"/>  
       <br/>  
       <h:inputText id="#{prefix}_firstName" value="#{clerkList.clerk.firstName}"/> 

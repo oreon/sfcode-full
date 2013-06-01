@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private RoomType roomType;
 
 	public void setRoomTypeId(Long id) {
@@ -96,13 +96,13 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('roomType', 'edit'}")
+	//@Restrict("#{s:hasPermission('roomType', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('roomType', 'delete'}")
+	//@Restrict("#{s:hasPermission('roomType', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

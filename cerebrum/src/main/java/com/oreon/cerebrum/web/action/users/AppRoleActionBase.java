@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private AppRole appRole;
 
 	public void setAppRoleId(Long id) {
@@ -96,13 +96,13 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('appRole', 'edit'}")
+	//@Restrict("#{s:hasPermission('appRole', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('appRole', 'delete'}")
+	//@Restrict("#{s:hasPermission('appRole', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

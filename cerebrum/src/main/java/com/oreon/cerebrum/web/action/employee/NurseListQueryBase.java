@@ -39,12 +39,17 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 	}
 
 	@Override
+	public Nurse getInstance() {
+		return getNurse();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('nurse', 'view')}")
+	//@Restrict("#{s:hasPermission('nurse', 'view')}")
 	public List<Nurse> getResultList() {
 		return super.getResultList();
 	}
@@ -71,11 +76,15 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 	private static final String[] RESTRICTIONS = {
 			"nurse.id = #{nurseList.nurse.id}",
 
+			"nurse.archived = #{nurseList.nurse.archived}",
+
 			"lower(nurse.appUser.userName) like concat(lower(#{nurseList.nurse.appUser.userName}),'%')",
 
 			"nurse.appUser.enabled = #{nurseList.nurse.appUser.enabled}",
 
 			"nurse.facility.id = #{nurseList.nurse.facility.id}",
+
+			"nurse.department.id = #{nurseList.nurse.department.id}",
 
 			"lower(nurse.firstName) like concat(lower(#{nurseList.nurse.firstName}),'%')",
 

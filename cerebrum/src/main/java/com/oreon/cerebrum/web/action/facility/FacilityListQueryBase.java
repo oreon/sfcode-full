@@ -39,12 +39,17 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 	}
 
 	@Override
+	public Facility getInstance() {
+		return getFacility();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('facility', 'view')}")
+	//@Restrict("#{s:hasPermission('facility', 'view')}")
 	public List<Facility> getResultList() {
 		return super.getResultList();
 	}
@@ -61,6 +66,8 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"facility.id = #{facilityList.facility.id}",
+
+			"facility.archived = #{facilityList.facility.archived}",
 
 			"lower(facility.name) like concat(lower(#{facilityList.facility.name}),'%')",
 

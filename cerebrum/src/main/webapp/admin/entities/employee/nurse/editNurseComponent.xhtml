@@ -71,6 +71,16 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
+        <s:decorate id="#{prefix}_departmentdepartmentDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editDepartment')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_departmentdepartment" label="#{msg.employee_department}" value="#{nurseAction.nurse.department}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editDepartment')}" disabled="false"> 
+            <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
         <s:decorate id="#{prefix}_nurseSpecialtynurseSpecialtyDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.nurse_nurseSpecialty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editNurseSpecialty')}"/>

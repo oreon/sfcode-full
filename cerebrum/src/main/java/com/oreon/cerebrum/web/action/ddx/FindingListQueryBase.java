@@ -39,12 +39,17 @@ public abstract class FindingListQueryBase extends BaseQuery<Finding, Long> {
 	}
 
 	@Override
+	public Finding getInstance() {
+		return getFinding();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('finding', 'view')}")
+	//@Restrict("#{s:hasPermission('finding', 'view')}")
 	public List<Finding> getResultList() {
 		return super.getResultList();
 	}
@@ -61,6 +66,8 @@ public abstract class FindingListQueryBase extends BaseQuery<Finding, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"finding.id = #{findingList.finding.id}",
+
+			"finding.archived = #{findingList.finding.archived}",
 
 			"lower(finding.name) like concat(lower(#{findingList.finding.name}),'%')",
 

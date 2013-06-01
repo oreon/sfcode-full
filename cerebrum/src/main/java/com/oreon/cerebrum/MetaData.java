@@ -4,83 +4,107 @@ public class MetaData {
 
 	public static final String[][] ARR_FIELDS = {
 
-	{"com.oreon.cerebrum.drugs.AtcDrug",
+	{"com.oreon.cerebrum.encounter.Encounter",
 
-	"code", "java.lang.String",
+	"physician.displayName", "java.lang.String",
 
-	"name", "java.lang.String",
+	"chiefComplaint", "java.lang.String",
 
-	"subcategoriesCount", "java.lang.Integer",
+	"prescribedTestsCount", "java.lang.Integer",
 
-	"drug.displayName", "java.lang.String",
+	"progressNotes", "java.lang.String",
 
-	"parent.displayName", "java.lang.String",
+	"vitals.SysBP", "java.lang.Integer",
 
-	},
+	"vitals.DiasBP", "java.lang.Integer",
 
-	{"com.oreon.cerebrum.drugs.Drug",
+	"vitals.Temperature", "java.lang.Double",
 
-	"name", "java.lang.String",
+	"vitals.Pulse", "java.lang.Integer",
 
-	"absorption", "java.lang.String",
+	"vitals.RespirationRate", "java.lang.Integer",
 
-	"biotransformation", "java.lang.String",
+	"prescription.displayName", "java.lang.String",
 
-	"atcCodes", "java.lang.String",
+	"differentialsCount", "java.lang.Integer",
 
-	"contraIndication", "java.lang.String",
+	"physicalExamFindings", "java.lang.String",
 
-	"description", "java.lang.String",
-
-	"dosageForm", "java.lang.String",
-
-	"foodInteractions", "java.lang.String",
-
-	"halfLife", "java.lang.String",
-
-	"halfLifeNumberOfHours", "java.lang.Double",
-
-	"indication", "java.lang.String",
-
-	"mechanismOfAction", "java.lang.String",
-
-	"patientInfo", "java.lang.String",
-
-	"pharmacology", "java.lang.String",
-
-	"drugInteractionsCount", "java.lang.Integer",
-
-	"drugCategorysCount", "java.lang.Integer",
-
-	"toxicity", "java.lang.String",
-
-	"routeOfElimination", "java.lang.String",
-
-	"volumeOfDistribution", "java.lang.String",
-
-	"drugBankId", "java.lang.String",
-
-	"categories", "java.lang.String",
+	"patient.displayName", "java.lang.String",
 
 	},
 
-	{"com.oreon.cerebrum.drugs.DrugInteraction",
+	{"com.oreon.cerebrum.encounter.PrescribedTest",
 
-	"description", "java.lang.String",
+	"remarks", "java.lang.String",
 
-	"drug.displayName", "java.lang.String",
+	"dxTest.displayName", "java.lang.String",
 
-	"interactingDrug.displayName", "java.lang.String",
+	"encounter.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.encounter.Differential",
+
+	"encounter.displayName", "java.lang.String",
+
+	"remarks", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.billing.Invoice",
+
+	"invoiceItemsCount", "java.lang.Integer",
+
+	"patient.displayName", "java.lang.String",
+
+	"notes", "java.lang.String",
+
+	"totalAmount", "BigDecimal",
+
+	},
+
+	{"com.oreon.cerebrum.billing.Service",
+
+	"name", "java.lang.String",
+
+	"price", "BigDecimal",
+
+	},
+
+	{"com.oreon.cerebrum.billing.InvoiceItem",
+
+	"units", "java.lang.Integer",
+
+	"service.displayName", "java.lang.String",
+
+	"invoice.displayName", "java.lang.String",
+
+	"appliedPrice", "BigDecimal",
+
+	"total", "BigDecimal",
+
+	},
+
+	{"com.oreon.cerebrum.unusualoccurences.UnusualOccurence",
+
+	"occurenceType.displayName", "java.lang.String",
+
+	"category.name", "java.lang.String",
 
 	"severity.name", "java.lang.String",
 
+	"description", "java.lang.String",
+
+	"patient.displayName", "java.lang.String",
+
+	"createdBy.displayName", "java.lang.String",
+
 	},
 
-	{"com.oreon.cerebrum.drugs.DrugCategory",
+	{"com.oreon.cerebrum.unusualoccurences.OccurenceType",
 
 	"name", "java.lang.String",
-
-	"drugsCount", "java.lang.Integer",
 
 	},
 
@@ -234,142 +258,6 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.cerebrum.unusualoccurences.UnusualOccurence",
-
-	"occurenceType.displayName", "java.lang.String",
-
-	"category.name", "java.lang.String",
-
-	"severity.name", "java.lang.String",
-
-	"description", "java.lang.String",
-
-	"patient.displayName", "java.lang.String",
-
-	"createdBy.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.unusualoccurences.OccurenceType",
-
-	"name", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.employee.Employee",
-
-	"firstName", "java.lang.String",
-
-	"lastName", "java.lang.String",
-
-	"dateOfBirth", "java.util.Date",
-
-	"gender.name", "java.lang.String",
-
-	"contactDetails.primaryPhone", "java.lang.String",
-
-	"contactDetails.secondaryPhone", "java.lang.String",
-
-	"contactDetails.email", "java.lang.String",
-
-	"contactDetails.age", "java.lang.Integer",
-
-	"contactDetails.title.name", "java.lang.String",
-
-	"employeeNumber", "java.lang.String",
-
-	"unusualOccurencesCount", "java.lang.Integer",
-
-	"appUser.displayName", "java.lang.String",
-
-	"facility.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.employee.Physician",
-
-	"employeeNumber", "java.lang.String",
-
-	"unusualOccurencesCount", "java.lang.Integer",
-
-	"appUser.displayName", "java.lang.String",
-
-	"facility.displayName", "java.lang.String",
-
-	"specialization.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.employee.Nurse",
-
-	"employeeNumber", "java.lang.String",
-
-	"unusualOccurencesCount", "java.lang.Integer",
-
-	"appUser.displayName", "java.lang.String",
-
-	"facility.displayName", "java.lang.String",
-
-	"nurseSpecialty.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.employee.Technician",
-
-	"employeeNumber", "java.lang.String",
-
-	"unusualOccurencesCount", "java.lang.Integer",
-
-	"appUser.displayName", "java.lang.String",
-
-	"facility.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.employee.Clerk",
-
-	"employeeNumber", "java.lang.String",
-
-	"unusualOccurencesCount", "java.lang.Integer",
-
-	"appUser.displayName", "java.lang.String",
-
-	"facility.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.employee.Specialization",
-
-	"name", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.employee.NurseSpecialty",
-
-	"name", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.users.AppUser",
-
-	"userName", "java.lang.String",
-
-	"password", "java.lang.String",
-
-	"enabled", "java.lang.Boolean",
-
-	"appRolesCount", "java.lang.Integer",
-
-	},
-
-	{"com.oreon.cerebrum.users.AppRole",
-
-	"name", "java.lang.String",
-
-	"appUsersCount", "java.lang.Integer",
-
-	},
-
 	{"com.oreon.cerebrum.facility.Facility",
 
 	"name", "java.lang.String",
@@ -421,104 +309,6 @@ public class MetaData {
 	"rate", "java.lang.Double",
 
 	"numberOfRooms", "java.lang.Integer",
-
-	},
-
-	{"com.oreon.cerebrum.appointment.Appointment",
-
-	"start", "java.util.Date",
-
-	"end", "java.util.Date",
-
-	"physician.displayName", "java.lang.String",
-
-	"patient.displayName", "java.lang.String",
-
-	"remarks", "java.lang.String",
-
-	"units", "java.lang.Integer",
-
-	},
-
-	{"com.oreon.cerebrum.billing.Invoice",
-
-	"invoiceItemsCount", "java.lang.Integer",
-
-	"patient.displayName", "java.lang.String",
-
-	"notes", "java.lang.String",
-
-	"totalAmount", "BigDecimal",
-
-	},
-
-	{"com.oreon.cerebrum.billing.Service",
-
-	"name", "java.lang.String",
-
-	"price", "BigDecimal",
-
-	},
-
-	{"com.oreon.cerebrum.billing.InvoiceItem",
-
-	"units", "java.lang.Integer",
-
-	"service.displayName", "java.lang.String",
-
-	"invoice.displayName", "java.lang.String",
-
-	"appliedPrice", "BigDecimal",
-
-	"total", "BigDecimal",
-
-	},
-
-	{"com.oreon.cerebrum.encounter.Encounter",
-
-	"physician.displayName", "java.lang.String",
-
-	"chiefComplaint", "java.lang.String",
-
-	"prescribedTestsCount", "java.lang.Integer",
-
-	"progressNotes", "java.lang.String",
-
-	"vitals.SysBP", "java.lang.Integer",
-
-	"vitals.DiasBP", "java.lang.Integer",
-
-	"vitals.Temperature", "java.lang.Double",
-
-	"vitals.Pulse", "java.lang.Integer",
-
-	"vitals.RespirationRate", "java.lang.Integer",
-
-	"prescription.displayName", "java.lang.String",
-
-	"differentialsCount", "java.lang.Integer",
-
-	"physicalExamFindings", "java.lang.String",
-
-	"patient.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.encounter.PrescribedTest",
-
-	"remarks", "java.lang.String",
-
-	"dxTest.displayName", "java.lang.String",
-
-	"encounter.displayName", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.encounter.Differential",
-
-	"encounter.displayName", "java.lang.String",
-
-	"remarks", "java.lang.String",
 
 	},
 
@@ -693,6 +483,234 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"qtyPerDay", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.appointment.Appointment",
+
+	"start", "java.util.Date",
+
+	"end", "java.util.Date",
+
+	"physician.displayName", "java.lang.String",
+
+	"patient.displayName", "java.lang.String",
+
+	"remarks", "java.lang.String",
+
+	"units", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.employee.Employee",
+
+	"firstName", "java.lang.String",
+
+	"lastName", "java.lang.String",
+
+	"dateOfBirth", "java.util.Date",
+
+	"gender.name", "java.lang.String",
+
+	"contactDetails.primaryPhone", "java.lang.String",
+
+	"contactDetails.secondaryPhone", "java.lang.String",
+
+	"contactDetails.email", "java.lang.String",
+
+	"contactDetails.age", "java.lang.Integer",
+
+	"contactDetails.title.name", "java.lang.String",
+
+	"employeeNumber", "java.lang.String",
+
+	"unusualOccurencesCount", "java.lang.Integer",
+
+	"appUser.displayName", "java.lang.String",
+
+	"facility.displayName", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.employee.Physician",
+
+	"employeeNumber", "java.lang.String",
+
+	"unusualOccurencesCount", "java.lang.Integer",
+
+	"appUser.displayName", "java.lang.String",
+
+	"facility.displayName", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"specialization.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.employee.Nurse",
+
+	"employeeNumber", "java.lang.String",
+
+	"unusualOccurencesCount", "java.lang.Integer",
+
+	"appUser.displayName", "java.lang.String",
+
+	"facility.displayName", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	"nurseSpecialty.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.employee.Technician",
+
+	"employeeNumber", "java.lang.String",
+
+	"unusualOccurencesCount", "java.lang.Integer",
+
+	"appUser.displayName", "java.lang.String",
+
+	"facility.displayName", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.employee.Clerk",
+
+	"employeeNumber", "java.lang.String",
+
+	"unusualOccurencesCount", "java.lang.Integer",
+
+	"appUser.displayName", "java.lang.String",
+
+	"facility.displayName", "java.lang.String",
+
+	"department.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.employee.Specialization",
+
+	"name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.employee.NurseSpecialty",
+
+	"name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.employee.Department",
+
+	"name", "java.lang.String",
+
+	"employeesCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.drugs.AtcDrug",
+
+	"code", "java.lang.String",
+
+	"name", "java.lang.String",
+
+	"subcategoriesCount", "java.lang.Integer",
+
+	"drug.displayName", "java.lang.String",
+
+	"parent.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.drugs.Drug",
+
+	"name", "java.lang.String",
+
+	"absorption", "java.lang.String",
+
+	"biotransformation", "java.lang.String",
+
+	"atcCodes", "java.lang.String",
+
+	"contraIndication", "java.lang.String",
+
+	"description", "java.lang.String",
+
+	"dosageForm", "java.lang.String",
+
+	"foodInteractions", "java.lang.String",
+
+	"halfLife", "java.lang.String",
+
+	"halfLifeNumberOfHours", "java.lang.Double",
+
+	"indication", "java.lang.String",
+
+	"mechanismOfAction", "java.lang.String",
+
+	"patientInfo", "java.lang.String",
+
+	"pharmacology", "java.lang.String",
+
+	"drugInteractionsCount", "java.lang.Integer",
+
+	"drugCategorysCount", "java.lang.Integer",
+
+	"toxicity", "java.lang.String",
+
+	"routeOfElimination", "java.lang.String",
+
+	"volumeOfDistribution", "java.lang.String",
+
+	"drugBankId", "java.lang.String",
+
+	"categories", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.drugs.DrugInteraction",
+
+	"description", "java.lang.String",
+
+	"drug.displayName", "java.lang.String",
+
+	"interactingDrug.displayName", "java.lang.String",
+
+	"severity.name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.drugs.DrugCategory",
+
+	"name", "java.lang.String",
+
+	"drugsCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.users.AppUser",
+
+	"userName", "java.lang.String",
+
+	"password", "java.lang.String",
+
+	"enabled", "java.lang.Boolean",
+
+	"appRolesCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.users.AppRole",
+
+	"name", "java.lang.String",
+
+	"appUsersCount", "java.lang.Integer",
 
 	},
 

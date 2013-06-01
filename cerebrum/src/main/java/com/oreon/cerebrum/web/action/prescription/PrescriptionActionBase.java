@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Prescription prescription;
 
 	@In(create = true, value = "patientAction")
@@ -114,13 +114,13 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescription', 'edit'}")
+	//@Restrict("#{s:hasPermission('prescription', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescription', 'delete'}")
+	//@Restrict("#{s:hasPermission('prescription', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -230,12 +230,14 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 
 	@Begin(join = true)
 	public void addPrescriptionItems() {
+
 		initListPrescriptionItems();
 		PrescriptionItem prescriptionItems = new PrescriptionItem();
 
 		prescriptionItems.setPrescription(getInstance());
 
 		getListPrescriptionItems().add(prescriptionItems);
+
 	}
 
 	public void updateComposedAssociations() {

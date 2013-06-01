@@ -69,7 +69,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_room', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_room', 'view') and !_roomCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -78,7 +78,7 @@
             <f:param name="roomId" value="#{_room.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_room', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_room', 'edit') and !_roomCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -91,12 +91,19 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link action="#{roomAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_room.displayName} ?')){ return false; } else { return true; }"> 
+          <s:link rendered="#{!_room.archived}" action="#{roomAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_room.displayName} ?')){ return false; } else { return true; }"> 
             <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="idToArchive" value="#{_room.id}"/> 
+            <f:param name="currentEntityId" value="#{_room.id}"/> 
+          </s:link>  
+          <s:link rendered="#{_room.archived}" action="#{roomAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_room.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_room.id}"/> 
+          </s:link>  
+          <rich:spacer/>  
+          <s:link rendered="#{_room.archived}" action="#{roomAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_room.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_roomCategory', 'edit') and !_roomCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  

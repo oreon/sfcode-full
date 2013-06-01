@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Vaccine vaccine;
 
 	public void setVaccineId(Long id) {
@@ -96,13 +96,13 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('vaccine', 'edit'}")
+	//@Restrict("#{s:hasPermission('vaccine', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('vaccine', 'delete'}")
+	//@Restrict("#{s:hasPermission('vaccine', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Drug drug;
 
 	public void setDrugId(Long id) {
@@ -98,13 +98,13 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('drug', 'edit'}")
+	//@Restrict("#{s:hasPermission('drug', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('drug', 'delete'}")
+	//@Restrict("#{s:hasPermission('drug', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -194,12 +194,14 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 
 	@Begin(join = true)
 	public void addDrugInteractions() {
+
 		initListDrugInteractions();
 		DrugInteraction drugInteractions = new DrugInteraction();
 
 		drugInteractions.setDrug(getInstance());
 
 		getListDrugInteractions().add(drugInteractions);
+
 	}
 
 	public void updateComposedAssociations() {

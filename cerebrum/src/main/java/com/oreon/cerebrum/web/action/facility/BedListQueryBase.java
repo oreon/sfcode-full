@@ -39,12 +39,17 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 	}
 
 	@Override
+	public Bed getInstance() {
+		return getBed();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('bed', 'view')}")
+	//@Restrict("#{s:hasPermission('bed', 'view')}")
 	public List<Bed> getResultList() {
 		return super.getResultList();
 	}
@@ -60,6 +65,8 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 	}
 
 	private static final String[] RESTRICTIONS = {"bed.id = #{bedList.bed.id}",
+
+	"bed.archived = #{bedList.bed.archived}",
 
 	"bed.room.id = #{bedList.bed.room.id}",
 

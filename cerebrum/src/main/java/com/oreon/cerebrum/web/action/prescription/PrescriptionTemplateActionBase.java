@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class PrescriptionTemplateActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private PrescriptionTemplate prescriptionTemplate;
 
 	public void setPrescriptionTemplateId(Long id) {
@@ -98,13 +98,13 @@ public abstract class PrescriptionTemplateActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescriptionTemplate', 'edit'}")
+	//@Restrict("#{s:hasPermission('prescriptionTemplate', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescriptionTemplate', 'delete'}")
+	//@Restrict("#{s:hasPermission('prescriptionTemplate', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -197,12 +197,14 @@ public abstract class PrescriptionTemplateActionBase
 
 	@Begin(join = true)
 	public void addPrescriptionItemTemplates() {
+
 		initListPrescriptionItemTemplates();
 		PrescriptionItemTemplate prescriptionItemTemplates = new PrescriptionItemTemplate();
 
 		prescriptionItemTemplates.setPrescriptionTemplate(getInstance());
 
 		getListPrescriptionItemTemplates().add(prescriptionItemTemplates);
+
 	}
 
 	public void updateComposedAssociations() {

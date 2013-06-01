@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private DxTest dxTest;
 
 	public void setDxTestId(Long id) {
@@ -96,13 +96,13 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('dxTest', 'edit'}")
+	//@Restrict("#{s:hasPermission('dxTest', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('dxTest', 'delete'}")
+	//@Restrict("#{s:hasPermission('dxTest', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

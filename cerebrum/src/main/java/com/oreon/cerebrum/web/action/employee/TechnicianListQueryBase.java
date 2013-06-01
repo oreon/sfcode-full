@@ -41,12 +41,17 @@ public abstract class TechnicianListQueryBase
 	}
 
 	@Override
+	public Technician getInstance() {
+		return getTechnician();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('technician', 'view')}")
+	//@Restrict("#{s:hasPermission('technician', 'view')}")
 	public List<Technician> getResultList() {
 		return super.getResultList();
 	}
@@ -73,11 +78,15 @@ public abstract class TechnicianListQueryBase
 	private static final String[] RESTRICTIONS = {
 			"technician.id = #{technicianList.technician.id}",
 
+			"technician.archived = #{technicianList.technician.archived}",
+
 			"lower(technician.appUser.userName) like concat(lower(#{technicianList.technician.appUser.userName}),'%')",
 
 			"technician.appUser.enabled = #{technicianList.technician.appUser.enabled}",
 
 			"technician.facility.id = #{technicianList.technician.facility.id}",
+
+			"technician.department.id = #{technicianList.technician.department.id}",
 
 			"lower(technician.firstName) like concat(lower(#{technicianList.technician.firstName}),'%')",
 

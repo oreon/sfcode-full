@@ -34,6 +34,15 @@
         <rich:message styleClass="error errors" for="#{prefix}_facilityfacility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
+        <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_departmentdepartment" value="#{physicianAction.physician.department}"> 
+          <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_departmentdepartment" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFirstName')}"/>  
         <br/>  
         <h:inputText id="#{prefix}_firstName" value="#{physicianAction.physician.firstName}"/>  

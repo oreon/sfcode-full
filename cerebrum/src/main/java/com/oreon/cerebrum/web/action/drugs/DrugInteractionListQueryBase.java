@@ -41,12 +41,17 @@ public abstract class DrugInteractionListQueryBase
 	}
 
 	@Override
+	public DrugInteraction getInstance() {
+		return getDrugInteraction();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('drugInteraction', 'view')}")
+	//@Restrict("#{s:hasPermission('drugInteraction', 'view')}")
 	public List<DrugInteraction> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class DrugInteractionListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"drugInteraction.id = #{drugInteractionList.drugInteraction.id}",
+
+			"drugInteraction.archived = #{drugInteractionList.drugInteraction.archived}",
 
 			"lower(drugInteraction.description) like concat(lower(#{drugInteractionList.drugInteraction.description}),'%')",
 

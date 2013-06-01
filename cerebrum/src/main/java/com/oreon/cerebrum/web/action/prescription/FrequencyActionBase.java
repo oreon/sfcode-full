@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Frequency frequency;
 
 	public void setFrequencyId(Long id) {
@@ -96,13 +96,13 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('frequency', 'edit'}")
+	//@Restrict("#{s:hasPermission('frequency', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('frequency', 'delete'}")
+	//@Restrict("#{s:hasPermission('frequency', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

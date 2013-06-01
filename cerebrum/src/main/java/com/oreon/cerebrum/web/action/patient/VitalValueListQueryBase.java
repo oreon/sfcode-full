@@ -41,12 +41,17 @@ public abstract class VitalValueListQueryBase
 	}
 
 	@Override
+	public VitalValue getInstance() {
+		return getVitalValue();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('vitalValue', 'view')}")
+	//@Restrict("#{s:hasPermission('vitalValue', 'view')}")
 	public List<VitalValue> getResultList() {
 		return super.getResultList();
 	}
@@ -72,6 +77,8 @@ public abstract class VitalValueListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"vitalValue.id = #{vitalValueList.vitalValue.id}",
+
+			"vitalValue.archived = #{vitalValueList.vitalValue.archived}",
 
 			"lower(vitalValue.remarks) like concat(lower(#{vitalValueList.vitalValue.remarks}),'%')",
 

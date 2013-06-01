@@ -41,12 +41,17 @@ public abstract class SpecializationListQueryBase
 	}
 
 	@Override
+	public Specialization getInstance() {
+		return getSpecialization();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('specialization', 'view')}")
+	//@Restrict("#{s:hasPermission('specialization', 'view')}")
 	public List<Specialization> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class SpecializationListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"specialization.id = #{specializationList.specialization.id}",
+
+			"specialization.archived = #{specializationList.specialization.archived}",
 
 			"lower(specialization.name) like concat(lower(#{specializationList.specialization.name}),'%')",
 

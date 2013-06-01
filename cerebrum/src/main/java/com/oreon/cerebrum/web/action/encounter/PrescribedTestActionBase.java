@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class PrescribedTestActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private PrescribedTest prescribedTest;
 
 	@In(create = true, value = "dxTestAction")
@@ -128,13 +128,13 @@ public abstract class PrescribedTestActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescribedTest', 'edit'}")
+	//@Restrict("#{s:hasPermission('prescribedTest', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescribedTest', 'delete'}")
+	//@Restrict("#{s:hasPermission('prescribedTest', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -54,7 +55,6 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Encounter encounter;
 
 	@In(create = true, value = "physicianAction")
@@ -147,13 +147,13 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('encounter', 'edit'}")
+	//@Restrict("#{s:hasPermission('encounter', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('encounter', 'delete'}")
+	//@Restrict("#{s:hasPermission('encounter', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -297,12 +297,14 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 	@Begin(join = true)
 	public void addPrescribedTests() {
+
 		initListPrescribedTests();
 		PrescribedTest prescribedTests = new PrescribedTest();
 
 		prescribedTests.setEncounter(getInstance());
 
 		getListPrescribedTests().add(prescribedTests);
+
 	}
 
 	protected List<com.oreon.cerebrum.encounter.Differential> listDifferentials = new ArrayList<com.oreon.cerebrum.encounter.Differential>();
@@ -334,12 +336,14 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 	@Begin(join = true)
 	public void addDifferentials() {
+
 		initListDifferentials();
 		Differential differentials = new Differential();
 
 		differentials.setEncounter(getInstance());
 
 		getListDifferentials().add(differentials);
+
 	}
 
 	public void updateComposedAssociations() {

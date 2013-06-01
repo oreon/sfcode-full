@@ -249,6 +249,29 @@ public abstract class BaseAction<T extends BaseEntity> extends
 		return executeNamedQuery("entityTemplates.templatesForEntity",
 				getClassName(getInstance()));
 	}
+	
+	
+	public void restore(){
+		Session session = (Session)entityManager.getDelegate();
+		session.disableFilter("archiveFilterDef");
+		
+		T t = loadFromId(currentEntityId);
+		t.setArchived(false);
+		persist(t);
+	
+		session.enableFilter("archiveFilterDef").setParameter("aArchived", "0");
+	}
+	
+	public void delete(){
+		
+		Session session = (Session)entityManager.getDelegate();
+		session.disableFilter("archiveFilterDef");
+		
+		T t = loadFromId(currentEntityId);
+		getEntityManager().remove(t);
+		
+		session.enableFilter("archiveFilterDef").setParameter("aArchived", "0");
+	}
 
 	public EntityTemplate getCurrentTemplate() {
 		// TODO Auto-generated method stub
@@ -412,7 +435,7 @@ public abstract class BaseAction<T extends BaseEntity> extends
 
 	@Restrict
 	public void archiveById() {
-		T t = loadFromId(idToArchive);
+		T t = loadFromId(currentEntityId);
 		archive(t);
 	}
 

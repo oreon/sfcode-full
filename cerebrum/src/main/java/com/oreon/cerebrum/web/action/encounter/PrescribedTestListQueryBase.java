@@ -41,12 +41,17 @@ public abstract class PrescribedTestListQueryBase
 	}
 
 	@Override
+	public PrescribedTest getInstance() {
+		return getPrescribedTest();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescribedTest', 'view')}")
+	//@Restrict("#{s:hasPermission('prescribedTest', 'view')}")
 	public List<PrescribedTest> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class PrescribedTestListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"prescribedTest.id = #{prescribedTestList.prescribedTest.id}",
+
+			"prescribedTest.archived = #{prescribedTestList.prescribedTest.archived}",
 
 			"lower(prescribedTest.remarks) like concat(lower(#{prescribedTestList.prescribedTest.remarks}),'%')",
 

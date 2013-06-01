@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class LabFindingActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private LabFinding labFinding;
 
 	public void setLabFindingId(Long id) {
@@ -98,13 +98,13 @@ public abstract class LabFindingActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('labFinding', 'edit'}")
+	//@Restrict("#{s:hasPermission('labFinding', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('labFinding', 'delete'}")
+	//@Restrict("#{s:hasPermission('labFinding', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

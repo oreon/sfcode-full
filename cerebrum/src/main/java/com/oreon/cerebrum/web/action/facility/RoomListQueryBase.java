@@ -39,12 +39,17 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 	}
 
 	@Override
+	public Room getInstance() {
+		return getRoom();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('room', 'view')}")
+	//@Restrict("#{s:hasPermission('room', 'view')}")
 	public List<Room> getResultList() {
 		return super.getResultList();
 	}
@@ -61,6 +66,8 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"room.id = #{roomList.room.id}",
+
+			"room.archived = #{roomList.room.archived}",
 
 			"lower(room.name) like concat(lower(#{roomList.room.name}),'%')",
 

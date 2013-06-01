@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Service service;
 
 	public void setServiceId(Long id) {
@@ -96,13 +96,13 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('service', 'edit'}")
+	//@Restrict("#{s:hasPermission('service', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('service', 'delete'}")
+	//@Restrict("#{s:hasPermission('service', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

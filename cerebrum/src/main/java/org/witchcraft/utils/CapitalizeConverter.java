@@ -10,7 +10,6 @@ public class CapitalizeConverter  implements Converter{
 
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String value) {
-		// TODO Auto-generated method stub
 		return StringUtils.capitalize(value);
 	}
 

@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Disease disease;
 
 	@In(create = true, value = "diseaseAction")
@@ -135,13 +135,13 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('disease', 'edit'}")
+	//@Restrict("#{s:hasPermission('disease', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('disease', 'delete'}")
+	//@Restrict("#{s:hasPermission('disease', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -278,12 +278,14 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 
 	@Begin(join = true)
 	public void addDifferentialDiagnoses() {
+
 		initListDifferentialDiagnoses();
 		Disease differentialDiagnoses = new Disease();
 
 		differentialDiagnoses.setRelatedDisease(getInstance());
 
 		getListDifferentialDiagnoses().add(differentialDiagnoses);
+
 	}
 
 	public void updateComposedAssociations() {

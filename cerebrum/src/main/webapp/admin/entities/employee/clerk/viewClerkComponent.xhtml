@@ -31,6 +31,11 @@
         <s:link escape="false" value="#{clerk.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
           <f:param name="facilityId" value="#{clerk.facility.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewDepartment')}"/>  
+        <s:link escape="false" value="#{clerk.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{clerk.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 

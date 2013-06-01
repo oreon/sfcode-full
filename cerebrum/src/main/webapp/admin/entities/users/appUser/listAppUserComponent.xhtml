@@ -53,7 +53,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_appUser', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_appUser', 'view') and !_appUserCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -62,7 +62,7 @@
             <f:param name="appUserId" value="#{_appUser.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_appUser', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_appUser', 'edit') and !_appUserCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -75,12 +75,19 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link action="#{appUserAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_appUser.displayName} ?')){ return false; } else { return true; }"> 
+          <s:link rendered="#{!_appUser.archived}" action="#{appUserAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_appUser.displayName} ?')){ return false; } else { return true; }"> 
             <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="idToArchive" value="#{_appUser.id}"/> 
+            <f:param name="currentEntityId" value="#{_appUser.id}"/> 
+          </s:link>  
+          <s:link rendered="#{_appUser.archived}" action="#{appUserAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_appUser.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_appUser.id}"/> 
+          </s:link>  
+          <rich:spacer/>  
+          <s:link rendered="#{_appUser.archived}" action="#{appUserAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_appUser.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_appUserCategory', 'edit') and !_appUserCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
