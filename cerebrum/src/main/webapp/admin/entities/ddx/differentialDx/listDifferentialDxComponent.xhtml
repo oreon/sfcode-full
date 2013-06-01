@@ -69,7 +69,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_differentialDx', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_differentialDx', 'view') and !_differentialDxCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -78,7 +78,7 @@
             <f:param name="differentialDxId" value="#{_differentialDx.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_differentialDx', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_differentialDx', 'edit') and !_differentialDxCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -91,12 +91,19 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link action="#{differentialDxAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_differentialDx.displayName} ?')){ return false; } else { return true; }"> 
+          <s:link rendered="#{!_differentialDx.archived}" action="#{differentialDxAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_differentialDx.displayName} ?')){ return false; } else { return true; }"> 
             <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="idToArchive" value="#{_differentialDx.id}"/> 
+            <f:param name="currentEntityId" value="#{_differentialDx.id}"/> 
+          </s:link>  
+          <s:link rendered="#{_differentialDx.archived}" action="#{differentialDxAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_differentialDx.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_differentialDx.id}"/> 
+          </s:link>  
+          <rich:spacer/>  
+          <s:link rendered="#{_differentialDx.archived}" action="#{differentialDxAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_differentialDx.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_differentialDxCategory', 'edit') and !_differentialDxCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  

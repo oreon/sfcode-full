@@ -39,12 +39,17 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	}
 
 	@Override
+	public Employee getInstance() {
+		return getEmployee();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('employee', 'view')}")
+	//@Restrict("#{s:hasPermission('employee', 'view')}")
 	public List<Employee> getResultList() {
 		return super.getResultList();
 	}
@@ -71,6 +76,8 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	private static final String[] RESTRICTIONS = {
 			"employee.id = #{employeeList.employee.id}",
 
+			"employee.archived = #{employeeList.employee.archived}",
+
 			"lower(employee.firstName) like concat(lower(#{employeeList.employee.firstName}),'%')",
 
 			"lower(employee.lastName) like concat(lower(#{employeeList.employee.lastName}),'%')",
@@ -94,8 +101,17 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 			"employee.facility.id = #{employeeList.employee.facility.id}",
 
+			"employee.department.id = #{employeeList.employee.department.id}",
+
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
+
+	public List<Employee> getEmployeesByDepartment(
+			com.oreon.cerebrum.employee.Department department) {
+		//setMaxResults(10000);
+		employee.setDepartment(department);
+		return getResultList();
+	}
 
 	@Observer("archivedEmployee")
 	public void onArchive() {
@@ -116,6 +132,10 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 				+ (e.getFacility() != null ? e.getFacility().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getDepartment() != null ? e.getDepartment()
+						.getDisplayName().replace(",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -128,6 +148,8 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		builder.append("AppUser" + ",");
 
 		builder.append("Facility" + ",");
+
+		builder.append("Department" + ",");
 
 		builder.append("\r\n");
 	}

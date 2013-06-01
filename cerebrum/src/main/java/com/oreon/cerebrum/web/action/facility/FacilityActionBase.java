@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Facility facility;
 
 	public void setFacilityId(Long id) {
@@ -98,13 +98,13 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('facility', 'edit'}")
+	//@Restrict("#{s:hasPermission('facility', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('facility', 'delete'}")
+	//@Restrict("#{s:hasPermission('facility', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -189,12 +189,14 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 
 	@Begin(join = true)
 	public void addWards() {
+
 		initListWards();
 		Ward wards = new Ward();
 
 		wards.setFacility(getInstance());
 
 		getListWards().add(wards);
+
 	}
 
 	public void updateComposedAssociations() {

@@ -39,12 +39,17 @@ public abstract class VaccineListQueryBase extends BaseQuery<Vaccine, Long> {
 	}
 
 	@Override
+	public Vaccine getInstance() {
+		return getVaccine();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('vaccine', 'view')}")
+	//@Restrict("#{s:hasPermission('vaccine', 'view')}")
 	public List<Vaccine> getResultList() {
 		return super.getResultList();
 	}
@@ -61,6 +66,8 @@ public abstract class VaccineListQueryBase extends BaseQuery<Vaccine, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"vaccine.id = #{vaccineList.vaccine.id}",
+
+			"vaccine.archived = #{vaccineList.vaccine.archived}",
 
 			"lower(vaccine.name) like concat(lower(#{vaccineList.vaccine.name}),'%')",
 

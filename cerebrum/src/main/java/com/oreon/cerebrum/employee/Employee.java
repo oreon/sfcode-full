@@ -107,6 +107,12 @@ public abstract class Employee extends com.oreon.cerebrum.patient.Person
 
 	;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "department_id", nullable = false, updatable = true)
+	protected Department department
+
+	;
+
 	public void setEmployeeNumber(String employeeNumber) {
 		this.employeeNumber = employeeNumber;
 	}
@@ -152,6 +158,16 @@ public abstract class Employee extends com.oreon.cerebrum.patient.Person
 
 	}
 
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Department getDepartment() {
+
+		return department;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -190,6 +206,10 @@ public abstract class Employee extends com.oreon.cerebrum.patient.Person
 
 		if (getFacility() != null)
 			builder.append("facility:" + getFacility().getDisplayName() + " ");
+
+		if (getDepartment() != null)
+			builder.append("department:" + getDepartment().getDisplayName()
+					+ " ");
 
 		for (BaseEntity e : unusualOccurences) {
 			builder.append(e.getDisplayName() + " ");

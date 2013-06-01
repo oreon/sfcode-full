@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class PhysicalFindingActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private PhysicalFinding physicalFinding;
 
 	public void setPhysicalFindingId(Long id) {
@@ -98,13 +98,13 @@ public abstract class PhysicalFindingActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('physicalFinding', 'edit'}")
+	//@Restrict("#{s:hasPermission('physicalFinding', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('physicalFinding', 'delete'}")
+	//@Restrict("#{s:hasPermission('physicalFinding', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

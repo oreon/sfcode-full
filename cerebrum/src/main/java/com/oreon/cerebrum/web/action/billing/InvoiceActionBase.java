@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Invoice invoice;
 
 	@In(create = true, value = "patientAction")
@@ -114,13 +114,13 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('invoice', 'edit'}")
+	//@Restrict("#{s:hasPermission('invoice', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('invoice', 'delete'}")
+	//@Restrict("#{s:hasPermission('invoice', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -230,12 +230,14 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 
 	@Begin(join = true)
 	public void addInvoiceItems() {
+
 		initListInvoiceItems();
 		InvoiceItem invoiceItems = new InvoiceItem();
 
 		invoiceItems.setInvoice(getInstance());
 
 		getListInvoiceItems().add(invoiceItems);
+
 	}
 
 	public void updateComposedAssociations() {

@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private InvoiceItem invoiceItem;
 
 	@In(create = true, value = "serviceAction")
@@ -128,13 +128,13 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('invoiceItem', 'edit'}")
+	//@Restrict("#{s:hasPermission('invoiceItem', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('invoiceItem', 'delete'}")
+	//@Restrict("#{s:hasPermission('invoiceItem', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

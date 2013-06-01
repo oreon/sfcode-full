@@ -39,12 +39,17 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 	}
 
 	@Override
+	public Ward getInstance() {
+		return getWard();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('ward', 'view')}")
+	//@Restrict("#{s:hasPermission('ward', 'view')}")
 	public List<Ward> getResultList() {
 		return super.getResultList();
 	}
@@ -61,6 +66,8 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"ward.id = #{wardList.ward.id}",
+
+			"ward.archived = #{wardList.ward.archived}",
 
 			"ward.facility.id = #{wardList.ward.facility.id}",
 

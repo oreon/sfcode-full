@@ -39,12 +39,17 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 	}
 
 	@Override
+	public Invoice getInstance() {
+		return getInvoice();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('invoice', 'view')}")
+	//@Restrict("#{s:hasPermission('invoice', 'view')}")
 	public List<Invoice> getResultList() {
 		return super.getResultList();
 	}
@@ -70,6 +75,8 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"invoice.id = #{invoiceList.invoice.id}",
+
+			"invoice.archived = #{invoiceList.invoice.archived}",
 
 			"invoice.patient.id = #{invoiceList.invoice.patient.id}",
 

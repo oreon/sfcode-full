@@ -83,8 +83,8 @@ public class Authenticator {
 
 			userUtilAction.setCurrentUser(user);
 			
-			
-			session.enableFilter("tenantFilterDef");
+	
+			session.enableFilter("tenantFilterDef").setParameter("tenantId",user.getTenant());
 			/*
 			user.setLastLogin(new Date());
 			UserAction userAction = (UserAction) Component.getInstance("userAction");

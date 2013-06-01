@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class PatientDocumentActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private PatientDocument patientDocument;
 
 	@In(create = true, value = "patientAction")
@@ -112,13 +112,13 @@ public abstract class PatientDocumentActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('patientDocument', 'edit'}")
+	//@Restrict("#{s:hasPermission('patientDocument', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('patientDocument', 'delete'}")
+	//@Restrict("#{s:hasPermission('patientDocument', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

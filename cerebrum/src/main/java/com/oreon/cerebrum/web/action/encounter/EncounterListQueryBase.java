@@ -39,12 +39,17 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	}
 
 	@Override
+	public Encounter getInstance() {
+		return getEncounter();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('encounter', 'view')}")
+	//@Restrict("#{s:hasPermission('encounter', 'view')}")
 	public List<Encounter> getResultList() {
 		return super.getResultList();
 	}
@@ -107,6 +112,8 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 
 	private static final String[] RESTRICTIONS = {
 			"encounter.id = #{encounterList.encounter.id}",
+
+			"encounter.archived = #{encounterList.encounter.archived}",
 
 			"encounter.physician.id = #{encounterList.encounter.physician.id}",
 

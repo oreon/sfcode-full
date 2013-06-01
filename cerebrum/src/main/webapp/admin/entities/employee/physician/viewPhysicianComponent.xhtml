@@ -32,6 +32,11 @@
           <f:param name="facilityId" value="#{physician.facility.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
+        <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewDepartment')}"/>  
+        <s:link escape="false" value="#{physician.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{physician.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
         <h:outputText value="#{msg.physician_specialization}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewSpecialization')}"/>  
         <s:link escape="false" value="#{physician.specialization.displayName}" view="/admin/entities/employee/specialization/viewSpecialization.xhtml" propagation="none"> 
           <f:param name="specializationId" value="#{physician.specialization.id}"/>  

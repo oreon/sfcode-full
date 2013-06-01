@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Differential differential;
 
 	@In(create = true, value = "encounterAction")
@@ -112,13 +112,13 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('differential', 'edit'}")
+	//@Restrict("#{s:hasPermission('differential', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('differential', 'delete'}")
+	//@Restrict("#{s:hasPermission('differential', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -39,12 +39,17 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 	}
 
 	@Override
+	public Disease getInstance() {
+		return getDisease();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('disease', 'view')}")
+	//@Restrict("#{s:hasPermission('disease', 'view')}")
 	public List<Disease> getResultList() {
 		return super.getResultList();
 	}
@@ -61,6 +66,8 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"disease.id = #{diseaseList.disease.id}",
+
+			"disease.archived = #{diseaseList.disease.archived}",
 
 			"disease.gender = #{diseaseList.disease.gender}",
 

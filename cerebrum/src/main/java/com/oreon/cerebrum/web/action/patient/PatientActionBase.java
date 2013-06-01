@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -62,7 +63,6 @@ public abstract class PatientActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Patient patient;
 
 	@In(create = true, value = "admissionAction")
@@ -131,13 +131,13 @@ public abstract class PatientActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('patient', 'edit'}")
+	//@Restrict("#{s:hasPermission('patient', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('patient', 'delete'}")
+	//@Restrict("#{s:hasPermission('patient', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -277,12 +277,14 @@ public abstract class PatientActionBase
 
 	@Begin(join = true)
 	public void addAdmissions() {
+
 		initListAdmissions();
 		Admission admissions = new Admission();
 
 		admissions.setPatient(getInstance());
 
 		getListAdmissions().add(admissions);
+
 	}
 
 	protected List<com.oreon.cerebrum.prescription.Prescription> listPrescriptions = new ArrayList<com.oreon.cerebrum.prescription.Prescription>();
@@ -314,12 +316,14 @@ public abstract class PatientActionBase
 
 	@Begin(join = true)
 	public void addPrescriptions() {
+
 		initListPrescriptions();
 		Prescription prescriptions = new Prescription();
 
 		prescriptions.setPatient(getInstance());
 
 		getListPrescriptions().add(prescriptions);
+
 	}
 
 	protected List<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> listUnusualOccurences = new ArrayList<com.oreon.cerebrum.unusualoccurences.UnusualOccurence>();
@@ -351,12 +355,14 @@ public abstract class PatientActionBase
 
 	@Begin(join = true)
 	public void addUnusualOccurences() {
+
 		initListUnusualOccurences();
 		UnusualOccurence unusualOccurences = new UnusualOccurence();
 
 		unusualOccurences.setPatient(getInstance());
 
 		getListUnusualOccurences().add(unusualOccurences);
+
 	}
 
 	protected List<com.oreon.cerebrum.patient.PatientDocument> listPatientDocuments = new ArrayList<com.oreon.cerebrum.patient.PatientDocument>();
@@ -388,12 +394,14 @@ public abstract class PatientActionBase
 
 	@Begin(join = true)
 	public void addPatientDocuments() {
+
 		initListPatientDocuments();
 		PatientDocument patientDocuments = new PatientDocument();
 
 		patientDocuments.setPatient(getInstance());
 
 		getListPatientDocuments().add(patientDocuments);
+
 	}
 
 	protected List<com.oreon.cerebrum.patient.Allergy> listAllergys = new ArrayList<com.oreon.cerebrum.patient.Allergy>();
@@ -425,12 +433,14 @@ public abstract class PatientActionBase
 
 	@Begin(join = true)
 	public void addAllergys() {
+
 		initListAllergys();
 		Allergy allergys = new Allergy();
 
 		allergys.setPatient(getInstance());
 
 		getListAllergys().add(allergys);
+
 	}
 
 	protected List<com.oreon.cerebrum.patient.Immunization> listImmunizations = new ArrayList<com.oreon.cerebrum.patient.Immunization>();
@@ -462,12 +472,14 @@ public abstract class PatientActionBase
 
 	@Begin(join = true)
 	public void addImmunizations() {
+
 		initListImmunizations();
 		Immunization immunizations = new Immunization();
 
 		immunizations.setPatient(getInstance());
 
 		getListImmunizations().add(immunizations);
+
 	}
 
 	protected List<com.oreon.cerebrum.patient.VitalValue> listVitalValues = new ArrayList<com.oreon.cerebrum.patient.VitalValue>();
@@ -499,12 +511,14 @@ public abstract class PatientActionBase
 
 	@Begin(join = true)
 	public void addVitalValues() {
+
 		initListVitalValues();
 		VitalValue vitalValues = new VitalValue();
 
 		vitalValues.setPatient(getInstance());
 
 		getListVitalValues().add(vitalValues);
+
 	}
 
 	protected List<com.oreon.cerebrum.encounter.Encounter> listEncounters = new ArrayList<com.oreon.cerebrum.encounter.Encounter>();
@@ -536,12 +550,14 @@ public abstract class PatientActionBase
 
 	@Begin(join = true)
 	public void addEncounters() {
+
 		initListEncounters();
 		Encounter encounters = new Encounter();
 
 		encounters.setPatient(getInstance());
 
 		getListEncounters().add(encounters);
+
 	}
 
 	public void updateComposedAssociations() {

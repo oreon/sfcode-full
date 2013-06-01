@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private OccurenceType occurenceType;
 
 	public void setOccurenceTypeId(Long id) {
@@ -96,13 +96,13 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('occurenceType', 'edit'}")
+	//@Restrict("#{s:hasPermission('occurenceType', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('occurenceType', 'delete'}")
+	//@Restrict("#{s:hasPermission('occurenceType', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

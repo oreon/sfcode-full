@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class TechnicianActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Technician technician;
 
 	public static final String DEFAULT_ROLE_NAME = "technician";
@@ -100,13 +100,13 @@ public abstract class TechnicianActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('technician', 'edit'}")
+	//@Restrict("#{s:hasPermission('technician', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('technician', 'delete'}")
+	//@Restrict("#{s:hasPermission('technician', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

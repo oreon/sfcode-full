@@ -41,12 +41,17 @@ public abstract class PatientDiffDxListQueryBase
 	}
 
 	@Override
+	public PatientDiffDx getInstance() {
+		return getPatientDiffDx();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('patientDiffDx', 'view')}")
+	//@Restrict("#{s:hasPermission('patientDiffDx', 'view')}")
 	public List<PatientDiffDx> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class PatientDiffDxListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"patientDiffDx.id = #{patientDiffDxList.patientDiffDx.id}",
+
+			"patientDiffDx.archived = #{patientDiffDxList.patientDiffDx.archived}",
 
 			"patientDiffDx.patient.id = #{patientDiffDxList.patientDiffDx.patient.id}",
 

@@ -39,12 +39,17 @@ public abstract class AllergenListQueryBase extends BaseQuery<Allergen, Long> {
 	}
 
 	@Override
+	public Allergen getInstance() {
+		return getAllergen();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('allergen', 'view')}")
+	//@Restrict("#{s:hasPermission('allergen', 'view')}")
 	public List<Allergen> getResultList() {
 		return super.getResultList();
 	}
@@ -61,6 +66,8 @@ public abstract class AllergenListQueryBase extends BaseQuery<Allergen, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"allergen.id = #{allergenList.allergen.id}",
+
+			"allergen.archived = #{allergenList.allergen.archived}",
 
 			"lower(allergen.name) like concat(lower(#{allergenList.allergen.name}),'%')",
 

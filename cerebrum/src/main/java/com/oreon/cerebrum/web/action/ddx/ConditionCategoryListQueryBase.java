@@ -41,12 +41,17 @@ public abstract class ConditionCategoryListQueryBase
 	}
 
 	@Override
+	public ConditionCategory getInstance() {
+		return getConditionCategory();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('conditionCategory', 'view')}")
+	//@Restrict("#{s:hasPermission('conditionCategory', 'view')}")
 	public List<ConditionCategory> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class ConditionCategoryListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"conditionCategory.id = #{conditionCategoryList.conditionCategory.id}",
+
+			"conditionCategory.archived = #{conditionCategoryList.conditionCategory.archived}",
 
 			"lower(conditionCategory.name) like concat(lower(#{conditionCategoryList.conditionCategory.name}),'%')",
 

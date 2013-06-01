@@ -39,12 +39,17 @@ public abstract class DxTestListQueryBase extends BaseQuery<DxTest, Long> {
 	}
 
 	@Override
+	public DxTest getInstance() {
+		return getDxTest();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('dxTest', 'view')}")
+	//@Restrict("#{s:hasPermission('dxTest', 'view')}")
 	public List<DxTest> getResultList() {
 		return super.getResultList();
 	}
@@ -61,6 +66,8 @@ public abstract class DxTestListQueryBase extends BaseQuery<DxTest, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"dxTest.id = #{dxTestList.dxTest.id}",
+
+			"dxTest.archived = #{dxTestList.dxTest.archived}",
 
 			"lower(dxTest.name) like concat(lower(#{dxTestList.dxTest.name}),'%')",
 

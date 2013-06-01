@@ -43,7 +43,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_facility', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_facility', 'view') and !_facilityCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -52,7 +52,7 @@
             <f:param name="facilityId" value="#{_facility.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_facility', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_facility', 'edit') and !_facilityCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -65,12 +65,19 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link action="#{facilityAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_facility.displayName} ?')){ return false; } else { return true; }"> 
+          <s:link rendered="#{!_facility.archived}" action="#{facilityAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_facility.displayName} ?')){ return false; } else { return true; }"> 
             <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="idToArchive" value="#{_facility.id}"/> 
+            <f:param name="currentEntityId" value="#{_facility.id}"/> 
+          </s:link>  
+          <s:link rendered="#{_facility.archived}" action="#{facilityAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_facility.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_facility.id}"/> 
+          </s:link>  
+          <rich:spacer/>  
+          <s:link rendered="#{_facility.archived}" action="#{facilityAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_facility.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_facilityCategory', 'edit') and !_facilityCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  

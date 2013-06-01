@@ -110,7 +110,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_admission', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_admission', 'view') and !_admissionCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -119,7 +119,7 @@
             <f:param name="admissionId" value="#{_admission.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_admission', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_admission', 'edit') and !_admissionCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -132,12 +132,19 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link action="#{admissionAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_admission.displayName} ?')){ return false; } else { return true; }"> 
+          <s:link rendered="#{!_admission.archived}" action="#{admissionAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_admission.displayName} ?')){ return false; } else { return true; }"> 
             <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="idToArchive" value="#{_admission.id}"/> 
+            <f:param name="currentEntityId" value="#{_admission.id}"/> 
+          </s:link>  
+          <s:link rendered="#{_admission.archived}" action="#{admissionAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_admission.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_admission.id}"/> 
+          </s:link>  
+          <rich:spacer/>  
+          <s:link rendered="#{_admission.archived}" action="#{admissionAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_admission.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_admissionCategory', 'edit') and !_admissionCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  

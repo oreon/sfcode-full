@@ -261,7 +261,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_drug', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_drug', 'view') and !_drugCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -270,7 +270,7 @@
             <f:param name="drugId" value="#{_drug.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_drug', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_drug', 'edit') and !_drugCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -283,12 +283,19 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link action="#{drugAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_drug.displayName} ?')){ return false; } else { return true; }"> 
+          <s:link rendered="#{!_drug.archived}" action="#{drugAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_drug.displayName} ?')){ return false; } else { return true; }"> 
             <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="idToArchive" value="#{_drug.id}"/> 
+            <f:param name="currentEntityId" value="#{_drug.id}"/> 
+          </s:link>  
+          <s:link rendered="#{_drug.archived}" action="#{drugAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_drug.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_drug.id}"/> 
+          </s:link>  
+          <rich:spacer/>  
+          <s:link rendered="#{_drug.archived}" action="#{drugAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_drug.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_drugCategory', 'edit') and !_drugCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  

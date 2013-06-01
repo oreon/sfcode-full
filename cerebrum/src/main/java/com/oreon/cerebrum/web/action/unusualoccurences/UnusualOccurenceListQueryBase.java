@@ -41,12 +41,17 @@ public abstract class UnusualOccurenceListQueryBase
 	}
 
 	@Override
+	public UnusualOccurence getInstance() {
+		return getUnusualOccurence();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('unusualOccurence', 'view')}")
+	//@Restrict("#{s:hasPermission('unusualOccurence', 'view')}")
 	public List<UnusualOccurence> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class UnusualOccurenceListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"unusualOccurence.id = #{unusualOccurenceList.unusualOccurence.id}",
+
+			"unusualOccurence.archived = #{unusualOccurenceList.unusualOccurence.archived}",
 
 			"unusualOccurence.occurenceType.id = #{unusualOccurenceList.unusualOccurence.occurenceType.id}",
 

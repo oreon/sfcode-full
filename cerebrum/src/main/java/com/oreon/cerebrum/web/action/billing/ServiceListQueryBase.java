@@ -39,12 +39,17 @@ public abstract class ServiceListQueryBase extends BaseQuery<Service, Long> {
 	}
 
 	@Override
+	public Service getInstance() {
+		return getService();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('service', 'view')}")
+	//@Restrict("#{s:hasPermission('service', 'view')}")
 	public List<Service> getResultList() {
 		return super.getResultList();
 	}
@@ -70,6 +75,8 @@ public abstract class ServiceListQueryBase extends BaseQuery<Service, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"service.id = #{serviceList.service.id}",
+
+			"service.archived = #{serviceList.service.archived}",
 
 			"lower(service.name) like concat(lower(#{serviceList.service.name}),'%')",
 

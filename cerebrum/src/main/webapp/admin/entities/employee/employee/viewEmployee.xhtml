@@ -29,6 +29,12 @@
             <ui:param name="entityId" value="2"/>  
             <ui:param name="facilityId" value="#{employeeAction.instance.facility.id}"/> 
           </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Department" rendered="#{employeeAction.instance.department != null}"> 
+          <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+            <ui:param name="entityId" value="3"/>  
+            <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
+          </ui:include> 
         </rich:tab> 
       </rich:tabPanel>  
       <div class="buttonBox"></div> 

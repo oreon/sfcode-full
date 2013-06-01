@@ -38,6 +38,11 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 		return appUser;
 	}
 
+	@Override
+	public AppUser getInstance() {
+		return getAppUser();
+	}
+
 	private com.oreon.cerebrum.users.AppRole appRolesToSearch;
 
 	public void setAppRolesToSearch(
@@ -55,7 +60,7 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('appUser', 'view')}")
+	//@Restrict("#{s:hasPermission('appUser', 'view')}")
 	public List<AppUser> getResultList() {
 		return super.getResultList();
 	}
@@ -72,6 +77,8 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 
 	private static final String[] RESTRICTIONS = {
 			"appUser.id = #{appUserList.appUser.id}",
+
+			"appUser.archived = #{appUserList.appUser.archived}",
 
 			"lower(appUser.userName) like concat(lower(#{appUserList.appUser.userName}),'%')",
 

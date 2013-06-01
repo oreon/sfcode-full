@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class ConditionFindingActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private ConditionFinding conditionFinding;
 
 	@In(create = true, value = "diseaseAction")
@@ -112,13 +112,13 @@ public abstract class ConditionFindingActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('conditionFinding', 'edit'}")
+	//@Restrict("#{s:hasPermission('conditionFinding', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('conditionFinding', 'delete'}")
+	//@Restrict("#{s:hasPermission('conditionFinding', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

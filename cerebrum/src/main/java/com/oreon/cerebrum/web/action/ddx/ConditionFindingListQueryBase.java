@@ -41,12 +41,17 @@ public abstract class ConditionFindingListQueryBase
 	}
 
 	@Override
+	public ConditionFinding getInstance() {
+		return getConditionFinding();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('conditionFinding', 'view')}")
+	//@Restrict("#{s:hasPermission('conditionFinding', 'view')}")
 	public List<ConditionFinding> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class ConditionFindingListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"conditionFinding.id = #{conditionFindingList.conditionFinding.id}",
+
+			"conditionFinding.archived = #{conditionFindingList.conditionFinding.archived}",
 
 			"conditionFinding.disease.id = #{conditionFindingList.conditionFinding.disease.id}",
 

@@ -41,12 +41,17 @@ public abstract class PatientDocumentListQueryBase
 	}
 
 	@Override
+	public PatientDocument getInstance() {
+		return getPatientDocument();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('patientDocument', 'view')}")
+	//@Restrict("#{s:hasPermission('patientDocument', 'view')}")
 	public List<PatientDocument> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class PatientDocumentListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"patientDocument.id = #{patientDocumentList.patientDocument.id}",
+
+			"patientDocument.archived = #{patientDocumentList.patientDocument.archived}",
 
 			"lower(patientDocument.name) like concat(lower(#{patientDocumentList.patientDocument.name}),'%')",
 

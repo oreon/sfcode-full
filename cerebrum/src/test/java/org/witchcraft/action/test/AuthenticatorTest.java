@@ -104,7 +104,24 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 
 		em.getTransaction().commit();
 	}
+	
+	private void createFrequencys() {
+		if (!em.getTransaction().isActive())
+			em.getTransaction().begin();
 
+		createDrug("Ibuprofen", "3");
+		createDrug("Methotrexate", "32");
+		createDrug("Atorvastatin", "33");
+		createDrug("Glipizide", "34");
+		createDrug("Metformin", "39");
+
+		createDrug("Captopril", "29");
+		createDrug("Hydrocholorothiazide", "219");
+
+		em.getTransaction().commit();
+	}
+	
+	
 	private void createDrug(String name, String id) {
 		Drug ibu = new Drug();
 		ibu.setName(name);

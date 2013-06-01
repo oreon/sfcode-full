@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class ConditionCategoryActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private ConditionCategory conditionCategory;
 
 	public void setConditionCategoryId(Long id) {
@@ -96,13 +96,13 @@ public abstract class ConditionCategoryActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('conditionCategory', 'edit'}")
+	//@Restrict("#{s:hasPermission('conditionCategory', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('conditionCategory', 'delete'}")
+	//@Restrict("#{s:hasPermission('conditionCategory', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

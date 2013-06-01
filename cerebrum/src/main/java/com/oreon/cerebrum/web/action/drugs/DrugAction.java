@@ -44,6 +44,12 @@ import org.richfaces.model.UploadItem;
 //@Scope(ScopeType.CONVERSATION)
 @Name("drugAction")
 public class DrugAction extends DrugActionBase implements java.io.Serializable{
+
 	
+	@Override
+	public String remove() {
+		
+		return super.remove();
+	}
 }
 	

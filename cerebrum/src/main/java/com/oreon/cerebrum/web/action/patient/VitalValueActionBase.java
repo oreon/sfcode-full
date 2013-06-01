@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private VitalValue vitalValue;
 
 	@In(create = true, value = "trackedVitalAction")
@@ -128,13 +128,13 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('vitalValue', 'edit'}")
+	//@Restrict("#{s:hasPermission('vitalValue', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('vitalValue', 'delete'}")
+	//@Restrict("#{s:hasPermission('vitalValue', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

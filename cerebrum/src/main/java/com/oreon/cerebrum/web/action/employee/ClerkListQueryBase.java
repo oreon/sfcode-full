@@ -39,12 +39,17 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 	}
 
 	@Override
+	public Clerk getInstance() {
+		return getClerk();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('clerk', 'view')}")
+	//@Restrict("#{s:hasPermission('clerk', 'view')}")
 	public List<Clerk> getResultList() {
 		return super.getResultList();
 	}
@@ -71,11 +76,15 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 	private static final String[] RESTRICTIONS = {
 			"clerk.id = #{clerkList.clerk.id}",
 
+			"clerk.archived = #{clerkList.clerk.archived}",
+
 			"lower(clerk.appUser.userName) like concat(lower(#{clerkList.clerk.appUser.userName}),'%')",
 
 			"clerk.appUser.enabled = #{clerkList.clerk.appUser.enabled}",
 
 			"clerk.facility.id = #{clerkList.clerk.facility.id}",
+
+			"clerk.department.id = #{clerkList.clerk.department.id}",
 
 			"lower(clerk.firstName) like concat(lower(#{clerkList.clerk.firstName}),'%')",
 

@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Finding finding;
 
 	public void setFindingId(Long id) {
@@ -98,13 +98,13 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('finding', 'edit'}")
+	//@Restrict("#{s:hasPermission('finding', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('finding', 'delete'}")
+	//@Restrict("#{s:hasPermission('finding', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -194,12 +194,14 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 
 	@Begin(join = true)
 	public void addDifferentialDxs() {
+
 		initListDifferentialDxs();
 		DifferentialDx differentialDxs = new DifferentialDx();
 
 		differentialDxs.setFinding(getInstance());
 
 		getListDifferentialDxs().add(differentialDxs);
+
 	}
 
 	public void updateComposedAssociations() {

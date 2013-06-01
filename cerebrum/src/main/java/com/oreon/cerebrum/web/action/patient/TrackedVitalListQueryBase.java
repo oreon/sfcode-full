@@ -41,12 +41,17 @@ public abstract class TrackedVitalListQueryBase
 	}
 
 	@Override
+	public TrackedVital getInstance() {
+		return getTrackedVital();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('trackedVital', 'view')}")
+	//@Restrict("#{s:hasPermission('trackedVital', 'view')}")
 	public List<TrackedVital> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class TrackedVitalListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"trackedVital.id = #{trackedVitalList.trackedVital.id}",
+
+			"trackedVital.archived = #{trackedVitalList.trackedVital.archived}",
 
 			"lower(trackedVital.name) like concat(lower(#{trackedVitalList.trackedVital.name}),'%')",
 

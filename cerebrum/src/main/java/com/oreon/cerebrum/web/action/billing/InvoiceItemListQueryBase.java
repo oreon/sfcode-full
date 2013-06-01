@@ -41,12 +41,17 @@ public abstract class InvoiceItemListQueryBase
 	}
 
 	@Override
+	public InvoiceItem getInstance() {
+		return getInvoiceItem();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('invoiceItem', 'view')}")
+	//@Restrict("#{s:hasPermission('invoiceItem', 'view')}")
 	public List<InvoiceItem> getResultList() {
 		return super.getResultList();
 	}
@@ -81,6 +86,8 @@ public abstract class InvoiceItemListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"invoiceItem.id = #{invoiceItemList.invoiceItem.id}",
+
+			"invoiceItem.archived = #{invoiceItemList.invoiceItem.archived}",
 
 			"invoiceItem.units >= #{invoiceItemList.unitsRange.begin}",
 			"invoiceItem.units <= #{invoiceItemList.unitsRange.end}",

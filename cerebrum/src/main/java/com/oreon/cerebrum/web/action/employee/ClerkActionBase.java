@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -53,7 +54,6 @@ public abstract class ClerkActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private Clerk clerk;
 
 	public void setClerkId(Long id) {
@@ -98,13 +98,13 @@ public abstract class ClerkActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('clerk', 'edit'}")
+	//@Restrict("#{s:hasPermission('clerk', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('clerk', 'delete'}")
+	//@Restrict("#{s:hasPermission('clerk', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

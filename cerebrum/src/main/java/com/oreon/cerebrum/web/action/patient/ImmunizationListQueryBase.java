@@ -41,12 +41,17 @@ public abstract class ImmunizationListQueryBase
 	}
 
 	@Override
+	public Immunization getInstance() {
+		return getImmunization();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('immunization', 'view')}")
+	//@Restrict("#{s:hasPermission('immunization', 'view')}")
 	public List<Immunization> getResultList() {
 		return super.getResultList();
 	}
@@ -72,6 +77,8 @@ public abstract class ImmunizationListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"immunization.id = #{immunizationList.immunization.id}",
+
+			"immunization.archived = #{immunizationList.immunization.archived}",
 
 			"immunization.date >= #{immunizationList.dateRange.begin}",
 			"immunization.date <= #{immunizationList.dateRange.end}",

@@ -41,12 +41,17 @@ public abstract class DifferentialDxListQueryBase
 	}
 
 	@Override
+	public DifferentialDx getInstance() {
+		return getDifferentialDx();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('differentialDx', 'view')}")
+	//@Restrict("#{s:hasPermission('differentialDx', 'view')}")
 	public List<DifferentialDx> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class DifferentialDxListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"differentialDx.id = #{differentialDxList.differentialDx.id}",
+
+			"differentialDx.archived = #{differentialDxList.differentialDx.archived}",
 
 			"lower(differentialDx.name) like concat(lower(#{differentialDxList.differentialDx.name}),'%')",
 

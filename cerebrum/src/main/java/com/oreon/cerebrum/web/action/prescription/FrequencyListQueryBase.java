@@ -39,12 +39,17 @@ public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> 
 	}
 
 	@Override
+	public Frequency getInstance() {
+		return getFrequency();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('frequency', 'view')}")
+	//@Restrict("#{s:hasPermission('frequency', 'view')}")
 	public List<Frequency> getResultList() {
 		return super.getResultList();
 	}
@@ -70,6 +75,8 @@ public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> 
 
 	private static final String[] RESTRICTIONS = {
 			"frequency.id = #{frequencyList.frequency.id}",
+
+			"frequency.archived = #{frequencyList.frequency.archived}",
 
 			"lower(frequency.name) like concat(lower(#{frequencyList.frequency.name}),'%')",
 

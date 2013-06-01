@@ -156,6 +156,19 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewDepartment')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_department}"/>  
+              <ui:param name="propertyPath" value="employee.department"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link escape="false" value="#{_employee.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+            <f:param name="departmentId" value="#{_employee.department.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -168,7 +181,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_employee', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_employee', 'view') and !_employeeCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -177,7 +190,7 @@
             <f:param name="employeeId" value="#{_employee.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_employee', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_employee', 'edit') and !_employeeCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -190,12 +203,19 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link action="#{employeeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_employee.displayName} ?')){ return false; } else { return true; }"> 
+          <s:link rendered="#{!_employee.archived}" action="#{employeeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_employee.displayName} ?')){ return false; } else { return true; }"> 
             <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="idToArchive" value="#{_employee.id}"/> 
+            <f:param name="currentEntityId" value="#{_employee.id}"/> 
+          </s:link>  
+          <s:link rendered="#{_employee.archived}" action="#{employeeAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_employee.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_employee.id}"/> 
+          </s:link>  
+          <rich:spacer/>  
+          <s:link rendered="#{_employee.archived}" action="#{employeeAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_employee.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_employeeCategory', 'edit') and !_employeeCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  

@@ -43,7 +43,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_finding', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_finding', 'view') and !_findingCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -52,7 +52,7 @@
             <f:param name="findingId" value="#{_finding.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('_finding', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_finding', 'edit') and !_findingCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -65,12 +65,19 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link action="#{findingAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_finding.displayName} ?')){ return false; } else { return true; }"> 
+          <s:link rendered="#{!_finding.archived}" action="#{findingAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_finding.displayName} ?')){ return false; } else { return true; }"> 
             <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="idToArchive" value="#{_finding.id}"/> 
+            <f:param name="currentEntityId" value="#{_finding.id}"/> 
+          </s:link>  
+          <s:link rendered="#{_finding.archived}" action="#{findingAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_finding.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_finding.id}"/> 
+          </s:link>  
+          <rich:spacer/>  
+          <s:link rendered="#{_finding.archived}" action="#{findingAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_finding.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('_findingCategory', 'edit') and !_findingCategory.archived}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  

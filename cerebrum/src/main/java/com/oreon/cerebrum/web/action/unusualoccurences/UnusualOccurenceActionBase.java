@@ -39,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -51,7 +52,6 @@ public abstract class UnusualOccurenceActionBase
 
 	@In(create = true)
 	@Out(required = false)
-	//@DataModelSelection
 	private UnusualOccurence unusualOccurence;
 
 	@In(create = true, value = "occurenceTypeAction")
@@ -138,13 +138,13 @@ public abstract class UnusualOccurenceActionBase
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('unusualOccurence', 'edit'}")
+	//@Restrict("#{s:hasPermission('unusualOccurence', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('unusualOccurence', 'delete'}")
+	//@Restrict("#{s:hasPermission('unusualOccurence', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

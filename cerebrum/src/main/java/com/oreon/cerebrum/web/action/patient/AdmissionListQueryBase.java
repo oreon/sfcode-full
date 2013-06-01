@@ -39,12 +39,17 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 	}
 
 	@Override
+	public Admission getInstance() {
+		return getAdmission();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('admission', 'view')}")
+	//@Restrict("#{s:hasPermission('admission', 'view')}")
 	public List<Admission> getResultList() {
 		return super.getResultList();
 	}
@@ -70,6 +75,8 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 
 	private static final String[] RESTRICTIONS = {
 			"admission.id = #{admissionList.admission.id}",
+
+			"admission.archived = #{admissionList.admission.archived}",
 
 			"admission.patient.id = #{admissionList.admission.patient.id}",
 

@@ -41,12 +41,17 @@ public abstract class NurseSpecialtyListQueryBase
 	}
 
 	@Override
+	public NurseSpecialty getInstance() {
+		return getNurseSpecialty();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('nurseSpecialty', 'view')}")
+	//@Restrict("#{s:hasPermission('nurseSpecialty', 'view')}")
 	public List<NurseSpecialty> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class NurseSpecialtyListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"nurseSpecialty.id = #{nurseSpecialtyList.nurseSpecialty.id}",
+
+			"nurseSpecialty.archived = #{nurseSpecialtyList.nurseSpecialty.archived}",
 
 			"lower(nurseSpecialty.name) like concat(lower(#{nurseSpecialtyList.nurseSpecialty.name}),'%')",
 

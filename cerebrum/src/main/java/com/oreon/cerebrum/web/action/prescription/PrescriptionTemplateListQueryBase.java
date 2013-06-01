@@ -41,12 +41,17 @@ public abstract class PrescriptionTemplateListQueryBase
 	}
 
 	@Override
+	public PrescriptionTemplate getInstance() {
+		return getPrescriptionTemplate();
+	}
+
+	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
-	@Restrict("#{s:hasPermission('prescriptionTemplate', 'view')}")
+	//@Restrict("#{s:hasPermission('prescriptionTemplate', 'view')}")
 	public List<PrescriptionTemplate> getResultList() {
 		return super.getResultList();
 	}
@@ -63,6 +68,8 @@ public abstract class PrescriptionTemplateListQueryBase
 
 	private static final String[] RESTRICTIONS = {
 			"prescriptionTemplate.id = #{prescriptionTemplateList.prescriptionTemplate.id}",
+
+			"prescriptionTemplate.archived = #{prescriptionTemplateList.prescriptionTemplate.archived}",
 
 			"lower(prescriptionTemplate.name) like concat(lower(#{prescriptionTemplateList.prescriptionTemplate.name}),'%')",
 
