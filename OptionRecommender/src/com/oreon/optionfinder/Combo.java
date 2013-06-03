@@ -3,7 +3,7 @@ package com.oreon.optionfinder;
 import java.math.BigDecimal;
 
 public class Combo {
-	private Option buy;
+	protected Option buy;
 	private Option sell;
 	
 	public Combo(Option buy, Option sell, BigDecimal price) {
@@ -36,6 +36,6 @@ public class Combo {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return buy.getName() + " " + sell.getName() + " " + price.setScale(2, BigDecimal.ROUND_UP);
+		return buy + " " + sell + " " + price.setScale(2, BigDecimal.ROUND_UP);
 	}
 }

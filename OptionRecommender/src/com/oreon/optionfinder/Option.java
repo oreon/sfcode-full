@@ -11,7 +11,16 @@ public class Option {
 	private BigDecimal price;
 	private String month;
 	private OptionType optionType;
-	
+
+	private int monthIndex;
+
+	public void setMonthIndex(int monthIndex) {
+		this.monthIndex = monthIndex;
+	}
+
+	String[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+			"Sep", "Oct", "Nov", "Dec", };
+
 	public Option(String name, BigDecimal bid, BigDecimal ask, Integer openInt,
 			Integer vol, BigDecimal price, String month, OptionType optionType) {
 		super();
@@ -21,6 +30,7 @@ public class Option {
 		this.openInt = openInt;
 		this.vol = vol;
 		this.price = price;
+		this.optionType = optionType;
 		this.setMonth(month);
 	}
 
@@ -74,14 +84,29 @@ public class Option {
 
 	public void setMonth(String month) {
 		this.month = month;
+		for (int i = 0; i < months.length; i++){
+			if (months[i].equalsIgnoreCase(month)) {
+				monthIndex = i;
+			}
+		}
 	}
 
 	public String getMonth() {
 		return month;
 	}
-	
-	public String getExpiry(){
-		//System.out.println(name.substring(1, 8));
+
+	public int getMonthIndex() {
+		return monthIndex;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return name + " " + month + " " + optionType;
+	}
+
+	public String getExpiry() {
+		// System.out.println(name.substring(1, 8));
 		return name.substring(1, 8);
 	}
 
@@ -96,6 +121,5 @@ public class Option {
 }
 
 enum OptionType {
-	C,
-	P
+	C, P
 }
