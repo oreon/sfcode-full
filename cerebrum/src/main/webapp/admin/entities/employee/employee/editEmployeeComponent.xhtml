@@ -75,7 +75,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editDepartment')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_departmentdepartment" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editDepartment')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_departmentdepartment" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editDepartment')}" disabled="false"> 
             <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -126,8 +126,7 @@
             <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editUserName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editUserName')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{employeeAction.employee.appUser.userName}"> 
-            <rich:ajaxValidator event="onsubmit"/>  
-            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+            <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_appUser_passwordDecorate" template="/layout/edit.xhtml"> 

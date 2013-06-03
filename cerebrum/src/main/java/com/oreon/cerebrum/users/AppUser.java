@@ -65,10 +65,9 @@ import com.oreon.cerebrum.ProjectUtils;
 public class AppUser extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1510385050L;
 
-	//@Unique(entityName = "com.oreon.cerebrum.users.AppUser", fieldName = "userName")
-
 	@NotNull
-	@Length(min = 1, max = 250)
+	@Length(min = 3)
+	//@Unique(entityName = "com.oreon.cerebrum.users.AppUser", fieldName = "userName")
 	@Column(name = "userName", unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
