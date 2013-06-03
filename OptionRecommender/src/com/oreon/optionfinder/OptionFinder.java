@@ -20,26 +20,32 @@ public class OptionFinder {
 		createOptions(CALL_OFFSET);
 		createOptions(PUT_OFFSET);
 
-		//verticalFinder();
+		// verticalFinder();
 		calendarFinder();
 
 	}
 
 	private static void calendarFinder() {
-		 ArrayList<Combo> combos = new ArrayList<Combo>();
-	
+		ArrayList<Combo> combos = new ArrayList<Combo>();
+
 		for (int i = 0; i < options.size(); i++) {
 			// if(i > options.size() - 3 )break;
 			Option current = options.get(i);
-			Option nextMonth = findOptionByStrikeAndMonth(current.getPrice() , current.getMonthIndex() + 1, current.getOptionType());
-			
-			if (nextMonth != null){
-				CalendarCombo combo = new CalendarCombo(current, nextMonth, current.getBid().subtract(nextMonth.getAsk()) );
-				combos.add(combo);
+
+			for (int j = 1; j < 4; j++) {
+				Option nextMonth = findOptionByStrikeAndMonth(current
+						.getPrice(), current.getMonthIndex() + j, current
+						.getOptionType());
+
+				if (nextMonth != null) {
+					CalendarCombo combo = new CalendarCombo(current, nextMonth,
+							current.getBid().subtract(nextMonth.getAsk()));
+					combos.add(combo);
+				}
 			}
-			
+
 		}
-		
+
 		sortAndPrint(combos);
 	}
 
@@ -52,12 +58,16 @@ public class OptionFinder {
 					&& option.getOptionType() == optionType)
 				return option;
 		}
+
+		// System.out.println("Found no option for " + price + " " + month + " "
+		// + optionType);
+
 		return null;
 	}
 
 	private static void verticalFinder() {
 
-		 ArrayList<Combo> combos = new ArrayList<Combo>();
+		ArrayList<Combo> combos = new ArrayList<Combo>();
 
 		for (int i = 0; i < options.size(); i++) {
 			// if(i > options.size() - 3 )break;
@@ -90,7 +100,9 @@ public class OptionFinder {
 	}
 
 	private static void sortAndPrint(ArrayList<Combo> combos) {
-		Collections.sort(combos, new ComboComapartor());
+		if (combos.isEmpty())
+			return;
+		Collections.sort(combos, combos.get(0).getComparator());
 
 		for (Combo combo : combos) {
 			System.out.println(combo);
@@ -104,17 +116,17 @@ public class OptionFinder {
 		String currentLine;
 		while ((currentLine = br.readLine()) != null) {
 			String[] arr = currentLine.split(" |\t|,");
-			
-			Option option =   null;
-			
+
+			Option option = null;
+
 			try {
-			option = new Option(arr[3 + offset], new BigDecimal(
-					arr[6 + offset]), new BigDecimal(arr[7 + offset]), Integer
-					.parseInt(arr[8 + offset]), Integer
-					.parseInt(arr[9 + offset]),
-					new BigDecimal(arr[2 + offset]), arr[1],
-					offset == CALL_OFFSET ? OptionType.C : OptionType.P);
-			}catch(Exception e){
+				option = new Option(arr[3 + offset], new BigDecimal(
+						arr[6 + offset]), new BigDecimal(arr[7 + offset]),
+						Integer.parseInt(arr[8 + offset]), Integer
+								.parseInt(arr[9 + offset]), new BigDecimal(
+								arr[2 + offset]), arr[1],
+						offset == CALL_OFFSET ? OptionType.C : OptionType.P);
+			} catch (Exception e) {
 				System.out.print(e.getMessage());
 				continue;
 			}
@@ -124,33 +136,23 @@ public class OptionFinder {
 
 			// TODO comparison with F should be exact month
 			if (offset == CALL_OFFSET
-					&& option.getPrice().compareTo(new BigDecimal(171)) > 0
-					/*&& option.getMonth().equalsIgnoreCase("Jun")
-					 */)
+					&& option.getPrice().compareTo(new BigDecimal(162)) > 0
+			/*
+			 * && option.getMonth().equalsIgnoreCase("Jun")
+			 */)
 				options.add(option);
 
 			if (offset == PUT_OFFSET
-					&& option.getPrice().compareTo(new BigDecimal(155)) < 0
-					/*&& option.getMonth().equalsIgnoreCase("Jun")
-					 */)
+					&& option.getPrice().compareTo(new BigDecimal(160)) < 0
+			/*
+			 * && option.getMonth().equalsIgnoreCase("Jun")
+			 */)
 				options.add(option);
 
 		}
 
 		br.close();
 
-	}
-
-}
-
-class ComboComapartor implements Comparator<Combo> {
-
-	@Override
-	public int compare(Combo c1, Combo c2) {
-		int result = c2.getPrice().compareTo(c1.getPrice());
-		if (result == 0)
-			return c2.getBuy().getPrice().compareTo(c1.getBuy().getPrice());
-		return result;
 	}
 
 }

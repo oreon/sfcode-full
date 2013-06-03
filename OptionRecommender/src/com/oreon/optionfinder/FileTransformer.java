@@ -22,7 +22,7 @@ public class FileTransformer {
 
 	public static void transformFile() throws FileNotFoundException,
 			IOException {
-		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\t900058\\Downloads\\QuoteData (2).dat"));
+		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\t900058\\Downloads\\QuoteData (3).dat"));
 		BufferedWriter bw = new BufferedWriter(new FileWriter("trsfrm.dat"));
 		String currentLine;
 		while ((currentLine = br.readLine()) != null) {
