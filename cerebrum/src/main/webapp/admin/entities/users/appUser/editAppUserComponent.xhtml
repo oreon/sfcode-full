@@ -16,8 +16,7 @@
             <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editUserName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editUserName')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{appUserAction.appUser.userName}"> 
-            <rich:ajaxValidator event="onsubmit"/>  
-            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+            <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_passwordDecorate" template="/layout/edit.xhtml"> 

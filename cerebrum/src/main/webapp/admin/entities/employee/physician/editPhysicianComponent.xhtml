@@ -61,21 +61,12 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}"/>
-          </ui:define>  
-          <h:selectOneMenu id="#{prefix}_facilityfacility" label="#{msg.employee_facility}" value="#{physicianAction.physician.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}" disabled="false"> 
-            <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu> 
-        </s:decorate>  
+       
         <s:decorate id="#{prefix}_departmentdepartmentDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_departmentdepartment" label="#{msg.employee_department}" value="#{physicianAction.physician.department}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_departmentdepartment" label="#{msg.employee_department}" value="#{physicianAction.physician.department}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}" disabled="false"> 
             <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -104,8 +95,7 @@
             <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editUserName')}"/>
           </ui:define>  
           <h:inputText escape="false" id="#{prefix}_appUser_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editUserName')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{physicianAction.physician.appUser.userName}"> 
-            <rich:ajaxValidator event="onsubmit"/>  
-            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+            <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
         <s:decorate id="#{prefix}_appUser_passwordDecorate" template="/layout/edit.xhtml"> 

@@ -107,8 +107,8 @@ public abstract class Employee extends com.oreon.cerebrum.patient.Person
 
 	;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "department_id", nullable = false, updatable = true)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "department_id", nullable = true, updatable = true)
 	protected Department department
 
 	;
