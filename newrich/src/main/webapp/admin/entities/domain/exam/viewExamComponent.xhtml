@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="viewExamComponentPanel"> 
     <s:validateAll> 
       <h:panelGrid columns="1" onload="#{examAction.load(examId )  }"/>  
@@ -15,7 +15,7 @@
         <h:outputText value="#{exam.title}" escape="false"/>  
         <h:outputText value="#{msg.exam_description}  " rendered="#{true}"/>  
         <h:panelGroup> 
-          <rich:toolTip value="#{exam.description}" for="descriptionAbbr"></rich:toolTip>  
+          <rich:tooltip value="#{exam.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
           <h:outputText id="descriptionAbbr" value="#{exam.descriptionAbbreviated}" escape="false"/> 
         </h:panelGroup> 
       </h:panelGrid>  
@@ -26,7 +26,7 @@
             <h:outputText value="#{msg.question_text}  " rendered="#{true}"/> 
           </f:facet>  
           <h:panelGroup> 
-            <rich:toolTip value="#{_question.text}" for="textAbbr"></rich:toolTip>  
+            <rich:tooltip value="#{_question.text}" for="textAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="textAbbr" value="#{_question.textAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </h:column> 

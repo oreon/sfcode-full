@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editCustomerOrderComponentPanel"> 
     <s:validateAll> 
       <h:panelGrid columns="1" onload="#{customerOrderAction.load(customerOrderId )  }"/>  
@@ -15,7 +15,7 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.customerOrder_remarks}  " rendered="#{true}"/>
           </ui:define>  
-          <p:editor escape="false" useSeamText="true" id="#{prefix}_remarks#{entityId}" rendered="#{true}" label="#{msg.customerOrder_remarks}" required="false" disabled="false" value="#{customerOrderAction.customerOrder.remarks}"></p:editor> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_remarks#{entityId}" rendered="#{true}" label="#{msg.customerOrder_remarks}" required="false" disabled="false" value="#{customerOrderAction.customerOrder.remarks}"></rich:editor> 
         </s:decorate>  
         <s:decorate id="#{prefix}_customercustomerDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
@@ -28,9 +28,9 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <h:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" reRender="orderItems" rendered="#{true}"> 
+      <a:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" render="orderItems" rendered="#{true}"> 
         <s:conversationId/> 
-      </h:commandButton>  
+      </a:commandButton>  
       <rich:dataTable id="orderItems" var="_orderItem" rendered="#{true}" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <h:column>
           <f:facet name="header">
@@ -74,14 +74,14 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <h:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" reRender="orderItems" rendered="#{true}"> 
+          <a:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" render="orderItems" rendered="#{true}"> 
             <s:conversationId/> 
-          </h:commandButton> 
+          </a:commandButton> 
         </h:column>  
         <h:column> 
-          <h:commandButton value="Delete" immediate="true" action="#{customerOrderAction.deleteOrderItems(rowIndex)}" reRender="orderItems"> 
+          <a:commandButton value="Delete" immediate="true" action="#{customerOrderAction.deleteOrderItems(rowIndex)}" render="orderItems"> 
             <s:conversationId/> 
-          </h:commandButton> 
+          </a:commandButton> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

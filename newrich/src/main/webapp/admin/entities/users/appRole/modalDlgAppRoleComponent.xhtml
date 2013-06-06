@@ -13,21 +13,15 @@
                 X
        </h:outputLink>
     </f:facet>  
-    <s:div id="ctContent-appRole-mdldlg" style="padding-right:15px" layout="block"> 
-      <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list"></rich:messages>  
+    <a:outputPanel  id="ctContent-appRole-mdldlg" style="padding-right:15px" layout="block"> 
+      <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" />  
       <h:form> 
         <ui:include src="/admin/entities/users/appRole/editAppRoleComponent.xhtml"/>  
-        <h:commandButton action="#{appRoleAction.saveWithoutConversation}" styleClass="button" oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('#{modalId}'); }" reRender="appRoleList, ${opId}" value="Save"> 
-          <f:param name="conversationPropagation" value="end"/>  
-          <a:param name="taskId" value="#{taskId}"/> 
-        </h:commandButton>  
-         
-        <h:commandButton immediate="true" oncomplete="Richfaces.hideModalPanel('mdldlg')" value="Hide" styleClass="button"/>  
-        <h:outputText value=" "/>  
-        <h:commandButton immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('mdldlg');" value="Cancel" styleClass="button"> 
-          <f:param name="conversationPropagation" value="end"/> 
-        </h:commandButton> 
+        
+            <a:commandButton value="Store" action="#{appRoleAction.saveWithoutConversation}" render="appRoleList, popup" execute="popup"
+                oncomplete="if (#{facesContext.maximumSeverity==null || facesContext.maximumSeverity.ordinal le 1}) {#{rich:component('popup')}.hide();}" />
+            <a:commandButton value="Cancel" onclick="#{rich:component('popup')}.hide(); return false;" />
       </h:form> 
-    </s:div> 
+    </a:outputPanel>
   </rich:popupPanel> 
 </ui:composition>

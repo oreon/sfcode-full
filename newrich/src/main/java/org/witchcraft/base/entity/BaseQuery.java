@@ -197,6 +197,11 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 			return null;
 		}
 	}
+	
+	public List<E> getAll() {
+		setMaxResults(100000);
+		return getResultList();
+	}
 
 	/**
 	 * The simple name of the entity
