@@ -12,20 +12,20 @@
           <h:outputText value="#{msg.AtcDrug}"/> 
         </f:facet>  
         <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')}"/>  
-        <h:outputText value="#{atcDrug.code}" escape="false"/>  
+        <h:outputText value="#{atcDrugAction.atcDrug.code}" escape="false"/>  
         <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')}"/>  
-        <h:outputText value="#{atcDrug.name}" escape="false"/>  
+        <h:outputText value="#{atcDrugAction.atcDrug.name}" escape="false"/>  
         <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')}"/>  
-        <s:link escape="false" value="#{atcDrug.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
-          <f:param name="drugId" value="#{atcDrug.drug.id}"/>  
+        <s:link escape="false" value="#{atcDrugAction.atcDrug.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{atcDrugAction.atcDrug.drug.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{atcDrug.drug.popupInfo}</span> 
+            <span>#{atcDrugAction.atcDrug.drug.popupInfo}</span> 
           </rich:toolTip> 
         </s:link>  
         <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')}"/>  
-        <s:link escape="false" value="#{atcDrug.parent.displayName}" view="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
-          <f:param name="atcDrugId" value="#{atcDrug.parent.id}"/>  
+        <s:link escape="false" value="#{atcDrugAction.atcDrug.parent.displayName}" view="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
+          <f:param name="atcDrugId" value="#{atcDrugAction.atcDrug.parent.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  

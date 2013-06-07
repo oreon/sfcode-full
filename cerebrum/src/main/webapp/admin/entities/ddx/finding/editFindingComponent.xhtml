@@ -21,7 +21,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" reRender="differentialDxs" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editDifferentialDxs')}"> 
+      <a:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" reRender="differentialDxs, editFindingComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editDifferentialDxs')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="differentialDxs" var="_differentialDx" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editDifferentialDxs')}" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -51,7 +51,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" reRender="differentialDxs" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDifferentialDxs')}"> 
+          <a:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" reRender="differentialDxs, editFindingComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDifferentialDxs')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

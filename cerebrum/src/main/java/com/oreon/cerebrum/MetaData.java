@@ -6,8 +6,6 @@ public class MetaData {
 
 	{"com.oreon.cerebrum.encounter.Encounter",
 
-	"physician.displayName", "java.lang.String",
-
 	"chiefComplaint", "java.lang.String",
 
 	"prescribedTestsCount", "java.lang.Integer",
@@ -31,6 +29,8 @@ public class MetaData {
 	"physicalExamFindings", "java.lang.String",
 
 	"patient.displayName", "java.lang.String",
+
+	"creator.displayName", "java.lang.String",
 
 	},
 

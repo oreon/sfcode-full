@@ -157,7 +157,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" reRender="drugInteractions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugInteractions')}"> 
+      <a:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" reRender="drugInteractions, editDrugComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugInteractions')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugInteractions')}" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -201,7 +201,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" reRender="drugInteractions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrugInteractions')}"> 
+          <a:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" reRender="drugInteractions, editDrugComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrugInteractions')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

@@ -701,9 +701,9 @@
       </rule> 
     </navigation>  
     <param name="encounterId" value="#{encounterAction.encounterId}"/>  
-    <param name="physicianId" value="#{encounterAction.physicianId}"/>  
     <param name="prescriptionId" value="#{encounterAction.prescriptionId}"/>  
-    <param name="patientId" value="#{encounterAction.patientId}"/> 
+    <param name="patientId" value="#{encounterAction.patientId}"/>  
+    <param name="creatorId" value="#{encounterAction.creatorId}"/> 
   </page>  
   <page view-id="/admin/entities/encounter/encounter/viewEncounter.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Encounter: #{encounter.displayName}</description> -->  
@@ -740,7 +740,6 @@
     <param name="dir" value="#{encounterList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{encounterList.encounter.id}"/>  
-    <param name="#{prefix}_physicianphysician" value="#{encounterList.encounter.physician.id}" validateModel="false"/>  
     <param name="#{prefix}_chiefComplaint" value="#{encounterList.encounter.chiefComplaint}" validateModel="false"/>  
     <param name="#{prefix}_progressNotes" value="#{encounterList.encounter.progressNotes}" validateModel="false"/>  
     <param name="#{prefix}_vitals_SysBP" value="#{encounterList.encounter.vitals.sysBP}" validateModel="false"/>  
@@ -750,7 +749,8 @@
     <param name="#{prefix}_vitals_RespirationRate" value="#{encounterList.encounter.vitals.respirationRate}" validateModel="false"/>  
     <param name="#{prefix}_prescriptionprescription" value="#{encounterList.encounter.prescription.id}" validateModel="false"/>  
     <param name="#{prefix}_physicalExamFindings" value="#{encounterList.encounter.physicalExamFindings}" validateModel="false"/>  
-    <param name="#{prefix}_patientpatient" value="#{encounterList.encounter.patient.id}" validateModel="false"/> 
+    <param name="#{prefix}_patientpatient" value="#{encounterList.encounter.patient.id}" validateModel="false"/>  
+    <param name="#{prefix}_creatorcreator" value="#{encounterList.encounter.creator.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/encounter/prescribedTest/editPrescribedTest.xhtml"> 
     <!-- <description>Edit PrescribedTest: #{prescribedTest.displayName}</description> -->  

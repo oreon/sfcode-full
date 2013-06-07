@@ -12,25 +12,25 @@
           <h:outputText value="#{msg.PatientDocument}"/> 
         </f:facet>  
         <h:outputText value="#{msg.patientDocument_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewName')}"/>  
-        <h:outputText value="#{patientDocument.name}" escape="false"/>  
+        <h:outputText value="#{patientDocumentAction.patientDocument.name}" escape="false"/>  
         <h:outputText value="#{msg.patientDocument_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewFile')}"/>  
-        <s:graphicImage rendered="#{patientDocument.file ne null and  patientDocument.file.contentType.startsWith('image')}" value="#{patientDocument.file.data}"> 
+        <s:graphicImage rendered="#{patientDocumentAction.patientDocument.file ne null and  patientDocumentAction.patientDocument.file.contentType.startsWith('image')}" value="#{patientDocumentAction.patientDocument.file.data}"> 
           <s:transformImageSize height="100" maintainRatio="true"/> 
         </s:graphicImage>  
-        <s:link value="#{patientDocument.file.name}" action="#{patientDocumentAction.downloadFile(patientDocument.id)}" propagation="none" rendered="#{not patientDocument.file.contentType.startsWith('image')}"> 
-          <f:param name="currentEnt ityId" value="#{patientDocument.id}"/> 
+        <s:link value="#{patientDocumentAction.patientDocument.file.name}" action="#{patientDocumentAction.downloadFile(patientDocumentAction.patientDocument.id)}" propagation="none" rendered="#{not patientDocumentAction.patientDocument.file.contentType.startsWith('image')}"> 
+          <f:param name="currentEnt ityId" value="#{patientDocumentAction.patientDocument.id}"/> 
         </s:link>  
         <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewNotes')}"/>  
         <h:panelGroup> 
-          <rich:toolTip value="#{patientDocument.notes}" for="notesAbbr"></rich:toolTip>  
-          <h:outputText id="notesAbbr" value="#{patientDocument.notesAbbreviated}" escape="false"/> 
+          <rich:toolTip value="#{patientDocumentAction.patientDocument.notes}" for="notesAbbr"></rich:toolTip>  
+          <h:outputText id="notesAbbr" value="#{patientDocumentAction.patientDocument.notesAbbreviated}" escape="false"/> 
         </h:panelGroup>  
         <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewPatient')}"/>  
-        <s:link escape="false" value="#{patientDocument.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-          <f:param name="patientId" value="#{patientDocument.patient.id}"/>  
+        <s:link escape="false" value="#{patientDocumentAction.patientDocument.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{patientDocumentAction.patientDocument.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{patientDocument.patient.popupInfo}</span> 
+            <span>#{patientDocumentAction.patientDocument.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link> 
       </h:panelGrid>  

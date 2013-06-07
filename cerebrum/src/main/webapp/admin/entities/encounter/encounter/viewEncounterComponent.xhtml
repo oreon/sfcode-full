@@ -13,36 +13,36 @@
         </f:facet>  
         <h:outputText value="#{msg.encounter_chiefComplaint}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewChiefComplaint')}"/>  
         <h:panelGroup> 
-          <rich:toolTip value="#{encounter.chiefComplaint}" for="chiefComplaintAbbr"></rich:toolTip>  
-          <h:outputText id="chiefComplaintAbbr" value="#{encounter.chiefComplaintAbbreviated}" escape="false"/> 
+          <rich:toolTip value="#{encounterAction.encounter.chiefComplaint}" for="chiefComplaintAbbr"></rich:toolTip>  
+          <h:outputText id="chiefComplaintAbbr" value="#{encounterAction.encounter.chiefComplaintAbbreviated}" escape="false"/> 
         </h:panelGroup>  
         <h:outputText value="#{msg.encounter_progressNotes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewProgressNotes')}"/>  
         <h:panelGroup> 
-          <rich:toolTip value="#{encounter.progressNotes}" for="progressNotesAbbr"></rich:toolTip>  
-          <h:outputText id="progressNotesAbbr" value="#{encounter.progressNotesAbbreviated}" escape="false"/> 
+          <rich:toolTip value="#{encounterAction.encounter.progressNotes}" for="progressNotesAbbr"></rich:toolTip>  
+          <h:outputText id="progressNotesAbbr" value="#{encounterAction.encounter.progressNotesAbbreviated}" escape="false"/> 
         </h:panelGroup>  
         <h:outputText value="#{msg.encounter_physicalExamFindings}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPhysicalExamFindings')}"/>  
         <h:panelGroup> 
-          <rich:toolTip value="#{encounter.physicalExamFindings}" for="physicalExamFindingsAbbr"></rich:toolTip>  
-          <h:outputText id="physicalExamFindingsAbbr" value="#{encounter.physicalExamFindingsAbbreviated}" escape="false"/> 
+          <rich:toolTip value="#{encounterAction.encounter.physicalExamFindings}" for="physicalExamFindingsAbbr"></rich:toolTip>  
+          <h:outputText id="physicalExamFindingsAbbr" value="#{encounterAction.encounter.physicalExamFindingsAbbreviated}" escape="false"/> 
         </h:panelGroup>  
-        <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPhysician')}"/>  
-        <s:link escape="false" value="#{encounter.physician.displayName}" view="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
-          <f:param name="physicianId" value="#{encounter.physician.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
         <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescription')}"/>  
-        <s:link escape="false" value="#{encounter.prescription.displayName}" view="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
-          <f:param name="prescriptionId" value="#{encounter.prescription.id}"/>  
+        <s:link escape="false" value="#{encounterAction.encounter.prescription.displayName}" view="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
+          <f:param name="prescriptionId" value="#{encounterAction.encounter.prescription.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatient')}"/>  
-        <s:link escape="false" value="#{encounter.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-          <f:param name="patientId" value="#{encounter.patient.id}"/>  
+        <s:link escape="false" value="#{encounterAction.encounter.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{encounterAction.encounter.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{encounter.patient.popupInfo}</span> 
+            <span>#{encounterAction.encounter.patient.popupInfo}</span> 
           </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewCreator')}"/>  
+        <s:link escape="false" value="#{encounterAction.encounter.creator.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="employeeId" value="#{encounterAction.encounter.creator.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
@@ -53,17 +53,17 @@
           <h:outputText value="#{msg.Vitals}"/> 
         </f:facet>  
         <h:outputText value="#{msg.vitals_SysBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewSysBP')}"/>  
-        <h:outputText value="#{encounter.vitals.sysBP}" escape="false"/>  
+        <h:outputText value="#{encounterAction.encounter.vitals.sysBP}" escape="false"/>  
         <h:outputText value="#{msg.vitals_DiasBP}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewDiasBP')}"/>  
-        <h:outputText value="#{encounter.vitals.diasBP}" escape="false"/>  
+        <h:outputText value="#{encounterAction.encounter.vitals.diasBP}" escape="false"/>  
         <h:outputText value="#{msg.vitals_Temperature}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTemperature')}"/>  
-        <h:outputText value="#{encounter.vitals.temperature}"> 
+        <h:outputText value="#{encounterAction.encounter.vitals.temperature}"> 
           <f:convertNumber pattern="000.00"/> 
         </h:outputText>  
         <h:outputText value="#{msg.vitals_Pulse}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPulse')}"/>  
-        <h:outputText value="#{encounter.vitals.pulse}" escape="false"/>  
+        <h:outputText value="#{encounterAction.encounter.vitals.pulse}" escape="false"/>  
         <h:outputText value="#{msg.vitals_RespirationRate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewRespirationRate')}"/>  
-        <h:outputText value="#{encounter.vitals.respirationRate}" escape="false"/> 
+        <h:outputText value="#{encounterAction.encounter.vitals.respirationRate}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{not empty encounterAction.listPrescribedTests and skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescribedTests') }" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 

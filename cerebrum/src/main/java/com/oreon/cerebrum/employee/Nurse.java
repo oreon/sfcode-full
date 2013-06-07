@@ -119,10 +119,4 @@ public class Nurse extends com.oreon.cerebrum.employee.Employee
 		return builder.toString();
 	}
 
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
-	}
-
 }

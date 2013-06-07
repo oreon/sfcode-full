@@ -21,7 +21,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}"> 
+      <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards, editFacilityComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="wards" var="_ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -51,7 +51,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}"> 
+          <a:commandButton value="New Ward" action="#{facilityAction.addWards}" reRender="wards, editFacilityComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

@@ -39,7 +39,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" reRender="prescriptionItems" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptionItems')}"> 
+      <a:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" reRender="prescriptionItems, editPrescriptionComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptionItems')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptionItems')}" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -150,7 +150,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" reRender="prescriptionItems" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionItems')}"> 
+          <a:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" reRender="prescriptionItems, editPrescriptionComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionItems')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

@@ -31,7 +31,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" reRender="invoiceItems" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}"> 
+      <a:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" reRender="invoiceItems, editInvoiceComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -75,7 +75,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" reRender="invoiceItems" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}"> 
+          <a:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" reRender="invoiceItems, editInvoiceComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

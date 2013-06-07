@@ -12,18 +12,18 @@
           <h:outputText value="#{msg.RoomType}"/> 
         </f:facet>  
         <h:outputText value="#{msg.roomType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewName')}"/>  
-        <h:outputText value="#{roomType.name}" escape="false"/>  
+        <h:outputText value="#{roomTypeAction.roomType.name}" escape="false"/>  
         <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewDescription')}"/>  
         <h:panelGroup> 
-          <rich:toolTip value="#{roomType.description}" for="descriptionAbbr"></rich:toolTip>  
-          <h:outputText id="descriptionAbbr" value="#{roomType.descriptionAbbreviated}" escape="false"/> 
+          <rich:toolTip value="#{roomTypeAction.roomType.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{roomTypeAction.roomType.descriptionAbbreviated}" escape="false"/> 
         </h:panelGroup>  
         <h:outputText value="#{msg.roomType_rate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewRate')}"/>  
-        <h:outputText value="#{roomType.rate}"> 
+        <h:outputText value="#{roomTypeAction.roomType.rate}"> 
           <f:convertNumber pattern="000.00"/> 
         </h:outputText>  
         <h:outputText value="#{msg.roomType_numberOfRooms}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewNumberOfRooms')}"/>  
-        <h:outputText value="#{roomType.numberOfRooms}" escape="false"/> 
+        <h:outputText value="#{roomTypeAction.roomType.numberOfRooms}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <br/> 

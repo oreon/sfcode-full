@@ -12,9 +12,9 @@
           <h:outputText value="#{msg.LabFinding}"/> 
         </f:facet>  
         <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'viewName')}"/>  
-        <h:outputText value="#{labFinding.name}" escape="false"/>  
+        <h:outputText value="#{labFindingAction.labFinding.name}" escape="false"/>  
         <h:outputText value="#{msg.labFinding_testName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'viewTestName')}"/>  
-        <h:outputText value="#{labFinding.testName}" escape="false"/> 
+        <h:outputText value="#{labFindingAction.labFinding.testName}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'viewDifferentialDxs') }" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 

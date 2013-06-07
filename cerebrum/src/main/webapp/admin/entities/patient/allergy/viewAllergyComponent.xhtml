@@ -12,18 +12,18 @@
           <h:outputText value="#{msg.Allergy}"/> 
         </f:facet>  
         <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewSeverity')}"/>  
-        <h:outputText value="#{allergy.severity}" escape="false"/>  
+        <h:outputText value="#{allergyAction.allergy.severity}" escape="false"/>  
         <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')}"/>  
-        <s:link escape="false" value="#{allergy.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-          <f:param name="patientId" value="#{allergy.patient.id}"/>  
+        <s:link escape="false" value="#{allergyAction.allergy.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{allergyAction.allergy.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{allergy.patient.popupInfo}</span> 
+            <span>#{allergyAction.allergy.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link>  
         <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewAllergen')}"/>  
-        <s:link escape="false" value="#{allergy.allergen.displayName}" view="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
-          <f:param name="allergenId" value="#{allergy.allergen.id}"/>  
+        <s:link escape="false" value="#{allergyAction.allergy.allergen.displayName}" view="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
+          <f:param name="allergenId" value="#{allergyAction.allergy.allergen.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  

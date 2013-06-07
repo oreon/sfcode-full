@@ -115,8 +115,6 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 
 			"encounter.archived = #{encounterList.encounter.archived}",
 
-			"encounter.physician.id = #{encounterList.encounter.physician.id}",
-
 			"lower(encounter.chiefComplaint) like concat(lower(#{encounterList.encounter.chiefComplaint}),'%')",
 
 			"lower(encounter.progressNotes) like concat(lower(#{encounterList.encounter.progressNotes}),'%')",
@@ -142,6 +140,8 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 
 			"encounter.patient.id = #{encounterList.encounter.patient.id}",
 
+			"encounter.creator.id = #{encounterList.encounter.creator.id}",
+
 			"encounter.dateCreated <= #{encounterList.dateCreatedRange.end}",
 			"encounter.dateCreated >= #{encounterList.dateCreatedRange.begin}",};
 
@@ -162,10 +162,6 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	 */
 	//@Override
 	public void createCsvString(StringBuilder builder, Encounter e) {
-
-		builder.append("\""
-				+ (e.getPhysician() != null ? e.getPhysician().getDisplayName()
-						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getChiefComplaint() != null ? e.getChiefComplaint()
@@ -191,6 +187,10 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 				+ (e.getPatient() != null ? e.getPatient().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getCreator() != null ? e.getCreator().getDisplayName()
+						.replace(",", "") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -199,8 +199,6 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	 */
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
-
-		builder.append("Physician" + ",");
 
 		builder.append("ChiefComplaint" + ",");
 
@@ -213,6 +211,8 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 		builder.append("PhysicalExamFindings" + ",");
 
 		builder.append("Patient" + ",");
+
+		builder.append("Creator" + ",");
 
 		builder.append("\r\n");
 	}

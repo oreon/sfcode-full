@@ -12,10 +12,10 @@
           <h:outputText value="#{msg.Differential}"/> 
         </f:facet>  
         <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewRemarks')}"/>  
-        <h:outputText value="#{differential.remarks}" escape="false"/>  
+        <h:outputText value="#{differentialAction.differential.remarks}" escape="false"/>  
         <h:outputText value="#{msg.differential_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewEncounter')}"/>  
-        <s:link escape="false" value="#{differential.encounter.displayName}" view="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
-          <f:param name="encounterId" value="#{differential.encounter.id}"/>  
+        <s:link escape="false" value="#{differentialAction.differential.encounter.displayName}" view="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+          <f:param name="encounterId" value="#{differentialAction.differential.encounter.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  

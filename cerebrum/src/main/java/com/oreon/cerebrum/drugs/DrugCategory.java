@@ -147,10 +147,4 @@ public class DrugCategory extends BaseEntity implements java.io.Serializable {
 		return builder.toString();
 	}
 
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
-	}
-
 }

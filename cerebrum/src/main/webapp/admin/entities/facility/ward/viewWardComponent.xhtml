@@ -12,12 +12,12 @@
           <h:outputText value="#{msg.Ward}"/> 
         </f:facet>  
         <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}"/>  
-        <h:outputText value="#{ward.name}" escape="false"/>  
+        <h:outputText value="#{wardAction.ward.name}" escape="false"/>  
         <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')}"/>  
-        <h:outputText value="#{ward.gender}" escape="false"/>  
+        <h:outputText value="#{wardAction.ward.gender}" escape="false"/>  
         <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')}"/>  
-        <s:link escape="false" value="#{ward.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
-          <f:param name="facilityId" value="#{ward.facility.id}"/>  
+        <s:link escape="false" value="#{wardAction.ward.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+          <f:param name="facilityId" value="#{wardAction.ward.facility.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
