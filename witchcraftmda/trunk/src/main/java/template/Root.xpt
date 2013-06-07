@@ -74,7 +74,7 @@ package «packageNamePck()»;
 @FilterDefs({
 @FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", parameters = @ParamDef(name = "aArchived", type = "string")),
 «IF isMultiTenanted()»
-	@FilterDef(name="tenantFilterDef", defaultCondition="(tenant is null or tenant = :tenantId )", parameters=@ParamDef(name="tenantId", type="long"))
+	@FilterDef(name="tenantFilterDef", defaultCondition="(tenant is null or tenant = 0 or tenant = :tenantId  )", parameters=@ParamDef(name="tenantId", type="long"))
 «ENDIF»
 }) 
 «ENDIF»
@@ -330,12 +330,6 @@ import org.hibernate.annotations.FilterDefs;
 		«ENDFOREACH»
 			
 		return builder.toString();
-	}
-	
-	
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 «ENDDEFINE»
 

@@ -134,7 +134,7 @@
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
 	<ui:composition «EXPAND WebRoot::genIncludes-» >	
 	
-	<h:panelGroup  id="«(edit?"edit":"view")»«name»ComponentPanel" >
+	<h:panelGroup  id="«getComponentPanelId(edit)»" >
 		<s:validateAll>
 		«setAsCurrentEntity(this)-»
 		<h:panelGrid columns="«edit?"1":"1"»"  onload="#{«getAction()».load(«asVar()»Id )  }"></h:panelGrid>
@@ -323,7 +323,7 @@
 			«EXPAND genLabelAndOutputTabular FOR this»
 		«ELSE»
 			«getOutputMessage()-» 
-			«EXPAND ListRoot::genPropertyValue("") FOR this»
+			«EXPAND ListRoot::genPropertyValue(getActionForMode()) FOR this»
 		«ENDIF»
 		
 	«ENDIF»
@@ -615,7 +615,7 @@
 
 «DEFINE genNewButton FOR uml::Property»
 	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		reRender="«name»"  rendered="#{«genEditPermission()»}" >
+		reRender="«name», «class.getComponentPanelId(true)»"  rendered="#{«genEditPermission()»}" >
 		<s:conversationId/>
 	</a:commandButton>
 «ENDDEFINE»
