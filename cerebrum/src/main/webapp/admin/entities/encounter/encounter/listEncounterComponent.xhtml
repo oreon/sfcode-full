@@ -21,19 +21,6 @@
           </f:facet>  
           <h:outputText value="#{_encounter.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPhysician')}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{encounterList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.encounter_physician}"/>  
-              <ui:param name="propertyPath" value="encounter.physician"/> 
-            </ui:include> 
-          </f:facet>  
-          <s:link escape="false" value="#{_encounter.physician.displayName}" view="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
-            <f:param name="physicianId" value="#{_encounter.physician.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
-        </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewChiefComplaint')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -152,6 +139,19 @@
             <rich:toolTip> 
               <span>#{_encounter.patient.popupInfo}</span> 
             </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewCreator')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{encounterList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.encounter_creator}"/>  
+              <ui:param name="propertyPath" value="encounter.creator"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link escape="false" value="#{_encounter.creator.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+            <f:param name="employeeId" value="#{_encounter.creator.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 

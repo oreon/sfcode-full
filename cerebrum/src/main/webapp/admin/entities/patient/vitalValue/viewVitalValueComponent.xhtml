@@ -12,20 +12,20 @@
           <h:outputText value="#{msg.VitalValue}"/> 
         </f:facet>  
         <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}"/>  
-        <h:outputText value="#{vitalValue.remarks}" escape="false"/>  
+        <h:outputText value="#{vitalValueAction.vitalValue.remarks}" escape="false"/>  
         <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}"/>  
-        <h:outputText value="#{vitalValue.value}" escape="false"/>  
+        <h:outputText value="#{vitalValueAction.vitalValue.value}" escape="false"/>  
         <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')}"/>  
-        <s:link escape="false" value="#{vitalValue.trackedVital.displayName}" view="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
-          <f:param name="trackedVitalId" value="#{vitalValue.trackedVital.id}"/>  
+        <s:link escape="false" value="#{vitalValueAction.vitalValue.trackedVital.displayName}" view="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
+          <f:param name="trackedVitalId" value="#{vitalValueAction.vitalValue.trackedVital.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewPatient')}"/>  
-        <s:link escape="false" value="#{vitalValue.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-          <f:param name="patientId" value="#{vitalValue.patient.id}"/>  
+        <s:link escape="false" value="#{vitalValueAction.vitalValue.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{vitalValueAction.vitalValue.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{vitalValue.patient.popupInfo}</span> 
+            <span>#{vitalValueAction.vitalValue.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link> 
       </h:panelGrid>  

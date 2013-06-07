@@ -12,21 +12,21 @@
           <h:outputText value="#{msg.BedStay}"/> 
         </f:facet>  
         <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')}"/>  
-        <h:outputText value="#{bedStay.fromDate}"> 
+        <h:outputText value="#{bedStayAction.bedStay.fromDate}"> 
           <s:convertDateTime type="date" dateStyle="medium"/> 
         </h:outputText>  
         <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')}"/>  
-        <h:outputText value="#{bedStay.toDate}"> 
+        <h:outputText value="#{bedStayAction.bedStay.toDate}"> 
           <s:convertDateTime type="date" dateStyle="medium"/> 
         </h:outputText>  
         <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewAdmission')}"/>  
-        <s:link escape="false" value="#{bedStay.admission.displayName}" view="/admin/entities/patient/admission/viewAdmission.xhtml" propagation="none"> 
-          <f:param name="admissionId" value="#{bedStay.admission.id}"/>  
+        <s:link escape="false" value="#{bedStayAction.bedStay.admission.displayName}" view="/admin/entities/patient/admission/viewAdmission.xhtml" propagation="none"> 
+          <f:param name="admissionId" value="#{bedStayAction.bedStay.admission.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewBed')}"/>  
-        <s:link escape="false" value="#{bedStay.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
-          <f:param name="bedId" value="#{bedStay.bed.id}"/>  
+        <s:link escape="false" value="#{bedStayAction.bedStay.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+          <f:param name="bedId" value="#{bedStayAction.bedStay.bed.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  

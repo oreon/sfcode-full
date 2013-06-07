@@ -1,0 +1,119 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+		<h:form id="encounterForm">
+
+			<s:decorate id="#{prefix}_patientpatientDecorate"
+				template="/layout/edit.xhtml">
+				<ui:define name="label">
+					<h:outputText value="#{msg.encounter_patient}  "
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}" />
+				</ui:define>
+				<h:selectOneMenu id="#{prefix}_patientpatient"
+					label="#{msg.encounter_patient}"
+					value="#{encounterAction.encounter.patient}" required="true"
+					rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"
+					disabled="false">
+					<s:selectItems value="#{patientList.all}" var="itemIter"
+						label="#{itemIter.displayName}"
+						noSelectionLabel="Please Select..." />
+					<rich:ajaxValidator event="onsubmit" />
+					<s:convertEntity />
+				</h:selectOneMenu>
+			</s:decorate>
+
+
+			<rich:panelMenu  mode="ajax"
+				iconExpandedGroup="disc" iconCollapsedGroup="disc"
+				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
+				iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
+				<rich:panelMenuGroup label="History">
+
+
+					<s:decorate id="#{prefix}_chiefComplaintDecorate"
+						template="/layout/edit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="#{msg.encounter_chiefComplaint}  "
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}" />
+						</ui:define>
+						<rich:editor useSeamText="true"
+							id="#{prefix}_chiefComplaint#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}"
+							label="#{msg.encounter_chiefComplaint}" required="false"
+							disabled="false"
+							value="#{encounterAction.encounter.chiefComplaint}">
+							<rich:ajaxValidator event="onsubmit" />
+						</rich:editor>
+					</s:decorate>
+
+					<s:decorate id="#{prefix}_physicalExamFindingsDecorate"
+						template="/layout/edit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="#{msg.encounter_physicalExamFindings}  "
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}" />
+						</ui:define>
+						<rich:editor useSeamText="true"
+							id="#{prefix}_physicalExamFindings#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}"
+							label="#{msg.encounter_physicalExamFindings}" required="false"
+							disabled="false"
+							value="#{encounterAction.encounter.physicalExamFindings}">
+							<rich:ajaxValidator event="onsubmit" />
+						</rich:editor>
+					</s:decorate>
+
+
+					<s:decorate id="#{prefix}_progressNotesDecorate"
+						template="/layout/edit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="#{msg.encounter_progressNotes}  "
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editProgressNotes')}" />
+						</ui:define>
+						<rich:editor useSeamText="true"
+							id="#{prefix}_progressNotes#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editProgressNotes')}"
+							label="#{msg.encounter_progressNotes}" required="false"
+							disabled="false"
+							value="#{encounterAction.encounter.progressNotes}">
+							<rich:ajaxValidator event="onsubmit" />
+						</rich:editor>
+					</s:decorate>
+
+
+
+				</rich:panelMenuGroup>
+		
+				
+				<rich:panelMenuGroup label="Dx Tests">
+					AABBCC
+				</rich:panelMenuGroup>
+				
+				
+				<rich:panelMenuGroup label="Prescription ">
+				   DDEEFF 
+				</rich:panelMenuGroup>
+				
+				
+
+			</rich:panelMenu>
+
+			
+
+			<div class="buttonBox"><h:commandButton value="Save"
+				action="#{encounterAction.save}">
+			</h:commandButton> <h:outputText value=" " /> <h:commandButton value="Cancel"
+				immediate="true" action="#{encounterAction.cancel}">
+			</h:commandButton></div>
+		</h:form>
+	</ui:define>
+</ui:composition>

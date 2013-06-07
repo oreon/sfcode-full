@@ -13,19 +13,19 @@
         </f:facet>  
         <h:outputText value="#{msg.prescription_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')}"/>  
         <h:panelGroup> 
-          <rich:toolTip value="#{prescription.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
-          <h:outputText id="directivesForPatientAbbr" value="#{prescription.directivesForPatientAbbreviated}" escape="false"/> 
+          <rich:toolTip value="#{prescriptionAction.prescription.directivesForPatient}" for="directivesForPatientAbbr"></rich:toolTip>  
+          <h:outputText id="directivesForPatientAbbr" value="#{prescriptionAction.prescription.directivesForPatientAbbreviated}" escape="false"/> 
         </h:panelGroup>  
         <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')}"/>  
-        <h:outputText value="#{prescription.active? msg.yes : msg.no }"/>  
+        <h:outputText value="#{prescriptionAction.prescription.active? msg.yes : msg.no }"/>  
         <h:outputText value="#{msg.prescription_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')}"/>  
-        <h:outputText value="#{prescription.drugs}" escape="false"/>  
+        <h:outputText value="#{prescriptionAction.prescription.drugs}" escape="false"/>  
         <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewPatient')}"/>  
-        <s:link escape="false" value="#{prescription.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-          <f:param name="patientId" value="#{prescription.patient.id}"/>  
+        <s:link escape="false" value="#{prescriptionAction.prescription.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{prescriptionAction.prescription.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{prescription.patient.popupInfo}</span> 
+            <span>#{prescriptionAction.prescription.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link> 
       </h:panelGrid>  

@@ -29,7 +29,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" reRender="prescriptionItemTemplates" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editPrescriptionItemTemplates')}"> 
+      <a:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" reRender="prescriptionItemTemplates, editPrescriptionTemplateComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editPrescriptionItemTemplates')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editPrescriptionItemTemplates')}" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -132,7 +132,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" reRender="prescriptionItemTemplates" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionItemTemplates')}"> 
+          <a:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" reRender="prescriptionItemTemplates, editPrescriptionTemplateComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionItemTemplates')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

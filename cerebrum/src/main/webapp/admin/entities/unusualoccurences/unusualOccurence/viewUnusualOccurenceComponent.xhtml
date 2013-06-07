@@ -12,30 +12,30 @@
           <h:outputText value="#{msg.UnusualOccurence}"/> 
         </f:facet>  
         <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCategory')}"/>  
-        <h:outputText value="#{unusualOccurence.category}" escape="false"/>  
+        <h:outputText value="#{unusualOccurenceAction.unusualOccurence.category}" escape="false"/>  
         <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewSeverity')}"/>  
-        <h:outputText value="#{unusualOccurence.severity}" escape="false"/>  
+        <h:outputText value="#{unusualOccurenceAction.unusualOccurence.severity}" escape="false"/>  
         <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')}"/>  
         <h:panelGroup> 
-          <rich:toolTip value="#{unusualOccurence.description}" for="descriptionAbbr"></rich:toolTip>  
-          <h:outputText id="descriptionAbbr" value="#{unusualOccurence.descriptionAbbreviated}" escape="false"/> 
+          <rich:toolTip value="#{unusualOccurenceAction.unusualOccurence.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{unusualOccurenceAction.unusualOccurence.descriptionAbbreviated}" escape="false"/> 
         </h:panelGroup>  
         <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewOccurenceType')}"/>  
-        <s:link escape="false" value="#{unusualOccurence.occurenceType.displayName}" view="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
-          <f:param name="occurenceTypeId" value="#{unusualOccurence.occurenceType.id}"/>  
+        <s:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.occurenceType.displayName}" view="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
+          <f:param name="occurenceTypeId" value="#{unusualOccurenceAction.unusualOccurence.occurenceType.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewPatient')}"/>  
-        <s:link escape="false" value="#{unusualOccurence.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-          <f:param name="patientId" value="#{unusualOccurence.patient.id}"/>  
+        <s:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{unusualOccurenceAction.unusualOccurence.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{unusualOccurence.patient.popupInfo}</span> 
+            <span>#{unusualOccurenceAction.unusualOccurence.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link>  
         <h:outputText value="#{msg.unusualOccurence_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCreatedBy')}"/>  
-        <s:link escape="false" value="#{unusualOccurence.createdBy.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
-          <f:param name="employeeId" value="#{unusualOccurence.createdBy.id}"/>  
+        <s:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.createdBy.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="employeeId" value="#{unusualOccurenceAction.unusualOccurence.createdBy.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  

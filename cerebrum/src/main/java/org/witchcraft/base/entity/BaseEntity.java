@@ -21,15 +21,16 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.jboss.seam.Component;
 
-import com.oreon.cerebrum.employee.Employee;
 import com.oreon.cerebrum.users.AppUser;
-import com.oreon.cerebrum.web.action.employee.EmployeeAction;
 
 //import com.oreon.trkincidents.users.User;
 
@@ -212,6 +213,16 @@ public class BaseEntity implements Serializable {
 		if( tenant == null || tenant == 0 )
 			setTenant(userUtilAction.getCurrentTenantId());
 
+	}
+	
+	@Override
+	public String toString() {
+		try{
+		return ReflectionToStringBuilder.toString(this,
+				ToStringStyle.SHORT_PREFIX_STYLE);
+		}catch(Exception e){
+			return StringUtils.EMPTY;
+		}
 	}
 
 }

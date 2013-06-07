@@ -13,25 +13,25 @@
         </f:facet>  
         <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')}"/>  
         <h:panelGroup> 
-          <rich:toolTip value="#{drugInteraction.description}" for="descriptionAbbr"></rich:toolTip>  
-          <h:outputText id="descriptionAbbr" value="#{drugInteraction.descriptionAbbreviated}" escape="false"/> 
+          <rich:toolTip value="#{drugInteractionAction.drugInteraction.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{drugInteractionAction.drugInteraction.descriptionAbbreviated}" escape="false"/> 
         </h:panelGroup>  
         <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewSeverity')}"/>  
-        <h:outputText value="#{drugInteraction.severity}" escape="false"/>  
+        <h:outputText value="#{drugInteractionAction.drugInteraction.severity}" escape="false"/>  
         <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDrug')}"/>  
-        <s:link escape="false" value="#{drugInteraction.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
-          <f:param name="drugId" value="#{drugInteraction.drug.id}"/>  
+        <s:link escape="false" value="#{drugInteractionAction.drugInteraction.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{drugInteractionAction.drugInteraction.drug.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{drugInteraction.drug.popupInfo}</span> 
+            <span>#{drugInteractionAction.drugInteraction.drug.popupInfo}</span> 
           </rich:toolTip> 
         </s:link>  
         <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewInteractingDrug')}"/>  
-        <s:link escape="false" value="#{drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
-          <f:param name="drugId" value="#{drugInteraction.interactingDrug.id}"/>  
+        <s:link escape="false" value="#{drugInteractionAction.drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{drugInteractionAction.drugInteraction.interactingDrug.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{drugInteraction.interactingDrug.popupInfo}</span> 
+            <span>#{drugInteractionAction.drugInteraction.interactingDrug.popupInfo}</span> 
           </rich:toolTip> 
         </s:link> 
       </h:panelGrid>  

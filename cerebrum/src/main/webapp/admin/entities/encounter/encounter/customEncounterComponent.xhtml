@@ -7,15 +7,6 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}"/>  
-        <br/>  
-        <h:selectOneMenu id="#{prefix}_physicianphysician" value="#{encounterAction.encounter.physician}"> 
-          <s:selectItems value="#{physicianList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_physicianphysician" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
         <h:outputText value="#{msg.encounter_chiefComplaint}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}"/>  
         <br/>  
         <rich:editor id="#{prefix}_chiefComplaint" value="#{encounterAction.encounter.chiefComplaint}"/>  
@@ -80,6 +71,15 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}"/>  
+        <br/>  
+        <h:selectOneMenu id="#{prefix}_creatorcreator" value="#{encounterAction.encounter.creator}"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="#{prefix}_creatorcreator" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

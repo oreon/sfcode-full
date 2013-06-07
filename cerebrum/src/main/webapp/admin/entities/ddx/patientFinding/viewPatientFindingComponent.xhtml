@@ -12,13 +12,13 @@
           <h:outputText value="#{msg.PatientFinding}"/> 
         </f:facet>  
         <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewFinding')}"/>  
-        <s:link escape="false" value="#{patientFinding.finding.displayName}" view="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
-          <f:param name="findingId" value="#{patientFinding.finding.id}"/>  
+        <s:link escape="false" value="#{patientFindingAction.patientFinding.finding.displayName}" view="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
+          <f:param name="findingId" value="#{patientFindingAction.patientFinding.finding.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewPatientDiffDx')}"/>  
-        <s:link escape="false" value="#{patientFinding.patientDiffDx.displayName}" view="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml" propagation="none"> 
-          <f:param name="patientDiffDxId" value="#{patientFinding.patientDiffDx.id}"/>  
+        <s:link escape="false" value="#{patientFindingAction.patientFinding.patientDiffDx.displayName}" view="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml" propagation="none"> 
+          <f:param name="patientDiffDxId" value="#{patientFindingAction.patientFinding.patientDiffDx.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  

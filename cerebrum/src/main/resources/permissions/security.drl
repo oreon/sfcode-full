@@ -85,7 +85,7 @@ no-loop
 //dialect "java"
 when
   $principal: Principal()
-  $c : PermissionCheck( target != "id" &&  target != "prescriptionPackage"  && target != "prescription" && action != "editFacility")
+  $c : PermissionCheck(  target != "prescriptionPackage"  && target != "prescription" && action != "editFacility")
 then
   $c.grant();
   //System.out.println("nonadmin " + $c.getTarget() + " "  ); 

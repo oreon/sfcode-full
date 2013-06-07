@@ -57,9 +57,6 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	@Out(required = false)
 	private Encounter encounter;
 
-	@In(create = true, value = "physicianAction")
-	com.oreon.cerebrum.web.action.employee.PhysicianAction physicianAction;
-
 	@In(create = true, value = "prescriptionAction")
 	com.oreon.cerebrum.web.action.prescription.PrescriptionAction prescriptionAction;
 
@@ -89,19 +86,6 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 		loadAssociations();
 	}
 
-	public void setPhysicianId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setPhysician(physicianAction.loadFromId(id));
-
-	}
-
-	public Long getPhysicianId() {
-		if (getInstance().getPhysician() != null)
-			return getInstance().getPhysician().getId();
-		return 0L;
-	}
-
 	public void setPrescriptionId(Long id) {
 
 		if (id != null && id > 0)
@@ -125,6 +109,16 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	public Long getPatientId() {
 		if (getInstance().getPatient() != null)
 			return getInstance().getPatient().getId();
+		return 0L;
+	}
+
+	public void setCreatorId(Long id) {
+
+	}
+
+	public Long getCreatorId() {
+		if (getInstance().getCreator() != null)
+			return getInstance().getCreator().getId();
 		return 0L;
 	}
 
@@ -174,12 +168,6 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.employee.Physician physician = physicianAction
-				.getDefinedInstance();
-		if (physician != null && isNew()) {
-			getInstance().setPhysician(physician);
-		}
-
 		com.oreon.cerebrum.prescription.Prescription prescription = prescriptionAction
 				.getDefinedInstance();
 		if (prescription != null && isNew()) {
@@ -220,11 +208,6 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (encounter.getPhysician() != null) {
-			criteria = criteria.add(Restrictions.eq("physician.id", encounter
-					.getPhysician().getId()));
-		}
-
 		if (encounter.getPrescription() != null) {
 			criteria = criteria.add(Restrictions.eq("prescription.id",
 					encounter.getPrescription().getId()));
@@ -235,6 +218,11 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 					.getPatient().getId()));
 		}
 
+		if (encounter.getCreator() != null) {
+			criteria = criteria.add(Restrictions.eq("creator.id", encounter
+					.getCreator().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -242,11 +230,6 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
-
-		if (encounter.getPhysician() != null) {
-			physicianAction.setInstance(getInstance().getPhysician());
-			physicianAction.loadAssociations();
-		}
 
 		if (encounter.getPrescription() != null) {
 			prescriptionAction.setInstance(getInstance().getPrescription());

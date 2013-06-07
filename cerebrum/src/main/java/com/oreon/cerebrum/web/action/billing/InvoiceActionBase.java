@@ -116,8 +116,11 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	@Override
 	//@Restrict("#{s:hasPermission('invoice', 'edit')}")
 	public String doSave() {
+		
 		return super.doSave();
 	}
+	
+	
 
 	@Override
 	//@Restrict("#{s:hasPermission('invoice', 'delete')}")

@@ -12,17 +12,17 @@
           <h:outputText value="#{msg.Invoice}"/> 
         </f:facet>  
         <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}"/>  
-        <h:outputText value="#{invoice.notes}" escape="false"/>  
+        <h:outputText value="#{invoiceAction.invoice.notes}" escape="false"/>  
         <h:outputText value="#{msg.invoice_totalAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotalAmount')}"/>  
-        <h:outputText value="#{invoice.totalAmount}"> 
+        <h:outputText value="#{invoiceAction.invoice.totalAmount}"> 
           <f:convertNumber pattern="$#,##0.00"/> 
         </h:outputText>  
         <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')}"/>  
-        <s:link escape="false" value="#{invoice.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-          <f:param name="patientId" value="#{invoice.patient.id}"/>  
+        <s:link escape="false" value="#{invoiceAction.invoice.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{invoiceAction.invoice.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
           <rich:toolTip> 
-            <span>#{invoice.patient.popupInfo}</span> 
+            <span>#{invoiceAction.invoice.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link> 
       </h:panelGrid>  

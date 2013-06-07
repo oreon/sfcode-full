@@ -42,7 +42,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New Room" action="#{wardAction.addRooms}" reRender="rooms" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editRooms')}"> 
+      <a:commandButton value="New Room" action="#{wardAction.addRooms}" reRender="rooms, editWardComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editRooms')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="rooms" var="_room" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editRooms')}" value="#{wardAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -72,7 +72,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New Room" action="#{wardAction.addRooms}" reRender="rooms" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRooms')}"> 
+          <a:commandButton value="New Room" action="#{wardAction.addRooms}" reRender="rooms, editWardComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRooms')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

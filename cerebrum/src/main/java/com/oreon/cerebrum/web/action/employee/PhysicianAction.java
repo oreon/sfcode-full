@@ -2,6 +2,7 @@ package com.oreon.cerebrum.web.action.employee;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.security.Identity;
 import org.witchcraft.base.entity.UserUtilAction;
 
 import com.oreon.cerebrum.employee.Employee;
@@ -41,4 +42,10 @@ public class PhysicianAction extends PhysicianActionBase implements
 		return result;
 	}
 
+	
+	public Employee getCurrentLoggedInEmployee() {
+		String query = "Select e from Employee e where e.appUser.userName = ?1";
+		return  executeSingleResultQuery(query, Identity.instance()
+				.getCredentials().getUsername());
+	}
 }

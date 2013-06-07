@@ -18,22 +18,22 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Physician" rendered="#{encounterAction.instance.physician != null}"> 
-          <ui:include src="/admin/entities/employee/physician/viewPhysicianComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="physicianId" value="#{encounterAction.instance.physician.id}"/> 
-          </ui:include> 
-        </rich:tab>  
         <rich:tab label="Prescription" rendered="#{encounterAction.instance.prescription != null}"> 
           <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
+            <ui:param name="entityId" value="1"/>  
             <ui:param name="prescriptionId" value="#{encounterAction.instance.prescription.id}"/> 
           </ui:include> 
         </rich:tab>  
         <rich:tab label="Patient" rendered="#{encounterAction.instance.patient != null}"> 
           <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="entityId" value="3"/>  
+            <ui:param name="entityId" value="2"/>  
             <ui:param name="patientId" value="#{encounterAction.instance.patient.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Creator" rendered="#{encounterAction.instance.creator != null}"> 
+          <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
+            <ui:param name="entityId" value="3"/>  
+            <ui:param name="employeeId" value="#{encounterAction.instance.creator.id}"/> 
           </ui:include> 
         </rich:tab> 
       </rich:tabPanel>  

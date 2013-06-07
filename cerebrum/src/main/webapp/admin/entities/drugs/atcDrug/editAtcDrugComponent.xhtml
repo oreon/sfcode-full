@@ -50,7 +50,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" reRender="subcategories" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
+      <a:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" reRender="subcategories, editAtcDrugComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="subcategories" var="_atcDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}" value="#{atcDrugAction.listSubcategories}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -91,7 +91,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" reRender="subcategories" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
+          <a:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" reRender="subcategories, editAtcDrugComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

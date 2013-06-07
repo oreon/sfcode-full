@@ -14,8 +14,27 @@ import com.oreon.cerebrum.billing.Service;
 public class InvoiceAction extends InvoiceActionBase implements java.io.Serializable{
 	
 	
+	
 	public void applyPrice(InvoiceItem item){
 		item.setAppliedPrice(item.getService().getPrice());	
 	}
+	
+	public void setInvoiceId(Long id) {
+
+		if (id == 0) {
+			clearInstance();
+			clearLists();
+			loadAssociations();
+			return;
+		}
+		refresh();
+
+		setId(id);
+		// invoice = loadInstance();
+		if (!isPostBack())
+			loadAssociations();
+	}
+
+	
 }
 	

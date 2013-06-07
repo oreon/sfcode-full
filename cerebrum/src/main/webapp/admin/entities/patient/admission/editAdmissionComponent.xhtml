@@ -75,7 +75,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" reRender="bedStays" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}"> 
+      <a:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" reRender="bedStays, editAdmissionComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="bedStays" var="_bedStay" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}" value="#{admissionAction.listBedStays}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -115,7 +115,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" reRender="bedStays" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}"> 
+          <a:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" reRender="bedStays, editAdmissionComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

@@ -12,29 +12,29 @@
           <h:outputText value="#{msg.Technician}"/> 
         </f:facet>  
         <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEmployeeNumber')}"/>  
-        <h:outputText value="#{technician.employeeNumber}" escape="false"/>  
+        <h:outputText value="#{technicianAction.technician.employeeNumber}" escape="false"/>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewFirstName')}"/>  
-        <h:outputText value="#{technician.firstName}" escape="false"/>  
+        <h:outputText value="#{technicianAction.technician.firstName}" escape="false"/>  
         <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewLastName')}"/>  
-        <h:outputText value="#{technician.lastName}" escape="false"/>  
+        <h:outputText value="#{technicianAction.technician.lastName}" escape="false"/>  
         <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewDateOfBirth')}"/>  
-        <h:outputText value="#{technician.dateOfBirth}"> 
+        <h:outputText value="#{technicianAction.technician.dateOfBirth}"> 
           <s:convertDateTime type="date" dateStyle="medium"/> 
         </h:outputText>  
         <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewGender')}"/>  
-        <h:outputText value="#{technician.gender}" escape="false"/>  
+        <h:outputText value="#{technicianAction.technician.gender}" escape="false"/>  
         <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewAge')}"/>  
-        <h:outputText value="#{technician.age}" escape="false"/>  
+        <h:outputText value="#{technicianAction.technician.age}" escape="false"/>  
         <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewTitle')}"/>  
-        <h:outputText value="#{technician.title}" escape="false"/>  
+        <h:outputText value="#{technicianAction.technician.title}" escape="false"/>  
         <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewFacility')}"/>  
-        <s:link escape="false" value="#{technician.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
-          <f:param name="facilityId" value="#{technician.facility.id}"/>  
+        <s:link escape="false" value="#{technicianAction.technician.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+          <f:param name="facilityId" value="#{technicianAction.technician.facility.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewDepartment')}"/>  
-        <s:link escape="false" value="#{technician.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
-          <f:param name="departmentId" value="#{technician.department.id}"/>  
+        <s:link escape="false" value="#{technicianAction.technician.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{technicianAction.technician.department.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
@@ -46,9 +46,9 @@
           <h:outputText value="#{msg.AppUser}"/> 
         </f:facet>  
         <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewUserName')}"/>  
-        <h:outputText value="#{technician.appUser.userName}" escape="false"/>  
+        <h:outputText value="#{technicianAction.technician.appUser.userName}" escape="false"/>  
         <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEnabled')}"/>  
-        <h:outputText value="#{technician.appUser.enabled? msg.yes : msg.no }"/> 
+        <h:outputText value="#{technicianAction.technician.appUser.enabled? msg.yes : msg.no }"/> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
         <c:set var="numColumns" value="2"/> 
@@ -58,11 +58,11 @@
           <h:outputText value="#{msg.ContactDetails}"/> 
         </f:facet>  
         <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewPrimaryPhone')}"/>  
-        <h:outputText value="#{technician.contactDetails.primaryPhone}" escape="false"/>  
+        <h:outputText value="#{technicianAction.technician.contactDetails.primaryPhone}" escape="false"/>  
         <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewSecondaryPhone')}"/>  
-        <h:outputText value="#{technician.contactDetails.secondaryPhone}" escape="false"/>  
+        <h:outputText value="#{technicianAction.technician.contactDetails.secondaryPhone}" escape="false"/>  
         <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'viewEmail')}"/>  
-        <h:outputText value="#{technician.contactDetails.email}" escape="false"/> 
+        <h:outputText value="#{technicianAction.technician.contactDetails.email}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <br/> 

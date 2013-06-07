@@ -12,15 +12,15 @@
           <h:outputText value="#{msg.Room}"/> 
         </f:facet>  
         <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}"/>  
-        <h:outputText value="#{room.name}" escape="false"/>  
+        <h:outputText value="#{roomAction.room.name}" escape="false"/>  
         <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewRoomType')}"/>  
-        <s:link escape="false" value="#{room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
-          <f:param name="roomTypeId" value="#{room.roomType.id}"/>  
+        <s:link escape="false" value="#{roomAction.room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
+          <f:param name="roomTypeId" value="#{roomAction.room.roomType.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewWard')}"/>  
-        <s:link escape="false" value="#{room.ward.displayName}" view="/admin/entities/facility/ward/viewWard.xhtml" propagation="none"> 
-          <f:param name="wardId" value="#{room.ward.id}"/>  
+        <s:link escape="false" value="#{roomAction.room.ward.displayName}" view="/admin/entities/facility/ward/viewWard.xhtml" propagation="none"> 
+          <f:param name="wardId" value="#{roomAction.room.ward.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  

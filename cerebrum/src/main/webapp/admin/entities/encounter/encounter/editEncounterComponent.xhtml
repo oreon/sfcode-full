@@ -35,16 +35,6 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_physicianphysicianDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.encounter_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}"/>
-          </ui:define>  
-          <h:selectOneMenu id="#{prefix}_physicianphysician" label="#{msg.encounter_physician}" value="#{encounterAction.encounter.physician}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysician')}" disabled="false"> 
-            <s:selectItems value="#{physicianList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu> 
-        </s:decorate>  
         <s:decorate id="#{prefix}_prescriptionprescriptionDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/>
@@ -61,6 +51,16 @@
           </ui:define>  
           <h:selectOneMenu id="#{prefix}_patientpatient" label="#{msg.encounter_patient}" value="#{encounterAction.encounter.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}" disabled="false"> 
             <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_creatorcreatorDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_creatorcreator" label="#{msg.encounter_creator}" value="#{encounterAction.encounter.creator}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}" disabled="false"> 
+            <s:selectItems value="#{employeeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
@@ -115,7 +115,7 @@
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
-      <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}"> 
+      <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests, editEncounterComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -144,7 +144,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editPrescribedTests')}"> 
+          <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests, editEncounterComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editPrescribedTests')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
@@ -154,7 +154,7 @@
           </h:commandButton> 
         </h:column> 
       </rich:dataTable>  
-      <a:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" reRender="differentials" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}"> 
+      <a:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" reRender="differentials, editEncounterComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}"> 
         <s:conversationId/> 
       </a:commandButton>  
       <rich:dataTable id="differentials" var="_differential" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}" value="#{encounterAction.listDifferentials}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -170,7 +170,7 @@
           </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" reRender="differentials" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editDifferentials')}"> 
+          <a:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" reRender="differentials, editEncounterComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editDifferentials')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

@@ -65,12 +65,6 @@ import com.oreon.cerebrum.ProjectUtils;
 public class Encounter extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1171400456L;
 
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "physician_id", nullable = true, updatable = true)
-	protected com.oreon.cerebrum.employee.Physician physician
-
-	;
-
 	@Lob
 	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
@@ -169,15 +163,11 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 	;
 
-	public void setPhysician(com.oreon.cerebrum.employee.Physician physician) {
-		this.physician = physician;
-	}
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "creator_id", nullable = false, updatable = true)
+	protected com.oreon.cerebrum.employee.Employee creator
 
-	public com.oreon.cerebrum.employee.Physician getPhysician() {
-
-		return physician;
-
-	}
+	;
 
 	public void setChiefComplaint(String chiefComplaint) {
 		this.chiefComplaint = chiefComplaint;
@@ -256,10 +246,20 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 	}
 
+	public void setCreator(com.oreon.cerebrum.employee.Employee creator) {
+		this.creator = creator;
+	}
+
+	public com.oreon.cerebrum.employee.Employee getCreator() {
+
+		return creator;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
-			return physician + "";
+			return chiefComplaint + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -331,17 +331,15 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 		builder.append(getPhysicalExamFindings() + " ");
 
-		if (getPhysician() != null)
-			builder
-					.append("physician:" + getPhysician().getDisplayName()
-							+ " ");
-
 		if (getPrescription() != null)
 			builder.append("prescription:" + getPrescription().getDisplayName()
 					+ " ");
 
 		if (getPatient() != null)
 			builder.append("patient:" + getPatient().getDisplayName() + " ");
+
+		if (getCreator() != null)
+			builder.append("creator:" + getCreator().getDisplayName() + " ");
 
 		for (BaseEntity e : prescribedTests) {
 			builder.append(e.getDisplayName() + " ");
@@ -352,12 +350,6 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 		}
 
 		return builder.toString();
-	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

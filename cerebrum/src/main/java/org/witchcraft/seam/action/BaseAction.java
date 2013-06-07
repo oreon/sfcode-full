@@ -196,6 +196,19 @@ public abstract class BaseAction<T extends BaseEntity> extends
 	protected void addErrorMessage(String message, Object... params) {
 		statusMessages.add(Severity.ERROR, message, params);
 	}
+	
+	
+	/**
+	 * 
+	 */
+	protected  void refresh() {
+		try {
+			if (getInstance() != null)
+				entityManager.refresh(getInstance());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	public String saveTemplate() {
 		EntityTemplate<T> template = entityTemplate;
@@ -318,6 +331,7 @@ public abstract class BaseAction<T extends BaseEntity> extends
 			else{
 				instance = entityManager.merge(instance);
 				persist();
+				//getEntityManager().flush();
 			}
 
 		//	addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
@@ -367,7 +381,9 @@ public abstract class BaseAction<T extends BaseEntity> extends
 	public String saveWithoutConversation() {
 		String result = save();
 		Conversation.instance().end();
+		refresh();
 		clearInstance();
+		
 		return result;
 	}
 

@@ -218,10 +218,4 @@ public abstract class Employee extends com.oreon.cerebrum.patient.Person
 		return builder.toString();
 	}
 
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
-	}
-
 }
