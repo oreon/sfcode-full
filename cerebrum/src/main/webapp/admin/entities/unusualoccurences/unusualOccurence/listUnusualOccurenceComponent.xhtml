@@ -83,19 +83,6 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCreatedBy')}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{unusualOccurenceList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.unusualOccurence_createdBy}"/>  
-              <ui:param name="propertyPath" value="unusualOccurence.createdBy"/> 
-            </ui:include> 
-          </f:facet>  
-          <s:link escape="false" value="#{_unusualOccurence.createdBy.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
-            <f:param name="employeeId" value="#{_unusualOccurence.createdBy.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
-        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

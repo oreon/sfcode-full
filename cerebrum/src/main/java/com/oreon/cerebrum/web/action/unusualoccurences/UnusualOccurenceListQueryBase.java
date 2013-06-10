@@ -81,8 +81,6 @@ public abstract class UnusualOccurenceListQueryBase
 
 			"unusualOccurence.patient.id = #{unusualOccurenceList.unusualOccurence.patient.id}",
 
-			"unusualOccurence.createdBy.id = #{unusualOccurenceList.unusualOccurence.createdBy.id}",
-
 			"unusualOccurence.dateCreated <= #{unusualOccurenceList.dateCreatedRange.end}",
 			"unusualOccurence.dateCreated >= #{unusualOccurenceList.dateCreatedRange.begin}",};
 
@@ -122,10 +120,6 @@ public abstract class UnusualOccurenceListQueryBase
 				+ (e.getPatient() != null ? e.getPatient().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
-		builder.append("\""
-				+ (e.getCreatedBy() != null ? e.getCreatedBy().getDisplayName()
-						.replace(",", "") : "") + "\",");
-
 		builder.append("\r\n");
 	}
 
@@ -144,8 +138,6 @@ public abstract class UnusualOccurenceListQueryBase
 		builder.append("Description" + ",");
 
 		builder.append("Patient" + ",");
-
-		builder.append("CreatedBy" + ",");
 
 		builder.append("\r\n");
 	}

@@ -73,30 +73,6 @@ public abstract class Employee extends com.oreon.cerebrum.patient.Person
 
 	;
 
-	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "createdBy_ID", nullable = true)
-	@OrderBy("id DESC")
-	private Set<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> unusualOccurences = new HashSet<com.oreon.cerebrum.unusualoccurences.UnusualOccurence>();
-
-	public void addUnusualOccurence(
-			com.oreon.cerebrum.unusualoccurences.UnusualOccurence unusualOccurence) {
-
-		unusualOccurence.setCreatedBy(this);
-
-		this.unusualOccurences.add(unusualOccurence);
-	}
-
-	@Transient
-	public List<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> getListUnusualOccurences() {
-		return new ArrayList<com.oreon.cerebrum.unusualoccurences.UnusualOccurence>(
-				unusualOccurences);
-	}
-
-	//JSF Friendly function to get count of collections
-	public int getUnusualOccurencesCount() {
-		return unusualOccurences.size();
-	}
-
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "appUser_id", nullable = false, updatable = true)
 	protected com.oreon.cerebrum.users.AppUser appUser = new com.oreon.cerebrum.users.AppUser();
@@ -127,15 +103,6 @@ public abstract class Employee extends com.oreon.cerebrum.patient.Person
 
 		}
 
-	}
-
-	public void setUnusualOccurences(
-			Set<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> unusualOccurences) {
-		this.unusualOccurences = unusualOccurences;
-	}
-
-	public Set<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> getUnusualOccurences() {
-		return unusualOccurences;
 	}
 
 	public void setAppUser(com.oreon.cerebrum.users.AppUser appUser) {
@@ -210,10 +177,6 @@ public abstract class Employee extends com.oreon.cerebrum.patient.Person
 		if (getDepartment() != null)
 			builder.append("department:" + getDepartment().getDisplayName()
 					+ " ");
-
-		for (BaseEntity e : unusualOccurences) {
-			builder.append(e.getDisplayName() + " ");
-		}
 
 		return builder.toString();
 	}

@@ -220,68 +220,9 @@ public abstract class EmployeeActionBase
 			facilityAction.loadAssociations();
 		}
 
-		initListUnusualOccurences();
-
 	}
 
-	public void updateAssociations() {
-
-		com.oreon.cerebrum.unusualoccurences.UnusualOccurence unusualOccurences = (com.oreon.cerebrum.unusualoccurences.UnusualOccurence) org.jboss.seam.Component
-				.getInstance("unusualOccurence");
-		unusualOccurences.setCreatedBy(instance);
-		events.raiseTransactionSuccessEvent("archivedUnusualOccurence");
-
-	}
-
-	protected List<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> listUnusualOccurences = new ArrayList<com.oreon.cerebrum.unusualoccurences.UnusualOccurence>();
-
-	void initListUnusualOccurences() {
-
-		if (listUnusualOccurences.isEmpty())
-			listUnusualOccurences.addAll(getInstance().getUnusualOccurences());
-
-	}
-
-	public List<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> getListUnusualOccurences() {
-
-		prePopulateListUnusualOccurences();
-		return listUnusualOccurences;
-	}
-
-	public void prePopulateListUnusualOccurences() {
-	}
-
-	public void setListUnusualOccurences(
-			List<com.oreon.cerebrum.unusualoccurences.UnusualOccurence> listUnusualOccurences) {
-		this.listUnusualOccurences = listUnusualOccurences;
-	}
-
-	public void deleteUnusualOccurences(int index) {
-		listUnusualOccurences.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addUnusualOccurences() {
-		initListUnusualOccurences();
-		UnusualOccurence unusualOccurences = new UnusualOccurence();
-
-		unusualOccurences.setCreatedBy(getInstance());
-
-		getListUnusualOccurences().add(unusualOccurences);
-	}
-
-	public void updateComposedAssociations() {
-
-		if (listUnusualOccurences != null) {
-			getInstance().getUnusualOccurences().clear();
-			getInstance().getUnusualOccurences().addAll(listUnusualOccurences);
-		}
-	}
-
-	public void clearLists() {
-		listUnusualOccurences.clear();
-
-	}
+	
 
 	public String viewEmployee() {
 		load(currentEntityId);

@@ -105,16 +105,6 @@ public abstract class UnusualOccurenceActionBase
 		return 0L;
 	}
 
-	public void setCreatedById(Long id) {
-
-	}
-
-	public Long getCreatedById() {
-		if (getInstance().getCreatedBy() != null)
-			return getInstance().getCreatedBy().getId();
-		return 0L;
-	}
-
 	public Long getUnusualOccurenceId() {
 		return (Long) getId();
 	}
@@ -209,11 +199,6 @@ public abstract class UnusualOccurenceActionBase
 		if (instance.getPatient() != null) {
 			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
-		}
-
-		if (instance.getCreatedBy() != null) {
-			criteria = criteria.add(Restrictions.eq("createdBy.id", instance
-					.getCreatedBy().getId()));
 		}
 
 	}
