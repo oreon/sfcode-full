@@ -40,28 +40,7 @@
       <div class="buttonBox"></div> 
     </h:form>  
     <br/>  
-    <rich:tabPanel switchType="client"> 
-      <rich:tab label="UnusualOccurences" icon="/images/icons/bricks.png"> 
-        <c:set var="modalId" value="EmployeeModalPanel-unusualOccurences"/>  
-        <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/listUnusualOccurenceComponent.xhtml"> 
-          <ui:param name="records" value="#{unusualOccurenceList.getUnusualOccurencesByCreatedBy(employeeAction.instance)}"/>  
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include>  
-        <a:form> 
-          <s:button value="Create New" view="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurence.xhtml"> 
-            <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
-            <f:param name="unusualOccurenceId" value="0"/> 
-          </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
-            <a:actionparam name="unusualOccurenceId" assignTo="#{unusualOccurenceAction.unusualOccurenceId}" value="0"/>  
-            <a:actionparam name="employeeId" assignTo="#{unusualOccurenceAction.createdById}" value="#{employeeAction.instance.id}"/> 
-          </a:commandButton> 
-        </a:form>  
-        <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/modalDlgUnusualOccurenceComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
-      </rich:tab> 
-    </rich:tabPanel>  
+    <rich:tabPanel switchType="client"></rich:tabPanel>  
     <br/>  
     <rich:tabPanel switchType="client"> 
       <rich:tab label="Notes"> 

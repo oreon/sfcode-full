@@ -64,16 +64,6 @@
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
-        </s:decorate>  
-        <s:decorate id="#{prefix}_createdBycreatedByDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.unusualOccurence_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCreatedBy')}"/>
-          </ui:define>  
-          <h:selectOneMenu id="#{prefix}_createdBycreatedBy" label="#{msg.unusualOccurence_createdBy}" value="#{unusualOccurenceAction.unusualOccurence.createdBy}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCreatedBy')}" disabled="false"> 
-            <s:selectItems value="#{employeeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

@@ -49,14 +49,6 @@
         <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.unusualOccurence_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCreatedBy')}"/>  
-      <br/>  
-      <h:selectOneMenu id="#{prefix}_createdBycreatedBy" value="#{ unusualOccurenceList.unusualOccurence.createdBy}"> 
-        <s:selectItems value="#{employeeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

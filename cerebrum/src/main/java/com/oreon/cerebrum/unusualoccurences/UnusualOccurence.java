@@ -97,12 +97,6 @@ public class UnusualOccurence extends BaseEntity
 
 	;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "createdBy_id", nullable = false, updatable = true)
-	protected com.oreon.cerebrum.employee.Employee createdBy
-
-	;
-
 	public void setOccurenceType(OccurenceType occurenceType) {
 		this.occurenceType = occurenceType;
 	}
@@ -150,16 +144,6 @@ public class UnusualOccurence extends BaseEntity
 	public com.oreon.cerebrum.patient.Patient getPatient() {
 
 		return patient;
-
-	}
-
-	public void setCreatedBy(com.oreon.cerebrum.employee.Employee createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public com.oreon.cerebrum.employee.Employee getCreatedBy() {
-
-		return createdBy;
 
 	}
 
@@ -212,11 +196,6 @@ public class UnusualOccurence extends BaseEntity
 
 		if (getPatient() != null)
 			builder.append("patient:" + getPatient().getDisplayName() + " ");
-
-		if (getCreatedBy() != null)
-			builder
-					.append("createdBy:" + getCreatedBy().getDisplayName()
-							+ " ");
 
 		return builder.toString();
 	}
