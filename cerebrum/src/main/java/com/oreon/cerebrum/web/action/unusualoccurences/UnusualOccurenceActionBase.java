@@ -50,10 +50,6 @@ public abstract class UnusualOccurenceActionBase
 		extends
 			BaseAction<UnusualOccurence> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private UnusualOccurence unusualOccurence;
-
 	@In(create = true, value = "occurenceTypeAction")
 	com.oreon.cerebrum.web.action.unusualoccurences.OccurenceTypeAction occurenceTypeAction;
 
@@ -68,7 +64,7 @@ public abstract class UnusualOccurenceActionBase
 			return;
 		}
 		setId(id);
-		unusualOccurence = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class UnusualOccurenceActionBase
 	 */
 	public void setUnusualOccurenceIdForModalDlg(Long id) {
 		setId(id);
-		unusualOccurence = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -124,12 +120,12 @@ public abstract class UnusualOccurenceActionBase
 	}
 
 	public UnusualOccurence getEntity() {
-		return unusualOccurence;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(UnusualOccurence t) {
-		this.unusualOccurence = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -188,8 +184,8 @@ public abstract class UnusualOccurenceActionBase
 	}
 
 	public void setUnusualOccurence(UnusualOccurence t) {
-		this.unusualOccurence = t;
-		if (unusualOccurence != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setUnusualOccurenceId(t.getId());
 		loadAssociations();
 	}
@@ -205,19 +201,19 @@ public abstract class UnusualOccurenceActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (unusualOccurence.getOccurenceType() != null) {
+		if (instance.getOccurenceType() != null) {
 			criteria = criteria.add(Restrictions.eq("occurenceType.id",
-					unusualOccurence.getOccurenceType().getId()));
+					instance.getOccurenceType().getId()));
 		}
 
-		if (unusualOccurence.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id",
-					unusualOccurence.getPatient().getId()));
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
+					.getPatient().getId()));
 		}
 
-		if (unusualOccurence.getCreatedBy() != null) {
-			criteria = criteria.add(Restrictions.eq("createdBy.id",
-					unusualOccurence.getCreatedBy().getId()));
+		if (instance.getCreatedBy() != null) {
+			criteria = criteria.add(Restrictions.eq("createdBy.id", instance
+					.getCreatedBy().getId()));
 		}
 
 	}
@@ -228,12 +224,12 @@ public abstract class UnusualOccurenceActionBase
 	 */
 	public void loadAssociations() {
 
-		if (unusualOccurence.getOccurenceType() != null) {
+		if (getInstance().getOccurenceType() != null) {
 			occurenceTypeAction.setInstance(getInstance().getOccurenceType());
 			occurenceTypeAction.loadAssociations();
 		}
 
-		if (unusualOccurence.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}

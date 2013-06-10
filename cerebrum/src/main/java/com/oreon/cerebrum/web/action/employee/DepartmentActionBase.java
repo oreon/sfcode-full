@@ -52,10 +52,6 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Department department;
-
 	public void setDepartmentId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -64,7 +60,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 			return;
 		}
 		setId(id);
-		department = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -74,7 +70,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	 */
 	public void setDepartmentIdForModalDlg(Long id) {
 		setId(id);
-		department = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -84,12 +80,12 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	}
 
 	public Department getEntity() {
-		return department;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Department t) {
-		this.department = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -136,8 +132,8 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	}
 
 	public void setDepartment(Department t) {
-		this.department = t;
-		if (department != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setDepartmentId(t.getId());
 		loadAssociations();
 	}
@@ -165,7 +161,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 		com.oreon.cerebrum.employee.Employee employees = (com.oreon.cerebrum.employee.Employee) org.jboss.seam.Component
 				.getInstance("employee");
-		employees.setDepartment(department);
+		employees.setDepartment(instance);
 		events.raiseTransactionSuccessEvent("archivedEmployee");
 
 	}

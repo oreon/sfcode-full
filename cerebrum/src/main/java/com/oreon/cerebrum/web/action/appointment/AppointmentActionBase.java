@@ -50,10 +50,6 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Appointment appointment;
-
 	@In(create = true, value = "physicianAction")
 	com.oreon.cerebrum.web.action.employee.PhysicianAction physicianAction;
 
@@ -68,7 +64,7 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 			return;
 		}
 		setId(id);
-		appointment = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	 */
 	public void setAppointmentIdForModalDlg(Long id) {
 		setId(id);
-		appointment = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	}
 
 	public Appointment getEntity() {
-		return appointment;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Appointment t) {
-		this.appointment = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -178,8 +174,8 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	}
 
 	public void setAppointment(Appointment t) {
-		this.appointment = t;
-		if (appointment != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setAppointmentId(t.getId());
 		loadAssociations();
 	}
@@ -195,13 +191,13 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (appointment.getPhysician() != null) {
-			criteria = criteria.add(Restrictions.eq("physician.id", appointment
+		if (instance.getPhysician() != null) {
+			criteria = criteria.add(Restrictions.eq("physician.id", instance
 					.getPhysician().getId()));
 		}
 
-		if (appointment.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", appointment
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
@@ -213,12 +209,12 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	 */
 	public void loadAssociations() {
 
-		if (appointment.getPhysician() != null) {
+		if (getInstance().getPhysician() != null) {
 			physicianAction.setInstance(getInstance().getPhysician());
 			physicianAction.loadAssociations();
 		}
 
-		if (appointment.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}

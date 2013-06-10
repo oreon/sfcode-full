@@ -52,10 +52,6 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Finding finding;
-
 	public void setFindingId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -64,7 +60,7 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 			return;
 		}
 		setId(id);
-		finding = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -74,7 +70,7 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 	 */
 	public void setFindingIdForModalDlg(Long id) {
 		setId(id);
-		finding = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -84,12 +80,12 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 	}
 
 	public Finding getEntity() {
-		return finding;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Finding t) {
-		this.finding = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -136,8 +132,8 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 	}
 
 	public void setFinding(Finding t) {
-		this.finding = t;
-		if (finding != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setFindingId(t.getId());
 		loadAssociations();
 	}

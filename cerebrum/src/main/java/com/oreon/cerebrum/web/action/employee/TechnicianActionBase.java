@@ -52,10 +52,6 @@ public abstract class TechnicianActionBase
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Technician technician;
-
 	public static final String DEFAULT_ROLE_NAME = "technician";
 
 	public void setTechnicianId(Long id) {
@@ -66,7 +62,7 @@ public abstract class TechnicianActionBase
 			return;
 		}
 		setId(id);
-		technician = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,7 +72,7 @@ public abstract class TechnicianActionBase
 	 */
 	public void setTechnicianIdForModalDlg(Long id) {
 		setId(id);
-		technician = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -86,12 +82,12 @@ public abstract class TechnicianActionBase
 	}
 
 	public Technician getEntity() {
-		return technician;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Technician t) {
-		this.technician = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -138,8 +134,8 @@ public abstract class TechnicianActionBase
 	}
 
 	public void setTechnician(Technician t) {
-		this.technician = t;
-		if (technician != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setTechnicianId(t.getId());
 		loadAssociations();
 	}

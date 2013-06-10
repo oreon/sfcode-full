@@ -50,10 +50,6 @@ public abstract class PrescribedTestActionBase
 		extends
 			BaseAction<PrescribedTest> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private PrescribedTest prescribedTest;
-
 	@In(create = true, value = "dxTestAction")
 	com.oreon.cerebrum.web.action.ddx.DxTestAction dxTestAction;
 
@@ -68,7 +64,7 @@ public abstract class PrescribedTestActionBase
 			return;
 		}
 		setId(id);
-		prescribedTest = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class PrescribedTestActionBase
 	 */
 	public void setPrescribedTestIdForModalDlg(Long id) {
 		setId(id);
-		prescribedTest = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class PrescribedTestActionBase
 	}
 
 	public PrescribedTest getEntity() {
-		return prescribedTest;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(PrescribedTest t) {
-		this.prescribedTest = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -178,8 +174,8 @@ public abstract class PrescribedTestActionBase
 	}
 
 	public void setPrescribedTest(PrescribedTest t) {
-		this.prescribedTest = t;
-		if (prescribedTest != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPrescribedTestId(t.getId());
 		loadAssociations();
 	}
@@ -195,14 +191,14 @@ public abstract class PrescribedTestActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (prescribedTest.getDxTest() != null) {
-			criteria = criteria.add(Restrictions.eq("dxTest.id", prescribedTest
+		if (instance.getDxTest() != null) {
+			criteria = criteria.add(Restrictions.eq("dxTest.id", instance
 					.getDxTest().getId()));
 		}
 
-		if (prescribedTest.getEncounter() != null) {
-			criteria = criteria.add(Restrictions.eq("encounter.id",
-					prescribedTest.getEncounter().getId()));
+		if (instance.getEncounter() != null) {
+			criteria = criteria.add(Restrictions.eq("encounter.id", instance
+					.getEncounter().getId()));
 		}
 
 	}
@@ -213,12 +209,12 @@ public abstract class PrescribedTestActionBase
 	 */
 	public void loadAssociations() {
 
-		if (prescribedTest.getDxTest() != null) {
+		if (getInstance().getDxTest() != null) {
 			dxTestAction.setInstance(getInstance().getDxTest());
 			dxTestAction.loadAssociations();
 		}
 
-		if (prescribedTest.getEncounter() != null) {
+		if (getInstance().getEncounter() != null) {
 			encounterAction.setInstance(getInstance().getEncounter());
 			encounterAction.loadAssociations();
 		}

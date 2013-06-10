@@ -52,10 +52,6 @@ public abstract class WardActionBase extends BaseAction<Ward>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Ward ward;
-
 	@In(create = true, value = "facilityAction")
 	com.oreon.cerebrum.web.action.facility.FacilityAction facilityAction;
 
@@ -67,7 +63,7 @@ public abstract class WardActionBase extends BaseAction<Ward>
 			return;
 		}
 		setId(id);
-		ward = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -77,7 +73,7 @@ public abstract class WardActionBase extends BaseAction<Ward>
 	 */
 	public void setWardIdForModalDlg(Long id) {
 		setId(id);
-		ward = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -100,12 +96,12 @@ public abstract class WardActionBase extends BaseAction<Ward>
 	}
 
 	public Ward getEntity() {
-		return ward;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Ward t) {
-		this.ward = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -158,8 +154,8 @@ public abstract class WardActionBase extends BaseAction<Ward>
 	}
 
 	public void setWard(Ward t) {
-		this.ward = t;
-		if (ward != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setWardId(t.getId());
 		loadAssociations();
 	}
@@ -179,8 +175,8 @@ public abstract class WardActionBase extends BaseAction<Ward>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (ward.getFacility() != null) {
-			criteria = criteria.add(Restrictions.eq("facility.id", ward
+		if (instance.getFacility() != null) {
+			criteria = criteria.add(Restrictions.eq("facility.id", instance
 					.getFacility().getId()));
 		}
 
@@ -192,7 +188,7 @@ public abstract class WardActionBase extends BaseAction<Ward>
 	 */
 	public void loadAssociations() {
 
-		if (ward.getFacility() != null) {
+		if (getInstance().getFacility() != null) {
 			facilityAction.setInstance(getInstance().getFacility());
 			facilityAction.loadAssociations();
 		}

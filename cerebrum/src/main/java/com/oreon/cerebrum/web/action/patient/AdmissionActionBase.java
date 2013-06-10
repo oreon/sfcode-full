@@ -52,10 +52,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Admission admission;
-
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
@@ -70,7 +66,7 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 			return;
 		}
 		setId(id);
-		admission = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -80,7 +76,7 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	 */
 	public void setAdmissionIdForModalDlg(Long id) {
 		setId(id);
-		admission = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -116,12 +112,12 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	}
 
 	public Admission getEntity() {
-		return admission;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Admission t) {
-		this.admission = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -179,8 +175,8 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	}
 
 	public void setAdmission(Admission t) {
-		this.admission = t;
-		if (admission != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setAdmissionId(t.getId());
 		loadAssociations();
 	}
@@ -196,14 +192,14 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (admission.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", admission
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
-		if (admission.getBed() != null) {
-			criteria = criteria.add(Restrictions.eq("bed.id", admission
-					.getBed().getId()));
+		if (instance.getBed() != null) {
+			criteria = criteria.add(Restrictions.eq("bed.id", instance.getBed()
+					.getId()));
 		}
 
 	}
@@ -214,12 +210,12 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	 */
 	public void loadAssociations() {
 
-		if (admission.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}
 
-		if (admission.getBed() != null) {
+		if (getInstance().getBed() != null) {
 			bedAction.setInstance(getInstance().getBed());
 			bedAction.loadAssociations();
 		}

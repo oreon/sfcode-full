@@ -50,10 +50,6 @@ public abstract class BedActionBase extends BaseAction<Bed>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Bed bed;
-
 	@In(create = true, value = "roomAction")
 	com.oreon.cerebrum.web.action.facility.RoomAction roomAction;
 
@@ -68,7 +64,7 @@ public abstract class BedActionBase extends BaseAction<Bed>
 			return;
 		}
 		setId(id);
-		bed = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class BedActionBase extends BaseAction<Bed>
 	 */
 	public void setBedIdForModalDlg(Long id) {
 		setId(id);
-		bed = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class BedActionBase extends BaseAction<Bed>
 	}
 
 	public Bed getEntity() {
-		return bed;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Bed t) {
-		this.bed = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -177,8 +173,8 @@ public abstract class BedActionBase extends BaseAction<Bed>
 	}
 
 	public void setBed(Bed t) {
-		this.bed = t;
-		if (bed != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setBedId(t.getId());
 		loadAssociations();
 	}
@@ -194,13 +190,13 @@ public abstract class BedActionBase extends BaseAction<Bed>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (bed.getRoom() != null) {
-			criteria = criteria.add(Restrictions.eq("room.id", bed.getRoom()
-					.getId()));
+		if (instance.getRoom() != null) {
+			criteria = criteria.add(Restrictions.eq("room.id", instance
+					.getRoom().getId()));
 		}
 
-		if (bed.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", bed
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
@@ -212,12 +208,12 @@ public abstract class BedActionBase extends BaseAction<Bed>
 	 */
 	public void loadAssociations() {
 
-		if (bed.getRoom() != null) {
+		if (getInstance().getRoom() != null) {
 			roomAction.setInstance(getInstance().getRoom());
 			roomAction.loadAssociations();
 		}
 
-		if (bed.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}

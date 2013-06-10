@@ -52,10 +52,7 @@ public abstract class EmployeeActionBase
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	//@DataModelSelection
-	private Employee employee;
+	
 
 	@In(create = true, value = "appUserAction")
 	com.oreon.cerebrum.web.action.users.AppUserAction appUserAction;
@@ -74,7 +71,7 @@ public abstract class EmployeeActionBase
 			return;
 		}
 		setId(id);
-		employee = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -84,7 +81,7 @@ public abstract class EmployeeActionBase
 	 */
 	public void setEmployeeIdForModalDlg(Long id) {
 		setId(id);
-		employee = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -120,12 +117,12 @@ public abstract class EmployeeActionBase
 	}
 
 	public Employee getEntity() {
-		return employee;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Employee t) {
-		this.employee = t;
+		this.instance =t;
 		loadAssociations();
 	}
 
@@ -172,8 +169,8 @@ public abstract class EmployeeActionBase
 	}
 
 	public void setEmployee(Employee t) {
-		this.employee = t;
-		if (employee != null)
+		this.instance =t;
+		if (instance != null)
 			setEmployeeId(t.getId());
 		loadAssociations();
 	}
@@ -195,13 +192,13 @@ public abstract class EmployeeActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (employee.getAppUser() != null) {
-			criteria = criteria.add(Restrictions.eq("appUser.id", employee
+		if (instance.getAppUser() != null) {
+			criteria = criteria.add(Restrictions.eq("appUser.id", instance
 					.getAppUser().getId()));
 		}
 
-		if (employee.getFacility() != null) {
-			criteria = criteria.add(Restrictions.eq("facility.id", employee
+		if (instance.getFacility() != null) {
+			criteria = criteria.add(Restrictions.eq("facility.id", instance
 					.getFacility().getId()));
 		}
 
@@ -213,12 +210,12 @@ public abstract class EmployeeActionBase
 	 */
 	public void loadAssociations() {
 
-		if (employee.getAppUser() != null) {
+		if (instance.getAppUser() != null) {
 			appUserAction.setInstance(getInstance().getAppUser());
 			appUserAction.loadAssociations();
 		}
 
-		if (employee.getFacility() != null) {
+		if (instance.getFacility() != null) {
 			facilityAction.setInstance(getInstance().getFacility());
 			facilityAction.loadAssociations();
 		}
@@ -231,7 +228,7 @@ public abstract class EmployeeActionBase
 
 		com.oreon.cerebrum.unusualoccurences.UnusualOccurence unusualOccurences = (com.oreon.cerebrum.unusualoccurences.UnusualOccurence) org.jboss.seam.Component
 				.getInstance("unusualOccurence");
-		unusualOccurences.setCreatedBy(employee);
+		unusualOccurences.setCreatedBy(instance);
 		events.raiseTransactionSuccessEvent("archivedUnusualOccurence");
 
 	}

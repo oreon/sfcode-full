@@ -50,10 +50,6 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private DxTest dxTest;
-
 	public void setDxTestId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 			return;
 		}
 		setId(id);
-		dxTest = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	 */
 	public void setDxTestIdForModalDlg(Long id) {
 		setId(id);
-		dxTest = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	}
 
 	public DxTest getEntity() {
-		return dxTest;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(DxTest t) {
-		this.dxTest = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	}
 
 	public void setDxTest(DxTest t) {
-		this.dxTest = t;
-		if (dxTest != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setDxTestId(t.getId());
 		loadAssociations();
 	}

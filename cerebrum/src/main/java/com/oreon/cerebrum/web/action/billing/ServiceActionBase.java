@@ -50,10 +50,6 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Service service;
-
 	public void setServiceId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 			return;
 		}
 		setId(id);
-		service = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 	 */
 	public void setServiceIdForModalDlg(Long id) {
 		setId(id);
-		service = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 	}
 
 	public Service getEntity() {
-		return service;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Service t) {
-		this.service = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 	}
 
 	public void setService(Service t) {
-		this.service = t;
-		if (service != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setServiceId(t.getId());
 		loadAssociations();
 	}

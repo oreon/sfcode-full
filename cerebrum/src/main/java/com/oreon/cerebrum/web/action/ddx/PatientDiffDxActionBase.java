@@ -52,10 +52,6 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private PatientDiffDx patientDiffDx;
-
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
@@ -67,7 +63,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 			return;
 		}
 		setId(id);
-		patientDiffDx = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -77,7 +73,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	 */
 	public void setPatientDiffDxIdForModalDlg(Long id) {
 		setId(id);
-		patientDiffDx = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -100,12 +96,12 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	}
 
 	public PatientDiffDx getEntity() {
-		return patientDiffDx;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(PatientDiffDx t) {
-		this.patientDiffDx = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -158,8 +154,8 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	}
 
 	public void setPatientDiffDx(PatientDiffDx t) {
-		this.patientDiffDx = t;
-		if (patientDiffDx != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPatientDiffDxId(t.getId());
 		loadAssociations();
 	}
@@ -175,8 +171,8 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (patientDiffDx.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", patientDiffDx
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
@@ -188,7 +184,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	 */
 	public void loadAssociations() {
 
-		if (patientDiffDx.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}

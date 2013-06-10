@@ -52,10 +52,6 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Facility facility;
-
 	public void setFacilityId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -64,7 +60,7 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 			return;
 		}
 		setId(id);
-		facility = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -74,7 +70,7 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	 */
 	public void setFacilityIdForModalDlg(Long id) {
 		setId(id);
-		facility = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -84,12 +80,12 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	}
 
 	public Facility getEntity() {
-		return facility;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Facility t) {
-		this.facility = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -136,8 +132,8 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	}
 
 	public void setFacility(Facility t) {
-		this.facility = t;
-		if (facility != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setFacilityId(t.getId());
 		loadAssociations();
 	}

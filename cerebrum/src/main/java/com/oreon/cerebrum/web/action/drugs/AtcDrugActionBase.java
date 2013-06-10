@@ -52,10 +52,6 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private AtcDrug atcDrug;
-
 	@In(create = true, value = "drugAction")
 	com.oreon.cerebrum.web.action.drugs.DrugAction drugAction;
 
@@ -70,7 +66,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 			return;
 		}
 		setId(id);
-		atcDrug = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -80,7 +76,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	 */
 	public void setAtcDrugIdForModalDlg(Long id) {
 		setId(id);
-		atcDrug = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -116,12 +112,12 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	}
 
 	public AtcDrug getEntity() {
-		return atcDrug;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(AtcDrug t) {
-		this.atcDrug = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -179,8 +175,8 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	}
 
 	public void setAtcDrug(AtcDrug t) {
-		this.atcDrug = t;
-		if (atcDrug != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setAtcDrugId(t.getId());
 		loadAssociations();
 	}
@@ -202,13 +198,13 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (atcDrug.getDrug() != null) {
-			criteria = criteria.add(Restrictions.eq("drug.id", atcDrug
+		if (instance.getDrug() != null) {
+			criteria = criteria.add(Restrictions.eq("drug.id", instance
 					.getDrug().getId()));
 		}
 
-		if (atcDrug.getParent() != null) {
-			criteria = criteria.add(Restrictions.eq("parent.id", atcDrug
+		if (instance.getParent() != null) {
+			criteria = criteria.add(Restrictions.eq("parent.id", instance
 					.getParent().getId()));
 		}
 
@@ -220,12 +216,12 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	 */
 	public void loadAssociations() {
 
-		if (atcDrug.getDrug() != null) {
+		if (getInstance().getDrug() != null) {
 			drugAction.setInstance(getInstance().getDrug());
 			drugAction.loadAssociations();
 		}
 
-		if (atcDrug.getParent() != null) {
+		if (getInstance().getParent() != null) {
 			parentAction.setInstance(getInstance().getParent());
 			parentAction.loadAssociations();
 		}

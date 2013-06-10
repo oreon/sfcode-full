@@ -50,10 +50,6 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private DxCategory dxCategory;
-
 	public void setDxCategoryId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 			return;
 		}
 		setId(id);
-		dxCategory = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 	 */
 	public void setDxCategoryIdForModalDlg(Long id) {
 		setId(id);
-		dxCategory = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 	}
 
 	public DxCategory getEntity() {
-		return dxCategory;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(DxCategory t) {
-		this.dxCategory = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 	}
 
 	public void setDxCategory(DxCategory t) {
-		this.dxCategory = t;
-		if (dxCategory != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setDxCategoryId(t.getId());
 		loadAssociations();
 	}

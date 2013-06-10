@@ -50,10 +50,6 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Allergy allergy;
-
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
@@ -68,7 +64,7 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 			return;
 		}
 		setId(id);
-		allergy = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	 */
 	public void setAllergyIdForModalDlg(Long id) {
 		setId(id);
-		allergy = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	}
 
 	public Allergy getEntity() {
-		return allergy;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Allergy t) {
-		this.allergy = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -178,8 +174,8 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	}
 
 	public void setAllergy(Allergy t) {
-		this.allergy = t;
-		if (allergy != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setAllergyId(t.getId());
 		loadAssociations();
 	}
@@ -195,13 +191,13 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (allergy.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", allergy
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
-		if (allergy.getAllergen() != null) {
-			criteria = criteria.add(Restrictions.eq("allergen.id", allergy
+		if (instance.getAllergen() != null) {
+			criteria = criteria.add(Restrictions.eq("allergen.id", instance
 					.getAllergen().getId()));
 		}
 
@@ -213,12 +209,12 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	 */
 	public void loadAssociations() {
 
-		if (allergy.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}
 
-		if (allergy.getAllergen() != null) {
+		if (getInstance().getAllergen() != null) {
 			allergenAction.setInstance(getInstance().getAllergen());
 			allergenAction.loadAssociations();
 		}

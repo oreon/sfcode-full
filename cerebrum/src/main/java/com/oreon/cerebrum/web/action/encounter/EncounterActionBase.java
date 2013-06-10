@@ -53,10 +53,6 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Encounter encounter;
-
 	@In(create = true, value = "prescriptionAction")
 	com.oreon.cerebrum.web.action.prescription.PrescriptionAction prescriptionAction;
 
@@ -71,7 +67,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 			return;
 		}
 		setId(id);
-		encounter = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -81,7 +77,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	 */
 	public void setEncounterIdForModalDlg(Long id) {
 		setId(id);
-		encounter = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -127,12 +123,12 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	}
 
 	public Encounter getEntity() {
-		return encounter;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Encounter t) {
-		this.encounter = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -191,8 +187,8 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	}
 
 	public void setEncounter(Encounter t) {
-		this.encounter = t;
-		if (encounter != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setEncounterId(t.getId());
 		loadAssociations();
 	}
@@ -208,18 +204,18 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (encounter.getPrescription() != null) {
-			criteria = criteria.add(Restrictions.eq("prescription.id",
-					encounter.getPrescription().getId()));
+		if (instance.getPrescription() != null) {
+			criteria = criteria.add(Restrictions.eq("prescription.id", instance
+					.getPrescription().getId()));
 		}
 
-		if (encounter.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", encounter
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
-		if (encounter.getCreator() != null) {
-			criteria = criteria.add(Restrictions.eq("creator.id", encounter
+		if (instance.getCreator() != null) {
+			criteria = criteria.add(Restrictions.eq("creator.id", instance
 					.getCreator().getId()));
 		}
 
@@ -231,12 +227,12 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	 */
 	public void loadAssociations() {
 
-		if (encounter.getPrescription() != null) {
+		if (getInstance().getPrescription() != null) {
 			prescriptionAction.setInstance(getInstance().getPrescription());
 			prescriptionAction.loadAssociations();
 		}
 
-		if (encounter.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}

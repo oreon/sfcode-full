@@ -50,10 +50,6 @@ public abstract class NurseSpecialtyActionBase
 		extends
 			BaseAction<NurseSpecialty> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private NurseSpecialty nurseSpecialty;
-
 	public void setNurseSpecialtyId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class NurseSpecialtyActionBase
 			return;
 		}
 		setId(id);
-		nurseSpecialty = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class NurseSpecialtyActionBase
 	 */
 	public void setNurseSpecialtyIdForModalDlg(Long id) {
 		setId(id);
-		nurseSpecialty = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class NurseSpecialtyActionBase
 	}
 
 	public NurseSpecialty getEntity() {
-		return nurseSpecialty;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(NurseSpecialty t) {
-		this.nurseSpecialty = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class NurseSpecialtyActionBase
 	}
 
 	public void setNurseSpecialty(NurseSpecialty t) {
-		this.nurseSpecialty = t;
-		if (nurseSpecialty != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setNurseSpecialtyId(t.getId());
 		loadAssociations();
 	}

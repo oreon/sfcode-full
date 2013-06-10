@@ -50,10 +50,6 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private AppRole appRole;
-
 	public void setAppRoleId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 			return;
 		}
 		setId(id);
-		appRole = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 	 */
 	public void setAppRoleIdForModalDlg(Long id) {
 		setId(id);
-		appRole = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 	}
 
 	public AppRole getEntity() {
-		return appRole;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(AppRole t) {
-		this.appRole = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 	}
 
 	public void setAppRole(AppRole t) {
-		this.appRole = t;
-		if (appRole != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setAppRoleId(t.getId());
 		loadAssociations();
 	}

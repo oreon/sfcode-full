@@ -50,10 +50,6 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Immunization immunization;
-
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
@@ -68,7 +64,7 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 			return;
 		}
 		setId(id);
-		immunization = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	 */
 	public void setImmunizationIdForModalDlg(Long id) {
 		setId(id);
-		immunization = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	}
 
 	public Immunization getEntity() {
-		return immunization;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Immunization t) {
-		this.immunization = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -178,8 +174,8 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	}
 
 	public void setImmunization(Immunization t) {
-		this.immunization = t;
-		if (immunization != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setImmunizationId(t.getId());
 		loadAssociations();
 	}
@@ -195,13 +191,13 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (immunization.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", immunization
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
-		if (immunization.getVaccine() != null) {
-			criteria = criteria.add(Restrictions.eq("vaccine.id", immunization
+		if (instance.getVaccine() != null) {
+			criteria = criteria.add(Restrictions.eq("vaccine.id", instance
 					.getVaccine().getId()));
 		}
 
@@ -213,12 +209,12 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	 */
 	public void loadAssociations() {
 
-		if (immunization.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}
 
-		if (immunization.getVaccine() != null) {
+		if (getInstance().getVaccine() != null) {
 			vaccineAction.setInstance(getInstance().getVaccine());
 			vaccineAction.loadAssociations();
 		}

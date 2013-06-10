@@ -52,10 +52,6 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Disease disease;
-
 	@In(create = true, value = "diseaseAction")
 	com.oreon.cerebrum.web.action.ddx.DiseaseAction relatedDiseaseAction;
 
@@ -73,7 +69,7 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 			return;
 		}
 		setId(id);
-		disease = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -83,7 +79,7 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	 */
 	public void setDiseaseIdForModalDlg(Long id) {
 		setId(id);
-		disease = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -121,12 +117,12 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	}
 
 	public Disease getEntity() {
-		return disease;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Disease t) {
-		this.disease = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -185,8 +181,8 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	}
 
 	public void setDisease(Disease t) {
-		this.disease = t;
-		if (disease != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setDiseaseId(t.getId());
 		loadAssociations();
 	}
@@ -206,14 +202,14 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (disease.getRelatedDisease() != null) {
+		if (instance.getRelatedDisease() != null) {
 			criteria = criteria.add(Restrictions.eq("relatedDisease.id",
-					disease.getRelatedDisease().getId()));
+					instance.getRelatedDisease().getId()));
 		}
 
-		if (disease.getConditionCategory() != null) {
+		if (instance.getConditionCategory() != null) {
 			criteria = criteria.add(Restrictions.eq("conditionCategory.id",
-					disease.getConditionCategory().getId()));
+					instance.getConditionCategory().getId()));
 		}
 
 	}
@@ -224,12 +220,12 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	 */
 	public void loadAssociations() {
 
-		if (disease.getRelatedDisease() != null) {
+		if (getInstance().getRelatedDisease() != null) {
 			relatedDiseaseAction.setInstance(getInstance().getRelatedDisease());
 			relatedDiseaseAction.loadAssociations();
 		}
 
-		if (disease.getConditionCategory() != null) {
+		if (getInstance().getConditionCategory() != null) {
 			conditionCategoryAction.setInstance(getInstance()
 					.getConditionCategory());
 			conditionCategoryAction.loadAssociations();
@@ -243,7 +239,7 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 
 		com.oreon.cerebrum.ddx.Disease differentialDiagnoses = (com.oreon.cerebrum.ddx.Disease) org.jboss.seam.Component
 				.getInstance("disease");
-		differentialDiagnoses.setRelatedDisease(disease);
+		differentialDiagnoses.setRelatedDisease(instance);
 		events.raiseTransactionSuccessEvent("archivedDisease");
 
 	}

@@ -52,10 +52,6 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Invoice invoice;
-
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
@@ -67,7 +63,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 			return;
 		}
 		setId(id);
-		invoice = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -77,7 +73,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	 */
 	public void setInvoiceIdForModalDlg(Long id) {
 		setId(id);
-		invoice = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -100,12 +96,12 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	}
 
 	public Invoice getEntity() {
-		return invoice;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Invoice t) {
-		this.invoice = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -116,11 +112,8 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	@Override
 	//@Restrict("#{s:hasPermission('invoice', 'edit')}")
 	public String doSave() {
-		
 		return super.doSave();
 	}
-	
-	
 
 	@Override
 	//@Restrict("#{s:hasPermission('invoice', 'delete')}")
@@ -161,8 +154,8 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	}
 
 	public void setInvoice(Invoice t) {
-		this.invoice = t;
-		if (invoice != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setInvoiceId(t.getId());
 		loadAssociations();
 	}
@@ -178,8 +171,8 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (invoice.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", invoice
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
@@ -191,7 +184,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	 */
 	public void loadAssociations() {
 
-		if (invoice.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}

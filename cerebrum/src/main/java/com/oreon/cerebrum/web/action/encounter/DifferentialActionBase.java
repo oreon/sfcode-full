@@ -50,10 +50,6 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Differential differential;
-
 	@In(create = true, value = "encounterAction")
 	com.oreon.cerebrum.web.action.encounter.EncounterAction encounterAction;
 
@@ -65,7 +61,7 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 			return;
 		}
 		setId(id);
-		differential = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -75,7 +71,7 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	 */
 	public void setDifferentialIdForModalDlg(Long id) {
 		setId(id);
-		differential = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -98,12 +94,12 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	}
 
 	public Differential getEntity() {
-		return differential;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Differential t) {
-		this.differential = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -156,8 +152,8 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	}
 
 	public void setDifferential(Differential t) {
-		this.differential = t;
-		if (differential != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setDifferentialId(t.getId());
 		loadAssociations();
 	}
@@ -173,9 +169,9 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (differential.getEncounter() != null) {
-			criteria = criteria.add(Restrictions.eq("encounter.id",
-					differential.getEncounter().getId()));
+		if (instance.getEncounter() != null) {
+			criteria = criteria.add(Restrictions.eq("encounter.id", instance
+					.getEncounter().getId()));
 		}
 
 	}
@@ -186,7 +182,7 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	 */
 	public void loadAssociations() {
 
-		if (differential.getEncounter() != null) {
+		if (getInstance().getEncounter() != null) {
 			encounterAction.setInstance(getInstance().getEncounter());
 			encounterAction.loadAssociations();
 		}

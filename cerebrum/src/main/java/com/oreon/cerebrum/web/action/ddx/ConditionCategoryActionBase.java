@@ -50,10 +50,6 @@ public abstract class ConditionCategoryActionBase
 		extends
 			BaseAction<ConditionCategory> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private ConditionCategory conditionCategory;
-
 	public void setConditionCategoryId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class ConditionCategoryActionBase
 			return;
 		}
 		setId(id);
-		conditionCategory = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class ConditionCategoryActionBase
 	 */
 	public void setConditionCategoryIdForModalDlg(Long id) {
 		setId(id);
-		conditionCategory = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class ConditionCategoryActionBase
 	}
 
 	public ConditionCategory getEntity() {
-		return conditionCategory;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(ConditionCategory t) {
-		this.conditionCategory = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class ConditionCategoryActionBase
 	}
 
 	public void setConditionCategory(ConditionCategory t) {
-		this.conditionCategory = t;
-		if (conditionCategory != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setConditionCategoryId(t.getId());
 		loadAssociations();
 	}

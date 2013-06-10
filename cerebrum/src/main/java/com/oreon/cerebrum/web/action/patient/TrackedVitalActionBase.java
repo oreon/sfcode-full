@@ -50,10 +50,6 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private TrackedVital trackedVital;
-
 	public void setTrackedVitalId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 			return;
 		}
 		setId(id);
-		trackedVital = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	 */
 	public void setTrackedVitalIdForModalDlg(Long id) {
 		setId(id);
-		trackedVital = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	}
 
 	public TrackedVital getEntity() {
-		return trackedVital;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(TrackedVital t) {
-		this.trackedVital = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	}
 
 	public void setTrackedVital(TrackedVital t) {
-		this.trackedVital = t;
-		if (trackedVital != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setTrackedVitalId(t.getId());
 		loadAssociations();
 	}

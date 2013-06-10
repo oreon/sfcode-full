@@ -52,10 +52,6 @@ public abstract class PrescriptionItemTemplateActionBase
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private PrescriptionItemTemplate prescriptionItemTemplate;
-
 	@In(create = true, value = "drugAction")
 	com.oreon.cerebrum.web.action.drugs.DrugAction drugAction;
 
@@ -73,7 +69,7 @@ public abstract class PrescriptionItemTemplateActionBase
 			return;
 		}
 		setId(id);
-		prescriptionItemTemplate = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -83,7 +79,7 @@ public abstract class PrescriptionItemTemplateActionBase
 	 */
 	public void setPrescriptionItemTemplateIdForModalDlg(Long id) {
 		setId(id);
-		prescriptionItemTemplate = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -133,12 +129,12 @@ public abstract class PrescriptionItemTemplateActionBase
 	}
 
 	public PrescriptionItemTemplate getEntity() {
-		return prescriptionItemTemplate;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(PrescriptionItemTemplate t) {
-		this.prescriptionItemTemplate = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -202,8 +198,8 @@ public abstract class PrescriptionItemTemplateActionBase
 	}
 
 	public void setPrescriptionItemTemplate(PrescriptionItemTemplate t) {
-		this.prescriptionItemTemplate = t;
-		if (prescriptionItemTemplate != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPrescriptionItemTemplateId(t.getId());
 		loadAssociations();
 	}
@@ -219,21 +215,19 @@ public abstract class PrescriptionItemTemplateActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (prescriptionItemTemplate.getDrug() != null) {
-			criteria = criteria.add(Restrictions.eq("drug.id",
-					prescriptionItemTemplate.getDrug().getId()));
+		if (instance.getDrug() != null) {
+			criteria = criteria.add(Restrictions.eq("drug.id", instance
+					.getDrug().getId()));
 		}
 
-		if (prescriptionItemTemplate.getFrequency() != null) {
-			criteria = criteria.add(Restrictions.eq("frequency.id",
-					prescriptionItemTemplate.getFrequency().getId()));
+		if (instance.getFrequency() != null) {
+			criteria = criteria.add(Restrictions.eq("frequency.id", instance
+					.getFrequency().getId()));
 		}
 
-		if (prescriptionItemTemplate.getPrescriptionTemplate() != null) {
-			criteria = criteria
-					.add(Restrictions.eq("prescriptionTemplate.id",
-							prescriptionItemTemplate.getPrescriptionTemplate()
-									.getId()));
+		if (instance.getPrescriptionTemplate() != null) {
+			criteria = criteria.add(Restrictions.eq("prescriptionTemplate.id",
+					instance.getPrescriptionTemplate().getId()));
 		}
 
 	}
@@ -244,17 +238,17 @@ public abstract class PrescriptionItemTemplateActionBase
 	 */
 	public void loadAssociations() {
 
-		if (prescriptionItemTemplate.getDrug() != null) {
+		if (getInstance().getDrug() != null) {
 			drugAction.setInstance(getInstance().getDrug());
 			drugAction.loadAssociations();
 		}
 
-		if (prescriptionItemTemplate.getFrequency() != null) {
+		if (getInstance().getFrequency() != null) {
 			frequencyAction.setInstance(getInstance().getFrequency());
 			frequencyAction.loadAssociations();
 		}
 
-		if (prescriptionItemTemplate.getPrescriptionTemplate() != null) {
+		if (getInstance().getPrescriptionTemplate() != null) {
 			prescriptionTemplateAction.setInstance(getInstance()
 					.getPrescriptionTemplate());
 			prescriptionTemplateAction.loadAssociations();

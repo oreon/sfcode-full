@@ -50,10 +50,6 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private RoomType roomType;
-
 	public void setRoomTypeId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 			return;
 		}
 		setId(id);
-		roomType = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 	 */
 	public void setRoomTypeIdForModalDlg(Long id) {
 		setId(id);
-		roomType = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 	}
 
 	public RoomType getEntity() {
-		return roomType;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(RoomType t) {
-		this.roomType = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 	}
 
 	public void setRoomType(RoomType t) {
-		this.roomType = t;
-		if (roomType != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setRoomTypeId(t.getId());
 		loadAssociations();
 	}

@@ -50,10 +50,6 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private InvoiceItem invoiceItem;
-
 	@In(create = true, value = "serviceAction")
 	com.oreon.cerebrum.web.action.billing.ServiceAction serviceAction;
 
@@ -68,7 +64,7 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 			return;
 		}
 		setId(id);
-		invoiceItem = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 	 */
 	public void setInvoiceItemIdForModalDlg(Long id) {
 		setId(id);
-		invoiceItem = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 	}
 
 	public InvoiceItem getEntity() {
-		return invoiceItem;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(InvoiceItem t) {
-		this.invoiceItem = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -178,8 +174,8 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 	}
 
 	public void setInvoiceItem(InvoiceItem t) {
-		this.invoiceItem = t;
-		if (invoiceItem != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setInvoiceItemId(t.getId());
 		loadAssociations();
 	}
@@ -195,13 +191,13 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (invoiceItem.getService() != null) {
-			criteria = criteria.add(Restrictions.eq("service.id", invoiceItem
+		if (instance.getService() != null) {
+			criteria = criteria.add(Restrictions.eq("service.id", instance
 					.getService().getId()));
 		}
 
-		if (invoiceItem.getInvoice() != null) {
-			criteria = criteria.add(Restrictions.eq("invoice.id", invoiceItem
+		if (instance.getInvoice() != null) {
+			criteria = criteria.add(Restrictions.eq("invoice.id", instance
 					.getInvoice().getId()));
 		}
 
@@ -213,12 +209,12 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 	 */
 	public void loadAssociations() {
 
-		if (invoiceItem.getService() != null) {
+		if (getInstance().getService() != null) {
 			serviceAction.setInstance(getInstance().getService());
 			serviceAction.loadAssociations();
 		}
 
-		if (invoiceItem.getInvoice() != null) {
+		if (getInstance().getInvoice() != null) {
 			invoiceAction.setInstance(getInstance().getInvoice());
 			invoiceAction.loadAssociations();
 		}

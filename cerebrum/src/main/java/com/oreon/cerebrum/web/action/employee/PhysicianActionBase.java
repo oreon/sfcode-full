@@ -52,10 +52,6 @@ public abstract class PhysicianActionBase
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Physician physician;
-
 	@In(create = true, value = "specializationAction")
 	com.oreon.cerebrum.web.action.employee.SpecializationAction specializationAction;
 
@@ -69,7 +65,7 @@ public abstract class PhysicianActionBase
 			return;
 		}
 		setId(id);
-		physician = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -79,7 +75,7 @@ public abstract class PhysicianActionBase
 	 */
 	public void setPhysicianIdForModalDlg(Long id) {
 		setId(id);
-		physician = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -103,12 +99,12 @@ public abstract class PhysicianActionBase
 	}
 
 	public Physician getEntity() {
-		return physician;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Physician t) {
-		this.physician = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -161,8 +157,8 @@ public abstract class PhysicianActionBase
 	}
 
 	public void setPhysician(Physician t) {
-		this.physician = t;
-		if (physician != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPhysicianId(t.getId());
 		loadAssociations();
 	}
@@ -178,9 +174,9 @@ public abstract class PhysicianActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (physician.getSpecialization() != null) {
+		if (instance.getSpecialization() != null) {
 			criteria = criteria.add(Restrictions.eq("specialization.id",
-					physician.getSpecialization().getId()));
+					instance.getSpecialization().getId()));
 		}
 
 	}
@@ -191,7 +187,7 @@ public abstract class PhysicianActionBase
 	 */
 	public void loadAssociations() {
 
-		if (physician.getSpecialization() != null) {
+		if (getInstance().getSpecialization() != null) {
 			specializationAction.setInstance(getInstance().getSpecialization());
 			specializationAction.loadAssociations();
 		}

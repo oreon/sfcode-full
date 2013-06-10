@@ -50,10 +50,6 @@ public abstract class DrugInteractionActionBase
 		extends
 			BaseAction<DrugInteraction> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private DrugInteraction drugInteraction;
-
 	@In(create = true, value = "drugAction")
 	com.oreon.cerebrum.web.action.drugs.DrugAction drugAction;
 
@@ -68,7 +64,7 @@ public abstract class DrugInteractionActionBase
 			return;
 		}
 		setId(id);
-		drugInteraction = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class DrugInteractionActionBase
 	 */
 	public void setDrugInteractionIdForModalDlg(Long id) {
 		setId(id);
-		drugInteraction = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -115,12 +111,12 @@ public abstract class DrugInteractionActionBase
 	}
 
 	public DrugInteraction getEntity() {
-		return drugInteraction;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(DrugInteraction t) {
-		this.drugInteraction = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -178,8 +174,8 @@ public abstract class DrugInteractionActionBase
 	}
 
 	public void setDrugInteraction(DrugInteraction t) {
-		this.drugInteraction = t;
-		if (drugInteraction != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setDrugInteractionId(t.getId());
 		loadAssociations();
 	}
@@ -195,14 +191,14 @@ public abstract class DrugInteractionActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (drugInteraction.getDrug() != null) {
-			criteria = criteria.add(Restrictions.eq("drug.id", drugInteraction
+		if (instance.getDrug() != null) {
+			criteria = criteria.add(Restrictions.eq("drug.id", instance
 					.getDrug().getId()));
 		}
 
-		if (drugInteraction.getInteractingDrug() != null) {
+		if (instance.getInteractingDrug() != null) {
 			criteria = criteria.add(Restrictions.eq("interactingDrug.id",
-					drugInteraction.getInteractingDrug().getId()));
+					instance.getInteractingDrug().getId()));
 		}
 
 	}
@@ -213,12 +209,12 @@ public abstract class DrugInteractionActionBase
 	 */
 	public void loadAssociations() {
 
-		if (drugInteraction.getDrug() != null) {
+		if (getInstance().getDrug() != null) {
 			drugAction.setInstance(getInstance().getDrug());
 			drugAction.loadAssociations();
 		}
 
-		if (drugInteraction.getInteractingDrug() != null) {
+		if (getInstance().getInteractingDrug() != null) {
 			interactingDrugAction.setInstance(getInstance()
 					.getInteractingDrug());
 			interactingDrugAction.loadAssociations();

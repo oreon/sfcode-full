@@ -52,10 +52,6 @@ public abstract class RoomActionBase extends BaseAction<Room>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Room room;
-
 	@In(create = true, value = "roomTypeAction")
 	com.oreon.cerebrum.web.action.facility.RoomTypeAction roomTypeAction;
 
@@ -70,7 +66,7 @@ public abstract class RoomActionBase extends BaseAction<Room>
 			return;
 		}
 		setId(id);
-		room = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -80,7 +76,7 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	 */
 	public void setRoomIdForModalDlg(Long id) {
 		setId(id);
-		room = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -116,12 +112,12 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	}
 
 	public Room getEntity() {
-		return room;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Room t) {
-		this.room = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -179,8 +175,8 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	}
 
 	public void setRoom(Room t) {
-		this.room = t;
-		if (room != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setRoomId(t.getId());
 		loadAssociations();
 	}
@@ -196,14 +192,14 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (room.getRoomType() != null) {
-			criteria = criteria.add(Restrictions.eq("roomType.id", room
+		if (instance.getRoomType() != null) {
+			criteria = criteria.add(Restrictions.eq("roomType.id", instance
 					.getRoomType().getId()));
 		}
 
-		if (room.getWard() != null) {
-			criteria = criteria.add(Restrictions.eq("ward.id", room.getWard()
-					.getId()));
+		if (instance.getWard() != null) {
+			criteria = criteria.add(Restrictions.eq("ward.id", instance
+					.getWard().getId()));
 		}
 
 	}
@@ -214,12 +210,12 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	 */
 	public void loadAssociations() {
 
-		if (room.getRoomType() != null) {
+		if (getInstance().getRoomType() != null) {
 			roomTypeAction.setInstance(getInstance().getRoomType());
 			roomTypeAction.loadAssociations();
 		}
 
-		if (room.getWard() != null) {
+		if (getInstance().getWard() != null) {
 			wardAction.setInstance(getInstance().getWard());
 			wardAction.loadAssociations();
 		}

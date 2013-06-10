@@ -50,10 +50,6 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private AppUser appUser;
-
 	public void setAppUserId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 			return;
 		}
 		setId(id);
-		appUser = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 	 */
 	public void setAppUserIdForModalDlg(Long id) {
 		setId(id);
-		appUser = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 	}
 
 	public AppUser getEntity() {
-		return appUser;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(AppUser t) {
-		this.appUser = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 	}
 
 	public void setAppUser(AppUser t) {
-		this.appUser = t;
-		if (appUser != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setAppUserId(t.getId());
 		loadAssociations();
 	}

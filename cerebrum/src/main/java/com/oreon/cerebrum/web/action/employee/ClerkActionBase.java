@@ -52,10 +52,6 @@ public abstract class ClerkActionBase
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Clerk clerk;
-
 	public void setClerkId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -64,7 +60,7 @@ public abstract class ClerkActionBase
 			return;
 		}
 		setId(id);
-		clerk = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -74,7 +70,7 @@ public abstract class ClerkActionBase
 	 */
 	public void setClerkIdForModalDlg(Long id) {
 		setId(id);
-		clerk = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -84,12 +80,12 @@ public abstract class ClerkActionBase
 	}
 
 	public Clerk getEntity() {
-		return clerk;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Clerk t) {
-		this.clerk = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -136,8 +132,8 @@ public abstract class ClerkActionBase
 	}
 
 	public void setClerk(Clerk t) {
-		this.clerk = t;
-		if (clerk != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setClerkId(t.getId());
 		loadAssociations();
 	}

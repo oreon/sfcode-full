@@ -50,10 +50,6 @@ public abstract class PatientFindingActionBase
 		extends
 			BaseAction<PatientFinding> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private PatientFinding patientFinding;
-
 	@In(create = true, value = "findingAction")
 	com.oreon.cerebrum.web.action.ddx.FindingAction findingAction;
 
@@ -68,7 +64,7 @@ public abstract class PatientFindingActionBase
 			return;
 		}
 		setId(id);
-		patientFinding = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class PatientFindingActionBase
 	 */
 	public void setPatientFindingIdForModalDlg(Long id) {
 		setId(id);
-		patientFinding = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class PatientFindingActionBase
 	}
 
 	public PatientFinding getEntity() {
-		return patientFinding;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(PatientFinding t) {
-		this.patientFinding = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -178,8 +174,8 @@ public abstract class PatientFindingActionBase
 	}
 
 	public void setPatientFinding(PatientFinding t) {
-		this.patientFinding = t;
-		if (patientFinding != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPatientFindingId(t.getId());
 		loadAssociations();
 	}
@@ -195,14 +191,14 @@ public abstract class PatientFindingActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (patientFinding.getFinding() != null) {
-			criteria = criteria.add(Restrictions.eq("finding.id",
-					patientFinding.getFinding().getId()));
+		if (instance.getFinding() != null) {
+			criteria = criteria.add(Restrictions.eq("finding.id", instance
+					.getFinding().getId()));
 		}
 
-		if (patientFinding.getPatientDiffDx() != null) {
+		if (instance.getPatientDiffDx() != null) {
 			criteria = criteria.add(Restrictions.eq("patientDiffDx.id",
-					patientFinding.getPatientDiffDx().getId()));
+					instance.getPatientDiffDx().getId()));
 		}
 
 	}
@@ -213,12 +209,12 @@ public abstract class PatientFindingActionBase
 	 */
 	public void loadAssociations() {
 
-		if (patientFinding.getFinding() != null) {
+		if (getInstance().getFinding() != null) {
 			findingAction.setInstance(getInstance().getFinding());
 			findingAction.loadAssociations();
 		}
 
-		if (patientFinding.getPatientDiffDx() != null) {
+		if (getInstance().getPatientDiffDx() != null) {
 			patientDiffDxAction.setInstance(getInstance().getPatientDiffDx());
 			patientDiffDxAction.loadAssociations();
 		}

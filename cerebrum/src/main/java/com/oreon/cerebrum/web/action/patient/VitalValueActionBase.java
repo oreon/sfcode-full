@@ -50,10 +50,6 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private VitalValue vitalValue;
-
 	@In(create = true, value = "trackedVitalAction")
 	com.oreon.cerebrum.web.action.patient.TrackedVitalAction trackedVitalAction;
 
@@ -68,7 +64,7 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 			return;
 		}
 		setId(id);
-		vitalValue = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	 */
 	public void setVitalValueIdForModalDlg(Long id) {
 		setId(id);
-		vitalValue = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	}
 
 	public VitalValue getEntity() {
-		return vitalValue;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(VitalValue t) {
-		this.vitalValue = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -178,8 +174,8 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	}
 
 	public void setVitalValue(VitalValue t) {
-		this.vitalValue = t;
-		if (vitalValue != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setVitalValueId(t.getId());
 		loadAssociations();
 	}
@@ -195,13 +191,13 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (vitalValue.getTrackedVital() != null) {
-			criteria = criteria.add(Restrictions.eq("trackedVital.id",
-					vitalValue.getTrackedVital().getId()));
+		if (instance.getTrackedVital() != null) {
+			criteria = criteria.add(Restrictions.eq("trackedVital.id", instance
+					.getTrackedVital().getId()));
 		}
 
-		if (vitalValue.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", vitalValue
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
@@ -213,12 +209,12 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	 */
 	public void loadAssociations() {
 
-		if (vitalValue.getTrackedVital() != null) {
+		if (getInstance().getTrackedVital() != null) {
 			trackedVitalAction.setInstance(getInstance().getTrackedVital());
 			trackedVitalAction.loadAssociations();
 		}
 
-		if (vitalValue.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}
