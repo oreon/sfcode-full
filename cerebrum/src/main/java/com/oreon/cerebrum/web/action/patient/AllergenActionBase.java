@@ -50,10 +50,6 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Allergen allergen;
-
 	public void setAllergenId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 			return;
 		}
 		setId(id);
-		allergen = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 	 */
 	public void setAllergenIdForModalDlg(Long id) {
 		setId(id);
-		allergen = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 	}
 
 	public Allergen getEntity() {
-		return allergen;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Allergen t) {
-		this.allergen = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 	}
 
 	public void setAllergen(Allergen t) {
-		this.allergen = t;
-		if (allergen != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setAllergenId(t.getId());
 		loadAssociations();
 	}

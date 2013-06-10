@@ -52,10 +52,6 @@ public abstract class NurseActionBase
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Nurse nurse;
-
 	@In(create = true, value = "nurseSpecialtyAction")
 	com.oreon.cerebrum.web.action.employee.NurseSpecialtyAction nurseSpecialtyAction;
 
@@ -69,7 +65,7 @@ public abstract class NurseActionBase
 			return;
 		}
 		setId(id);
-		nurse = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -79,7 +75,7 @@ public abstract class NurseActionBase
 	 */
 	public void setNurseIdForModalDlg(Long id) {
 		setId(id);
-		nurse = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -103,12 +99,12 @@ public abstract class NurseActionBase
 	}
 
 	public Nurse getEntity() {
-		return nurse;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Nurse t) {
-		this.nurse = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -161,8 +157,8 @@ public abstract class NurseActionBase
 	}
 
 	public void setNurse(Nurse t) {
-		this.nurse = t;
-		if (nurse != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setNurseId(t.getId());
 		loadAssociations();
 	}
@@ -178,9 +174,9 @@ public abstract class NurseActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (nurse.getNurseSpecialty() != null) {
-			criteria = criteria.add(Restrictions.eq("nurseSpecialty.id", nurse
-					.getNurseSpecialty().getId()));
+		if (instance.getNurseSpecialty() != null) {
+			criteria = criteria.add(Restrictions.eq("nurseSpecialty.id",
+					instance.getNurseSpecialty().getId()));
 		}
 
 	}
@@ -191,7 +187,7 @@ public abstract class NurseActionBase
 	 */
 	public void loadAssociations() {
 
-		if (nurse.getNurseSpecialty() != null) {
+		if (getInstance().getNurseSpecialty() != null) {
 			nurseSpecialtyAction.setInstance(getInstance().getNurseSpecialty());
 			nurseSpecialtyAction.loadAssociations();
 		}

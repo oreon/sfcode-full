@@ -52,10 +52,6 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Drug drug;
-
 	public void setDrugId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -64,7 +60,7 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 			return;
 		}
 		setId(id);
-		drug = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -74,7 +70,7 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 	 */
 	public void setDrugIdForModalDlg(Long id) {
 		setId(id);
-		drug = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -84,12 +80,12 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 	}
 
 	public Drug getEntity() {
-		return drug;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Drug t) {
-		this.drug = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -136,8 +132,8 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 	}
 
 	public void setDrug(Drug t) {
-		this.drug = t;
-		if (drug != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setDrugId(t.getId());
 		loadAssociations();
 	}

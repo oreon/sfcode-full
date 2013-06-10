@@ -19,6 +19,8 @@
 					<h:outputText value="#{msg.encounter_patient}  "
 						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}" />
 				</ui:define>
+				
+				
 				<h:selectOneMenu id="#{prefix}_patientpatient"
 					label="#{msg.encounter_patient}"
 					value="#{encounterAction.encounter.patient}" required="true"
@@ -32,13 +34,11 @@
 				</h:selectOneMenu>
 			</s:decorate>
 
-
-			<rich:panelMenu  mode="ajax"
-				iconExpandedGroup="disc" iconCollapsedGroup="disc"
-				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
-				iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right">
-				<rich:panelMenuGroup label="History">
-
+				<br/>
+				<br/>
+				<br/>
+			<rich:panelBar  mode="ajax" width="600" >
+				<rich:panelBarItem label="History">
 
 					<s:decorate id="#{prefix}_chiefComplaintDecorate"
 						template="/layout/edit.xhtml">
@@ -61,7 +61,8 @@
 						<ui:define name="label">
 							<h:outputText value="#{msg.encounter_physicalExamFindings}  "
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}" />
-						</ui:define>
+					</ui:define>
+					
 						<rich:editor useSeamText="true"
 							id="#{prefix}_physicalExamFindings#{entityId}"
 							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}"
@@ -89,23 +90,22 @@
 						</rich:editor>
 					</s:decorate>
 
-
-
-				</rich:panelMenuGroup>
+				</rich:panelBarItem>
 		
 				
-				<rich:panelMenuGroup label="Dx Tests">
+				<rich:panelBarItem label="Dx Tests">
 					AABBCC
-				</rich:panelMenuGroup>
+				</rich:panelBarItem>
 				
 				
-				<rich:panelMenuGroup label="Prescription ">
-				   DDEEFF 
-				</rich:panelMenuGroup>
+				<rich:panelBarItem label="Prescription ">
+				  <ui:include
+							src="/admin/entities/prescription/prescription/editPrescriptionComponentForEncounter.xhtml" />
+				</rich:panelBarItem>
 				
 				
 
-			</rich:panelMenu>
+			</rich:panelBar>
 
 			
 

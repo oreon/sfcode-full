@@ -50,10 +50,6 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private OccurenceType occurenceType;
-
 	public void setOccurenceTypeId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 			return;
 		}
 		setId(id);
-		occurenceType = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 	 */
 	public void setOccurenceTypeIdForModalDlg(Long id) {
 		setId(id);
-		occurenceType = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 	}
 
 	public OccurenceType getEntity() {
-		return occurenceType;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(OccurenceType t) {
-		this.occurenceType = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 	}
 
 	public void setOccurenceType(OccurenceType t) {
-		this.occurenceType = t;
-		if (occurenceType != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setOccurenceTypeId(t.getId());
 		loadAssociations();
 	}

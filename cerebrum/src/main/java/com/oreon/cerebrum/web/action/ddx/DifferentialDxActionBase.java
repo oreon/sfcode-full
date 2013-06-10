@@ -50,10 +50,6 @@ public abstract class DifferentialDxActionBase
 		extends
 			BaseAction<DifferentialDx> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private DifferentialDx differentialDx;
-
 	@In(create = true, value = "dxCategoryAction")
 	com.oreon.cerebrum.web.action.ddx.DxCategoryAction dxCategoryAction;
 
@@ -68,7 +64,7 @@ public abstract class DifferentialDxActionBase
 			return;
 		}
 		setId(id);
-		differentialDx = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class DifferentialDxActionBase
 	 */
 	public void setDifferentialDxIdForModalDlg(Long id) {
 		setId(id);
-		differentialDx = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class DifferentialDxActionBase
 	}
 
 	public DifferentialDx getEntity() {
-		return differentialDx;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(DifferentialDx t) {
-		this.differentialDx = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -178,8 +174,8 @@ public abstract class DifferentialDxActionBase
 	}
 
 	public void setDifferentialDx(DifferentialDx t) {
-		this.differentialDx = t;
-		if (differentialDx != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setDifferentialDxId(t.getId());
 		loadAssociations();
 	}
@@ -195,14 +191,14 @@ public abstract class DifferentialDxActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (differentialDx.getDxCategory() != null) {
-			criteria = criteria.add(Restrictions.eq("dxCategory.id",
-					differentialDx.getDxCategory().getId()));
+		if (instance.getDxCategory() != null) {
+			criteria = criteria.add(Restrictions.eq("dxCategory.id", instance
+					.getDxCategory().getId()));
 		}
 
-		if (differentialDx.getFinding() != null) {
-			criteria = criteria.add(Restrictions.eq("finding.id",
-					differentialDx.getFinding().getId()));
+		if (instance.getFinding() != null) {
+			criteria = criteria.add(Restrictions.eq("finding.id", instance
+					.getFinding().getId()));
 		}
 
 	}
@@ -213,12 +209,12 @@ public abstract class DifferentialDxActionBase
 	 */
 	public void loadAssociations() {
 
-		if (differentialDx.getDxCategory() != null) {
+		if (getInstance().getDxCategory() != null) {
 			dxCategoryAction.setInstance(getInstance().getDxCategory());
 			dxCategoryAction.loadAssociations();
 		}
 
-		if (differentialDx.getFinding() != null) {
+		if (getInstance().getFinding() != null) {
 			findingAction.setInstance(getInstance().getFinding());
 			findingAction.loadAssociations();
 		}

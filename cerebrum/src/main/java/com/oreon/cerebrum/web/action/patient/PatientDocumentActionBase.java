@@ -50,10 +50,6 @@ public abstract class PatientDocumentActionBase
 		extends
 			BaseAction<PatientDocument> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private PatientDocument patientDocument;
-
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
@@ -65,7 +61,7 @@ public abstract class PatientDocumentActionBase
 			return;
 		}
 		setId(id);
-		patientDocument = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -75,7 +71,7 @@ public abstract class PatientDocumentActionBase
 	 */
 	public void setPatientDocumentIdForModalDlg(Long id) {
 		setId(id);
-		patientDocument = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -98,12 +94,12 @@ public abstract class PatientDocumentActionBase
 	}
 
 	public PatientDocument getEntity() {
-		return patientDocument;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(PatientDocument t) {
-		this.patientDocument = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -156,8 +152,8 @@ public abstract class PatientDocumentActionBase
 	}
 
 	public void setPatientDocument(PatientDocument t) {
-		this.patientDocument = t;
-		if (patientDocument != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPatientDocumentId(t.getId());
 		loadAssociations();
 	}
@@ -191,9 +187,9 @@ public abstract class PatientDocumentActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (patientDocument.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id",
-					patientDocument.getPatient().getId()));
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
+					.getPatient().getId()));
 		}
 
 	}
@@ -204,7 +200,7 @@ public abstract class PatientDocumentActionBase
 	 */
 	public void loadAssociations() {
 
-		if (patientDocument.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}

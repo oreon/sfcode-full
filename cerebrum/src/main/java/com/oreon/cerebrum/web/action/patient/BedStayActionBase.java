@@ -50,10 +50,6 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private BedStay bedStay;
-
 	@In(create = true, value = "admissionAction")
 	com.oreon.cerebrum.web.action.patient.AdmissionAction admissionAction;
 
@@ -68,7 +64,7 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 			return;
 		}
 		setId(id);
-		bedStay = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -78,7 +74,7 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	 */
 	public void setBedStayIdForModalDlg(Long id) {
 		setId(id);
-		bedStay = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -114,12 +110,12 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	}
 
 	public BedStay getEntity() {
-		return bedStay;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(BedStay t) {
-		this.bedStay = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -177,8 +173,8 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	}
 
 	public void setBedStay(BedStay t) {
-		this.bedStay = t;
-		if (bedStay != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setBedStayId(t.getId());
 		loadAssociations();
 	}
@@ -194,13 +190,13 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (bedStay.getAdmission() != null) {
-			criteria = criteria.add(Restrictions.eq("admission.id", bedStay
+		if (instance.getAdmission() != null) {
+			criteria = criteria.add(Restrictions.eq("admission.id", instance
 					.getAdmission().getId()));
 		}
 
-		if (bedStay.getBed() != null) {
-			criteria = criteria.add(Restrictions.eq("bed.id", bedStay.getBed()
+		if (instance.getBed() != null) {
+			criteria = criteria.add(Restrictions.eq("bed.id", instance.getBed()
 					.getId()));
 		}
 
@@ -212,12 +208,12 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	 */
 	public void loadAssociations() {
 
-		if (bedStay.getAdmission() != null) {
+		if (getInstance().getAdmission() != null) {
 			admissionAction.setInstance(getInstance().getAdmission());
 			admissionAction.loadAssociations();
 		}
 
-		if (bedStay.getBed() != null) {
+		if (getInstance().getBed() != null) {
 			bedAction.setInstance(getInstance().getBed());
 			bedAction.loadAssociations();
 		}

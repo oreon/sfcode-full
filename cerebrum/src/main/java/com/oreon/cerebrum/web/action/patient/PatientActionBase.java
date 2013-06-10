@@ -61,10 +61,6 @@ public abstract class PatientActionBase
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Patient patient;
-
 	@In(create = true, value = "admissionAction")
 	com.oreon.cerebrum.web.action.patient.AdmissionAction admissionsAction;
 
@@ -97,7 +93,7 @@ public abstract class PatientActionBase
 			return;
 		}
 		setId(id);
-		patient = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -107,7 +103,7 @@ public abstract class PatientActionBase
 	 */
 	public void setPatientIdForModalDlg(Long id) {
 		setId(id);
-		patient = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -117,12 +113,12 @@ public abstract class PatientActionBase
 	}
 
 	public Patient getEntity() {
-		return patient;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Patient t) {
-		this.patient = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -169,8 +165,8 @@ public abstract class PatientActionBase
 	}
 
 	public void setPatient(Patient t) {
-		this.patient = t;
-		if (patient != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPatientId(t.getId());
 		loadAssociations();
 	}
@@ -208,42 +204,42 @@ public abstract class PatientActionBase
 
 		com.oreon.cerebrum.patient.Admission admissions = (com.oreon.cerebrum.patient.Admission) org.jboss.seam.Component
 				.getInstance("admission");
-		admissions.setPatient(patient);
+		admissions.setPatient(instance);
 		events.raiseTransactionSuccessEvent("archivedAdmission");
 
 		com.oreon.cerebrum.prescription.Prescription prescriptions = (com.oreon.cerebrum.prescription.Prescription) org.jboss.seam.Component
 				.getInstance("prescription");
-		prescriptions.setPatient(patient);
+		prescriptions.setPatient(instance);
 		events.raiseTransactionSuccessEvent("archivedPrescription");
 
 		com.oreon.cerebrum.unusualoccurences.UnusualOccurence unusualOccurences = (com.oreon.cerebrum.unusualoccurences.UnusualOccurence) org.jboss.seam.Component
 				.getInstance("unusualOccurence");
-		unusualOccurences.setPatient(patient);
+		unusualOccurences.setPatient(instance);
 		events.raiseTransactionSuccessEvent("archivedUnusualOccurence");
 
 		com.oreon.cerebrum.patient.PatientDocument patientDocuments = (com.oreon.cerebrum.patient.PatientDocument) org.jboss.seam.Component
 				.getInstance("patientDocument");
-		patientDocuments.setPatient(patient);
+		patientDocuments.setPatient(instance);
 		events.raiseTransactionSuccessEvent("archivedPatientDocument");
 
 		com.oreon.cerebrum.patient.Allergy allergys = (com.oreon.cerebrum.patient.Allergy) org.jboss.seam.Component
 				.getInstance("allergy");
-		allergys.setPatient(patient);
+		allergys.setPatient(instance);
 		events.raiseTransactionSuccessEvent("archivedAllergy");
 
 		com.oreon.cerebrum.patient.Immunization immunizations = (com.oreon.cerebrum.patient.Immunization) org.jboss.seam.Component
 				.getInstance("immunization");
-		immunizations.setPatient(patient);
+		immunizations.setPatient(instance);
 		events.raiseTransactionSuccessEvent("archivedImmunization");
 
 		com.oreon.cerebrum.patient.VitalValue vitalValues = (com.oreon.cerebrum.patient.VitalValue) org.jboss.seam.Component
 				.getInstance("vitalValue");
-		vitalValues.setPatient(patient);
+		vitalValues.setPatient(instance);
 		events.raiseTransactionSuccessEvent("archivedVitalValue");
 
 		com.oreon.cerebrum.encounter.Encounter encounters = (com.oreon.cerebrum.encounter.Encounter) org.jboss.seam.Component
 				.getInstance("encounter");
-		encounters.setPatient(patient);
+		encounters.setPatient(instance);
 		events.raiseTransactionSuccessEvent("archivedEncounter");
 
 	}

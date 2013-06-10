@@ -50,10 +50,6 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Frequency frequency;
-
 	public void setFrequencyId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 			return;
 		}
 		setId(id);
-		frequency = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 	 */
 	public void setFrequencyIdForModalDlg(Long id) {
 		setId(id);
-		frequency = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 	}
 
 	public Frequency getEntity() {
-		return frequency;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Frequency t) {
-		this.frequency = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 	}
 
 	public void setFrequency(Frequency t) {
-		this.frequency = t;
-		if (frequency != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setFrequencyId(t.getId());
 		loadAssociations();
 	}

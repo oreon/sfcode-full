@@ -50,10 +50,6 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Vaccine vaccine;
-
 	public void setVaccineId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 			return;
 		}
 		setId(id);
-		vaccine = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 	 */
 	public void setVaccineIdForModalDlg(Long id) {
 		setId(id);
-		vaccine = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 	}
 
 	public Vaccine getEntity() {
-		return vaccine;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Vaccine t) {
-		this.vaccine = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 	}
 
 	public void setVaccine(Vaccine t) {
-		this.vaccine = t;
-		if (vaccine != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setVaccineId(t.getId());
 		loadAssociations();
 	}

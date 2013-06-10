@@ -52,10 +52,6 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Prescription prescription;
-
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
@@ -67,7 +63,7 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 			return;
 		}
 		setId(id);
-		prescription = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -77,7 +73,7 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 	 */
 	public void setPrescriptionIdForModalDlg(Long id) {
 		setId(id);
-		prescription = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -100,12 +96,12 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 	}
 
 	public Prescription getEntity() {
-		return prescription;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Prescription t) {
-		this.prescription = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -158,8 +154,8 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 	}
 
 	public void setPrescription(Prescription t) {
-		this.prescription = t;
-		if (prescription != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPrescriptionId(t.getId());
 		loadAssociations();
 	}
@@ -175,8 +171,8 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (prescription.getPatient() != null) {
-			criteria = criteria.add(Restrictions.eq("patient.id", prescription
+		if (instance.getPatient() != null) {
+			criteria = criteria.add(Restrictions.eq("patient.id", instance
 					.getPatient().getId()));
 		}
 
@@ -188,7 +184,7 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 	 */
 	public void loadAssociations() {
 
-		if (prescription.getPatient() != null) {
+		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
 			patientAction.loadAssociations();
 		}

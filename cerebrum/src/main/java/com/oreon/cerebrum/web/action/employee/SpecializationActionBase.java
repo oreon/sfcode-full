@@ -50,10 +50,6 @@ public abstract class SpecializationActionBase
 		extends
 			BaseAction<Specialization> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private Specialization specialization;
-
 	public void setSpecializationId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -62,7 +58,7 @@ public abstract class SpecializationActionBase
 			return;
 		}
 		setId(id);
-		specialization = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -72,7 +68,7 @@ public abstract class SpecializationActionBase
 	 */
 	public void setSpecializationIdForModalDlg(Long id) {
 		setId(id);
-		specialization = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -82,12 +78,12 @@ public abstract class SpecializationActionBase
 	}
 
 	public Specialization getEntity() {
-		return specialization;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Specialization t) {
-		this.specialization = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -134,8 +130,8 @@ public abstract class SpecializationActionBase
 	}
 
 	public void setSpecialization(Specialization t) {
-		this.specialization = t;
-		if (specialization != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setSpecializationId(t.getId());
 		loadAssociations();
 	}

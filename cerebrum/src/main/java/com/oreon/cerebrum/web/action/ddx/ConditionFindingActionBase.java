@@ -50,10 +50,6 @@ public abstract class ConditionFindingActionBase
 		extends
 			BaseAction<ConditionFinding> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private ConditionFinding conditionFinding;
-
 	@In(create = true, value = "diseaseAction")
 	com.oreon.cerebrum.web.action.ddx.DiseaseAction diseaseAction;
 
@@ -65,7 +61,7 @@ public abstract class ConditionFindingActionBase
 			return;
 		}
 		setId(id);
-		conditionFinding = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -75,7 +71,7 @@ public abstract class ConditionFindingActionBase
 	 */
 	public void setConditionFindingIdForModalDlg(Long id) {
 		setId(id);
-		conditionFinding = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -98,12 +94,12 @@ public abstract class ConditionFindingActionBase
 	}
 
 	public ConditionFinding getEntity() {
-		return conditionFinding;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(ConditionFinding t) {
-		this.conditionFinding = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -156,8 +152,8 @@ public abstract class ConditionFindingActionBase
 	}
 
 	public void setConditionFinding(ConditionFinding t) {
-		this.conditionFinding = t;
-		if (conditionFinding != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setConditionFindingId(t.getId());
 		loadAssociations();
 	}
@@ -173,9 +169,9 @@ public abstract class ConditionFindingActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (conditionFinding.getDisease() != null) {
-			criteria = criteria.add(Restrictions.eq("disease.id",
-					conditionFinding.getDisease().getId()));
+		if (instance.getDisease() != null) {
+			criteria = criteria.add(Restrictions.eq("disease.id", instance
+					.getDisease().getId()));
 		}
 
 	}
@@ -186,7 +182,7 @@ public abstract class ConditionFindingActionBase
 	 */
 	public void loadAssociations() {
 
-		if (conditionFinding.getDisease() != null) {
+		if (getInstance().getDisease() != null) {
 			diseaseAction.setInstance(getInstance().getDisease());
 			diseaseAction.loadAssociations();
 		}

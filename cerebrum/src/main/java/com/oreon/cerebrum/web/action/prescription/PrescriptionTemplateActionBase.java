@@ -52,10 +52,6 @@ public abstract class PrescriptionTemplateActionBase
 		extends
 			BaseAction<PrescriptionTemplate> implements java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private PrescriptionTemplate prescriptionTemplate;
-
 	public void setPrescriptionTemplateId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -64,7 +60,7 @@ public abstract class PrescriptionTemplateActionBase
 			return;
 		}
 		setId(id);
-		prescriptionTemplate = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -74,7 +70,7 @@ public abstract class PrescriptionTemplateActionBase
 	 */
 	public void setPrescriptionTemplateIdForModalDlg(Long id) {
 		setId(id);
-		prescriptionTemplate = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -84,12 +80,12 @@ public abstract class PrescriptionTemplateActionBase
 	}
 
 	public PrescriptionTemplate getEntity() {
-		return prescriptionTemplate;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(PrescriptionTemplate t) {
-		this.prescriptionTemplate = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -136,8 +132,8 @@ public abstract class PrescriptionTemplateActionBase
 	}
 
 	public void setPrescriptionTemplate(PrescriptionTemplate t) {
-		this.prescriptionTemplate = t;
-		if (prescriptionTemplate != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPrescriptionTemplateId(t.getId());
 		loadAssociations();
 	}

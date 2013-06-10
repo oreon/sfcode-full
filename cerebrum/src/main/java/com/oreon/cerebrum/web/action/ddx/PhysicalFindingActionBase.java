@@ -52,10 +52,6 @@ public abstract class PhysicalFindingActionBase
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private PhysicalFinding physicalFinding;
-
 	public void setPhysicalFindingId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -64,7 +60,7 @@ public abstract class PhysicalFindingActionBase
 			return;
 		}
 		setId(id);
-		physicalFinding = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -74,7 +70,7 @@ public abstract class PhysicalFindingActionBase
 	 */
 	public void setPhysicalFindingIdForModalDlg(Long id) {
 		setId(id);
-		physicalFinding = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -84,12 +80,12 @@ public abstract class PhysicalFindingActionBase
 	}
 
 	public PhysicalFinding getEntity() {
-		return physicalFinding;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(PhysicalFinding t) {
-		this.physicalFinding = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -136,8 +132,8 @@ public abstract class PhysicalFindingActionBase
 	}
 
 	public void setPhysicalFinding(PhysicalFinding t) {
-		this.physicalFinding = t;
-		if (physicalFinding != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setPhysicalFindingId(t.getId());
 		loadAssociations();
 	}

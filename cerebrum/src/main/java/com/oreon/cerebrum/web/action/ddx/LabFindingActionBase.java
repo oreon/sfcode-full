@@ -52,10 +52,6 @@ public abstract class LabFindingActionBase
 		implements
 			java.io.Serializable {
 
-	@In(create = true)
-	@Out(required = false)
-	private LabFinding labFinding;
-
 	public void setLabFindingId(Long id) {
 		if (id == 0) {
 			clearInstance();
@@ -64,7 +60,7 @@ public abstract class LabFindingActionBase
 			return;
 		}
 		setId(id);
-		labFinding = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -74,7 +70,7 @@ public abstract class LabFindingActionBase
 	 */
 	public void setLabFindingIdForModalDlg(Long id) {
 		setId(id);
-		labFinding = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -84,12 +80,12 @@ public abstract class LabFindingActionBase
 	}
 
 	public LabFinding getEntity() {
-		return labFinding;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(LabFinding t) {
-		this.labFinding = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -136,8 +132,8 @@ public abstract class LabFindingActionBase
 	}
 
 	public void setLabFinding(LabFinding t) {
-		this.labFinding = t;
-		if (labFinding != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setLabFindingId(t.getId());
 		loadAssociations();
 	}
