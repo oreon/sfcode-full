@@ -18,22 +18,26 @@
 				<c:set var="modalId" value="«name»ModalPanel-«name»" />
 				<ui:include src="search«name».«getExtension()»" />
 				<br/> <br/>
-				«EXPAND genButtons FOR this»
+				«IF !isAbstract»«EXPAND genButtons FOR this»«ENDIF»
 				<div id="printable" >
 				<ui:include src="list«name»Component.«getExtension()»"  >
 					<ui:param name="records" value="#{«asVar()»List.resultList}" />
          		</ui:include>
          		</div>
-				«EXPAND genButtons FOR this»
+				«IF !isAbstract»«EXPAND genButtons FOR this»«ENDIF»
+				«IF !isAbstract»
 				<ui:include src="«getComponentViewFile("modalDlg")»" >
 					<ui:param name="modalId" value="${modalId}"/> 
 				</ui:include>
+				«ENDIF»
 			</ui:define>
 		</ui:composition>
 			«ENDFILE»
 			«EXPAND genViewComponent FOR this»
 			«EXPAND auditListRoot::genAuditLogComponent FOR this»
-			«EXPAND modelDlg::genModelDlgComponent FOR this»
+			«IF !isAbstract»
+				«EXPAND modelDlg::genModelDlgComponent FOR this»
+			«ENDIF»
 			
 			«EXPAND genArchivedFile FOR this»
 			
@@ -78,9 +82,11 @@
 				«EXPAND genPropsFromBusinessEntity FOR this-»
 				«EXPAND genCreationDate FOR this-»	
 				«EXPAND genLink("view", "eye.png") FOR this»
-				«EXPAND genLink ("edit", "edit.png")FOR this»
-				«EXPAND genDeleteLink FOR this»
-				«EXPAND genQuickEditLink FOR this»
+				«IF !isAbstract»
+					«EXPAND genLink ("edit", "edit.png")FOR this»
+					«EXPAND genDeleteLink FOR this»
+					«EXPAND genQuickEditLink FOR this»
+				«ENDIF»
 				</rich:dataTable>
 		 	</a:form>		
 		</rich:panel>	

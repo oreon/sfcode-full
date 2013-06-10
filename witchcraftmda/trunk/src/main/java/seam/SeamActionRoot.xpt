@@ -96,9 +96,11 @@ import «a.type.fqn()»;
 
 public abstract class «name»ActionBase extends «getParentForAction()» implements java.io.Serializable{
 
+	«REM»
 	«IF getCartridge() == "RICH"»@In(create = true)«ENDIF»
 	@Out(required = false)
-	private «name» «asVar()»  «IF getCartridge() != "RICH"»=  new «name»() «ENDIF»;
+	private «name» «asVar()»  «IF getCartridge() == "JSF2RICH"»=  new «name»() «ENDIF»;
+	«ENDREM»
 	
 	«FOREACH getOutgoingAssociations() AS e»
 	«IF !e.type.isAbstract»
@@ -127,7 +129,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 			return;
 		}
 		setId(id);
-		«asVar()» = loadInstance();
+		instance = loadInstance();
 		if(!isPostBack())
 			loadAssociations();
 	}
@@ -137,7 +139,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	 */
 	public void set«name»IdForModalDlg(Long id) {
 		setId(id);
-		«asVar()» = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -167,12 +169,12 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 
 	public «name» getEntity(){
-		return «asVar()»;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(«name» t) {
-		this.«asVar()» = t;
+		this.instance = t;
 		loadAssociations();
 	}
 	
@@ -237,8 +239,8 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 
 	public void set«name»(«name» t) {
-		this.«asVar()» = t;
-		if («asVar()» != null)
+		this.instance = t;
+		if (getInstance() != null)
 			set«name»Id(t.getId());
 		loadAssociations();
 	}
@@ -300,8 +302,8 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	 @Override
 	public void addAssociations(Criteria criteria) {
 		«FOREACH getOutgoingAssociations() AS e»
-		if («asVar()».get«e.name.toFirstUpper()»() != null) {
-			criteria = criteria.add(Restrictions.eq("«e.name».id", «asVar()».get«e.name.toFirstUpper()»().getId()));
+		if (instance.get«e.name.toFirstUpper()»() != null) {
+			criteria = criteria.add(Restrictions.eq("«e.name».id", instance.get«e.name.toFirstUpper()»().getId()));
 		}
 		«ENDFOREACH»
 	}
@@ -314,7 +316,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	public void loadAssociations(){
 		«FOREACH getOutgoingAssociations() AS e»
 		«IF !e.type.isAbstract»
-		if («asVar()».get«e.name.toFirstUpper()»() != null) {
+		if (getInstance().get«e.name.toFirstUpper()»() != null) {
 			«e.name»Action.setInstance(getInstance().get«e.name.toFirstUpper()»());
 			«e.name»Action.loadAssociations();
 		}
@@ -334,7 +336,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	public void updateAssociations(){
 		«FOREACH getNonComposedManyAssociations() AS a»
 		«a.type.fqn()» «a.name» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
-		«a.name».set«a.opposite.name.toFirstUpper()»(«asVar()»);
+		«a.name».set«a.opposite.name.toFirstUpper()»(instance);
 		events.raiseTransactionSuccessEvent("archived«a.type.name»");
 		«ENDFOREACH»
 	}
