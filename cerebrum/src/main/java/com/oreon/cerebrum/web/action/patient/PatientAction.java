@@ -26,19 +26,24 @@ public class PatientAction extends PatientActionBase implements
 
 	}
 	
-	public void initBirths(){
+	public void initBloodPressureValues(){
+		
+		if(instance == null )
+			load(0L);
 		
 		bpList = new ArrayList<BloodPressure>();
 		
-		Set<Encounter> encounters = instance.getEncounters();
+		
+		Set<Encounter> encounters = getInstance().getEncounters();
 		for (Encounter encounter : encounters) {
-			bpList.add(new BloodPressure(encounter.getDateCreated(), encounter.getVitals().getSysBP(), encounter.getVitals().getDiasBP()));
+			if(encounter.getVitals() != null  && encounter.getVitals().getSysBP() != null && encounter.getVitals().getDiasBP() != null)
+				bpList.add(new BloodPressure(encounter.getDateCreated(), encounter.getVitals().getSysBP(), encounter.getVitals().getDiasBP()));
 		}
 	}
 
-	public List<BloodPressure> getBirths() {
+	public List<BloodPressure> getBloodPressureValues() {
 		if(bpList == null)
-			initBirths();
+			initBloodPressureValues();
 		return bpList;
 	}
 

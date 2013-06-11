@@ -202,7 +202,7 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	}
 
 	public Vitals getVitals() {
-
+		if(vitals == null) vitals = new Vitals();
 		return vitals;
 
 	}
