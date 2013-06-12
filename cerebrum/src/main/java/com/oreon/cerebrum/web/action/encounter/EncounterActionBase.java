@@ -133,7 +133,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	}
 
 	public Encounter getEncounter() {
-		return (Encounter) instance;
+		return (Encounter) getInstance();
 	}
 
 	@Override

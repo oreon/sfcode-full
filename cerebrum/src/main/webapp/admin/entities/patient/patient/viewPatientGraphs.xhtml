@@ -25,9 +25,11 @@
 
 			<ui:repeat var="tval" value="#{patientAction.trackedVals}">
 				<h4> #{tval.get(0).trackedVital.name}</h4>
-				<p:lineChart value="#{tval}" var="birth"
-					xfield="#{birth.dateCreated}">
-					<p:chartSeries label="#{birth.trackedVital.name}" value="#{birth.value}" />
+				<p:lineChart value="#{tval}" var="vitalvalues"  
+					xfield="#{vitalvalues.dateCreated}"  titleX="22">
+					<p:chartSeries label="#{vitalvalues.trackedVital.name}" value="#{vitalvalues.value}"   >
+						
+					</p:chartSeries>
 				</p:lineChart>
 			</ui:repeat>
 		</p:panel>

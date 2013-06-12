@@ -19,7 +19,10 @@
               <ui:param name="propertyPath" value="nurseSpecialty.id"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_nurseSpecialty.id}"></h:outputText> 
+          <s:link view="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml" rendered="#{s:hasPermission(_nurseSpecialty, 'view')}" propagation="none"> 
+            <h:outputText value="#{_nurseSpecialty.id}"/>  
+            <f:param name="nurseSpecialtyId" value="#{_nurseSpecialty.id}"/> 
+          </s:link> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurseSpecialty', 'viewName')}"> 
           <f:facet name="header"> 

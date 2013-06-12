@@ -19,7 +19,10 @@
               <ui:param name="propertyPath" value="invoiceItem.id"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_invoiceItem.id}"></h:outputText> 
+          <s:link view="/admin/entities/billing/invoiceItem/viewInvoiceItem.xhtml" rendered="#{s:hasPermission(_invoiceItem, 'view')}" propagation="none"> 
+            <h:outputText value="#{_invoiceItem.id}"/>  
+            <f:param name="invoiceItemId" value="#{_invoiceItem.id}"/> 
+          </s:link> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}"> 
           <f:facet name="header"> 

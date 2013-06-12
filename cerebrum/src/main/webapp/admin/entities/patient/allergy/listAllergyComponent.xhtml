@@ -19,7 +19,10 @@
               <ui:param name="propertyPath" value="allergy.id"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_allergy.id}"></h:outputText> 
+          <s:link view="/admin/entities/patient/allergy/viewAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'view')}" propagation="none"> 
+            <h:outputText value="#{_allergy.id}"/>  
+            <f:param name="allergyId" value="#{_allergy.id}"/> 
+          </s:link> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')}"> 
           <f:facet name="header"> 
