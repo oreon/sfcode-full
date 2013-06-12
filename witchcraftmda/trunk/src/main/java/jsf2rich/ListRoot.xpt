@@ -352,7 +352,7 @@
 				<ui:param name="propertyPath" value="«getCurrentEntity().asVar()».id" />
 			</ui:include>
 		</f:facet>
-		<h:link outcome="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}" propagation="none">
+		<h:link outcome="«getViewFile(getAction())»"  rendered="#{s:hasPermission(_«asVar()», 'view')}" propagation="none">
 			<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  />
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
 		</h:link>
