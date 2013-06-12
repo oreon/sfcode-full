@@ -19,7 +19,10 @@
               <ui:param name="propertyPath" value="ward.id"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_ward.id}"></h:outputText> 
+          <s:link view="/admin/entities/facility/ward/viewWard.xhtml" rendered="#{s:hasPermission(_ward, 'view')}" propagation="none"> 
+            <h:outputText value="#{_ward.id}"/>  
+            <f:param name="wardId" value="#{_ward.id}"/> 
+          </s:link> 
         </h:column>  
         <h:column groupOn="#{ward.facility.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')}"> 
           <f:facet name="header"> 
