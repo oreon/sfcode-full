@@ -303,7 +303,8 @@
 «DEFINE genLabelAndInput FOR uml::Property-»
 	«IF !isDerived() && !type.isEmbeddable() && !systemModify() && !currentUser()»
 		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>":""» 
-		<s:decorate id="«getId()»Decorate" template="/layout/edit«isCurrentMultiMode()?"TableField":""».xhtml">
+		<s:decorate id="«getId()»Decorate" template="/layout/edit«isCurrentMultiMode()?"TableField":""».xhtml"  
+				«IF association != null» rendered="#{ ! exclude«name.toFirstUpper()» == true}"«ENDIF»  >
 		<ui:define name="label"> «!isCurrentMultiMode()?getOutputMessage():" "»</ui:define> 
 		«IF association != null-»
 			«EXPAND genAssociation-»
