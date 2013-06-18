@@ -6,11 +6,6 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/>  
-      <br/>  
-      <h:inputText id="#{prefix}_remarks" value="#{prescribedTestList.prescribedTest.remarks}"/> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>  
       <br/>  
       <h:selectOneMenu id="#{prefix}_dxTestdxTest" value="#{ prescribedTestList.prescribedTest.dxTest}"> 
@@ -25,6 +20,11 @@
         <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_remarks" value="#{prescribedTestList.prescribedTest.remarks}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

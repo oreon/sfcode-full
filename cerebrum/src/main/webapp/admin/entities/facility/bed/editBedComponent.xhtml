@@ -20,7 +20,7 @@
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_roomroomDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_roomroomDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeRoom == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}"/>
           </ui:define>  

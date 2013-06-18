@@ -31,7 +31,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDrug == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/>
           </ui:define>  
@@ -41,7 +41,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_interactingDruginteractingDrugDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_interactingDruginteractingDrugDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeInteractingDrug == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/>
           </ui:define>  

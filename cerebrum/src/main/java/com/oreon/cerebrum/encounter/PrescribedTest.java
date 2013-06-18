@@ -65,13 +65,6 @@ import com.oreon.cerebrum.ProjectUtils;
 public class PrescribedTest extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1220063154L;
 
-	@Column(unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String remarks
-
-	;
-
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "dxTest_id", nullable = false, updatable = true)
 	protected com.oreon.cerebrum.ddx.DxTest dxTest
@@ -84,15 +77,12 @@ public class PrescribedTest extends BaseEntity implements java.io.Serializable {
 
 	;
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
+	@Column(unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String remarks
 
-	public String getRemarks() {
-
-		return remarks;
-
-	}
+	;
 
 	public void setDxTest(com.oreon.cerebrum.ddx.DxTest dxTest) {
 		this.dxTest = dxTest;
@@ -111,6 +101,16 @@ public class PrescribedTest extends BaseEntity implements java.io.Serializable {
 	public Encounter getEncounter() {
 
 		return encounter;
+
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getRemarks() {
+
+		return remarks;
 
 	}
 

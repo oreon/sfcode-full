@@ -19,7 +19,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectBooleanCheckbox> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_diseasediseaseDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_diseasediseaseDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDisease == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}"/>
           </ui:define>  

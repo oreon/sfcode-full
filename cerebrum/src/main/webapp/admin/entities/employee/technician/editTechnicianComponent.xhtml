@@ -61,7 +61,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeFacility == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFacility')}"/>
           </ui:define>  
@@ -71,7 +71,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_departmentdepartmentDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_departmentdepartmentDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDepartment == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}"/>
           </ui:define>  

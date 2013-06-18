@@ -683,6 +683,102 @@
       <rule if-outcome="editAppRole"> 
         <end-conversation/>  
         <redirect view-id="/admin/entities/users/appRole/editAppRole.xhtml"/> 
+      </rule>  
+      <rule if-outcome="code"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/code/listCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/code/viewCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/code/editCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="chapter"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/chapter/listChapter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewChapter"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/chapter/viewChapter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editChapter"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/chapter/editChapter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="section"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/section/listSection.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewSection"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/section/viewSection.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editSection"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/section/editSection.xhtml"/> 
+      </rule>  
+      <rule if-outcome="abstractCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/abstractCode/listAbstractCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewAbstractCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/abstractCode/viewAbstractCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editAbstractCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/abstractCode/editAbstractCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="appliedChart"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/appliedChart/listAppliedChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewAppliedChart"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/appliedChart/viewAppliedChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editAppliedChart"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="chart"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chart/listChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewChart"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chart/viewChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editChart"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chart/editChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="chartItem"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartItem/listChartItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewChartItem"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartItem/viewChartItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editChartItem"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartItem/editChartItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="chartProcedure"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartProcedure/listChartProcedure.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewChartProcedure"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editChartProcedure"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml"/> 
       </rule> 
     </navigation> 
   </page>  
@@ -740,15 +836,13 @@
     <param name="dir" value="#{encounterList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{encounterList.encounter.id}"/>  
-    <param name="#{prefix}_chiefComplaint" value="#{encounterList.encounter.chiefComplaint}" validateModel="false"/>  
-    <param name="#{prefix}_progressNotes" value="#{encounterList.encounter.progressNotes}" validateModel="false"/>  
+    <param name="#{prefix}_patientNote" value="#{encounterList.encounter.patientNote}" validateModel="false"/>  
     <param name="#{prefix}_vitals_SysBP" value="#{encounterList.encounter.vitals.sysBP}" validateModel="false"/>  
     <param name="#{prefix}_vitals_DiasBP" value="#{encounterList.encounter.vitals.diasBP}" validateModel="false"/>  
     <param name="#{prefix}_vitals_Temperature" value="#{encounterList.encounter.vitals.temperature}" validateModel="false"/>  
     <param name="#{prefix}_vitals_Pulse" value="#{encounterList.encounter.vitals.pulse}" validateModel="false"/>  
     <param name="#{prefix}_vitals_RespirationRate" value="#{encounterList.encounter.vitals.respirationRate}" validateModel="false"/>  
     <param name="#{prefix}_prescriptionprescription" value="#{encounterList.encounter.prescription.id}" validateModel="false"/>  
-    <param name="#{prefix}_physicalExamFindings" value="#{encounterList.encounter.physicalExamFindings}" validateModel="false"/>  
     <param name="#{prefix}_patientpatient" value="#{encounterList.encounter.patient.id}" validateModel="false"/>  
     <param name="#{prefix}_creatorcreator" value="#{encounterList.encounter.creator.id}" validateModel="false"/> 
   </page>  
@@ -805,9 +899,9 @@
     <param name="dir" value="#{prescribedTestList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{prescribedTestList.prescribedTest.id}"/>  
-    <param name="#{prefix}_remarks" value="#{prescribedTestList.prescribedTest.remarks}" validateModel="false"/>  
     <param name="#{prefix}_dxTestdxTest" value="#{prescribedTestList.prescribedTest.dxTest.id}" validateModel="false"/>  
-    <param name="#{prefix}_encounterencounter" value="#{prescribedTestList.prescribedTest.encounter.id}" validateModel="false"/> 
+    <param name="#{prefix}_encounterencounter" value="#{prescribedTestList.prescribedTest.encounter.id}" validateModel="false"/>  
+    <param name="#{prefix}_remarks" value="#{prescribedTestList.prescribedTest.remarks}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/encounter/differential/editDifferential.xhtml"> 
     <!-- <description>Edit Differential: #{differential.displayName}</description> -->  
@@ -3783,6 +3877,451 @@
     <param name="from"/>  
     <param name="id" value="#{appRoleList.appRole.id}"/>  
     <param name="#{prefix}_name" value="#{appRoleList.appRole.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/code/editCode.xhtml"> 
+    <!-- <description>Edit Code: #{code.displayName}</description> -->  
+    <restrict>#{s:hasPermission('code', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/code/viewCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/code/listCode.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="codeId" value="#{codeAction.codeId}"/>  
+    <param name="sectionId" value="#{codeAction.sectionId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/code/viewCode.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Code: #{code.displayName}</description> -->  
+    <restrict>#{s:hasPermission('code', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/code/editCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/code/listCode.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="codeId" value="#{codeAction.codeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/code/listCode.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('code', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/code/viewCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/code/editCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/codes/code/textSearchResultsCode.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{codeList.firstResult}"/>  
+    <param name="sort" value="#{codeList.orderColumn}"/>  
+    <param name="dir" value="#{codeList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{codeList.code.id}"/>  
+    <param name="#{prefix}_name" value="#{codeList.code.name}" validateModel="false"/>  
+    <param name="#{prefix}_description" value="#{codeList.code.description}" validateModel="false"/>  
+    <param name="#{prefix}_includes" value="#{codeList.code.includes}" validateModel="false"/>  
+    <param name="#{prefix}_excludes" value="#{codeList.code.excludes}" validateModel="false"/>  
+    <param name="#{prefix}_codeFirst" value="#{codeList.code.codeFirst}" validateModel="false"/>  
+    <param name="#{prefix}_sectionsection" value="#{codeList.code.section.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/chapter/editChapter.xhtml"> 
+    <!-- <description>Edit Chapter: #{chapter.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chapter', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/chapter/viewChapter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/chapter/listChapter.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chapterId" value="#{chapterAction.chapterId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/chapter/viewChapter.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Chapter: #{chapter.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chapter', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/chapter/editChapter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/chapter/listChapter.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chapterId" value="#{chapterAction.chapterId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/chapter/listChapter.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('chapter', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewChapter"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/chapter/viewChapter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/chapter/editChapter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/codes/chapter/textSearchResultsChapter.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{chapterList.firstResult}"/>  
+    <param name="sort" value="#{chapterList.orderColumn}"/>  
+    <param name="dir" value="#{chapterList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{chapterList.chapter.id}"/>  
+    <param name="#{prefix}_name" value="#{chapterList.chapter.name}" validateModel="false"/>  
+    <param name="#{prefix}_description" value="#{chapterList.chapter.description}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/section/editSection.xhtml"> 
+    <!-- <description>Edit Section: #{section.displayName}</description> -->  
+    <restrict>#{s:hasPermission('section', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/section/viewSection.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/section/listSection.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="sectionId" value="#{sectionAction.sectionId}"/>  
+    <param name="chapterId" value="#{sectionAction.chapterId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/section/viewSection.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Section: #{section.displayName}</description> -->  
+    <restrict>#{s:hasPermission('section', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/section/editSection.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/section/listSection.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="sectionId" value="#{sectionAction.sectionId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/section/listSection.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('section', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewSection"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/section/viewSection.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/section/editSection.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/codes/section/textSearchResultsSection.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{sectionList.firstResult}"/>  
+    <param name="sort" value="#{sectionList.orderColumn}"/>  
+    <param name="dir" value="#{sectionList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{sectionList.section.id}"/>  
+    <param name="#{prefix}_name" value="#{sectionList.section.name}" validateModel="false"/>  
+    <param name="#{prefix}_description" value="#{sectionList.section.description}" validateModel="false"/>  
+    <param name="#{prefix}_chapterchapter" value="#{sectionList.section.chapter.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/abstractCode/editAbstractCode.xhtml"> 
+    <!-- <description>Edit AbstractCode: #{abstractCode.displayName}</description> -->  
+    <restrict>#{s:hasPermission('abstractCode', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/abstractCode/viewAbstractCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/abstractCode/listAbstractCode.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="abstractCodeId" value="#{abstractCodeAction.abstractCodeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/abstractCode/viewAbstractCode.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View AbstractCode: #{abstractCode.displayName}</description> -->  
+    <restrict>#{s:hasPermission('abstractCode', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/abstractCode/editAbstractCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/abstractCode/listAbstractCode.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="abstractCodeId" value="#{abstractCodeAction.abstractCodeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/abstractCode/listAbstractCode.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('abstractCode', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewAbstractCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/abstractCode/viewAbstractCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/abstractCode/editAbstractCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/codes/abstractCode/textSearchResultsAbstractCode.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{abstractCodeList.firstResult}"/>  
+    <param name="sort" value="#{abstractCodeList.orderColumn}"/>  
+    <param name="dir" value="#{abstractCodeList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{abstractCodeList.abstractCode.id}"/>  
+    <param name="#{prefix}_name" value="#{abstractCodeList.abstractCode.name}" validateModel="false"/>  
+    <param name="#{prefix}_description" value="#{abstractCodeList.abstractCode.description}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"> 
+    <!-- <description>Edit AppliedChart: #{appliedChart.displayName}</description> -->  
+    <restrict>#{s:hasPermission('appliedChart', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/appliedChart/viewAppliedChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/appliedChart/listAppliedChart.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="appliedChartId" value="#{appliedChartAction.appliedChartId}"/>  
+    <param name="patientId" value="#{appliedChartAction.patientId}"/>  
+    <param name="chartId" value="#{appliedChartAction.chartId}"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/appliedChart/viewAppliedChart.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View AppliedChart: #{appliedChart.displayName}</description> -->  
+    <restrict>#{s:hasPermission('appliedChart', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/appliedChart/listAppliedChart.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="appliedChartId" value="#{appliedChartAction.appliedChartId}"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/appliedChart/listAppliedChart.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('appliedChart', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewAppliedChart"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/appliedChart/viewAppliedChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/charts/appliedChart/textSearchResultsAppliedChart.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{appliedChartList.firstResult}"/>  
+    <param name="sort" value="#{appliedChartList.orderColumn}"/>  
+    <param name="dir" value="#{appliedChartList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{appliedChartList.appliedChart.id}"/>  
+    <param name="#{prefix}_patientpatient" value="#{appliedChartList.appliedChart.patient.id}" validateModel="false"/>  
+    <param name="#{prefix}_chartchart" value="#{appliedChartList.appliedChart.chart.id}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/chart/editChart.xhtml"> 
+    <!-- <description>Edit Chart: #{chart.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chart', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chart/viewChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chart/listChart.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chartId" value="#{chartAction.chartId}"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/chart/viewChart.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Chart: #{chart.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chart', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chart/editChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chart/listChart.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chartId" value="#{chartAction.chartId}"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/chart/listChart.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('chart', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewChart"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chart/viewChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chart/editChart.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/charts/chart/textSearchResultsChart.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{chartList.firstResult}"/>  
+    <param name="sort" value="#{chartList.orderColumn}"/>  
+    <param name="dir" value="#{chartList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{chartList.chart.id}"/>  
+    <param name="#{prefix}_name" value="#{chartList.chart.name}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/chartItem/editChartItem.xhtml"> 
+    <!-- <description>Edit ChartItem: #{chartItem.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chartItem', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartItem/viewChartItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartItem/listChartItem.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chartItemId" value="#{chartItemAction.chartItemId}"/>  
+    <param name="chartId" value="#{chartItemAction.chartId}"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/chartItem/viewChartItem.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View ChartItem: #{chartItem.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chartItem', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartItem/editChartItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartItem/listChartItem.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chartItemId" value="#{chartItemAction.chartItemId}"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/chartItem/listChartItem.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('chartItem', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewChartItem"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartItem/viewChartItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartItem/editChartItem.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/charts/chartItem/textSearchResultsChartItem.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{chartItemList.firstResult}"/>  
+    <param name="sort" value="#{chartItemList.orderColumn}"/>  
+    <param name="dir" value="#{chartItemList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{chartItemList.chartItem.id}"/>  
+    <param name="#{prefix}_name" value="#{chartItemList.chartItem.name}" validateModel="false"/>  
+    <param name="#{prefix}_duration" value="#{chartItemList.chartItem.duration}" validateModel="false"/>  
+    <param name="#{prefix}_chartchart" value="#{chartItemList.chartItem.chart.id}" validateModel="false"/>  
+    <param name="#{prefix}_frequencyPeriod" value="#{chartItemList.chartItem.frequencyPeriod}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml"> 
+    <!-- <description>Edit ChartProcedure: #{chartProcedure.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chartProcedure', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartProcedure/listChartProcedure.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chartProcedureId" value="#{chartProcedureAction.chartProcedureId}"/>  
+    <param name="patientId" value="#{chartProcedureAction.patientId}"/>  
+    <param name="chartItemId" value="#{chartProcedureAction.chartItemId}"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View ChartProcedure: #{chartProcedure.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chartProcedure', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartProcedure/listChartProcedure.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chartProcedureId" value="#{chartProcedureAction.chartProcedureId}"/> 
+  </page>  
+  <page view-id="/admin/entities/charts/chartProcedure/listChartProcedure.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('chartProcedure', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewChartProcedure"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/charts/chartProcedure/textSearchResultsChartProcedure.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{chartProcedureList.firstResult}"/>  
+    <param name="sort" value="#{chartProcedureList.orderColumn}"/>  
+    <param name="dir" value="#{chartProcedureList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{chartProcedureList.chartProcedure.id}"/>  
+    <param name="#{prefix}_patientpatient" value="#{chartProcedureList.chartProcedure.patient.id}" validateModel="false"/>  
+    <param name="#{prefix}_chartItemchartItem" value="#{chartProcedureList.chartProcedure.chartItem.id}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 

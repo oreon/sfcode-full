@@ -54,6 +54,8 @@ import com.oreon.cerebrum.patient.Allergy;
 import com.oreon.cerebrum.patient.Immunization;
 import com.oreon.cerebrum.patient.VitalValue;
 import com.oreon.cerebrum.encounter.Encounter;
+import com.oreon.cerebrum.charts.AppliedChart;
+import com.oreon.cerebrum.charts.ChartProcedure;
 
 public abstract class PatientActionBase
 		extends
@@ -84,6 +86,12 @@ public abstract class PatientActionBase
 
 	@In(create = true, value = "encounterAction")
 	com.oreon.cerebrum.web.action.encounter.EncounterAction encountersAction;
+
+	@In(create = true, value = "appliedChartAction")
+	com.oreon.cerebrum.web.action.charts.AppliedChartAction appliedChartsAction;
+
+	@In(create = true, value = "chartProcedureAction")
+	com.oreon.cerebrum.web.action.charts.ChartProcedureAction chartProceduresAction;
 
 	public void setPatientId(Long id) {
 		if (id == 0) {
@@ -198,6 +206,10 @@ public abstract class PatientActionBase
 
 		initListEncounters();
 
+		initListAppliedCharts();
+
+		initListChartProcedures();
+
 	}
 
 	public void updateAssociations() {
@@ -241,6 +253,16 @@ public abstract class PatientActionBase
 				.getInstance("encounter");
 		encounters.setPatient(instance);
 		events.raiseTransactionSuccessEvent("archivedEncounter");
+
+		com.oreon.cerebrum.charts.AppliedChart appliedCharts = (com.oreon.cerebrum.charts.AppliedChart) org.jboss.seam.Component
+				.getInstance("appliedChart");
+		appliedCharts.setPatient(instance);
+		events.raiseTransactionSuccessEvent("archivedAppliedChart");
+
+		com.oreon.cerebrum.charts.ChartProcedure chartProcedures = (com.oreon.cerebrum.charts.ChartProcedure) org.jboss.seam.Component
+				.getInstance("chartProcedure");
+		chartProcedures.setPatient(instance);
+		events.raiseTransactionSuccessEvent("archivedChartProcedure");
 
 	}
 
@@ -556,6 +578,84 @@ public abstract class PatientActionBase
 
 	}
 
+	protected List<com.oreon.cerebrum.charts.AppliedChart> listAppliedCharts = new ArrayList<com.oreon.cerebrum.charts.AppliedChart>();
+
+	void initListAppliedCharts() {
+
+		if (listAppliedCharts.isEmpty())
+			listAppliedCharts.addAll(getInstance().getAppliedCharts());
+
+	}
+
+	public List<com.oreon.cerebrum.charts.AppliedChart> getListAppliedCharts() {
+
+		prePopulateListAppliedCharts();
+		return listAppliedCharts;
+	}
+
+	public void prePopulateListAppliedCharts() {
+	}
+
+	public void setListAppliedCharts(
+			List<com.oreon.cerebrum.charts.AppliedChart> listAppliedCharts) {
+		this.listAppliedCharts = listAppliedCharts;
+	}
+
+	public void deleteAppliedCharts(int index) {
+		listAppliedCharts.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addAppliedCharts() {
+
+		initListAppliedCharts();
+		AppliedChart appliedCharts = new AppliedChart();
+
+		appliedCharts.setPatient(getInstance());
+
+		getListAppliedCharts().add(appliedCharts);
+
+	}
+
+	protected List<com.oreon.cerebrum.charts.ChartProcedure> listChartProcedures = new ArrayList<com.oreon.cerebrum.charts.ChartProcedure>();
+
+	void initListChartProcedures() {
+
+		if (listChartProcedures.isEmpty())
+			listChartProcedures.addAll(getInstance().getChartProcedures());
+
+	}
+
+	public List<com.oreon.cerebrum.charts.ChartProcedure> getListChartProcedures() {
+
+		prePopulateListChartProcedures();
+		return listChartProcedures;
+	}
+
+	public void prePopulateListChartProcedures() {
+	}
+
+	public void setListChartProcedures(
+			List<com.oreon.cerebrum.charts.ChartProcedure> listChartProcedures) {
+		this.listChartProcedures = listChartProcedures;
+	}
+
+	public void deleteChartProcedures(int index) {
+		listChartProcedures.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addChartProcedures() {
+
+		initListChartProcedures();
+		ChartProcedure chartProcedures = new ChartProcedure();
+
+		chartProcedures.setPatient(getInstance());
+
+		getListChartProcedures().add(chartProcedures);
+
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listAdmissions != null) {
@@ -597,6 +697,16 @@ public abstract class PatientActionBase
 			getInstance().getEncounters().clear();
 			getInstance().getEncounters().addAll(listEncounters);
 		}
+
+		if (listAppliedCharts != null) {
+			getInstance().getAppliedCharts().clear();
+			getInstance().getAppliedCharts().addAll(listAppliedCharts);
+		}
+
+		if (listChartProcedures != null) {
+			getInstance().getChartProcedures().clear();
+			getInstance().getChartProcedures().addAll(listChartProcedures);
+		}
 	}
 
 	public void clearLists() {
@@ -608,6 +718,8 @@ public abstract class PatientActionBase
 		listImmunizations.clear();
 		listVitalValues.clear();
 		listEncounters.clear();
+		listAppliedCharts.clear();
+		listChartProcedures.clear();
 
 	}
 

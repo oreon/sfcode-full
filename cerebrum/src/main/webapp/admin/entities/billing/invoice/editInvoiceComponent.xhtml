@@ -19,7 +19,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/>
           </ui:define>  
@@ -39,7 +39,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_serviceserviceDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="#{prefix}_serviceserviceDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeService == true}"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_serviceservice" label="#{msg.invoiceItem_service}" value="#{_invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false"> 
               <a:support event="onchange" action="#{invoiceItemAction.onChangeService(_invoiceItem)}" reRender="invoiceItems" ajaxSingle="true"> 

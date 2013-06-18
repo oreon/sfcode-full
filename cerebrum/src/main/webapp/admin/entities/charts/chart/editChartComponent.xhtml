@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editChartComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{chartAction.load(chartId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelChart eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Chart}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.chart_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editName')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editName')}" label="#{msg.chart_name}" required="true" disabled="false" value="#{chartAction.chart.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" reRender="chartItems, editChartComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChartItems')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="chartItems" var="_chartItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChartItems')}" value="#{chartAction.listChartItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.chartItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editName')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_nameDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editName')}" label="#{msg.chartItem_name}" required="true" disabled="false" value="#{_chartItem.name}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.chartItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_durationDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="#{prefix}_duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{_chartItem.duration}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editFrequencyPeriod')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_frequencyPeriodDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="#{prefix}_frequencyPeriod" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editFrequencyPeriod')}" value="#{_chartItem.frequencyPeriod}" required="false" label="#{msg.chartItem_frequencyPeriod}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="HOUR" itemLabel="#{msg.HOUR}"/>  
+              <f:selectItem itemValue="DAY" itemLabel="#{msg.DAY}"/>  
+              <f:selectItem itemValue="WEEK" itemLabel="#{msg.WEEK}"/>  
+              <f:selectItem itemValue="MONTH" itemLabel="#{msg.MONTH}"/>  
+              <f:selectItem itemValue="YEAR" itemLabel="#{msg.YEAR}"/>  
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" reRender="chartItems, editChartComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChartItems')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{chartAction.deleteChartItems(rowIndex)}" reRender="chartItems"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

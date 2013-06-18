@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ChapterModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Chapter Search Results (#{empty records ? 0 : (chapterList.paginated ? chapterList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_chapter" value="#{records}" id="chapterList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{chapterList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="chapter.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link view="/admin/entities/codes/chapter/viewChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'view')}" propagation="none"> 
+            <h:outputText value="#{_chapter.id}"/>  
+            <f:param name="chapterId" value="#{_chapter.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewName')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{chapterList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.abstractCode_name}"/>  
+              <ui:param name="propertyPath" value="chapter.name"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_chapter.name}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewDescription')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{chapterList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.abstractCode_description}"/>  
+              <ui:param name="propertyPath" value="chapter.description"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_chapter.description}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{chapterList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="chapter.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_chapter.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_chapter', 'view') and !_chapterCategory.archived}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/codes/chapter/viewChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="chapterId" value="#{_chapter.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_chapter', 'edit') and !_chapterCategory.archived}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/codes/chapter/editChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="chapterId" value="#{_chapter.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('chapterAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link rendered="#{!_chapter.archived}" action="#{chapterAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_chapter.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_chapter.id}"/> 
+          </s:link>  
+          <s:link rendered="#{_chapter.archived}" action="#{chapterAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chapter.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_chapter.id}"/> 
+          </s:link>  
+          <rich:spacer/>  
+          <s:link rendered="#{_chapter.archived}" action="#{chapterAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_chapter.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_chapterCategory', 'edit') and !_chapterCategory.archived}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{chapterAction.setChapterIdForModalDlg(_chapter.id)}" rendered="#{s:hasPermission(_chapter, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{chapterList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{chapterList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{chapterList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{chapterList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{chapterList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{chapterList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{chapterList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

@@ -19,7 +19,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_encounterencounterDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_encounterencounterDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeEncounter == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.differential_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}"/>
           </ui:define>  

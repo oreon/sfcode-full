@@ -71,11 +71,11 @@ public abstract class PrescribedTestListQueryBase
 
 			"prescribedTest.archived = #{prescribedTestList.prescribedTest.archived}",
 
-			"lower(prescribedTest.remarks) like concat(lower(#{prescribedTestList.prescribedTest.remarks}),'%')",
-
 			"prescribedTest.dxTest.id = #{prescribedTestList.prescribedTest.dxTest.id}",
 
 			"prescribedTest.encounter.id = #{prescribedTestList.prescribedTest.encounter.id}",
+
+			"lower(prescribedTest.remarks) like concat(lower(#{prescribedTestList.prescribedTest.remarks}),'%')",
 
 			"prescribedTest.dateCreated <= #{prescribedTestList.dateCreatedRange.end}",
 			"prescribedTest.dateCreated >= #{prescribedTestList.dateCreatedRange.begin}",};
@@ -99,17 +99,17 @@ public abstract class PrescribedTestListQueryBase
 	public void createCsvString(StringBuilder builder, PrescribedTest e) {
 
 		builder.append("\""
-				+ (e.getRemarks() != null
-						? e.getRemarks().replace(",", "")
-						: "") + "\",");
-
-		builder.append("\""
 				+ (e.getDxTest() != null ? e.getDxTest().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getEncounter() != null ? e.getEncounter().getDisplayName()
 						.replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getRemarks() != null
+						? e.getRemarks().replace(",", "")
+						: "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -120,11 +120,11 @@ public abstract class PrescribedTestListQueryBase
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
-		builder.append("Remarks" + ",");
-
 		builder.append("DxTest" + ",");
 
 		builder.append("Encounter" + ",");
+
+		builder.append("Remarks" + ",");
 
 		builder.append("\r\n");
 	}

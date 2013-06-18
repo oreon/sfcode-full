@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_codes_Section) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="Section"> 
+          <div id="printable"> 
+            <ui:include src="/admin/entities/codes/section/viewSectionComponent.xhtml"/> 
+          </div>  
+          <div class="buttonBox"> 
+            <rich:spacer/>  
+            <h:commandButton value="Back To Listing" action="#{sectionAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="Chapter" rendered="#{sectionAction.instance.chapter != null}"> 
+          <ui:include src="/admin/entities/codes/chapter/viewChapterComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="chapterId" value="#{sectionAction.instance.chapter.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel switchType="client"></rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel switchType="client"> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{sectionAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>

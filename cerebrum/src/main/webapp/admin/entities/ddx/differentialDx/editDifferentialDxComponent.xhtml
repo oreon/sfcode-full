@@ -20,7 +20,7 @@
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_dxCategorydxCategoryDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_dxCategorydxCategoryDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDxCategory == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>
           </ui:define>  
@@ -30,7 +30,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_findingfindingDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_findingfindingDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeFinding == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.differentialDx_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}"/>
           </ui:define>  

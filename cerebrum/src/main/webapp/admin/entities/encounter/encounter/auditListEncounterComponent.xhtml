@@ -31,15 +31,9 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.encounter_chiefComplaint}"/> 
+          <h:outputText value="#{msg.encounter_patientNote}"/> 
         </f:facet>  
-        <h:outputText value="#{_log.entity.chiefComplaint}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.encounter_progressNotes}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.progressNotes}"/> 
+        <h:outputText value="#{_log.entity.patientNote}"/> 
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
@@ -82,12 +76,6 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.encounter_physicalExamFindings}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.vitals.physicalExamFindings}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
           <h:outputText value="#{msg.encounter_patient}"/> 
         </f:facet>  
         <s:link escape="false" value="#{_log.entity.vitals.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml"> 
@@ -103,6 +91,12 @@
           <f:param name="id" value="#{_entity.vitals.creator.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.encounter_tests}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.vitals.tests}"/> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

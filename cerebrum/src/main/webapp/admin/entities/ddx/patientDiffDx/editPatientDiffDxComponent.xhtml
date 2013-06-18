@@ -19,7 +19,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}"/>
           </ui:define>  
@@ -39,7 +39,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_findingfindingDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="#{prefix}_findingfindingDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeFinding == true}"> 
             <ui:define name="label"></ui:define>  
             <h:panelGroup> 
               <a:region> 

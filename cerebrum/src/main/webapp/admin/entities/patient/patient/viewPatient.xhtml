@@ -184,6 +184,46 @@
         <ui:include src="/admin/entities/encounter/encounter/modalDlgEncounterComponent.xhtml"> 
           <ui:param name="modalId" value="${modalId}"/> 
         </ui:include> 
+      </rich:tab>  
+      <rich:tab label="AppliedCharts" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-appliedCharts"/>  
+        <ui:include src="/admin/entities/charts/appliedChart/listAppliedChartComponent.xhtml"> 
+          <ui:param name="records" value="#{appliedChartList.getAppliedChartsByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="appliedChartId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
+            <a:actionparam name="appliedChartId" assignTo="#{appliedChartAction.appliedChartId}" value="0"/>  
+            <a:actionparam name="patientId" assignTo="#{appliedChartAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/charts/appliedChart/modalDlgAppliedChartComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </rich:tab>  
+      <rich:tab label="ChartProcedures" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-chartProcedures"/>  
+        <ui:include src="/admin/entities/charts/chartProcedure/listChartProcedureComponent.xhtml"> 
+          <ui:param name="records" value="#{chartProcedureList.getChartProceduresByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="chartProcedureId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
+            <a:actionparam name="chartProcedureId" assignTo="#{chartProcedureAction.chartProcedureId}" value="0"/>  
+            <a:actionparam name="patientId" assignTo="#{chartProcedureAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/charts/chartProcedure/modalDlgChartProcedureComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  

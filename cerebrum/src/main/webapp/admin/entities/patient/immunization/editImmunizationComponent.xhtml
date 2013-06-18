@@ -19,7 +19,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.immunization_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}"/>
           </ui:define>  
@@ -29,7 +29,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_vaccinevaccineDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_vaccinevaccineDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeVaccine == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}"/>
           </ui:define>  
