@@ -643,6 +643,7 @@ a
 				«ENDIF»
 			}
 			«ELSE»
+				«IF  type.isEmbeddable()» if («name» == null ) «name» = new  «type.fqn()»() ; «ENDIF»
 				return «name»;
 			«ENDIF»
 		}
