@@ -65,7 +65,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDrug == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDrug')}"/>
           </ui:define>  
@@ -83,7 +83,7 @@
             </a:region> 
           </h:panelGroup> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_prescriptionprescriptionDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_prescriptionprescriptionDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePrescription == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescription')}"/>
           </ui:define>  
@@ -93,7 +93,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_frequencyfrequencyDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_frequencyfrequencyDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeFrequency == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequency')}"/>
           </ui:define>  

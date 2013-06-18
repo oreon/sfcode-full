@@ -24,30 +24,17 @@
             <f:param name="encounterId" value="#{_encounter.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewChiefComplaint')}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatientNote')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{encounterList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.encounter_chiefComplaint}"/>  
-              <ui:param name="propertyPath" value="encounter.chiefComplaint"/> 
+              <ui:param name="propertyLabel" value="#{msg.encounter_patientNote}"/>  
+              <ui:param name="propertyPath" value="encounter.patientNote"/> 
             </ui:include> 
           </f:facet>  
           <h:panelGroup> 
-            <rich:toolTip value="#{_encounter.chiefComplaint}" for="chiefComplaintAbbr"></rich:toolTip>  
-            <h:outputText id="chiefComplaintAbbr" value="#{_encounter.chiefComplaintAbbreviated}" escape="false"/> 
-          </h:panelGroup> 
-        </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewProgressNotes')}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{encounterList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.encounter_progressNotes}"/>  
-              <ui:param name="propertyPath" value="encounter.progressNotes"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:panelGroup> 
-            <rich:toolTip value="#{_encounter.progressNotes}" for="progressNotesAbbr"></rich:toolTip>  
-            <h:outputText id="progressNotesAbbr" value="#{_encounter.progressNotesAbbreviated}" escape="false"/> 
+            <rich:toolTip value="#{_encounter.patientNote}" for="patientNoteAbbr"></rich:toolTip>  
+            <h:outputText id="patientNoteAbbr" value="#{_encounter.patientNoteAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewSysBP')}"> 
@@ -115,19 +102,6 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPhysicalExamFindings')}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{encounterList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.encounter_physicalExamFindings}"/>  
-              <ui:param name="propertyPath" value="encounter.physicalExamFindings"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:panelGroup> 
-            <rich:toolTip value="#{_encounter.physicalExamFindings}" for="physicalExamFindingsAbbr"></rich:toolTip>  
-            <h:outputText id="physicalExamFindingsAbbr" value="#{_encounter.physicalExamFindingsAbbreviated}" escape="false"/> 
-          </h:panelGroup> 
-        </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatient')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -156,6 +130,16 @@
             <f:param name="employeeId" value="#{_encounter.creator.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTests')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{encounterList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.encounter_tests}"/>  
+              <ui:param name="propertyPath" value="encounter.tests"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_encounter.tests}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 

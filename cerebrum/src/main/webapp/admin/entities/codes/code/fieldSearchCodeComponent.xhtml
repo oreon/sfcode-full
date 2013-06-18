@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editName')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_name" value="#{codeList.code.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_description" value="#{codeList.code.description}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.code_includes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_includes" value="#{codeList.code.includes}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.code_excludes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_excludes" value="#{codeList.code.excludes}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.code_codeFirst}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_codeFirst" value="#{codeList.code.codeFirst}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.code_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editSection')}"/>  
+      <br/>  
+      <h:selectOneMenu id="#{prefix}_sectionsection" value="#{ codeList.code.section}"> 
+        <s:selectItems value="#{sectionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{codeList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{codeList.dateCreatedRange.end}"/> 
+  </h:panelGrid>  
+  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
+    <h:inputText value="#{codeList.searchName}"/>  
+    <h:commandButton id="savesearch" value="Save Search" action="#{codeList.saveSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <h:selectOneMenu id="svdsearches" value="#{codeList.currentSavedSearch}"> 
+      <s:selectItems value="#{codeList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
+      <s:convertEntity/> 
+    </h:selectOneMenu>  
+    <h:commandButton value="Load Search" action="#{codeList.executeSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton> 
+  </div> 
+</ui:composition>

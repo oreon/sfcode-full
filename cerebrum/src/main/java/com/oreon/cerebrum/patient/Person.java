@@ -156,6 +156,8 @@ public class Person extends BaseEntity {
 
 	public ContactDetails getContactDetails() {
 
+		if (contactDetails == null)
+			contactDetails = new com.oreon.cerebrum.patient.ContactDetails();
 		return contactDetails;
 
 	}

@@ -20,7 +20,7 @@
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_roomTyperoomTypeDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_roomTyperoomTypeDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeRoomType == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}"/>
           </ui:define>  
@@ -30,7 +30,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_wardwardDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_wardwardDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeWard == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editWard')}"/>
           </ui:define>  

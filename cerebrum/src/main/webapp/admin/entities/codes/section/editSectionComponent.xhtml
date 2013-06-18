@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editSectionComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{sectionAction.load(sectionId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelSection eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Section}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editName')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editName')}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{sectionAction.section.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editDescription')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editDescription')}" label="#{msg.abstractCode_description}" required="true" disabled="false" value="#{sectionAction.section.description}"> 
+            <rich:ajaxValidator event="onsubmit"/>  
+            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_chapterchapterDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeChapter == true}"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.section_chapter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_chapterchapter" label="#{msg.section_chapter}" value="#{sectionAction.section.chapter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}" disabled="false"> 
+            <s:selectItems value="#{chapterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New Code" action="#{sectionAction.addCodes}" reRender="codes, editSectionComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="codes" var="_code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}" value="#{sectionAction.listCodes}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editName')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_nameDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editName')}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{_code.name}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_descriptionDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="#{prefix}_description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}" label="#{msg.abstractCode_description}" required="true" disabled="false" value="#{_code.description}"> 
+              <rich:ajaxValidator event="onsubmit"/>  
+              <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_includes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_includesDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor escape="false" useSeamText="true" id="#{prefix}_includes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}" label="#{msg.code_includes}" required="false" disabled="false" value="#{_code.includes}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_excludes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_excludesDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor escape="false" useSeamText="true" id="#{prefix}_excludes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}" label="#{msg.code_excludes}" required="false" disabled="false" value="#{_code.excludes}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_codeFirst}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_codeFirstDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor escape="false" useSeamText="true" id="#{prefix}_codeFirst#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{_code.codeFirst}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Code" action="#{sectionAction.addCodes}" reRender="codes, editSectionComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodes')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{sectionAction.deleteCodes(rowIndex)}" reRender="codes"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

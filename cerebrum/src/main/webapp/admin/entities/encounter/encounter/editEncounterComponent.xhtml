@@ -11,31 +11,15 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Encounter}"/> 
         </f:facet>  
-        <s:decorate id="#{prefix}_chiefComplaintDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientNoteDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.encounter_chiefComplaint}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}"/>
+            <h:outputText value="#{msg.encounter_patientNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatientNote')}"/>
           </ui:define>  
-          <rich:editor escape="false" useSeamText="true" id="#{prefix}_chiefComplaint#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}" label="#{msg.encounter_chiefComplaint}" required="false" disabled="false" value="#{encounterAction.encounter.chiefComplaint}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_patientNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatientNote')}" label="#{msg.encounter_patientNote}" required="false" disabled="false" value="#{encounterAction.encounter.patientNote}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_progressNotesDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.encounter_progressNotes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editProgressNotes')}"/>
-          </ui:define>  
-          <rich:editor escape="false" useSeamText="true" id="#{prefix}_progressNotes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editProgressNotes')}" label="#{msg.encounter_progressNotes}" required="false" disabled="false" value="#{encounterAction.encounter.progressNotes}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </rich:editor> 
-        </s:decorate>  
-        <s:decorate id="#{prefix}_physicalExamFindingsDecorate" template="/layout/edit.xhtml"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.encounter_physicalExamFindings}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}"/>
-          </ui:define>  
-          <rich:editor escape="false" useSeamText="true" id="#{prefix}_physicalExamFindings#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPhysicalExamFindings')}" label="#{msg.encounter_physicalExamFindings}" required="false" disabled="false" value="#{encounterAction.encounter.physicalExamFindings}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </rich:editor> 
-        </s:decorate>  
-        <s:decorate id="#{prefix}_prescriptionprescriptionDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_prescriptionprescriptionDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePrescription == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/>
           </ui:define>  
@@ -45,7 +29,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/>
           </ui:define>  
@@ -55,7 +39,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_creatorcreatorDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_creatorcreatorDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeCreator == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}"/>
           </ui:define>  
@@ -123,7 +107,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_dxTestdxTestDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="#{prefix}_dxTestdxTestDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeDxTest == true}"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_dxTestdxTest" label="#{msg.prescribedTest_dxTest}" value="#{_prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false"> 
               <s:selectItems value="#{dxTestList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

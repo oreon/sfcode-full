@@ -28,7 +28,7 @@
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDrug == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>
           </ui:define>  
@@ -38,7 +38,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_parentparentDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_parentparentDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeParent == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editParent')}"/>
           </ui:define>  
@@ -58,7 +58,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeDrug == true}"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_drugdrug" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false"> 
               <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

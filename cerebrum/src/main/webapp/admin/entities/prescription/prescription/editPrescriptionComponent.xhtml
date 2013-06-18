@@ -27,7 +27,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectBooleanCheckbox> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPatient')}"/>
           </ui:define>  
@@ -47,7 +47,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDrug')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeDrug == true}"> 
             <ui:define name="label"></ui:define>  
             <h:panelGroup> 
               <a:region> 
@@ -68,7 +68,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequency')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_frequencyfrequencyDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="#{prefix}_frequencyfrequencyDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeFrequency == true}"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_frequencyfrequency" label="#{msg.prescriptionItem_frequency}" value="#{_prescriptionItem.frequency}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequency')}" disabled="false"> 
               <s:selectItems value="#{frequencyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

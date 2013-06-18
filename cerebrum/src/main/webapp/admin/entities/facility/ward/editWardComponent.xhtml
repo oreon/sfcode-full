@@ -30,7 +30,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeFacility == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editFacility')}"/>
           </ui:define>  
@@ -50,7 +50,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_roomTyperoomTypeDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="#{prefix}_roomTyperoomTypeDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeRoomType == true}"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_roomTyperoomType" label="#{msg.room_roomType}" value="#{_room.roomType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}" disabled="false"> 
               <s:selectItems value="#{roomTypeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

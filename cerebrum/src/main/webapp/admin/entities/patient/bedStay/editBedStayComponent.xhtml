@@ -27,7 +27,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_admissionadmissionDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_admissionadmissionDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeAdmission == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}"/>
           </ui:define>  
@@ -37,7 +37,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeBed == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>
           </ui:define>  

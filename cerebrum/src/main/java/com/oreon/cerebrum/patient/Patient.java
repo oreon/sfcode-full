@@ -286,6 +286,54 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 		return encounters.size();
 	}
 
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "patient_ID", nullable = true)
+	@OrderBy("id DESC")
+	private Set<com.oreon.cerebrum.charts.AppliedChart> appliedCharts = new HashSet<com.oreon.cerebrum.charts.AppliedChart>();
+
+	public void addAppliedChart(
+			com.oreon.cerebrum.charts.AppliedChart appliedChart) {
+
+		appliedChart.setPatient(this);
+
+		this.appliedCharts.add(appliedChart);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.charts.AppliedChart> getListAppliedCharts() {
+		return new ArrayList<com.oreon.cerebrum.charts.AppliedChart>(
+				appliedCharts);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getAppliedChartsCount() {
+		return appliedCharts.size();
+	}
+
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "patient_ID", nullable = true)
+	@OrderBy("id DESC")
+	private Set<com.oreon.cerebrum.charts.ChartProcedure> chartProcedures = new HashSet<com.oreon.cerebrum.charts.ChartProcedure>();
+
+	public void addChartProcedure(
+			com.oreon.cerebrum.charts.ChartProcedure chartProcedure) {
+
+		chartProcedure.setPatient(this);
+
+		this.chartProcedures.add(chartProcedure);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.charts.ChartProcedure> getListChartProcedures() {
+		return new ArrayList<com.oreon.cerebrum.charts.ChartProcedure>(
+				chartProcedures);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getChartProceduresCount() {
+		return chartProcedures.size();
+	}
+
 	public void setAdmissions(Set<Admission> admissions) {
 		this.admissions = admissions;
 	}
@@ -309,6 +357,8 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	public Address getAddress() {
 
+		if (address == null)
+			address = new com.oreon.cerebrum.patient.Address();
 		return address;
 
 	}
@@ -370,6 +420,8 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	public History getHistory() {
 
+		if (history == null)
+			history = new com.oreon.cerebrum.patient.History();
 		return history;
 
 	}
@@ -381,6 +433,24 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 
 	public Set<com.oreon.cerebrum.encounter.Encounter> getEncounters() {
 		return encounters;
+	}
+
+	public void setAppliedCharts(
+			Set<com.oreon.cerebrum.charts.AppliedChart> appliedCharts) {
+		this.appliedCharts = appliedCharts;
+	}
+
+	public Set<com.oreon.cerebrum.charts.AppliedChart> getAppliedCharts() {
+		return appliedCharts;
+	}
+
+	public void setChartProcedures(
+			Set<com.oreon.cerebrum.charts.ChartProcedure> chartProcedures) {
+		this.chartProcedures = chartProcedures;
+	}
+
+	public Set<com.oreon.cerebrum.charts.ChartProcedure> getChartProcedures() {
+		return chartProcedures;
 	}
 
 	@Transient
@@ -472,6 +542,14 @@ public class Patient extends com.oreon.cerebrum.patient.Person
 		}
 
 		for (BaseEntity e : encounters) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BaseEntity e : appliedCharts) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BaseEntity e : chartProcedures) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

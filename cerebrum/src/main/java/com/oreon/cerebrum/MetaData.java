@@ -6,11 +6,9 @@ public class MetaData {
 
 	{"com.oreon.cerebrum.encounter.Encounter",
 
-	"chiefComplaint", "java.lang.String",
+	"patientNote", "java.lang.String",
 
 	"prescribedTestsCount", "java.lang.Integer",
-
-	"progressNotes", "java.lang.String",
 
 	"vitals.SysBP", "java.lang.Integer",
 
@@ -26,21 +24,21 @@ public class MetaData {
 
 	"differentialsCount", "java.lang.Integer",
 
-	"physicalExamFindings", "java.lang.String",
-
 	"patient.displayName", "java.lang.String",
 
 	"creator.displayName", "java.lang.String",
+
+	"tests", "java.lang.String",
 
 	},
 
 	{"com.oreon.cerebrum.encounter.PrescribedTest",
 
-	"remarks", "java.lang.String",
-
 	"dxTest.displayName", "java.lang.String",
 
 	"encounter.displayName", "java.lang.String",
+
+	"remarks", "java.lang.String",
 
 	},
 
@@ -161,6 +159,10 @@ public class MetaData {
 	"history.allergies", "java.lang.String",
 
 	"encountersCount", "java.lang.Integer",
+
+	"appliedChartsCount", "java.lang.Integer",
+
+	"chartProceduresCount", "java.lang.Integer",
 
 	},
 
@@ -699,6 +701,88 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"appUsersCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.codes.Code",
+
+	"name", "java.lang.String",
+
+	"description", "java.lang.String",
+
+	"includes", "java.lang.String",
+
+	"excludes", "java.lang.String",
+
+	"codeFirst", "java.lang.String",
+
+	"section.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.codes.Chapter",
+
+	"name", "java.lang.String",
+
+	"description", "java.lang.String",
+
+	"sectionsCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.codes.Section",
+
+	"name", "java.lang.String",
+
+	"description", "java.lang.String",
+
+	"chapter.displayName", "java.lang.String",
+
+	"codesCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.codes.AbstractCode",
+
+	"name", "java.lang.String",
+
+	"description", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.charts.AppliedChart",
+
+	"patient.displayName", "java.lang.String",
+
+	"chart.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.charts.Chart",
+
+	"chartItemsCount", "java.lang.Integer",
+
+	"name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.charts.ChartItem",
+
+	"name", "java.lang.String",
+
+	"duration", "java.lang.Integer",
+
+	"chart.displayName", "java.lang.String",
+
+	"frequencyPeriod.name", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.charts.ChartProcedure",
+
+	"patient.displayName", "java.lang.String",
+
+	"chartItem.displayName", "java.lang.String",
 
 	},
 

@@ -39,7 +39,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>
           </ui:define>  
@@ -63,7 +63,7 @@
             </a:region> 
           </h:panelGroup> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeBed == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>
           </ui:define>  
@@ -83,7 +83,7 @@
           <f:facet name="header">
             <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeBed == true}"> 
             <ui:define name="label"></ui:define>  
             <h:selectOneMenu id="#{prefix}_bedbed" label="#{msg.bedStay_bed}" value="#{_bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false"> 
               <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

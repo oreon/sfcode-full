@@ -45,7 +45,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_occurenceTypeoccurenceTypeDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_occurenceTypeoccurenceTypeDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeOccurenceType == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}"/>
           </ui:define>  
@@ -55,7 +55,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}"/>
           </ui:define>  

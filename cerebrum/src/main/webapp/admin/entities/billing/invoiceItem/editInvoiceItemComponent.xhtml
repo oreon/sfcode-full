@@ -28,7 +28,7 @@
             <f:converter converterId="javax.faces.BigDecimal"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_serviceserviceDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_serviceserviceDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeService == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>
           </ui:define>  
@@ -39,7 +39,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_invoiceinvoiceDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_invoiceinvoiceDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeInvoice == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}"/>
           </ui:define>  

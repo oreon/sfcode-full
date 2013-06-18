@@ -30,7 +30,7 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_relatedDiseaserelatedDiseaseDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_relatedDiseaserelatedDiseaseDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeRelatedDisease == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editRelatedDisease')}"/>
           </ui:define>  
@@ -40,7 +40,7 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_conditionCategoryconditionCategoryDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_conditionCategoryconditionCategoryDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeConditionCategory == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/>
           </ui:define>  

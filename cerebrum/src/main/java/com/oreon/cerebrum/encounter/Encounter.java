@@ -69,7 +69,7 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String chiefComplaint
+	protected String patientNote
 
 	;
 
@@ -95,14 +95,6 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	public int getPrescribedTestsCount() {
 		return prescribedTests.size();
 	}
-
-	@Lob
-	@Column(unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String progressNotes
-
-	;
 
 	@IndexedEmbedded
 	@AttributeOverrides({
@@ -149,14 +141,6 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 		return differentials.size();
 	}
 
-	@Lob
-	@Column(unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String physicalExamFindings
-
-	;
-
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
 	protected com.oreon.cerebrum.patient.Patient patient
@@ -169,13 +153,20 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 	;
 
-	public void setChiefComplaint(String chiefComplaint) {
-		this.chiefComplaint = chiefComplaint;
+	@Transient
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String tests
+
+	;
+
+	public void setPatientNote(String patientNote) {
+		this.patientNote = patientNote;
 	}
 
-	public String getChiefComplaint() {
+	public String getPatientNote() {
 
-		return chiefComplaint;
+		return patientNote;
 
 	}
 
@@ -187,22 +178,14 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 		return prescribedTests;
 	}
 
-	public void setProgressNotes(String progressNotes) {
-		this.progressNotes = progressNotes;
-	}
-
-	public String getProgressNotes() {
-
-		return progressNotes;
-
-	}
-
 	public void setVitals(Vitals vitals) {
 		this.vitals = vitals;
 	}
 
 	public Vitals getVitals() {
 
+		if (vitals == null)
+			vitals = new com.oreon.cerebrum.encounter.Vitals();
 		return vitals;
 
 	}
@@ -226,16 +209,6 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 		return differentials;
 	}
 
-	public void setPhysicalExamFindings(String physicalExamFindings) {
-		this.physicalExamFindings = physicalExamFindings;
-	}
-
-	public String getPhysicalExamFindings() {
-
-		return physicalExamFindings;
-
-	}
-
 	public void setPatient(com.oreon.cerebrum.patient.Patient patient) {
 		this.patient = patient;
 	}
@@ -256,42 +229,38 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 	}
 
+	public void setTests(String tests) {
+		this.tests = tests;
+	}
+
+	public String getTests() {
+
+		try {
+			return ProjectUtils.getTests(this);
+		} catch (Exception e) {
+
+			return "";
+
+		}
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
-			return chiefComplaint + "";
+			return tests;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
 	}
 
 	@Transient
-	public String getChiefComplaintAbbreviated() {
+	public String getPatientNoteAbbreviated() {
 		try {
-			return org.apache.commons.lang.WordUtils.abbreviate(chiefComplaint
+			return org.apache.commons.lang.WordUtils.abbreviate(patientNote
 					.trim(), 100, 200, "...");
 		} catch (Exception e) {
-			return chiefComplaint != null ? chiefComplaint : "";
-		}
-	}
-
-	@Transient
-	public String getProgressNotesAbbreviated() {
-		try {
-			return org.apache.commons.lang.WordUtils.abbreviate(progressNotes
-					.trim(), 100, 200, "...");
-		} catch (Exception e) {
-			return progressNotes != null ? progressNotes : "";
-		}
-	}
-
-	@Transient
-	public String getPhysicalExamFindingsAbbreviated() {
-		try {
-			return org.apache.commons.lang.WordUtils.abbreviate(
-					physicalExamFindings.trim(), 100, 200, "...");
-		} catch (Exception e) {
-			return physicalExamFindings != null ? physicalExamFindings : "";
+			return patientNote != null ? patientNote : "";
 		}
 	}
 
@@ -307,11 +276,9 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
-		listSearchableFields.add("chiefComplaint");
+		listSearchableFields.add("patientNote");
 
-		listSearchableFields.add("progressNotes");
-
-		listSearchableFields.add("physicalExamFindings");
+		listSearchableFields.add("tests");
 
 		listSearchableFields.add("prescribedTests.remarks");
 
@@ -325,11 +292,9 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(getChiefComplaint() + " ");
+		builder.append(getPatientNote() + " ");
 
-		builder.append(getProgressNotes() + " ");
-
-		builder.append(getPhysicalExamFindings() + " ");
+		builder.append(getTests() + " ");
 
 		if (getPrescription() != null)
 			builder.append("prescription:" + getPrescription().getDisplayName()

@@ -115,9 +115,7 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 
 			"encounter.archived = #{encounterList.encounter.archived}",
 
-			"lower(encounter.chiefComplaint) like concat(lower(#{encounterList.encounter.chiefComplaint}),'%')",
-
-			"lower(encounter.progressNotes) like concat(lower(#{encounterList.encounter.progressNotes}),'%')",
+			"lower(encounter.patientNote) like concat(lower(#{encounterList.encounter.patientNote}),'%')",
 
 			"encounter.vitals.sysBP >= #{encounterList.vitals_SysBPRange.begin}",
 			"encounter.vitals.sysBP <= #{encounterList.vitals_SysBPRange.end}",
@@ -135,8 +133,6 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 			"encounter.vitals.respirationRate <= #{encounterList.vitals_RespirationRateRange.end}",
 
 			"encounter.prescription.id = #{encounterList.encounter.prescription.id}",
-
-			"lower(encounter.physicalExamFindings) like concat(lower(#{encounterList.encounter.physicalExamFindings}),'%')",
 
 			"encounter.patient.id = #{encounterList.encounter.patient.id}",
 
@@ -164,12 +160,8 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	public void createCsvString(StringBuilder builder, Encounter e) {
 
 		builder.append("\""
-				+ (e.getChiefComplaint() != null ? e.getChiefComplaint()
-						.replace(",", "") : "") + "\",");
-
-		builder.append("\""
-				+ (e.getProgressNotes() != null ? e.getProgressNotes().replace(
-						",", "") : "") + "\",");
+				+ (e.getPatientNote() != null ? e.getPatientNote().replace(",",
+						"") : "") + "\",");
 
 		builder.append("\"" + (e.getVitals() != null ? e.getVitals() : "")
 				+ "\",");
@@ -177,11 +169,6 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 		builder.append("\""
 				+ (e.getPrescription() != null ? e.getPrescription()
 						.getDisplayName().replace(",", "") : "") + "\",");
-
-		builder.append("\""
-				+ (e.getPhysicalExamFindings() != null ? e
-						.getPhysicalExamFindings().replace(",", "") : "")
-				+ "\",");
 
 		builder.append("\""
 				+ (e.getPatient() != null ? e.getPatient().getDisplayName()
@@ -200,15 +187,11 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
-		builder.append("ChiefComplaint" + ",");
-
-		builder.append("ProgressNotes" + ",");
+		builder.append("PatientNote" + ",");
 
 		builder.append("Vitals" + ",");
 
 		builder.append("Prescription" + ",");
-
-		builder.append("PhysicalExamFindings" + ",");
 
 		builder.append("Patient" + ",");
 

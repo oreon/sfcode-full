@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewChapterComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{chapterAction.load(chapterId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelChapter eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Chapter}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewName')}"/>  
+        <h:outputText value="#{chapterAction.chapter.name}" escape="false"/>  
+        <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewDescription')}"/>  
+        <h:outputText value="#{chapterAction.chapter.description}" escape="false"/> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="sections" var="_section" rendered="#{not empty chapterAction.listSections and skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewSections') }" value="#{chapterAction.listSections}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'viewName')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_section.name}" escape="false"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'viewDescription')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_section.description}" escape="false"/> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

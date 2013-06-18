@@ -11,7 +11,7 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.PatientFinding}"/> 
         </f:facet>  
-        <s:decorate id="#{prefix}_findingfindingDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_findingfindingDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeFinding == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>
           </ui:define>  
@@ -29,7 +29,7 @@
             </a:region> 
           </h:panelGroup> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientDiffDxpatientDiffDxDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_patientDiffDxpatientDiffDxDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatientDiffDx == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}"/>
           </ui:define>  

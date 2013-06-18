@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editChartProcedureComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{chartProcedureAction.load(chartProcedureId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelChartProcedure eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ChartProcedure}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_patientpatient" label="#{msg.chartProcedure_patient}" value="#{chartProcedureAction.chartProcedure.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}" disabled="false"> 
+            <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_chartItemchartItemDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeChartItem == true}"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_chartItemchartItem" label="#{msg.chartProcedure_chartItem}" value="#{chartProcedureAction.chartProcedure.chartItem}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}" disabled="false"> 
+            <s:selectItems value="#{chartItemList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
