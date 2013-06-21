@@ -66,12 +66,12 @@ public abstract class VitalValueListQueryBase
 		return RESTRICTIONS;
 	}
 
-	private Range<Integer> valueRange = new Range<Integer>();
+	private Range<Double> valueRange = new Range<Double>();
 
-	public Range<Integer> getValueRange() {
+	public Range<Double> getValueRange() {
 		return valueRange;
 	}
-	public void setValue(Range<Integer> valueRange) {
+	public void setValue(Range<Double> valueRange) {
 		this.valueRange = valueRange;
 	}
 
@@ -80,14 +80,14 @@ public abstract class VitalValueListQueryBase
 
 			"vitalValue.archived = #{vitalValueList.vitalValue.archived}",
 
-			"lower(vitalValue.remarks) like concat(lower(#{vitalValueList.vitalValue.remarks}),'%')",
-
 			"vitalValue.value >= #{vitalValueList.valueRange.begin}",
 			"vitalValue.value <= #{vitalValueList.valueRange.end}",
 
 			"vitalValue.trackedVital.id = #{vitalValueList.vitalValue.trackedVital.id}",
 
 			"vitalValue.patient.id = #{vitalValueList.vitalValue.patient.id}",
+
+			"lower(vitalValue.remarks) like concat(lower(#{vitalValueList.vitalValue.remarks}),'%')",
 
 			"vitalValue.dateCreated <= #{vitalValueList.dateCreatedRange.end}",
 			"vitalValue.dateCreated >= #{vitalValueList.dateCreatedRange.begin}",};
@@ -110,11 +110,6 @@ public abstract class VitalValueListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, VitalValue e) {
 
-		builder.append("\""
-				+ (e.getRemarks() != null
-						? e.getRemarks().replace(",", "")
-						: "") + "\",");
-
 		builder.append("\"" + (e.getValue() != null ? e.getValue() : "")
 				+ "\",");
 
@@ -126,6 +121,11 @@ public abstract class VitalValueListQueryBase
 				+ (e.getPatient() != null ? e.getPatient().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\""
+				+ (e.getRemarks() != null
+						? e.getRemarks().replace(",", "")
+						: "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -135,13 +135,13 @@ public abstract class VitalValueListQueryBase
 	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
-		builder.append("Remarks" + ",");
-
 		builder.append("Value" + ",");
 
 		builder.append("TrackedVital" + ",");
 
 		builder.append("Patient" + ",");
+
+		builder.append("Remarks" + ",");
 
 		builder.append("\r\n");
 	}

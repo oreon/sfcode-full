@@ -66,14 +66,7 @@ public class VitalValue extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1119654372L;
 
 	@Column(unique = false)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String remarks
-
-	;
-
-	@Column(unique = false)
-	protected Integer value
+	protected Double value
 
 	;
 
@@ -89,21 +82,18 @@ public class VitalValue extends BaseEntity implements java.io.Serializable {
 
 	;
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
+	@Column(unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String remarks
 
-	public String getRemarks() {
+	;
 
-		return remarks;
-
-	}
-
-	public void setValue(Integer value) {
+	public void setValue(Double value) {
 		this.value = value;
 	}
 
-	public Integer getValue() {
+	public Double getValue() {
 
 		return value;
 
@@ -126,6 +116,16 @@ public class VitalValue extends BaseEntity implements java.io.Serializable {
 	public Patient getPatient() {
 
 		return patient;
+
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getRemarks() {
+
+		return remarks;
 
 	}
 

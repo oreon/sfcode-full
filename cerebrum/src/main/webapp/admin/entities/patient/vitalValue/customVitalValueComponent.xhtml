@@ -7,12 +7,6 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>  
-        <br/>  
-        <h:inputText id="#{prefix}_remarks" value="#{vitalValueAction.vitalValue.remarks}"/>  
-        <rich:message styleClass="error errors" for="#{prefix}_remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
         <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}"/>  
         <br/>  
         <h:inputText id="#{prefix}_value" value="#{vitalValueAction.vitalValue.value}"/>  
@@ -35,6 +29,12 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_remarks" value="#{vitalValueAction.vitalValue.remarks}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

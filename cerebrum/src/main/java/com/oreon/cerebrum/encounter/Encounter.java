@@ -160,6 +160,28 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 	;
 
+	@OneToMany(mappedBy = "encounter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "encounter_ID", nullable = true)
+	@OrderBy("id DESC")
+	private Set<Reason> reasons = new HashSet<Reason>();
+
+	public void addReason(Reason reason) {
+
+		reason.setEncounter(this);
+
+		this.reasons.add(reason);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.encounter.Reason> getListReasons() {
+		return new ArrayList<com.oreon.cerebrum.encounter.Reason>(reasons);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getReasonsCount() {
+		return reasons.size();
+	}
+
 	public void setPatientNote(String patientNote) {
 		this.patientNote = patientNote;
 	}
@@ -245,6 +267,14 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 	}
 
+	public void setReasons(Set<Reason> reasons) {
+		this.reasons = reasons;
+	}
+
+	public Set<Reason> getReasons() {
+		return reasons;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -284,6 +314,8 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 
 		listSearchableFields.add("differentials.remarks");
 
+		listSearchableFields.add("reasons.remarks");
+
 		return listSearchableFields;
 	}
 
@@ -311,6 +343,10 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 		}
 
 		for (BaseEntity e : differentials) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BaseEntity e : reasons) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

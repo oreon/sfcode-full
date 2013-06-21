@@ -11,6 +11,18 @@
         <br/>  
         <h:inputText id="#{prefix}_name" value="#{trackedVitalAction.trackedVital.name}"/>  
         <rich:message styleClass="error errors" for="#{prefix}_name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.trackedVital_minValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinValue')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_minValue" value="#{trackedVitalAction.trackedVital.minValue}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_minValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinValue')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.trackedVital_maxValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxValue')}"/>  
+        <br/>  
+        <h:inputText id="#{prefix}_maxValue" value="#{trackedVitalAction.trackedVital.maxValue}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_maxValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxValue')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

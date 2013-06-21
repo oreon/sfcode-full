@@ -66,12 +66,36 @@ public abstract class TrackedVitalListQueryBase
 		return RESTRICTIONS;
 	}
 
+	private Range<Double> minValueRange = new Range<Double>();
+
+	public Range<Double> getMinValueRange() {
+		return minValueRange;
+	}
+	public void setMinValue(Range<Double> minValueRange) {
+		this.minValueRange = minValueRange;
+	}
+
+	private Range<Double> maxValueRange = new Range<Double>();
+
+	public Range<Double> getMaxValueRange() {
+		return maxValueRange;
+	}
+	public void setMaxValue(Range<Double> maxValueRange) {
+		this.maxValueRange = maxValueRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"trackedVital.id = #{trackedVitalList.trackedVital.id}",
 
 			"trackedVital.archived = #{trackedVitalList.trackedVital.archived}",
 
 			"lower(trackedVital.name) like concat(lower(#{trackedVitalList.trackedVital.name}),'%')",
+
+			"trackedVital.minValue >= #{trackedVitalList.minValueRange.begin}",
+			"trackedVital.minValue <= #{trackedVitalList.minValueRange.end}",
+
+			"trackedVital.maxValue >= #{trackedVitalList.maxValueRange.begin}",
+			"trackedVital.maxValue <= #{trackedVitalList.maxValueRange.end}",
 
 			"trackedVital.dateCreated <= #{trackedVitalList.dateCreatedRange.end}",
 			"trackedVital.dateCreated >= #{trackedVitalList.dateCreatedRange.begin}",};
@@ -91,6 +115,12 @@ public abstract class TrackedVitalListQueryBase
 				+ (e.getName() != null ? e.getName().replace(",", "") : "")
 				+ "\",");
 
+		builder.append("\"" + (e.getMinValue() != null ? e.getMinValue() : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getMaxValue() != null ? e.getMaxValue() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -101,6 +131,10 @@ public abstract class TrackedVitalListQueryBase
 	public void createCSvTitles(StringBuilder builder) {
 
 		builder.append("Name" + ",");
+
+		builder.append("MinValue" + ",");
+
+		builder.append("MaxValue" + ",");
 
 		builder.append("\r\n");
 	}

@@ -22,7 +22,7 @@ public class AppointmentActionTestBase
 	public void init() {
 		super.init();
 	}
-// this is a comment
+
 	@Override
 	public BaseAction<Appointment> getAction() {
 		return appointmentAction;

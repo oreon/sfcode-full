@@ -72,6 +72,18 @@
         <end-conversation/>  
         <redirect view-id="/admin/entities/encounter/differential/editDifferential.xhtml"/> 
       </rule>  
+      <rule if-outcome="reason"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/encounter/reason/listReason.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewReason"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/encounter/reason/viewReason.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editReason"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/encounter/reason/editReason.xhtml"/> 
+      </rule>  
       <rule if-outcome="invoice"> 
         <end-conversation/>  
         <redirect view-id="/admin/entities/billing/invoice/listInvoice.xhtml"/> 
@@ -958,6 +970,63 @@
     <param name="#{prefix}_encounterencounter" value="#{differentialList.differential.encounter.id}" validateModel="false"/>  
     <param name="#{prefix}_remarks" value="#{differentialList.differential.remarks}" validateModel="false"/> 
   </page>  
+  <page view-id="/admin/entities/encounter/reason/editReason.xhtml"> 
+    <!-- <description>Edit Reason: #{reason.displayName}</description> -->  
+    <restrict>#{s:hasPermission('reason', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/encounter/reason/viewReason.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/encounter/reason/listReason.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="reasonId" value="#{reasonAction.reasonId}"/>  
+    <param name="encounterId" value="#{reasonAction.encounterId}"/>  
+    <param name="codeId" value="#{reasonAction.codeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/encounter/reason/viewReason.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Reason: #{reason.displayName}</description> -->  
+    <restrict>#{s:hasPermission('reason', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/encounter/reason/editReason.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/encounter/reason/listReason.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="reasonId" value="#{reasonAction.reasonId}"/> 
+  </page>  
+  <page view-id="/admin/entities/encounter/reason/listReason.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('reason', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewReason"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/encounter/reason/viewReason.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/encounter/reason/editReason.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/encounter/reason/textSearchResultsReason.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{reasonList.firstResult}"/>  
+    <param name="sort" value="#{reasonList.orderColumn}"/>  
+    <param name="dir" value="#{reasonList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{reasonList.reason.id}"/>  
+    <param name="#{prefix}_encounterencounter" value="#{reasonList.reason.encounter.id}" validateModel="false"/>  
+    <param name="#{prefix}_codecode" value="#{reasonList.reason.code.id}" validateModel="false"/>  
+    <param name="#{prefix}_remarks" value="#{reasonList.reason.remarks}" validateModel="false"/> 
+  </page>  
   <page view-id="/admin/entities/billing/invoice/editInvoice.xhtml"> 
     <!-- <description>Edit Invoice: #{invoice.displayName}</description> -->  
     <restrict>#{s:hasPermission('invoice', 'edit')}</restrict>  
@@ -1695,7 +1764,9 @@
     <param name="dir" value="#{trackedVitalList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{trackedVitalList.trackedVital.id}"/>  
-    <param name="#{prefix}_name" value="#{trackedVitalList.trackedVital.name}" validateModel="false"/> 
+    <param name="#{prefix}_name" value="#{trackedVitalList.trackedVital.name}" validateModel="false"/>  
+    <param name="#{prefix}_minValue" value="#{trackedVitalList.trackedVital.minValue}" validateModel="false"/>  
+    <param name="#{prefix}_maxValue" value="#{trackedVitalList.trackedVital.maxValue}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/patient/vitalValue/editVitalValue.xhtml"> 
     <!-- <description>Edit VitalValue: #{vitalValue.displayName}</description> -->  
@@ -1750,10 +1821,10 @@
     <param name="dir" value="#{vitalValueList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{vitalValueList.vitalValue.id}"/>  
-    <param name="#{prefix}_remarks" value="#{vitalValueList.vitalValue.remarks}" validateModel="false"/>  
     <param name="#{prefix}_value" value="#{vitalValueList.vitalValue.value}" validateModel="false"/>  
     <param name="#{prefix}_trackedVitaltrackedVital" value="#{vitalValueList.vitalValue.trackedVital.id}" validateModel="false"/>  
-    <param name="#{prefix}_patientpatient" value="#{vitalValueList.vitalValue.patient.id}" validateModel="false"/> 
+    <param name="#{prefix}_patientpatient" value="#{vitalValueList.vitalValue.patient.id}" validateModel="false"/>  
+    <param name="#{prefix}_remarks" value="#{vitalValueList.vitalValue.remarks}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/patient/bedStay/editBedStay.xhtml"> 
     <!-- <description>Edit BedStay: #{bedStay.displayName}</description> -->  

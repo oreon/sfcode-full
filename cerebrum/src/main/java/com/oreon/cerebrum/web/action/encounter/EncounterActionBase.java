@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.encounter.PrescribedTest;
 import com.oreon.cerebrum.encounter.Differential;
+import com.oreon.cerebrum.encounter.Reason;
 
 public abstract class EncounterActionBase extends BaseAction<Encounter>
 		implements
@@ -241,6 +242,8 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 		initListDifferentials();
 
+		initListReasons();
+
 	}
 
 	public void updateAssociations() {
@@ -325,6 +328,45 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 	}
 
+	protected List<com.oreon.cerebrum.encounter.Reason> listReasons = new ArrayList<com.oreon.cerebrum.encounter.Reason>();
+
+	void initListReasons() {
+
+		if (listReasons.isEmpty())
+			listReasons.addAll(getInstance().getReasons());
+
+	}
+
+	public List<com.oreon.cerebrum.encounter.Reason> getListReasons() {
+
+		prePopulateListReasons();
+		return listReasons;
+	}
+
+	public void prePopulateListReasons() {
+	}
+
+	public void setListReasons(
+			List<com.oreon.cerebrum.encounter.Reason> listReasons) {
+		this.listReasons = listReasons;
+	}
+
+	public void deleteReasons(int index) {
+		listReasons.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addReasons() {
+
+		initListReasons();
+		Reason reasons = new Reason();
+
+		reasons.setEncounter(getInstance());
+
+		getListReasons().add(reasons);
+
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listPrescribedTests != null) {
@@ -336,11 +378,17 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 			getInstance().getDifferentials().clear();
 			getInstance().getDifferentials().addAll(listDifferentials);
 		}
+
+		if (listReasons != null) {
+			getInstance().getReasons().clear();
+			getInstance().getReasons().addAll(listReasons);
+		}
 	}
 
 	public void clearLists() {
 		listPrescribedTests.clear();
 		listDifferentials.clear();
+		listReasons.clear();
 
 	}
 

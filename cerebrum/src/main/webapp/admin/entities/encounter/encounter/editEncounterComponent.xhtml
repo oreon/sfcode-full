@@ -38,16 +38,6 @@
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
-        </s:decorate>  
-        <s:decorate id="#{prefix}_creatorcreatorDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeCreator == true}"> 
-          <ui:define name="label"> 
-            <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}"/>
-          </ui:define>  
-          <h:selectOneMenu id="#{prefix}_creatorcreator" label="#{msg.encounter_creator}" value="#{encounterAction.encounter.creator}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}" disabled="false"> 
-            <s:selectItems value="#{employeeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu> 
         </s:decorate> 
       </h:panelGrid>  
       <c:if test="${numColumns == null }"> 
@@ -160,6 +150,45 @@
         </h:column>  
         <h:column> 
           <h:commandButton value="Delete" immediate="true" action="#{encounterAction.deleteDifferentials(rowIndex)}" reRender="differentials"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <a:commandButton value="New Reason" action="#{encounterAction.addReasons}" reRender="reasons, editEncounterComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editReasons')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="reasons" var="_reason" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editReasons')}" value="#{encounterAction.listReasons}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_codecodeDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeCode == true}"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="#{prefix}_codecode" label="#{msg.reason_code}" value="#{_reason.code}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}" disabled="false"> 
+              <s:selectItems value="#{codeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_remarksDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}" label="#{msg.reason_remarks}" required="false" disabled="false" value="#{_reason.remarks}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Reason" action="#{encounterAction.addReasons}" reRender="reasons, editEncounterComponentPanel" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editReasons')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{encounterAction.deleteReasons(rowIndex)}" reRender="reasons"> 
             <s:conversationId/> 
           </h:commandButton> 
         </h:column> 

@@ -24,16 +24,6 @@
             <f:param name="vitalValueId" value="#{_vitalValue.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{vitalValueList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.vitalValue_remarks}"/>  
-              <ui:param name="propertyPath" value="vitalValue.remarks"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_vitalValue.remarks}" escape="false"/> 
-        </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -42,7 +32,9 @@
               <ui:param name="propertyPath" value="vitalValue.value"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_vitalValue.value}" escape="false"/> 
+          <h:outputText value="#{_vitalValue.value}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')}"> 
           <f:facet name="header"> 
@@ -72,6 +64,16 @@
               <span>#{_vitalValue.patient.popupInfo}</span> 
             </rich:toolTip> 
           </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{vitalValueList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.vitalValue_remarks}"/>  
+              <ui:param name="propertyPath" value="vitalValue.remarks"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_vitalValue.remarks}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
