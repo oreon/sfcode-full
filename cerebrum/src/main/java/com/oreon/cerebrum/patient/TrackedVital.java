@@ -74,6 +74,16 @@ public class TrackedVital extends BaseEntity implements java.io.Serializable {
 
 	;
 
+	@Column(unique = false)
+	protected Double minValue
+
+	;
+
+	@Column(unique = false)
+	protected Double maxValue
+
+	;
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -81,6 +91,26 @@ public class TrackedVital extends BaseEntity implements java.io.Serializable {
 	public String getName() {
 
 		return name;
+
+	}
+
+	public void setMinValue(Double minValue) {
+		this.minValue = minValue;
+	}
+
+	public Double getMinValue() {
+
+		return minValue;
+
+	}
+
+	public void setMaxValue(Double maxValue) {
+		this.maxValue = maxValue;
+	}
+
+	public Double getMaxValue() {
+
+		return maxValue;
 
 	}
 

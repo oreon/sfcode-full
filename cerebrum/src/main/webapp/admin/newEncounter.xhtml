@@ -43,16 +43,16 @@
 					<s:decorate id="#{prefix}_chiefComplaintDecorate"
 						template="/layout/edit.xhtml">
 						<ui:define name="label">
-							<h:outputText value="#{msg.encounter_chiefComplaint}  "
-								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}" />
+							<h:outputText value="#{msg.encounter_patientNote}  "
+								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editpatientNote')}" />
 						</ui:define>
 						<br/>
 						<rich:editor useSeamText="true" width="650"
-							id="#{prefix}_chiefComplaint#{entityId}"
-							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editChiefComplaint')}"
-							label="#{msg.encounter_chiefComplaint}" required="true"
+							id="#{prefix}_patientNote#{entityId}"
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editpatientNote')}"
+							label="#{msg.encounter_patientNote}" required="true"
 							disabled="false" 
-							value="#{encounterAction.encounter.chiefComplaint}">
+							value="#{encounterAction.encounter.patientNote}">
 							<rich:ajaxValidator event="onsubmit" />
 						</rich:editor>
 					</s:decorate>
@@ -64,10 +64,27 @@
 				
 					<ui:include
 							src="/admin/entities/encounter/encounter/editEncounterDxTests.xhtml" >
-							
+		
 					</ui:include>
 				
 				</rich:panelBarItem>
+				
+				
+				<rich:panelBarItem label="Vitals">
+				
+					<ui:include
+							src="/admin/entities/encounter/encounter/editVitalsComponent.xhtml" >
+					</ui:include>
+					<br/>
+					
+					<ui:include
+							src="/admin/entities/patient/vitalValue/editVitalValueComponent.xhtml" >
+							<ui:param name="excludePatient" value="true"/>
+							<ui:param name="prefix" value="vitals"/>
+					</ui:include>
+				
+				</rich:panelBarItem>
+						
 				
 				
 				<rich:panelBarItem label="Prescription ">

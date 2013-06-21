@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editReasonComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{reasonAction.load(reasonId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelReason eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Reason}"/> 
+        </f:facet>  
+        <s:decorate id="#{prefix}_remarksDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}" label="#{msg.reason_remarks}" required="false" disabled="false" value="#{reasonAction.reason.remarks}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_encounterencounterDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeEncounter == true}"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_encounterencounter" label="#{msg.reason_encounter}" value="#{reasonAction.reason.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}" disabled="false"> 
+            <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_codecodeDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeCode == true}"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="#{prefix}_codecode" label="#{msg.reason_code}" value="#{reasonAction.reason.code}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}" disabled="false"> 
+            <s:selectItems value="#{codeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -17,6 +17,14 @@
           <p:chartSeries label="Incidents" value="#{dep.differentialsCount}"/> 
         </p:barChart> 
       </h:panelGrid> 
+    </p:panel>  
+    <p:panel id="pnlReasons" header="Reasons" toggleable="true" closable="true"> 
+      <h:panelGrid columns="2"> 
+        <p:pieChart value="#{encounterList.resultList}" var="dep" categoryField="#{dep.displayName}" dataField="#{dep.reasonsCount}"/>  
+        <p:barChart value="#{encounterList.resultList}" var="dep" yfield="#{dep.displayName}"> 
+          <p:chartSeries label="Incidents" value="#{dep.reasonsCount}"/> 
+        </p:barChart> 
+      </h:panelGrid> 
     </p:panel> 
   </h:panelGrid> 
 </ui:composition>

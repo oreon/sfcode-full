@@ -11,10 +11,12 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.VitalValue}"/> 
         </f:facet>  
+        <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}"/>  
+        <h:outputText value="#{vitalValueAction.vitalValue.value}"> 
+          <f:convertNumber pattern="000.00"/> 
+        </h:outputText>  
         <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}"/>  
         <h:outputText value="#{vitalValueAction.vitalValue.remarks}" escape="false"/>  
-        <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}"/>  
-        <h:outputText value="#{vitalValueAction.vitalValue.value}" escape="false"/>  
         <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')}"/>  
         <s:link escape="false" value="#{vitalValueAction.vitalValue.trackedVital.displayName}" view="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
           <f:param name="trackedVitalId" value="#{vitalValueAction.vitalValue.trackedVital.id}"/>  

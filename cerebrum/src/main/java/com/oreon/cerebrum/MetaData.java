@@ -30,6 +30,8 @@ public class MetaData {
 
 	"tests", "java.lang.String",
 
+	"reasonsCount", "java.lang.Integer",
+
 	},
 
 	{"com.oreon.cerebrum.encounter.PrescribedTest",
@@ -45,6 +47,16 @@ public class MetaData {
 	{"com.oreon.cerebrum.encounter.Differential",
 
 	"encounter.displayName", "java.lang.String",
+
+	"remarks", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.encounter.Reason",
+
+	"encounter.displayName", "java.lang.String",
+
+	"code.displayName", "java.lang.String",
 
 	"remarks", "java.lang.String",
 
@@ -232,17 +244,21 @@ public class MetaData {
 
 	"name", "java.lang.String",
 
+	"minValue", "java.lang.Double",
+
+	"maxValue", "java.lang.Double",
+
 	},
 
 	{"com.oreon.cerebrum.patient.VitalValue",
 
-	"remarks", "java.lang.String",
-
-	"value", "java.lang.Integer",
+	"value", "java.lang.Double",
 
 	"trackedVital.displayName", "java.lang.String",
 
 	"patient.displayName", "java.lang.String",
+
+	"remarks", "java.lang.String",
 
 	},
 

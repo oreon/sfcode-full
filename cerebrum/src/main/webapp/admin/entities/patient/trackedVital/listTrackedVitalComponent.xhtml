@@ -34,6 +34,30 @@
           </f:facet>  
           <h:outputText value="#{_trackedVital.name}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMinValue')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{trackedVitalList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.trackedVital_minValue}"/>  
+              <ui:param name="propertyPath" value="trackedVital.minValue"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_trackedVital.minValue}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMaxValue')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{trackedVitalList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.trackedVital_maxValue}"/>  
+              <ui:param name="propertyPath" value="trackedVital.maxValue"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_trackedVital.maxValue}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

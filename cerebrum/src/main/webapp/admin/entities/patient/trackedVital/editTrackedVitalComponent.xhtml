@@ -18,6 +18,22 @@
           <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}" label="#{msg.trackedVital_name}" required="true" disabled="false" value="#{trackedVitalAction.trackedVital.name}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_minValueDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.trackedVital_minValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinValue')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_minValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinValue')}" label="#{msg.trackedVital_minValue}" required="false" disabled="false" value="#{trackedVitalAction.trackedVital.minValue}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_maxValueDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.trackedVital_maxValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxValue')}"/>
+          </ui:define>  
+          <h:inputText escape="false" id="#{prefix}_maxValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxValue')}" label="#{msg.trackedVital_maxValue}" required="false" disabled="false" value="#{trackedVitalAction.trackedVital.maxValue}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

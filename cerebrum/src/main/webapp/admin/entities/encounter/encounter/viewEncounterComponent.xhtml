@@ -83,6 +83,23 @@
           <h:outputText value="#{_differential.remarks}" escape="false"/> 
         </h:column> 
       </rich:dataTable>  
+      <rich:dataTable id="reasons" var="_reason" rendered="#{not empty encounterAction.listReasons and skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewReasons') }" value="#{encounterAction.listReasons}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewCode')}"/> 
+          </f:facet>  
+          <s:link escape="false" value="#{_reason.code.displayName}" view="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
+            <f:param name="codeId" value="#{_reason.code.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewRemarks')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_reason.remarks}" escape="false"/> 
+        </h:column> 
+      </rich:dataTable>  
       <br/> 
     </s:validateAll> 
   </h:panelGroup> 

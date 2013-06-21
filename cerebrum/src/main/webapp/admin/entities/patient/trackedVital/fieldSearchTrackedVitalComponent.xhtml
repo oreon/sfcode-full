@@ -9,6 +9,26 @@
       <h:outputText value="#{msg.trackedVital_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}"/>  
       <br/>  
       <h:inputText id="#{prefix}_name" value="#{trackedVitalList.trackedVital.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.trackedVital_minValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinValue')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_minValue_begin" value="#{trackedVitalList.minValueRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_minValue_end" value="#{trackedVitalList.minValueRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.trackedVital_maxValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxValue')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_maxValue_begin" value="#{trackedVitalList.maxValueRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="#{prefix}_maxValue_end" value="#{trackedVitalList.maxValueRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 
