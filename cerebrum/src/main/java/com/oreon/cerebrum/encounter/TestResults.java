@@ -1,4 +1,4 @@
-package com.oreon.cerebrum.codes;
+package com.oreon.cerebrum.encounter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,82 +56,63 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-@MappedSuperclass
-public class AbstractCode extends BaseEntity {
-	private static final long serialVersionUID = 971125289L;
+@Embeddable
+public class TestResults implements java.io.Serializable {
+	private static final long serialVersionUID = -1311421045L;
 
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = true)
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String name
-
-	;
-
-	@NotNull
-	@Length(min = 1, max = 250)
+	@Lob
 	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String description
+	protected String results
 
 	;
 
-	public void setName(String name) {
-		this.name = name;
+	@Column(unique = false)
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "name", column = @Column(name = "document_name")),
+			@AttributeOverride(name = "contentType", column = @Column(name = "document_contentType")),
+			@AttributeOverride(name = "data", column = @Column(name = "document_data", length = 4194304))})
+	protected FileAttachment document = new FileAttachment();
+
+	public void setResults(String results) {
+		this.results = results;
 	}
 
-	public String getName() {
+	public String getResults() {
 
-		return name;
+		return results;
 
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDocument(FileAttachment document) {
+		this.document = document;
 	}
 
-	public String getDescription() {
+	public FileAttachment getDocument() {
 
-		return description;
+		return document;
 
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return name;
+			return results + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
 	}
 
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("name");
-
-		listSearchableFields.add("description");
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.TOKENIZED, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(getName() + " ");
-
-		builder.append(getDescription() + " ");
-
-		return builder.toString();
+	@Transient
+	public String getResultsAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(results.trim(),
+					100, 200, "...");
+		} catch (Exception e) {
+			return results != null ? results : "";
+		}
 	}
 
 }

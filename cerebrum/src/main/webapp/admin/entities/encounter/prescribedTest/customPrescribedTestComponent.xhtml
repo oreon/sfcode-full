@@ -29,6 +29,12 @@
         <br/>  
         <h:inputText id="#{prefix}_remarks" value="#{prescribedTestAction.prescribedTest.remarks}"/>  
         <rich:message styleClass="error errors" for="#{prefix}_remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_testResults_results" value="#{prescribedTestAction.prescribedTest.testResults.results}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_testResults_results" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

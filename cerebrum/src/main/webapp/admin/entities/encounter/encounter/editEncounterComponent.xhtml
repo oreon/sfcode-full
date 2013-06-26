@@ -108,6 +108,35 @@
         </h:column>  
         <h:column>
           <f:facet name="header">
+            <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_testResults_resultsDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor escape="false" useSeamText="true" id="#{prefix}_testResults_results#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}" label="#{msg.testResults_results}" required="false" disabled="false" value="#{_prescribedTest.testResults.results}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.testResults_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDocument')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_testResults_documentDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDocument')}"> 
+              <h:outputText value="Current File:"/>  
+              <s:link value="#{prescribedTestAction.testResults.document.name}" id="document_file" action="#{prescribedTestAction.downloadFile(null)}" propagation="none"> 
+                <f:param name="currentEntityId" value="#{prescribedTestAction.instance.id}"/> 
+              </s:link>  
+              <rich:fileUpload fileUploadListener="#{prescribedTestAction.documentUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="30" listWidth="250"> 
+                <s:conversationPropagation type="join"/>  
+                <a:support event="onuploadcomplete" reRender="document_file"/> 
+              </rich:fileUpload> 
+            </h:panelGroup> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
             <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/>
           </f:facet>  
           <s:decorate id="#{prefix}_remarksDecorate" template="/layout/editTableField.xhtml"> 

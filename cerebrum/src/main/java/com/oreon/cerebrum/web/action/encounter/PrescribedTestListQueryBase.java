@@ -77,6 +77,8 @@ public abstract class PrescribedTestListQueryBase
 
 			"lower(prescribedTest.remarks) like concat(lower(#{prescribedTestList.prescribedTest.remarks}),'%')",
 
+			"lower(prescribedTest.testResults.results) like concat(lower(#{prescribedTestList.prescribedTest.testResults.results}),'%')",
+
 			"prescribedTest.dateCreated <= #{prescribedTestList.dateCreatedRange.end}",
 			"prescribedTest.dateCreated >= #{prescribedTestList.dateCreatedRange.begin}",};
 
@@ -111,6 +113,10 @@ public abstract class PrescribedTestListQueryBase
 						? e.getRemarks().replace(",", "")
 						: "") + "\",");
 
+		builder.append("\""
+				+ (e.getTestResults() != null ? e.getTestResults() : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -125,6 +131,8 @@ public abstract class PrescribedTestListQueryBase
 		builder.append("Encounter" + ",");
 
 		builder.append("Remarks" + ",");
+
+		builder.append("TestResults" + ",");
 
 		builder.append("\r\n");
 	}

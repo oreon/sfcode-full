@@ -42,10 +42,8 @@ import org.richfaces.model.UploadItem;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
-//@Scope(ScopeType.CONVERSATION)
-@Name("abstractCodeAction")
-public class AbstractCodeAction extends AbstractCodeActionBase
-		implements
-			java.io.Serializable {
+public abstract class AbstractCodeAction<T extends BaseEntity>
+		extends
+			BaseAction<T> implements java.io.Serializable {
 
 }

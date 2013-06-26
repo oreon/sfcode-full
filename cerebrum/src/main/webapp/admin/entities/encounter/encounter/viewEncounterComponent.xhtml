@@ -70,6 +70,26 @@
         </h:column>  
         <h:column> 
           <f:facet name="header"> 
+            <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewResults')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <rich:toolTip value="#{_prescribedTest.testResults.results}" for="resultsAbbr"></rich:toolTip>  
+            <h:outputText id="resultsAbbr" value="#{_prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.testResults_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDocument')}"/> 
+          </f:facet>  
+          <s:graphicImage rendered="#{_prescribedTest.testResults.document ne null and  _prescribedTest.testResults.document.contentType.startsWith('image')}" value="#{_prescribedTest.testResults.document.data}"> 
+            <s:transformImageSize height="100" maintainRatio="true"/> 
+          </s:graphicImage>  
+          <s:link value="#{_prescribedTest.testResults.document.name}" action="#{testResultsAction.downloadDocument(_testResults.id)}" propagation="none" rendered="#{not _prescribedTest.testResults.document.contentType.startsWith('image')}"> 
+            <f:param name="currentEnt ityId" value="#{_testResults.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
             <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}"/> 
           </f:facet>  
           <h:outputText value="#{_prescribedTest.remarks}" escape="false"/> 
