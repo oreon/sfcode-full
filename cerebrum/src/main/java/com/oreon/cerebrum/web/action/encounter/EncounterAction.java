@@ -23,6 +23,10 @@ public class EncounterAction extends EncounterActionBase implements java.io.Seri
 		
 		prescriptionAction.getInstance().setPatient(instance.getPatient());
 		prescriptionAction.save();
+		
+		patientAction.setInstance(instance.getPatient());
+		patientAction.save();
+		
 		instance.setPrescription(prescriptionAction.getInstance());
 		
 		return super.save();

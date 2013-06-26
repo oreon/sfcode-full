@@ -42,6 +42,10 @@ public class MetaData {
 
 	"remarks", "java.lang.String",
 
+	"testResults.results", "java.lang.String",
+
+	"testResults.document", "FileAttachment",
+
 	},
 
 	{"com.oreon.cerebrum.encounter.Differential",
@@ -755,14 +759,6 @@ public class MetaData {
 	"chapter.displayName", "java.lang.String",
 
 	"codesCount", "java.lang.Integer",
-
-	},
-
-	{"com.oreon.cerebrum.codes.AbstractCode",
-
-	"name", "java.lang.String",
-
-	"description", "java.lang.String",
 
 	},
 

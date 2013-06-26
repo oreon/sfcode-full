@@ -161,7 +161,7 @@ public class Encounter extends BaseEntity implements java.io.Serializable {
 	;
 
 	@OneToMany(mappedBy = "encounter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "encounter_ID", nullable = true)
+	//@JoinColumn(name = "encounter_ID", nullable = false)
 	@OrderBy("id DESC")
 	private Set<Reason> reasons = new HashSet<Reason>();
 

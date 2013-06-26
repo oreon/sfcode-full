@@ -84,6 +84,16 @@ public class PrescribedTest extends BaseEntity implements java.io.Serializable {
 
 	;
 
+	@IndexedEmbedded
+	@AttributeOverrides({
+
+			@AttributeOverride(name = "results", column = @Column(name = "testResults_results")),
+
+			@AttributeOverride(name = "document", column = @Column(name = "testResults_document"))
+
+	})
+	protected TestResults testResults = new TestResults();
+
 	public void setDxTest(com.oreon.cerebrum.ddx.DxTest dxTest) {
 		this.dxTest = dxTest;
 	}
@@ -114,6 +124,18 @@ public class PrescribedTest extends BaseEntity implements java.io.Serializable {
 
 	}
 
+	public void setTestResults(TestResults testResults) {
+		this.testResults = testResults;
+	}
+
+	public TestResults getTestResults() {
+
+		if (testResults == null)
+			testResults = new com.oreon.cerebrum.encounter.TestResults();
+		return testResults;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -136,6 +158,8 @@ public class PrescribedTest extends BaseEntity implements java.io.Serializable {
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("remarks");
+
+		listSearchableFields.add("testResults.results");
 
 		return listSearchableFields;
 	}

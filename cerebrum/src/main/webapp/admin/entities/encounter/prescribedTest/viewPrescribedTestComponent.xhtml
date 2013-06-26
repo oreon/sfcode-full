@@ -24,6 +24,26 @@
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelTestResults eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.TestResults}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewResults')}"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{prescribedTestAction.prescribedTest.testResults.results}" for="resultsAbbr"></rich:toolTip>  
+          <h:outputText id="resultsAbbr" value="#{prescribedTestAction.prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
+        <h:outputText value="#{msg.testResults_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDocument')}"/>  
+        <s:graphicImage rendered="#{prescribedTestAction.prescribedTest.testResults.document ne null and  prescribedTestAction.prescribedTest.testResults.document.contentType.startsWith('image')}" value="#{prescribedTestAction.prescribedTest.testResults.document.data}"> 
+          <s:transformImageSize height="100" maintainRatio="true"/> 
+        </s:graphicImage>  
+        <s:link value="#{prescribedTestAction.prescribedTest.testResults.document.name}" action="#{testResultsAction.downloadDocument(prescribedTestAction.testResults.id)}" propagation="none" rendered="#{not prescribedTestAction.prescribedTest.testResults.document.contentType.startsWith('image')}"> 
+          <f:param name="currentEnt ityId" value="#{prescribedTestAction.testResults.id}"/> 
+        </s:link> 
+      </h:panelGrid>  
       <br/>  
       <br/> 
     </s:validateAll> 

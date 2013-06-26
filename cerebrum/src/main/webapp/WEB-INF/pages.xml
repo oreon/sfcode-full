@@ -732,18 +732,6 @@
         <end-conversation/>  
         <redirect view-id="/admin/entities/codes/section/editSection.xhtml"/> 
       </rule>  
-      <rule if-outcome="abstractCode"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/codes/abstractCode/listAbstractCode.xhtml"/> 
-      </rule>  
-      <rule if-outcome="viewAbstractCode"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/codes/abstractCode/viewAbstractCode.xhtml"/> 
-      </rule>  
-      <rule if-outcome="editAbstractCode"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/codes/abstractCode/editAbstractCode.xhtml"/> 
-      </rule>  
       <rule if-outcome="appliedChart"> 
         <end-conversation/>  
         <redirect view-id="/admin/entities/charts/appliedChart/listAppliedChart.xhtml"/> 
@@ -913,7 +901,8 @@
     <param name="id" value="#{prescribedTestList.prescribedTest.id}"/>  
     <param name="#{prefix}_dxTestdxTest" value="#{prescribedTestList.prescribedTest.dxTest.id}" validateModel="false"/>  
     <param name="#{prefix}_encounterencounter" value="#{prescribedTestList.prescribedTest.encounter.id}" validateModel="false"/>  
-    <param name="#{prefix}_remarks" value="#{prescribedTestList.prescribedTest.remarks}" validateModel="false"/> 
+    <param name="#{prefix}_remarks" value="#{prescribedTestList.prescribedTest.remarks}" validateModel="false"/>  
+    <param name="#{prefix}_testResults_results" value="#{prescribedTestList.prescribedTest.testResults.results}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/encounter/differential/editDifferential.xhtml"> 
     <!-- <description>Edit Differential: #{differential.displayName}</description> -->  
@@ -4117,60 +4106,6 @@
     <param name="#{prefix}_name" value="#{sectionList.section.name}" validateModel="false"/>  
     <param name="#{prefix}_description" value="#{sectionList.section.description}" validateModel="false"/>  
     <param name="#{prefix}_chapterchapter" value="#{sectionList.section.chapter.id}" validateModel="false"/> 
-  </page>  
-  <page view-id="/admin/entities/codes/abstractCode/editAbstractCode.xhtml"> 
-    <!-- <description>Edit AbstractCode: #{abstractCode.displayName}</description> -->  
-    <restrict>#{s:hasPermission('abstractCode', 'edit')}</restrict>  
-    <begin-conversation join="true"/>  
-    <navigation> 
-      <rule if-outcome="save"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/codes/abstractCode/viewAbstractCode.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/codes/abstractCode/listAbstractCode.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="abstractCodeId" value="#{abstractCodeAction.abstractCodeId}"/> 
-  </page>  
-  <page view-id="/admin/entities/codes/abstractCode/viewAbstractCode.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View AbstractCode: #{abstractCode.displayName}</description> -->  
-    <restrict>#{s:hasPermission('abstractCode', 'view')}</restrict>  
-    <navigation> 
-      <rule if-outcome="edit"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/codes/abstractCode/editAbstractCode.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/codes/abstractCode/listAbstractCode.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="abstractCodeId" value="#{abstractCodeAction.abstractCodeId}"/> 
-  </page>  
-  <page view-id="/admin/entities/codes/abstractCode/listAbstractCode.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <restrict>#{s:hasPermission('abstractCode', 'view')}</restrict>  
-    <navigation> 
-      <rule if-outcome="viewAbstractCode"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/codes/abstractCode/viewAbstractCode.xhtml"/> 
-      </rule>  
-      <rule if-outcome="edit"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/codes/abstractCode/editAbstractCode.xhtml"/> 
-      </rule>  
-      <rule if-outcome="textSearch"> 
-        <redirect view-id="/admin/entities/codes/abstractCode/textSearchResultsAbstractCode.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="firstResult" value="#{abstractCodeList.firstResult}"/>  
-    <param name="sort" value="#{abstractCodeList.orderColumn}"/>  
-    <param name="dir" value="#{abstractCodeList.orderDirection}"/>  
-    <param name="from"/>  
-    <param name="id" value="#{abstractCodeList.abstractCode.id}"/>  
-    <param name="#{prefix}_name" value="#{abstractCodeList.abstractCode.name}" validateModel="false"/>  
-    <param name="#{prefix}_description" value="#{abstractCodeList.abstractCode.description}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"> 
     <!-- <description>Edit AppliedChart: #{appliedChart.displayName}</description> -->  

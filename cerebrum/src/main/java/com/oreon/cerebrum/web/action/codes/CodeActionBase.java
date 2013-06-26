@@ -48,7 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 public abstract class CodeActionBase
 		extends
-			com.oreon.cerebrum.web.action.codes.AbstractAbstractCodeAction<Code>
+			com.oreon.cerebrum.web.action.codes.AbstractCodeAction<Code>
 		implements
 			java.io.Serializable {
 

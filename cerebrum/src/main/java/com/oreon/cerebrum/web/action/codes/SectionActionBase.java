@@ -50,7 +50,7 @@ import com.oreon.cerebrum.codes.Code;
 
 public abstract class SectionActionBase
 		extends
-			com.oreon.cerebrum.web.action.codes.AbstractAbstractCodeAction<Section>
+			com.oreon.cerebrum.web.action.codes.AbstractCodeAction<Section>
 		implements
 			java.io.Serializable {
 
