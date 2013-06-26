@@ -34,6 +34,7 @@ import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.Type;
 import org.openarchitectureware.uml2.UML2MetaModel;
 import org.openarchitectureware.uml2.profile.ProfileMetaModel;
+import org.openarchitectureware.uml2.profile.StereotypeType;
 import org.openarchitectureware.xtend.XtendFacade;
 
 public class ClassUtil {
@@ -195,6 +196,16 @@ public class ClassUtil {
 				^ VERSION).toString()
 				+ "L";
 	}
+	
+	/*
+	public static String getParentDisplayNameRecursive(Class cls ){
+		
+		if(cls.parents().isEmpty())
+			return "";
+			StereotypeType st = cls.getAppliedStereotype("AbstractEntity");
+			
+			cls.allParents();
+	}*/
 
 	public static List<Property> getAllAttribs(Class cls) {
 		List<Property> lstAttributes = new ArrayList<Property>();
@@ -248,6 +259,22 @@ public class ClassUtil {
 			arr[i++] = string;
 		}
 		return Arrays.asList(arr);
+	}
+	
+	/** Returns a list containing lists of string that are in the format {a, b,c}{d, e, f} - the sublists are
+	 * comma delimited while the top level is {} delimited 
+	 * @param arg
+	 * @return
+	 */
+	public static List<List<String>> getListOfLists(String arg){
+		List<List<String>> list = new ArrayList<List<String>>();
+		String[] arr = arg.split("\\{|\\}| }");
+		
+		for (String string : arr) {
+			if(!StringUtils.isEmpty(string))
+			list.add(getListFromCommaDeleimtedString(string));
+		}
+		return list;
 	}
 	
 	public static String getSubString(String arg, String indexStr){

@@ -36,11 +36,13 @@
 	<entity class="«fqn()»" name="«name»">
 		<table name="«getTableName()»"  >
 		«IF uniqueConstraints != null-»
+			«FOREACH uniqueConstraints.getAsListOfLists() AS lst-»
 			<unique-constraint>
-			«FOREACH uniqueConstraints.getAsList() AS e-»
-				<column-name>«e.trim()-»</column-name>
-			«ENDFOREACH-»
+				«FOREACH lst AS e-»
+					<column-name>«e.trim()-»</column-name>
+				«ENDFOREACH-»
 			</unique-constraint>
+			«ENDFOREACH»
 		«ENDIF»
 		</table>
  	«EXPAND genOperation FOREACH getAllOperations()»

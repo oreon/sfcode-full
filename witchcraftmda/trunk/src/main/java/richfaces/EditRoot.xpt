@@ -162,7 +162,7 @@
 	<div class="buttonBox">
 		«IF !edit»
 		«REM»<h:commandButton value="Edit"  rendered="#{s:hasPermission('«asVar()»', 'edit', «getAction()».instance)}" action="edit" >«ENDREM»
-		«IF isAbstract»<h:commandButton value="Edit"  rendered="#{s:hasPermission('«asVar()»', 'edit')}" action="edit" />«ENDIF»
+		«IF !isAbstract»<h:commandButton value="Edit"  rendered="#{s:hasPermission('«asVar()»', 'edit')}" action="edit" />«ENDIF»
 		<rich:spacer/>
 		<h:commandButton value="Back To Listing" action="#{«getAction()».cancel}" >
 			<s:conversationPropagation type="end" />
@@ -242,9 +242,10 @@
 «REM»For multivalued attributes e.g. an order's order items«ENDREM»
 «DEFINE genTable FOR uml::Class»
 	«FOREACH allParents() AS e-»
-		«EXPAND gentEditableTable FOREACH e.getComposed() -»
+		«EXPAND genEditableTable FOREACH e.getComposed() -»
 	«ENDFOREACH»
-	«EXPAND gentEditableTable FOREACH getComposed() -»
+	«EXPAND genEditableTable FOREACH getComposed() -»
+	«EXPAND genEditableTableFile FOREACH getNonComposedManyAssociations() -»
 «ENDDEFINE»
 
 
@@ -570,8 +571,16 @@
 «ENDDEFINE»
 
 
+«DEFINE genEditableTableFile  FOR uml::Property»
+«FILE  class.getWebPath() +"/" + "edit" + type.name+ "Table." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» >	
+	«EXPAND genEditableTable FOR this»
+</ui:composition>	
+«ENDFILE»
+«ENDDEFINE»
 
-«DEFINE gentEditableTable FOR uml::Property-»
+
+«DEFINE genEditableTable FOR uml::Property-»
 	«IF !isColumn() || (isColumn() &&  systemModifyOnly == false) »
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
