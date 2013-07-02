@@ -140,7 +140,7 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 	@Transient
 	public String getDisplayName() {
 		try {
-			return includes + "";
+			return super.getDisplayName();
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -51,6 +52,9 @@ import com.oreon.cerebrum.prescription.PrescriptionItemTemplate;
 public abstract class PrescriptionTemplateActionBase
 		extends
 			BaseAction<PrescriptionTemplate> implements java.io.Serializable {
+
+	@RequestParameter
+	protected Long prescriptionTemplateId;
 
 	public void setPrescriptionTemplateId(Long id) {
 		if (id == 0) {
@@ -116,6 +120,23 @@ public abstract class PrescriptionTemplateActionBase
 		if (isIdDefined()) {
 			wire();
 		}
+		addDefaultAssociations();
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
+		if (isNew() && instance.getPrescriptionItemTemplates().isEmpty()) {
+			for (int i = 0; i < 1; i++)
+				getListPrescriptionItemTemplates()
+						.add(
+								new com.oreon.cerebrum.prescription.PrescriptionItemTemplate());
+		}
+
 	}
 
 	public void wire() {

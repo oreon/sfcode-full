@@ -14,7 +14,10 @@
         <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewName')}"/>  
         <h:outputText value="#{codeAction.code.name}" escape="false"/>  
         <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewDescription')}"/>  
-        <h:outputText value="#{codeAction.code.description}" escape="false"/>  
+        <h:panelGroup> 
+          <rich:toolTip value="#{codeAction.code.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{codeAction.code.descriptionAbbreviated}" escape="false"/> 
+        </h:panelGroup>  
         <h:outputText value="#{msg.code_includes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewIncludes')}"/>  
         <h:panelGroup> 
           <rich:toolTip value="#{codeAction.code.includes}" for="includesAbbr"></rich:toolTip>  

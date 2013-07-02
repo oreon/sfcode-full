@@ -6,7 +6,8 @@ package com.oreon.cerebrum.web.action.encounter;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 
-import com.oreon.cerebrum.web.action.employee.EmployeeAction;
+import com.oreon.cerebrum.encounter.Encounter;
+import com.oreon.cerebrum.encounter.Reason;
 import com.oreon.cerebrum.web.action.employee.PhysicianAction;
 
 	
@@ -16,6 +17,16 @@ public class EncounterAction extends EncounterActionBase implements java.io.Seri
 	
 	@In(create=true)
 	PhysicianAction physicianAction;
+	
+	public EncounterAction(){
+		super();
+		/*
+		Encounter encounter = getInstance();
+		if(isNew() && encounter.getListReasons().isEmpty()){
+			encounter.getListReasons().add(new Reason());
+		}
+		*/
+	}
 	
 	@Override
 	public String save() {

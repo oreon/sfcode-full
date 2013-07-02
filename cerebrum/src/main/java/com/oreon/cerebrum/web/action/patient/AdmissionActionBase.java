@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -51,6 +52,9 @@ import com.oreon.cerebrum.patient.BedStay;
 public abstract class AdmissionActionBase extends BaseAction<Admission>
 		implements
 			java.io.Serializable {
+
+	@RequestParameter
+	protected Long admissionId;
 
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
@@ -148,6 +152,21 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 		if (isIdDefined()) {
 			wire();
 		}
+		addDefaultAssociations();
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
+		if (isNew() && instance.getBedStays().isEmpty()) {
+			for (int i = 0; i < 1; i++)
+				getListBedStays().add(new com.oreon.cerebrum.patient.BedStay());
+		}
+
 	}
 
 	public void wire() {

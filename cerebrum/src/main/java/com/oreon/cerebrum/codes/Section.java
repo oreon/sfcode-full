@@ -116,7 +116,7 @@ public class Section extends com.oreon.cerebrum.codes.AbstractCode
 	@Transient
 	public String getDisplayName() {
 		try {
-			return chapter + "";
+			return super.getDisplayName();
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

@@ -69,8 +69,7 @@ public class AbstractCode extends BaseEntity {
 
 	;
 
-	@NotNull
-	@Length(min = 1, max = 250)
+	@Lob
 	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")

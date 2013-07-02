@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -49,6 +50,9 @@ import org.witchcraft.base.entity.BaseEntity;
 public abstract class DrugInteractionActionBase
 		extends
 			BaseAction<DrugInteraction> implements java.io.Serializable {
+
+	@RequestParameter
+	protected Long drugInteractionId;
 
 	@In(create = true, value = "drugAction")
 	com.oreon.cerebrum.web.action.drugs.DrugAction drugAction;
@@ -147,6 +151,16 @@ public abstract class DrugInteractionActionBase
 		if (isIdDefined()) {
 			wire();
 		}
+		addDefaultAssociations();
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
 	}
 
 	public void wire() {
