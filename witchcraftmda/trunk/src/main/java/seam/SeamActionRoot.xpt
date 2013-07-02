@@ -102,6 +102,9 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	private «name» «asVar()»  «IF getCartridge() == "JSF2RICH"»=  new «name»() «ENDIF»;
 	«ENDREM»
 	
+	@RequestParameter
+	protected Long «asVar()»Id;
+	
 	«FOREACH getOutgoingAssociations() AS e»
 	«IF !e.type.isAbstract»
 	 @In(create = true, value="«e.type.name.toFirstLower()»Action")
@@ -215,6 +218,24 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		if (isIdDefined()) {
 			wire();
 		}
+		addDefaultAssociations();
+	}
+	
+	
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+		«FOREACH getComposed() AS e-»
+		«IF e.getLower() > 0  »
+		if(isNew() && instance.get«e.name.toFirstUpper()»().isEmpty()){
+			for(int i = 0; i < «e.getLower()» ; i++)
+				getList«e.name.toFirstUpper()»().add(new «e.type.fqn()»());
+		}
+		«ENDIF»
+		«ENDFOREACH»
 	}
 
 	public void wire() {
@@ -441,7 +462,6 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 	«ENDLET»	
 	
-	
 «ENDDEFINE»
 
 «DEFINE genList(String prefix) FOR uml::Property»
@@ -509,6 +529,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
