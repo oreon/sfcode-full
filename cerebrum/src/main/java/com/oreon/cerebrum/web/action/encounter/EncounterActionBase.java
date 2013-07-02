@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -53,6 +54,9 @@ import com.oreon.cerebrum.encounter.Reason;
 public abstract class EncounterActionBase extends BaseAction<Encounter>
 		implements
 			java.io.Serializable {
+
+	@RequestParameter
+	protected Long encounterId;
 
 	@In(create = true, value = "prescriptionAction")
 	com.oreon.cerebrum.web.action.prescription.PrescriptionAction prescriptionAction;
@@ -160,6 +164,21 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 		if (isIdDefined()) {
 			wire();
 		}
+		addDefaultAssociations();
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
+		if (isNew() && instance.getReasons().isEmpty()) {
+			for (int i = 0; i < 1; i++)
+				getListReasons().add(new com.oreon.cerebrum.encounter.Reason());
+		}
+
 	}
 
 	public void wire() {

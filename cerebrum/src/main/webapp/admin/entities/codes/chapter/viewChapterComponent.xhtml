@@ -14,7 +14,10 @@
         <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewName')}"/>  
         <h:outputText value="#{chapterAction.chapter.name}" escape="false"/>  
         <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewDescription')}"/>  
-        <h:outputText value="#{chapterAction.chapter.description}" escape="false"/> 
+        <h:panelGroup> 
+          <rich:toolTip value="#{chapterAction.chapter.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{chapterAction.chapter.descriptionAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
       </h:panelGrid>  
       <br/>  
       <rich:dataTable id="sections" var="_section" rendered="#{not empty chapterAction.listSections and skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewSections') }" value="#{chapterAction.listSections}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
@@ -28,7 +31,10 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'viewDescription')}"/> 
           </f:facet>  
-          <h:outputText value="#{_section.description}" escape="false"/> 
+          <h:panelGroup> 
+            <rich:toolTip value="#{_section.description}" for="descriptionAbbr"></rich:toolTip>  
+            <h:outputText id="descriptionAbbr" value="#{_section.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </h:column> 
       </rich:dataTable>  
       <br/> 

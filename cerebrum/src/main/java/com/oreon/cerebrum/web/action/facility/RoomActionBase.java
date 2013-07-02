@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -51,6 +52,9 @@ import com.oreon.cerebrum.facility.Bed;
 public abstract class RoomActionBase extends BaseAction<Room>
 		implements
 			java.io.Serializable {
+
+	@RequestParameter
+	protected Long roomId;
 
 	@In(create = true, value = "roomTypeAction")
 	com.oreon.cerebrum.web.action.facility.RoomTypeAction roomTypeAction;
@@ -148,6 +152,16 @@ public abstract class RoomActionBase extends BaseAction<Room>
 		if (isIdDefined()) {
 			wire();
 		}
+		addDefaultAssociations();
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
 	}
 
 	public void wire() {

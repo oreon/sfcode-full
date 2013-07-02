@@ -42,7 +42,10 @@
               <ui:param name="propertyPath" value="chapter.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_chapter.description}" escape="false"/> 
+          <h:panelGroup> 
+            <rich:toolTip value="#{_chapter.description}" for="descriptionAbbr"></rich:toolTip>  
+            <h:outputText id="descriptionAbbr" value="#{_chapter.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 

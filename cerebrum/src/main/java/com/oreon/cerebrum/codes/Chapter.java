@@ -100,7 +100,7 @@ public class Chapter extends com.oreon.cerebrum.codes.AbstractCode
 	@Transient
 	public String getDisplayName() {
 		try {
-			return sections + "";
+			return super.getDisplayName();
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
