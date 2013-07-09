@@ -136,7 +136,7 @@ public abstract class CodeActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -203,6 +203,7 @@ public abstract class CodeActionBase
 			sectionAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

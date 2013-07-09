@@ -1,15 +1,20 @@
 package com.oreon.cerebrum.web.action.patient;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.jboss.seam.annotations.Name;
+import org.joda.time.JodaTimePermission;
 
+import com.oreon.cerebrum.charts.AppliedChart;
+import com.oreon.cerebrum.charts.ChartItem;
+import com.oreon.cerebrum.charts.ChartProcedure;
+import com.oreon.cerebrum.charts.TimeEnumeration;
 import com.oreon.cerebrum.encounter.Encounter;
 import com.oreon.cerebrum.patient.TrackedVital;
 import com.oreon.cerebrum.patient.VitalValue;
@@ -25,6 +30,36 @@ public class PatientAction extends PatientActionBase implements
 		// TODO Auto-generated constructor stub
 
 	}
+	
+	/**
+	 * Should calculate upcoming chart procedure dates 
+	 */
+	public void viewUpcomingChartProcedures(){
+		
+	
+		Set<AppliedChart> charts = instance.getAppliedCharts();
+		
+		List<ChartProcedure> procedures = new ArrayList<ChartProcedure>();
+		
+		
+		for (AppliedChart appliedChart : charts) {
+			Date beginDate = appliedChart.getDateCreated();
+			
+			Set<ChartItem> items = appliedChart.getChart().getChartItems();
+			for (ChartItem chartItem : items) {
+				TimeEnumeration frequency = chartItem.getFrequencyPeriod();
+				int duration = chartItem.getDuration();
+				if(frequency == TimeEnumeration.WEEK){
+					ChartProcedure procedure = new ChartProcedure();
+					//procedure.setDueDate( duration * ProjectUtils.getTimeFor)
+					//procedures.add(new ChartProcedure())
+				}
+				//JodaTimePermission
+			}
+			
+		}
+	}
+	
 	
 	public void initBloodPressureValues(){
 		

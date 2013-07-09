@@ -21,9 +21,9 @@
       <h:inputText id="#{prefix}_includes" value="#{codeList.code.includes}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.code_excludes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}"/>  
+      <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}"/>  
       <br/>  
-      <h:inputText id="#{prefix}_excludes" value="#{codeList.code.excludes}"/> 
+      <h:inputText id="#{prefix}_notIncludedHere" value="#{codeList.code.notIncludedHere}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.code_codeFirst}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}"/>  
@@ -37,6 +37,16 @@
         <s:selectItems value="#{sectionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_notCodedHere" value="#{codeList.code.notCodedHere}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}"/>  
+      <br/>  
+      <h:inputText id="#{prefix}_codeAlso" value="#{codeList.code.codeAlso}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 
@@ -44,18 +54,5 @@
     <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{codeList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{codeList.dateCreatedRange.end}"/> 
-  </h:panelGrid>  
-  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
-    <h:inputText value="#{codeList.searchName}"/>  
-    <h:commandButton id="savesearch" value="Save Search" action="#{codeList.saveSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton>  
-    <h:selectOneMenu id="svdsearches" value="#{codeList.currentSavedSearch}"> 
-      <s:selectItems value="#{codeList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
-      <s:convertEntity/> 
-    </h:selectOneMenu>  
-    <h:commandButton value="Load Search" action="#{codeList.executeSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton> 
-  </div> 
+  </h:panelGrid> 
 </ui:composition>

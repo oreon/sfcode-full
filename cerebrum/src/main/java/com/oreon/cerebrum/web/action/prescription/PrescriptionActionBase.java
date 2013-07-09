@@ -136,7 +136,7 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -211,6 +211,7 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 
 		initListPrescriptionItems();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

@@ -139,7 +139,7 @@ public abstract class NurseActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -206,6 +206,7 @@ public abstract class NurseActionBase
 			nurseSpecialtyAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

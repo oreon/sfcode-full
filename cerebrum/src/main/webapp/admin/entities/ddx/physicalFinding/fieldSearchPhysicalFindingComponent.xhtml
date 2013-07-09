@@ -21,18 +21,5 @@
     <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{physicalFindingList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{physicalFindingList.dateCreatedRange.end}"/> 
-  </h:panelGrid>  
-  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
-    <h:inputText value="#{physicalFindingList.searchName}"/>  
-    <h:commandButton id="savesearch" value="Save Search" action="#{physicalFindingList.saveSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton>  
-    <h:selectOneMenu id="svdsearches" value="#{physicalFindingList.currentSavedSearch}"> 
-      <s:selectItems value="#{physicalFindingList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
-      <s:convertEntity/> 
-    </h:selectOneMenu>  
-    <h:commandButton value="Load Search" action="#{physicalFindingList.executeSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton> 
-  </div> 
+  </h:panelGrid> 
 </ui:composition>

@@ -52,11 +52,11 @@
         </h:column>  
         <h:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.code_excludes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewExcludes')}"/> 
+            <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotIncludedHere')}"/> 
           </f:facet>  
           <h:panelGroup> 
-            <rich:toolTip value="#{_code.excludes}" for="excludesAbbr"></rich:toolTip>  
-            <h:outputText id="excludesAbbr" value="#{_code.excludesAbbreviated}" escape="false"/> 
+            <rich:toolTip value="#{_code.notIncludedHere}" for="notIncludedHereAbbr"></rich:toolTip>  
+            <h:outputText id="notIncludedHereAbbr" value="#{_code.notIncludedHereAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </h:column>  
         <h:column> 
@@ -66,6 +66,24 @@
           <h:panelGroup> 
             <rich:toolTip value="#{_code.codeFirst}" for="codeFirstAbbr"></rich:toolTip>  
             <h:outputText id="codeFirstAbbr" value="#{_code.codeFirstAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotCodedHere')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <rich:toolTip value="#{_code.notCodedHere}" for="notCodedHereAbbr"></rich:toolTip>  
+            <h:outputText id="notCodedHereAbbr" value="#{_code.notCodedHereAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewCodeAlso')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <rich:toolTip value="#{_code.codeAlso}" for="codeAlsoAbbr"></rich:toolTip>  
+            <h:outputText id="codeAlsoAbbr" value="#{_code.codeAlsoAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </h:column> 
       </rich:dataTable>  

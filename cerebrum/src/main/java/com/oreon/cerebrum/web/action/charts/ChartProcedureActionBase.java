@@ -150,7 +150,7 @@ public abstract class ChartProcedureActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -233,6 +233,7 @@ public abstract class ChartProcedureActionBase
 			chartItemAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

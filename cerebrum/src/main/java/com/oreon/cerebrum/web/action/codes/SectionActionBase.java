@@ -138,7 +138,7 @@ public abstract class SectionActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -207,6 +207,7 @@ public abstract class SectionActionBase
 
 		initListCodes();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

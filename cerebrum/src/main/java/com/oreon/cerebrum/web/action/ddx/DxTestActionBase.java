@@ -118,7 +118,7 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -161,6 +161,7 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

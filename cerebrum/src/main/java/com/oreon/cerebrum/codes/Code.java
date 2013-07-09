@@ -79,7 +79,7 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 	@Column(unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
-	protected String excludes
+	protected String notIncludedHere
 
 	;
 
@@ -97,6 +97,22 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 
 	;
 
+	@Lob
+	@Column(unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String notCodedHere
+
+	;
+
+	@Lob
+	@Column(unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String codeAlso
+
+	;
+
 	public void setIncludes(String includes) {
 		this.includes = includes;
 	}
@@ -107,13 +123,13 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 
 	}
 
-	public void setExcludes(String excludes) {
-		this.excludes = excludes;
+	public void setNotIncludedHere(String notIncludedHere) {
+		this.notIncludedHere = notIncludedHere;
 	}
 
-	public String getExcludes() {
+	public String getNotIncludedHere() {
 
-		return excludes;
+		return notIncludedHere;
 
 	}
 
@@ -137,6 +153,26 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 
 	}
 
+	public void setNotCodedHere(String notCodedHere) {
+		this.notCodedHere = notCodedHere;
+	}
+
+	public String getNotCodedHere() {
+
+		return notCodedHere;
+
+	}
+
+	public void setCodeAlso(String codeAlso) {
+		this.codeAlso = codeAlso;
+	}
+
+	public String getCodeAlso() {
+
+		return codeAlso;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -157,12 +193,12 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 	}
 
 	@Transient
-	public String getExcludesAbbreviated() {
+	public String getNotIncludedHereAbbreviated() {
 		try {
-			return org.apache.commons.lang.WordUtils.abbreviate(
-					excludes.trim(), 100, 200, "...");
+			return org.apache.commons.lang.WordUtils.abbreviate(notIncludedHere
+					.trim(), 100, 200, "...");
 		} catch (Exception e) {
-			return excludes != null ? excludes : "";
+			return notIncludedHere != null ? notIncludedHere : "";
 		}
 	}
 
@@ -173,6 +209,26 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 					.trim(), 100, 200, "...");
 		} catch (Exception e) {
 			return codeFirst != null ? codeFirst : "";
+		}
+	}
+
+	@Transient
+	public String getNotCodedHereAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(notCodedHere
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return notCodedHere != null ? notCodedHere : "";
+		}
+	}
+
+	@Transient
+	public String getCodeAlsoAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					codeAlso.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return codeAlso != null ? codeAlso : "";
 		}
 	}
 
@@ -190,9 +246,13 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 
 		listSearchableFields.add("includes");
 
-		listSearchableFields.add("excludes");
+		listSearchableFields.add("notIncludedHere");
 
 		listSearchableFields.add("codeFirst");
+
+		listSearchableFields.add("notCodedHere");
+
+		listSearchableFields.add("codeAlso");
 
 		return listSearchableFields;
 	}
@@ -204,9 +264,13 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 
 		builder.append(getIncludes() + " ");
 
-		builder.append(getExcludes() + " ");
+		builder.append(getNotIncludedHere() + " ");
 
 		builder.append(getCodeFirst() + " ");
+
+		builder.append(getNotCodedHere() + " ");
+
+		builder.append(getCodeAlso() + " ");
 
 		if (getSection() != null)
 			builder.append("section:" + getSection().getDisplayName() + " ");

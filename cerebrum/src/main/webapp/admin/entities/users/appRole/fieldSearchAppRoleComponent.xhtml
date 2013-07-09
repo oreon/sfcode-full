@@ -25,18 +25,5 @@
     <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{appRoleList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{appRoleList.dateCreatedRange.end}"/> 
-  </h:panelGrid>  
-  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
-    <h:inputText value="#{appRoleList.searchName}"/>  
-    <h:commandButton id="savesearch" value="Save Search" action="#{appRoleList.saveSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton>  
-    <h:selectOneMenu id="svdsearches" value="#{appRoleList.currentSavedSearch}"> 
-      <s:selectItems value="#{appRoleList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
-      <s:convertEntity/> 
-    </h:selectOneMenu>  
-    <h:commandButton value="Load Search" action="#{appRoleList.executeSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton> 
-  </div> 
+  </h:panelGrid> 
 </ui:composition>

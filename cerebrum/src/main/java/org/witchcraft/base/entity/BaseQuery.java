@@ -315,29 +315,12 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 			log.error("no object to search");
 			return "";
 		}
-
-		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA,
-				entityManager.getSearchFactory().getAnalyzer("entityAnalyzer"));
-
-		org.apache.lucene.search.Query query = null;
-
-		try {
-			query = parser.parse(searchText);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
-
-		QueryScorer scorer = new QueryScorer(query, SEARCH_DATA);
-		// Highlight using a CSS style
-		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter(
-				"<span style='background-color:yellow;'>", "</span>");
-		Highlighter highlighter = new Highlighter(formatter, scorer);
-		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
-
-		FullTextQuery ftq = entityManager.createFullTextQuery(query,
-				getEntityClass());
-
-		List<E> result = ftq.getResultList();
+		
+		
+		List<E> result = getTextSearchResults(searchText);
+		org.apache.lucene.search.Query query = createFullTextSearchQuery(searchText);
+		
+		Highlighter highlighter = getHighlighter(query);
 
 		for (E e : result) {
 			try {
@@ -353,6 +336,43 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 		setEntityList(result);
 		return "textSearch";
+	}
+	
+	protected Highlighter getHighlighter(org.apache.lucene.search.Query query){
+		
+		QueryScorer scorer = new QueryScorer(query, SEARCH_DATA);
+		// Highlight using a CSS style
+		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter(
+				"<span style='background-color:yellow;'>", "</span>");
+		Highlighter highlighter = new Highlighter(formatter, scorer);
+		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
+		
+		return highlighter;
+	}
+	
+	public List<E> getTextSearchResults(String searchme){
+		org.apache.lucene.search.Query query = createFullTextSearchQuery(searchme);
+
+		FullTextQuery ftq = entityManager.createFullTextQuery(query,
+				getEntityClass());
+
+		List<E> results = ftq.getResultList();
+		return results;
+	}
+
+	private org.apache.lucene.search.Query createFullTextSearchQuery(
+			String searchme) {
+		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA,
+				entityManager.getSearchFactory().getAnalyzer("entityAnalyzer"));
+
+		org.apache.lucene.search.Query query = null;
+
+		try {
+			query = parser.parse(searchme);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+		return query;
 	}
 
 	// @Override
@@ -380,8 +400,9 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		ArrayList<E> result = new ArrayList<E>();
 		// departmentListQuery.getDepartment().setName(input);
 
-		Iterator<E> iterator = getResultList().iterator();
+		return getTextSearchResults(input);
 
+		/*
 		while (iterator.hasNext()) {
 			E elem = iterator.next();
 			String elemProperty = elem.getDisplayName();
@@ -393,6 +414,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		}
 
 		return result;
+		*/
 	}
 
 	/**
@@ -404,8 +426,9 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	public List<E> autocompletedb(Object suggest) {
 		String input = (String) suggest;
 		setupForAutoComplete(input);
-		super.setRestrictionLogicOperator("or");
-		return getResultList();
+		//super.setRestrictionLogicOperator("or");
+		List<E> results = getResultList();
+		return results;
 	}
 
 	/**

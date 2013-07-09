@@ -136,7 +136,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -211,6 +211,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 
 		initListInvoiceItems();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

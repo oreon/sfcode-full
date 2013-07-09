@@ -134,7 +134,7 @@ public abstract class ConditionFindingActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -201,6 +201,7 @@ public abstract class ConditionFindingActionBase
 			diseaseAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

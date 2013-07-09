@@ -150,7 +150,7 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -233,6 +233,7 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 			allergenAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

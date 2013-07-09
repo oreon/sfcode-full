@@ -35,11 +35,11 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_excludesDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_notIncludedHereDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
-            <h:outputText value="#{msg.code_excludes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}"/>
+            <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}"/>
           </ui:define>  
-          <rich:editor escape="false" useSeamText="true" id="#{prefix}_excludes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}" label="#{msg.code_excludes}" required="false" disabled="false" value="#{codeAction.code.excludes}"> 
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_notIncludedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{codeAction.code.notIncludedHere}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
@@ -48,6 +48,22 @@
             <h:outputText value="#{msg.code_codeFirst}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}"/>
           </ui:define>  
           <rich:editor escape="false" useSeamText="true" id="#{prefix}_codeFirst#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{codeAction.code.codeFirst}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_notCodedHereDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}"/>
+          </ui:define>  
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_notCodedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{codeAction.code.notCodedHere}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_codeAlsoDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}"/>
+          </ui:define>  
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_codeAlso#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{codeAction.code.codeAlso}"> 
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  

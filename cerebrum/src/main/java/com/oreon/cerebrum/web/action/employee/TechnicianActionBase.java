@@ -122,7 +122,7 @@ public abstract class TechnicianActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -165,6 +165,7 @@ public abstract class TechnicianActionBase
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

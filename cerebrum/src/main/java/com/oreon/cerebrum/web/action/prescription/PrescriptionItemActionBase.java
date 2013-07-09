@@ -166,7 +166,7 @@ public abstract class PrescriptionItemActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -264,6 +264,7 @@ public abstract class PrescriptionItemActionBase
 			frequencyAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

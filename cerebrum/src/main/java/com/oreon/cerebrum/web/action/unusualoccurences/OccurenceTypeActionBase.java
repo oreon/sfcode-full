@@ -118,7 +118,7 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -167,6 +167,7 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

@@ -152,7 +152,7 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -241,6 +241,7 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 
 		initListBedStays();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

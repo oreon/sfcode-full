@@ -83,18 +83,5 @@
     <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{prescriptionItemTemplateList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{prescriptionItemTemplateList.dateCreatedRange.end}"/> 
-  </h:panelGrid>  
-  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
-    <h:inputText value="#{prescriptionItemTemplateList.searchName}"/>  
-    <h:commandButton id="savesearch" value="Save Search" action="#{prescriptionItemTemplateList.saveSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton>  
-    <h:selectOneMenu id="svdsearches" value="#{prescriptionItemTemplateList.currentSavedSearch}"> 
-      <s:selectItems value="#{prescriptionItemTemplateList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
-      <s:convertEntity/> 
-    </h:selectOneMenu>  
-    <h:commandButton value="Load Search" action="#{prescriptionItemTemplateList.executeSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton> 
-  </div> 
+  </h:panelGrid> 
 </ui:composition>

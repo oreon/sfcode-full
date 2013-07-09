@@ -60,17 +60,17 @@
             <h:outputText id="includesAbbr" value="#{_code.includesAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewExcludes')}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotIncludedHere')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{codeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.code_excludes}"/>  
-              <ui:param name="propertyPath" value="code.excludes"/> 
+              <ui:param name="propertyLabel" value="#{msg.code_notIncludedHere}"/>  
+              <ui:param name="propertyPath" value="code.notIncludedHere"/> 
             </ui:include> 
           </f:facet>  
           <h:panelGroup> 
-            <rich:toolTip value="#{_code.excludes}" for="excludesAbbr"></rich:toolTip>  
-            <h:outputText id="excludesAbbr" value="#{_code.excludesAbbreviated}" escape="false"/> 
+            <rich:toolTip value="#{_code.notIncludedHere}" for="notIncludedHereAbbr"></rich:toolTip>  
+            <h:outputText id="notIncludedHereAbbr" value="#{_code.notIncludedHereAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewCodeFirst')}"> 
@@ -98,6 +98,32 @@
             <f:param name="sectionId" value="#{_code.section.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotCodedHere')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{codeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.code_notCodedHere}"/>  
+              <ui:param name="propertyPath" value="code.notCodedHere"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:panelGroup> 
+            <rich:toolTip value="#{_code.notCodedHere}" for="notCodedHereAbbr"></rich:toolTip>  
+            <h:outputText id="notCodedHereAbbr" value="#{_code.notCodedHereAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewCodeAlso')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{codeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.code_codeAlso}"/>  
+              <ui:param name="propertyPath" value="code.codeAlso"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:panelGroup> 
+            <rich:toolTip value="#{_code.codeAlso}" for="codeAlsoAbbr"></rich:toolTip>  
+            <h:outputText id="codeAlsoAbbr" value="#{_code.codeAlsoAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 

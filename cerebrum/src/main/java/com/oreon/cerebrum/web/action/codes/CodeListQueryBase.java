@@ -75,11 +75,15 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 
 			"lower(code.includes) like concat(lower(#{codeList.code.includes}),'%')",
 
-			"lower(code.excludes) like concat(lower(#{codeList.code.excludes}),'%')",
+			"lower(code.notIncludedHere) like concat(lower(#{codeList.code.notIncludedHere}),'%')",
 
 			"lower(code.codeFirst) like concat(lower(#{codeList.code.codeFirst}),'%')",
 
 			"code.section.id = #{codeList.code.section.id}",
+
+			"lower(code.notCodedHere) like concat(lower(#{codeList.code.notCodedHere}),'%')",
+
+			"lower(code.codeAlso) like concat(lower(#{codeList.code.codeAlso}),'%')",
 
 			"code.dateCreated <= #{codeList.dateCreatedRange.end}",
 			"code.dateCreated >= #{codeList.dateCreatedRange.begin}",};
@@ -107,9 +111,8 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 						: "") + "\",");
 
 		builder.append("\""
-				+ (e.getExcludes() != null
-						? e.getExcludes().replace(",", "")
-						: "") + "\",");
+				+ (e.getNotIncludedHere() != null ? e.getNotIncludedHere()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getCodeFirst() != null
@@ -119,6 +122,15 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 		builder.append("\""
 				+ (e.getSection() != null ? e.getSection().getDisplayName()
 						.replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getNotCodedHere() != null ? e.getNotCodedHere().replace(
+						",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getCodeAlso() != null
+						? e.getCodeAlso().replace(",", "")
+						: "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -131,11 +143,15 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 
 		builder.append("Includes" + ",");
 
-		builder.append("Excludes" + ",");
+		builder.append("NotIncludedHere" + ",");
 
 		builder.append("CodeFirst" + ",");
 
 		builder.append("Section" + ",");
+
+		builder.append("NotCodedHere" + ",");
+
+		builder.append("CodeAlso" + ",");
 
 		builder.append("\r\n");
 	}

@@ -117,8 +117,22 @@
 
 								</rich:suggestionbox>
 							</a:region>
+							
+							
+							
 						</h:panelGroup>
 					</s:decorate>
+					
+				
+				 <a:commandButton action="#{drugAction.setDrugId(0)}" 
+				 	oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Find" reRender="${modalId}" />  
+  	
+	
+				 <ui:include src="/admin/entities/drugs/drug/modalDlgDrugComponent.xhtml"> 
+      				<ui:param name="modalId" value="drug"/> 
+    			 </ui:include> 
+					
+					
 				</h:column>
 				<h:column>
 					<f:facet name="header">

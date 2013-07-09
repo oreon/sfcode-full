@@ -164,7 +164,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -263,6 +263,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 		initListReasons();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

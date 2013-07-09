@@ -122,7 +122,7 @@ public abstract class ChapterActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -167,6 +167,7 @@ public abstract class ChapterActionBase
 
 		initListSections();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

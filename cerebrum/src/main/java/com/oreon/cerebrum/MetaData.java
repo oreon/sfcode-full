@@ -732,11 +732,15 @@ public class MetaData {
 
 	"includes", "java.lang.String",
 
-	"excludes", "java.lang.String",
+	"notIncludedHere", "java.lang.String",
 
 	"codeFirst", "java.lang.String",
 
 	"section.displayName", "java.lang.String",
+
+	"notCodedHere", "java.lang.String",
+
+	"codeAlso", "java.lang.String",
 
 	},
 

@@ -151,7 +151,7 @@ public abstract class DrugInteractionActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -234,6 +234,7 @@ public abstract class DrugInteractionActionBase
 			interactingDrugAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

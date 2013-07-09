@@ -118,7 +118,7 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -165,6 +165,7 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

@@ -5,12 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
+import org.apache.solr.analysis.EdgeNGramFilterFactory;
 import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.NGramFilterFactory;
 import org.apache.solr.analysis.PhoneticFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.apache.solr.analysis.StopFilterFactory;
-import org.apache.solr.analysis.SynonymFilterFactory;
 import org.hibernate.annotations.Filter;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Indexed;
@@ -32,6 +33,7 @@ import org.witchcraft.seam.action.EventTypes;
 @AnalyzerDef(name = "entityAnalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 	@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 	@TokenFilterDef(factory = StopFilterFactory.class),
+	@TokenFilterDef(factory = EdgeNGramFilterFactory.class, params = { @Parameter(name = "maxGramSize", value = "1024") }),
 	@TokenFilterDef(factory = PhoneticFilterFactory.class,  params = {@Parameter(name = "encoder", value="SOUNDEX")} ),
 	//@TokenFilterDef(factory = SynonymFilterFactory.class),
 	@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
