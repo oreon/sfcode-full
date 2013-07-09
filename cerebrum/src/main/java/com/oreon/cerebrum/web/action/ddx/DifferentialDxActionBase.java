@@ -150,7 +150,7 @@ public abstract class DifferentialDxActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -233,6 +233,7 @@ public abstract class DifferentialDxActionBase
 			findingAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

@@ -157,7 +157,7 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -247,6 +247,7 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 
 		initListDifferentialDiagnoses();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

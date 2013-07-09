@@ -136,7 +136,7 @@ public abstract class WardActionBase extends BaseAction<Ward>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -209,6 +209,7 @@ public abstract class WardActionBase extends BaseAction<Ward>
 
 		initListRooms();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

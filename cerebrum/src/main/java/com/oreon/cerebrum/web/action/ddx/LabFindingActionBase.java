@@ -120,7 +120,7 @@ public abstract class LabFindingActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -163,6 +163,7 @@ public abstract class LabFindingActionBase
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

@@ -136,7 +136,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -205,6 +205,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 
 		initListPatientFindings();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

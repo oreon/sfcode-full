@@ -150,7 +150,7 @@ public abstract class AppliedChartActionBase extends BaseAction<AppliedChart>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -233,6 +233,7 @@ public abstract class AppliedChartActionBase extends BaseAction<AppliedChart>
 			chartAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

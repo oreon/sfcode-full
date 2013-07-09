@@ -152,7 +152,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -242,6 +242,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 
 		initListSubcategories();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

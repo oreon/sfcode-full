@@ -118,7 +118,7 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -168,6 +168,7 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 		initListDrugs();
 		initListAvailableDrugs();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

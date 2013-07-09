@@ -25,10 +25,10 @@
         <rich:message styleClass="error errors" for="#{prefix}_includes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.code_excludes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}"/>  
+        <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}"/>  
         <br/>  
-        <rich:editor id="#{prefix}_excludes" value="#{codeAction.code.excludes}"/>  
-        <rich:message styleClass="error errors" for="#{prefix}_excludes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}"/> 
+        <rich:editor id="#{prefix}_notIncludedHere" value="#{codeAction.code.notIncludedHere}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_notIncludedHere" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.code_codeFirst}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}"/>  
@@ -44,6 +44,18 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="#{prefix}_sectionsection" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editSection')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_notCodedHere" value="#{codeAction.code.notCodedHere}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_notCodedHere" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_codeAlso" value="#{codeAction.code.codeAlso}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_codeAlso" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

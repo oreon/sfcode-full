@@ -118,7 +118,7 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -169,6 +169,7 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 		initListAppRoles();
 		initListAvailableAppRoles();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

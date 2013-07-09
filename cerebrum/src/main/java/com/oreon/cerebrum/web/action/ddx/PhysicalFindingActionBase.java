@@ -120,7 +120,7 @@ public abstract class PhysicalFindingActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -163,6 +163,7 @@ public abstract class PhysicalFindingActionBase
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

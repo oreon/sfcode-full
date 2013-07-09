@@ -150,7 +150,7 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -233,6 +233,7 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 			patientAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

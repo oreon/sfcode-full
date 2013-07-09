@@ -139,7 +139,7 @@ public abstract class PhysicianActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -206,6 +206,7 @@ public abstract class PhysicianActionBase
 			specializationAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

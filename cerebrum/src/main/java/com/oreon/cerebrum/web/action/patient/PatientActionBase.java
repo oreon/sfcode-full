@@ -161,7 +161,7 @@ public abstract class PatientActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -224,6 +224,7 @@ public abstract class PatientActionBase
 
 		initListChartProcedures();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

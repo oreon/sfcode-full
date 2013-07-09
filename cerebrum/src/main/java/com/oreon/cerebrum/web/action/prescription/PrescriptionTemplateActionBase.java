@@ -120,7 +120,7 @@ public abstract class PrescriptionTemplateActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -178,6 +178,7 @@ public abstract class PrescriptionTemplateActionBase
 
 		initListPrescriptionItemTemplates();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

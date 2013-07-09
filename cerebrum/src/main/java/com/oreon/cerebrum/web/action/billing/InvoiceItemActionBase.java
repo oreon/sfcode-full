@@ -150,7 +150,7 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -233,6 +233,7 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 			invoiceAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

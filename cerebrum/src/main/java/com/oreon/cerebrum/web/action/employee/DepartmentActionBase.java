@@ -120,7 +120,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -169,6 +169,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 		initListEmployees();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

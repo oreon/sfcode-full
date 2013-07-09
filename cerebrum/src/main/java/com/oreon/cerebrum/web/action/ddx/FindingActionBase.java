@@ -120,7 +120,7 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -169,6 +169,7 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 
 		initListDifferentialDxs();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

@@ -134,7 +134,7 @@ public abstract class PatientDocumentActionBase
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -219,6 +219,7 @@ public abstract class PatientDocumentActionBase
 			patientAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

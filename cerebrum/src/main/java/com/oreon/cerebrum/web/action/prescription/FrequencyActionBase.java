@@ -118,7 +118,7 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -165,6 +165,7 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

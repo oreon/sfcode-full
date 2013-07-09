@@ -136,9 +136,13 @@ public class Section extends com.oreon.cerebrum.codes.AbstractCode
 
 		listSearchableFields.add("codes.includes");
 
-		listSearchableFields.add("codes.excludes");
+		listSearchableFields.add("codes.notIncludedHere");
 
 		listSearchableFields.add("codes.codeFirst");
+
+		listSearchableFields.add("codes.notCodedHere");
+
+		listSearchableFields.add("codes.codeAlso");
 
 		return listSearchableFields;
 	}

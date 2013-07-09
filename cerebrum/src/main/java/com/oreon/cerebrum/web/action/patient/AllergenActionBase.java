@@ -118,7 +118,7 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -165,6 +165,7 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

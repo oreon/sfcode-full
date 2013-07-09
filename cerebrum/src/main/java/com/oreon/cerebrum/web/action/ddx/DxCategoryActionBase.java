@@ -118,7 +118,7 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -165,6 +165,7 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

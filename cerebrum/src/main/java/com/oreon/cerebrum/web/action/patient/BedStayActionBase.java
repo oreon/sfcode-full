@@ -150,7 +150,7 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -232,6 +232,7 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 			bedAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

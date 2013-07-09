@@ -134,7 +134,7 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -201,6 +201,7 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 			encounterAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

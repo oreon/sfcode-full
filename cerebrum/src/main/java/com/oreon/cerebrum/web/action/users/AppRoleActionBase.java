@@ -118,7 +118,7 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -165,6 +165,7 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

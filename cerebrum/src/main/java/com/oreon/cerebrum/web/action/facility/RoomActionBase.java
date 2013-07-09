@@ -152,7 +152,7 @@ public abstract class RoomActionBase extends BaseAction<Room>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -236,6 +236,7 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 		initListBeds();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

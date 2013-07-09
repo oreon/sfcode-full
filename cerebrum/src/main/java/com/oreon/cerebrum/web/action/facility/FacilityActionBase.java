@@ -120,7 +120,7 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -165,6 +165,7 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 
 		initListWards();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

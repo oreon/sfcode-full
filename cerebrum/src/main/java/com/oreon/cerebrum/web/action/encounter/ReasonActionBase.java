@@ -150,7 +150,7 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -232,6 +232,7 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 			codeAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

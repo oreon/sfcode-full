@@ -2,19 +2,23 @@ package com.oreon.cerebrum.charts;
 
 public enum TimeEnumeration {
 
-	HOUR,
+	HOUR (60L),
 
-	DAY,
+	DAY (1440L),
 
-	WEEK,
+	WEEK (10080L),
 
-	MONTH,
+	MONTH (43200L),
 
-	YEAR,
+	YEAR  (525600L),   
 
 	;
 
 	TimeEnumeration() {
+	}
+	
+	TimeEnumeration(Long time) {
+		
 	}
 
 	public String getName() {

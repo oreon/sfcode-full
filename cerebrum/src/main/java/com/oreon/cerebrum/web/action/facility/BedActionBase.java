@@ -150,7 +150,7 @@ public abstract class BedActionBase extends BaseAction<Bed>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -232,6 +232,7 @@ public abstract class BedActionBase extends BaseAction<Bed>
 			patientAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

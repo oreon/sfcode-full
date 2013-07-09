@@ -118,7 +118,7 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -165,6 +165,7 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

@@ -134,7 +134,7 @@ public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -205,6 +205,7 @@ public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 			chartAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

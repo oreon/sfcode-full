@@ -78,11 +78,11 @@
         </h:column>  
         <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.code_excludes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}"/>
+            <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_excludesDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="#{prefix}_notIncludedHereDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <rich:editor escape="false" useSeamText="true" id="#{prefix}_excludes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editExcludes')}" label="#{msg.code_excludes}" required="false" disabled="false" value="#{_code.excludes}"> 
+            <rich:editor escape="false" useSeamText="true" id="#{prefix}_notIncludedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{_code.notIncludedHere}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </rich:editor> 
           </s:decorate> 
@@ -94,6 +94,28 @@
           <s:decorate id="#{prefix}_codeFirstDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <rich:editor escape="false" useSeamText="true" id="#{prefix}_codeFirst#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{_code.codeFirst}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_notCodedHereDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor escape="false" useSeamText="true" id="#{prefix}_notCodedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{_code.notCodedHere}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}"/>
+          </f:facet>  
+          <s:decorate id="#{prefix}_codeAlsoDecorate" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor escape="false" useSeamText="true" id="#{prefix}_codeAlso#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{_code.codeAlso}"> 
               <rich:ajaxValidator event="onsubmit"/> 
             </rich:editor> 
           </s:decorate> 

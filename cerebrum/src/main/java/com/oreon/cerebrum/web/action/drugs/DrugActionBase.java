@@ -120,7 +120,7 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -169,6 +169,7 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 
 		initListDrugInteractions();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

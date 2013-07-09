@@ -118,7 +118,7 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -161,6 +161,7 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

@@ -150,7 +150,7 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -233,6 +233,7 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 			patientAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

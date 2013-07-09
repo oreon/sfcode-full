@@ -150,7 +150,7 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -233,6 +233,7 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 			vaccineAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

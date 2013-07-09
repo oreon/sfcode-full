@@ -118,7 +118,7 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 		if (isIdDefined()) {
 			wire();
 		}
-		addDefaultAssociations();
+
 	}
 
 	/**
@@ -161,6 +161,7 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {
