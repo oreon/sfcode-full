@@ -659,15 +659,36 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 «ENDDEFINE»
 
 
+«DEFINE genLiteral FOR uml::EnumerationLiteral»
+	«name»
+«ENDDEFINE»
+
+«DEFINE genLiteral FOR wcprofile::EnumerationLiteralWithValue»
+	«name»(«this.literalValue»)
+«ENDDEFINE»
+
+«DEFINE EnumGen FOR wcprofile::ExtendedEnumeration»
+«IF !excludeFromGeneration»
+	«EXPAND EnumGenBase FOR this»
+«ENDIF»
+«ENDDEFINE»
+
 «DEFINE EnumGen FOR uml::Enumeration»
+	«EXPAND EnumGenBase FOR this»
+«ENDDEFINE»
+
+
+«DEFINE EnumGenBase FOR uml::Enumeration»
+
 	«FILE packagePath() + "/"+ name +".java"»  
 	package «packageName()»;
 	
 	public enum «name» {	
 		
 		«FOREACH  ownedLiteral AS e»
-			«e.name»,
+			«EXPAND genLiteral FOR e»,
 		«ENDFOREACH»
+		
 		;
 		
 		«name»() { }
@@ -681,6 +702,7 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
     	}
 	} 
 	«ENDFILE»
+
 «ENDDEFINE»
 
 
