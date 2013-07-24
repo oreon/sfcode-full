@@ -237,7 +237,11 @@
 		«clearCurrentEmbeddable()-»
 	«ELSE-»
 		«IF !isMultivalued()»
-			<param name="«getId()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«isNonExpandableAssoc() ? ".id" : "" »}"  validateModel="false" />
+			«IF isOutgoingAssociation()»
+				<param name="«getIdWithoutPrefix()»" value="#{«getCurrentEntity().asVar()»List.«name»Id}"  validateModel="false" />
+			«ELSE»
+				<param name="«getIdWithoutPrefix()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«isNonExpandableAssoc() ? ".id" : "" »}"  validateModel="false" />
+			«ENDIF»
 		«ENDIF»
 	«ENDIF»
 «ENDDEFINE»

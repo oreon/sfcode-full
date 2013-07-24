@@ -264,11 +264,14 @@ else
 //String getId(Property prop):
 //(prop.association != null ? prop.name.toFirstLower():"") + prop.class.name.toFirstLower() + "_" + prop.name;
 
+
+
+
 String getId(Property prop):
 "#{prefix}_" + prop.getIdWithoutPrefix();
 
 getIdWithoutPrefix(Property prop):
-(prop.association != null ? prop.name.toFirstLower():"") + prop.getEmbeddableClassNameSuffix("_") + prop.name;
+prop.association != null ? prop.name.toFirstLower() + "Id" : prop.getEmbeddableClassNameSuffix("_") + prop.name;
 
 String getActionForViewMode():
  "_"; 

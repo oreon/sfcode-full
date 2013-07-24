@@ -86,6 +86,11 @@
 			«FOREACH getNonComposedManyAssociations() AS a»
 			<rich:tab label="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
+				
+				<s:link view="«a.type.getViewFile("list")»"  value="View All"> 
+        			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}"/> 
+        		</s:link>
+        		
 				<ui:include src = "«a.type.getComponentViewFile("list")»" >
 					<ui:param name="records" value="#{«a.type.asVar()»List.get«a.name.toFirstUpper()»By«a.opposite.name.toFirstUpper()»(«getAction()».instance)}" />
          			<ui:param name="modalId" value="${modalId}" />
