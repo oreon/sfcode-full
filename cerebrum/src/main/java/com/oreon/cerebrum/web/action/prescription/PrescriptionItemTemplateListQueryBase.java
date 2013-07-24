@@ -114,7 +114,6 @@ public abstract class PrescriptionItemTemplateListQueryBase
 
 	public List<PrescriptionItemTemplate> getPrescriptionItemTemplatesByPrescriptionTemplate(
 			com.oreon.cerebrum.prescription.PrescriptionTemplate prescriptionTemplate) {
-		//setMaxResults(10000);
 		prescriptionItemTemplate.setPrescriptionTemplate(prescriptionTemplate);
 		return getResultList();
 	}
@@ -122,6 +121,48 @@ public abstract class PrescriptionItemTemplateListQueryBase
 	@Observer("archivedPrescriptionItemTemplate")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setDrugId(Long id) {
+		if (prescriptionItemTemplate.getDrug() == null) {
+			prescriptionItemTemplate
+					.setDrug(new com.oreon.cerebrum.drugs.Drug());
+		}
+		prescriptionItemTemplate.getDrug().setId(id);
+	}
+
+	public Long getDrugId() {
+		return prescriptionItemTemplate.getDrug() == null
+				? null
+				: prescriptionItemTemplate.getDrug().getId();
+	}
+
+	public void setFrequencyId(Long id) {
+		if (prescriptionItemTemplate.getFrequency() == null) {
+			prescriptionItemTemplate
+					.setFrequency(new com.oreon.cerebrum.prescription.Frequency());
+		}
+		prescriptionItemTemplate.getFrequency().setId(id);
+	}
+
+	public Long getFrequencyId() {
+		return prescriptionItemTemplate.getFrequency() == null
+				? null
+				: prescriptionItemTemplate.getFrequency().getId();
+	}
+
+	public void setPrescriptionTemplateId(Long id) {
+		if (prescriptionItemTemplate.getPrescriptionTemplate() == null) {
+			prescriptionItemTemplate
+					.setPrescriptionTemplate(new com.oreon.cerebrum.prescription.PrescriptionTemplate());
+		}
+		prescriptionItemTemplate.getPrescriptionTemplate().setId(id);
+	}
+
+	public Long getPrescriptionTemplateId() {
+		return prescriptionItemTemplate.getPrescriptionTemplate() == null
+				? null
+				: prescriptionItemTemplate.getPrescriptionTemplate().getId();
 	}
 
 	/** create comma delimited row 

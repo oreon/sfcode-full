@@ -9,20 +9,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_dxTestdxTest" value="#{prescribedTestAction.prescribedTest.dxTest}"> 
+        <h:selectOneMenu id="#{prefix}_dxTestId" value="#{prescribedTestAction.prescribedTest.dxTest}"> 
           <s:selectItems value="#{dxTestList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_dxTestdxTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_dxTestId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_encounterencounter" value="#{prescribedTestAction.prescribedTest.encounter}"> 
+        <h:selectOneMenu id="#{prefix}_encounterId" value="#{prescribedTestAction.prescribedTest.encounter}"> 
           <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_encounterencounter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_encounterId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/>  

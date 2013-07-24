@@ -1,51 +1,82 @@
 package com.oreon.cerebrum.web.action.charts;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
-import javax.persistence.EntityManager;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-
-import org.apache.commons.lang.StringUtils;
-
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Scope;
-
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.Component;
-import org.jboss.seam.security.Identity;
+import org.joda.time.DateTime;
 
-import org.jboss.seam.annotations.datamodel.DataModel;
-import org.jboss.seam.annotations.datamodel.DataModelSelection;
-import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
-import org.jboss.seam.annotations.Observer;
-import org.jboss.seam.annotations.security.Restrict;
-
-import org.witchcraft.base.entity.FileAttachment;
-
-import org.apache.commons.io.FileUtils;
-
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
-
-import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.base.entity.BaseEntity;
+import com.oreon.cerebrum.charts.ChartItem;
+import com.oreon.cerebrum.charts.ChartProcedure;
+import com.oreon.cerebrum.patient.Patient;
 
 //@Scope(ScopeType.CONVERSATION)
 @Name("appliedChartAction")
 public class AppliedChartAction extends AppliedChartActionBase
 		implements
 			java.io.Serializable {
+	
+	
+	private static final int NUMBER_OF_CHART_ITEMS = 5;
+	
+	@Override
+	public String save() {
+		// TODO Auto-generated method stub
+		return super.save();
+	}
+	
+	@Override
+	protected void postSave() {
+		
+		super.postSave();
+		createProcedures();
+	}
+	
+	
+
+	/**
+	 * Creates procedures and adds them to the patient for the given chart
+	 */
+	public void createProcedures(){
+	//	Date beginDate = appliedChart.getDateCreated();
+		
+		List<ChartProcedure> proceduresOfType = new ArrayList<ChartProcedure>();
+
+		Set<ChartItem> items = instance.getChart().getChartItems();
+		
+		Patient patient = instance.getPatient();
+		
+		for (ChartItem chartItem : items) {
+			
+			int duration = chartItem.getDuration();
+			
+			System.out.println(" applying " + chartItem.getName());
+			
+			String query = "Select count(*) from ChartProcedure cp where cp.patient = ?1 and cp.chartItem = ?2 and cp.datePerformed is not null ";
+			
+			Long count = executeSingleResultQuery(query, patient, chartItem);
+			int newToCreate = NUMBER_OF_CHART_ITEMS - count.intValue();
+			
+			System.out.println("there are nwe procedures to create - " + newToCreate);
+
+			for (int i = 0; i < newToCreate; i++) {
+				ChartProcedure procedure = new ChartProcedure();
+				DateTime dt = new DateTime();
+				procedure.setDueDate(dt.plusMinutes((int) (duration * i
+						* chartItem.getFrequencyPeriod().getValue())).toDate());
+				
+				procedure.setPatient(getInstance().getPatient());
+				
+				procedure.setChartItem(chartItem);
+				proceduresOfType.add(procedure);
+				
+				entityManager.persist(procedure);
+			}
+			
+		}
+		
+	}
 
 }

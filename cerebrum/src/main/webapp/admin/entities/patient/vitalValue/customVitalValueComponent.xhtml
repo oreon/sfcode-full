@@ -15,20 +15,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_trackedVitaltrackedVital" value="#{vitalValueAction.vitalValue.trackedVital}"> 
+        <h:selectOneMenu id="#{prefix}_trackedVitalId" value="#{vitalValueAction.vitalValue.trackedVital}"> 
           <s:selectItems value="#{trackedVitalList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_trackedVitaltrackedVital" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_trackedVitalId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_patientpatient" value="#{vitalValueAction.vitalValue.patient}"> 
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{vitalValueAction.vitalValue.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>  

@@ -94,7 +94,6 @@ public abstract class VitalValueListQueryBase
 
 	public List<VitalValue> getVitalValuesByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
-		//setMaxResults(10000);
 		vitalValue.setPatient(patient);
 		return getResultList();
 	}
@@ -102,6 +101,31 @@ public abstract class VitalValueListQueryBase
 	@Observer("archivedVitalValue")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setTrackedVitalId(Long id) {
+		if (vitalValue.getTrackedVital() == null) {
+			vitalValue
+					.setTrackedVital(new com.oreon.cerebrum.patient.TrackedVital());
+		}
+		vitalValue.getTrackedVital().setId(id);
+	}
+
+	public Long getTrackedVitalId() {
+		return vitalValue.getTrackedVital() == null ? null : vitalValue
+				.getTrackedVital().getId();
+	}
+
+	public void setPatientId(Long id) {
+		if (vitalValue.getPatient() == null) {
+			vitalValue.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		vitalValue.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return vitalValue.getPatient() == null ? null : vitalValue.getPatient()
+				.getId();
 	}
 
 	/** create comma delimited row 

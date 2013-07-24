@@ -91,20 +91,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{employeeAction.employee.facility}"> 
+        <h:selectOneMenu id="#{prefix}_facilityId" value="#{employeeAction.employee.facility}"> 
           <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_facilityfacility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_facilityId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editDepartment')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_departmentdepartment" value="#{employeeAction.employee.department}"> 
+        <h:selectOneMenu id="#{prefix}_departmentId" value="#{employeeAction.employee.department}"> 
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_departmentdepartment" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editDepartment')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_departmentId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editDepartment')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

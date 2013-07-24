@@ -78,7 +78,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editFacility')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{ employeeList.employee.facility}"> 
+      <h:selectOneMenu id="#{prefix}_facilityId" value="#{ employeeList.employee.facility}"> 
         <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -86,7 +86,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editDepartment')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_departmentdepartment" value="#{ employeeList.employee.department}"> 
+      <h:selectOneMenu id="#{prefix}_departmentId" value="#{ employeeList.employee.department}"> 
         <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 

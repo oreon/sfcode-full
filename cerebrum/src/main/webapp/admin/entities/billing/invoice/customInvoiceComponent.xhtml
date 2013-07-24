@@ -9,11 +9,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_patientpatient" value="#{invoiceAction.invoice.patient}"> 
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{invoiceAction.invoice.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}"/>  

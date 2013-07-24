@@ -108,7 +108,6 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 	public List<Employee> getEmployeesByDepartment(
 			com.oreon.cerebrum.employee.Department department) {
-		//setMaxResults(10000);
 		employee.setDepartment(department);
 		return getResultList();
 	}
@@ -116,6 +115,43 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	@Observer("archivedEmployee")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setAppUserId(Long id) {
+		if (employee.getAppUser() == null) {
+			employee.setAppUser(new com.oreon.cerebrum.users.AppUser());
+		}
+		employee.getAppUser().setId(id);
+	}
+
+	public Long getAppUserId() {
+		return employee.getAppUser() == null ? null : employee.getAppUser()
+				.getId();
+	}
+
+	public void setFacilityId(Long id) {
+		if (employee.getFacility() == null) {
+			employee.setFacility(new com.oreon.cerebrum.facility.Facility());
+		}
+		employee.getFacility().setId(id);
+	}
+
+	public Long getFacilityId() {
+		return employee.getFacility() == null ? null : employee.getFacility()
+				.getId();
+	}
+
+	public void setDepartmentId(Long id) {
+		if (employee.getDepartment() == null) {
+			employee
+					.setDepartment(new com.oreon.cerebrum.employee.Department());
+		}
+		employee.getDepartment().setId(id);
+	}
+
+	public Long getDepartmentId() {
+		return employee.getDepartment() == null ? null : employee
+				.getDepartment().getId();
 	}
 
 	/** create comma delimited row 

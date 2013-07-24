@@ -143,7 +143,6 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 
 	public List<Encounter> getEncountersByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
-		//setMaxResults(10000);
 		encounter.setPatient(patient);
 		return getResultList();
 	}
@@ -151,6 +150,31 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	@Observer("archivedEncounter")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setPrescriptionId(Long id) {
+		if (encounter.getPrescription() == null) {
+			encounter
+					.setPrescription(new com.oreon.cerebrum.prescription.Prescription());
+		}
+		encounter.getPrescription().setId(id);
+	}
+
+	public Long getPrescriptionId() {
+		return encounter.getPrescription() == null ? null : encounter
+				.getPrescription().getId();
+	}
+
+	public void setPatientId(Long id) {
+		if (encounter.getPatient() == null) {
+			encounter.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		encounter.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return encounter.getPatient() == null ? null : encounter.getPatient()
+				.getId();
 	}
 
 	/** create comma delimited row 

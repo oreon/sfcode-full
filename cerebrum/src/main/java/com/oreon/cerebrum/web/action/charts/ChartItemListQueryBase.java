@@ -92,7 +92,6 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 
 	public List<ChartItem> getChartItemsByChart(
 			com.oreon.cerebrum.charts.Chart chart) {
-		//setMaxResults(10000);
 		chartItem.setChart(chart);
 		return getResultList();
 	}
@@ -100,6 +99,18 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 	@Observer("archivedChartItem")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setChartId(Long id) {
+		if (chartItem.getChart() == null) {
+			chartItem.setChart(new com.oreon.cerebrum.charts.Chart());
+		}
+		chartItem.getChart().setId(id);
+	}
+
+	public Long getChartId() {
+		return chartItem.getChart() == null ? null : chartItem.getChart()
+				.getId();
 	}
 
 	/** create comma delimited row 

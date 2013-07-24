@@ -9,9 +9,9 @@
       <f:facet name="header">
         <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>
       </f:facet>  
-      <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeBed == true}"> 
+      <s:decorate id="#{prefix}_bedIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeBed == true}"> 
         <ui:define name="label"></ui:define>  
-        <h:selectOneMenu id="#{prefix}_bedbed" label="#{msg.admission_bed}" value="#{_admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}" disabled="false"> 
+        <h:selectOneMenu id="#{prefix}_bedId" label="#{msg.admission_bed}" value="#{_admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}" disabled="false"> 
           <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 

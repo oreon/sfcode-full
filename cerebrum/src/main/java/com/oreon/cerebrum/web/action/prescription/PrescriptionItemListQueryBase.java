@@ -114,7 +114,6 @@ public abstract class PrescriptionItemListQueryBase
 
 	public List<PrescriptionItem> getPrescriptionItemsByPrescription(
 			com.oreon.cerebrum.prescription.Prescription prescription) {
-		//setMaxResults(10000);
 		prescriptionItem.setPrescription(prescription);
 		return getResultList();
 	}
@@ -122,6 +121,46 @@ public abstract class PrescriptionItemListQueryBase
 	@Observer("archivedPrescriptionItem")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setDrugId(Long id) {
+		if (prescriptionItem.getDrug() == null) {
+			prescriptionItem.setDrug(new com.oreon.cerebrum.drugs.Drug());
+		}
+		prescriptionItem.getDrug().setId(id);
+	}
+
+	public Long getDrugId() {
+		return prescriptionItem.getDrug() == null ? null : prescriptionItem
+				.getDrug().getId();
+	}
+
+	public void setPrescriptionId(Long id) {
+		if (prescriptionItem.getPrescription() == null) {
+			prescriptionItem
+					.setPrescription(new com.oreon.cerebrum.prescription.Prescription());
+		}
+		prescriptionItem.getPrescription().setId(id);
+	}
+
+	public Long getPrescriptionId() {
+		return prescriptionItem.getPrescription() == null
+				? null
+				: prescriptionItem.getPrescription().getId();
+	}
+
+	public void setFrequencyId(Long id) {
+		if (prescriptionItem.getFrequency() == null) {
+			prescriptionItem
+					.setFrequency(new com.oreon.cerebrum.prescription.Frequency());
+		}
+		prescriptionItem.getFrequency().setId(id);
+	}
+
+	public Long getFrequencyId() {
+		return prescriptionItem.getFrequency() == null
+				? null
+				: prescriptionItem.getFrequency().getId();
 	}
 
 	/** create comma delimited row 

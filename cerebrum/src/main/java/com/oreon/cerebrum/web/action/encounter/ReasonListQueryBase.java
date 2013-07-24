@@ -80,7 +80,6 @@ public abstract class ReasonListQueryBase extends BaseQuery<Reason, Long> {
 
 	public List<Reason> getReasonsByEncounter(
 			com.oreon.cerebrum.encounter.Encounter encounter) {
-		//setMaxResults(10000);
 		reason.setEncounter(encounter);
 		return getResultList();
 	}
@@ -88,6 +87,29 @@ public abstract class ReasonListQueryBase extends BaseQuery<Reason, Long> {
 	@Observer("archivedReason")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setEncounterId(Long id) {
+		if (reason.getEncounter() == null) {
+			reason.setEncounter(new com.oreon.cerebrum.encounter.Encounter());
+		}
+		reason.getEncounter().setId(id);
+	}
+
+	public Long getEncounterId() {
+		return reason.getEncounter() == null ? null : reason.getEncounter()
+				.getId();
+	}
+
+	public void setCodeId(Long id) {
+		if (reason.getCode() == null) {
+			reason.setCode(new com.oreon.cerebrum.codes.Code());
+		}
+		reason.getCode().setId(id);
+	}
+
+	public Long getCodeId() {
+		return reason.getCode() == null ? null : reason.getCode().getId();
 	}
 
 	/** create comma delimited row 

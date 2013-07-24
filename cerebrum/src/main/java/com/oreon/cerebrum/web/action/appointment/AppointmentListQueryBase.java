@@ -121,6 +121,31 @@ public abstract class AppointmentListQueryBase
 		refresh();
 	}
 
+	public void setPhysicianId(Long id) {
+		if (appointment.getPhysician() == null) {
+			appointment
+					.setPhysician(new com.oreon.cerebrum.employee.Physician());
+		}
+		appointment.getPhysician().setId(id);
+	}
+
+	public Long getPhysicianId() {
+		return appointment.getPhysician() == null ? null : appointment
+				.getPhysician().getId();
+	}
+
+	public void setPatientId(Long id) {
+		if (appointment.getPatient() == null) {
+			appointment.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		appointment.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return appointment.getPatient() == null ? null : appointment
+				.getPatient().getId();
+	}
+
 	/** create comma delimited row 
 	 * @param builder
 	 */

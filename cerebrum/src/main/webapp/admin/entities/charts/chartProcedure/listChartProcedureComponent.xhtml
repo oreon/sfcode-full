@@ -53,6 +53,43 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDueDate')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{chartProcedureList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.chartProcedure_dueDate}"/>  
+              <ui:param name="propertyPath" value="chartProcedure.dueDate"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_chartProcedure.dueDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDatePerformed')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{chartProcedureList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.chartProcedure_datePerformed}"/>  
+              <ui:param name="propertyPath" value="chartProcedure.datePerformed"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_chartProcedure.datePerformed}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewRemarks')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{chartProcedureList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.chartProcedure_remarks}"/>  
+              <ui:param name="propertyPath" value="chartProcedure.remarks"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:panelGroup> 
+            <rich:toolTip value="#{_chartProcedure.remarks}" for="remarksAbbr"></rich:toolTip>  
+            <h:outputText id="remarksAbbr" value="#{_chartProcedure.remarksAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

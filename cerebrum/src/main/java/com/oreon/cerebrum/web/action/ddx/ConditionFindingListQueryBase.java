@@ -83,6 +83,18 @@ public abstract class ConditionFindingListQueryBase
 		refresh();
 	}
 
+	public void setDiseaseId(Long id) {
+		if (conditionFinding.getDisease() == null) {
+			conditionFinding.setDisease(new com.oreon.cerebrum.ddx.Disease());
+		}
+		conditionFinding.getDisease().setId(id);
+	}
+
+	public Long getDiseaseId() {
+		return conditionFinding.getDisease() == null ? null : conditionFinding
+				.getDisease().getId();
+	}
+
 	/** create comma delimited row 
 	 * @param builder
 	 */

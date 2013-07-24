@@ -80,7 +80,6 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 
 	public List<Ward> getWardsByFacility(
 			com.oreon.cerebrum.facility.Facility facility) {
-		//setMaxResults(10000);
 		ward.setFacility(facility);
 		return getResultList();
 	}
@@ -88,6 +87,17 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 	@Observer("archivedWard")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setFacilityId(Long id) {
+		if (ward.getFacility() == null) {
+			ward.setFacility(new com.oreon.cerebrum.facility.Facility());
+		}
+		ward.getFacility().setId(id);
+	}
+
+	public Long getFacilityId() {
+		return ward.getFacility() == null ? null : ward.getFacility().getId();
 	}
 
 	/** create comma delimited row 

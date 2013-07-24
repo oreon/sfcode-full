@@ -9,11 +9,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_patientpatient" value="#{admissionAction.admission.patient}"> 
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{admissionAction.admission.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>  
@@ -30,11 +30,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_bedbed" value="#{admissionAction.admission.bed}"> 
+        <h:selectOneMenu id="#{prefix}_bedId" value="#{admissionAction.admission.bed}"> 
           <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_bedbed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_bedId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>  

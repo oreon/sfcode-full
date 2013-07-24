@@ -37,6 +37,9 @@
     <rich:tabPanel switchType="client"> 
       <rich:tab label="DifferentialDiagnoses" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="DiseaseModalPanel-differentialDiagnoses"/>  
+        <s:link view="/admin/entities/ddx/disease/listDisease.xhtml" value="View All"> 
+          <f:param name="diseaseId" value="#{diseaseAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/ddx/disease/listDiseaseComponent.xhtml"> 
           <ui:param name="records" value="#{diseaseList.getDifferentialDiagnosesByRelatedDisease(diseaseAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 

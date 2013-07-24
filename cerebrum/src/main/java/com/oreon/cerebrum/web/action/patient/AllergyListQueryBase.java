@@ -80,7 +80,6 @@ public abstract class AllergyListQueryBase extends BaseQuery<Allergy, Long> {
 
 	public List<Allergy> getAllergysByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
-		//setMaxResults(10000);
 		allergy.setPatient(patient);
 		return getResultList();
 	}
@@ -88,6 +87,30 @@ public abstract class AllergyListQueryBase extends BaseQuery<Allergy, Long> {
 	@Observer("archivedAllergy")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setPatientId(Long id) {
+		if (allergy.getPatient() == null) {
+			allergy.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		allergy.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return allergy.getPatient() == null ? null : allergy.getPatient()
+				.getId();
+	}
+
+	public void setAllergenId(Long id) {
+		if (allergy.getAllergen() == null) {
+			allergy.setAllergen(new com.oreon.cerebrum.patient.Allergen());
+		}
+		allergy.getAllergen().setId(id);
+	}
+
+	public Long getAllergenId() {
+		return allergy.getAllergen() == null ? null : allergy.getAllergen()
+				.getId();
 	}
 
 	/** create comma delimited row 

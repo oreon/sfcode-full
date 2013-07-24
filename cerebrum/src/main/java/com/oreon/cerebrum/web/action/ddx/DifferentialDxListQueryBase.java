@@ -82,7 +82,6 @@ public abstract class DifferentialDxListQueryBase
 
 	public List<DifferentialDx> getDifferentialDxsByFinding(
 			com.oreon.cerebrum.ddx.Finding finding) {
-		//setMaxResults(10000);
 		differentialDx.setFinding(finding);
 		return getResultList();
 	}
@@ -90,6 +89,31 @@ public abstract class DifferentialDxListQueryBase
 	@Observer("archivedDifferentialDx")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setDxCategoryId(Long id) {
+		if (differentialDx.getDxCategory() == null) {
+			differentialDx
+					.setDxCategory(new com.oreon.cerebrum.ddx.DxCategory());
+		}
+		differentialDx.getDxCategory().setId(id);
+	}
+
+	public Long getDxCategoryId() {
+		return differentialDx.getDxCategory() == null ? null : differentialDx
+				.getDxCategory().getId();
+	}
+
+	public void setFindingId(Long id) {
+		if (differentialDx.getFinding() == null) {
+			differentialDx.setFinding(new com.oreon.cerebrum.ddx.Finding());
+		}
+		differentialDx.getFinding().setId(id);
+	}
+
+	public Long getFindingId() {
+		return differentialDx.getFinding() == null ? null : differentialDx
+				.getFinding().getId();
 	}
 
 	/** create comma delimited row 

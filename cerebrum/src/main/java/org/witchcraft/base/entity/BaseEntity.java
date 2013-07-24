@@ -204,23 +204,28 @@ public class BaseEntity implements Serializable {
 	@PrePersist
 	// @PreUpdate
 	public void updateTenant() {
-		//if (this instanceof AppUser)
-		//	return;
+		// if (this instanceof AppUser)
+		// return;
 
 		UserUtilAction userUtilAction = (UserUtilAction) Component
 				.getInstance("userUtilAction");
 
-		if( tenant == null || tenant == 0 )
+		if (tenant == null || tenant == 0)
 			setTenant(userUtilAction.getCurrentTenantId());
 
 	}
-	
+
 	@Override
 	public String toString() {
-		try{
-		return ReflectionToStringBuilder.toString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
-		}catch(Exception e){
+		try {
+			String result = ReflectionToStringBuilder.toString(this,
+					ToStringStyle.SHORT_PREFIX_STYLE);
+			
+			if(result.length() > 100)
+				return result.substring(0, 100);
+			
+			return result;
+		} catch (Exception e) {
 			return StringUtils.EMPTY;
 		}
 	}

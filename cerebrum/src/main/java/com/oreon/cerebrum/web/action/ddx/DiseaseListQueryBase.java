@@ -82,7 +82,6 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 
 	public List<Disease> getDifferentialDiagnosesByRelatedDisease(
 			com.oreon.cerebrum.ddx.Disease disease) {
-		//setMaxResults(10000);
 		disease.setRelatedDisease(disease);
 		return getResultList();
 	}
@@ -90,6 +89,31 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 	@Observer("archivedDisease")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setRelatedDiseaseId(Long id) {
+		if (disease.getRelatedDisease() == null) {
+			disease.setRelatedDisease(new com.oreon.cerebrum.ddx.Disease());
+		}
+		disease.getRelatedDisease().setId(id);
+	}
+
+	public Long getRelatedDiseaseId() {
+		return disease.getRelatedDisease() == null ? null : disease
+				.getRelatedDisease().getId();
+	}
+
+	public void setConditionCategoryId(Long id) {
+		if (disease.getConditionCategory() == null) {
+			disease
+					.setConditionCategory(new com.oreon.cerebrum.ddx.ConditionCategory());
+		}
+		disease.getConditionCategory().setId(id);
+	}
+
+	public Long getConditionCategoryId() {
+		return disease.getConditionCategory() == null ? null : disease
+				.getConditionCategory().getId();
 	}
 
 	/** create comma delimited row 

@@ -41,11 +41,11 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_chartchartDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeChart == true}"> 
+        <s:decorate id="#{prefix}_chartIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeChart == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.chartItem_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChart')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_chartchart" label="#{msg.chartItem_chart}" value="#{chartItemAction.chartItem.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChart')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_chartId" label="#{msg.chartItem_chart}" value="#{chartItemAction.chartItem.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChart')}" disabled="false"> 
             <s:selectItems value="#{chartList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

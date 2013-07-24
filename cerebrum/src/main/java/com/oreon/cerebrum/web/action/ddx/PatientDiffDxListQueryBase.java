@@ -83,6 +83,18 @@ public abstract class PatientDiffDxListQueryBase
 		refresh();
 	}
 
+	public void setPatientId(Long id) {
+		if (patientDiffDx.getPatient() == null) {
+			patientDiffDx.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		patientDiffDx.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return patientDiffDx.getPatient() == null ? null : patientDiffDx
+				.getPatient().getId();
+	}
+
 	/** create comma delimited row 
 	 * @param builder
 	 */

@@ -82,7 +82,6 @@ public abstract class PrescriptionListQueryBase
 
 	public List<Prescription> getPrescriptionsByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
-		//setMaxResults(10000);
 		prescription.setPatient(patient);
 		return getResultList();
 	}
@@ -90,6 +89,18 @@ public abstract class PrescriptionListQueryBase
 	@Observer("archivedPrescription")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setPatientId(Long id) {
+		if (prescription.getPatient() == null) {
+			prescription.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		prescription.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return prescription.getPatient() == null ? null : prescription
+				.getPatient().getId();
 	}
 
 	/** create comma delimited row 

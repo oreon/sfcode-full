@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_encounterencounter" value="#{ reasonList.reason.encounter}"> 
+      <h:selectOneMenu id="#{prefix}_encounterId" value="#{ reasonList.reason.encounter}"> 
         <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -16,7 +16,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_codecode" value="#{ reasonList.reason.code}"> 
+      <h:selectOneMenu id="#{prefix}_codeId" value="#{ reasonList.reason.code}"> 
         <s:selectItems value="#{codeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 

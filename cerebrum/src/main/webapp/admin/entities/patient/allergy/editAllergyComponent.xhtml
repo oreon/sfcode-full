@@ -23,21 +23,21 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
+        <s:decorate id="#{prefix}_patientIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_patientpatient" label="#{msg.allergy_patient}" value="#{allergyAction.allergy.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_patientId" label="#{msg.allergy_patient}" value="#{allergyAction.allergy.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}" disabled="false"> 
             <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_allergenallergenDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeAllergen == true}"> 
+        <s:decorate id="#{prefix}_allergenIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeAllergen == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_allergenallergen" label="#{msg.allergy_allergen}" value="#{allergyAction.allergy.allergen}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_allergenId" label="#{msg.allergy_allergen}" value="#{allergyAction.allergy.allergen}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}" disabled="false"> 
             <s:selectItems value="#{allergenList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

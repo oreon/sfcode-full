@@ -43,11 +43,11 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
+        <s:decorate id="#{prefix}_patientIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_patientpatient" label="#{msg.patientDocument_patient}" value="#{patientDocumentAction.patientDocument.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_patientId" label="#{msg.patientDocument_patient}" value="#{patientDocumentAction.patientDocument.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}" disabled="false"> 
             <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

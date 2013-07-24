@@ -15,20 +15,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_drugdrug" value="#{drugInteractionAction.drugInteraction.drug}"> 
+        <h:selectOneMenu id="#{prefix}_drugId" value="#{drugInteractionAction.drugInteraction.drug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_drugdrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_drugId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_interactingDruginteractingDrug" value="#{drugInteractionAction.drugInteraction.interactingDrug}"> 
+        <h:selectOneMenu id="#{prefix}_interactingDrugId" value="#{drugInteractionAction.drugInteraction.interactingDrug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_interactingDruginteractingDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_interactingDrugId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editSeverity')}"/>  

@@ -37,9 +37,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_dxCategorydxCategoryDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeDxCategory == true}"> 
+          <s:decorate id="#{prefix}_dxCategoryIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeDxCategory == true}"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="#{prefix}_dxCategorydxCategory" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false"> 
+            <h:selectOneMenu id="#{prefix}_dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false"> 
               <s:selectItems value="#{dxCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
               <rich:ajaxValidator event="onsubmit"/>  
               <s:convertEntity/> 

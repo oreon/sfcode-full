@@ -27,20 +27,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{clerkAction.clerk.facility}"> 
+        <h:selectOneMenu id="#{prefix}_facilityId" value="#{clerkAction.clerk.facility}"> 
           <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_facilityfacility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_facilityId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_departmentdepartment" value="#{clerkAction.clerk.department}"> 
+        <h:selectOneMenu id="#{prefix}_departmentId" value="#{clerkAction.clerk.department}"> 
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_departmentdepartment" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_departmentId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFirstName')}"/>  

@@ -20,11 +20,11 @@
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_roomroomDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeRoom == true}"> 
+        <s:decorate id="#{prefix}_roomIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeRoom == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_roomroom" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_roomId" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}" disabled="false"> 
             <s:selectItems value="#{roomList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

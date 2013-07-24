@@ -104,7 +104,6 @@ public abstract class InvoiceItemListQueryBase
 
 	public List<InvoiceItem> getInvoiceItemsByInvoice(
 			com.oreon.cerebrum.billing.Invoice invoice) {
-		//setMaxResults(10000);
 		invoiceItem.setInvoice(invoice);
 		return getResultList();
 	}
@@ -112,6 +111,30 @@ public abstract class InvoiceItemListQueryBase
 	@Observer("archivedInvoiceItem")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setServiceId(Long id) {
+		if (invoiceItem.getService() == null) {
+			invoiceItem.setService(new com.oreon.cerebrum.billing.Service());
+		}
+		invoiceItem.getService().setId(id);
+	}
+
+	public Long getServiceId() {
+		return invoiceItem.getService() == null ? null : invoiceItem
+				.getService().getId();
+	}
+
+	public void setInvoiceId(Long id) {
+		if (invoiceItem.getInvoice() == null) {
+			invoiceItem.setInvoice(new com.oreon.cerebrum.billing.Invoice());
+		}
+		invoiceItem.getInvoice().setId(id);
+	}
+
+	public Long getInvoiceId() {
+		return invoiceItem.getInvoice() == null ? null : invoiceItem
+				.getInvoice().getId();
 	}
 
 	/** create comma delimited row 

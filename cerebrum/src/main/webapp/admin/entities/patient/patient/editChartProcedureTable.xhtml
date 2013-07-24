@@ -9,13 +9,46 @@
       <f:facet name="header">
         <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/>
       </f:facet>  
-      <s:decorate id="#{prefix}_chartItemchartItemDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeChartItem == true}"> 
+      <s:decorate id="#{prefix}_chartItemIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeChartItem == true}"> 
         <ui:define name="label"></ui:define>  
-        <h:selectOneMenu id="#{prefix}_chartItemchartItem" label="#{msg.chartProcedure_chartItem}" value="#{_chartProcedure.chartItem}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}" disabled="false"> 
+        <h:selectOneMenu id="#{prefix}_chartItemId" label="#{msg.chartProcedure_chartItem}" value="#{_chartProcedure.chartItem}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}" disabled="false"> 
           <s:selectItems value="#{chartItemList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_dueDateDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <rich:calendar escape="false" direction="auto" id="#{prefix}_dueDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}" label="#{msg.chartProcedure_dueDate}" required="false" disabled="false" value="#{_chartProcedure.dueDate}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_datePerformedDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <rich:calendar escape="false" direction="auto" id="#{prefix}_datePerformed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}" label="#{msg.chartProcedure_datePerformed}" required="false" disabled="false" value="#{_chartProcedure.datePerformed}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar> 
+      </s:decorate> 
+    </h:column>  
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/>
+      </f:facet>  
+      <s:decorate id="#{prefix}_remarksDecorate" template="/layout/editTableField.xhtml"> 
+        <ui:define name="label"></ui:define>  
+        <rich:editor escape="false" useSeamText="true" id="#{prefix}_remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}" label="#{msg.chartProcedure_remarks}" required="false" disabled="false" value="#{_chartProcedure.remarks}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:editor> 
       </s:decorate> 
     </h:column>  
     <h:column> 

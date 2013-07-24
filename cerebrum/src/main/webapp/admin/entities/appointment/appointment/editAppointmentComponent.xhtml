@@ -35,21 +35,21 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_physicianphysicianDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePhysician == true}"> 
+        <s:decorate id="#{prefix}_physicianIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePhysician == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.appointment_physician}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_physicianphysician" label="#{msg.appointment_physician}" value="#{appointmentAction.appointment.physician}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_physicianId" label="#{msg.appointment_physician}" value="#{appointmentAction.appointment.physician}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}" disabled="false"> 
             <s:selectItems value="#{physicianList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
+        <s:decorate id="#{prefix}_patientIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.appointment_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPatient')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_patientpatient" label="#{msg.appointment_patient}" value="#{appointmentAction.appointment.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPatient')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_patientId" label="#{msg.appointment_patient}" value="#{appointmentAction.appointment.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPatient')}" disabled="false"> 
             <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

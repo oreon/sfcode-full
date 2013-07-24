@@ -96,7 +96,6 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 
 	public List<Admission> getAdmissionsByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
-		//setMaxResults(10000);
 		admission.setPatient(patient);
 		return getResultList();
 	}
@@ -104,6 +103,29 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 	@Observer("archivedAdmission")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setPatientId(Long id) {
+		if (admission.getPatient() == null) {
+			admission.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		admission.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return admission.getPatient() == null ? null : admission.getPatient()
+				.getId();
+	}
+
+	public void setBedId(Long id) {
+		if (admission.getBed() == null) {
+			admission.setBed(new com.oreon.cerebrum.facility.Bed());
+		}
+		admission.getBed().setId(id);
+	}
+
+	public Long getBedId() {
+		return admission.getBed() == null ? null : admission.getBed().getId();
 	}
 
 	/** create comma delimited row 

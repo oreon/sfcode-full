@@ -9,11 +9,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_roomroom" value="#{bedAction.bed.room}"> 
+        <h:selectOneMenu id="#{prefix}_roomId" value="#{bedAction.bed.room}"> 
           <s:selectItems value="#{roomList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_roomroom" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_roomId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editName')}"/>  
@@ -24,11 +24,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.bed_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editPatient')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_patientpatient" value="#{bedAction.bed.patient}"> 
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{bedAction.bed.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editPatient')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editPatient')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

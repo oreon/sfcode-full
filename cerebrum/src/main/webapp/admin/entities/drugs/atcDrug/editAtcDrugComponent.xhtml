@@ -28,21 +28,21 @@
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDrug == true}"> 
+        <s:decorate id="#{prefix}_drugIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDrug == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_drugdrug" label="#{msg.atcDrug_drug}" value="#{atcDrugAction.atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_drugId" label="#{msg.atcDrug_drug}" value="#{atcDrugAction.atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false"> 
             <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_parentparentDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeParent == true}"> 
+        <s:decorate id="#{prefix}_parentIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeParent == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editParent')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_parentparent" label="#{msg.atcDrug_parent}" value="#{atcDrugAction.atcDrug.parent}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editParent')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_parentId" label="#{msg.atcDrug_parent}" value="#{atcDrugAction.atcDrug.parent}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editParent')}" disabled="false"> 
             <s:selectItems value="#{atcDrugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -58,9 +58,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeDrug == true}"> 
+          <s:decorate id="#{prefix}_drugIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeDrug == true}"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="#{prefix}_drugdrug" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false"> 
+            <h:selectOneMenu id="#{prefix}_drugId" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false"> 
               <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
               <rich:ajaxValidator event="onsubmit"/>  
               <s:convertEntity/> 

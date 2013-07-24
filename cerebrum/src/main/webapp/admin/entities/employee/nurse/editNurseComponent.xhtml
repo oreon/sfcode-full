@@ -61,31 +61,31 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_facilityfacilityDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeFacility == true}"> 
+        <s:decorate id="#{prefix}_facilityIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeFacility == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editFacility')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_facilityfacility" label="#{msg.employee_facility}" value="#{nurseAction.nurse.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editFacility')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_facilityId" label="#{msg.employee_facility}" value="#{nurseAction.nurse.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editFacility')}" disabled="false"> 
             <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_departmentdepartmentDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDepartment == true}"> 
+        <s:decorate id="#{prefix}_departmentIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDepartment == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editDepartment')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_departmentdepartment" label="#{msg.employee_department}" value="#{nurseAction.nurse.department}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editDepartment')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_departmentId" label="#{msg.employee_department}" value="#{nurseAction.nurse.department}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editDepartment')}" disabled="false"> 
             <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_nurseSpecialtynurseSpecialtyDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeNurseSpecialty == true}"> 
+        <s:decorate id="#{prefix}_nurseSpecialtyIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeNurseSpecialty == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.nurse_nurseSpecialty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editNurseSpecialty')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_nurseSpecialtynurseSpecialty" label="#{msg.nurse_nurseSpecialty}" value="#{nurseAction.nurse.nurseSpecialty}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editNurseSpecialty')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_nurseSpecialtyId" label="#{msg.nurse_nurseSpecialty}" value="#{nurseAction.nurse.nurseSpecialty}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editNurseSpecialty')}" disabled="false"> 
             <s:selectItems value="#{nurseSpecialtyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

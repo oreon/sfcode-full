@@ -21,20 +21,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_admissionadmission" value="#{bedStayAction.bedStay.admission}"> 
+        <h:selectOneMenu id="#{prefix}_admissionId" value="#{bedStayAction.bedStay.admission}"> 
           <s:selectItems value="#{admissionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_admissionadmission" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_admissionId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_bedbed" value="#{bedStayAction.bedStay.bed}"> 
+        <h:selectOneMenu id="#{prefix}_bedId" value="#{bedStayAction.bedStay.bed}"> 
           <s:selectItems value="#{bedList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_bedbed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_bedId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

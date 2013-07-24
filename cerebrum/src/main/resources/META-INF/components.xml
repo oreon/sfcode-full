@@ -29,9 +29,12 @@
  					http://jboss.com/products/seam/persistence 
  					http://jboss.com/products/seam/persistence-2.0.xsd">
 
-	<core:init debug="true" />
+	<core:init debug="false" />
 	<core:manager conversation-timeout="60000" />
 
+
+	<web:ajax4jsf-filter force-parser="false"
+		enable-cache="true" url-pattern="*.seam" />
 
 	<navigation:pages>
 		<navigation:resources>
@@ -96,8 +99,6 @@
 	<event type="org.jboss.seam.security.postAuthenticate">
 		<action execute="#{redirect.returnToCapturedView}" />
 	</event>
-	
-
 	
 	<web:cache-control-filter name="commonTypesCacheControlFilter" regex-url-pattern=".*(\.gif|\.png|\.jpg|\.jpeg|\.css|\.js)" value="max-age=86400"/> <!-- 1 day -->
 	

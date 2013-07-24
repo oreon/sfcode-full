@@ -15,20 +15,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_serviceservice" value="#{invoiceItemAction.invoiceItem.service}"> 
+        <h:selectOneMenu id="#{prefix}_serviceId" value="#{invoiceItemAction.invoiceItem.service}"> 
           <s:selectItems value="#{serviceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_serviceservice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_serviceId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_invoiceinvoice" value="#{invoiceItemAction.invoiceItem.invoice}"> 
+        <h:selectOneMenu id="#{prefix}_invoiceId" value="#{invoiceItemAction.invoiceItem.invoice}"> 
           <s:selectItems value="#{invoiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_invoiceinvoice" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_invoiceId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>  

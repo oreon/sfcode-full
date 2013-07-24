@@ -84,7 +84,6 @@ public abstract class DrugInteractionListQueryBase
 
 	public List<DrugInteraction> getDrugInteractionsByDrug(
 			com.oreon.cerebrum.drugs.Drug drug) {
-		//setMaxResults(10000);
 		drugInteraction.setDrug(drug);
 		return getResultList();
 	}
@@ -92,6 +91,32 @@ public abstract class DrugInteractionListQueryBase
 	@Observer("archivedDrugInteraction")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setDrugId(Long id) {
+		if (drugInteraction.getDrug() == null) {
+			drugInteraction.setDrug(new com.oreon.cerebrum.drugs.Drug());
+		}
+		drugInteraction.getDrug().setId(id);
+	}
+
+	public Long getDrugId() {
+		return drugInteraction.getDrug() == null ? null : drugInteraction
+				.getDrug().getId();
+	}
+
+	public void setInteractingDrugId(Long id) {
+		if (drugInteraction.getInteractingDrug() == null) {
+			drugInteraction
+					.setInteractingDrug(new com.oreon.cerebrum.drugs.Drug());
+		}
+		drugInteraction.getInteractingDrug().setId(id);
+	}
+
+	public Long getInteractingDrugId() {
+		return drugInteraction.getInteractingDrug() == null
+				? null
+				: drugInteraction.getInteractingDrug().getId();
 	}
 
 	/** create comma delimited row 
