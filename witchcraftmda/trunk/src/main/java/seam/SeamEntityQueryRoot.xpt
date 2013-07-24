@@ -121,7 +121,6 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 	«FOREACH getOutgoingAssociations() AS e»
 	«IF !e.type.isAbstract && e.opposite.name != null»
 	public List<«name»> get«e.opposite.name.toFirstUpper()»By«e.name.toFirstUpper()»(«e.type.fqn()» «e.type.asVar()»){
-		//setMaxResults(10000);
 		«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
 		return getResultList();
 	}
@@ -142,6 +141,22 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 		«ENDFOREACH»
 	}
 	«ENDIF»
+	
+	
+	«FOREACH getOutgoingAssociations() AS e»
+		«IF !e.type.isAbstract»
+		public void set«e.name.toFirstUpper()»Id(Long id){
+			if(«asVar()».get«e.name.toFirstUpper()»() == null ){
+				«asVar()».set«e.name.toFirstUpper()»(new «e.type.fqn()»());
+			}
+			«asVar()».get«e.name.toFirstUpper()»().setId(id);
+		}
+		
+		public Long get«e.name.toFirstUpper()»Id(){
+			return «asVar()».get«e.name.toFirstUpper()»() == null ? null : «asVar()».get«e.name.toFirstUpper()»().getId();
+		}
+		«ENDIF»
+	«ENDFOREACH»
 	
 	
 	/** create comma delimited row 
