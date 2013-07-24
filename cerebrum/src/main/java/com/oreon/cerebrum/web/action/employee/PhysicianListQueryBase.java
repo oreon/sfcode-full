@@ -113,6 +113,19 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 		refresh();
 	}
 
+	public void setSpecializationId(Long id) {
+		if (physician.getSpecialization() == null) {
+			physician
+					.setSpecialization(new com.oreon.cerebrum.employee.Specialization());
+		}
+		physician.getSpecialization().setId(id);
+	}
+
+	public Long getSpecializationId() {
+		return physician.getSpecialization() == null ? null : physician
+				.getSpecialization().getId();
+	}
+
 	/** create comma delimited row 
 	 * @param builder
 	 */

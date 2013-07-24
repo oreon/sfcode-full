@@ -66,6 +66,24 @@ public abstract class ChartProcedureListQueryBase
 		return RESTRICTIONS;
 	}
 
+	private Range<Date> dueDateRange = new Range<Date>();
+
+	public Range<Date> getDueDateRange() {
+		return dueDateRange;
+	}
+	public void setDueDate(Range<Date> dueDateRange) {
+		this.dueDateRange = dueDateRange;
+	}
+
+	private Range<Date> datePerformedRange = new Range<Date>();
+
+	public Range<Date> getDatePerformedRange() {
+		return datePerformedRange;
+	}
+	public void setDatePerformed(Range<Date> datePerformedRange) {
+		this.datePerformedRange = datePerformedRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"chartProcedure.id = #{chartProcedureList.chartProcedure.id}",
 
@@ -75,12 +93,19 @@ public abstract class ChartProcedureListQueryBase
 
 			"chartProcedure.chartItem.id = #{chartProcedureList.chartProcedure.chartItem.id}",
 
+			"chartProcedure.dueDate >= #{chartProcedureList.dueDateRange.begin}",
+			"chartProcedure.dueDate <= #{chartProcedureList.dueDateRange.end}",
+
+			"chartProcedure.datePerformed >= #{chartProcedureList.datePerformedRange.begin}",
+			"chartProcedure.datePerformed <= #{chartProcedureList.datePerformedRange.end}",
+
+			"lower(chartProcedure.remarks) like concat(lower(#{chartProcedureList.chartProcedure.remarks}),'%')",
+
 			"chartProcedure.dateCreated <= #{chartProcedureList.dateCreatedRange.end}",
 			"chartProcedure.dateCreated >= #{chartProcedureList.dateCreatedRange.begin}",};
 
 	public List<ChartProcedure> getChartProceduresByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
-		//setMaxResults(10000);
 		chartProcedure.setPatient(patient);
 		return getResultList();
 	}
@@ -88,6 +113,31 @@ public abstract class ChartProcedureListQueryBase
 	@Observer("archivedChartProcedure")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setPatientId(Long id) {
+		if (chartProcedure.getPatient() == null) {
+			chartProcedure.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		chartProcedure.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return chartProcedure.getPatient() == null ? null : chartProcedure
+				.getPatient().getId();
+	}
+
+	public void setChartItemId(Long id) {
+		if (chartProcedure.getChartItem() == null) {
+			chartProcedure
+					.setChartItem(new com.oreon.cerebrum.charts.ChartItem());
+		}
+		chartProcedure.getChartItem().setId(id);
+	}
+
+	public Long getChartItemId() {
+		return chartProcedure.getChartItem() == null ? null : chartProcedure
+				.getChartItem().getId();
 	}
 
 	/** create comma delimited row 
@@ -104,6 +154,18 @@ public abstract class ChartProcedureListQueryBase
 				+ (e.getChartItem() != null ? e.getChartItem().getDisplayName()
 						.replace(",", "") : "") + "\",");
 
+		builder.append("\"" + (e.getDueDate() != null ? e.getDueDate() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getDatePerformed() != null ? e.getDatePerformed() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getRemarks() != null
+						? e.getRemarks().replace(",", "")
+						: "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -116,6 +178,12 @@ public abstract class ChartProcedureListQueryBase
 		builder.append("Patient" + ",");
 
 		builder.append("ChartItem" + ",");
+
+		builder.append("DueDate" + ",");
+
+		builder.append("DatePerformed" + ",");
+
+		builder.append("Remarks" + ",");
 
 		builder.append("\r\n");
 	}

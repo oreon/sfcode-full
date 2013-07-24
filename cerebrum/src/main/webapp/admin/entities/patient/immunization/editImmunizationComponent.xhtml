@@ -19,21 +19,21 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
+        <s:decorate id="#{prefix}_patientIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.immunization_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_patientpatient" label="#{msg.immunization_patient}" value="#{immunizationAction.immunization.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_patientId" label="#{msg.immunization_patient}" value="#{immunizationAction.immunization.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}" disabled="false"> 
             <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_vaccinevaccineDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeVaccine == true}"> 
+        <s:decorate id="#{prefix}_vaccineIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeVaccine == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_vaccinevaccine" label="#{msg.immunization_vaccine}" value="#{immunizationAction.immunization.vaccine}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_vaccineId" label="#{msg.immunization_vaccine}" value="#{immunizationAction.immunization.vaccine}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}" disabled="false"> 
             <s:selectItems value="#{vaccineList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

@@ -19,11 +19,11 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_encounterencounterDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeEncounter == true}"> 
+        <s:decorate id="#{prefix}_encounterIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeEncounter == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.differential_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_encounterencounter" label="#{msg.differential_encounter}" value="#{differentialAction.differential.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_encounterId" label="#{msg.differential_encounter}" value="#{differentialAction.differential.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}" disabled="false"> 
             <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

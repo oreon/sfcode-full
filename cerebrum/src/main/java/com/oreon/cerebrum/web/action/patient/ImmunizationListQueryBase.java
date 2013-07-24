@@ -92,7 +92,6 @@ public abstract class ImmunizationListQueryBase
 
 	public List<Immunization> getImmunizationsByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
-		//setMaxResults(10000);
 		immunization.setPatient(patient);
 		return getResultList();
 	}
@@ -100,6 +99,30 @@ public abstract class ImmunizationListQueryBase
 	@Observer("archivedImmunization")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setPatientId(Long id) {
+		if (immunization.getPatient() == null) {
+			immunization.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		immunization.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return immunization.getPatient() == null ? null : immunization
+				.getPatient().getId();
+	}
+
+	public void setVaccineId(Long id) {
+		if (immunization.getVaccine() == null) {
+			immunization.setVaccine(new com.oreon.cerebrum.patient.Vaccine());
+		}
+		immunization.getVaccine().setId(id);
+	}
+
+	public Long getVaccineId() {
+		return immunization.getVaccine() == null ? null : immunization
+				.getVaccine().getId();
 	}
 
 	/** create comma delimited row 

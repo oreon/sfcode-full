@@ -27,11 +27,11 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_chapterchapterDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeChapter == true}"> 
+        <s:decorate id="#{prefix}_chapterIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeChapter == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.section_chapter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_chapterchapter" label="#{msg.section_chapter}" value="#{sectionAction.section.chapter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_chapterId" label="#{msg.section_chapter}" value="#{sectionAction.section.chapter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}" disabled="false"> 
             <s:selectItems value="#{chapterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

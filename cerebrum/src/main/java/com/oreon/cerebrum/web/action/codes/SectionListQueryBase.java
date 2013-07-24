@@ -80,7 +80,6 @@ public abstract class SectionListQueryBase extends BaseQuery<Section, Long> {
 
 	public List<Section> getSectionsByChapter(
 			com.oreon.cerebrum.codes.Chapter chapter) {
-		//setMaxResults(10000);
 		section.setChapter(chapter);
 		return getResultList();
 	}
@@ -88,6 +87,18 @@ public abstract class SectionListQueryBase extends BaseQuery<Section, Long> {
 	@Observer("archivedSection")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setChapterId(Long id) {
+		if (section.getChapter() == null) {
+			section.setChapter(new com.oreon.cerebrum.codes.Chapter());
+		}
+		section.getChapter().setId(id);
+	}
+
+	public Long getChapterId() {
+		return section.getChapter() == null ? null : section.getChapter()
+				.getId();
 	}
 
 	/** create comma delimited row 

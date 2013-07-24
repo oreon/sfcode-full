@@ -19,11 +19,11 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectBooleanCheckbox> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_diseasediseaseDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDisease == true}"> 
+        <s:decorate id="#{prefix}_diseaseIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDisease == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_diseasedisease" label="#{msg.conditionFinding_disease}" value="#{conditionFindingAction.conditionFinding.disease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_diseaseId" label="#{msg.conditionFinding_disease}" value="#{conditionFindingAction.conditionFinding.disease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}" disabled="false"> 
             <s:selectItems value="#{diseaseList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

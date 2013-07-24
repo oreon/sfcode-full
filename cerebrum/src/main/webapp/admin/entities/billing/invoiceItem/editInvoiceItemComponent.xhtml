@@ -28,22 +28,22 @@
             <f:converter converterId="javax.faces.BigDecimal"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_serviceserviceDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeService == true}"> 
+        <s:decorate id="#{prefix}_serviceIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeService == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_serviceservice" label="#{msg.invoiceItem_service}" value="#{invoiceItemAction.invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_serviceId" label="#{msg.invoiceItem_service}" value="#{invoiceItemAction.invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false"> 
             <a:support event="onchange" action="#{invoiceItemAction.onChangeService(invoiceItemAction.instance)}" reRender="appliedPrice" ajaxSingle="true"/>  
             <s:selectItems value="#{serviceList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_invoiceinvoiceDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeInvoice == true}"> 
+        <s:decorate id="#{prefix}_invoiceIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeInvoice == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_invoiceinvoice" label="#{msg.invoiceItem_invoice}" value="#{invoiceItemAction.invoiceItem.invoice}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_invoiceId" label="#{msg.invoiceItem_invoice}" value="#{invoiceItemAction.invoiceItem.invoice}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}" disabled="false"> 
             <s:selectItems value="#{invoiceList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

@@ -9,11 +9,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_diseasedisease" value="#{conditionFindingAction.conditionFinding.disease}"> 
+        <h:selectOneMenu id="#{prefix}_diseaseId" value="#{conditionFindingAction.conditionFinding.disease}"> 
           <s:selectItems value="#{diseaseList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_diseasedisease" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_diseaseId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}"/>  

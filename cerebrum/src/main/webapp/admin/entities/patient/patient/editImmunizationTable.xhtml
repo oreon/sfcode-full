@@ -9,9 +9,9 @@
       <f:facet name="header">
         <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}"/>
       </f:facet>  
-      <s:decorate id="#{prefix}_vaccinevaccineDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeVaccine == true}"> 
+      <s:decorate id="#{prefix}_vaccineIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeVaccine == true}"> 
         <ui:define name="label"></ui:define>  
-        <h:selectOneMenu id="#{prefix}_vaccinevaccine" label="#{msg.immunization_vaccine}" value="#{_immunization.vaccine}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}" disabled="false"> 
+        <h:selectOneMenu id="#{prefix}_vaccineId" label="#{msg.immunization_vaccine}" value="#{_immunization.vaccine}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}" disabled="false"> 
           <s:selectItems value="#{vaccineList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 

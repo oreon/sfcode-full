@@ -20,21 +20,21 @@
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_dxCategorydxCategoryDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDxCategory == true}"> 
+        <s:decorate id="#{prefix}_dxCategoryIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDxCategory == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_dxCategorydxCategory" label="#{msg.differentialDx_dxCategory}" value="#{differentialDxAction.differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{differentialDxAction.differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false"> 
             <s:selectItems value="#{dxCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_findingfindingDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeFinding == true}"> 
+        <s:decorate id="#{prefix}_findingIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeFinding == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.differentialDx_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_findingfinding" label="#{msg.differentialDx_finding}" value="#{differentialDxAction.differentialDx.finding}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_findingId" label="#{msg.differentialDx_finding}" value="#{differentialDxAction.differentialDx.finding}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}" disabled="false"> 
             <s:selectItems value="#{findingList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

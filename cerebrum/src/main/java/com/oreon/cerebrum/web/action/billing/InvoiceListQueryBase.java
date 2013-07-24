@@ -93,6 +93,18 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 		refresh();
 	}
 
+	public void setPatientId(Long id) {
+		if (invoice.getPatient() == null) {
+			invoice.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		invoice.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return invoice.getPatient() == null ? null : invoice.getPatient()
+				.getId();
+	}
+
 	/** create comma delimited row 
 	 * @param builder
 	 */

@@ -19,21 +19,21 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_encounterencounterDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeEncounter == true}"> 
+        <s:decorate id="#{prefix}_encounterIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeEncounter == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_encounterencounter" label="#{msg.reason_encounter}" value="#{reasonAction.reason.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_encounterId" label="#{msg.reason_encounter}" value="#{reasonAction.reason.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}" disabled="false"> 
             <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_codecodeDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeCode == true}"> 
+        <s:decorate id="#{prefix}_codeIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeCode == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_codecode" label="#{msg.reason_code}" value="#{reasonAction.reason.code}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_codeId" label="#{msg.reason_code}" value="#{reasonAction.reason.code}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}" disabled="false"> 
             <s:selectItems value="#{codeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

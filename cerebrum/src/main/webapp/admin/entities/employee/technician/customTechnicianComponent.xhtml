@@ -27,20 +27,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFacility')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{technicianAction.technician.facility}"> 
+        <h:selectOneMenu id="#{prefix}_facilityId" value="#{technicianAction.technician.facility}"> 
           <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_facilityfacility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFacility')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_facilityId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFacility')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_departmentdepartment" value="#{technicianAction.technician.department}"> 
+        <h:selectOneMenu id="#{prefix}_departmentId" value="#{technicianAction.technician.department}"> 
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_departmentdepartment" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_departmentId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFirstName')}"/>  

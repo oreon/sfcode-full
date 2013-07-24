@@ -89,7 +89,6 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 			"code.dateCreated >= #{codeList.dateCreatedRange.begin}",};
 
 	public List<Code> getCodesBySection(com.oreon.cerebrum.codes.Section section) {
-		//setMaxResults(10000);
 		code.setSection(section);
 		return getResultList();
 	}
@@ -97,6 +96,17 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 	@Observer("archivedCode")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setSectionId(Long id) {
+		if (code.getSection() == null) {
+			code.setSection(new com.oreon.cerebrum.codes.Section());
+		}
+		code.getSection().setId(id);
+	}
+
+	public Long getSectionId() {
+		return code.getSection() == null ? null : code.getSection().getId();
 	}
 
 	/** create comma delimited row 

@@ -113,6 +113,19 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 		refresh();
 	}
 
+	public void setNurseSpecialtyId(Long id) {
+		if (nurse.getNurseSpecialty() == null) {
+			nurse
+					.setNurseSpecialty(new com.oreon.cerebrum.employee.NurseSpecialty());
+		}
+		nurse.getNurseSpecialty().setId(id);
+	}
+
+	public Long getNurseSpecialtyId() {
+		return nurse.getNurseSpecialty() == null ? null : nurse
+				.getNurseSpecialty().getId();
+	}
+
 	/** create comma delimited row 
 	 * @param builder
 	 */

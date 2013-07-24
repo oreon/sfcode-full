@@ -19,21 +19,21 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_dxTestdxTestDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDxTest == true}"> 
+        <s:decorate id="#{prefix}_dxTestIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDxTest == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_dxTestdxTest" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_dxTestId" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false"> 
             <s:selectItems value="#{dxTestList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_encounterencounterDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeEncounter == true}"> 
+        <s:decorate id="#{prefix}_encounterIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeEncounter == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_encounterencounter" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_encounterId" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}" disabled="false"> 
             <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

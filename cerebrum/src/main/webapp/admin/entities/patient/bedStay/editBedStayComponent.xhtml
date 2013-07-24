@@ -27,21 +27,21 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:calendar> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_admissionadmissionDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeAdmission == true}"> 
+        <s:decorate id="#{prefix}_admissionIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeAdmission == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_admissionadmission" label="#{msg.bedStay_admission}" value="#{bedStayAction.bedStay.admission}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_admissionId" label="#{msg.bedStay_admission}" value="#{bedStayAction.bedStay.admission}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}" disabled="false"> 
             <s:selectItems value="#{admissionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_bedbedDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeBed == true}"> 
+        <s:decorate id="#{prefix}_bedIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeBed == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_bedbed" label="#{msg.bedStay_bed}" value="#{bedStayAction.bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_bedId" label="#{msg.bedStay_bed}" value="#{bedStayAction.bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false"> 
             <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

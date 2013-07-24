@@ -800,6 +800,12 @@ public class MetaData {
 
 	"chartItem.displayName", "java.lang.String",
 
+	"dueDate", "java.util.Date",
+
+	"datePerformed", "java.util.Date",
+
+	"remarks", "java.lang.String",
+
 	},
 
 	};

@@ -27,20 +27,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{physicianAction.physician.facility}"> 
+        <h:selectOneMenu id="#{prefix}_facilityId" value="#{physicianAction.physician.facility}"> 
           <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_facilityfacility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_facilityId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_departmentdepartment" value="#{physicianAction.physician.department}"> 
+        <h:selectOneMenu id="#{prefix}_departmentId" value="#{physicianAction.physician.department}"> 
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_departmentdepartment" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_departmentId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFirstName')}"/>  
@@ -109,11 +109,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.physician_specialization}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editSpecialization')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_specializationspecialization" value="#{physicianAction.physician.specialization}"> 
+        <h:selectOneMenu id="#{prefix}_specializationId" value="#{physicianAction.physician.specialization}"> 
           <s:selectItems value="#{specializationList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_specializationspecialization" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editSpecialization')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_specializationId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editSpecialization')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

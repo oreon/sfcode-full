@@ -9,9 +9,9 @@
       <f:facet name="header">
         <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}"/>
       </f:facet>  
-      <s:decorate id="#{prefix}_allergenallergenDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeAllergen == true}"> 
+      <s:decorate id="#{prefix}_allergenIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeAllergen == true}"> 
         <ui:define name="label"></ui:define>  
-        <h:selectOneMenu id="#{prefix}_allergenallergen" label="#{msg.allergy_allergen}" value="#{_allergy.allergen}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}" disabled="false"> 
+        <h:selectOneMenu id="#{prefix}_allergenId" label="#{msg.allergy_allergen}" value="#{_allergy.allergen}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}" disabled="false"> 
           <s:selectItems value="#{allergenList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 

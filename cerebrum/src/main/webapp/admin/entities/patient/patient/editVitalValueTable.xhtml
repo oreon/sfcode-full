@@ -9,9 +9,9 @@
       <f:facet name="header">
         <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/>
       </f:facet>  
-      <s:decorate id="#{prefix}_trackedVitaltrackedVitalDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeTrackedVital == true}"> 
+      <s:decorate id="#{prefix}_trackedVitalIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeTrackedVital == true}"> 
         <ui:define name="label"></ui:define>  
-        <h:selectOneMenu id="#{prefix}_trackedVitaltrackedVital" label="#{msg.vitalValue_trackedVital}" value="#{_vitalValue.trackedVital}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}" disabled="false"> 
+        <h:selectOneMenu id="#{prefix}_trackedVitalId" label="#{msg.vitalValue_trackedVital}" value="#{_vitalValue.trackedVital}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}" disabled="false"> 
           <s:selectItems value="#{trackedVitalList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 

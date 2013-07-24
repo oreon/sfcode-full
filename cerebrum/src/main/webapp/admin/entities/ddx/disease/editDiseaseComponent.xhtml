@@ -30,21 +30,21 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_relatedDiseaserelatedDiseaseDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeRelatedDisease == true}"> 
+        <s:decorate id="#{prefix}_relatedDiseaseIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeRelatedDisease == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editRelatedDisease')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_relatedDiseaserelatedDisease" label="#{msg.disease_relatedDisease}" value="#{diseaseAction.disease.relatedDisease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editRelatedDisease')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_relatedDiseaseId" label="#{msg.disease_relatedDisease}" value="#{diseaseAction.disease.relatedDisease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editRelatedDisease')}" disabled="false"> 
             <s:selectItems value="#{diseaseList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_conditionCategoryconditionCategoryDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeConditionCategory == true}"> 
+        <s:decorate id="#{prefix}_conditionCategoryIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeConditionCategory == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_conditionCategoryconditionCategory" label="#{msg.disease_conditionCategory}" value="#{diseaseAction.disease.conditionCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_conditionCategoryId" label="#{msg.disease_conditionCategory}" value="#{diseaseAction.disease.conditionCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}" disabled="false"> 
             <s:selectItems value="#{conditionCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

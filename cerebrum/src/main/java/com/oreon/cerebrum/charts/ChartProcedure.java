@@ -77,6 +77,24 @@ public class ChartProcedure extends BaseEntity implements java.io.Serializable {
 
 	;
 
+	@Column(unique = false)
+	protected Date dueDate
+
+	;
+
+	@Column(unique = false)
+	protected Date datePerformed
+
+	;
+
+	@Lob
+	@Column(unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String remarks
+
+	;
+
 	public void setPatient(com.oreon.cerebrum.patient.Patient patient) {
 		this.patient = patient;
 	}
@@ -97,12 +115,52 @@ public class ChartProcedure extends BaseEntity implements java.io.Serializable {
 
 	}
 
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public Date getDueDate() {
+
+		return dueDate;
+
+	}
+
+	public void setDatePerformed(Date datePerformed) {
+		this.datePerformed = datePerformed;
+	}
+
+	public Date getDatePerformed() {
+
+		return datePerformed;
+
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getRemarks() {
+
+		return remarks;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
 			return patient + "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getRemarksAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(remarks.trim(),
+					100, 200, "...");
+		} catch (Exception e) {
+			return remarks != null ? remarks : "";
 		}
 	}
 
@@ -118,6 +176,8 @@ public class ChartProcedure extends BaseEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("remarks");
+
 		return listSearchableFields;
 	}
 
@@ -125,6 +185,8 @@ public class ChartProcedure extends BaseEntity implements java.io.Serializable {
 	@Analyzer(definition = "entityAnalyzer")
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
+
+		builder.append(getRemarks() + " ");
 
 		if (getPatient() != null)
 			builder.append("patient:" + getPatient().getDisplayName() + " ");

@@ -80,7 +80,6 @@ public abstract class AppliedChartListQueryBase
 
 	public List<AppliedChart> getAppliedChartsByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
-		//setMaxResults(10000);
 		appliedChart.setPatient(patient);
 		return getResultList();
 	}
@@ -88,6 +87,30 @@ public abstract class AppliedChartListQueryBase
 	@Observer("archivedAppliedChart")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setPatientId(Long id) {
+		if (appliedChart.getPatient() == null) {
+			appliedChart.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		appliedChart.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return appliedChart.getPatient() == null ? null : appliedChart
+				.getPatient().getId();
+	}
+
+	public void setChartId(Long id) {
+		if (appliedChart.getChart() == null) {
+			appliedChart.setChart(new com.oreon.cerebrum.charts.Chart());
+		}
+		appliedChart.getChart().setId(id);
+	}
+
+	public Long getChartId() {
+		return appliedChart.getChart() == null ? null : appliedChart.getChart()
+				.getId();
 	}
 
 	/** create comma delimited row 

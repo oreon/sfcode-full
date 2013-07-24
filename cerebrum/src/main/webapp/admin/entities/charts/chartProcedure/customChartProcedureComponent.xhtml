@@ -9,20 +9,38 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_patientpatient" value="#{chartProcedureAction.chartProcedure.patient}"> 
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{chartProcedureAction.chartProcedure.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_chartItemchartItem" value="#{chartProcedureAction.chartProcedure.chartItem}"> 
+        <h:selectOneMenu id="#{prefix}_chartItemId" value="#{chartProcedureAction.chartProcedure.chartItem}"> 
           <s:selectItems value="#{chartItemList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_chartItemchartItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_chartItemId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}"/>  
+        <br/>  
+        <rich:calendar id="#{prefix}_dueDate" value="#{chartProcedureAction.chartProcedure.dueDate}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_dueDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}"/>  
+        <br/>  
+        <rich:calendar id="#{prefix}_datePerformed" value="#{chartProcedureAction.chartProcedure.datePerformed}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_datePerformed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/>  
+        <br/>  
+        <rich:editor id="#{prefix}_remarks" value="#{chartProcedureAction.chartProcedure.remarks}"/>  
+        <rich:message styleClass="error errors" for="#{prefix}_remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

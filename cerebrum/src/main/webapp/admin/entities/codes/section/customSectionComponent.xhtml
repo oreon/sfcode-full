@@ -21,11 +21,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.section_chapter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_chapterchapter" value="#{sectionAction.section.chapter}"> 
+        <h:selectOneMenu id="#{prefix}_chapterId" value="#{sectionAction.section.chapter}"> 
           <s:selectItems value="#{chapterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_chapterchapter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_chapterId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

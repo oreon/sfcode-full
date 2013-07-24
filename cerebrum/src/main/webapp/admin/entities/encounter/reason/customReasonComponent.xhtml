@@ -9,20 +9,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_encounterencounter" value="#{reasonAction.reason.encounter}"> 
+        <h:selectOneMenu id="#{prefix}_encounterId" value="#{reasonAction.reason.encounter}"> 
           <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_encounterencounter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_encounterId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_codecode" value="#{reasonAction.reason.code}"> 
+        <h:selectOneMenu id="#{prefix}_codeId" value="#{reasonAction.reason.code}"> 
           <s:selectItems value="#{codeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_codecode" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_codeId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}"/>  

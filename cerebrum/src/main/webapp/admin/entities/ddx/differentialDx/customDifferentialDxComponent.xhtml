@@ -15,20 +15,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_dxCategorydxCategory" value="#{differentialDxAction.differentialDx.dxCategory}"> 
+        <h:selectOneMenu id="#{prefix}_dxCategoryId" value="#{differentialDxAction.differentialDx.dxCategory}"> 
           <s:selectItems value="#{dxCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_dxCategorydxCategory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_dxCategoryId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.differentialDx_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_findingfinding" value="#{differentialDxAction.differentialDx.finding}"> 
+        <h:selectOneMenu id="#{prefix}_findingId" value="#{differentialDxAction.differentialDx.finding}"> 
           <s:selectItems value="#{findingList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_findingfinding" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_findingId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

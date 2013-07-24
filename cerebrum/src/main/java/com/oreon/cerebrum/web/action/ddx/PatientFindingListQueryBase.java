@@ -80,7 +80,6 @@ public abstract class PatientFindingListQueryBase
 
 	public List<PatientFinding> getPatientFindingsByPatientDiffDx(
 			com.oreon.cerebrum.ddx.PatientDiffDx patientDiffDx) {
-		//setMaxResults(10000);
 		patientFinding.setPatientDiffDx(patientDiffDx);
 		return getResultList();
 	}
@@ -88,6 +87,32 @@ public abstract class PatientFindingListQueryBase
 	@Observer("archivedPatientFinding")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setFindingId(Long id) {
+		if (patientFinding.getFinding() == null) {
+			patientFinding.setFinding(new com.oreon.cerebrum.ddx.Finding());
+		}
+		patientFinding.getFinding().setId(id);
+	}
+
+	public Long getFindingId() {
+		return patientFinding.getFinding() == null ? null : patientFinding
+				.getFinding().getId();
+	}
+
+	public void setPatientDiffDxId(Long id) {
+		if (patientFinding.getPatientDiffDx() == null) {
+			patientFinding
+					.setPatientDiffDx(new com.oreon.cerebrum.ddx.PatientDiffDx());
+		}
+		patientFinding.getPatientDiffDx().setId(id);
+	}
+
+	public Long getPatientDiffDxId() {
+		return patientFinding.getPatientDiffDx() == null
+				? null
+				: patientFinding.getPatientDiffDx().getId();
 	}
 
 	/** create comma delimited row 

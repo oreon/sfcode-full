@@ -336,6 +336,8 @@ public abstract class BaseAction<T extends BaseEntity> extends
 
 		//	addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
 			updateAssociations();
+			
+			postSave();
 
 		}catch(PersistenceException pe){
 			
@@ -357,6 +359,14 @@ public abstract class BaseAction<T extends BaseEntity> extends
 	}
 
 	
+	/**
+	 * to be overridden by action classes after the instance has been saved
+	 */
+	protected void postSave() {
+		
+		
+	}
+
 	/**
 	 * This method should be overridden by action classes that need to do something before the instance is saved
 	 */

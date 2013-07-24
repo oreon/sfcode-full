@@ -86,7 +86,6 @@ public abstract class UnusualOccurenceListQueryBase
 
 	public List<UnusualOccurence> getUnusualOccurencesByPatient(
 			com.oreon.cerebrum.patient.Patient patient) {
-		//setMaxResults(10000);
 		unusualOccurence.setPatient(patient);
 		return getResultList();
 	}
@@ -94,6 +93,33 @@ public abstract class UnusualOccurenceListQueryBase
 	@Observer("archivedUnusualOccurence")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setOccurenceTypeId(Long id) {
+		if (unusualOccurence.getOccurenceType() == null) {
+			unusualOccurence
+					.setOccurenceType(new com.oreon.cerebrum.unusualoccurences.OccurenceType());
+		}
+		unusualOccurence.getOccurenceType().setId(id);
+	}
+
+	public Long getOccurenceTypeId() {
+		return unusualOccurence.getOccurenceType() == null
+				? null
+				: unusualOccurence.getOccurenceType().getId();
+	}
+
+	public void setPatientId(Long id) {
+		if (unusualOccurence.getPatient() == null) {
+			unusualOccurence
+					.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		unusualOccurence.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return unusualOccurence.getPatient() == null ? null : unusualOccurence
+				.getPatient().getId();
 	}
 
 	/** create comma delimited row 

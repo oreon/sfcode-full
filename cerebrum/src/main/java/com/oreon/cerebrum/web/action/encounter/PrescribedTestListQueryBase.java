@@ -84,7 +84,6 @@ public abstract class PrescribedTestListQueryBase
 
 	public List<PrescribedTest> getPrescribedTestsByEncounter(
 			com.oreon.cerebrum.encounter.Encounter encounter) {
-		//setMaxResults(10000);
 		prescribedTest.setEncounter(encounter);
 		return getResultList();
 	}
@@ -92,6 +91,31 @@ public abstract class PrescribedTestListQueryBase
 	@Observer("archivedPrescribedTest")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setDxTestId(Long id) {
+		if (prescribedTest.getDxTest() == null) {
+			prescribedTest.setDxTest(new com.oreon.cerebrum.ddx.DxTest());
+		}
+		prescribedTest.getDxTest().setId(id);
+	}
+
+	public Long getDxTestId() {
+		return prescribedTest.getDxTest() == null ? null : prescribedTest
+				.getDxTest().getId();
+	}
+
+	public void setEncounterId(Long id) {
+		if (prescribedTest.getEncounter() == null) {
+			prescribedTest
+					.setEncounter(new com.oreon.cerebrum.encounter.Encounter());
+		}
+		prescribedTest.getEncounter().setId(id);
+	}
+
+	public Long getEncounterId() {
+		return prescribedTest.getEncounter() == null ? null : prescribedTest
+				.getEncounter().getId();
 	}
 
 	/** create comma delimited row 

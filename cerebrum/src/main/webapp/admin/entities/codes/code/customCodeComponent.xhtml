@@ -39,11 +39,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.code_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editSection')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_sectionsection" value="#{codeAction.code.section}"> 
+        <h:selectOneMenu id="#{prefix}_sectionId" value="#{codeAction.code.section}"> 
           <s:selectItems value="#{sectionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_sectionsection" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editSection')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_sectionId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editSection')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}"/>  

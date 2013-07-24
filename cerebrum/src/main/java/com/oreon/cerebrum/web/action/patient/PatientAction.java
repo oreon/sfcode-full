@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jboss.seam.annotations.Name;
+import org.joda.time.DateTime;
 import org.joda.time.JodaTimePermission;
 
 import com.oreon.cerebrum.charts.AppliedChart;
@@ -26,90 +27,103 @@ public class PatientAction extends PatientActionBase implements
 
 	private ArrayList<BloodPressure> bpList;
 
-	public  PatientAction() {
+	public PatientAction() {
 		// TODO Auto-generated constructor stub
 
 	}
-	
+
 	/**
-	 * Should calculate upcoming chart procedure dates 
+	 * Should calculate upcoming chart procedure dates
 	 */
-	public void viewUpcomingChartProcedures(){
-		
-	
+	public List<List<ChartProcedure>> viewUpcomingChartProcedures() {
+
 		Set<AppliedChart> charts = instance.getAppliedCharts();
-		
-		List<ChartProcedure> procedures = new ArrayList<ChartProcedure>();
-		
-		
+
+		List<List<ChartProcedure>> procedures = new ArrayList<List<ChartProcedure>>();
+
+		/*
 		for (AppliedChart appliedChart : charts) {
 			Date beginDate = appliedChart.getDateCreated();
 			
+			List<ChartProcedure> proceduresOfType = new ArrayList<ChartProcedure>();
+
 			Set<ChartItem> items = appliedChart.getChart().getChartItems();
-			for (ChartItem chartItem : items) {
-				TimeEnumeration frequency = chartItem.getFrequencyPeriod();
-				int duration = chartItem.getDuration();
-				if(frequency == TimeEnumeration.WEEK){
-					ChartProcedure procedure = new ChartProcedure();
-					//procedure.setDueDate( duration * ProjectUtils.getTimeFor)
-					//procedures.add(new ChartProcedure())
-				}
-				//JodaTimePermission
-			}
 			
+			
+			for (ChartItem chartItem : items) {
+				
+				int duration = chartItem.getDuration();
+
+				for (int i = 0; i < 5; i++) {
+					ChartProcedure procedure = new ChartProcedure();
+					DateTime dt = new DateTime();
+					procedure.setDueDate(dt.plusMinutes((int) (duration * i
+							* chartItem.getFrequencyPeriod().getValue())).toDate());
+					procedure.setPatient(instance);
+					
+					procedure.setChartItem(chartItem);
+					proceduresOfType.add(procedure);
+				}
+			}
+			procedures.add(proceduresOfType);
 		}
+		*/
+		return procedures;
 	}
-	
-	
-	public void initBloodPressureValues(){
-		
-		if(instance == null )
+
+	public void initBloodPressureValues() {
+
+		if (instance == null)
 			load(0L);
-		
+
 		bpList = new ArrayList<BloodPressure>();
-		
-		
+
 		Set<Encounter> encounters = getInstance().getEncounters();
 		for (Encounter encounter : encounters) {
-			if(encounter.getVitals() != null  && encounter.getVitals().getSysBP() != null && encounter.getVitals().getDiasBP() != null)
-				bpList.add(new BloodPressure(encounter.getDateCreated(), encounter.getVitals().getSysBP(), encounter.getVitals().getDiasBP()));
+			if (encounter.getVitals() != null
+					&& encounter.getVitals().getSysBP() != null
+					&& encounter.getVitals().getDiasBP() != null)
+				bpList.add(new BloodPressure(encounter.getDateCreated(),
+						encounter.getVitals().getSysBP(), encounter.getVitals()
+								.getDiasBP()));
 		}
 	}
 
 	public List<BloodPressure> getBloodPressureValues() {
-		if(bpList == null)
+		if (bpList == null)
 			initBloodPressureValues();
 		return bpList;
 	}
 
-	public List<List<VitalValue>> getTrackedVals(){
-		List<List<VitalValue>>  listVitals = new ArrayList<List<VitalValue>>();
+	public List<List<VitalValue>> getTrackedVals() {
+		List<List<VitalValue>> listVitals = new ArrayList<List<VitalValue>>();
 		Map<TrackedVital, List<VitalValue>> mapVitals = new HashMap<TrackedVital, List<VitalValue>>();
-		
+
 		Set<VitalValue> vitals = getInstance().getVitalValues();
 		for (VitalValue vitalValue : vitals) {
-			if(!mapVitals.containsKey(vitalValue.getTrackedVital())){
-				mapVitals.put(vitalValue.getTrackedVital(), new ArrayList<VitalValue>());
+			if (!mapVitals.containsKey(vitalValue.getTrackedVital())) {
+				mapVitals.put(vitalValue.getTrackedVital(),
+						new ArrayList<VitalValue>());
 			}
 			mapVitals.get(vitalValue.getTrackedVital()).add(vitalValue);
 		}
-		Set<TrackedVital>  tvs = mapVitals.keySet();
+		Set<TrackedVital> tvs = mapVitals.keySet();
 		for (TrackedVital trackedVital : tvs) {
 			listVitals.add(mapVitals.get(trackedVital));
 		}
 		return listVitals;
 	}
-	
-	class DateComparator implements Comparator<BloodPressure>{
+
+	class DateComparator implements Comparator<BloodPressure> {
 
 		@Override
 		public int compare(BloodPressure bp1, BloodPressure bp2) {
 
-			if(bp1.getDate().getTime() > bp2.getDate().getTime())
+			if (bp1.getDate().getTime() > bp2.getDate().getTime())
 				return 1;
 			return 0;
 		}
-		
+
 	}
-	
+
 }

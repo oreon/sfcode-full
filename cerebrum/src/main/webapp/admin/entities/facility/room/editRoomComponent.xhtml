@@ -20,21 +20,21 @@
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_roomTyperoomTypeDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeRoomType == true}"> 
+        <s:decorate id="#{prefix}_roomTypeIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeRoomType == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_roomTyperoomType" label="#{msg.room_roomType}" value="#{roomAction.room.roomType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_roomTypeId" label="#{msg.room_roomType}" value="#{roomAction.room.roomType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}" disabled="false"> 
             <s:selectItems value="#{roomTypeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_wardwardDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeWard == true}"> 
+        <s:decorate id="#{prefix}_wardIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeWard == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editWard')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_wardward" label="#{msg.room_ward}" value="#{roomAction.room.ward}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editWard')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_wardId" label="#{msg.room_ward}" value="#{roomAction.room.ward}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editWard')}" disabled="false"> 
             <s:selectItems value="#{wardList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

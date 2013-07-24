@@ -80,7 +80,6 @@ public abstract class DifferentialListQueryBase
 
 	public List<Differential> getDifferentialsByEncounter(
 			com.oreon.cerebrum.encounter.Encounter encounter) {
-		//setMaxResults(10000);
 		differential.setEncounter(encounter);
 		return getResultList();
 	}
@@ -88,6 +87,19 @@ public abstract class DifferentialListQueryBase
 	@Observer("archivedDifferential")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setEncounterId(Long id) {
+		if (differential.getEncounter() == null) {
+			differential
+					.setEncounter(new com.oreon.cerebrum.encounter.Encounter());
+		}
+		differential.getEncounter().setId(id);
+	}
+
+	public Long getEncounterId() {
+		return differential.getEncounter() == null ? null : differential
+				.getEncounter().getId();
 	}
 
 	/** create comma delimited row 

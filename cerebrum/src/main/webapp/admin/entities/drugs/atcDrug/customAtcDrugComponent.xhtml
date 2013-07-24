@@ -21,11 +21,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_drugdrug" value="#{atcDrugAction.atcDrug.drug}"> 
+        <h:selectOneMenu id="#{prefix}_drugId" value="#{atcDrugAction.atcDrug.drug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_drugdrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_drugId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

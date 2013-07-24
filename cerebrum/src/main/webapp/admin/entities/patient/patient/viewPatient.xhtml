@@ -7,6 +7,17 @@
       <s:link view="/admin/entities/patient/patient/viewPatientGraphs.xhtml" value="Graphs"> 
         <f:param name="currentEntityId" value="#{patientAciton.id}"/> 
       </s:link>  
+      <ui:repeat var="outerList" value="#{patientAction.viewUpcomingChartProcedures()}"> 
+        <rich:panel> 
+          <h3>#{outerList.get(0).chartItem.chart.name}</h3>  
+          <ui:repeat var="procedure" value="#{outerList}">${procedure.chartItem.name} ${procedure.dueDate} 
+            <br/> 
+          </ui:repeat>  
+          <br/> 
+        </rich:panel>  
+        <hr/>  
+        <br/> 
+      </ui:repeat>  
       <!--PROTECTED REGION END-->  
       <rich:tabPanel switchType="ajax"> 
         <rich:tab label="Patient"> 
@@ -28,6 +39,9 @@
     <rich:tabPanel switchType="client"> 
       <rich:tab label="Admissions" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-admissions"/>  
+        <s:link view="/admin/entities/patient/admission/listAdmission.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/patient/admission/listAdmissionComponent.xhtml"> 
           <ui:param name="records" value="#{admissionList.getAdmissionsByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 
@@ -48,6 +62,9 @@
       </rich:tab>  
       <rich:tab label="Prescriptions" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-prescriptions"/>  
+        <s:link view="/admin/entities/prescription/prescription/listPrescription.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/prescription/prescription/listPrescriptionComponent.xhtml"> 
           <ui:param name="records" value="#{prescriptionList.getPrescriptionsByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 
@@ -68,6 +85,9 @@
       </rich:tab>  
       <rich:tab label="UnusualOccurences" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-unusualOccurences"/>  
+        <s:link view="/admin/entities/unusualoccurences/unusualOccurence/listUnusualOccurence.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/listUnusualOccurenceComponent.xhtml"> 
           <ui:param name="records" value="#{unusualOccurenceList.getUnusualOccurencesByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 
@@ -88,6 +108,9 @@
       </rich:tab>  
       <rich:tab label="PatientDocuments" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-patientDocuments"/>  
+        <s:link view="/admin/entities/patient/patientDocument/listPatientDocument.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/patient/patientDocument/listPatientDocumentComponent.xhtml"> 
           <ui:param name="records" value="#{patientDocumentList.getPatientDocumentsByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 
@@ -108,6 +131,9 @@
       </rich:tab>  
       <rich:tab label="Allergys" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-allergys"/>  
+        <s:link view="/admin/entities/patient/allergy/listAllergy.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/patient/allergy/listAllergyComponent.xhtml"> 
           <ui:param name="records" value="#{allergyList.getAllergysByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 
@@ -128,6 +154,9 @@
       </rich:tab>  
       <rich:tab label="Immunizations" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-immunizations"/>  
+        <s:link view="/admin/entities/patient/immunization/listImmunization.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/patient/immunization/listImmunizationComponent.xhtml"> 
           <ui:param name="records" value="#{immunizationList.getImmunizationsByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 
@@ -148,6 +177,9 @@
       </rich:tab>  
       <rich:tab label="VitalValues" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-vitalValues"/>  
+        <s:link view="/admin/entities/patient/vitalValue/listVitalValue.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/patient/vitalValue/listVitalValueComponent.xhtml"> 
           <ui:param name="records" value="#{vitalValueList.getVitalValuesByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 
@@ -168,6 +200,9 @@
       </rich:tab>  
       <rich:tab label="Encounters" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-encounters"/>  
+        <s:link view="/admin/entities/encounter/encounter/listEncounter.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/encounter/encounter/listEncounterComponent.xhtml"> 
           <ui:param name="records" value="#{encounterList.getEncountersByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 
@@ -188,6 +223,9 @@
       </rich:tab>  
       <rich:tab label="AppliedCharts" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-appliedCharts"/>  
+        <s:link view="/admin/entities/charts/appliedChart/listAppliedChart.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/charts/appliedChart/listAppliedChartComponent.xhtml"> 
           <ui:param name="records" value="#{appliedChartList.getAppliedChartsByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 
@@ -208,6 +246,9 @@
       </rich:tab>  
       <rich:tab label="ChartProcedures" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-chartProcedures"/>  
+        <s:link view="/admin/entities/charts/chartProcedure/listChartProcedure.xhtml" value="View All"> 
+          <f:param name="patientId" value="#{patientAction.instance.id}"/> 
+        </s:link>  
         <ui:include src="/admin/entities/charts/chartProcedure/listChartProcedureComponent.xhtml"> 
           <ui:param name="records" value="#{chartProcedureList.getChartProceduresByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/> 

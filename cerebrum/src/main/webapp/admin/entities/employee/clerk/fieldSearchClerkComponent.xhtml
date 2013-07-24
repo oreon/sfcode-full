@@ -22,7 +22,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{ clerkList.clerk.facility}"> 
+      <h:selectOneMenu id="#{prefix}_facilityId" value="#{ clerkList.clerk.facility}"> 
         <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -30,7 +30,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_departmentdepartment" value="#{ clerkList.clerk.department}"> 
+      <h:selectOneMenu id="#{prefix}_departmentId" value="#{ clerkList.clerk.department}"> 
         <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 

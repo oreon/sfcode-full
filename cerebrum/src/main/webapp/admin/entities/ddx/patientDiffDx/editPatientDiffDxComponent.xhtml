@@ -19,11 +19,11 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_patientpatientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
+        <s:decorate id="#{prefix}_patientIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_patientpatient" label="#{msg.patientDiffDx_patient}" value="#{patientDiffDxAction.patientDiffDx.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_patientId" label="#{msg.patientDiffDx_patient}" value="#{patientDiffDxAction.patientDiffDx.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}" disabled="false"> 
             <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
@@ -39,12 +39,12 @@
           <f:facet name="header">
             <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_findingfindingDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeFinding == true}"> 
+          <s:decorate id="#{prefix}_findingIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeFinding == true}"> 
             <ui:define name="label"></ui:define>  
             <h:panelGroup> 
               <a:region> 
-                <h:inputText value="#{_patientFinding.finding.displayName}" label="#{msg.patientFinding_finding}" id="#{prefix}_findingfinding" required="true"/>  
-                <rich:suggestionbox for="#{prefix}_findingfinding" rules="all" suggestionAction="#{findingList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
+                <h:inputText value="#{_patientFinding.finding.displayName}" label="#{msg.patientFinding_finding}" id="#{prefix}_findingId" required="true"/>  
+                <rich:suggestionbox for="#{prefix}_findingId" rules="all" suggestionAction="#{findingList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
                   <h:column> 
                     <h:outputText value="#{_result.name}"/> 
                   </h:column>  

@@ -25,11 +25,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_conditionCategoryconditionCategory" value="#{diseaseAction.disease.conditionCategory}"> 
+        <h:selectOneMenu id="#{prefix}_conditionCategoryId" value="#{diseaseAction.disease.conditionCategory}"> 
           <s:selectItems value="#{conditionCategoryList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_conditionCategoryconditionCategory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_conditionCategoryId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

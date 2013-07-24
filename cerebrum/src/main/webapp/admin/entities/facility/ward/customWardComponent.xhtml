@@ -9,11 +9,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editFacility')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{wardAction.ward.facility}"> 
+        <h:selectOneMenu id="#{prefix}_facilityId" value="#{wardAction.ward.facility}"> 
           <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_facilityfacility" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editFacility')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_facilityId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editFacility')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}"/>  

@@ -82,7 +82,6 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 
 	public List<AtcDrug> getSubcategoriesByParent(
 			com.oreon.cerebrum.drugs.AtcDrug atcDrug) {
-		//setMaxResults(10000);
 		atcDrug.setParent(atcDrug);
 		return getResultList();
 	}
@@ -90,6 +89,28 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 	@Observer("archivedAtcDrug")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setDrugId(Long id) {
+		if (atcDrug.getDrug() == null) {
+			atcDrug.setDrug(new com.oreon.cerebrum.drugs.Drug());
+		}
+		atcDrug.getDrug().setId(id);
+	}
+
+	public Long getDrugId() {
+		return atcDrug.getDrug() == null ? null : atcDrug.getDrug().getId();
+	}
+
+	public void setParentId(Long id) {
+		if (atcDrug.getParent() == null) {
+			atcDrug.setParent(new com.oreon.cerebrum.drugs.AtcDrug());
+		}
+		atcDrug.getParent().setId(id);
+	}
+
+	public Long getParentId() {
+		return atcDrug.getParent() == null ? null : atcDrug.getParent().getId();
 	}
 
 	/** create comma delimited row 

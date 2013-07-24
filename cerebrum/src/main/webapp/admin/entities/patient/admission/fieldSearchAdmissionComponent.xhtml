@@ -8,7 +8,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ admissionList.admission.patient}"> 
+      <h:selectOneMenu id="#{prefix}_patientId" value="#{ admissionList.admission.patient}"> 
         <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -30,7 +30,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_bedbed" value="#{ admissionList.admission.bed}"> 
+      <h:selectOneMenu id="#{prefix}_bedId" value="#{ admissionList.admission.bed}"> 
         <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 

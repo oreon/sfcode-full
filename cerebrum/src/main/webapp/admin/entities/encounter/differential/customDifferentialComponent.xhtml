@@ -9,11 +9,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.differential_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_encounterencounter" value="#{differentialAction.differential.encounter}"> 
+        <h:selectOneMenu id="#{prefix}_encounterId" value="#{differentialAction.differential.encounter}"> 
           <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_encounterencounter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_encounterId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}"/>  

@@ -31,21 +31,21 @@
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_drugdrugDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDrug == true}"> 
+        <s:decorate id="#{prefix}_drugIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeDrug == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_drugdrug" label="#{msg.drugInteraction_drug}" value="#{drugInteractionAction.drugInteraction.drug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_drugId" label="#{msg.drugInteraction_drug}" value="#{drugInteractionAction.drugInteraction.drug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}" disabled="false"> 
             <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_interactingDruginteractingDrugDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeInteractingDrug == true}"> 
+        <s:decorate id="#{prefix}_interactingDrugIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeInteractingDrug == true}"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_interactingDruginteractingDrug" label="#{msg.drugInteraction_interactingDrug}" value="#{drugInteractionAction.drugInteraction.interactingDrug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_interactingDrugId" label="#{msg.drugInteraction_interactingDrug}" value="#{drugInteractionAction.drugInteraction.interactingDrug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}" disabled="false"> 
             <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 

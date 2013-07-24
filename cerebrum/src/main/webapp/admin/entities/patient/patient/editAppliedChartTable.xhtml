@@ -9,9 +9,9 @@
       <f:facet name="header">
         <h:outputText value="#{msg.appliedChart_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChart')}"/>
       </f:facet>  
-      <s:decorate id="#{prefix}_chartchartDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeChart == true}"> 
+      <s:decorate id="#{prefix}_chartIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeChart == true}"> 
         <ui:define name="label"></ui:define>  
-        <h:selectOneMenu id="#{prefix}_chartchart" label="#{msg.appliedChart_chart}" value="#{_appliedChart.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChart')}" disabled="false"> 
+        <h:selectOneMenu id="#{prefix}_chartId" label="#{msg.appliedChart_chart}" value="#{_appliedChart.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChart')}" disabled="false"> 
           <s:selectItems value="#{chartList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 

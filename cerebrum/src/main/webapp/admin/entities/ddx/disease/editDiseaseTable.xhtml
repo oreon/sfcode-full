@@ -9,9 +9,9 @@
       <f:facet name="header">
         <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/>
       </f:facet>  
-      <s:decorate id="#{prefix}_conditionCategoryconditionCategoryDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeConditionCategory == true}"> 
+      <s:decorate id="#{prefix}_conditionCategoryIdDecorate" template="/layout/editTableField.xhtml" rendered="#{ ! excludeConditionCategory == true}"> 
         <ui:define name="label"></ui:define>  
-        <h:selectOneMenu id="#{prefix}_conditionCategoryconditionCategory" label="#{msg.disease_conditionCategory}" value="#{_disease.conditionCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}" disabled="false"> 
+        <h:selectOneMenu id="#{prefix}_conditionCategoryId" label="#{msg.disease_conditionCategory}" value="#{_disease.conditionCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}" disabled="false"> 
           <s:selectItems value="#{conditionCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 

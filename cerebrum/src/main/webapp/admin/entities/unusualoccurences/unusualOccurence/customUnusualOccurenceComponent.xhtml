@@ -9,11 +9,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_occurenceTypeoccurenceType" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}"> 
+        <h:selectOneMenu id="#{prefix}_occurenceTypeId" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}"> 
           <s:selectItems value="#{occurenceTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_occurenceTypeoccurenceType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_occurenceTypeId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCategory')}"/>  
@@ -48,11 +48,11 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_patientpatient" value="#{unusualOccurenceAction.unusualOccurence.patient}"> 
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{unusualOccurenceAction.unusualOccurence.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

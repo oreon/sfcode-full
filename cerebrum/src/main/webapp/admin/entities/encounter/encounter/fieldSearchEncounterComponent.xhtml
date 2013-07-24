@@ -63,7 +63,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescription')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_prescriptionprescription" value="#{ encounterList.encounter.prescription}"> 
+      <h:selectOneMenu id="#{prefix}_prescriptionId" value="#{ encounterList.encounter.prescription}"> 
         <s:selectItems value="#{prescriptionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
@@ -72,7 +72,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_patientpatient" value="#{ encounterList.encounter.patient}"> 
+      <h:selectOneMenu id="#{prefix}_patientId" value="#{ encounterList.encounter.patient}"> 
         <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -80,7 +80,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editCreator')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_creatorcreator" value="#{ encounterList.encounter.creator}"> 
+      <h:selectOneMenu id="#{prefix}_creatorId" value="#{ encounterList.encounter.creator}"> 
         <s:selectItems value="#{employeeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 

@@ -78,7 +78,6 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 			"bed.dateCreated >= #{bedList.dateCreatedRange.begin}",};
 
 	public List<Bed> getBedsByRoom(com.oreon.cerebrum.facility.Room room) {
-		//setMaxResults(10000);
 		bed.setRoom(room);
 		return getResultList();
 	}
@@ -86,6 +85,28 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 	@Observer("archivedBed")
 	public void onArchive() {
 		refresh();
+	}
+
+	public void setRoomId(Long id) {
+		if (bed.getRoom() == null) {
+			bed.setRoom(new com.oreon.cerebrum.facility.Room());
+		}
+		bed.getRoom().setId(id);
+	}
+
+	public Long getRoomId() {
+		return bed.getRoom() == null ? null : bed.getRoom().getId();
+	}
+
+	public void setPatientId(Long id) {
+		if (bed.getPatient() == null) {
+			bed.setPatient(new com.oreon.cerebrum.patient.Patient());
+		}
+		bed.getPatient().setId(id);
+	}
+
+	public Long getPatientId() {
+		return bed.getPatient() == null ? null : bed.getPatient().getId();
 	}
 
 	/** create comma delimited row 

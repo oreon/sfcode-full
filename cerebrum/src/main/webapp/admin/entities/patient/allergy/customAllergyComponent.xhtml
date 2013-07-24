@@ -9,20 +9,20 @@
       <h:panelGroup> 
         <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_patientpatient" value="#{allergyAction.allergy.patient}"> 
+        <h:selectOneMenu id="#{prefix}_patientId" value="#{allergyAction.allergy.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_patientpatient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_patientId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}"/>  
         <br/>  
-        <h:selectOneMenu id="#{prefix}_allergenallergen" value="#{allergyAction.allergy.allergen}"> 
+        <h:selectOneMenu id="#{prefix}_allergenId" value="#{allergyAction.allergy.allergen}"> 
           <s:selectItems value="#{allergenList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="#{prefix}_allergenallergen" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}"/> 
+        <rich:message styleClass="error errors" for="#{prefix}_allergenId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}"/>  

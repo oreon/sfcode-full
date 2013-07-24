@@ -22,7 +22,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_facilityfacility" value="#{ physicianList.physician.facility}"> 
+      <h:selectOneMenu id="#{prefix}_facilityId" value="#{ physicianList.physician.facility}"> 
         <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
@@ -30,7 +30,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_departmentdepartment" value="#{ physicianList.physician.department}"> 
+      <h:selectOneMenu id="#{prefix}_departmentId" value="#{ physicianList.physician.department}"> 
         <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
@@ -95,7 +95,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.physician_specialization}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editSpecialization')}"/>  
       <br/>  
-      <h:selectOneMenu id="#{prefix}_specializationspecialization" value="#{ physicianList.physician.specialization}"> 
+      <h:selectOneMenu id="#{prefix}_specializationId" value="#{ physicianList.physician.specialization}"> 
         <s:selectItems value="#{specializationList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
