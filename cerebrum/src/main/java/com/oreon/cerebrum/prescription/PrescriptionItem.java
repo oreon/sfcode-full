@@ -90,7 +90,7 @@ public class PrescriptionItem extends BaseEntity
 	;
 
 	@Column(unique = false)
-	protected Route route
+	protected Route route = com.oreon.cerebrum.prescription.Route.PO
 
 	;
 
