@@ -108,7 +108,7 @@ import org.hibernate.annotations.FilterDefs;
 			
 			
 	
-			«IF getCartridge() == "RICH" » @Name("«name.toFirstLower()»")  «ENDIF»
+			«IF getCartridge() == "RICH" » //@Name("«name.toFirstLower()»")  «ENDIF»
 			public class «name» extends «name»Base {
 				
 			}
@@ -194,7 +194,7 @@ import org.hibernate.annotations.FilterDefs;
 		})
 	«ENDIF» 
 	«IF !isAbstract »   
-		«IF getCurrentCartridge() == "RICH"» @Name("«asVar()»")   «ENDIF»
+		«IF getCurrentCartridge() == "RICH"» //@Name("«asVar()»")   «ENDIF»
 		«EXPAND genIndexed»
 		«IF cacheType != null »@Cache(usage = CacheConcurrencyStrategy.«cacheType.name»)«ENDIF»
 	«ELSE»

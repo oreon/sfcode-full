@@ -53,6 +53,17 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
     protected «name» «asVar()» = new «IF isAbstract» «getFirstChild().fqn()» «ELSE» «name» «ENDIF»();
     
     
+    @In(create=true)
+	«name»Action «asVar()»Action;
+	
+	
+	public «name»ListQueryBase() {
+		super();
+		setOrderColumn("id" );
+		setOrderDirection("desc");
+	}
+    
+    
     public «name» get«name»() {
 		return «asVar()»;
 	}
@@ -157,6 +168,13 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 		}
 		«ENDIF»
 	«ENDFOREACH»
+	
+	
+	//@Restrict("#{s:hasPermission('«asVar()»', 'delete')}")
+	public void archiveById(Long id) {
+		«asVar()»Action.archiveById(id);
+		refresh();
+	}
 	
 	
 	/** create comma delimited row 
@@ -302,5 +320,7 @@ import org.jboss.seam.annotations.Observer;
 import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
 	
 «ENDDEFINE»

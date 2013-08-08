@@ -238,7 +238,9 @@
 	«ELSE-»
 		«IF !isMultivalued()»
 			«IF isOutgoingAssociation()»
+				«IF !type.isAbstract»
 				<param name="«getIdWithoutPrefix()»" value="#{«getCurrentEntity().asVar()»List.«name»Id}"  validateModel="false" />
+				«ENDIF»
 			«ELSE»
 				<param name="«getIdWithoutPrefix()»" value="#{«getCurrentEntity().asVar()»List.«genPropertyLabel()»«isNonExpandableAssoc() ? ".id" : "" »}"  validateModel="false" />
 			«ENDIF»
