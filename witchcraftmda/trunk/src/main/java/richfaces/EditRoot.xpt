@@ -215,24 +215,27 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«IF !isCurrentMultiMode()»
-	«IF getCurrentEmbeddable() == null»«EXPAND panelBegin FOR this»«ENDIF»
-	«FOREACH allParents() AS e-»
-	«EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
-	«ENDFOREACH»
-	«EXPAND genLabelAndControl FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
-	«ENDIF»
 	
-	«FOREACH allParents() AS e-»
-	 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null && !a.isExpandableAssoc()) -»
-	«ENDFOREACH»
-	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a| !a.isMultivalued() && a.association != null && !a.isExpandableAssoc() ) -»
-	«IF getCurrentEmbeddable() == null»«EXPAND panelEnd FOR this»«ENDIF»
- «REM»expand the contained associations e.g contactDetails«ENDREM»
-	«FOREACH allParents() AS e-»
-		 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null && a.isExpandableAssoc()) -»
-	«ENDFOREACH»
-	«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a| !a.isMultivalued() && a.association != null && a.isExpandableAssoc() ) -»
+		«IF getCurrentEmbeddable() == null»«EXPAND panelBegin FOR this»«ENDIF»
+		«FOREACH allParents() AS e-»
+		  «EXPAND genLabelAndControl FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
+		«ENDFOREACH»
+		  «EXPAND genLabelAndControl FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.association == null) -»
+		«ENDIF»
 	
+	
+		«FOREACH allParents() AS e-»
+		 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null && !a.isExpandableAssoc()) -»
+		«ENDFOREACH»
+		«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a| !a.isMultivalued() && a.association != null && !a.isExpandableAssoc() ) -»
+		«IF getCurrentEmbeddable() == null»«EXPAND panelEnd FOR this»«ENDIF»
+	
+ 		«REM»expand the contained associations e.g contactDetails«ENDREM»
+		«FOREACH allParents() AS e-»
+			 «EXPAND genAttributeAssoc FOREACH e.getAllAttributes().select(a| !a.isMultivalued() && a.association != null && a.isExpandableAssoc()) -»
+		«ENDFOREACH»
+		«EXPAND genAttributeAssoc FOREACH getAllAttributes().select(a| !a.isMultivalued() && a.association != null && a.isExpandableAssoc() ) -»
+		
 	
 	«IF isCurrentMultiMode()»
 	«IF getCurrentEmbeddable() == null»«EXPAND panelBegin FOR this»«ENDIF»
@@ -312,15 +315,31 @@
 		<s:decorate id="«getId()»Decorate" template="/layout/edit«isCurrentMultiMode()?"TableField":""».xhtml"  
 				«IF association != null» rendered="#{ ! exclude«name.toFirstUpper()» == true}"«ENDIF»  >
 		<ui:define name="label"> «!isCurrentMultiMode()?getOutputMessage():" "»</ui:define> 
-		«IF association != null-»
-			«EXPAND genAssociation-»
-		«ELSE»
-			«EXPAND genPropertyEntry(type) FOR this-»
-		«ENDIF»
+		«IF isColumn() && isCustom»
+		     «PROTECT CSTART '<!--' CEND '-->' ID  'CUSTM_CTRL_' + type.name + "_" + name»
+
+			«ENDPROTECT»	
+		«ENDIF»		
+		
+		«EXPAND genInputControl  FOR this»
+		
 		</s:decorate>
 		«isCurrentMultiMode()?"</h:column>":""»
 	«ENDIF»
 «ENDDEFINE»
+
+
+«DEFINE genInputControl FOR uml::Property»
+	«IF isColumn() && isCustom» <!-- «ENDIF»
+		«IF association != null-»
+				«EXPAND genAssociation-»
+		«ELSE»
+				«EXPAND genPropertyEntry(type) FOR this-»
+		«ENDIF»
+	«IF isColumn() && isCustom» -->«ENDIF»
+«ENDDEFINE»
+
+
 
 «DEFINE genLabelAndOutput FOR uml::Property-»
 	«IF !isSecret()  »
