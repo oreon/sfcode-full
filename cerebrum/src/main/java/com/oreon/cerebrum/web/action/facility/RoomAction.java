@@ -18,10 +18,13 @@ public class RoomAction extends RoomActionBase implements java.io.Serializable{
 			return;
 		
 		Integer rooms = instance.getRoomType().getNumberOfRooms();
+		
 		if(rooms != null && rooms > 0 ){
+			listBeds.clear();
+			
 			for (int i = 0; i < rooms; i++) {
 				Bed bed = new Bed();
-				bed.setName("B" + (i + 1));
+				bed.setName(instance.getName() + "-" +"B" + (i + 1));
 				bed.setRoom(instance);
 				listBeds.add(bed);
 			}
