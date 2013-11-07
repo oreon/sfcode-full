@@ -315,8 +315,8 @@
 		<s:decorate id="«getId()»Decorate" template="/layout/edit«isCurrentMultiMode()?"TableField":""».xhtml"  
 				«IF association != null» rendered="#{ ! exclude«name.toFirstUpper()» == true}"«ENDIF»  >
 		<ui:define name="label"> «!isCurrentMultiMode()?getOutputMessage():" "»</ui:define> 
-		«IF isColumn() && isCustom»
-		     «PROTECT CSTART '<!--' CEND '-->' ID  'CUSTM_CTRL_' + type.name + "_" + name»
+		«IF isColumn() && custom»
+		     «PROTECT CSTART '<!--' CEND '-->' ID  'CUSTM_CTRL_' + class.name + "_" + (isCurrentMultiMode()?"Tabular":"") + "_" + name»
 
 			«ENDPROTECT»	
 		«ENDIF»		
@@ -330,13 +330,13 @@
 
 
 «DEFINE genInputControl FOR uml::Property»
-	«IF isColumn() && isCustom» <!-- «ENDIF»
+	«IF isColumn() && custom» <!-- «ENDIF»
 		«IF association != null-»
 				«EXPAND genAssociation-»
 		«ELSE»
 				«EXPAND genPropertyEntry(type) FOR this-»
 		«ENDIF»
-	«IF isColumn() && isCustom» -->«ENDIF»
+	«IF isColumn() && custom» -->«ENDIF»
 «ENDDEFINE»
 
 

@@ -210,7 +210,7 @@
 			<h:outputText value="" />
 		</f:facet>
 		
-		<a:commandLink rendered="#{!_«asVar()».archived}"  onclick="if (! window.confirm('Are you sure you want to archive #{_«asVar()».displayName}  ?') ) {return false}"
+		<a:commandLink rendered="#{!_«asVar()».archived  and «asVar()»Action.hasDeletePrevelige(_«asVar()»)}"  onclick="if (! window.confirm('Are you sure you want to archive #{_«asVar()».displayName}  ?') ) {return false}"
           	action="#{«asVar()»List.archiveById(_«asVar()».id)}" reRender="«asVar()»List"> 
             <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
             
@@ -223,7 +223,7 @@
 		</s:link>
 		«ENDREM»
 		
-        <s:link rendered="#{_«asVar()».archived}" action="#{«asVar()»Action.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_«asVar()».displayName} ?')){ return false; } else { return true; }"> 
+        <s:link rendered="#{_«asVar()».archived and «asVar()»Action.hasDeletePrevelige(_«asVar()»)}" action="#{«asVar()»Action.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_«asVar()».displayName} ?')){ return false; } else { return true; }"> 
             Delete  
             <f:param name="currentEntityId" value="#{_«asVar()».id}"/>
         </s:link> 
