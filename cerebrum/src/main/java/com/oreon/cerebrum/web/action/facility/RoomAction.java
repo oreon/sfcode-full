@@ -17,7 +17,7 @@ public class RoomAction extends RoomActionBase implements java.io.Serializable{
 		if(!isNew())
 			return;
 		
-		Integer rooms = instance.getRoomType().getNumberOfRooms();
+		Integer rooms = instance.getRoomType().getNumberOfBeds();
 		
 		if(rooms != null && rooms > 0 ){
 			listBeds.clear();

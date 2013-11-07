@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.facility.RoomType;
 
 /**
@@ -33,6 +35,15 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 	private static final String EJBQL = "select roomType from RoomType roomType";
 
 	protected RoomType roomType = new RoomType();
+
+	@In(create = true)
+	RoomTypeAction roomTypeAction;
+
+	public RoomTypeListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public RoomType getRoomType() {
 		return roomType;
@@ -73,13 +84,13 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 		this.rateRange = rateRange;
 	}
 
-	private Range<Integer> numberOfRoomsRange = new Range<Integer>();
+	private Range<Integer> numberOfBedsRange = new Range<Integer>();
 
-	public Range<Integer> getNumberOfRoomsRange() {
-		return numberOfRoomsRange;
+	public Range<Integer> getNumberOfBedsRange() {
+		return numberOfBedsRange;
 	}
-	public void setNumberOfRooms(Range<Integer> numberOfRoomsRange) {
-		this.numberOfRoomsRange = numberOfRoomsRange;
+	public void setNumberOfBeds(Range<Integer> numberOfBedsRange) {
+		this.numberOfBedsRange = numberOfBedsRange;
 	}
 
 	private static final String[] RESTRICTIONS = {
@@ -94,14 +105,20 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 			"roomType.rate >= #{roomTypeList.rateRange.begin}",
 			"roomType.rate <= #{roomTypeList.rateRange.end}",
 
-			"roomType.numberOfRooms >= #{roomTypeList.numberOfRoomsRange.begin}",
-			"roomType.numberOfRooms <= #{roomTypeList.numberOfRoomsRange.end}",
+			"roomType.numberOfBeds >= #{roomTypeList.numberOfBedsRange.begin}",
+			"roomType.numberOfBeds <= #{roomTypeList.numberOfBedsRange.end}",
 
 			"roomType.dateCreated <= #{roomTypeList.dateCreatedRange.end}",
 			"roomType.dateCreated >= #{roomTypeList.dateCreatedRange.begin}",};
 
 	@Observer("archivedRoomType")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('roomType', 'delete')}")
+	public void archiveById(Long id) {
+		roomTypeAction.archiveById(id);
 		refresh();
 	}
 
@@ -122,7 +139,7 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 		builder.append("\"" + (e.getRate() != null ? e.getRate() : "") + "\",");
 
 		builder.append("\""
-				+ (e.getNumberOfRooms() != null ? e.getNumberOfRooms() : "")
+				+ (e.getNumberOfBeds() != null ? e.getNumberOfBeds() : "")
 				+ "\",");
 
 		builder.append("\r\n");
@@ -140,7 +157,7 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 
 		builder.append("Rate" + ",");
 
-		builder.append("NumberOfRooms" + ",");
+		builder.append("NumberOfBeds" + ",");
 
 		builder.append("\r\n");
 	}

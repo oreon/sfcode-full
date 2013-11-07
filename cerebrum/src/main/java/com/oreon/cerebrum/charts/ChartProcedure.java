@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "chartprocedure")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("chartProcedure")
+//@Name("chartProcedure")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class ChartProcedure extends BaseEntity implements java.io.Serializable {

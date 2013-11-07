@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.DxTest;
 
 /**
@@ -33,6 +35,15 @@ public abstract class DxTestListQueryBase extends BaseQuery<DxTest, Long> {
 	private static final String EJBQL = "select dxTest from DxTest dxTest";
 
 	protected DxTest dxTest = new DxTest();
+
+	@In(create = true)
+	DxTestAction dxTestAction;
+
+	public DxTestListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public DxTest getDxTest() {
 		return dxTest;
@@ -78,6 +89,12 @@ public abstract class DxTestListQueryBase extends BaseQuery<DxTest, Long> {
 
 	@Observer("archivedDxTest")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('dxTest', 'delete')}")
+	public void archiveById(Long id) {
+		dxTestAction.archiveById(id);
 		refresh();
 	}
 

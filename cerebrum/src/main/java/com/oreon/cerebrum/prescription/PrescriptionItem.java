@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "prescriptionitem")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("prescriptionItem")
+//@Name("prescriptionItem")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class PrescriptionItem extends BaseEntity

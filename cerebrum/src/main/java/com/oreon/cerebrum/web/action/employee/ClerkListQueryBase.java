@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.employee.Clerk;
 
 /**
@@ -33,6 +35,15 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 	private static final String EJBQL = "select clerk from Clerk clerk";
 
 	protected Clerk clerk = new Clerk();
+
+	@In(create = true)
+	ClerkAction clerkAction;
+
+	public ClerkListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Clerk getClerk() {
 		return clerk;
@@ -108,6 +119,12 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 
 	@Observer("archivedClerk")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('clerk', 'delete')}")
+	public void archiveById(Long id) {
+		clerkAction.archiveById(id);
 		refresh();
 	}
 

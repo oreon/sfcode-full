@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.prescription.Prescription;
 
 /**
@@ -35,6 +37,15 @@ public abstract class PrescriptionListQueryBase
 	private static final String EJBQL = "select prescription from Prescription prescription";
 
 	protected Prescription prescription = new Prescription();
+
+	@In(create = true)
+	PrescriptionAction prescriptionAction;
+
+	public PrescriptionListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Prescription getPrescription() {
 		return prescription;
@@ -101,6 +112,12 @@ public abstract class PrescriptionListQueryBase
 	public Long getPatientId() {
 		return prescription.getPatient() == null ? null : prescription
 				.getPatient().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('prescription', 'delete')}")
+	public void archiveById(Long id) {
+		prescriptionAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.patient.TrackedVital;
 
 /**
@@ -35,6 +37,15 @@ public abstract class TrackedVitalListQueryBase
 	private static final String EJBQL = "select trackedVital from TrackedVital trackedVital";
 
 	protected TrackedVital trackedVital = new TrackedVital();
+
+	@In(create = true)
+	TrackedVitalAction trackedVitalAction;
+
+	public TrackedVitalListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public TrackedVital getTrackedVital() {
 		return trackedVital;
@@ -66,22 +77,22 @@ public abstract class TrackedVitalListQueryBase
 		return RESTRICTIONS;
 	}
 
-	private Range<Double> minValueRange = new Range<Double>();
+	private Range<Double> minValRange = new Range<Double>();
 
-	public Range<Double> getMinValueRange() {
-		return minValueRange;
+	public Range<Double> getMinValRange() {
+		return minValRange;
 	}
-	public void setMinValue(Range<Double> minValueRange) {
-		this.minValueRange = minValueRange;
+	public void setMinVal(Range<Double> minValRange) {
+		this.minValRange = minValRange;
 	}
 
-	private Range<Double> maxValueRange = new Range<Double>();
+	private Range<Double> maxValRange = new Range<Double>();
 
-	public Range<Double> getMaxValueRange() {
-		return maxValueRange;
+	public Range<Double> getMaxValRange() {
+		return maxValRange;
 	}
-	public void setMaxValue(Range<Double> maxValueRange) {
-		this.maxValueRange = maxValueRange;
+	public void setMaxVal(Range<Double> maxValRange) {
+		this.maxValRange = maxValRange;
 	}
 
 	private static final String[] RESTRICTIONS = {
@@ -91,17 +102,23 @@ public abstract class TrackedVitalListQueryBase
 
 			"lower(trackedVital.name) like concat(lower(#{trackedVitalList.trackedVital.name}),'%')",
 
-			"trackedVital.minValue >= #{trackedVitalList.minValueRange.begin}",
-			"trackedVital.minValue <= #{trackedVitalList.minValueRange.end}",
+			"trackedVital.minVal >= #{trackedVitalList.minValRange.begin}",
+			"trackedVital.minVal <= #{trackedVitalList.minValRange.end}",
 
-			"trackedVital.maxValue >= #{trackedVitalList.maxValueRange.begin}",
-			"trackedVital.maxValue <= #{trackedVitalList.maxValueRange.end}",
+			"trackedVital.maxVal >= #{trackedVitalList.maxValRange.begin}",
+			"trackedVital.maxVal <= #{trackedVitalList.maxValRange.end}",
 
 			"trackedVital.dateCreated <= #{trackedVitalList.dateCreatedRange.end}",
 			"trackedVital.dateCreated >= #{trackedVitalList.dateCreatedRange.begin}",};
 
 	@Observer("archivedTrackedVital")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('trackedVital', 'delete')}")
+	public void archiveById(Long id) {
+		trackedVitalAction.archiveById(id);
 		refresh();
 	}
 
@@ -115,10 +132,10 @@ public abstract class TrackedVitalListQueryBase
 				+ (e.getName() != null ? e.getName().replace(",", "") : "")
 				+ "\",");
 
-		builder.append("\"" + (e.getMinValue() != null ? e.getMinValue() : "")
+		builder.append("\"" + (e.getMinVal() != null ? e.getMinVal() : "")
 				+ "\",");
 
-		builder.append("\"" + (e.getMaxValue() != null ? e.getMaxValue() : "")
+		builder.append("\"" + (e.getMaxVal() != null ? e.getMaxVal() : "")
 				+ "\",");
 
 		builder.append("\r\n");
@@ -132,9 +149,9 @@ public abstract class TrackedVitalListQueryBase
 
 		builder.append("Name" + ",");
 
-		builder.append("MinValue" + ",");
+		builder.append("MinVal" + ",");
 
-		builder.append("MaxValue" + ",");
+		builder.append("MaxVal" + ",");
 
 		builder.append("\r\n");
 	}

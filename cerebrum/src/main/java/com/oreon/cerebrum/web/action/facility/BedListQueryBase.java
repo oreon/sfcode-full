@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.facility.Bed;
 
 /**
@@ -33,6 +35,15 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 	private static final String EJBQL = "select bed from Bed bed";
 
 	protected Bed bed = new Bed();
+
+	@In(create = true)
+	BedAction bedAction;
+
+	public BedListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Bed getBed() {
 		return bed;
@@ -107,6 +118,12 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 
 	public Long getPatientId() {
 		return bed.getPatient() == null ? null : bed.getPatient().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('bed', 'delete')}")
+	public void archiveById(Long id) {
+		bedAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

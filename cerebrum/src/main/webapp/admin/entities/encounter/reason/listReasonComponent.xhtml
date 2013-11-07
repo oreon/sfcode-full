@@ -94,11 +94,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_reason.archived}" action="#{reasonAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_reason.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_reason.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_reason.archived}" action="#{reasonAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_reason.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_reason.archived  and reasonAction.hasDeletePrevelige(_reason)}" onclick="if (! window.confirm('Are you sure you want to archive #{_reason.displayName}  ?') ) {return false}" action="#{reasonList.archiveById(_reason.id)}" reRender="reasonList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_reason.archived and reasonAction.hasDeletePrevelige(_reason)}" action="#{reasonAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_reason.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_reason.id}"/> 
           </s:link>  
           <rich:spacer/>  

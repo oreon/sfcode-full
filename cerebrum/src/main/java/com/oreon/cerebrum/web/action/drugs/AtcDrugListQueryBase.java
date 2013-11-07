@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.drugs.AtcDrug;
 
 /**
@@ -33,6 +35,15 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 	private static final String EJBQL = "select atcDrug from AtcDrug atcDrug";
 
 	protected AtcDrug atcDrug = new AtcDrug();
+
+	@In(create = true)
+	AtcDrugAction atcDrugAction;
+
+	public AtcDrugListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public AtcDrug getAtcDrug() {
 		return atcDrug;
@@ -111,6 +122,12 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 
 	public Long getParentId() {
 		return atcDrug.getParent() == null ? null : atcDrug.getParent().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('atcDrug', 'delete')}")
+	public void archiveById(Long id) {
+		atcDrugAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

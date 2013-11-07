@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.PatientFinding;
 
 /**
@@ -35,6 +37,15 @@ public abstract class PatientFindingListQueryBase
 	private static final String EJBQL = "select patientFinding from PatientFinding patientFinding";
 
 	protected PatientFinding patientFinding = new PatientFinding();
+
+	@In(create = true)
+	PatientFindingAction patientFindingAction;
+
+	public PatientFindingListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public PatientFinding getPatientFinding() {
 		return patientFinding;
@@ -113,6 +124,12 @@ public abstract class PatientFindingListQueryBase
 		return patientFinding.getPatientDiffDx() == null
 				? null
 				: patientFinding.getPatientDiffDx().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('patientFinding', 'delete')}")
+	public void archiveById(Long id) {
+		patientFindingAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

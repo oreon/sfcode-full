@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.unusualoccurences.OccurenceType;
 
 /**
@@ -35,6 +37,15 @@ public abstract class OccurenceTypeListQueryBase
 	private static final String EJBQL = "select occurenceType from OccurenceType occurenceType";
 
 	protected OccurenceType occurenceType = new OccurenceType();
+
+	@In(create = true)
+	OccurenceTypeAction occurenceTypeAction;
+
+	public OccurenceTypeListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public OccurenceType getOccurenceType() {
 		return occurenceType;
@@ -78,6 +89,12 @@ public abstract class OccurenceTypeListQueryBase
 
 	@Observer("archivedOccurenceType")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('occurenceType', 'delete')}")
+	public void archiveById(Long id) {
+		occurenceTypeAction.archiveById(id);
 		refresh();
 	}
 

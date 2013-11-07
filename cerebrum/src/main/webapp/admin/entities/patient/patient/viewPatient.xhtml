@@ -4,20 +4,6 @@
   <ui:define name="content"> 
     <h:form> 
       <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_patient_Patient) ENABLED START-->  
-      <s:link view="/admin/entities/patient/patient/viewPatientGraphs.xhtml" value="Graphs"> 
-        <f:param name="currentEntityId" value="#{patientAciton.id}"/> 
-      </s:link>  
-      <ui:repeat var="outerList" value="#{patientAction.viewUpcomingChartProcedures()}"> 
-        <rich:panel> 
-          <h3>#{outerList.get(0).chartItem.chart.name}</h3>  
-          <ui:repeat var="procedure" value="#{outerList}">${procedure.chartItem.name} ${procedure.dueDate} 
-            <br/> 
-          </ui:repeat>  
-          <br/> 
-        </rich:panel>  
-        <hr/>  
-        <br/> 
-      </ui:repeat>  
       <!--PROTECTED REGION END-->  
       <rich:tabPanel switchType="ajax"> 
         <rich:tab label="Patient"> 
@@ -36,7 +22,7 @@
       <div class="buttonBox"></div> 
     </h:form>  
     <br/>  
-    <rich:tabPanel switchType="client"> 
+    <rich:tabPanel switchType="ajax"> 
       <rich:tab label="Admissions" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-admissions"/>  
         <s:link view="/admin/entities/patient/admission/listAdmission.xhtml" value="View All"> 

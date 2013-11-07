@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "patient")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("patient")
+//@Name("patient")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class Patient extends com.oreon.cerebrum.patient.Person

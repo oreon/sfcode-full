@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.DifferentialDx;
 
 /**
@@ -35,6 +37,15 @@ public abstract class DifferentialDxListQueryBase
 	private static final String EJBQL = "select differentialDx from DifferentialDx differentialDx";
 
 	protected DifferentialDx differentialDx = new DifferentialDx();
+
+	@In(create = true)
+	DifferentialDxAction differentialDxAction;
+
+	public DifferentialDxListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public DifferentialDx getDifferentialDx() {
 		return differentialDx;
@@ -114,6 +125,12 @@ public abstract class DifferentialDxListQueryBase
 	public Long getFindingId() {
 		return differentialDx.getFinding() == null ? null : differentialDx
 				.getFinding().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('differentialDx', 'delete')}")
+	public void archiveById(Long id) {
+		differentialDxAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

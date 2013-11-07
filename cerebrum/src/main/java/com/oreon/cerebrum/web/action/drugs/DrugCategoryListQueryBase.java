@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.drugs.DrugCategory;
 
 /**
@@ -35,6 +37,15 @@ public abstract class DrugCategoryListQueryBase
 	private static final String EJBQL = "select drugCategory from DrugCategory drugCategory";
 
 	protected DrugCategory drugCategory = new DrugCategory();
+
+	@In(create = true)
+	DrugCategoryAction drugCategoryAction;
+
+	public DrugCategoryListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public DrugCategory getDrugCategory() {
 		return drugCategory;
@@ -90,6 +101,12 @@ public abstract class DrugCategoryListQueryBase
 
 	@Observer("archivedDrugCategory")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('drugCategory', 'delete')}")
+	public void archiveById(Long id) {
+		drugCategoryAction.archiveById(id);
 		refresh();
 	}
 

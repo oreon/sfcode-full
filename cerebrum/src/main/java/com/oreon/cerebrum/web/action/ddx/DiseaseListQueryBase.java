@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.Disease;
 
 /**
@@ -33,6 +35,15 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 	private static final String EJBQL = "select disease from Disease disease";
 
 	protected Disease disease = new Disease();
+
+	@In(create = true)
+	DiseaseAction diseaseAction;
+
+	public DiseaseListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Disease getDisease() {
 		return disease;
@@ -114,6 +125,12 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 	public Long getConditionCategoryId() {
 		return disease.getConditionCategory() == null ? null : disease
 				.getConditionCategory().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('disease', 'delete')}")
+	public void archiveById(Long id) {
+		diseaseAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

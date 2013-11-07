@@ -41,16 +41,18 @@ import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
-import org.jboss.seam.security.Identity;
+import org.jboss.seam.security.Credentials;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
 import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.UserUtilAction;
 import org.witchcraft.exceptions.ContractViolationException;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
 
+import com.oreon.cerebrum.users.AppUser;
 import com.sun.org.apache.commons.beanutils.BeanUtils;
 
 /**
@@ -89,6 +91,9 @@ public abstract class BaseAction<T extends BaseEntity> extends
 	private String queryString;
 
 	private String templateName;
+	
+	@In(create = true)
+	Credentials credentials;
 
 	@RequestParameter
 	private Long idToArchive;
@@ -785,6 +790,19 @@ public abstract class BaseAction<T extends BaseEntity> extends
 		return entity;
 	}
 	
+	public void archiveById(Long id){
+		
+	}
+	
+	
+	public boolean hasDeletePrevelige(BaseEntity entity){
+		
+		UserUtilAction userUtilAction = (UserUtilAction)Component.getInstance("userUtilAction");
+		AppUser user = userUtilAction.getCurrentUser();
+		if(user == null)
+			return false;
+		return (user.getTenant() == null || user.getTenant().equals(entity.getTenant()) );
+	}
 	
 
 }

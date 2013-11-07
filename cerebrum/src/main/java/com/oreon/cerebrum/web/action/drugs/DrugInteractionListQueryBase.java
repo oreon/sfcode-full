@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.drugs.DrugInteraction;
 
 /**
@@ -35,6 +37,15 @@ public abstract class DrugInteractionListQueryBase
 	private static final String EJBQL = "select drugInteraction from DrugInteraction drugInteraction";
 
 	protected DrugInteraction drugInteraction = new DrugInteraction();
+
+	@In(create = true)
+	DrugInteractionAction drugInteractionAction;
+
+	public DrugInteractionListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public DrugInteraction getDrugInteraction() {
 		return drugInteraction;
@@ -117,6 +128,12 @@ public abstract class DrugInteractionListQueryBase
 		return drugInteraction.getInteractingDrug() == null
 				? null
 				: drugInteraction.getInteractingDrug().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('drugInteraction', 'delete')}")
+	public void archiveById(Long id) {
+		drugInteractionAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

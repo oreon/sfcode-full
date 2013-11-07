@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "occurencetype")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("occurenceType")
+//@Name("occurenceType")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class OccurenceType extends BaseEntity implements java.io.Serializable {

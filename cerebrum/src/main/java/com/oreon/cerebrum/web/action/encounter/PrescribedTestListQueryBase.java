@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.encounter.PrescribedTest;
 
 /**
@@ -35,6 +37,15 @@ public abstract class PrescribedTestListQueryBase
 	private static final String EJBQL = "select prescribedTest from PrescribedTest prescribedTest";
 
 	protected PrescribedTest prescribedTest = new PrescribedTest();
+
+	@In(create = true)
+	PrescribedTestAction prescribedTestAction;
+
+	public PrescribedTestListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public PrescribedTest getPrescribedTest() {
 		return prescribedTest;
@@ -116,6 +127,12 @@ public abstract class PrescribedTestListQueryBase
 	public Long getEncounterId() {
 		return prescribedTest.getEncounter() == null ? null : prescribedTest
 				.getEncounter().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('prescribedTest', 'delete')}")
+	public void archiveById(Long id) {
+		prescribedTestAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

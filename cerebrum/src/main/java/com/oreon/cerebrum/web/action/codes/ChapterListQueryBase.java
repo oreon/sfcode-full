@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.codes.Chapter;
 
 /**
@@ -33,6 +35,15 @@ public abstract class ChapterListQueryBase extends BaseQuery<Chapter, Long> {
 	private static final String EJBQL = "select chapter from Chapter chapter";
 
 	protected Chapter chapter = new Chapter();
+
+	@In(create = true)
+	ChapterAction chapterAction;
+
+	public ChapterListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Chapter getChapter() {
 		return chapter;
@@ -78,6 +89,12 @@ public abstract class ChapterListQueryBase extends BaseQuery<Chapter, Long> {
 
 	@Observer("archivedChapter")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('chapter', 'delete')}")
+	public void archiveById(Long id) {
+		chapterAction.archiveById(id);
 		refresh();
 	}
 

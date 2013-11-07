@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.ConditionFinding;
 
 /**
@@ -35,6 +37,15 @@ public abstract class ConditionFindingListQueryBase
 	private static final String EJBQL = "select conditionFinding from ConditionFinding conditionFinding";
 
 	protected ConditionFinding conditionFinding = new ConditionFinding();
+
+	@In(create = true)
+	ConditionFindingAction conditionFindingAction;
+
+	public ConditionFindingListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public ConditionFinding getConditionFinding() {
 		return conditionFinding;
@@ -93,6 +104,12 @@ public abstract class ConditionFindingListQueryBase
 	public Long getDiseaseId() {
 		return conditionFinding.getDisease() == null ? null : conditionFinding
 				.getDisease().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('conditionFinding', 'delete')}")
+	public void archiveById(Long id) {
+		conditionFindingAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

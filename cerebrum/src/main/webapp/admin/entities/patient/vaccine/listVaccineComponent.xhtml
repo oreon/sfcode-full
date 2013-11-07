@@ -68,11 +68,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_vaccine.archived}" action="#{vaccineAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_vaccine.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_vaccine.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_vaccine.archived}" action="#{vaccineAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_vaccine.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_vaccine.archived  and vaccineAction.hasDeletePrevelige(_vaccine)}" onclick="if (! window.confirm('Are you sure you want to archive #{_vaccine.displayName}  ?') ) {return false}" action="#{vaccineList.archiveById(_vaccine.id)}" reRender="vaccineList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_vaccine.archived and vaccineAction.hasDeletePrevelige(_vaccine)}" action="#{vaccineAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_vaccine.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_vaccine.id}"/> 
           </s:link>  
           <rich:spacer/>  

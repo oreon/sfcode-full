@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "physicalfinding")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("physicalFinding")
+//@Name("physicalFinding")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class PhysicalFinding extends com.oreon.cerebrum.ddx.Finding

@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.codes.Code;
 
 /**
@@ -33,6 +35,15 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 	private static final String EJBQL = "select code from Code code";
 
 	protected Code code = new Code();
+
+	@In(create = true)
+	CodeAction codeAction;
+
+	public CodeListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Code getCode() {
 		return code;
@@ -107,6 +118,12 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 
 	public Long getSectionId() {
 		return code.getSection() == null ? null : code.getSection().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('code', 'delete')}")
+	public void archiveById(Long id) {
+		codeAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

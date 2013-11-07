@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.facility.Facility;
 
 /**
@@ -33,6 +35,15 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 	private static final String EJBQL = "select facility from Facility facility";
 
 	protected Facility facility = new Facility();
+
+	@In(create = true)
+	FacilityAction facilityAction;
+
+	public FacilityListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Facility getFacility() {
 		return facility;
@@ -76,6 +87,12 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 
 	@Observer("archivedFacility")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('facility', 'delete')}")
+	public void archiveById(Long id) {
+		facilityAction.archiveById(id);
 		refresh();
 	}
 

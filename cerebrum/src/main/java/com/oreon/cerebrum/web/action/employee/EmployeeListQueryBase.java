@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.employee.Employee;
 
 /**
@@ -33,6 +35,15 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	private static final String EJBQL = "select employee from Employee employee";
 
 	protected Employee employee = new com.oreon.cerebrum.employee.Physician();
+
+	@In(create = true)
+	EmployeeAction employeeAction;
+
+	public EmployeeListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Employee getEmployee() {
 		return employee;
@@ -152,6 +163,12 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	public Long getDepartmentId() {
 		return employee.getDepartment() == null ? null : employee
 				.getDepartment().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('employee', 'delete')}")
+	public void archiveById(Long id) {
+		employeeAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

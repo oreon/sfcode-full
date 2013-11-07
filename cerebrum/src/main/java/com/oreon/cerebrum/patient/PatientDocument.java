@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "patientdocument")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("patientDocument")
+//@Name("patientDocument")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class PatientDocument extends BaseEntity implements java.io.Serializable {

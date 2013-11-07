@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.LabFinding;
 
 /**
@@ -35,6 +37,15 @@ public abstract class LabFindingListQueryBase
 	private static final String EJBQL = "select labFinding from LabFinding labFinding";
 
 	protected LabFinding labFinding = new LabFinding();
+
+	@In(create = true)
+	LabFindingAction labFindingAction;
+
+	public LabFindingListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public LabFinding getLabFinding() {
 		return labFinding;
@@ -80,6 +91,12 @@ public abstract class LabFindingListQueryBase
 
 	@Observer("archivedLabFinding")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('labFinding', 'delete')}")
+	public void archiveById(Long id) {
+		labFindingAction.archiveById(id);
 		refresh();
 	}
 

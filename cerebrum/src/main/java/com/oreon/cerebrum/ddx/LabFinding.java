@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "labfinding")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("labFinding")
+//@Name("labFinding")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class LabFinding extends com.oreon.cerebrum.ddx.Finding

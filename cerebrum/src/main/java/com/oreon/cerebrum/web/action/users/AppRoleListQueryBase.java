@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.users.AppRole;
 
 /**
@@ -33,6 +35,15 @@ public abstract class AppRoleListQueryBase extends BaseQuery<AppRole, Long> {
 	private static final String EJBQL = "select appRole from AppRole appRole";
 
 	protected AppRole appRole = new AppRole();
+
+	@In(create = true)
+	AppRoleAction appRoleAction;
+
+	public AppRoleListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public AppRole getAppRole() {
 		return appRole;
@@ -89,6 +100,12 @@ public abstract class AppRoleListQueryBase extends BaseQuery<AppRole, Long> {
 
 	@Observer("archivedAppRole")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('appRole', 'delete')}")
+	public void archiveById(Long id) {
+		appRoleAction.archiveById(id);
 		refresh();
 	}
 

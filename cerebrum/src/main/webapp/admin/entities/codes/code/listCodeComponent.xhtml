@@ -120,10 +120,7 @@
               <ui:param name="propertyPath" value="code.codeAlso"/> 
             </ui:include> 
           </f:facet>  
-          <h:panelGroup> 
-            <rich:toolTip value="#{_code.codeAlso}" for="codeAlsoAbbr"></rich:toolTip>  
-            <h:outputText id="codeAlsoAbbr" value="#{_code.codeAlsoAbbreviated}" escape="false"/> 
-          </h:panelGroup> 
+          <h:outputText value="#{_code.codeAlso}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
@@ -159,11 +156,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_code.archived}" action="#{codeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_code.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_code.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_code.archived}" action="#{codeAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_code.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_code.archived  and codeAction.hasDeletePrevelige(_code)}" onclick="if (! window.confirm('Are you sure you want to archive #{_code.displayName}  ?') ) {return false}" action="#{codeList.archiveById(_code.id)}" reRender="codeList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_code.archived and codeAction.hasDeletePrevelige(_code)}" action="#{codeAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_code.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_code.id}"/> 
           </s:link>  
           <rich:spacer/>  

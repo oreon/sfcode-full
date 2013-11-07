@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "appuser")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("appUser")
+//@Name("appUser")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class AppUser extends BaseEntity implements java.io.Serializable {

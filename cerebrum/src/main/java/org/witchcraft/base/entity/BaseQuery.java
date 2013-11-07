@@ -426,7 +426,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	public List<E> autocompletedb(Object suggest) {
 		String input = (String) suggest;
 		setupForAutoComplete(input);
-		//super.setRestrictionLogicOperator("or");
+		super.setRestrictionLogicOperator("or");
 		List<E> results = getResultList();
 		return results;
 	}

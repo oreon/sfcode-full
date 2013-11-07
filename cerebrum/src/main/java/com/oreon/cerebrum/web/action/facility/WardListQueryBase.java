@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.facility.Ward;
 
 /**
@@ -33,6 +35,15 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 	private static final String EJBQL = "select ward from Ward ward";
 
 	protected Ward ward = new Ward();
+
+	@In(create = true)
+	WardAction wardAction;
+
+	public WardListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Ward getWard() {
 		return ward;
@@ -98,6 +109,12 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 
 	public Long getFacilityId() {
 		return ward.getFacility() == null ? null : ward.getFacility().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('ward', 'delete')}")
+	public void archiveById(Long id) {
+		wardAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

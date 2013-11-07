@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.patient.Allergy;
 
 /**
@@ -33,6 +35,15 @@ public abstract class AllergyListQueryBase extends BaseQuery<Allergy, Long> {
 	private static final String EJBQL = "select allergy from Allergy allergy";
 
 	protected Allergy allergy = new Allergy();
+
+	@In(create = true)
+	AllergyAction allergyAction;
+
+	public AllergyListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Allergy getAllergy() {
 		return allergy;
@@ -111,6 +122,12 @@ public abstract class AllergyListQueryBase extends BaseQuery<Allergy, Long> {
 	public Long getAllergenId() {
 		return allergy.getAllergen() == null ? null : allergy.getAllergen()
 				.getId();
+	}
+
+	//@Restrict("#{s:hasPermission('allergy', 'delete')}")
+	public void archiveById(Long id) {
+		allergyAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

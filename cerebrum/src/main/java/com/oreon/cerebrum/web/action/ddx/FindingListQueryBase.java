@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.Finding;
 
 /**
@@ -33,6 +35,15 @@ public abstract class FindingListQueryBase extends BaseQuery<Finding, Long> {
 	private static final String EJBQL = "select finding from Finding finding";
 
 	protected Finding finding = new Finding();
+
+	@In(create = true)
+	FindingAction findingAction;
+
+	public FindingListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Finding getFinding() {
 		return finding;
@@ -84,6 +95,12 @@ public abstract class FindingListQueryBase extends BaseQuery<Finding, Long> {
 
 		finding.setName(input);
 
+	}
+
+	//@Restrict("#{s:hasPermission('finding', 'delete')}")
+	public void archiveById(Long id) {
+		findingAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

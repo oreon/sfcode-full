@@ -63,9 +63,27 @@
           <ui:define name="label"> 
             <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}"/>
           </ui:define>  
-          <rich:editor escape="false" useSeamText="true" id="#{prefix}_codeAlso#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{codeAction.code.codeAlso}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </rich:editor> 
+          <!--PROTECTED REGION ID(CUSTM_CTRL_Code__codeAlso) ENABLED START-->  
+          <!--PROTECTED REGION END-->  
+          <!-- 
+		
+<rich:editor escape="false" 
+	 
+	 	 useSeamText="true" 
+	   
+	   
+	 
+	  
+	 id="#{prefix}_codeAlso#{entityId}"  rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}"  
+	  label="#{msg.code_codeAlso}"  required="false" disabled="false" 
+	  value="#{codeAction.code.codeAlso}" >
+	  <rich:ajaxValidator event="onsubmit" />
+	  
+	   
+</rich:editor>
+
+		
+	 --> 
         </s:decorate>  
         <s:decorate id="#{prefix}_sectionIdDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludeSection == true}"> 
           <ui:define name="label"> 

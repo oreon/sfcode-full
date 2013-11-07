@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.patient.VitalValue;
 
 /**
@@ -35,6 +37,15 @@ public abstract class VitalValueListQueryBase
 	private static final String EJBQL = "select vitalValue from VitalValue vitalValue";
 
 	protected VitalValue vitalValue = new VitalValue();
+
+	@In(create = true)
+	VitalValueAction vitalValueAction;
+
+	public VitalValueListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public VitalValue getVitalValue() {
 		return vitalValue;
@@ -126,6 +137,12 @@ public abstract class VitalValueListQueryBase
 	public Long getPatientId() {
 		return vitalValue.getPatient() == null ? null : vitalValue.getPatient()
 				.getId();
+	}
+
+	//@Restrict("#{s:hasPermission('vitalValue', 'delete')}")
+	public void archiveById(Long id) {
+		vitalValueAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

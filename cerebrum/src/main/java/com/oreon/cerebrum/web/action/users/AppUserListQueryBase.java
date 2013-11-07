@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.users.AppUser;
 
 /**
@@ -33,6 +35,15 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 	private static final String EJBQL = "select appUser from AppUser appUser";
 
 	protected AppUser appUser = new AppUser();
+
+	@In(create = true)
+	AppUserAction appUserAction;
+
+	public AppUserListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public AppUser getAppUser() {
 		return appUser;
@@ -91,6 +102,12 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 
 	@Observer("archivedAppUser")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('appUser', 'delete')}")
+	public void archiveById(Long id) {
+		appUserAction.archiveById(id);
 		refresh();
 	}
 

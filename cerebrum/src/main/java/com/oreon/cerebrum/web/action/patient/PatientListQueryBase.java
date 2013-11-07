@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.patient.Patient;
 
 /**
@@ -33,6 +35,15 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 	private static final String EJBQL = "select patient from Patient patient";
 
 	protected Patient patient = new Patient();
+
+	@In(create = true)
+	PatientAction patientAction;
+
+	public PatientListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Patient getPatient() {
 		return patient;
@@ -132,6 +143,12 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 		patient.getAddress().setPhone(input);
 
+	}
+
+	//@Restrict("#{s:hasPermission('patient', 'delete')}")
+	public void archiveById(Long id) {
+		patientAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

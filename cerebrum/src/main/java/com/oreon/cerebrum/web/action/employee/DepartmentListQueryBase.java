@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.employee.Department;
 
 /**
@@ -35,6 +37,15 @@ public abstract class DepartmentListQueryBase
 	private static final String EJBQL = "select department from Department department";
 
 	protected Department department = new Department();
+
+	@In(create = true)
+	DepartmentAction departmentAction;
+
+	public DepartmentListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Department getDepartment() {
 		return department;
@@ -78,6 +89,12 @@ public abstract class DepartmentListQueryBase
 
 	@Observer("archivedDepartment")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('department', 'delete')}")
+	public void archiveById(Long id) {
+		departmentAction.archiveById(id);
 		refresh();
 	}
 
