@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.patient.Allergen;
 
 /**
@@ -33,6 +35,15 @@ public abstract class AllergenListQueryBase extends BaseQuery<Allergen, Long> {
 	private static final String EJBQL = "select allergen from Allergen allergen";
 
 	protected Allergen allergen = new Allergen();
+
+	@In(create = true)
+	AllergenAction allergenAction;
+
+	public AllergenListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Allergen getAllergen() {
 		return allergen;
@@ -76,6 +87,12 @@ public abstract class AllergenListQueryBase extends BaseQuery<Allergen, Long> {
 
 	@Observer("archivedAllergen")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('allergen', 'delete')}")
+	public void archiveById(Long id) {
+		allergenAction.archiveById(id);
 		refresh();
 	}
 

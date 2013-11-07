@@ -59,15 +59,15 @@
             <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewNumberOfRooms')}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewNumberOfBeds')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{roomTypeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.roomType_numberOfRooms}"/>  
-              <ui:param name="propertyPath" value="roomType.numberOfRooms"/> 
+              <ui:param name="propertyLabel" value="#{msg.roomType_numberOfBeds}"/>  
+              <ui:param name="propertyPath" value="roomType.numberOfBeds"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_roomType.numberOfRooms}" escape="false"/> 
+          <h:outputText value="#{_roomType.numberOfBeds}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
           <f:facet name="header"> 
@@ -103,11 +103,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_roomType.archived}" action="#{roomTypeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_roomType.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_roomType.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_roomType.archived}" action="#{roomTypeAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_roomType.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_roomType.archived  and roomTypeAction.hasDeletePrevelige(_roomType)}" onclick="if (! window.confirm('Are you sure you want to archive #{_roomType.displayName}  ?') ) {return false}" action="#{roomTypeList.archiveById(_roomType.id)}" reRender="roomTypeList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_roomType.archived and roomTypeAction.hasDeletePrevelige(_roomType)}" action="#{roomTypeAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_roomType.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_roomType.id}"/> 
           </s:link>  
           <rich:spacer/>  

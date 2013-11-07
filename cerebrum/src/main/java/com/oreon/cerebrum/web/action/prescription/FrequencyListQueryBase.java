@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.prescription.Frequency;
 
 /**
@@ -33,6 +35,15 @@ public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> 
 	private static final String EJBQL = "select frequency from Frequency frequency";
 
 	protected Frequency frequency = new Frequency();
+
+	@In(create = true)
+	FrequencyAction frequencyAction;
+
+	public FrequencyListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Frequency getFrequency() {
 		return frequency;
@@ -88,6 +99,12 @@ public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> 
 
 	@Observer("archivedFrequency")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('frequency', 'delete')}")
+	public void archiveById(Long id) {
+		frequencyAction.archiveById(id);
 		refresh();
 	}
 

@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.PatientDiffDx;
 
 /**
@@ -35,6 +37,15 @@ public abstract class PatientDiffDxListQueryBase
 	private static final String EJBQL = "select patientDiffDx from PatientDiffDx patientDiffDx";
 
 	protected PatientDiffDx patientDiffDx = new PatientDiffDx();
+
+	@In(create = true)
+	PatientDiffDxAction patientDiffDxAction;
+
+	public PatientDiffDxListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public PatientDiffDx getPatientDiffDx() {
 		return patientDiffDx;
@@ -93,6 +104,12 @@ public abstract class PatientDiffDxListQueryBase
 	public Long getPatientId() {
 		return patientDiffDx.getPatient() == null ? null : patientDiffDx
 				.getPatient().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('patientDiffDx', 'delete')}")
+	public void archiveById(Long id) {
+		patientDiffDxAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

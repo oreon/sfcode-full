@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.employee.NurseSpecialty;
 
 /**
@@ -35,6 +37,15 @@ public abstract class NurseSpecialtyListQueryBase
 	private static final String EJBQL = "select nurseSpecialty from NurseSpecialty nurseSpecialty";
 
 	protected NurseSpecialty nurseSpecialty = new NurseSpecialty();
+
+	@In(create = true)
+	NurseSpecialtyAction nurseSpecialtyAction;
+
+	public NurseSpecialtyListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public NurseSpecialty getNurseSpecialty() {
 		return nurseSpecialty;
@@ -78,6 +89,12 @@ public abstract class NurseSpecialtyListQueryBase
 
 	@Observer("archivedNurseSpecialty")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('nurseSpecialty', 'delete')}")
+	public void archiveById(Long id) {
+		nurseSpecialtyAction.archiveById(id);
 		refresh();
 	}
 

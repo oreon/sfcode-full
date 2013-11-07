@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.employee.Technician;
 
 /**
@@ -35,6 +37,15 @@ public abstract class TechnicianListQueryBase
 	private static final String EJBQL = "select technician from Technician technician";
 
 	protected Technician technician = new Technician();
+
+	@In(create = true)
+	TechnicianAction technicianAction;
+
+	public TechnicianListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Technician getTechnician() {
 		return technician;
@@ -110,6 +121,12 @@ public abstract class TechnicianListQueryBase
 
 	@Observer("archivedTechnician")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('technician', 'delete')}")
+	public void archiveById(Long id) {
+		technicianAction.archiveById(id);
 		refresh();
 	}
 

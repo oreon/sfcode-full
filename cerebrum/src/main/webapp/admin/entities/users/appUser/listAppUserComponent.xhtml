@@ -78,11 +78,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_appUser.archived}" action="#{appUserAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_appUser.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_appUser.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_appUser.archived}" action="#{appUserAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_appUser.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_appUser.archived  and appUserAction.hasDeletePrevelige(_appUser)}" onclick="if (! window.confirm('Are you sure you want to archive #{_appUser.displayName}  ?') ) {return false}" action="#{appUserList.archiveById(_appUser.id)}" reRender="appUserList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_appUser.archived and appUserAction.hasDeletePrevelige(_appUser)}" action="#{appUserAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_appUser.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_appUser.id}"/> 
           </s:link>  
           <rich:spacer/>  

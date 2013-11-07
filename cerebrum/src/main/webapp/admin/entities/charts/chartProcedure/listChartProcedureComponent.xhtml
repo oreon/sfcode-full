@@ -124,11 +124,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_chartProcedure.archived}" action="#{chartProcedureAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_chartProcedure.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_chartProcedure.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_chartProcedure.archived}" action="#{chartProcedureAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chartProcedure.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_chartProcedure.archived  and chartProcedureAction.hasDeletePrevelige(_chartProcedure)}" onclick="if (! window.confirm('Are you sure you want to archive #{_chartProcedure.displayName}  ?') ) {return false}" action="#{chartProcedureList.archiveById(_chartProcedure.id)}" reRender="chartProcedureList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_chartProcedure.archived and chartProcedureAction.hasDeletePrevelige(_chartProcedure)}" action="#{chartProcedureAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chartProcedure.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_chartProcedure.id}"/> 
           </s:link>  
           <rich:spacer/>  

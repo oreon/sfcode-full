@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "roomtype")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("roomType")
+//@Name("roomType")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class RoomType extends BaseEntity implements java.io.Serializable {
@@ -88,7 +88,7 @@ public class RoomType extends BaseEntity implements java.io.Serializable {
 	;
 
 	@Column(unique = false)
-	protected Integer numberOfRooms
+	protected Integer numberOfBeds
 
 	;
 
@@ -122,13 +122,13 @@ public class RoomType extends BaseEntity implements java.io.Serializable {
 
 	}
 
-	public void setNumberOfRooms(Integer numberOfRooms) {
-		this.numberOfRooms = numberOfRooms;
+	public void setNumberOfBeds(Integer numberOfBeds) {
+		this.numberOfBeds = numberOfBeds;
 	}
 
-	public Integer getNumberOfRooms() {
+	public Integer getNumberOfBeds() {
 
-		return numberOfRooms;
+		return numberOfBeds;
 
 	}
 

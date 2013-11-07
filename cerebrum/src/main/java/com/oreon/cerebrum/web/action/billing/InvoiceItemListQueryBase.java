@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.billing.InvoiceItem;
 
 /**
@@ -35,6 +37,15 @@ public abstract class InvoiceItemListQueryBase
 	private static final String EJBQL = "select invoiceItem from InvoiceItem invoiceItem";
 
 	protected InvoiceItem invoiceItem = new InvoiceItem();
+
+	@In(create = true)
+	InvoiceItemAction invoiceItemAction;
+
+	public InvoiceItemListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public InvoiceItem getInvoiceItem() {
 		return invoiceItem;
@@ -135,6 +146,12 @@ public abstract class InvoiceItemListQueryBase
 	public Long getInvoiceId() {
 		return invoiceItem.getInvoice() == null ? null : invoiceItem
 				.getInvoice().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('invoiceItem', 'delete')}")
+	public void archiveById(Long id) {
+		invoiceItemAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

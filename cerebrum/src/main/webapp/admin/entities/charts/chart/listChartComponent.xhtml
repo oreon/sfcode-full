@@ -68,11 +68,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_chart.archived}" action="#{chartAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_chart.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_chart.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_chart.archived}" action="#{chartAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chart.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_chart.archived  and chartAction.hasDeletePrevelige(_chart)}" onclick="if (! window.confirm('Are you sure you want to archive #{_chart.displayName}  ?') ) {return false}" action="#{chartList.archiveById(_chart.id)}" reRender="chartList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_chart.archived and chartAction.hasDeletePrevelige(_chart)}" action="#{chartAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chart.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_chart.id}"/> 
           </s:link>  
           <rich:spacer/>  

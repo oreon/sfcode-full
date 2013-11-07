@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.employee.Specialization;
 
 /**
@@ -35,6 +37,15 @@ public abstract class SpecializationListQueryBase
 	private static final String EJBQL = "select specialization from Specialization specialization";
 
 	protected Specialization specialization = new Specialization();
+
+	@In(create = true)
+	SpecializationAction specializationAction;
+
+	public SpecializationListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Specialization getSpecialization() {
 		return specialization;
@@ -78,6 +89,12 @@ public abstract class SpecializationListQueryBase
 
 	@Observer("archivedSpecialization")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('specialization', 'delete')}")
+	public void archiveById(Long id) {
+		specializationAction.archiveById(id);
 		refresh();
 	}
 

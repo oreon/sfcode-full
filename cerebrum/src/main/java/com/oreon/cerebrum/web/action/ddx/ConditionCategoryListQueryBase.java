@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.ConditionCategory;
 
 /**
@@ -35,6 +37,15 @@ public abstract class ConditionCategoryListQueryBase
 	private static final String EJBQL = "select conditionCategory from ConditionCategory conditionCategory";
 
 	protected ConditionCategory conditionCategory = new ConditionCategory();
+
+	@In(create = true)
+	ConditionCategoryAction conditionCategoryAction;
+
+	public ConditionCategoryListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public ConditionCategory getConditionCategory() {
 		return conditionCategory;
@@ -78,6 +89,12 @@ public abstract class ConditionCategoryListQueryBase
 
 	@Observer("archivedConditionCategory")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('conditionCategory', 'delete')}")
+	public void archiveById(Long id) {
+		conditionCategoryAction.archiveById(id);
 		refresh();
 	}
 

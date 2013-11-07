@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "druginteraction")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("drugInteraction")
+//@Name("drugInteraction")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class DrugInteraction extends BaseEntity implements java.io.Serializable {

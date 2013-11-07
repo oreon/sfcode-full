@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "differentialdx")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("differentialDx")
+//@Name("differentialDx")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class DifferentialDx extends BaseEntity implements java.io.Serializable {

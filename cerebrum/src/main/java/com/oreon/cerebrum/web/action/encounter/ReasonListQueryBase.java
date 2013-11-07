@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.encounter.Reason;
 
 /**
@@ -33,6 +35,15 @@ public abstract class ReasonListQueryBase extends BaseQuery<Reason, Long> {
 	private static final String EJBQL = "select reason from Reason reason";
 
 	protected Reason reason = new Reason();
+
+	@In(create = true)
+	ReasonAction reasonAction;
+
+	public ReasonListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Reason getReason() {
 		return reason;
@@ -110,6 +121,12 @@ public abstract class ReasonListQueryBase extends BaseQuery<Reason, Long> {
 
 	public Long getCodeId() {
 		return reason.getCode() == null ? null : reason.getCode().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('reason', 'delete')}")
+	public void archiveById(Long id) {
+		reasonAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

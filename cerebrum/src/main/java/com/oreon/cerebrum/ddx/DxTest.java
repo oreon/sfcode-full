@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "dxtest")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("dxTest")
+//@Name("dxTest")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class DxTest extends BaseEntity implements java.io.Serializable {

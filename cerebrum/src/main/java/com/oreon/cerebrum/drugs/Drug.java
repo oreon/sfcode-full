@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "drug")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("drug")
+//@Name("drug")   
 @Indexed
 @Analyzer(definition = "entityAnalyzer")
 @Cache(usage = CacheConcurrencyStrategy.NONE)

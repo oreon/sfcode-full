@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.patient.Vaccine;
 
 /**
@@ -33,6 +35,15 @@ public abstract class VaccineListQueryBase extends BaseQuery<Vaccine, Long> {
 	private static final String EJBQL = "select vaccine from Vaccine vaccine";
 
 	protected Vaccine vaccine = new Vaccine();
+
+	@In(create = true)
+	VaccineAction vaccineAction;
+
+	public VaccineListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Vaccine getVaccine() {
 		return vaccine;
@@ -76,6 +87,12 @@ public abstract class VaccineListQueryBase extends BaseQuery<Vaccine, Long> {
 
 	@Observer("archivedVaccine")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('vaccine', 'delete')}")
+	public void archiveById(Long id) {
+		vaccineAction.archiveById(id);
 		refresh();
 	}
 

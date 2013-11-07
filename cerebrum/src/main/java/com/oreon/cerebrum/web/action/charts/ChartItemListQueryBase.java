@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.charts.ChartItem;
 
 /**
@@ -33,6 +35,15 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 	private static final String EJBQL = "select chartItem from ChartItem chartItem";
 
 	protected ChartItem chartItem = new ChartItem();
+
+	@In(create = true)
+	ChartItemAction chartItemAction;
+
+	public ChartItemListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public ChartItem getChartItem() {
 		return chartItem;
@@ -111,6 +122,12 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 	public Long getChartId() {
 		return chartItem.getChart() == null ? null : chartItem.getChart()
 				.getId();
+	}
+
+	//@Restrict("#{s:hasPermission('chartItem', 'delete')}")
+	public void archiveById(Long id) {
+		chartItemAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

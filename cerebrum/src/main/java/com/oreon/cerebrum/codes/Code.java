@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "code")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("code")
+//@Name("code")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class Code extends com.oreon.cerebrum.codes.AbstractCode
@@ -106,7 +106,7 @@ public class Code extends com.oreon.cerebrum.codes.AbstractCode
 	;
 
 	@Lob
-	@Column(unique = false)
+	@Column(name = "codeAlso", unique = false)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String codeAlso

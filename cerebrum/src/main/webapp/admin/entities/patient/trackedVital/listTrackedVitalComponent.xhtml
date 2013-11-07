@@ -34,27 +34,27 @@
           </f:facet>  
           <h:outputText value="#{_trackedVital.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMinValue')}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMinVal')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{trackedVitalList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.trackedVital_minValue}"/>  
-              <ui:param name="propertyPath" value="trackedVital.minValue"/> 
+              <ui:param name="propertyLabel" value="#{msg.trackedVital_minVal}"/>  
+              <ui:param name="propertyPath" value="trackedVital.minVal"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_trackedVital.minValue}"> 
+          <h:outputText value="#{_trackedVital.minVal}"> 
             <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMaxValue')}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMaxVal')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{trackedVitalList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.trackedVital_maxValue}"/>  
-              <ui:param name="propertyPath" value="trackedVital.maxValue"/> 
+              <ui:param name="propertyLabel" value="#{msg.trackedVital_maxVal}"/>  
+              <ui:param name="propertyPath" value="trackedVital.maxVal"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_trackedVital.maxValue}"> 
+          <h:outputText value="#{_trackedVital.maxVal}"> 
             <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
         </h:column>  
@@ -92,11 +92,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_trackedVital.archived}" action="#{trackedVitalAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_trackedVital.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_trackedVital.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_trackedVital.archived}" action="#{trackedVitalAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_trackedVital.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_trackedVital.archived  and trackedVitalAction.hasDeletePrevelige(_trackedVital)}" onclick="if (! window.confirm('Are you sure you want to archive #{_trackedVital.displayName}  ?') ) {return false}" action="#{trackedVitalList.archiveById(_trackedVital.id)}" reRender="trackedVitalList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_trackedVital.archived and trackedVitalAction.hasDeletePrevelige(_trackedVital)}" action="#{trackedVitalAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_trackedVital.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_trackedVital.id}"/> 
           </s:link>  
           <rich:spacer/>  

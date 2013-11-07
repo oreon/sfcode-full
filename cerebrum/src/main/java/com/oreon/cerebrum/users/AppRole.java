@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "approle")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("appRole")
+//@Name("appRole")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class AppRole extends BaseEntity implements java.io.Serializable {

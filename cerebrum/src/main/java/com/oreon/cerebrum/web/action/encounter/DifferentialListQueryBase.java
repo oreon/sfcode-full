@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.encounter.Differential;
 
 /**
@@ -35,6 +37,15 @@ public abstract class DifferentialListQueryBase
 	private static final String EJBQL = "select differential from Differential differential";
 
 	protected Differential differential = new Differential();
+
+	@In(create = true)
+	DifferentialAction differentialAction;
+
+	public DifferentialListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Differential getDifferential() {
 		return differential;
@@ -100,6 +111,12 @@ public abstract class DifferentialListQueryBase
 	public Long getEncounterId() {
 		return differential.getEncounter() == null ? null : differential
 				.getEncounter().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('differential', 'delete')}")
+	public void archiveById(Long id) {
+		differentialAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.DxCategory;
 
 /**
@@ -35,6 +37,15 @@ public abstract class DxCategoryListQueryBase
 	private static final String EJBQL = "select dxCategory from DxCategory dxCategory";
 
 	protected DxCategory dxCategory = new DxCategory();
+
+	@In(create = true)
+	DxCategoryAction dxCategoryAction;
+
+	public DxCategoryListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public DxCategory getDxCategory() {
 		return dxCategory;
@@ -78,6 +89,12 @@ public abstract class DxCategoryListQueryBase
 
 	@Observer("archivedDxCategory")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('dxCategory', 'delete')}")
+	public void archiveById(Long id) {
+		dxCategoryAction.archiveById(id);
 		refresh();
 	}
 

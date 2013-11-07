@@ -94,11 +94,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_differentialDx.archived}" action="#{differentialDxAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_differentialDx.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_differentialDx.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_differentialDx.archived}" action="#{differentialDxAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_differentialDx.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_differentialDx.archived  and differentialDxAction.hasDeletePrevelige(_differentialDx)}" onclick="if (! window.confirm('Are you sure you want to archive #{_differentialDx.displayName}  ?') ) {return false}" action="#{differentialDxList.archiveById(_differentialDx.id)}" reRender="differentialDxList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_differentialDx.archived and differentialDxAction.hasDeletePrevelige(_differentialDx)}" action="#{differentialDxAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_differentialDx.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_differentialDx.id}"/> 
           </s:link>  
           <rich:spacer/>  

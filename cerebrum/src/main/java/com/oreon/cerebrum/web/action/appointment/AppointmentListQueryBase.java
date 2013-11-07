@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.appointment.Appointment;
 
 /**
@@ -35,6 +37,15 @@ public abstract class AppointmentListQueryBase
 	private static final String EJBQL = "select appointment from Appointment appointment";
 
 	protected Appointment appointment = new Appointment();
+
+	@In(create = true)
+	AppointmentAction appointmentAction;
+
+	public AppointmentListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Appointment getAppointment() {
 		return appointment;
@@ -144,6 +155,12 @@ public abstract class AppointmentListQueryBase
 	public Long getPatientId() {
 		return appointment.getPatient() == null ? null : appointment
 				.getPatient().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('appointment', 'delete')}")
+	public void archiveById(Long id) {
+		appointmentAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

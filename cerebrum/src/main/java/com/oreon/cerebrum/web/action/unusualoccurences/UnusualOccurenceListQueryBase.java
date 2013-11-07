@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
 
 /**
@@ -35,6 +37,15 @@ public abstract class UnusualOccurenceListQueryBase
 	private static final String EJBQL = "select unusualOccurence from UnusualOccurence unusualOccurence";
 
 	protected UnusualOccurence unusualOccurence = new UnusualOccurence();
+
+	@In(create = true)
+	UnusualOccurenceAction unusualOccurenceAction;
+
+	public UnusualOccurenceListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public UnusualOccurence getUnusualOccurence() {
 		return unusualOccurence;
@@ -120,6 +131,12 @@ public abstract class UnusualOccurenceListQueryBase
 	public Long getPatientId() {
 		return unusualOccurence.getPatient() == null ? null : unusualOccurence
 				.getPatient().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('unusualOccurence', 'delete')}")
+	public void archiveById(Long id) {
+		unusualOccurenceAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

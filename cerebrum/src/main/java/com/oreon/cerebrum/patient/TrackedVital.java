@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "trackedvital")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("trackedVital")
+//@Name("trackedVital")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class TrackedVital extends BaseEntity implements java.io.Serializable {
@@ -75,12 +75,12 @@ public class TrackedVital extends BaseEntity implements java.io.Serializable {
 	;
 
 	@Column(unique = false)
-	protected Double minValue
+	protected Double minVal
 
 	;
 
 	@Column(unique = false)
-	protected Double maxValue
+	protected Double maxVal
 
 	;
 
@@ -94,23 +94,23 @@ public class TrackedVital extends BaseEntity implements java.io.Serializable {
 
 	}
 
-	public void setMinValue(Double minValue) {
-		this.minValue = minValue;
+	public void setMinVal(Double minVal) {
+		this.minVal = minVal;
 	}
 
-	public Double getMinValue() {
+	public Double getMinVal() {
 
-		return minValue;
+		return minVal;
 
 	}
 
-	public void setMaxValue(Double maxValue) {
-		this.maxValue = maxValue;
+	public void setMaxVal(Double maxVal) {
+		this.maxVal = maxVal;
 	}
 
-	public Double getMaxValue() {
+	public Double getMaxVal() {
 
-		return maxValue;
+		return maxVal;
 
 	}
 

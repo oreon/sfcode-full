@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.facility.Room;
 
 /**
@@ -33,6 +35,15 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 	private static final String EJBQL = "select room from Room room";
 
 	protected Room room = new Room();
+
+	@In(create = true)
+	RoomAction roomAction;
+
+	public RoomListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Room getRoom() {
 		return room;
@@ -108,6 +119,12 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 
 	public Long getWardId() {
 		return room.getWard() == null ? null : room.getWard().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('room', 'delete')}")
+	public void archiveById(Long id) {
+		roomAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

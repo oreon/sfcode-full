@@ -89,8 +89,8 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	@In(create=true)
 	BedAction bedAction;
 	
-	static String qryPref = "Select r from Room r where r.ward.id = ? and r.roomType = ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
-	static String qryNonPref  = "Select r from Room r where r.ward.id = ? and r.roomType != ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
+	static final String qryPref = "Select r from Room r where r.ward.id = ? and r.roomType = ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
+	static final String qryNonPref  = "Select r from Room r where r.ward.id = ? and r.roomType != ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
 	
 	static String qryAll = "Select r from Room r where r.ward.id = ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
 	
@@ -98,10 +98,8 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		if(ward == null || roomType == null)
 			return new ArrayList<Room>();
 		//String nativeQry = "SELECT * FROM Room r WHERE r.ward_id = ? AND ( SELECT COUNT(*) FROM Bed b WHERE b.patient_id IS NULL AND b.room_id = r.id  > 0 )";
-		System.out.println("looking for " + ward.getName() + " " + roomType.getName());
+		//System.out.println("looking for " + ward.getName() + " " + roomType.getName());
 		List<Room> rooms =  executeQuery(qryPref, ward.getId(), roomType );
-		
-		
 		
 		return rooms;
 	}

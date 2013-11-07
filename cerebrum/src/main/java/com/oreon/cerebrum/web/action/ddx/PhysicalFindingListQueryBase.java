@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.ddx.PhysicalFinding;
 
 /**
@@ -35,6 +37,15 @@ public abstract class PhysicalFindingListQueryBase
 	private static final String EJBQL = "select physicalFinding from PhysicalFinding physicalFinding";
 
 	protected PhysicalFinding physicalFinding = new PhysicalFinding();
+
+	@In(create = true)
+	PhysicalFindingAction physicalFindingAction;
+
+	public PhysicalFindingListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public PhysicalFinding getPhysicalFinding() {
 		return physicalFinding;
@@ -80,6 +91,12 @@ public abstract class PhysicalFindingListQueryBase
 
 	@Observer("archivedPhysicalFinding")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('physicalFinding', 'delete')}")
+	public void archiveById(Long id) {
+		physicalFindingAction.archiveById(id);
 		refresh();
 	}
 

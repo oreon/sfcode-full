@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "conditioncategory")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("conditionCategory")
+//@Name("conditionCategory")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class ConditionCategory extends BaseEntity

@@ -81,11 +81,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_conditionFinding.archived}" action="#{conditionFindingAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_conditionFinding.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_conditionFinding.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_conditionFinding.archived}" action="#{conditionFindingAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_conditionFinding.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_conditionFinding.archived  and conditionFindingAction.hasDeletePrevelige(_conditionFinding)}" onclick="if (! window.confirm('Are you sure you want to archive #{_conditionFinding.displayName}  ?') ) {return false}" action="#{conditionFindingList.archiveById(_conditionFinding.id)}" reRender="conditionFindingList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_conditionFinding.archived and conditionFindingAction.hasDeletePrevelige(_conditionFinding)}" action="#{conditionFindingAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_conditionFinding.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_conditionFinding.id}"/> 
           </s:link>  
           <rich:spacer/>  

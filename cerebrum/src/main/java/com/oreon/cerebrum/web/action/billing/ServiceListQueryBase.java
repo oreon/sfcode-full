@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.billing.Service;
 
 /**
@@ -33,6 +35,15 @@ public abstract class ServiceListQueryBase extends BaseQuery<Service, Long> {
 	private static final String EJBQL = "select service from Service service";
 
 	protected Service service = new Service();
+
+	@In(create = true)
+	ServiceAction serviceAction;
+
+	public ServiceListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Service getService() {
 		return service;
@@ -88,6 +99,12 @@ public abstract class ServiceListQueryBase extends BaseQuery<Service, Long> {
 
 	@Observer("archivedService")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('service', 'delete')}")
+	public void archiveById(Long id) {
+		serviceAction.archiveById(id);
 		refresh();
 	}
 

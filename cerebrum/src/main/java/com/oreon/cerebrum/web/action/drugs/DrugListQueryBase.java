@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.drugs.Drug;
 
 /**
@@ -33,6 +35,15 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 	private static final String EJBQL = "select drug from Drug drug";
 
 	protected Drug drug = new Drug();
+
+	@In(create = true)
+	DrugAction drugAction;
+
+	public DrugListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Drug getDrug() {
 		return drug;
@@ -142,6 +153,12 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 
 		drug.setName(input);
 
+	}
+
+	//@Restrict("#{s:hasPermission('drug', 'delete')}")
+	public void archiveById(Long id) {
+		drugAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 

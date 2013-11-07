@@ -248,9 +248,9 @@ public class MetaData {
 
 	"name", "java.lang.String",
 
-	"minValue", "java.lang.Double",
+	"minVal", "java.lang.Double",
 
-	"maxValue", "java.lang.Double",
+	"maxVal", "java.lang.Double",
 
 	},
 
@@ -328,7 +328,7 @@ public class MetaData {
 
 	"rate", "java.lang.Double",
 
-	"numberOfRooms", "java.lang.Integer",
+	"numberOfBeds", "java.lang.Integer",
 
 	},
 

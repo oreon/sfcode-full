@@ -59,7 +59,7 @@ import com.oreon.cerebrum.ProjectUtils;
 @Entity
 @Table(name = "unusualoccurence")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
-@Name("unusualOccurence")
+//@Name("unusualOccurence")   
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class UnusualOccurence extends BaseEntity

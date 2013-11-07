@@ -68,11 +68,10 @@
           <f:facet name="header"> 
             <h:outputText value=""/> 
           </f:facet>  
-          <s:link rendered="#{!_specialization.archived}" action="#{specializationAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_specialization.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_specialization.id}"/> 
-          </s:link>  
-          <s:link rendered="#{_specialization.archived}" action="#{specializationAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_specialization.displayName} ?')){ return false; } else { return true; }">Delete 
+          <a:commandLink rendered="#{!_specialization.archived  and specializationAction.hasDeletePrevelige(_specialization)}" onclick="if (! window.confirm('Are you sure you want to archive #{_specialization.displayName}  ?') ) {return false}" action="#{specializationList.archiveById(_specialization.id)}" reRender="specializationList"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/> 
+          </a:commandLink>  
+          <s:link rendered="#{_specialization.archived and specializationAction.hasDeletePrevelige(_specialization)}" action="#{specializationAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_specialization.displayName} ?')){ return false; } else { return true; }">Delete 
             <f:param name="currentEntityId" value="#{_specialization.id}"/> 
           </s:link>  
           <rich:spacer/>  

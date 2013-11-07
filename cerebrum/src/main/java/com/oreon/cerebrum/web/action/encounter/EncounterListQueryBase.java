@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
 
+import org.jboss.seam.annotations.In;
+
 import com.oreon.cerebrum.encounter.Encounter;
 
 /**
@@ -33,6 +35,15 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	private static final String EJBQL = "select encounter from Encounter encounter";
 
 	protected Encounter encounter = new Encounter();
+
+	@In(create = true)
+	EncounterAction encounterAction;
+
+	public EncounterListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Encounter getEncounter() {
 		return encounter;
@@ -175,6 +186,12 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	public Long getPatientId() {
 		return encounter.getPatient() == null ? null : encounter.getPatient()
 				.getId();
+	}
+
+	//@Restrict("#{s:hasPermission('encounter', 'delete')}")
+	public void archiveById(Long id) {
+		encounterAction.archiveById(id);
+		refresh();
 	}
 
 	/** create comma delimited row 
