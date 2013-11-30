@@ -9,8 +9,9 @@
       </c:if>  
       <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPatient eq null}"> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.Patient}"/> 
+          <h:outputLink value="#{patientAction.patient.displayName}" action="viewPatient" /> 
         </f:facet>  
+       		
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewFirstName')}"/>  
         <h:outputText value="#{patientAction.patient.firstName}" escape="false"/>  
         <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewLastName')}"/>  

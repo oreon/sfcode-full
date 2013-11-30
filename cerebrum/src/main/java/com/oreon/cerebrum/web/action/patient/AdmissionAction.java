@@ -46,6 +46,21 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	private Integer preferredBedsCount = 0;
 	private Integer nonPreferredBedsCount = 0;
 	
+	
+
+	private Patient patient;
+	
+	@In(create=true)
+	BedAction bedAction;
+	
+	static final String qryPref = "Select r from Room r where r.ward.id = ? and r.roomType = ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
+	static final String qryNonPref  = "Select r from Room r where r.ward.id = ? and r.roomType != ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
+	
+	static String qryAll = "Select r from Room r where r.ward.id = ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
+	
+	static final String qryAvailableBedsForRoom = "select b from Bed b where b.patient is null and b.room = ?";
+
+	
 	public Integer getNonPreferredBedsCount() {
 		return getNonPreferredBedsList().size();
 	}
@@ -83,16 +98,6 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	public void setNonPreferredBed(Bed nonPreferredBed) {
 		this.nonPreferredBed = nonPreferredBed;
 	}
-
-	private Patient patient;
-	
-	@In(create=true)
-	BedAction bedAction;
-	
-	static final String qryPref = "Select r from Room r where r.ward.id = ? and r.roomType = ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
-	static final String qryNonPref  = "Select r from Room r where r.ward.id = ? and r.roomType != ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
-	
-	static String qryAll = "Select r from Room r where r.ward.id = ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
 	
 	public List<Room> getPreferredRoomsList(){
 		if(ward == null || roomType == null)
@@ -104,21 +109,7 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		return rooms;
 	}
 	
-	@Begin(join=true)
-	public List<Bed> getPrefferedBeds(){
-		
-		System.out.println(conversation.getId());
-		
-		List<Room> rooms = getPreferredRoomsList();
-		List<Bed> beds = new ArrayList<Bed>();
-		for (Room room : rooms) {
-			Hibernate.initialize(room.getBeds());
-			beds.addAll(room.getBeds());
-		}
-		setPreferredBedsCount(beds.size());
-		
-		return beds;
-	}
+	
 	
 	@Begin(join=true)
 	public List<Room> getNonPreferredRoomsList(){
@@ -131,12 +122,29 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		return executeQuery(qryAll, ward.getId());
 	}
 	
+	
+	@Begin(join=true)
+	public List<Bed> getPrefferedBeds(){
+		
+		List<Room> rooms = getPreferredRoomsList();
+		return getAvailableBeds(rooms);
+	}
+	
 	public List<Bed> getNonPreferredBedsList (){
 		List<Room> rooms = getNonPreferredRoomsList();
+		return getAvailableBeds(rooms);
+	}
+
+	/** Get all available beds for given rooms
+	 * @param rooms
+	 * @return
+	 */
+	private List<Bed> getAvailableBeds(List<Room> rooms) {
 		List<Bed> beds = new ArrayList<Bed>();
 		for (Room room : rooms) {
 			Hibernate.initialize(room.getBeds());
-			beds.addAll(room.getBeds());
+			List<Bed> availBeds = executeQuery(qryAvailableBedsForRoom, room);
+			beds.addAll(availBeds);
 		}
 		
 		setNonPreferredBedsCount(beds.size());
@@ -189,15 +197,14 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		
 	
 		updateBedStayDate();
-		createBedStay();
+		
+		save();
 		
 		listBedStays.clear();
 		listBedStays.addAll(getInstance().getBedStays());
 		
-		super.save();
-		
+
 		addInfoMessage("Successfully transferred to bed " + instance.getBed());
-		
 	}
 	
 	@Override
@@ -207,6 +214,7 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 		
 		if(bed == null )
 			throw new BusinessException("Please Select a Bed");
+		
 		createBedStay();
 		
 		return super.save();
@@ -272,7 +280,7 @@ public class AdmissionAction extends AdmissionActionBase implements java.io.Seri
 	public List<Ward> getWardList(){
 		if(instance.getPatient() == null || instance.getPatient().getGender() == null )
 			return new ArrayList<Ward>();
-		System.out.println(instance.getPatient().getGender());
+		//System.out.println(instance.getPatient().getGender());
 		String qry = "Select e from Ward e where e.gender = ?  or e.gender is null ";
 		return executeQuery(qry, instance.getPatient().getGender());
 	}
