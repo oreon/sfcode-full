@@ -33,23 +33,99 @@
 				layout="list"></rich:messages>
 			<h:form>
 
-
-				<s:decorate id="bedDecorate" template="/layout/edit.xhtml">
+				<s:decorate id="wardDecorate" template="/layout/edit.xhtml">
 					<ui:define name="label">
-						<h:outputText value="#{msg.admission_bed}  "
-							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}" />
+						<h:outputText value="#{msg.room_ward}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}" />
 					</ui:define>
-					<h:selectOneMenu id="bed" label="#{msg.admission_bed}"
-						value="#{admissionAction.admission.bed}" required="false"
-						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'bedEdit')}"
+					<h:selectOneMenu id="ward" label="#{msg.room_ward}"
+						value="#{admissionAction.ward}" required="true"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"
 						disabled="false">
-						<s:selectItems value="#{bedList}" var="itemIter"
+						<s:selectItems value="#{admissionAction.wardList}" var="itemIter"
 							label="#{itemIter.displayName}"
 							noSelectionLabel="Please Select..." />
 						<rich:ajaxValidator event="onsubmit" />
+						<a:support event="onchange" reRender="roombeds, admitForm"
+							ajaxSingle="false">
+							<s:conversationId />
+						</a:support>
+
 						<s:convertEntity />
 					</h:selectOneMenu>
 				</s:decorate>
+
+				<s:decorate id="roomTypeDecorate" template="/layout/edit.xhtml">
+					<ui:define name="label">
+						<h:outputText value="#{msg.room_roomType}  "
+							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}" />
+					</ui:define>
+					<h:selectOneMenu id="roomType" label="#{msg.room_roomType}"
+						value="#{admissionAction.roomType}"
+						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"
+						disabled="false">
+						<s:selectItems value="#{roomTypeList}" var="itemIter"
+							label="#{itemIter.displayName}"
+							noSelectionLabel="Please Select..." />
+						<rich:ajaxValidator event="onsubmit" />
+						<a:support event="onchange" reRender="roombeds, admitForm"
+							action="#{admissionAction.updateSelectedBed}" ajaxSingle="false">
+							<s:conversationId />
+						</a:support>
+						<s:convertEntity />
+					</h:selectOneMenu>
+				</s:decorate>
+
+
+				<rich:panel id="roombeds">
+					<h:selectOneRadio>
+						<rich:simpleTogglePanel switchType="client"
+							label="Preferred Rooms" opened="true">
+
+							<h:panelGroup>
+								<b> <h:outputText
+									value="Found #{admissionAction.preferredBedsCount} Beds" /> </b>
+								<br />
+
+								<h:selectOneMenu label="#{msg.bedStay_bed}" id="pref"
+									value="#{admissionAction.preferredBed}" required="false"
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
+									disabled="false">
+									<s:selectItems value="#{admissionAction.prefferedBeds}"
+										var="itemIter" label="#{itemIter.displayName}"
+										noSelectionLabel="Please Select..." />
+
+									<s:convertEntity />
+								</h:selectOneMenu>
+								<hr />
+
+							</h:panelGroup>
+						</rich:simpleTogglePanel>
+						<br />
+						<rich:simpleTogglePanel switchType="client" label="Non Preferred"
+							opened="true">
+							<h:outputText
+								value="Found #{admissionAction.nonPreferredBedsCount} Beds" />
+							<br />
+							<h:panelGroup>
+								<h:selectOneMenu label="#{msg.bedStay_bed}" id="nonpref"
+									value="#{admissionAction.nonPreferredBed}"
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}"
+									disabled="false">
+									<s:selectItems value="#{admissionAction.nonPreferredBedsList}"
+										var="itemIter" label="#{itemIter.displayName}"
+										noSelectionLabel="Please Select..." />
+
+									<s:convertEntity />
+								</h:selectOneMenu>
+								<hr />
+
+							</h:panelGroup>
+
+						</rich:simpleTogglePanel>
+					</h:selectOneRadio>
+				</rich:panel>
+
 
 				<a:commandButton action="#{admissionAction.transfer}"
 					styleClass="button"
