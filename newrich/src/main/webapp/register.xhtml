@@ -19,9 +19,7 @@
 					<c:if test="${numColumns == null }">
 						<c:set var="numColumns" value="2" />
 					</c:if>  
-      
-      ${numColumns}
-      ${skipPermissionCheck}
+
       <h:panelGrid columns="${numColumns}" styleClass="editInfo"
 						columnClasses="leftCol, rightCol"
 						rendered="#{ hidePanelAppUser eq null}">
@@ -81,10 +79,12 @@
 				</s:validateAll>
 			</h:panelGroup>
 
-			<div class="buttonBox"><h:commandButton value="Save"
-				action="#{appUserAction.save}"></h:commandButton> <h:outputText
-				value=" " /> <h:commandButton value="Cancel" immediate="true"
-				action="#{appUserAction.cancel}"></h:commandButton></div>
+			<div class="buttonBox">
+				<h:commandButton value="Save" action="#{appUserAction.save}"></h:commandButton>
+				<h:outputText value=" " />
+				<h:commandButton value="Cancel" immediate="true"
+					action="#{appUserAction.cancel}"></h:commandButton>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

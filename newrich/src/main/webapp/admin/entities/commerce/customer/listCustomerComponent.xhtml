@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:s="http://jboss.org/schema/seam/taglib" 
+	xmlns:a="http://richfaces.org/a4j" 
+	xmlns:p="http://primefaces.prime.com.tr/ui" 
+	xmlns:rich="http://richfaces.org/rich" 
+	xmlns:c="http://java.sun.com/jstl/core" 
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	xmlns:a4j="http://richfaces.org/a4j">
+	  
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="CustomerModalPanel"/> 
   </c:if>  
@@ -10,7 +21,8 @@
   <rich:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
     <h:form> 
-      <rich:dataTable var="_customer" value="#{records}" id="customerList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+      <rich:dataTable var="_customer" value="#{records}" id="customerList" rowClasses="odd, even" styleClass="dataTable" rowKeyVar="customerRow" 
+      	onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -101,16 +113,16 @@
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
             <f:param name="customerId" value="#{_customer.id}"/> 
           </h:link> 
-        </h:column>  
+        </h:column>
         <h:column rendered="#{s:hasPermission('_customer', 'edit') and !_customerCategory.archived}"> 
           <f:facet name="header"> 
-            <h:outputText value=" "/> 
-          </f:facet>  
-          <h:link outcome="/admin/entities/commerce/customer/editCustomer.xhtml" rendered="#{s:hasPermission(_customer, 'edit')}" propagation="none"> 
-            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="customerId" value="#{_customer.id}"/> 
-          </h:link> 
-        </h:column>  
+		  	<h:outputText value=" "/> 	            
+          </f:facet>
+          <a4j:commandLink execute="@this" oncomplete="#{rich:component('editCustomerPanel')}.show()" render="editCustomerGrid" >
+	      	<h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>
+	      	<f:setPropertyActionListener target="#{customerAction.selectedCustomer}" value="#{_customer}"/>	
+          </a4j:commandLink>
+        </h:column>
         <h:column rendered="#{s:hasPermission('customerAction', 'archive')}" propagation="none"> 
           <f:facet name="header"> 
             <h:outputText value=""/> 
@@ -137,8 +149,38 @@
             <f:setPropertyActionListener target="#{customerAction.entity}" value="#{_customer}"/> 
           </a:commandLink> 
         </h:column> 
-      </rich:dataTable> 
-    </h:form> 
+      </rich:dataTable>
+      
+      <rich:popupPanel header="Edit Customer Details" id="editCustomerPanel" width="400" height="300" domElementAttachment="parent">
+		<h:panelGrid columns="2" id="editCustomerGrid">
+			<h:outputText value="#{msg.person_firstName}"/>
+			<h:inputText value="#{customerAction.selectedCustomer.firstName}"/>
+			
+			<h:outputText value="#{msg.person_lastName}"/>
+			<h:inputText value="#{customerAction.selectedCustomer.lastName}"/>
+			
+            <h:outputText value="#{msg.customer_type}"/>  
+         	<h:selectOneMenu id="#{prefix}_type" rendered="#{true}" value="#{customerAction.selectedCustomer.type}" required="false" label="#{msg.customer_type}"> 
+           		<f:selectItem itemLabel="Please Select..." itemValue=""/>  
+           		<f:selectItem itemValue="STANDARD" itemLabel="#{msg.STANDARD}"/>  
+           		<f:selectItem itemValue="GOLD" itemLabel="#{msg.GOLD}"/>  
+           		<f:selectItem itemValue="PLATINUM" itemLabel="#{msg.PLATINUM}"/> 
+          	</h:selectOneMenu>
+
+			<h:outputText value="#{msg.contactDetails_phone}"/>
+			<h:inputText value="#{customerAction.selectedCustomer.contactDetails.phone}"/>			
+			<h:outputText value="#{msg.contactDetails_secondaryPhone}"/>
+			<h:inputText value="#{customerAction.selectedCustomer.contactDetails.secondaryPhone}"/>
+			<h:outputText value="#{msg.contactDetails_city}"/>
+			<h:inputText value="#{customerAction.selectedCustomer.contactDetails.city}"/>
+		</h:panelGrid>
+			<a4j:commandButton value="Update" action="#{customerAction.store}" execute="editCustomerPanel" render="customerList"
+                oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editCustomerPanel')}.hide();}" />
+			<a4j:commandButton value="Cancel" onclick="#{rich:component('editCustomerPanel')}.hide(); return false;" />	    
+    	</rich:popupPanel>
+    </h:form>
+    
+    
   </rich:panel>  
   <div class="tableControl"> 
     <h:link outcome="#{request.servletPath}" rendered="#{customerList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
