@@ -35,8 +35,8 @@ import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.Redirect;
 import org.jboss.seam.faces.Renderer;
 import org.jboss.seam.framework.EntityHome;
-import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
+import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
 import org.witchcraft.base.entity.BaseEntity;
@@ -56,8 +56,12 @@ import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
  * 
  * @param <T>
  */
-public abstract class BaseAction<T extends BaseEntity> extends
-		EntityHome<T> {
+public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
+
+	/**
+	 * The unique version number
+	 */
+	private static final long serialVersionUID = 7622015607042477709L;
 
 	@Logger
 	protected Log log;
@@ -65,7 +69,7 @@ public abstract class BaseAction<T extends BaseEntity> extends
 	@In(create=true)
 	// @PersistenceContext(type = PersistenceContextType.EXTENDED)
 	protected FullTextEntityManager entityManager;
-
+	
 	@In(create = true)
 	protected EntityAuditLogInterceptor entityAuditLogInterceptor;
 
@@ -269,12 +273,14 @@ public abstract class BaseAction<T extends BaseEntity> extends
 
 			updateComposedAssociations();
 
-			if (isManaged())
+			if (isManaged()) {
 				update();
-			else
+			} else {
 				persist();
+			}
 
-		//	addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
+			// addInfoMessage("Successfully saved record: {0}",
+			// getInstance().getDisplayName());
 			updateAssociations();
 
 		} catch (Exception e) {
@@ -489,6 +495,7 @@ public abstract class BaseAction<T extends BaseEntity> extends
 	@SuppressWarnings("unchecked")
 	public <S> List<S> executeQuery(String queryString, Object... params) {
 		Query query = entityManager.createQuery(queryString);
+
 		setQueryParams(query, params);
 		return query.getResultList();
 	}
@@ -685,4 +692,60 @@ public abstract class BaseAction<T extends BaseEntity> extends
 		return entity;
 	}
 
+	/**
+	 * The method updates the entity if exists, inserts if not exist. 
+	 * 
+	 * @param data
+	 * 			The entity
+	 * @param clazz
+	 * 			The class type
+	 * @return The saved entity
+	 */
+	@Transactional
+	protected <T extends BaseEntity> T save(final T data, final Class<T> clazz) {
+		Long id = data.getId();
+		
+		// Check if the primary key exists. 
+		if (id == null) {
+			entityManager.persist(data);
+			return data;
+		} else {
+			System.out.println("entity id: " + id);
+			T entity = find(clazz, id); // Search for the entity by the primary key.
+			if (entity != null) {
+				entityManager.merge(entity); // Update if the entity is found.
+			} else {
+				entityManager.persist(data); // Insert if the entity is not found.
+			}
+		}
+		
+		return data;
+	}
+	
+	/**
+	 * The method searches for the entity by class type and primary key.
+	 * 
+	 * @param clazz
+	 * 			The class type
+	 * @param pk
+	 * 			The primary key
+	 * @return The entity if found, null if not found.
+	 */
+	@Transactional
+	protected <T extends BaseEntity> T find(final Class<T> clazz, final Object pk) {
+		T entity = null;
+		
+		if (pk == null) {
+			return null;
+		} else {
+			entityManager.flush();
+			entity = entityManager.find(clazz, pk);
+			if (entity != null) {
+				entityManager.refresh(entity);
+			}
+		}
+		
+		return entity;
+	}
+	
 }
