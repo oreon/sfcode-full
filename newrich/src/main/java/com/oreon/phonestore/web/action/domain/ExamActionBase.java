@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -52,8 +53,8 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 		implements
 			java.io.Serializable {
 
-	@Out(required = false)
-	private Exam exam = new Exam();
+	@RequestParameter
+	protected Long examId;
 
 	public void setExamId(Long id) {
 		if (id == 0) {
@@ -63,7 +64,7 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 			return;
 		}
 		setId(id);
-		exam = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -73,7 +74,7 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 	 */
 	public void setExamIdForModalDlg(Long id) {
 		setId(id);
-		exam = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -83,12 +84,12 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 	}
 
 	public Exam getEntity() {
-		return exam;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Exam t) {
-		this.exam = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -119,6 +120,22 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 		if (isIdDefined()) {
 			wire();
 		}
+
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
+		if (isNew() && instance.getQuestions().isEmpty()) {
+			for (int i = 0; i < 1; i++)
+				getListQuestions().add(
+						new com.oreon.phonestore.domain.Question());
+		}
+
 	}
 
 	public void wire() {
@@ -135,8 +152,8 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 	}
 
 	public void setExam(Exam t) {
-		this.exam = t;
-		if (exam != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setExamId(t.getId());
 		loadAssociations();
 	}
@@ -158,6 +175,7 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 		initListQuestions();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {
@@ -193,12 +211,14 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 
 	@Begin(join = true)
 	public void addQuestions() {
+
 		initListQuestions();
 		Question questions = new Question();
 
 		questions.setExam(getInstance());
 
 		getListQuestions().add(questions);
+
 	}
 
 	public void updateComposedAssociations() {

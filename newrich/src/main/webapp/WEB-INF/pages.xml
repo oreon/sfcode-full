@@ -186,14 +186,14 @@
     <param name="dir" value="#{employeeList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{employeeList.employee.id}"/>  
-    <param name="#{prefix}_firstName" value="#{employeeList.employee.firstName}" validateModel="false"/>  
-    <param name="#{prefix}_lastName" value="#{employeeList.employee.lastName}" validateModel="false"/>  
-    <param name="#{prefix}_contactDetails_phone" value="#{employeeList.employee.contactDetails.phone}" validateModel="false"/>  
-    <param name="#{prefix}_contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}" validateModel="false"/>  
-    <param name="#{prefix}_contactDetails_city" value="#{employeeList.employee.contactDetails.city}" validateModel="false"/>  
-    <param name="#{prefix}_departmentdepartment" value="#{employeeList.employee.department.id}" validateModel="false"/>  
-    <param name="#{prefix}_employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false"/>  
-    <param name="#{prefix}_employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/> 
+    <param name="firstName" value="#{employeeList.employee.firstName}" validateModel="false"/>  
+    <param name="lastName" value="#{employeeList.employee.lastName}" validateModel="false"/>  
+    <param name="contactDetails_phone" value="#{employeeList.employee.contactDetails.phone}" validateModel="false"/>  
+    <param name="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}" validateModel="false"/>  
+    <param name="contactDetails_city" value="#{employeeList.employee.contactDetails.city}" validateModel="false"/>  
+    <param name="departmentId" value="#{employeeList.departmentId}" validateModel="false"/>  
+    <param name="employeeNumber" value="#{employeeList.employee.employeeNumber}" validateModel="false"/>  
+    <param name="employeeType" value="#{employeeList.employee.employeeType}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/department/editDepartment.xhtml"> 
     <!-- <description>Edit Department: #{department.displayName}</description> -->  
@@ -246,7 +246,7 @@
     <param name="dir" value="#{departmentList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{departmentList.department.id}"/>  
-    <param name="#{prefix}_name" value="#{departmentList.department.name}" validateModel="false"/> 
+    <param name="name" value="#{departmentList.department.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/exam/editExam.xhtml"> 
     <!-- <description>Edit Exam: #{exam.displayName}</description> -->  
@@ -299,8 +299,8 @@
     <param name="dir" value="#{examList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{examList.exam.id}"/>  
-    <param name="#{prefix}_title" value="#{examList.exam.title}" validateModel="false"/>  
-    <param name="#{prefix}_description" value="#{examList.exam.description}" validateModel="false"/> 
+    <param name="title" value="#{examList.exam.title}" validateModel="false"/>  
+    <param name="description" value="#{examList.exam.description}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/domain/question/editQuestion.xhtml"> 
     <!-- <description>Edit Question: #{question.displayName}</description> -->  
@@ -354,8 +354,8 @@
     <param name="dir" value="#{questionList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{questionList.question.id}"/>  
-    <param name="#{prefix}_text" value="#{questionList.question.text}" validateModel="false"/>  
-    <param name="#{prefix}_examexam" value="#{questionList.question.exam.id}" validateModel="false"/> 
+    <param name="text" value="#{questionList.question.text}" validateModel="false"/>  
+    <param name="examId" value="#{questionList.examId}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/commerce/product/editProduct.xhtml"> 
     <!-- <description>Edit Product: #{product.displayName}</description> -->  
@@ -408,8 +408,9 @@
     <param name="dir" value="#{productList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{productList.product.id}"/>  
-    <param name="#{prefix}_name" value="#{productList.product.name}" validateModel="false"/>  
-    <param name="#{prefix}_price" value="#{productList.product.price}" validateModel="false"/> 
+    <param name="name" value="#{productList.product.name}" validateModel="false"/>  
+    <param name="price" value="#{productList.product.price}" validateModel="false"/>  
+    <param name="description" value="#{productList.product.description}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/commerce/customerOrder/editCustomerOrder.xhtml"> 
     <!-- <description>Edit CustomerOrder: #{customerOrder.displayName}</description> -->  
@@ -463,9 +464,9 @@
     <param name="dir" value="#{customerOrderList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{customerOrderList.customerOrder.id}"/>  
-    <param name="#{prefix}_remarks" value="#{customerOrderList.customerOrder.remarks}" validateModel="false"/>  
-    <param name="#{prefix}_customercustomer" value="#{customerOrderList.customerOrder.customer.id}" validateModel="false"/>  
-    <param name="#{prefix}_total" value="#{customerOrderList.customerOrder.total}" validateModel="false"/> 
+    <param name="remarks" value="#{customerOrderList.customerOrder.remarks}" validateModel="false"/>  
+    <param name="customerId" value="#{customerOrderList.customerId}" validateModel="false"/>  
+    <param name="total" value="#{customerOrderList.customerOrder.total}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/commerce/orderItem/editOrderItem.xhtml"> 
     <!-- <description>Edit OrderItem: #{orderItem.displayName}</description> -->  
@@ -520,11 +521,11 @@
     <param name="dir" value="#{orderItemList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{orderItemList.orderItem.id}"/>  
-    <param name="#{prefix}_remarks" value="#{orderItemList.orderItem.remarks}" validateModel="false"/>  
-    <param name="#{prefix}_customerOrdercustomerOrder" value="#{orderItemList.orderItem.customerOrder.id}" validateModel="false"/>  
-    <param name="#{prefix}_productproduct" value="#{orderItemList.orderItem.product.id}" validateModel="false"/>  
-    <param name="#{prefix}_units" value="#{orderItemList.orderItem.units}" validateModel="false"/>  
-    <param name="#{prefix}_salePrice" value="#{orderItemList.orderItem.salePrice}" validateModel="false"/> 
+    <param name="remarks" value="#{orderItemList.orderItem.remarks}" validateModel="false"/>  
+    <param name="customerOrderId" value="#{orderItemList.customerOrderId}" validateModel="false"/>  
+    <param name="productId" value="#{orderItemList.productId}" validateModel="false"/>  
+    <param name="units" value="#{orderItemList.orderItem.units}" validateModel="false"/>  
+    <param name="salePrice" value="#{orderItemList.orderItem.salePrice}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/commerce/customer/editCustomer.xhtml"> 
     <!-- <description>Edit Customer: #{customer.displayName}</description> -->  
@@ -577,12 +578,12 @@
     <param name="dir" value="#{customerList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{customerList.customer.id}"/>  
-    <param name="#{prefix}_firstName" value="#{customerList.customer.firstName}" validateModel="false"/>  
-    <param name="#{prefix}_lastName" value="#{customerList.customer.lastName}" validateModel="false"/>  
-    <param name="#{prefix}_contactDetails_phone" value="#{customerList.customer.contactDetails.phone}" validateModel="false"/>  
-    <param name="#{prefix}_contactDetails_secondaryPhone" value="#{customerList.customer.contactDetails.secondaryPhone}" validateModel="false"/>  
-    <param name="#{prefix}_contactDetails_city" value="#{customerList.customer.contactDetails.city}" validateModel="false"/>  
-    <param name="#{prefix}_type" value="#{customerList.customer.type}" validateModel="false"/> 
+    <param name="firstName" value="#{customerList.customer.firstName}" validateModel="false"/>  
+    <param name="lastName" value="#{customerList.customer.lastName}" validateModel="false"/>  
+    <param name="contactDetails_phone" value="#{customerList.customer.contactDetails.phone}" validateModel="false"/>  
+    <param name="contactDetails_secondaryPhone" value="#{customerList.customer.contactDetails.secondaryPhone}" validateModel="false"/>  
+    <param name="contactDetails_city" value="#{customerList.customer.contactDetails.city}" validateModel="false"/>  
+    <param name="type" value="#{customerList.customer.type}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 

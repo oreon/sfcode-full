@@ -19,7 +19,10 @@
               <ui:param name="propertyPath" value="orderItem.id"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_orderItem.id}"></h:outputText> 
+          <h:link outcome="/admin/entities/commerce/orderItem/orderItemActionOrderItem.xhtml" rendered="#{s:hasPermission(_orderItem, 'view')}" propagation="none"> 
+            <h:outputText value="#{_orderItem.id}"/>  
+            <f:param name="orderItemId" value="#{_orderItem.id}"/> 
+          </h:link> 
         </h:column>  
         <h:column rendered="#{true}"> 
           <f:facet name="header"> 
@@ -135,7 +138,10 @@
             <f:setPropertyActionListener target="#{orderItemAction.entity}" value="#{_orderItem}"/> 
           </a:commandLink> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <ui:include src="/admin/entities/commerce/orderItem/modalDlgOrderItemComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form> 
   </rich:panel>  
   <div class="tableControl"> 

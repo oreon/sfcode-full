@@ -52,9 +52,7 @@ import com.oreon.phonestore.ProjectUtils;
 
 @Entity
 @Table(name = "employee")
-@Filters({@Filter(name = "archiveFilterDef"),
-
-})
+@Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class Employee extends com.oreon.phonestore.domain.Person
@@ -148,12 +146,6 @@ public class Employee extends com.oreon.phonestore.domain.Person
 					+ " ");
 
 		return builder.toString();
-	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

@@ -3,6 +3,7 @@ package com.oreon.phonestore.web.action.commerce;
 import com.oreon.phonestore.domain.commerce.OrderItem;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.seam.action.BaseQuery;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -12,7 +13,6 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
-import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
@@ -20,6 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
 
 import com.oreon.phonestore.domain.commerce.OrderItem;
 
@@ -33,6 +35,15 @@ public abstract class OrderItemListQueryBase extends BaseQuery<OrderItem, Long> 
 	private static final String EJBQL = "select orderItem from OrderItem orderItem";
 
 	protected OrderItem orderItem = new OrderItem();
+
+	@In(create = true)
+	OrderItemAction orderItemAction;
+
+	public OrderItemListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public OrderItem getOrderItem() {
 		return orderItem;
@@ -104,13 +115,44 @@ public abstract class OrderItemListQueryBase extends BaseQuery<OrderItem, Long> 
 
 	public List<OrderItem> getOrderItemsByCustomerOrder(
 			com.oreon.phonestore.domain.commerce.CustomerOrder customerOrder) {
-		//setMaxResults(10000);
 		orderItem.setCustomerOrder(customerOrder);
 		return getResultList();
 	}
 
 	@Observer("archivedOrderItem")
 	public void onArchive() {
+		refresh();
+	}
+
+	public void setCustomerOrderId(Long id) {
+		if (orderItem.getCustomerOrder() == null) {
+			orderItem
+					.setCustomerOrder(new com.oreon.phonestore.domain.commerce.CustomerOrder());
+		}
+		orderItem.getCustomerOrder().setId(id);
+	}
+
+	public Long getCustomerOrderId() {
+		return orderItem.getCustomerOrder() == null ? null : orderItem
+				.getCustomerOrder().getId();
+	}
+
+	public void setProductId(Long id) {
+		if (orderItem.getProduct() == null) {
+			orderItem
+					.setProduct(new com.oreon.phonestore.domain.commerce.Product());
+		}
+		orderItem.getProduct().setId(id);
+	}
+
+	public Long getProductId() {
+		return orderItem.getProduct() == null ? null : orderItem.getProduct()
+				.getId();
+	}
+
+	//@Restrict("#{s:hasPermission('orderItem', 'delete')}")
+	public void archiveById(Long id) {
+		orderItemAction.archiveById(id);
 		refresh();
 	}
 

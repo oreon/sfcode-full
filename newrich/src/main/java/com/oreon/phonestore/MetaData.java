@@ -58,6 +58,8 @@ public class MetaData {
 
 	"price", "BigDecimal",
 
+	"description", "java.lang.String",
+
 	},
 
 	{"com.oreon.phonestore.domain.commerce.CustomerOrder",

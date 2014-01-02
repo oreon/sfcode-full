@@ -15,11 +15,14 @@
       <h:button value="Create New" outcome="/admin/entities/domain/exam/editExam.xhtml" propagation="none"> 
         <f:param name="examId" value="0"/> 
       </h:button>  
-      <a:commandButton value="Quick Create" actionListener="#{examAction.setExamId(0)}" render="${modalId}"> 
-        <s:conversationPropagation type="join"/>  
-        <rich:componentControl target="${modalId}" operation="show"/> 
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('ExamModalPanel-Exam')}.show()"> 
+        <a:param value="0" assignTo="#{examAction.examId}"/>  
+        <s:conversationPropagation type="join"/> 
       </a:commandButton>  
-      <h:button value="Export to Excel" action="#{examList.exportToCsv}"/> 
+      <h:button value="Export to Excel" action="#{examList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/domain/exam/modalDlgExamComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listExamComponent.xhtml"> 
@@ -30,14 +33,14 @@
       <h:button value="Create New" outcome="/admin/entities/domain/exam/editExam.xhtml" propagation="none"> 
         <f:param name="examId" value="0"/> 
       </h:button>  
-      <a:commandButton value="Quick Create" actionListener="#{examAction.setExamId(0)}" render="${modalId}"> 
-        <s:conversationPropagation type="join"/>  
-        <rich:componentControl target="${modalId}" operation="show"/> 
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('ExamModalPanel-Exam')}.show()"> 
+        <a:param value="0" assignTo="#{examAction.examId}"/>  
+        <s:conversationPropagation type="join"/> 
       </a:commandButton>  
-      <h:button value="Export to Excel" action="#{examList.exportToCsv}"/> 
-    </h:form>  
-    <ui:include src="/admin/entities/domain/exam/modalDlgExamComponent.xhtml"> 
-      <ui:param name="modalId" value="${modalId}"/> 
-    </ui:include> 
+      <h:button value="Export to Excel" action="#{examList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/domain/exam/modalDlgExamComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
   </ui:define> 
 </ui:composition>

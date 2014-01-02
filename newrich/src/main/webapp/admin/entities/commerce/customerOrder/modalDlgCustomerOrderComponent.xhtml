@@ -13,18 +13,11 @@
         <rich:componentControl target="${modalId}" operation="hide"/> 
       </a:commandLink> 
     </f:facet>  
-    <s:div id="ctContent-customerOrder-${modalId}" style="padding-right:15px" layout="block"> 
-      <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list"></rich:messages>  
-      <h:form> 
-        <ui:include src="/admin/entities/commerce/customerOrder/editCustomerOrderComponent.xhtml"/>  
-        <a:commandButton action="#{customerOrderAction.save}" styleClass="button" render="customerOrderList" execute="${modalId}" value="Save" oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('CustomerOrderModalPanel-CustomerOrder')}.hide();}"/>  
-        <a:commandButton immediate="true" value="Hide" styleClass="button"> 
-          <rich:componentControl target="${modalId}" operation="hide"/> 
-        </a:commandButton>  
-        <a:commandButton immediate="true" type="reset" onclick="#{rich:component('CustomerOrderModalPanel-CustomerOrder')}.hide(); return false;" value="Cancel" styleClass="button"> 
-          <f:param name="conversationPropagation" value="end"/> 
-        </a:commandButton> 
-      </h:form> 
-    </s:div> 
+    <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list"></rich:messages>  
+    <ui:include src="/admin/entities/commerce/customerOrder/editCustomerOrderComponent.xhtml"/>  
+    <a:commandButton action="#{customerOrderAction.save}" styleClass="button" render="customerOrderList" execute="${modalId}" value="Save" oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('CustomerOrderModalPanel-CustomerOrder')}.hide();}"/>  
+    <a:commandButton immediate="true" value="Hide" styleClass="button"> 
+      <rich:componentControl target="${modalId}" operation="hide"/> 
+    </a:commandButton> 
   </rich:popupPanel> 
 </ui:composition>

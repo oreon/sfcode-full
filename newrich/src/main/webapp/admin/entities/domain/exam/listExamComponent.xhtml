@@ -19,7 +19,10 @@
               <ui:param name="propertyPath" value="exam.id"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_exam.id}"></h:outputText> 
+          <h:link outcome="/admin/entities/domain/exam/examActionExam.xhtml" rendered="#{s:hasPermission(_exam, 'view')}" propagation="none"> 
+            <h:outputText value="#{_exam.id}"/>  
+            <f:param name="examId" value="#{_exam.id}"/> 
+          </h:link> 
         </h:column>  
         <h:column rendered="#{true}"> 
           <f:facet name="header"> 
@@ -100,7 +103,10 @@
             <f:setPropertyActionListener target="#{examAction.entity}" value="#{_exam}"/> 
           </a:commandLink> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <ui:include src="/admin/entities/domain/exam/modalDlgExamComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form> 
   </rich:panel>  
   <div class="tableControl"> 

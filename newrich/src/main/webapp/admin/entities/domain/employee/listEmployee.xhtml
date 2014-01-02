@@ -15,11 +15,14 @@
       <h:button value="Create New" outcome="/admin/entities/domain/employee/editEmployee.xhtml" propagation="none"> 
         <f:param name="employeeId" value="0"/> 
       </h:button>  
-      <a:commandButton value="Quick Create" actionListener="#{employeeAction.setEmployeeId(0)}" render="${modalId}"> 
-        <s:conversationPropagation type="join"/>  
-        <rich:componentControl target="${modalId}" operation="show"/> 
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('EmployeeModalPanel-Employee')}.show()"> 
+        <a:param value="0" assignTo="#{employeeAction.employeeId}"/>  
+        <s:conversationPropagation type="join"/> 
       </a:commandButton>  
-      <h:button value="Export to Excel" action="#{employeeList.exportToCsv}"/> 
+      <h:button value="Export to Excel" action="#{employeeList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/domain/employee/modalDlgEmployeeComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listEmployeeComponent.xhtml"> 
@@ -30,14 +33,14 @@
       <h:button value="Create New" outcome="/admin/entities/domain/employee/editEmployee.xhtml" propagation="none"> 
         <f:param name="employeeId" value="0"/> 
       </h:button>  
-      <a:commandButton value="Quick Create" actionListener="#{employeeAction.setEmployeeId(0)}" render="${modalId}"> 
-        <s:conversationPropagation type="join"/>  
-        <rich:componentControl target="${modalId}" operation="show"/> 
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('EmployeeModalPanel-Employee')}.show()"> 
+        <a:param value="0" assignTo="#{employeeAction.employeeId}"/>  
+        <s:conversationPropagation type="join"/> 
       </a:commandButton>  
-      <h:button value="Export to Excel" action="#{employeeList.exportToCsv}"/> 
-    </h:form>  
-    <ui:include src="/admin/entities/domain/employee/modalDlgEmployeeComponent.xhtml"> 
-      <ui:param name="modalId" value="${modalId}"/> 
-    </ui:include> 
+      <h:button value="Export to Excel" action="#{employeeList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/domain/employee/modalDlgEmployeeComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
   </ui:define> 
 </ui:composition>

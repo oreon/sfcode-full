@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -50,8 +51,8 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 		implements
 			java.io.Serializable {
 
-	@Out(required = false)
-	private Question question = new Question();
+	@RequestParameter
+	protected Long questionId;
 
 	@In(create = true, value = "examAction")
 	com.oreon.phonestore.web.action.domain.ExamAction examAction;
@@ -64,7 +65,7 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 			return;
 		}
 		setId(id);
-		question = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -74,7 +75,7 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 	 */
 	public void setQuestionIdForModalDlg(Long id) {
 		setId(id);
-		question = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -97,12 +98,12 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 	}
 
 	public Question getEntity() {
-		return question;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Question t) {
-		this.question = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -133,6 +134,16 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 		if (isIdDefined()) {
 			wire();
 		}
+
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
 	}
 
 	public void wire() {
@@ -154,8 +165,8 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 	}
 
 	public void setQuestion(Question t) {
-		this.question = t;
-		if (question != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setQuestionId(t.getId());
 		loadAssociations();
 	}
@@ -171,8 +182,8 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (question.getExam() != null) {
-			criteria = criteria.add(Restrictions.eq("exam.id", question
+		if (instance.getExam() != null) {
+			criteria = criteria.add(Restrictions.eq("exam.id", instance
 					.getExam().getId()));
 		}
 
@@ -184,11 +195,12 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 	 */
 	public void loadAssociations() {
 
-		if (question.getExam() != null) {
+		if (getInstance().getExam() != null) {
 			examAction.setInstance(getInstance().getExam());
 			examAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

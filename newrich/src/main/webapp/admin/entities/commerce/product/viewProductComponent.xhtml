@@ -23,7 +23,12 @@
         <h:outputText value="#{msg.product_price}  " rendered="#{true}"/>  
         <h:outputText value="#{product.price}"> 
           <f:convertNumber pattern="$#,##0.00"/> 
-        </h:outputText> 
+        </h:outputText>  
+        <h:outputText value="#{msg.product_description}  " rendered="#{true}"/>  
+        <h:panelGroup> 
+          <rich:tooltip value="#{product.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+          <h:outputText id="descriptionAbbr" value="#{product.descriptionAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
       </h:panelGrid>  
       <br/>  
       <br/> 

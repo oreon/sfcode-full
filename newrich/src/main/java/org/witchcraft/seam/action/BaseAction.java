@@ -66,16 +66,16 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	@Logger
 	protected Log log;
 
-	@In(create=true)
+	@In(create = true)
 	// @PersistenceContext(type = PersistenceContextType.EXTENDED)
 	protected FullTextEntityManager entityManager;
-	
+
 	@In(create = true)
 	protected EntityAuditLogInterceptor entityAuditLogInterceptor;
 
 	@In
 	protected Events events;
-	
+
 	public static final String SUCCESS = "success";
 	public static final String FAILURE = "failure";
 
@@ -296,7 +296,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		return doSave();
 	}
 
-	@End(beforeRedirect=true)
+	@End(beforeRedirect = true)
 	public String saveWithoutConversation() {
 		String result = save();
 		Conversation.instance().end();
@@ -359,16 +359,23 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		return "view";
 	}
 
-	//@Restrict
+	// @Restrict
 	public void archive() {
 		load((Long) getId());
 		archive(getInstance());
 	}
 
-	//@Restrict
+	// @Restrict
 	public void archiveById() {
 		T t = loadFromId(idToArchive);
 		archive(t);
+	}
+
+	/**
+	 * @param id
+	 */
+	public void archiveById(Long id) {
+		//TODO: provide implementation
 	}
 
 	@SuppressWarnings("unchecked")
@@ -392,11 +399,11 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	}
 
 	protected void clearLists() {
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> search(T  t) {
+	public List<T> search(T t) {
 		setInstance(t);
 		Criteria criteria = createExampleCriteria();
 		return criteria.list();
@@ -469,7 +476,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	 */
 	public void updateComposedAssociations() {
 	}
-	
+
 	@End
 	public String returnToListingView() {
 		String retVal = Redirect.instance().getViewId() == null ? StringUtils
@@ -477,7 +484,6 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		return retVal;
 	}
 
-	
 	/**
 	 * To create a full text index for the given entity
 	 * 
@@ -515,8 +521,6 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 			return null;
 		}
 	}
-
-
 
 	@SuppressWarnings("unchecked")
 	public <S> List<S> executeNamedQuery(String queryString, Object... params) {
@@ -665,7 +669,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	protected boolean isNew() {
 		boolean isNew = getInstance().getId() == null;
 		return isNew;
-		
+
 	}
 
 	protected boolean isPostBack() {
@@ -677,7 +681,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public void setTemplateName(String templateName) {
 		this.templateName = templateName;
 	}
-	
+
 	public static <T> T initializeAndUnproxy(T entity) {
 		if (entity == null) {
 			throw new ContractViolationException(
@@ -693,48 +697,51 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	}
 
 	/**
-	 * The method updates the entity if exists, inserts if not exist. 
+	 * The method updates the entity if exists, inserts if not exist.
 	 * 
 	 * @param data
-	 * 			The entity
+	 *            The entity
 	 * @param clazz
-	 * 			The class type
+	 *            The class type
 	 * @return The saved entity
 	 */
 	@Transactional
 	protected <T extends BaseEntity> T save(final T data, final Class<T> clazz) {
 		Long id = data.getId();
-		
-		// Check if the primary key exists. 
+
+		// Check if the primary key exists.
 		if (id == null) {
 			entityManager.persist(data);
 			return data;
 		} else {
 			System.out.println("entity id: " + id);
-			T entity = find(clazz, id); // Search for the entity by the primary key.
+			T entity = find(clazz, id); // Search for the entity by the primary
+										// key.
 			if (entity != null) {
 				entityManager.merge(entity); // Update if the entity is found.
 			} else {
-				entityManager.persist(data); // Insert if the entity is not found.
+				entityManager.persist(data); // Insert if the entity is not
+												// found.
 			}
 		}
-		
+
 		return data;
 	}
-	
+
 	/**
 	 * The method searches for the entity by class type and primary key.
 	 * 
 	 * @param clazz
-	 * 			The class type
+	 *            The class type
 	 * @param pk
-	 * 			The primary key
+	 *            The primary key
 	 * @return The entity if found, null if not found.
 	 */
 	@Transactional
-	protected <T extends BaseEntity> T find(final Class<T> clazz, final Object pk) {
+	protected <T extends BaseEntity> T find(final Class<T> clazz,
+			final Object pk) {
 		T entity = null;
-		
+
 		if (pk == null) {
 			return null;
 		} else {
@@ -744,8 +751,8 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 				entityManager.refresh(entity);
 			}
 		}
-		
+
 		return entity;
 	}
-	
+
 }

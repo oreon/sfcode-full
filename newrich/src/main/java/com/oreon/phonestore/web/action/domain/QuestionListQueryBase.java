@@ -3,6 +3,7 @@ package com.oreon.phonestore.web.action.domain;
 import com.oreon.phonestore.domain.Question;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.seam.action.BaseQuery;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -12,7 +13,6 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
-import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
@@ -20,6 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
 
 import com.oreon.phonestore.domain.Question;
 
@@ -33,6 +35,15 @@ public abstract class QuestionListQueryBase extends BaseQuery<Question, Long> {
 	private static final String EJBQL = "select question from Question question";
 
 	protected Question question = new Question();
+
+	@In(create = true)
+	QuestionAction questionAction;
+
+	public QuestionListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Question getQuestion() {
 		return question;
@@ -78,13 +89,29 @@ public abstract class QuestionListQueryBase extends BaseQuery<Question, Long> {
 
 	public List<Question> getQuestionsByExam(
 			com.oreon.phonestore.domain.Exam exam) {
-		//setMaxResults(10000);
 		question.setExam(exam);
 		return getResultList();
 	}
 
 	@Observer("archivedQuestion")
 	public void onArchive() {
+		refresh();
+	}
+
+	public void setExamId(Long id) {
+		if (question.getExam() == null) {
+			question.setExam(new com.oreon.phonestore.domain.Exam());
+		}
+		question.getExam().setId(id);
+	}
+
+	public Long getExamId() {
+		return question.getExam() == null ? null : question.getExam().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('question', 'delete')}")
+	public void archiveById(Long id) {
+		questionAction.archiveById(id);
 		refresh();
 	}
 

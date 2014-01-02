@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -52,8 +53,8 @@ public abstract class EmployeeActionBase
 		implements
 			java.io.Serializable {
 
-	@Out(required = false)
-	private Employee employee = new Employee();
+	@RequestParameter
+	protected Long employeeId;
 
 	@In(create = true, value = "departmentAction")
 	com.oreon.phonestore.web.action.domain.DepartmentAction departmentAction;
@@ -66,7 +67,7 @@ public abstract class EmployeeActionBase
 			return;
 		}
 		setId(id);
-		employee = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,7 +77,7 @@ public abstract class EmployeeActionBase
 	 */
 	public void setEmployeeIdForModalDlg(Long id) {
 		setId(id);
-		employee = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -99,12 +100,12 @@ public abstract class EmployeeActionBase
 	}
 
 	public Employee getEntity() {
-		return employee;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Employee t) {
-		this.employee = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -135,6 +136,16 @@ public abstract class EmployeeActionBase
 		if (isIdDefined()) {
 			wire();
 		}
+
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
 	}
 
 	public void wire() {
@@ -157,8 +168,8 @@ public abstract class EmployeeActionBase
 	}
 
 	public void setEmployee(Employee t) {
-		this.employee = t;
-		if (employee != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setEmployeeId(t.getId());
 		loadAssociations();
 	}
@@ -174,8 +185,8 @@ public abstract class EmployeeActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (employee.getDepartment() != null) {
-			criteria = criteria.add(Restrictions.eq("department.id", employee
+		if (instance.getDepartment() != null) {
+			criteria = criteria.add(Restrictions.eq("department.id", instance
 					.getDepartment().getId()));
 		}
 
@@ -187,11 +198,12 @@ public abstract class EmployeeActionBase
 	 */
 	public void loadAssociations() {
 
-		if (employee.getDepartment() != null) {
+		if (getInstance().getDepartment() != null) {
 			departmentAction.setInstance(getInstance().getDepartment());
 			departmentAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

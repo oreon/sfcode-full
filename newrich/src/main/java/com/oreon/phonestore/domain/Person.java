@@ -110,6 +110,8 @@ public class Person extends BaseEntity {
 
 	public ContactDetails getContactDetails() {
 
+		if (contactDetails == null)
+			contactDetails = new com.oreon.phonestore.domain.ContactDetails();
 		return contactDetails;
 
 	}
@@ -163,12 +165,6 @@ public class Person extends BaseEntity {
 		builder.append(getLastName() + " ");
 
 		return builder.toString();
-	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

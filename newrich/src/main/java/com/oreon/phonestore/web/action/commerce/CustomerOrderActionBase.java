@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -52,8 +53,8 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 		implements
 			java.io.Serializable {
 
-	@Out(required = false)
-	private CustomerOrder customerOrder = new CustomerOrder();
+	@RequestParameter
+	protected Long customerOrderId;
 
 	@In(create = true, value = "customerAction")
 	com.oreon.phonestore.web.action.commerce.CustomerAction customerAction;
@@ -66,7 +67,7 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 			return;
 		}
 		setId(id);
-		customerOrder = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,7 +77,7 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	 */
 	public void setCustomerOrderIdForModalDlg(Long id) {
 		setId(id);
-		customerOrder = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -99,12 +100,12 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	}
 
 	public CustomerOrder getEntity() {
-		return customerOrder;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(CustomerOrder t) {
-		this.customerOrder = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -135,6 +136,22 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 		if (isIdDefined()) {
 			wire();
 		}
+
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
+		if (isNew() && instance.getOrderItems().isEmpty()) {
+			for (int i = 0; i < 1; i++)
+				getListOrderItems().add(
+						new com.oreon.phonestore.domain.commerce.OrderItem());
+		}
+
 	}
 
 	public void wire() {
@@ -157,8 +174,8 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	}
 
 	public void setCustomerOrder(CustomerOrder t) {
-		this.customerOrder = t;
-		if (customerOrder != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setCustomerOrderId(t.getId());
 		loadAssociations();
 	}
@@ -174,9 +191,9 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (customerOrder.getCustomer() != null) {
-			criteria = criteria.add(Restrictions.eq("customer.id",
-					customerOrder.getCustomer().getId()));
+		if (instance.getCustomer() != null) {
+			criteria = criteria.add(Restrictions.eq("customer.id", instance
+					.getCustomer().getId()));
 		}
 
 	}
@@ -187,13 +204,14 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	 */
 	public void loadAssociations() {
 
-		if (customerOrder.getCustomer() != null) {
+		if (getInstance().getCustomer() != null) {
 			customerAction.setInstance(getInstance().getCustomer());
 			customerAction.loadAssociations();
 		}
 
 		initListOrderItems();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {
@@ -229,12 +247,14 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 
 	@Begin(join = true)
 	public void addOrderItems() {
+
 		initListOrderItems();
 		OrderItem orderItems = new OrderItem();
 
 		orderItems.setCustomerOrder(getInstance());
 
 		getListOrderItems().add(orderItems);
+
 	}
 
 	public void updateComposedAssociations() {

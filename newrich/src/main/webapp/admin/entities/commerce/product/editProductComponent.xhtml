@@ -41,6 +41,12 @@
           <h:inputText escape="false" id="#{prefix}_price#{entityId}" rendered="#{true}" label="#{msg.product_price}" required="false" disabled="false" value="#{productAction.product.price}"> 
             <f:converter converterId="javax.faces.BigDecimal"/> 
           </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="#{prefix}_descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.product_description}  " rendered="#{true}"/>
+          </ui:define>  
+          <rich:editor escape="false" useSeamText="true" id="#{prefix}_description#{entityId}" rendered="#{true}" label="#{msg.product_description}" required="false" disabled="false" value="#{productAction.product.description}"></rich:editor> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

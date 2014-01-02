@@ -3,6 +3,7 @@ package com.oreon.phonestore.web.action.commerce;
 import com.oreon.phonestore.domain.commerce.Product;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.seam.action.BaseQuery;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -12,7 +13,6 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
-import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
@@ -20,6 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
 
 import com.oreon.phonestore.domain.commerce.Product;
 
@@ -33,6 +35,15 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 	private static final String EJBQL = "select product from Product product";
 
 	protected Product product = new Product();
+
+	@In(create = true)
+	ProductAction productAction;
+
+	public ProductListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Product getProduct() {
 		return product;
@@ -83,11 +94,19 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 			"product.price >= #{productList.priceRange.begin}",
 			"product.price <= #{productList.priceRange.end}",
 
+			"lower(product.description) like concat(lower(#{productList.product.description}),'%')",
+
 			"product.dateCreated <= #{productList.dateCreatedRange.end}",
 			"product.dateCreated >= #{productList.dateCreatedRange.begin}",};
 
 	@Observer("archivedProduct")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('product', 'delete')}")
+	public void archiveById(Long id) {
+		productAction.archiveById(id);
 		refresh();
 	}
 
@@ -104,6 +123,10 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 		builder.append("\"" + (e.getPrice() != null ? e.getPrice() : "")
 				+ "\",");
 
+		builder.append("\""
+				+ (e.getDescription() != null ? e.getDescription().replace(",",
+						"") : "") + "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -116,6 +139,8 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 		builder.append("Name" + ",");
 
 		builder.append("Price" + ",");
+
+		builder.append("Description" + ",");
 
 		builder.append("\r\n");
 	}

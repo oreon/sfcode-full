@@ -3,6 +3,7 @@ package com.oreon.phonestore.web.action.domain;
 import com.oreon.phonestore.domain.Exam;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.seam.action.BaseQuery;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -12,7 +13,6 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
-import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
@@ -20,6 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
 
 import com.oreon.phonestore.domain.Exam;
 
@@ -33,6 +35,15 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 	private static final String EJBQL = "select exam from Exam exam";
 
 	protected Exam exam = new Exam();
+
+	@In(create = true)
+	ExamAction examAction;
+
+	public ExamListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Exam getExam() {
 		return exam;
@@ -78,6 +89,12 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 
 	@Observer("archivedExam")
 	public void onArchive() {
+		refresh();
+	}
+
+	//@Restrict("#{s:hasPermission('exam', 'delete')}")
+	public void archiveById(Long id) {
+		examAction.archiveById(id);
 		refresh();
 	}
 
