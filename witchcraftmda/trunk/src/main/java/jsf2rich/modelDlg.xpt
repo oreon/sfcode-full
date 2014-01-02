@@ -32,12 +32,10 @@
       		   </a:commandLink>
 		    </f:facet>
 			
-			<s:div id="ctContent-«name.toFirstLower()»-${modalId}"  style="padding-right:15px" layout="block" >
 					<rich:messages passedLabel=""
 						style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" >
 					</rich:messages>
 				
-					<h:form>
 						<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 	
 						 <a:commandButton action="#{«asVar()»Action.save}" styleClass="button" render="«asVar()»List" execute="${modalId}"
@@ -49,13 +47,13 @@
 				        	<rich:componentControl target="${modalId}" operation="hide"/> 
 				        </a:commandButton>  
 				        
+				        «REM»
 				        <a:commandButton immediate="true" type="reset" onclick="#{rich:component('«name»ModalPanel-«name»')}.hide(); return false;"
 				        	value="Cancel" styleClass="button"> 
 				          <f:param name="conversationPropagation" value="end"/> 
 				        </a:commandButton> 
-												
-					</h:form>
-			</s:div>
+						«ENDREM»						
+					
 		</rich:popupPanel>
 </ui:composition>
 «ENDFILE»
