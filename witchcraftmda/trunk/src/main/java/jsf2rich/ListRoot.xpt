@@ -25,9 +25,7 @@
          		</ui:include>
          		</div>
 				«EXPAND genButtons FOR this»
-				<ui:include src="«getComponentViewFile("modalDlg")»" >
-					<ui:param name="modalId" value="${modalId}"/> 
-				</ui:include>
+				
 			</ui:define>
 		</ui:composition>
 			«ENDFILE»
@@ -82,6 +80,10 @@
 				«EXPAND genDeleteLink FOR this»
 				«EXPAND genQuickEditLink FOR this»
 				</rich:dataTable>
+				
+				<ui:include src="«getComponentViewFile("modalDlg")»" >
+					<ui:param name="modalId" value="${modalId}"/> 
+				</ui:include>
 		 	</h:form>		
 		</rich:panel>	
 		
@@ -96,13 +98,18 @@
 		<h:button value="Create New" outcome="«getViewFile("edit")»" propagation="none" >
 			<f:param name="«asVar()»Id" value="0"/>
   		</h:button> 
-  		
-  		<a:commandButton  value="Quick Create" actionListener="#{«asVar()»Action.set«name»Id(0)}"  render="${modalId}" >     
-            <s:conversationPropagation type="join"/> 
-            <rich:componentControl target="${modalId}" operation="show"   />
-        </a:commandButton> 
+  		        
+        <a:commandButton render="${modalId}" execute="@this"  value="Quick Create"
+				oncomplete="#{rich:component('«name»ModalPanel-«name»')}.show()">
+				<a:param value="0" assignTo="#{«asVar()»Action.«asVar()»Id}" />
+				<s:conversationPropagation type="join" />
+		</a:commandButton>
   		
 		<h:button value="Export to Excel" action="#{«asVar()»List.exportToCsv}" />
+		
+		<ui:include src="«getComponentViewFile("modalDlg")»" >
+			<ui:param name="modalId" value="${modalId}"/> 
+		</ui:include>
 	</h:form>
 		«IF templatable»
 		 <h:button value="Create Template" view="«getTemplateViewFileName("edit")»"/>
