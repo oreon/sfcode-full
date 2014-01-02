@@ -8,4 +8,6 @@ public class CustomerAction extends CustomerActionBase
 		implements
 			java.io.Serializable {
 
+	
+
 }

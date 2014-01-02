@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -50,8 +51,8 @@ public abstract class ProductActionBase extends BaseAction<Product>
 		implements
 			java.io.Serializable {
 
-	@Out(required = false)
-	private Product product = new Product();
+	@RequestParameter
+	protected Long productId;
 
 	public void setProductId(Long id) {
 		if (id == 0) {
@@ -61,7 +62,7 @@ public abstract class ProductActionBase extends BaseAction<Product>
 			return;
 		}
 		setId(id);
-		product = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -71,7 +72,7 @@ public abstract class ProductActionBase extends BaseAction<Product>
 	 */
 	public void setProductIdForModalDlg(Long id) {
 		setId(id);
-		product = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -81,12 +82,12 @@ public abstract class ProductActionBase extends BaseAction<Product>
 	}
 
 	public Product getEntity() {
-		return product;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Product t) {
-		this.product = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -117,6 +118,16 @@ public abstract class ProductActionBase extends BaseAction<Product>
 		if (isIdDefined()) {
 			wire();
 		}
+
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
 	}
 
 	public void wire() {
@@ -133,8 +144,8 @@ public abstract class ProductActionBase extends BaseAction<Product>
 	}
 
 	public void setProduct(Product t) {
-		this.product = t;
-		if (product != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setProductId(t.getId());
 		loadAssociations();
 	}
@@ -167,6 +178,7 @@ public abstract class ProductActionBase extends BaseAction<Product>
 	 */
 	public void loadAssociations() {
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

@@ -52,9 +52,7 @@ import com.oreon.phonestore.ProjectUtils;
 
 @Entity
 @Table(name = "product")
-@Filters({@Filter(name = "archiveFilterDef"),
-
-})
+@Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class Product extends BaseEntity implements java.io.Serializable {
@@ -79,6 +77,14 @@ public class Product extends BaseEntity implements java.io.Serializable {
 
 	@Column(unique = false)
 	protected BigDecimal price
+
+	;
+
+	@Lob
+	@Column(unique = false)
+	@Field(index = Index.YES)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String description
 
 	;
 
@@ -112,12 +118,32 @@ public class Product extends BaseEntity implements java.io.Serializable {
 
 	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+
+		return description;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
 			return name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getDescriptionAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(description
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return description != null ? description : "";
 		}
 	}
 
@@ -135,6 +161,8 @@ public class Product extends BaseEntity implements java.io.Serializable {
 
 		listSearchableFields.add("name");
 
+		listSearchableFields.add("description");
+
 		return listSearchableFields;
 	}
 
@@ -145,13 +173,9 @@ public class Product extends BaseEntity implements java.io.Serializable {
 
 		builder.append(getName() + " ");
 
-		return builder.toString();
-	}
+		builder.append(getDescription() + " ");
 
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
+		return builder.toString();
 	}
 
 }

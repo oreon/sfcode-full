@@ -3,6 +3,7 @@ package com.oreon.phonestore.web.action.commerce;
 import com.oreon.phonestore.domain.commerce.CustomerOrder;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.seam.action.BaseQuery;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -12,7 +13,6 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
-import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
@@ -20,6 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
 
 import com.oreon.phonestore.domain.commerce.CustomerOrder;
 
@@ -35,6 +37,15 @@ public abstract class CustomerOrderListQueryBase
 	private static final String EJBQL = "select customerOrder from CustomerOrder customerOrder";
 
 	protected CustomerOrder customerOrder = new CustomerOrder();
+
+	@In(create = true)
+	CustomerOrderAction customerOrderAction;
+
+	public CustomerOrderListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public CustomerOrder getCustomerOrder() {
 		return customerOrder;
@@ -92,6 +103,25 @@ public abstract class CustomerOrderListQueryBase
 
 	@Observer("archivedCustomerOrder")
 	public void onArchive() {
+		refresh();
+	}
+
+	public void setCustomerId(Long id) {
+		if (customerOrder.getCustomer() == null) {
+			customerOrder
+					.setCustomer(new com.oreon.phonestore.domain.commerce.Customer());
+		}
+		customerOrder.getCustomer().setId(id);
+	}
+
+	public Long getCustomerId() {
+		return customerOrder.getCustomer() == null ? null : customerOrder
+				.getCustomer().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('customerOrder', 'delete')}")
+	public void archiveById(Long id) {
+		customerOrderAction.archiveById(id);
 		refresh();
 	}
 

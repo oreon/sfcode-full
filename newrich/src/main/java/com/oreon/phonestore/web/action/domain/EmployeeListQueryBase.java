@@ -3,6 +3,7 @@ package com.oreon.phonestore.web.action.domain;
 import com.oreon.phonestore.domain.Employee;
 
 import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.seam.action.BaseQuery;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -12,7 +13,6 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
-import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;
@@ -20,6 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import java.math.BigDecimal;
 
 import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
 
 import com.oreon.phonestore.domain.Employee;
 
@@ -33,6 +35,15 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	private static final String EJBQL = "select employee from Employee employee";
 
 	protected Employee employee = new Employee();
+
+	@In(create = true)
+	EmployeeAction employeeAction;
+
+	public EmployeeListQueryBase() {
+		super();
+		setOrderColumn("id");
+		setOrderDirection("desc");
+	}
 
 	public Employee getEmployee() {
 		return employee;
@@ -90,13 +101,31 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 	public List<Employee> getEmployeesByDepartment(
 			com.oreon.phonestore.domain.Department department) {
-		//setMaxResults(10000);
 		employee.setDepartment(department);
 		return getResultList();
 	}
 
 	@Observer("archivedEmployee")
 	public void onArchive() {
+		refresh();
+	}
+
+	public void setDepartmentId(Long id) {
+		if (employee.getDepartment() == null) {
+			employee
+					.setDepartment(new com.oreon.phonestore.domain.Department());
+		}
+		employee.getDepartment().setId(id);
+	}
+
+	public Long getDepartmentId() {
+		return employee.getDepartment() == null ? null : employee
+				.getDepartment().getId();
+	}
+
+	//@Restrict("#{s:hasPermission('employee', 'delete')}")
+	public void archiveById(Long id) {
+		employeeAction.archiveById(id);
 		refresh();
 	}
 

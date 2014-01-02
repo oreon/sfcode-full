@@ -17,11 +17,11 @@
           </ui:define>  
           <rich:editor escape="false" useSeamText="true" id="#{prefix}_text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{questionAction.question.text}"></rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_examexamDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="#{prefix}_examIdDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.question_exam}  " rendered="#{true}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_examexam" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true" rendered="#{true}" disabled="false"> 
+          <h:selectOneMenu id="#{prefix}_examId" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{examList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <s:convertEntity/> 
           </h:selectOneMenu> 

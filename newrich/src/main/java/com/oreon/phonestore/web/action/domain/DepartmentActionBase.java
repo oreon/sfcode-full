@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -52,8 +53,8 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		implements
 			java.io.Serializable {
 
-	@Out(required = false)
-	private Department department = new Department();
+	@RequestParameter
+	protected Long departmentId;
 
 	@In(create = true, value = "employeeAction")
 	com.oreon.phonestore.web.action.domain.EmployeeAction employeesAction;
@@ -66,7 +67,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 			return;
 		}
 		setId(id);
-		department = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -76,7 +77,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	 */
 	public void setDepartmentIdForModalDlg(Long id) {
 		setId(id);
-		department = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -86,12 +87,12 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	}
 
 	public Department getEntity() {
-		return department;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(Department t) {
-		this.department = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -122,6 +123,16 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		if (isIdDefined()) {
 			wire();
 		}
+
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
 	}
 
 	public void wire() {
@@ -138,8 +149,8 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	}
 
 	public void setDepartment(Department t) {
-		this.department = t;
-		if (department != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setDepartmentId(t.getId());
 		loadAssociations();
 	}
@@ -161,13 +172,14 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 		initListEmployees();
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {
 
 		com.oreon.phonestore.domain.Employee employees = (com.oreon.phonestore.domain.Employee) org.jboss.seam.Component
 				.getInstance("employee");
-		employees.setDepartment(department);
+		employees.setDepartment(instance);
 		events.raiseTransactionSuccessEvent("archivedEmployee");
 
 	}
@@ -201,12 +213,14 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	@Begin(join = true)
 	public void addEmployees() {
+
 		initListEmployees();
 		Employee employees = new Employee();
 
 		employees.setDepartment(getInstance());
 
 		getListEmployees().add(employees);
+
 	}
 
 	public void updateComposedAssociations() {

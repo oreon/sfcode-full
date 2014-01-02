@@ -15,11 +15,14 @@
       <h:button value="Create New" outcome="/admin/entities/commerce/product/editProduct.xhtml" propagation="none"> 
         <f:param name="productId" value="0"/> 
       </h:button>  
-      <a:commandButton value="Quick Create" action="#{productAction.setProductId(0)}" render="${modalId}"> 
-        <s:conversationPropagation type="join"/>  
-        <rich:componentControl target="${modalId}" operation="show"/> 
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('ProductModalPanel-Product')}.show()"> 
+        <a:param value="0" assignTo="#{productAction.productId}"/>  
+        <s:conversationPropagation type="join"/> 
       </a:commandButton>  
-      <h:button value="Export to Excel" action="#{productList.exportToCsv}"/> 
+      <h:button value="Export to Excel" action="#{productList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/commerce/product/modalDlgProductComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listProductComponent.xhtml"> 
@@ -30,14 +33,14 @@
       <h:button value="Create New" outcome="/admin/entities/commerce/product/editProduct.xhtml" propagation="none"> 
         <f:param name="productId" value="0"/> 
       </h:button>  
-      <a:commandButton value="Quick Create" actionListener="#{productAction.setProductId(0)}" render="${modalId}"> 
-        <s:conversationPropagation type="join"/>  
-        <rich:componentControl target="${modalId}" operation="show"/> 
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('ProductModalPanel-Product')}.show()"> 
+        <a:param value="0" assignTo="#{productAction.productId}"/>  
+        <s:conversationPropagation type="join"/> 
       </a:commandButton>  
-      <h:button value="Export to Excel" action="#{productList.exportToCsv}"/> 
-    </h:form>  
-    <ui:include src="/admin/entities/commerce/product/modalDlgProductComponent.xhtml"> 
-      <ui:param name="modalId" value="${modalId}"/> 
-    </ui:include> 
+      <h:button value="Export to Excel" action="#{productList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/commerce/product/modalDlgProductComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
   </ui:define> 
 </ui:composition>

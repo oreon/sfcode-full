@@ -52,9 +52,7 @@ import com.oreon.phonestore.ProjectUtils;
 
 @Entity
 @Table(name = "department")
-@Filters({@Filter(name = "archiveFilterDef"),
-
-})
+@Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class Department extends BaseEntity implements java.io.Serializable {
@@ -147,12 +145,6 @@ public class Department extends BaseEntity implements java.io.Serializable {
 		}
 
 		return builder.toString();
-	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

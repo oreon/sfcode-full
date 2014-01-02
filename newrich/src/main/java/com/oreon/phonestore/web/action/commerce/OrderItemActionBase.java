@@ -35,6 +35,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
 
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -50,8 +51,8 @@ public abstract class OrderItemActionBase extends BaseAction<OrderItem>
 		implements
 			java.io.Serializable {
 
-	@Out(required = false)
-	private OrderItem orderItem = new OrderItem();
+	@RequestParameter
+	protected Long orderItemId;
 
 	@In(create = true, value = "customerOrderAction")
 	com.oreon.phonestore.web.action.commerce.CustomerOrderAction customerOrderAction;
@@ -67,7 +68,7 @@ public abstract class OrderItemActionBase extends BaseAction<OrderItem>
 			return;
 		}
 		setId(id);
-		orderItem = loadInstance();
+		instance = loadInstance();
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -77,7 +78,7 @@ public abstract class OrderItemActionBase extends BaseAction<OrderItem>
 	 */
 	public void setOrderItemIdForModalDlg(Long id) {
 		setId(id);
-		orderItem = loadInstance();
+		instance = loadInstance();
 		clearLists();
 		loadAssociations();
 	}
@@ -113,12 +114,12 @@ public abstract class OrderItemActionBase extends BaseAction<OrderItem>
 	}
 
 	public OrderItem getEntity() {
-		return orderItem;
+		return instance;
 	}
 
 	//@Override
 	public void setEntity(OrderItem t) {
-		this.orderItem = t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -149,6 +150,16 @@ public abstract class OrderItemActionBase extends BaseAction<OrderItem>
 		if (isIdDefined()) {
 			wire();
 		}
+
+	}
+
+	/**
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
+	 */
+	private void addDefaultAssociations() {
+		instance = getInstance();
+
 	}
 
 	public void wire() {
@@ -177,8 +188,8 @@ public abstract class OrderItemActionBase extends BaseAction<OrderItem>
 	}
 
 	public void setOrderItem(OrderItem t) {
-		this.orderItem = t;
-		if (orderItem != null)
+		this.instance = t;
+		if (getInstance() != null)
 			setOrderItemId(t.getId());
 		loadAssociations();
 	}
@@ -194,13 +205,13 @@ public abstract class OrderItemActionBase extends BaseAction<OrderItem>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (orderItem.getCustomerOrder() != null) {
+		if (instance.getCustomerOrder() != null) {
 			criteria = criteria.add(Restrictions.eq("customerOrder.id",
-					orderItem.getCustomerOrder().getId()));
+					instance.getCustomerOrder().getId()));
 		}
 
-		if (orderItem.getProduct() != null) {
-			criteria = criteria.add(Restrictions.eq("product.id", orderItem
+		if (instance.getProduct() != null) {
+			criteria = criteria.add(Restrictions.eq("product.id", instance
 					.getProduct().getId()));
 		}
 
@@ -212,16 +223,17 @@ public abstract class OrderItemActionBase extends BaseAction<OrderItem>
 	 */
 	public void loadAssociations() {
 
-		if (orderItem.getCustomerOrder() != null) {
+		if (getInstance().getCustomerOrder() != null) {
 			customerOrderAction.setInstance(getInstance().getCustomerOrder());
 			customerOrderAction.loadAssociations();
 		}
 
-		if (orderItem.getProduct() != null) {
+		if (getInstance().getProduct() != null) {
 			productAction.setInstance(getInstance().getProduct());
 			productAction.loadAssociations();
 		}
 
+		addDefaultAssociations();
 	}
 
 	public void updateAssociations() {

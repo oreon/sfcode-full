@@ -1,65 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.org/schema/seam/taglib"
-	xmlns:a="http://richfaces.org/a4j"
-	xmlns:p="http://primefaces.prime.com.tr/ui"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template="/admin/template.xhtml">
-	<ui:define name="content">
-		<h:form>
-			<h:commandButton value="Full Text Search" action="textSearch">
-				<s:conversationPropagation type="join" />
-			</h:commandButton>
-		</h:form>
-		<c:set var="modalId" value="CustomerModalPanel-Customer" />
-		<ui:include src="searchCustomer.xhtml" />
-		<br />
-		<br />
-		<h:form>
-			<h:button value="Create New"
-				outcome="/admin/entities/commerce/customer/editCustomer.xhtml"
-				propagation="none">
-				<f:param name="customerId" value="0" />
-			</h:button>
-			<a:commandButton value="Quick Create"
-				actionListener="#{customerAction.setCustomerId(0)}"
-				render="${modalId}">
-				<s:conversationPropagation type="join" />
-				<rich:componentControl target="${modalId}" operation="show" />
-			</a:commandButton>
-			<h:button value="Export to Excel"
-				action="#{customerList.exportToCsv}" />
-		</h:form>
-		<div id="printable">
-			<ui:include src="listCustomerComponent.xhtml">
-				<ui:param name="records" value="#{customerList.resultList}" />
-			</ui:include>
-		</div>
-		<h:form>
-			<h:button value="Create New"
-				outcome="/admin/entities/commerce/customer/editCustomer.xhtml"
-				propagation="none">
-				<f:param name="customerId" value="0" />
-			</h:button>
-			<a:commandButton value="Quick Create"
-				actionListener="#{customerAction.setCustomerId(0)}"
-				render="${modalId}">
-				<s:conversationPropagation type="join" />
-				<rich:componentControl target="${modalId}" operation="show" />
-			</a:commandButton>
-			<h:button value="Export to Excel"
-				action="#{customerList.exportToCsv}" />
-		</h:form>
-		<ui:include
-			src="/admin/entities/commerce/customer/modalDlgCustomerComponent.xhtml">
-			<ui:param name="modalId" value="${modalId}" />
-		</ui:include>
-		
-	</ui:define>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <h:commandButton value="Full Text Search" action="textSearch"> 
+        <s:conversationPropagation type="join"/> 
+      </h:commandButton> 
+    </h:form>  
+    <c:set var="modalId" value="CustomerModalPanel-Customer"/>  
+    <ui:include src="searchCustomer.xhtml"/>  
+    <br/>  
+    <br/>  
+    <h:form> 
+      <h:button value="Create New" outcome="/admin/entities/commerce/customer/editCustomer.xhtml" propagation="none"> 
+        <f:param name="customerId" value="0"/> 
+      </h:button>  
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('CustomerModalPanel-Customer')}.show()"> 
+        <a:param value="0" assignTo="#{customerAction.customerId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </a:commandButton>  
+      <h:button value="Export to Excel" action="#{customerList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/commerce/customer/modalDlgCustomerComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <div id="printable"> 
+      <ui:include src="listCustomerComponent.xhtml"> 
+        <ui:param name="records" value="#{customerList.resultList}"/> 
+      </ui:include> 
+    </div>  
+    <h:form> 
+      <h:button value="Create New" outcome="/admin/entities/commerce/customer/editCustomer.xhtml" propagation="none"> 
+        <f:param name="customerId" value="0"/> 
+      </h:button>  
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('CustomerModalPanel-Customer')}.show()"> 
+        <a:param value="0" assignTo="#{customerAction.customerId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </a:commandButton>  
+      <h:button value="Export to Excel" action="#{customerList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/commerce/customer/modalDlgCustomerComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </ui:define> 
 </ui:composition>
