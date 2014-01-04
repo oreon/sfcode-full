@@ -27,12 +27,12 @@
 		</f:facet>
 
 		<rich:notifyMessage id="saveMsg" sticky="false" showCloseButton="true"
-			showShadow="true" stayTime="1500" />
+			showShadow="true" stayTime="3000" />
 		<ui:include
 			src="/admin/entities/commerce/customer/editCustomerComponent.xhtml" />
 		<a:commandButton action="#{customerAction.save}" styleClass="button"
 			render="customerList, saveMsg" execute="${modalId}" value="Save"
-			oncomplete="if (#{facesContext.maximumSeverity != null}) {#{rich:component('CustomerModalPanel-Customer')}.hide();}" />
+			oncomplete="if (#{facesContext.maximumSeverity.ordinal eq 2}) {#{rich:component('CustomerModalPanel-Customer')}.hide();}" />
 		<a:commandButton immediate="true" value="Hide" styleClass="button">
 			<rich:componentControl target="${modalId}" operation="hide" />
 		</a:commandButton>
