@@ -8,6 +8,7 @@
 «DEFINE genModelDlgComponent FOR uml::Class»
 	«EXPAND genEditModelDlgComponent FOR this»
 	«EXPAND genViewModelDlgComponent FOR this»
+	«EXPAND genSearchModelDlgComponent FOR this»
 «ENDDEFINE»
 
 
@@ -31,11 +32,11 @@
       			<rich:componentControl target="${modalId}" operation="hide"/> 
       		   </a:commandLink>
 		    </f:facet>
-			
 					<rich:messages passedLabel=""
 						style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" >
 					</rich:messages>
 				
+					
 						<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 	
 						 <a:commandButton action="#{«asVar()»Action.save}" styleClass="button" render="«asVar()»List" execute="${modalId}"
@@ -47,14 +48,45 @@
 				        	<rich:componentControl target="${modalId}" operation="hide"/> 
 				        </a:commandButton>  
 				        
-				        «REM»
+				  «REM»
 				        <a:commandButton immediate="true" type="reset" onclick="#{rich:component('«name»ModalPanel-«name»')}.hide(); return false;"
 				        	value="Cancel" styleClass="button"> 
 				          <f:param name="conversationPropagation" value="end"/> 
 				        </a:commandButton> 
-						«ENDREM»						
+				 «ENDREM»					
 					
 		</rich:popupPanel>
+</ui:composition>
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«DEFINE genSearchModelDlgComponent FOR uml::Class»
+	«FILE getWebPath() +"/modalDlgSearch" + name + "Component." + getExtension()»
+	
+<ui:composition «EXPAND WebRoot::genIncludes-»>	
+
+  <rich:popupPanel id="«name»SearchModalPanel" autosized="true" zindex="2000" domElementAttachment="parent"
+   onshow="adoptCTDialogHeight()"  header="Search «name»"> 
+     
+    <f:facet name="controls"> 
+      <a:commandLink value="X"> 
+        <rich:componentControl target="«name»SearchModalPanel" operation="hide"/> 
+      </a:commandLink> 
+    </f:facet>  
+    
+    <ui:include src="«getComponentViewFile("search")»" />
+    
+     <ui:include src="«getComponentViewFile("list")»" >
+         <ui:param name="records" value="#{«asVar()»List.resultList}"/> 
+         <ui:param name="popupMode" value="true"/>
+         <ui:param name="targetObj" value="#{targetObj}"/>
+         <ui:param name="targetDropdownId" value="#{targetDropdownId}"/>
+      </ui:include> 
+    
+  </rich:popupPanel> 
+	
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»

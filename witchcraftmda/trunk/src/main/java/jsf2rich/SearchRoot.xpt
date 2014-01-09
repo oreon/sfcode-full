@@ -8,7 +8,7 @@
 
 
 «DEFINE genSearchView FOR uml::Class»
-«FILE getWebPath() +"/" + "search" + name+ "." + getExtension()»
+«FILE getWebPath() +"/" + "search" + name+  "Component." + getExtension()»
 	
 <ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
@@ -209,9 +209,11 @@
 
 «DEFINE genCancelSaveBtns FOR uml::Class»
 	<div class="actionButtons">
-		<h:commandButton id="search" value="Search" view="«getViewFile("list")»" >
-			 <s:conversationPropagation type="join"/>
-		</h:commandButton> 
+		 
+		<a:commandButton id="search" value="Search"  render="«asVar()»List" 
+        	view="«getViewFile("list")»"> 
+          <s:conversationPropagation type="join"/> 
+        </a:commandButton>
 		<s:button propagation="none" id="reset" value="Reset" includePageParams="false" />
 	</div>
 «ENDDEFINE»
