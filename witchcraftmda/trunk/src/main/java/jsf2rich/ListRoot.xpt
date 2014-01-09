@@ -16,7 +16,7 @@
 				«EXPAND genFullTextBtn FOR this»
 	
 				<c:set var="modalId" value="«name»ModalPanel-«name»" />
-				<ui:include src="search«name».«getExtension()»" />
+				<ui:include src="«getComponentViewFile("search")»" />
 				<br/> <br/>
 				«EXPAND genButtons FOR this»
 				<div id="printable" >
@@ -79,6 +79,7 @@
 				«EXPAND genLink ("edit", "edit.png")FOR this»
 				«EXPAND genDeleteLink FOR this»
 				«EXPAND genQuickEditLink FOR this»
+				«EXPAND genSelectButton FOR this»
 				</rich:dataTable>
 				
 				<ui:include src="«getComponentViewFile("modalDlg")»" >
@@ -213,6 +214,20 @@
 							
 		</a:commandLink>
 		
+	</h:column>
+«ENDDEFINE»
+
+
+«REM»This button is displayed only when in popup mode«ENDREM»
+«DEFINE genSelectButton FOR uml::Class»
+	<h:column rendered="#{popupMode == 'true'}">
+		<f:facet name="header">
+			<h:outputText value="Select" />
+		</f:facet>
+		<a:commandLink execute="@this" value="Select"  render="${targetDropdownId}"
+			oncomplete="#{rich:component('«name»SearchModalPanel')}.hide()">
+			 <f:setPropertyActionListener target="#{targetObj}" value="#{_«asVar()»}"/> 
+		</a:commandLink>
 	</h:column>
 «ENDDEFINE»
 

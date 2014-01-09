@@ -23,7 +23,7 @@
 	template = "«getAdminTemplate()»" >	
 	
 	<ui:define name="content">
-		<h:form>
+		<h:form id="mainForm">
 		«IF templatable && !isCurrentTemplateMode() »«EXPAND genTemplateChooser FOR this»«ENDIF»
 		
 		«IF isCurrentTemplateMode()»
@@ -441,7 +441,8 @@
 		disabled="false" >
 		«IF isColumn() && this.controls != null » 
 			«IF !isCurrentMultiMode()»   «REM»TODO: rerender=controls need to be id aware «ENDREM»
-			<a:support event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  reRender="«controls»" ajaxSingle="true" />
+			<a:ajax event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  
+			   render="«controls»" ajaxSingle="true" />
 			«ELSE» «REM»For multimode we need to send the variable «ENDREM»
 			  <a:support event="onchange"
 				action="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"
@@ -456,6 +457,16 @@
 		«genAjaxValidatorJSF2()»
 		<s:convertEntity />
 	</h:selectOneMenu>
+	
+	<a:commandButton value="Search" render="«type.name»SearchModalPanel">
+			<rich:componentControl target="«type.name»SearchModalPanel"
+				operation="show" />
+	</a:commandButton>	
+	
+	<ui:include src="«type.getComponentViewFile("modalDlgSearch")»">
+		<ui:param name="targetObj" value="#{«getActionForMode()»«genPropertyLabel()-»}"/>
+		<ui:param name="targetDropdownId" value="#{mainForm:«getId()»Decorate:«getId()»}"/>
+	</ui:include>
 «ENDDEFINE»
 
 
