@@ -1,29 +1,16 @@
 package com.oreon.phonestore.web.action.commerce;
 
-import com.oreon.phonestore.domain.commerce.Customer;
-
-import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.seam.action.BaseQuery;
-
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.framework.EntityQuery;
-import org.witchcraft.base.entity.Range;
-
-import org.jboss.seam.annotations.Observer;
-
-import java.math.BigDecimal;
-
-import org.jboss.seam.annotations.security.Restrict;
+import javax.faces.model.DataModel;
+import javax.persistence.EntityManager;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Observer;
+import org.witchcraft.seam.action.BaseQuery;
 
 import com.oreon.phonestore.domain.commerce.Customer;
+import com.oreon.phonestore.web.action.datamodel.EntityLazyDataModel;
 
 /**
  * 
@@ -32,6 +19,11 @@ import com.oreon.phonestore.domain.commerce.Customer;
  */
 public abstract class CustomerListQueryBase extends BaseQuery<Customer, Long> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4361808984422458154L;
+
 	private static final String EJBQL = "select customer from Customer customer";
 
 	protected Customer customer = new Customer();
@@ -39,12 +31,40 @@ public abstract class CustomerListQueryBase extends BaseQuery<Customer, Long> {
 	@In(create = true)
 	CustomerAction customerAction;
 
+//	@In(create = true)
+//	private CustomerListLazyDataModel dataModel;
+	
+	/**
+	 * The static class acts as the bridge between backing bean and lazyDataModel. 
+	 * The alternative approach than dependency injection.
+	 * 
+	 * @author Shadeven
+	 *
+	 */
+	private static final class CustomerListLazyDataModel extends EntityLazyDataModel<Customer> {
+		private CustomerListLazyDataModel(EntityManager entityManager) {
+			super(entityManager, Customer.class, EJBQL);
+		}
+
+		/* (non-Javadoc)
+		 * @see com.oreon.phonestore.web.action.datamodel.EntityLazyDataModel#getId(java.lang.Object)
+		 */
+		@Override
+		protected Object getId(Customer t) {
+			return t.getId();
+		}
+	}
+	
 	public CustomerListQueryBase() {
 		super();
 		setOrderColumn("id");
 		setOrderDirection("desc");
 	}
 
+	public DataModel<Customer> getDataModel() {
+		return new CustomerListLazyDataModel(entityManager);
+	}
+	
 	public Customer getCustomer() {
 		return customer;
 	}
