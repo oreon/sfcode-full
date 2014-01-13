@@ -12,11 +12,12 @@ import org.jboss.seam.security.Identity;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+//import org.testng.annotations.BeforeClass;
+//import org.testng.annotations.Test;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.users.AppRole;
 import org.witchcraft.users.AppUser;
@@ -27,7 +28,7 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 
 	AppUserAction action = new AppUserAction();
 
-	@BeforeClass
+	@Before
 	public void init() {
 		super.init();
 	}
@@ -54,7 +55,7 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 		return web;
 	}
 
-	@Test(dependsOnMethods = { "testRegisterAction" })
+	@Test
 	public void validateAuthenticationBadUser() throws Exception {
 		new ComponentTest() {
 
