@@ -104,6 +104,30 @@ public class MetaData {
 
 	},
 
+	{"com.oreon.phonestore.users.User",
+
+	"userName", "java.lang.String",
+
+	"password", "java.lang.String",
+
+	"enabled", "java.lang.Boolean",
+
+	"rolesCount", "java.lang.Integer",
+
+	"email", "java.lang.String",
+
+	"lastLogin", "java.util.Date",
+
+	},
+
+	{"com.oreon.phonestore.users.Role",
+
+	"name", "java.lang.String",
+
+	"usersCount", "java.lang.Integer",
+
+	},
+
 	};
 
 }

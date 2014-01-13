@@ -12,21 +12,21 @@
           <h:outputText value="#{msg.OrderItem}"/> 
         </f:facet>  
         <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/>  
-        <h:outputText value="#{orderItem.remarks}" escape="false"/>  
+        <h:outputText value="#{orderItemAction.orderItem.remarks}" escape="false"/>  
         <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/>  
-        <h:outputText value="#{orderItem.units}" escape="false"/>  
+        <h:outputText value="#{orderItemAction.orderItem.units}" escape="false"/>  
         <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/>  
-        <h:outputText value="#{orderItem.salePrice}"> 
+        <h:outputText value="#{orderItemAction.orderItem.salePrice}"> 
           <f:convertNumber pattern="$#,##0.00"/> 
         </h:outputText>  
         <h:outputText value="#{msg.orderItem_customerOrder}  " rendered="#{true}"/>  
-        <h:link escape="false" value="#{orderItem.customerOrder.displayName}" view="/admin/entities/commerce/customerOrder/viewCustomerOrder.xhtml" propagation="none"> 
-          <f:param name="customerOrderId" value="#{orderItem.customerOrder.id}"/>  
+        <h:link escape="false" value="#{orderItemAction.orderItem.customerOrder.displayName}" view="/admin/entities/commerce/customerOrder/viewCustomerOrder.xhtml" propagation="none"> 
+          <f:param name="customerOrderId" value="#{orderItemAction.orderItem.customerOrder.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </h:link>  
         <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/>  
-        <h:link escape="false" value="#{orderItem.product.displayName}" view="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
-          <f:param name="productId" value="#{orderItem.product.id}"/>  
+        <h:link escape="false" value="#{orderItemAction.orderItem.product.displayName}" view="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
+          <f:param name="productId" value="#{orderItemAction.orderItem.product.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </h:link> 
       </h:panelGrid>  

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <h:commandButton value="Full Text Search" action="textSearch"> 
+        <s:conversationPropagation type="join"/> 
+      </h:commandButton> 
+    </h:form>  
+    <c:set var="modalId" value="RoleModalPanel-Role"/>  
+    <ui:include src="/admin/entities/users/role/searchRoleComponent.xhtml"/>  
+    <br/>  
+    <br/>  
+    <h:form> 
+      <h:button value="Create New" outcome="/admin/entities/users/role/editRole.xhtml" propagation="none"> 
+        <f:param name="roleId" value="0"/> 
+      </h:button>  
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('RoleModalPanel-Role')}.show()"> 
+        <a:param value="0" assignTo="#{roleAction.roleId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </a:commandButton>  
+      <h:button value="Export to Excel" action="#{roleList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/users/role/modalDlgRoleComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
+    <div id="printable"> 
+      <ui:include src="listRoleComponent.xhtml"> 
+        <ui:param name="records" value="#{roleList.resultList}"/> 
+      </ui:include> 
+    </div>  
+    <h:form> 
+      <h:button value="Create New" outcome="/admin/entities/users/role/editRole.xhtml" propagation="none"> 
+        <f:param name="roleId" value="0"/> 
+      </h:button>  
+      <a:commandButton render="${modalId}" execute="@this" value="Quick Create" oncomplete="#{rich:component('RoleModalPanel-Role')}.show()"> 
+        <a:param value="0" assignTo="#{roleAction.roleId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </a:commandButton>  
+      <h:button value="Export to Excel" action="#{roleList.exportToCsv}"/>  
+      <ui:include src="/admin/entities/users/role/modalDlgRoleComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </ui:define> 
+</ui:composition>

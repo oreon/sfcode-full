@@ -1,4 +1,4 @@
-package org.witchcraft.seam.action;
+package org.witchcraft.base.entity;
 
 import java.beans.PersistenceDelegate;
 import java.beans.XMLDecoder;
@@ -51,9 +51,6 @@ import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
 import org.jboss.seam.security.Identity;
-import org.witchcraft.base.entity.BaseEntity;
-import org.witchcraft.base.entity.Range;
-import org.witchcraft.base.entity.SavedSearch;
 import org.witchcraft.exceptions.ContractViolationException;
 import org.witchcraft.users.action.AppUserAction;
 

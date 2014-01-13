@@ -12,16 +12,16 @@
           <h:outputText value="#{msg.Employee}"/> 
         </f:facet>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>  
-        <h:outputText value="#{employee.firstName}" escape="false"/>  
+        <h:outputText value="#{employeeAction.employee.firstName}" escape="false"/>  
         <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>  
-        <h:outputText value="#{employee.lastName}" escape="false"/>  
+        <h:outputText value="#{employeeAction.employee.lastName}" escape="false"/>  
         <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{true}"/>  
-        <h:outputText value="#{employee.employeeNumber}" escape="false"/>  
+        <h:outputText value="#{employeeAction.employee.employeeNumber}" escape="false"/>  
         <h:outputText value="#{msg.employee_employeeType}  " rendered="#{true}"/>  
-        <h:outputText value="#{employee.employeeType}" escape="false"/>  
+        <h:outputText value="#{employeeAction.employee.employeeType}" escape="false"/>  
         <h:outputText value="#{msg.employee_department}  " rendered="#{true}"/>  
-        <h:link escape="false" value="#{employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
-          <f:param name="departmentId" value="#{employee.department.id}"/>  
+        <h:link escape="false" value="#{employeeAction.employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{employeeAction.employee.department.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </h:link> 
       </h:panelGrid>  
@@ -33,11 +33,11 @@
           <h:outputText value="#{msg.ContactDetails}"/> 
         </f:facet>  
         <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{true}"/>  
-        <h:outputText value="#{employee.contactDetails.phone}" escape="false"/>  
+        <h:outputText value="#{employeeAction.employee.contactDetails.phone}" escape="false"/>  
         <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>  
-        <h:outputText value="#{employee.contactDetails.secondaryPhone}" escape="false"/>  
+        <h:outputText value="#{employeeAction.employee.contactDetails.secondaryPhone}" escape="false"/>  
         <h:outputText value="#{msg.contactDetails_city}  " rendered="#{true}"/>  
-        <h:outputText value="#{employee.contactDetails.city}" escape="false"/> 
+        <h:outputText value="#{employeeAction.employee.contactDetails.city}" escape="false"/> 
       </h:panelGrid>  
       <br/>  
       <br/> 

@@ -11,15 +11,15 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Product}"/> 
         </f:facet>  
-        <s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.product_name}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_name#{entityId}" rendered="#{true}" label="#{msg.product_name}" required="true" disabled="false" value="#{productAction.product.name}"> 
+          <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.product_name}" required="true" disabled="false" value="#{productAction.product.name}"> 
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_imageDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="imageDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.product_image}  " rendered="#{true}"/>
           </ui:define>  
@@ -34,19 +34,19 @@
             </rich:fileUpload> 
           </h:panelGroup> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_priceDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="priceDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.product_price}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_price#{entityId}" rendered="#{true}" label="#{msg.product_price}" required="false" disabled="false" value="#{productAction.product.price}"> 
+          <h:inputText escape="false" id="price#{entityId}" rendered="#{true}" label="#{msg.product_price}" required="false" disabled="false" value="#{productAction.product.price}"> 
             <f:converter converterId="javax.faces.BigDecimal"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_descriptionDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.product_description}  " rendered="#{true}"/>
           </ui:define>  
-          <rich:editor escape="false" useSeamText="true" id="#{prefix}_description#{entityId}" rendered="#{true}" label="#{msg.product_description}" required="false" disabled="false" value="#{productAction.product.description}"></rich:editor> 
+          <rich:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.product_description}" required="false" disabled="false" value="#{productAction.product.description}"></rich:editor> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

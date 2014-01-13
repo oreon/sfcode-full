@@ -48,5 +48,23 @@
   <!--  Customer  JPA Configurations -->  
   <entity class="com.oreon.phonestore.domain.commerce.Customer" name="Customer"> 
     <table name="customer"></table> 
+  </entity>  
+  <!--  User  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.users.User" name="User"> 
+    <table name="user"></table>  
+    <named-query name="user.findByUnqUserName"> 
+      <query> <![CDATA[
+			select u from User u where u.userName = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Role  JPA Configurations -->  
+  <entity class="com.oreon.phonestore.users.Role" name="Role"> 
+    <table name="role"></table>  
+    <named-query name="role.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Role u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity> 
 </entity-mappings>

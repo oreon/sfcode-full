@@ -3,7 +3,6 @@ package com.oreon.phonestore.web.action.domain;
 import com.oreon.phonestore.domain.Exam;
 
 import org.witchcraft.seam.action.BaseAction;
-import org.witchcraft.seam.action.BaseQuery;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -13,6 +12,7 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
+import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
 
 import org.jboss.seam.annotations.Observer;

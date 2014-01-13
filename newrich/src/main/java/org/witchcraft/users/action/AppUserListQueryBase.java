@@ -3,8 +3,8 @@ package org.witchcraft.users.action;
 import java.util.Date;
 
 import org.jboss.seam.annotations.Observer;
+import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
-import org.witchcraft.seam.action.BaseQuery;
 import org.witchcraft.users.AppRole;
 import org.witchcraft.users.AppUser;
 

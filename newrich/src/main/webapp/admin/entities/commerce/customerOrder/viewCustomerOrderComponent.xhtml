@@ -13,16 +13,16 @@
         </f:facet>  
         <h:outputText value="#{msg.customerOrder_remarks}  " rendered="#{true}"/>  
         <h:panelGroup> 
-          <rich:tooltip value="#{customerOrder.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="remarksAbbr" value="#{customerOrder.remarksAbbreviated}" escape="false"/> 
+          <rich:tooltip value="#{customerOrderAction.customerOrder.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+          <h:outputText id="remarksAbbr" value="#{customerOrderAction.customerOrder.remarksAbbreviated}" escape="false"/> 
         </h:panelGroup>  
         <h:outputText value="#{msg.customerOrder_total}  " rendered="#{true}"/>  
-        <h:outputText value="#{customerOrder.total}"> 
+        <h:outputText value="#{customerOrderAction.customerOrder.total}"> 
           <f:convertNumber pattern="$#,##0.00"/> 
         </h:outputText>  
         <h:outputText value="#{msg.customerOrder_customer}  " rendered="#{true}"/>  
-        <h:link escape="false" value="#{customerOrder.customer.displayName}" view="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
-          <f:param name="customerId" value="#{customerOrder.customer.id}"/>  
+        <h:link escape="false" value="#{customerOrderAction.customerOrder.customer.displayName}" view="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
+          <f:param name="customerId" value="#{customerOrderAction.customerOrder.customer.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </h:link> 
       </h:panelGrid>  

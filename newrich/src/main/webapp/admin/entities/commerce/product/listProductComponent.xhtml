@@ -129,6 +129,14 @@
             <s:conversationPropagation type="join"/>  
             <f:setPropertyActionListener target="#{productAction.entity}" value="#{_product}"/> 
           </a:commandLink> 
+        </h:column>  
+        <h:column rendered="#{popupMode == 'true'}"> 
+          <f:facet name="header"> 
+            <h:outputText value="Select"/> 
+          </f:facet>  
+          <a:commandLink execute="@this" value="Select" render="${targetDropdownId}" oncomplete="#{rich:component('ProductSearchModalPanel')}.hide()"> 
+            <f:setPropertyActionListener target="#{targetObj}" value="#{_product}"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable>  
       <ui:include src="/admin/entities/commerce/product/modalDlgProductComponent.xhtml"> 

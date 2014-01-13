@@ -11,43 +11,57 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.OrderItem}"/> 
         </f:facet>  
-        <s:decorate id="#{prefix}_remarksDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_remarks#{entityId}" rendered="#{true}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{orderItemAction.orderItem.remarks}"></h:inputText> 
+          <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{orderItemAction.orderItem.remarks}"></h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_unitsDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="unitsDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_units#{entityId}" rendered="#{true}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{orderItemAction.orderItem.units}"></h:inputText> 
+          <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{orderItemAction.orderItem.units}"></h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_salePriceDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="salePriceDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_salePrice#{entityId}" rendered="#{true}" label="#{msg.orderItem_salePrice}" required="false" disabled="false" value="#{orderItemAction.orderItem.salePrice}"> 
+          <h:inputText escape="false" id="salePrice#{entityId}" rendered="#{true}" label="#{msg.orderItem_salePrice}" required="false" disabled="false" value="#{orderItemAction.orderItem.salePrice}"> 
             <f:converter converterId="javax.faces.BigDecimal"/> 
           </h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_customerOrderIdDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="customerOrderIdDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.orderItem_customerOrder}  " rendered="#{true}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_customerOrderId" label="#{msg.orderItem_customerOrder}" value="#{orderItemAction.orderItem.customerOrder}" required="true" rendered="#{true}" disabled="false"> 
+          <h:selectOneMenu id="customerOrderId" label="#{msg.orderItem_customerOrder}" value="#{orderItemAction.orderItem.customerOrder}" required="true" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{customerOrderList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <s:convertEntity/> 
-          </h:selectOneMenu> 
+          </h:selectOneMenu>  
+          <a:commandButton value="Search" render="CustomerOrderSearchModalPanel"> 
+            <rich:componentControl target="CustomerOrderSearchModalPanel" operation="show"/> 
+          </a:commandButton>  
+          <ui:include src="/admin/entities/commerce/customerOrder/modalDlgSearchCustomerOrderComponent.xhtml"> 
+            <ui:param name="targetObj" value="#{orderItemAction.orderItem.customerOrder}"/>  
+            <ui:param name="targetDropdownId" value="#{rich:clientId( 'customerOrderId' )}"/> 
+          </ui:include> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_productIdDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="productIdDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_productId" label="#{msg.orderItem_product}" value="#{orderItemAction.orderItem.product}" required="true" rendered="#{true}" disabled="false"> 
+          <h:selectOneMenu id="productId" label="#{msg.orderItem_product}" value="#{orderItemAction.orderItem.product}" required="true" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{productList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <s:convertEntity/> 
-          </h:selectOneMenu> 
+          </h:selectOneMenu>  
+          <a:commandButton value="Search" render="ProductSearchModalPanel"> 
+            <rich:componentControl target="ProductSearchModalPanel" operation="show"/> 
+          </a:commandButton>  
+          <ui:include src="/admin/entities/commerce/product/modalDlgSearchProductComponent.xhtml"> 
+            <ui:param name="targetObj" value="#{orderItemAction.orderItem.product}"/>  
+            <ui:param name="targetDropdownId" value="#{rich:clientId( 'productId' )}"/> 
+          </ui:include> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

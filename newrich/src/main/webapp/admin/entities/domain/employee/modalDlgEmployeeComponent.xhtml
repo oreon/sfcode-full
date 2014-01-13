@@ -15,7 +15,7 @@
     </f:facet>  
     <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list"></rich:messages>  
     <ui:include src="/admin/entities/domain/employee/editEmployeeComponent.xhtml"/>  
-    <a:commandButton action="#{employeeAction.save}" styleClass="button" render="employeeList" execute="${modalId}" value="Save" oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('EmployeeModalPanel-Employee')}.hide();}"/>  
+    <a:commandButton action="#{employeeAction.save}" styleClass="button" render="employeeList" execute="${modalId}" value="Save" oncomplete="if (#{facesContext.maximumSeverity.ordinal eq 0}) {#{rich:component('EmployeeModalPanel-Employee')}.hide();}"/>  
     <a:commandButton immediate="true" value="Hide" styleClass="button"> 
       <rich:componentControl target="${modalId}" operation="hide"/> 
     </a:commandButton> 
