@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Observer;
-import org.witchcraft.seam.action.BaseQuery;
+import org.witchcraft.base.entity.BaseQuery;
 
 import com.oreon.phonestore.domain.commerce.Customer;
 import com.oreon.phonestore.web.action.datamodel.EntityLazyDataModel;

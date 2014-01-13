@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <div class="entry errors">
-    <h:messages globalOnly="true"/>
-  </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
       <h:outputText value="#{msg.exam_title}  " rendered="#{true}"/>  
       <br/>  
-      <h:inputText id="#{prefix}_title" value="#{examList.exam.title}"/> 
+      <h:inputText id="title" value="#{examList.exam.title}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.exam_description}  " rendered="#{true}"/>  
       <br/>  
-      <h:inputText id="#{prefix}_description" value="#{examList.exam.description}"/> 
+      <h:inputText id="description" value="#{examList.exam.description}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 
@@ -21,18 +18,5 @@
     <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{examList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{examList.dateCreatedRange.end}"/> 
-  </h:panelGrid>  
-  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
-    <h:inputText value="#{examList.searchName}"/>  
-    <h:commandButton id="savesearch" value="Save Search" action="#{examList.saveSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton>  
-    <h:selectOneMenu id="svdsearches" value="#{examList.currentSavedSearch}"> 
-      <s:selectItems value="#{examList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
-      <s:convertEntity/> 
-    </h:selectOneMenu>  
-    <h:commandButton value="Load Search" action="#{examList.executeSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton> 
-  </div> 
+  </h:panelGrid> 
 </ui:composition>

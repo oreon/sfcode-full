@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewUserComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{userAction.load(userId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelUser eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.User}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.user_userName}  " rendered="#{true}"/>  
+        <h:outputText value="#{userAction.user.userName}" escape="false"/>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{true}"/>  
+        <h:outputText value="#{userAction.user.enabled? msg.yes : msg.no }"/>  
+        <h:outputText value="#{msg.user_email}  " rendered="#{true}"/>  
+        <h:outputText value="#{userAction.user.email}" escape="false"/>  
+        <h:outputText value="#{msg.user_lastLogin}  " rendered="#{true}"/>  
+        <h:outputText value="#{userAction.user.lastLogin}"> 
+          <s:convertDateTime type="date" dateStyle="medium"/> 
+        </h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/>  
+      <br/>  
+      <rich:togglePanel label="#{msg.user_roles}" switchType="client"> 
+        <rich:dataTable value="#{userAction.listRoles}" var="item"> 
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:dataTable> 
+      </rich:togglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

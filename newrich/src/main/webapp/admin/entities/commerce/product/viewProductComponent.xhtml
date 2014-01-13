@@ -12,22 +12,22 @@
           <h:outputText value="#{msg.Product}"/> 
         </f:facet>  
         <h:outputText value="#{msg.product_name}  " rendered="#{true}"/>  
-        <h:outputText value="#{product.name}" escape="false"/>  
+        <h:outputText value="#{productAction.product.name}" escape="false"/>  
         <h:outputText value="#{msg.product_image}  " rendered="#{true}"/>  
-        <s:graphicImage rendered="#{product.image ne null and  product.image.contentType.startsWith('image')}" value="#{product.image.data}"> 
+        <s:graphicImage rendered="#{productAction.product.image ne null and  productAction.product.image.contentType.startsWith('image')}" value="#{productAction.product.image.data}"> 
           <s:transformImageSize height="100" maintainRatio="true"/> 
         </s:graphicImage>  
-        <h:link value="#{product.image.name}" action="#{productAction.downloadImage(product.id)}" propagation="none" rendered="#{not product.image.contentType.startsWith('image')}"> 
-          <f:param name="currentEnt ityId" value="#{product.id}"/> 
+        <h:link value="#{productAction.product.image.name}" action="#{productAction.downloadImage(productAction.product.id)}" propagation="none" rendered="#{not productAction.product.image.contentType.startsWith('image')}"> 
+          <f:param name="currentEnt ityId" value="#{productAction.product.id}"/> 
         </h:link>  
         <h:outputText value="#{msg.product_price}  " rendered="#{true}"/>  
-        <h:outputText value="#{product.price}"> 
+        <h:outputText value="#{productAction.product.price}"> 
           <f:convertNumber pattern="$#,##0.00"/> 
         </h:outputText>  
         <h:outputText value="#{msg.product_description}  " rendered="#{true}"/>  
         <h:panelGroup> 
-          <rich:tooltip value="#{product.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="descriptionAbbr" value="#{product.descriptionAbbreviated}" escape="false"/> 
+          <rich:tooltip value="#{productAction.product.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+          <h:outputText id="descriptionAbbr" value="#{productAction.product.descriptionAbbreviated}" escape="false"/> 
         </h:panelGroup> 
       </h:panelGrid>  
       <br/>  

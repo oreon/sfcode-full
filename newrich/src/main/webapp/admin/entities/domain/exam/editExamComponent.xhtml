@@ -11,17 +11,17 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Exam}"/> 
         </f:facet>  
-        <s:decorate id="#{prefix}_titleDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.exam_title}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_title#{entityId}" rendered="#{true}" label="#{msg.exam_title}" required="true" disabled="false" value="#{examAction.exam.title}"></h:inputText> 
+          <h:inputText escape="false" id="title#{entityId}" rendered="#{true}" label="#{msg.exam_title}" required="true" disabled="false" value="#{examAction.exam.title}"></h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_descriptionDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.exam_description}  " rendered="#{true}"/>
           </ui:define>  
-          <rich:editor escape="false" useSeamText="true" id="#{prefix}_description#{entityId}" rendered="#{true}" label="#{msg.exam_description}" required="false" disabled="false" value="#{examAction.exam.description}"></rich:editor> 
+          <rich:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.exam_description}" required="false" disabled="false" value="#{examAction.exam.description}"></rich:editor> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
@@ -33,9 +33,9 @@
           <f:facet name="header">
             <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>
           </f:facet>  
-          <s:decorate id="#{prefix}_textDecorate" template="/layout/editTableField.xhtml"> 
+          <s:decorate id="textDecorate" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <rich:editor escape="false" useSeamText="true" id="#{prefix}_text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{_question.text}"></rich:editor> 
+            <rich:editor escape="false" useSeamText="true" id="text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{_question.text}"></rich:editor> 
           </s:decorate> 
         </h:column>  
         <h:column> 

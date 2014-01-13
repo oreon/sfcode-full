@@ -141,7 +141,7 @@ public class CustomerOrder extends BaseEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return orderItems + "";
+			return customer.getLastName() + " " + total;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

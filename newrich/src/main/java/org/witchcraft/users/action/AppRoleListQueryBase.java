@@ -1,7 +1,7 @@
 package org.witchcraft.users.action;
 
 import org.jboss.seam.annotations.Observer;
-import org.witchcraft.seam.action.BaseQuery;
+import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.users.AppRole;
 import org.witchcraft.users.AppUser;
 

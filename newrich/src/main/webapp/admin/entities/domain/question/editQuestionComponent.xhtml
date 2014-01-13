@@ -11,20 +11,27 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Question}"/> 
         </f:facet>  
-        <s:decorate id="#{prefix}_textDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="textDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>
           </ui:define>  
-          <rich:editor escape="false" useSeamText="true" id="#{prefix}_text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{questionAction.question.text}"></rich:editor> 
+          <rich:editor escape="false" useSeamText="true" id="text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{questionAction.question.text}"></rich:editor> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_examIdDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="examIdDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.question_exam}  " rendered="#{true}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_examId" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true" rendered="#{true}" disabled="false"> 
+          <h:selectOneMenu id="examId" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{examList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <s:convertEntity/> 
-          </h:selectOneMenu> 
+          </h:selectOneMenu>  
+          <a:commandButton value="Search" render="ExamSearchModalPanel"> 
+            <rich:componentControl target="ExamSearchModalPanel" operation="show"/> 
+          </a:commandButton>  
+          <ui:include src="/admin/entities/domain/exam/modalDlgSearchExamComponent.xhtml"> 
+            <ui:param name="targetObj" value="#{questionAction.question.exam}"/>  
+            <ui:param name="targetDropdownId" value="#{rich:clientId( 'examId' )}"/> 
+          </ui:include> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  

@@ -55,7 +55,6 @@ public class Person extends BaseEntity {
 	private static final long serialVersionUID = -2034804195L;
 
 	@NotNull
-	@Length(min = 1, max = 250)
 	@Column(name = "firstName", unique = false)
 	@Field(index = Index.YES)
 	@Analyzer(definition = "entityAnalyzer")
@@ -64,7 +63,6 @@ public class Person extends BaseEntity {
 	;
 
 	@NotNull
-	@Length(min = 1, max = 250)
 	@Column(name = "lastName", unique = false)
 	@Field(index = Index.YES)
 	@Analyzer(definition = "entityAnalyzer")

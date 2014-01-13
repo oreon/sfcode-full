@@ -11,27 +11,23 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.Customer}"/> 
         </f:facet>  
-        <s:decorate id="#{prefix}_firstNameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="firstNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_firstName#{entityId}" rendered="#{true}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{customerAction.customer.firstName}"> 
-            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
-          </h:inputText> 
+          <h:inputText escape="false" id="firstName#{entityId}" rendered="#{true}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{customerAction.customer.firstName}"></h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_lastNameDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="lastNameDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_lastName#{entityId}" rendered="#{true}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{customerAction.customer.lastName}"> 
-            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
-          </h:inputText> 
+          <h:inputText escape="false" id="lastName#{entityId}" rendered="#{true}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{customerAction.customer.lastName}"></h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_typeDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="typeDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.customer_type}  " rendered="#{true}"/>
           </ui:define>  
-          <h:selectOneMenu id="#{prefix}_type" rendered="#{true}" value="#{customerAction.customer.type}" required="false" label="#{msg.customer_type}"> 
+          <h:selectOneMenu id="type" rendered="#{true}" value="#{customerAction.customer.type}" required="false" label="#{msg.customer_type}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="STANDARD" itemLabel="#{msg.STANDARD}"/>  
             <f:selectItem itemValue="GOLD" itemLabel="#{msg.GOLD}"/>  
@@ -46,23 +42,23 @@
         <f:facet name="header"> 
           <h:outputText value="#{msg.ContactDetails}"/> 
         </f:facet>  
-        <s:decorate id="#{prefix}_contactDetails_phoneDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="contactDetails_phoneDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_contactDetails_phone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_phone}" required="false" disabled="false" value="#{customerAction.customer.contactDetails.phone}"></h:inputText> 
+          <h:inputText escape="false" id="contactDetails_phone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_phone}" required="false" disabled="false" value="#{customerAction.customer.contactDetails.phone}"></h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_contactDetails_secondaryPhoneDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="contactDetails_secondaryPhoneDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_contactDetails_secondaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{customerAction.customer.contactDetails.secondaryPhone}"></h:inputText> 
+          <h:inputText escape="false" id="contactDetails_secondaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{customerAction.customer.contactDetails.secondaryPhone}"></h:inputText> 
         </s:decorate>  
-        <s:decorate id="#{prefix}_contactDetails_cityDecorate" template="/layout/edit.xhtml"> 
+        <s:decorate id="contactDetails_cityDecorate" template="/layout/edit.xhtml"> 
           <ui:define name="label"> 
             <h:outputText value="#{msg.contactDetails_city}  " rendered="#{true}"/>
           </ui:define>  
-          <h:inputText escape="false" id="#{prefix}_contactDetails_city#{entityId}" rendered="#{true}" label="#{msg.contactDetails_city}" required="false" disabled="false" value="#{customerAction.customer.contactDetails.city}"></h:inputText> 
+          <h:inputText escape="false" id="contactDetails_city#{entityId}" rendered="#{true}" label="#{msg.contactDetails_city}" required="false" disabled="false" value="#{customerAction.customer.contactDetails.city}"></h:inputText> 
         </s:decorate> 
       </h:panelGrid>  
       <br/>  
