@@ -17,7 +17,7 @@ import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.mock.JUnitSeamTest;
-import org.testng.annotations.BeforeClass;
+import org.junit.Before;
 
 
 
@@ -38,7 +38,7 @@ public class BaseReportsTest extends JUnitSeamTest{
 		return emf;
 	}
 
-	@BeforeClass
+	@Before
 	public void init() {
 		emf = Persistence.createEntityManagerFactory(NOMBRE_PERSISTENCE_UNIT);
 		em = getEntityManagerFactory().createEntityManager();

@@ -1,10 +1,9 @@
 package com.oreon.phonestore.web.action.reports;
 
-import org.testng.annotations.Test;
 import org.witchcraft.action.test.BaseReportsTest;
 import org.witchcraft.jasperreports.BaseReportAction;
-
 import org.jboss.seam.Component;
+import org.junit.Test;
 
 import com.oreon.phonestore.web.action.reports.EmployeesByDepartmentAction;
 
