@@ -7,8 +7,11 @@ import javax.persistence.Persistence;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.mock.JUnitSeamTest;
 import org.jboss.seam.security.Identity;
+import org.junit.After;
+import org.junit.Before;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.seam.action.BaseAction;
@@ -33,7 +36,7 @@ public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest{
 		//getAction().setEntityManager(Search.getFullTextEntityManager(em));
 	}
 	
-	@BeforeMethod
+	@Before
 	public void beginTx() {
 		try {
 			em.getTransaction().begin();
@@ -43,7 +46,7 @@ public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest{
 		super.begin();
 	}
 
-	@AfterMethod
+	@After
 	public void endTx() {
 		try {
 			if(em.getTransaction() != null && em.getTransaction().isActive())
@@ -55,7 +58,7 @@ public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest{
 	
 	abstract public BaseAction<T> getAction();
 
-	@AfterClass
+	@AfterTest
 	public void destroy() {
 	//	em.getTransaction().commit();
 		em.close();
