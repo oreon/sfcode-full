@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.faces.context.FacesContext;
+import javax.faces.model.DataModel;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -53,6 +54,8 @@ import org.jboss.seam.persistence.PersistenceProvider;
 import org.jboss.seam.security.Identity;
 import org.witchcraft.exceptions.ContractViolationException;
 import org.witchcraft.users.action.AppUserAction;
+
+import com.oreon.phonestore.domain.commerce.Product;
 
 
 
@@ -88,6 +91,35 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	private String searchName;
 	
 	private SavedSearch currentSavedSearch;
+	
+	
+	private EntityQueryDataModel<E, PK> entityQueryDataModel;
+    private Integer currentPage;
+
+    @Override
+    public DataModel getDataModel() {
+        if (entityQueryDataModel == null) {
+           // entityQueryDataModel = EntityQueryDataModel.getInstance(this);
+        }
+        return entityQueryDataModel;
+    }
+
+    @Override
+    public void clearDataModel() {
+        entityQueryDataModel = null;
+    }
+
+    public Integer getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(Integer page) {
+        if (getMaxResults() != null) {
+            setFirstResult(page * getMaxResults());
+        }
+        this.currentPage = page;
+    }
+
 	
 	
 	public String getSearchName() {
