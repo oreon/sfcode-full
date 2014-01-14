@@ -8,7 +8,9 @@
       </h:commandButton> 
     </h:form>  
     <c:set var="modalId" value="ProductModalPanel-Product"/>  
+    <h:form>
     <ui:include src="/admin/entities/commerce/product/searchProductComponent.xhtml"/>  
+    </h:form>
     <br/>  
     <br/>  
     <h:form> 
@@ -25,9 +27,11 @@
       </ui:include> 
     </h:form>  
     <div id="printable"> 
+    <h:form>
       <ui:include src="listProductComponent.xhtml"> 
         <ui:param name="records" value="#{productList.resultList}"/> 
       </ui:include> 
+    </h:form>
     </div>  
     <h:form> 
       <h:button value="Create New" outcome="/admin/entities/commerce/product/editProduct.xhtml" propagation="none"> 
