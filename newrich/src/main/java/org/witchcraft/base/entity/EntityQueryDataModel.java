@@ -1,16 +1,10 @@
 package org.witchcraft.base.entity;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import javax.persistence.Id;
 
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
@@ -19,18 +13,13 @@ import org.ajax4jsf.model.SequenceRange;
 import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.log.Logging;
-import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.model.Arrangeable;
 import org.richfaces.model.ArrangeableState;
-
-import com.oreon.phonestore.domain.commerce.Product;
 
 public class EntityQueryDataModel<T, K> extends ExtendedDataModel<T> implements Arrangeable{
 
     private K rowKey;
     private EntityQuery<T> dataProvider;
-    private Field idField;
-    private Method idGetter;
     private Map<K, T> wrappedData = new HashMap<K, T>();
     private Class<T> itemClass;
     private int rowCount = -1;
@@ -46,40 +35,7 @@ public class EntityQueryDataModel<T, K> extends ExtendedDataModel<T> implements 
     	
         dataProvider = query;
         this.itemClass = itemClass;
-        /*
-        Type myclass = dataProvider.getClass().getGenericSuperclass();
         
-        this.itemClass = Product.class.getGenericSuperclass() ; //(Class) ((ParameterizedType) dataProvider.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-
-        Class iClass = itemClass;
-        do {
-            for (Field field : iClass.getDeclaredFields()) {
-                if (field.getAnnotation(Id.class) != null) {
-                    idField = field;
-                    break;
-                }
-            }
-            iClass = iClass.getSuperclass();
-        } while (idField == null && iClass.getSuperclass() != null);
-        if (idField == null) {
-            for (Method method : itemClass.getMethods()) {
-                if (method.getAnnotation(Id.class) != null) {
-                    idGetter = method;
-                    break;
-                }
-            }
-        } else if (!Modifier.isPublic(idField.getModifiers())) {
-            String idGetterName = "get" + idField.getName().substring(0, 1).toUpperCase() + idField.getName().substring(1);
-            try {
-                idGetter = itemClass.getMethod(idGetterName);
-            } catch (NoSuchMethodException e) {
-                throw new IllegalArgumentException("@Id annotated field " + idField.getName() + " is not public and there is no public accessor " + idGetterName);
-            }
-        }
-        if (idField == null && idGetter == null) {
-            throw new IllegalArgumentException("Entity must have @Id annotated property.");
-        }
-        */
     }
 
     @SuppressWarnings("unchecked")
@@ -126,9 +82,9 @@ public class EntityQueryDataModel<T, K> extends ExtendedDataModel<T> implements 
     @Override
     public int getRowCount() {
         log.trace("Getting results count");
-        if (rowCount == -1) {
+        //if (rowCount == -1) {
             rowCount = dataProvider.getResultCount().intValue();
-        }
+        //}
         log.trace("Results count is #0", rowCount);
         return rowCount;
     }
