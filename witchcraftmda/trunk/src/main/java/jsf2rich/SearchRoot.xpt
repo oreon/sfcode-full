@@ -20,13 +20,12 @@
 	<rich:togglePanel switchType="client" label="Advanced Search" opened="false">
 	
 		<rich:tabPanel>
+			
 			<rich:tab header="Search">
+				<ui:include src="freeTypeSearch«name»Component.xhtml" />
 				<ui:include src="fieldSearch«name»Component.xhtml" />
 			</rich:tab>
 	
-			<rich:tab header="Text Search">
-				<ui:include src="textSearch«name»Component.xhtml" />
-			</rich:tab>
 		</rich:tabPanel>
 	
 		«EXPAND genCancelSaveBtns FOR this-»
@@ -89,9 +88,17 @@
 «DEFINE genFreeTypeSearch FOR uml::Class»
 «FILE getWebPath() +"/" + "freeTypeSearch" + name + "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
-	<rich:autocomplete mode="cachedAjax" minChars="2" autocompleteMethod="#{«asVar()»List.autocompletedb}" />
-	<h:button outcome="«getViewFile("view")»" value="GO"/>
-</ui:composition>
+	<rich:autocomplete mode="cachedAjax" var="_result" minChars="2"   fetchValue="#{_result.displayName}"   
+			autocompleteMethod="#{«asVar()»List.autocomplete}" >
+		<h:column>
+			<h:outputText value="#{_result.displayName}" />
+		</h:column>
+	</rich:autocomplete>
+	<h:commandButton action="«getViewFile("view")»" value="GO">
+		
+	</h:commandButton>
+	
+	/ui:composition>
 «ENDFILE»
 «ENDDEFINE»
 
