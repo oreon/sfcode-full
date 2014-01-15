@@ -11,11 +11,12 @@
 «FILE getWebPath() +"/" + "search" + name+  "Component." + getExtension()»
 	
 <ui:composition «EXPAND WebRoot::genIncludes-» >	
-	<h:form>
+	
 	<s:div rendered="false">	
 	<ui:include src="freeTypeSearch«name»Component.xhtml" />
 	</s:div>	
 	<br/>
+	<h:form>
 	<rich:togglePanel switchType="client" label="Advanced Search" opened="false">
 	
 		<rich:tabPanel>
@@ -43,13 +44,17 @@
 «DEFINE genFieldSearchView FOR uml::Class»
 «FILE getWebPath() +"/" + "fieldSearch" + name + "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
+«REM»comment
   <div class="entry errors"><h:messages globalOnly="true" /></div>
+ «ENDREM»
 	<h:panelGrid columns="6">
 	«setAsCurrentEntity(this)-»
 	«EXPAND genAttribAsOutput FOR this-»
 	</h:panelGrid>
 	«EXPAND genDateRange FOR this»
+	«REM»comment
 	«EXPAND genSavedSearch FOR this»
+	«ENDREM»
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
@@ -214,7 +219,7 @@
         	view="«getViewFile("list")»"> 
           <s:conversationPropagation type="join"/> 
         </a:commandButton>
-		<s:button propagation="none" id="reset" value="Reset" includePageParams="false" />
+		<a:commandButton id="reset" propagation="none" type="reset" value="Reset" render="«asVar()»List"/>
 	</div>
 «ENDDEFINE»
 

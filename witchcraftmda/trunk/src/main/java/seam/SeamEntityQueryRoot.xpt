@@ -18,7 +18,7 @@ package « getWebPackageName() »;
 
 «EXPAND genImports FOR this»	
 @Name("«asVar()»List")
-//@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.CONVERSATION)
 public class «name»ListQuery extends «name»ListQueryBase implements java.io.Serializable{
 	
 }
@@ -57,11 +57,43 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 	«name»Action «asVar()»Action;
 	
 	
+	«name»DataModel «asVar()»DataModel;
+
+	
+	
+	
 	public «name»ListQueryBase() {
 		super();
 		setOrderColumn("id" );
 		setOrderDirection("desc");
 	}
+	
+	
+	protected static final class «name»DataModel extends
+			EntityQueryDataModel<«name», Long> {
+
+		public «name»DataModel(«name»ListQuery «asVar()»ListQuery) {
+			super(«asVar()»ListQuery, «name».class);
+		}
+
+		@Override
+		protected Long getId(«name» item) {
+			// TODO Auto-generated method stub
+			return item.getId();
+		}
+	}
+	
+	
+	
+	
+	@Override
+    public DataModel<«name»> getDataModel() {
+		
+        if («asVar()»DataModel == null) {
+        	«asVar()»DataModel = new «name»DataModel((«name»ListQuery) Component.getInstance("«asVar()»List"));
+        }
+        return «asVar()»DataModel;
+    }
     
     
     public «name» get«name»() {
@@ -314,13 +346,16 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
+import org.witchcraft.base.entity.EntityQueryDataModel;
 
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+import javax.faces.model.DataModel;
 
 import org.jboss.seam.annotations.security.Restrict;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 	
 «ENDDEFINE»

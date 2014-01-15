@@ -260,11 +260,11 @@
 	<br/>
 	«IF isCurrentEditMode()»
 	<rich:togglePanel label="«msgBundleKey()»" switchType="client"  id="«name»">
-		<rich:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
+		<rich:pickList sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
 			targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
 	        <s:convertEntity />
 	        <rich:column> #{item.displayName} </rich:column>
-	     </rich:listShuttle>
+	     </rich:pickList>
     </rich:togglePanel>
 	«ELSE»
 	<rich:togglePanel label="«msgBundleKey()»" switchType="client"  >
@@ -323,7 +323,7 @@
 			«EXPAND genLabelAndOutputTabular FOR this»
 		«ELSE»
 			«getOutputMessage()-» 
-			«EXPAND ListRoot::genPropertyValue("") FOR this»
+			«EXPAND ListRoot::genPropertyValue(getActionForMode()) FOR this»
 		«ENDIF»
 		
 	«ENDIF»
@@ -369,7 +369,7 @@
 
 «DEFINE genAssocLink FOR uml::Property»
 	<h:link «getEscape()»  value="#{«getActionForMode()»«genPropertyLabel()».displayName}"  
-			action="view«name»" propagation="none">
+			outcome="view«name»" propagation="none">
 			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
@@ -465,7 +465,7 @@
 	
 	<ui:include src="«type.getComponentViewFile("modalDlgSearch")»">
 		<ui:param name="targetObj" value="#{«getActionForMode()»«genPropertyLabel()-»}"/>
-		<ui:param name="targetDropdownId" value="#{mainForm:«getId()»Decorate:«getId()»}"/>
+		<ui:param name="targetDropdownId" value="#{rich:clientId( '«getId()»' )}"/>
 	</ui:include>
 «ENDDEFINE»
 
