@@ -14,14 +14,17 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
+import org.witchcraft.base.entity.EntityQueryDataModel;
 
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+import javax.faces.model.DataModel;
 
 import org.jboss.seam.annotations.security.Restrict;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.phonestore.users.Role;
 
@@ -39,10 +42,37 @@ public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 	@In(create = true)
 	RoleAction roleAction;
 
+	RoleDataModel roleDataModel;
+
 	public RoleListQueryBase() {
 		super();
 		setOrderColumn("id");
 		setOrderDirection("desc");
+	}
+
+	protected static final class RoleDataModel
+			extends
+				EntityQueryDataModel<Role, Long> {
+
+		public RoleDataModel(RoleListQuery roleListQuery) {
+			super(roleListQuery, Role.class);
+		}
+
+		@Override
+		protected Long getId(Role item) {
+			// TODO Auto-generated method stub
+			return item.getId();
+		}
+	}
+
+	@Override
+	public DataModel<Role> getDataModel() {
+
+		if (roleDataModel == null) {
+			roleDataModel = new RoleDataModel((RoleListQuery) Component
+					.getInstance("roleList"));
+		}
+		return roleDataModel;
 	}
 
 	public Role getRole() {

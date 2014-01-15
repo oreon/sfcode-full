@@ -10,7 +10,7 @@
   <rich:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
     <h:form> 
-      <rich:dataTable var="_employee" value="#{records}" id="employeeList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+      <rich:dataTable var="_employee" value="#{records}" id="employeeList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" rows="10" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -170,7 +170,10 @@
           <a:commandLink execute="@this" value="Select" render="${targetDropdownId}" oncomplete="#{rich:component('EmployeeSearchModalPanel')}.hide()"> 
             <f:setPropertyActionListener target="#{targetObj}" value="#{_employee}"/> 
           </a:commandLink> 
-        </h:column> 
+        </h:column>  
+        <f:facet name="footer"> 
+          <rich:dataScroller/> 
+        </f:facet> 
       </rich:dataTable>  
       <ui:include src="/admin/entities/domain/employee/modalDlgEmployeeComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 

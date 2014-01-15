@@ -1,30 +1,37 @@
 package com.oreon.phonestore.web.action.commerce;
 
-import java.io.FileWriter;
-import java.math.BigDecimal;
+import com.oreon.phonestore.domain.commerce.Product;
+
+import org.witchcraft.seam.action.BaseAction;
+
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Observer;
-import org.supercsv.cellprocessor.FmtBool;
-import org.supercsv.cellprocessor.FmtDate;
-import org.supercsv.cellprocessor.Optional;
-import org.supercsv.cellprocessor.constraint.LMinMax;
-import org.supercsv.cellprocessor.constraint.NotNull;
-import org.supercsv.cellprocessor.constraint.UniqueHashCode;
-import org.supercsv.cellprocessor.ift.CellProcessor;
-import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.io.ICsvBeanWriter;
-import org.supercsv.prefs.CsvPreference;
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.framework.EntityQuery;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
+import org.witchcraft.base.entity.EntityQueryDataModel;
+
+import org.jboss.seam.annotations.Observer;
+
+import java.math.BigDecimal;
+import javax.faces.model.DataModel;
+
+import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.phonestore.domain.commerce.Product;
 
 /**
  * 
- * @author WitchcraftMDA Seam Cartridge -
- * 
+ * @author WitchcraftMDA Seam Cartridge - 
+ *
  */
 public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 
@@ -35,10 +42,37 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 	@In(create = true)
 	ProductAction productAction;
 
+	ProductDataModel productDataModel;
+
 	public ProductListQueryBase() {
 		super();
 		setOrderColumn("id");
 		setOrderDirection("desc");
+	}
+
+	protected static final class ProductDataModel
+			extends
+				EntityQueryDataModel<Product, Long> {
+
+		public ProductDataModel(ProductListQuery productListQuery) {
+			super(productListQuery, Product.class);
+		}
+
+		@Override
+		protected Long getId(Product item) {
+			// TODO Auto-generated method stub
+			return item.getId();
+		}
+	}
+
+	@Override
+	public DataModel<Product> getDataModel() {
+
+		if (productDataModel == null) {
+			productDataModel = new ProductDataModel(
+					(ProductListQuery) Component.getInstance("productList"));
+		}
+		return productDataModel;
 	}
 
 	public Product getProduct() {
@@ -56,7 +90,7 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 	}
 
 	@Override
-	// @Restrict("#{s:hasPermission('product', 'view')}")
+	//@Restrict("#{s:hasPermission('product', 'view')}")
 	public List<Product> getResultList() {
 		return super.getResultList();
 	}
@@ -76,7 +110,6 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 	public Range<BigDecimal> getPriceRange() {
 		return priceRange;
 	}
-
 	public void setPrice(Range<BigDecimal> priceRange) {
 		this.priceRange = priceRange;
 	}
@@ -94,25 +127,23 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 			"lower(product.description) like concat(lower(#{productList.product.description}),'%')",
 
 			"product.dateCreated <= #{productList.dateCreatedRange.end}",
-			"product.dateCreated >= #{productList.dateCreatedRange.begin}", };
+			"product.dateCreated >= #{productList.dateCreatedRange.begin}",};
 
 	@Observer("archivedProduct")
 	public void onArchive() {
 		refresh();
 	}
 
-	// @Restrict("#{s:hasPermission('product', 'delete')}")
+	//@Restrict("#{s:hasPermission('product', 'delete')}")
 	public void archiveById(Long id) {
 		productAction.archiveById(id);
 		refresh();
 	}
 
-	/**
-	 * create comma delimited row
-	 * 
+	/** create comma delimited row 
 	 * @param builder
 	 */
-	// @Override
+	//@Override
 	public void createCsvString(StringBuilder builder, Product e) {
 
 		builder.append("\""
@@ -129,12 +160,10 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 		builder.append("\r\n");
 	}
 
-	/**
-	 * create the headings
-	 * 
+	/** create the headings 
 	 * @param builder
 	 */
-	// @Override
+	//@Override
 	public void createCSvTitles(StringBuilder builder) {
 
 		builder.append("Name" + ",");
@@ -144,56 +173,5 @@ public abstract class ProductListQueryBase extends BaseQuery<Product, Long> {
 		builder.append("Description" + ",");
 
 		builder.append("\r\n");
-	}
-
-	private void writeWithCsvBeanWriter() throws Exception {
-
-		final List<Product> products = getAll();
-
-		ICsvBeanWriter beanWriter = null;
-		try {
-			beanWriter = new CsvBeanWriter(new FileWriter(
-					"target/writeWithCsvBeanWriter.csv"),
-					CsvPreference.STANDARD_PREFERENCE);
-
-			// the header elements are used to map the bean values to each
-			// column (names must match)
-			final String[] header = new String[] { "customerNo", "firstName",
-					"lastName", "birthDate", "mailingAddress", "married",
-					"numberOfKids", "favouriteQuote", "email", "loyaltyPoints" };
-
-			final CellProcessor[] processors = getProcessors();
-
-			// write the header
-			beanWriter.writeHeader(header);
-
-			// write the beans
-			for (Product product : products) {
-				beanWriter.write(product, header, processors);
-			}
-
-		} finally {
-			if (beanWriter != null) {
-				beanWriter.close();
-			}
-		}
-	}
-
-	private static CellProcessor[] getProcessors() {
-
-		final CellProcessor[] processors = new CellProcessor[] {
-				new UniqueHashCode(), // customerNo (must be unique)
-				new NotNull(), // firstName
-				new NotNull(), // lastName
-				new FmtDate("dd/MM/yyyy"), // birthDate
-				new NotNull(), // mailingAddress
-				new Optional(new FmtBool("Y", "N")), // married
-				new Optional(), // numberOfKids
-				new NotNull(), // favouriteQuote
-				new NotNull(), // email
-				new LMinMax(0L, LMinMax.MAX_LONG) // loyaltyPoints
-		};
-
-		return processors;
 	}
 }

@@ -14,14 +14,17 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
+import org.witchcraft.base.entity.EntityQueryDataModel;
 
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+import javax.faces.model.DataModel;
 
 import org.jboss.seam.annotations.security.Restrict;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.phonestore.domain.Exam;
 
@@ -39,10 +42,37 @@ public abstract class ExamListQueryBase extends BaseQuery<Exam, Long> {
 	@In(create = true)
 	ExamAction examAction;
 
+	ExamDataModel examDataModel;
+
 	public ExamListQueryBase() {
 		super();
 		setOrderColumn("id");
 		setOrderDirection("desc");
+	}
+
+	protected static final class ExamDataModel
+			extends
+				EntityQueryDataModel<Exam, Long> {
+
+		public ExamDataModel(ExamListQuery examListQuery) {
+			super(examListQuery, Exam.class);
+		}
+
+		@Override
+		protected Long getId(Exam item) {
+			// TODO Auto-generated method stub
+			return item.getId();
+		}
+	}
+
+	@Override
+	public DataModel<Exam> getDataModel() {
+
+		if (examDataModel == null) {
+			examDataModel = new ExamDataModel((ExamListQuery) Component
+					.getInstance("examList"));
+		}
+		return examDataModel;
 	}
 
 	public Exam getExam() {

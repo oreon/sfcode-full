@@ -14,14 +14,17 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
+import org.witchcraft.base.entity.EntityQueryDataModel;
 
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+import javax.faces.model.DataModel;
 
 import org.jboss.seam.annotations.security.Restrict;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.phonestore.domain.commerce.CustomerOrder;
 
@@ -41,10 +44,39 @@ public abstract class CustomerOrderListQueryBase
 	@In(create = true)
 	CustomerOrderAction customerOrderAction;
 
+	CustomerOrderDataModel customerOrderDataModel;
+
 	public CustomerOrderListQueryBase() {
 		super();
 		setOrderColumn("id");
 		setOrderDirection("desc");
+	}
+
+	protected static final class CustomerOrderDataModel
+			extends
+				EntityQueryDataModel<CustomerOrder, Long> {
+
+		public CustomerOrderDataModel(
+				CustomerOrderListQuery customerOrderListQuery) {
+			super(customerOrderListQuery, CustomerOrder.class);
+		}
+
+		@Override
+		protected Long getId(CustomerOrder item) {
+			// TODO Auto-generated method stub
+			return item.getId();
+		}
+	}
+
+	@Override
+	public DataModel<CustomerOrder> getDataModel() {
+
+		if (customerOrderDataModel == null) {
+			customerOrderDataModel = new CustomerOrderDataModel(
+					(CustomerOrderListQuery) Component
+							.getInstance("customerOrderList"));
+		}
+		return customerOrderDataModel;
 	}
 
 	public CustomerOrder getCustomerOrder() {

@@ -14,14 +14,17 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
+import org.witchcraft.base.entity.EntityQueryDataModel;
 
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+import javax.faces.model.DataModel;
 
 import org.jboss.seam.annotations.security.Restrict;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.phonestore.domain.Question;
 
@@ -39,10 +42,37 @@ public abstract class QuestionListQueryBase extends BaseQuery<Question, Long> {
 	@In(create = true)
 	QuestionAction questionAction;
 
+	QuestionDataModel questionDataModel;
+
 	public QuestionListQueryBase() {
 		super();
 		setOrderColumn("id");
 		setOrderDirection("desc");
+	}
+
+	protected static final class QuestionDataModel
+			extends
+				EntityQueryDataModel<Question, Long> {
+
+		public QuestionDataModel(QuestionListQuery questionListQuery) {
+			super(questionListQuery, Question.class);
+		}
+
+		@Override
+		protected Long getId(Question item) {
+			// TODO Auto-generated method stub
+			return item.getId();
+		}
+	}
+
+	@Override
+	public DataModel<Question> getDataModel() {
+
+		if (questionDataModel == null) {
+			questionDataModel = new QuestionDataModel(
+					(QuestionListQuery) Component.getInstance("questionList"));
+		}
+		return questionDataModel;
 	}
 
 	public Question getQuestion() {
