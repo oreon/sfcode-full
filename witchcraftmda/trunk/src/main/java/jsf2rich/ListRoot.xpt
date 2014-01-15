@@ -21,7 +21,7 @@
 				«EXPAND genButtons FOR this»
 				<div id="printable" >
 				<ui:include src="list«name»Component.«getExtension()»"  >
-					<ui:param name="records" value="#{«asVar()»List.resultList}" />
+					<ui:param name="records" value="#{«asVar()»List.dataModel}" />
          		</ui:include>
          		</div>
 				«EXPAND genButtons FOR this»
@@ -68,7 +68,7 @@
 			
 				<rich:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
 					rowClasses="odd, even" styleClass="dataTable" 
-					     onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+					     onRowMouseOver="this.style.backgroundColor='#F8F8F8'"  rows="10"
                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 					 >	
 				«EXPAND genId FOR this-»	
@@ -80,6 +80,9 @@
 				«EXPAND genDeleteLink FOR this»
 				«EXPAND genQuickEditLink FOR this»
 				«EXPAND genSelectButton FOR this»
+				<f:facet name="footer">
+		        	<rich:dataScroller />
+		        </f:facet>
 				</rich:dataTable>
 				
 				<ui:include src="«getComponentViewFile("modalDlg")»" >

@@ -10,6 +10,7 @@
 «DEFINE Root FOR uml::Model»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 	«EXPAND SeamEntityQueryRoot::Root FOR this»
+	
 	«EXPAND richfaces::PagesRoot::genPages»
 «ENDDEFINE»
 
@@ -357,11 +358,15 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	}
 	
 	public void updateAssociations(){
+		«IF getCartridge() == "RICH"»
+	
 		«FOREACH getNonComposedManyAssociations() AS a»
 		«a.type.fqn()» «a.name» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
 		«a.name».set«a.opposite.name.toFirstUpper()»(instance);
 		events.raiseTransactionSuccessEvent("archived«a.type.name»");
 		«ENDFOREACH»
+		
+		«ENDIF»
 	}
 	
 	
