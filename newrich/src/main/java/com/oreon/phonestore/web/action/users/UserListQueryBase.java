@@ -14,14 +14,17 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
+import org.witchcraft.base.entity.EntityQueryDataModel;
 
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+import javax.faces.model.DataModel;
 
 import org.jboss.seam.annotations.security.Restrict;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.phonestore.users.User;
 
@@ -39,10 +42,37 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 	@In(create = true)
 	UserAction userAction;
 
+	UserDataModel userDataModel;
+
 	public UserListQueryBase() {
 		super();
 		setOrderColumn("id");
 		setOrderDirection("desc");
+	}
+
+	protected static final class UserDataModel
+			extends
+				EntityQueryDataModel<User, Long> {
+
+		public UserDataModel(UserListQuery userListQuery) {
+			super(userListQuery, User.class);
+		}
+
+		@Override
+		protected Long getId(User item) {
+			// TODO Auto-generated method stub
+			return item.getId();
+		}
+	}
+
+	@Override
+	public DataModel<User> getDataModel() {
+
+		if (userDataModel == null) {
+			userDataModel = new UserDataModel((UserListQuery) Component
+					.getInstance("userList"));
+		}
+		return userDataModel;
 	}
 
 	public User getUser() {

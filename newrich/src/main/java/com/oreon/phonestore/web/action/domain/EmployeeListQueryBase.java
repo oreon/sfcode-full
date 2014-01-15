@@ -14,14 +14,17 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
+import org.witchcraft.base.entity.EntityQueryDataModel;
 
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+import javax.faces.model.DataModel;
 
 import org.jboss.seam.annotations.security.Restrict;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.phonestore.domain.Employee;
 
@@ -39,10 +42,37 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	@In(create = true)
 	EmployeeAction employeeAction;
 
+	EmployeeDataModel employeeDataModel;
+
 	public EmployeeListQueryBase() {
 		super();
 		setOrderColumn("id");
 		setOrderDirection("desc");
+	}
+
+	protected static final class EmployeeDataModel
+			extends
+				EntityQueryDataModel<Employee, Long> {
+
+		public EmployeeDataModel(EmployeeListQuery employeeListQuery) {
+			super(employeeListQuery, Employee.class);
+		}
+
+		@Override
+		protected Long getId(Employee item) {
+			// TODO Auto-generated method stub
+			return item.getId();
+		}
+	}
+
+	@Override
+	public DataModel<Employee> getDataModel() {
+
+		if (employeeDataModel == null) {
+			employeeDataModel = new EmployeeDataModel(
+					(EmployeeListQuery) Component.getInstance("employeeList"));
+		}
+		return employeeDataModel;
 	}
 
 	public Employee getEmployee() {

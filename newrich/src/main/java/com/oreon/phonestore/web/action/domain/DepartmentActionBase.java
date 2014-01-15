@@ -177,11 +177,6 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	public void updateAssociations() {
 
-		com.oreon.phonestore.domain.Employee employees = (com.oreon.phonestore.domain.Employee) org.jboss.seam.Component
-				.getInstance("employee");
-		employees.setDepartment(instance);
-		events.raiseTransactionSuccessEvent("archivedEmployee");
-
 	}
 
 	protected List<com.oreon.phonestore.domain.Employee> listEmployees = new ArrayList<com.oreon.phonestore.domain.Employee>();

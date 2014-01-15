@@ -1,9 +1,15 @@
 package com.oreon.phonestore.web.action.domain;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.witchcraft.seam.action.BaseAction;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
+import org.jboss.seam.security.Identity;
+import org.testng.annotations.Test;
+import org.witchcraft.base.entity.*;
+import org.hibernate.annotations.Filter;
+
+import org.testng.annotations.BeforeClass;
+import org.witchcraft.seam.action.BaseAction;
 import com.oreon.phonestore.domain.Employee;
 
 public class EmployeeActionTestBase
@@ -12,7 +18,7 @@ public class EmployeeActionTestBase
 
 	EmployeeAction employeeAction = new EmployeeAction();
 
-	@Before
+	@BeforeClass
 	public void init() {
 		super.init();
 	}

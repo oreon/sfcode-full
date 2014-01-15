@@ -14,14 +14,17 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
 import org.witchcraft.base.entity.BaseQuery;
 import org.witchcraft.base.entity.Range;
+import org.witchcraft.base.entity.EntityQueryDataModel;
 
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+import javax.faces.model.DataModel;
 
 import org.jboss.seam.annotations.security.Restrict;
 
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.phonestore.domain.Department;
 
@@ -41,10 +44,38 @@ public abstract class DepartmentListQueryBase
 	@In(create = true)
 	DepartmentAction departmentAction;
 
+	DepartmentDataModel departmentDataModel;
+
 	public DepartmentListQueryBase() {
 		super();
 		setOrderColumn("id");
 		setOrderDirection("desc");
+	}
+
+	protected static final class DepartmentDataModel
+			extends
+				EntityQueryDataModel<Department, Long> {
+
+		public DepartmentDataModel(DepartmentListQuery departmentListQuery) {
+			super(departmentListQuery, Department.class);
+		}
+
+		@Override
+		protected Long getId(Department item) {
+			// TODO Auto-generated method stub
+			return item.getId();
+		}
+	}
+
+	@Override
+	public DataModel<Department> getDataModel() {
+
+		if (departmentDataModel == null) {
+			departmentDataModel = new DepartmentDataModel(
+					(DepartmentListQuery) Component
+							.getInstance("departmentList"));
+		}
+		return departmentDataModel;
 	}
 
 	public Department getDepartment() {
