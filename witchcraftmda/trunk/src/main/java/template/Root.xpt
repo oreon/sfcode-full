@@ -6,6 +6,7 @@
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+	«EXPAND DtoGen::Root FOR this»
 	«EXPAND ORMGen::Root FOR this»
 	«EXPAND genProjectUtils FOR this»
 	«EXPAND DocumentationRoot::Root FOR this»
@@ -94,6 +95,8 @@ import org.hibernate.annotations.FilterDefs;
 		«EXPAND genImports FOR this»
 		«EXPAND genPersistenceImports FOR this»
 		«EXPAND genClassBody FOR this»
+		
+		
 	«ENDFILE»
 	
 	«ENDIF»

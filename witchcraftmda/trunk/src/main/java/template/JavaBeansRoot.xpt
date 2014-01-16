@@ -15,6 +15,25 @@
 	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
 «ENDDEFINE»
 
+«DEFINE PackageRootDto FOR uml::Package»
+	«EXPAND ClassRootWithExt("Dto") FOREACH allOwnedElements().typeSelect(uml::Class)»
+	«EXPAND Root::ClassRoot FOREACH allOwnedElements().typeSelect(uml::Interface)»
+	«EXPAND EnumGen FOREACH allOwnedElements().typeSelect(uml::Enumeration)»
+«ENDDEFINE»
+
+
+«DEFINE ClassRootWithExt(String ext) FOR uml::Class»
+	«IF name != null && package != null»
+	
+	«FILE packagePath() +  "/" + ext +  "/" +name + ext + ".java"»
+		package « packageName() + ext »;
+		«EXPAND genImports FOR this»
+		«EXPAND genClassBodyExt(ext) FOR this»
+	«ENDFILE»
+	
+	«ENDIF»
+«ENDDEFINE»
+
 «DEFINE ClassRoot FOR uml::Class»
 	«IF name != null && package != null»
 	
@@ -29,10 +48,16 @@
 
 
 «DEFINE genClassBody FOR uml::Class»
-	public class «name» «getParent()» «getInterfaces()»{
+	«EXPAND genClassBody("") FOR this»
+«ENDDEFINE»
+
+«DEFINE genClassBodyExt(String ext) FOR uml::Class»
+	public class «name»«ext» «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
-		«EXPAND genGetterSetterBean FOREACH getAllAttributes() »
+		«EXPAND genGetterSetter FOREACH getAllAttributes() »
+		«REM»comment
 		«EXPAND genOperation FOREACH getAllOperations()»
+		«ENDREM»
 	}
 «ENDDEFINE»
 
