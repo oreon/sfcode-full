@@ -60,8 +60,11 @@ str.replaceAll("::|\\.", "/");
 String fqn (Type cls) :
 packageName(cls) + "." + cls.name;
 
+
+
+
 String fqnPackage (Type cls, String package) :
-packageName(cls) + "." +  package + "." + cls.name;
+packageName(cls) + "." +  (package != "" ? package + "." : "") + cls.name;
 
 
 
@@ -124,8 +127,12 @@ String fqn (PrimitiveType cls) :
 getTypeName(cls.name);
 
 //If package of referring class is same as this class - will return simple name else fqn
+String fqnForPackage(Type cls, Class referringClass, String ext):
+(packageName(cls) == (packageName(referringClass)) )?getTypeName(cls.name):fqnPackage(cls, ext);
+
+//If package of referring class is same as this class - will return simple name else fqn
 String fqnForPackage(Type cls, Class referringClass):
-(packageName(cls) == (packageName(referringClass)) )?getTypeName(cls.name):fqn(cls);
+fqnForPackage( cls,  referringClass, "");
 
 //get type name for types array - useful for mapping e.g. imageFile is mapped to byte[]
 String getTypeName(String name):
