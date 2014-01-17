@@ -60,13 +60,13 @@
     	</c:if>
     	
 			
-		<rich:panel>
+		<p:panel>
 		   <f:facet name="header">
 		   		${listTitle}
 		   </f:facet>
 		   <h:form>
 			
-				<rich:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
+				<p:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
 					rowClasses="odd, even" styleClass="dataTable" 
 					     onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
                         onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
@@ -79,13 +79,13 @@
 				«EXPAND genLink ("edit", "edit.png")FOR this»
 				«EXPAND genDeleteLink FOR this»
 				«EXPAND genQuickEditLink FOR this»
-				</rich:dataTable>
+				</p:dataTable>
 				
 				<ui:include src="«getComponentViewFile("modalDlg")»" >
 					<ui:param name="modalId" value="${modalId}"/> 
 				</ui:include>
 		 	</h:form>		
-		</rich:panel>	
+		</p:panel>	
 		
 		«EXPAND paginationLinks FOR this»
 		
@@ -100,7 +100,7 @@
   		</h:button> 
   		        
         <a:commandButton render="${modalId}" execute="@this"  value="Quick Create"
-				oncomplete="#{rich:component('«name»ModalPanel-«name»')}.show()">
+				oncomplete="#{p:component('«name»ModalPanel-«name»')}.show()">
 				<a:param value="0" assignTo="#{«asVar()»Action.«asVar()»Id}" />
 				<s:conversationPropagation type="join" />
 		</a:commandButton>
@@ -117,7 +117,34 @@
 «ENDDEFINE»
 
 
+«DEFINE paginationLinks FOR wcprofile::Entity»
+ <div class="tableControl">
+<h:link
+	outcome="#{request.servletPath}"
+	rendered="#{«asVar()»List.previousExists}"
+	value="#{messages.left}#{messages.left} First Page" >
+	<f:param name="firstResult" value="0" />
+</h:link> 
 
+<h:link outcome="#{request.servletPath}"
+	rendered="#{«asVar()»List.previousExists}"
+	value="#{messages.left} Previous Page" >
+	<f:param name="firstResult" value="#{«asVar()»List.previousFirstResult}" />
+</h:link> 
+
+<h:link outcome="#{request.servletPath}"
+	rendered="#{«asVar()»List.nextExists}"
+	value="Next Page #{messages.right}" >
+	<f:param name="firstResult" value="#{«asVar()»List.nextFirstResult}" />
+</h:link> 
+
+<h:link outcome="#{request.servletPath}"
+	rendered="#{«asVar()»List.nextExists}"
+	value="Last Page #{messages.right}#{messages.right}" >
+	<f:param name="firstResult" value="#{«asVar()»List.lastFirstResult}" />
+</h:link>
+</div>
+«ENDDEFINE»
 
 «DEFINE genPropsFromBusinessEntity FOR wcprofile::Entity»
     «REM»comment
@@ -155,7 +182,7 @@
 «ENDDEFINE»
 
 «DEFINE genLink(String action, String icon) FOR uml::Class»
-	<h:column  rendered="#{s:hasPermission('_«asVar()»', '«action»') and !_«asVar()»Category.archived}">
+	<p:column  rendered="#{s:hasPermission('_«asVar()»', '«action»') and !_«asVar()»Category.archived}">
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
@@ -163,17 +190,17 @@
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" alt="«action»"/>
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
 		</h:link>
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 «DEFINE genQuickEditLink FOR uml::Class»
-	<h:column rendered="#{s:hasPermission('_«asVar()»Category', 'edit') and !_«asVar()»Category.archived}">
+	<p:column rendered="#{s:hasPermission('_«asVar()»Category', 'edit') and !_«asVar()»Category.archived}">
 		<f:facet name="header">
 			<h:outputText value=" " />
 		</f:facet>
 		
 		<a:commandLink  render="${modalId}"
-						execute="@this" oncomplete="#{rich:component('«name»ModalPanel-«name»')}.show()">
+						execute="@this" oncomplete="#{p:component('«name»ModalPanel-«name»')}.show()">
 						
 						<h:graphicImage value="/images/icons/editQuick.png"
 							style="border: 0px" alt="Quick Edit" />
@@ -186,13 +213,13 @@
 							
 		</a:commandLink>
 		
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 
 
 «DEFINE genDeleteLink FOR uml::Class»
-	<h:column rendered="#{s:hasPermission('«asVar()»Action', 'archive')}" propagation="none">
+	<p:column rendered="#{s:hasPermission('«asVar()»Action', 'archive')}" propagation="none">
 		<f:facet name="header">
 			<h:outputText value="" />
 		</f:facet>
@@ -212,11 +239,11 @@
             <f:param name="currentEntityId" value="#{_«asVar()».id}"/> 
         </h:link> 
 		
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property»
-	<h:column «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»    «EXPAND genPermission FOR this»>
+	<p:column «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»    «EXPAND genPermission FOR this»>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
@@ -225,7 +252,7 @@
 			</ui:include>
 		</f:facet>
 		«EXPAND genPropertyValue("_") FOR this»
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 
@@ -235,11 +262,11 @@
 			<f:param name="«type.name.toFirstLower()»Id" value="#{«prefix»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
-			 <rich:tooltip>
+			 <p:tooltip>
 	            <span>
 	              #{«prefix»«genPropertyLabel()».popupInfo} 
 	            </span>
-	        </rich:tooltip>
+	        </p:tooltip>
 	        «ENDIF»
 	</h:link>
 «ENDDEFINE»
@@ -247,7 +274,7 @@
 
 
 «DEFINE genProperty FOR uml::Property-»
-	<h:column   «EXPAND genPermission FOR this»>
+	<p:column   «EXPAND genPermission FOR this»>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
@@ -256,7 +283,7 @@
 			</ui:include>
 		</f:facet>
 		«EXPAND genPropertyValue("_") FOR this»
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 «DEFINE genPropertyValue(String prefix) FOR uml::Property»
@@ -290,7 +317,7 @@
 				<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
 			«ELSE»
 			 <h:panelGroup>
-			 <rich:tooltip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr"   rendered="#{_customerOrder.remarks != null}" /> 
+			 <p:tooltip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr"   rendered="#{_customerOrder.remarks != null}" /> 
 	         <h:outputText id="«name»Abbr" value="#{«prefix»«genPropertyLabel()»Abbreviated}" escape="false"/> 
 	         </h:panelGroup>
 	         «ENDIF»				
@@ -300,12 +327,12 @@
 «ENDDEFINE»
 
 «DEFINE genProperty FOR String-»
-	<h:column  «EXPAND genPermission FOR this»>
+	<p:column  «EXPAND genPermission FOR this»>
 		<f:facet name="header">
 			<h:outputText value="«msgBundleKey()-»" />
 		</f:facet>
 	 <h:outputText  escape="false" value="#{«getCurrentEntity().asVar()».«this»«this == "createdByUser"?".displayName":""»}" />
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 «DEFINE genPermission FOR uml::Property»
@@ -324,7 +351,7 @@
 
 
 «DEFINE genId FOR uml::Class»
-	<h:column «EXPAND genPermission FOR 'id'»>
+	<p:column «EXPAND genPermission FOR 'id'»>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
@@ -337,12 +364,12 @@
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
 		</h:link>
 		
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 
 «DEFINE genCreationDate FOR uml::Class»
-	<h:column «EXPAND genPermission FOR 'creationDate'»>
+	<p:column «EXPAND genPermission FOR 'creationDate'»>
 		<f:facet name="header">
 			<ui:include src="/layout/sort.xhtml">
 				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
@@ -353,7 +380,7 @@
 		<h:outputText    value="#{_«getCurrentEntity().asVar()».dateCreated}"  >
 			<s:convertDateTime type="date" dateStyle="medium" />
 		</h:outputText>
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 
