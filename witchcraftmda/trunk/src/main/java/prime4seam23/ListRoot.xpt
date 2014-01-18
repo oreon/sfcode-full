@@ -29,8 +29,10 @@
 			</ui:define>
 		</ui:composition>
 			«ENDFILE»
-			«EXPAND genViewComponent FOR this»
+			«EXPAND genViewComponent FOR this» 
+			«REM»comment
 			«EXPAND auditListRoot::genAuditLogComponent FOR this»
+			«ENDREM»
 			«EXPAND modelDlg::genModelDlgComponent FOR this»
 			
 			«EXPAND genArchivedFile FOR this»
@@ -99,11 +101,11 @@
 			<f:param name="«asVar()»Id" value="0"/>
   		</h:button> 
   		        
-        <a:commandButton render="${modalId}" execute="@this"  value="Quick Create"
+        <p:commandButton render="${modalId}" execute="@this"  value="Quick Create"
 				oncomplete="#{p:component('«name»ModalPanel-«name»')}.show()">
-				<a:param value="0" assignTo="#{«asVar()»Action.«asVar()»Id}" />
+				<f:param value="0" assignTo="#{«asVar()»Action.«asVar()»Id}" />
 				<s:conversationPropagation type="join" />
-		</a:commandButton>
+		</p:commandButton>
   		
 		<h:button value="Export to Excel" action="#{«asVar()»List.exportToCsv}" />
 		
@@ -199,19 +201,19 @@
 			<h:outputText value=" " />
 		</f:facet>
 		
-		<a:commandLink  render="${modalId}"
+		<p:commandLink  render="${modalId}"
 						execute="@this" oncomplete="#{p:component('«name»ModalPanel-«name»')}.show()">
 						
-						<h:graphicImage value="/images/icons/editQuick.png"
-							style="border: 0px" alt="Quick Edit" />
-						
-						<a:param value="#{_«asVar()».id}" assignTo="#{«asVar()»Action.«asVar()»Id}" />
-						 <s:conversationPropagation type="join"/>  
-						
-						<f:setPropertyActionListener target="#{«asVar()»Action.entity}"
-							value="#{_«asVar()»}" />
+			<h:graphicImage value="/images/icons/editQuick.png"
+				style="border: 0px" alt="Quick Edit" />
+			
+			 <f:param value="#{_«asVar()».id}" assignTo="#{«asVar()»Action.«asVar()»Id}" />
+			 <s:conversationPropagation type="join"/>  
+			
+			<f:setPropertyActionListener target="#{«asVar()»Action.entity}"
+				value="#{_«asVar()»}" />
 							
-		</a:commandLink>
+		</p:commandLink>
 		
 	</p:column>
 «ENDDEFINE»

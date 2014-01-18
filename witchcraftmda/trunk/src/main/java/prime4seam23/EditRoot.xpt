@@ -18,7 +18,7 @@
 «ENDDEFINE»
 
 «DEFINE genEditFile FOR uml::Class»
-«FILE getWebPath() +"/" + "edit" + name+ "." + getExtension()  man_path »
+«FILE getWebPath() +"/" + "edit" + name+ "." + getExtension()   »
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getAdminTemplate()»" >	
 	
@@ -61,30 +61,30 @@
 			 «PROTECT CSTART '<!--' CEND '-->' ID  'EDITABLE_RGN_VIEW_' + package.name + "_" + (isCurrentTemplateMode()?"Template_":"") + name»
 
 			«ENDPROTECT»	
-			<rich:tabPanel switchType="ajax">
-				<rich:tab header="«name»">
+			<p:tabView switchType="ajax">
+				<p:tab title="«name»">
 					<div id="printable" >
 					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" />
 					</div>
 					«EXPAND genCancelSaveBtns(false) FOR this»
-				</rich:tab>
+				</p:tab>
 			«FOREACH getOutgoingAssociations() AS a ITERATOR iter»
-				<rich:tab header="«a.name.toFirstUpper()»"  rendered="#{«getAction()».instance.«a.name» != null}">
+				<p:tab title="«a.name.toFirstUpper()»"  rendered="#{«getAction()».instance.«a.name» != null}">
 					<ui:include src = "«a.type.getComponentViewFile("view")»" >
 						«REM»comment<ui:param name="entityId" value="«getRandomNumber()»" />«ENDREM»
 						<ui:param name="entityId" value="«iter.counter1»" />
 						<ui:param name="«a.type.name.toFirstLower()»Id" value="#{«getAction()».instance.«a.name».id}" />
 					</ui:include>
-				</rich:tab>
+				</p:tab>
 			«ENDFOREACH»	
-			</rich:tabPanel>
+			</p:tabView>
 			«EXPAND genBusinessFunctionButtons FOR this»
 		</h:form>
 		<br/>
 			
-			<rich:tabPanel  switchType="client" >
+			<p:tabView  switchType="client" >
 			«FOREACH getNonComposedManyAssociations() AS a»
-			<rich:tab header="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
+			<p:tab title="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
 				<ui:include src = "«a.type.getComponentViewFile("list")»" >
 					<ui:param name="records" value="#{«a.type.asVar()»List.get«a.name.toFirstUpper()»By«a.opposite.name.toFirstUpper()»(«getAction()».instance)}" />
@@ -104,22 +104,22 @@
 		    	<ui:include src="«a.type.getComponentViewFile("modalDlg")»" > 
 		    		<ui:param name="modalId" value="${modalId}" />
 		    	</ui:include>
-			</rich:tab>
+			</p:tab>
 			«ENDFOREACH»
-			</rich:tabPanel>
+			</p:tabView>
 		<br/>
 		
-		<rich:tabPanel switchType="client">
-			<rich:tab header="Notes">
+		<p:tabView switchType="client">
+			<p:tab title="Notes">
 				<wc:comments backingAction="#{«getAction()»}"/>
-			</rich:tab>
+			</p:tab>
 			«IF getAuditable()-»
-			<rich:tab header="Audit">
+			<p:tab title="Audit">
 				<ui:include
 					src="«getComponentViewFile("auditList")»" />
-			</rich:tab>
+			</p:tab>
 			«ENDIF»
-		</rich:tabPanel>
+		</p:tabView>
 		
 		
 		«EXPAND generateWebFunctionIncludes FOR this»
@@ -135,7 +135,7 @@
 	<ui:composition «EXPAND WebRoot::genIncludes-» >	
 	
 	<h:panelGroup  id="«(edit?"edit":"view")»«name»ComponentPanel" >
-		<s:validateAll>
+		«REM»<s:validateAll>«ENDREM»
 		«setAsCurrentEntity(this)-»
 		<h:panelGrid columns="«edit?"1":"1"»"  onload="#{«getAction()».load(«asVar()»Id )  }"></h:panelGrid>
 		«REM»comment
@@ -147,7 +147,7 @@
 		«EXPAND genTable FOR this-»
 		<br/>
 		«EXPAND genManyToManyShuttle FOR this-»
-		</s:validateAll>
+		«REM»</s:validateAll>«ENDREM»
 	
 	</h:panelGroup>
 	
@@ -259,19 +259,19 @@
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
 	<br/>
 	«IF isCurrentEditMode()»
-	<rich:togglePanel label="«msgBundleKey()»" switchType="client"  id="«name»">
-		<rich:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
+	<p:togglePanel label="«msgBundleKey()»" switchType="client"  id="«name»">
+		<p:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
 			targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
 	        <s:convertEntity />
-	        <rich:column> #{item.displayName} </rich:column>
-	     </rich:listShuttle>
-    </rich:togglePanel>
+	        <p:column> #{item.displayName} </p:column>
+	     </p:listShuttle>
+    </p:togglePanel>
 	«ELSE»
-	<rich:togglePanel label="«msgBundleKey()»" switchType="client"  >
-        <rich:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
-        	<rich:column> #{item.displayName} </rich:column>
-     	</rich:dataTable>
-     </rich:togglePanel>
+	<p:togglePanel label="«msgBundleKey()»" switchType="client"  >
+        <p:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
+        	<p:column> #{item.displayName} </p:column>
+     	</p:dataTable>
+     </p:togglePanel>
 	«ENDIF»
 «ENDDEFINE»
 
@@ -373,11 +373,11 @@
 			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
-			 <rich:tooltip>
+			 <p:tooltip>
 	            <span>
 	              #{«getActionForMode()»«genPropertyLabel()».popupInfo} 
 	            </span>
-	        </rich:tooltip>
+	        </p:tooltip>
 	        «ENDIF»
 	</h:link>
 «ENDDEFINE»
@@ -405,16 +405,16 @@
 
 «DEFINE genAutoCompleteAssoc FOR uml::Property»
 	<h:panelGroup>
-	 <a:region>
+	 <p:region>
 	<h:inputText value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" label="«msgBundleKey()»"  
 		id="«getId()»" required="«!getAssocOptional()»"   />
 	«EXPAND genSuggestionBox FOR this»
-	 </a:region>
+	 </p:region>
 	</h:panelGroup>
 «ENDDEFINE»
 
 «DEFINE genSuggestionBox FOR uml::Property»
-	<rich:autocomplete  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
+	<p:autocomplete  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
 		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
 		«IF type.autoCompleteColumns == null»
 			<h:column>
@@ -428,11 +428,11 @@
 		«ENDFOREACH»
 		«ENDIF»
 						
-		<a:support event="onselect">
+		<p:ajax event="onselect">
 			<f:setPropertyActionListener value="#{_result}"
 				target="#{«getActionForMode()»«genPropertyLabel()-»}" />
-		</a:support>
-	</rich:autocomplete>
+		</p:ajax>
+	</p:autocomplete>
 «ENDDEFINE»
 
 «DEFINE genDropDown FOR uml::Property»
@@ -441,13 +441,13 @@
 		disabled="false" >
 		«IF isColumn() && this.controls != null » 
 			«IF !isCurrentMultiMode()»   «REM»TODO: rerender=controls need to be id aware «ENDREM»
-			<a:support event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  reRender="«controls»" ajaxSingle="true" />
+			<p:ajax event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  reRender="«controls»" ajaxSingle="true" />
 			«ELSE» «REM»For multimode we need to send the variable «ENDREM»
-			  <a:support event="onchange"
+			  <p:ajax event="onchange"
 				action="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"
 				reRender="«class.asVar()»s" ajaxSingle="true">  «REM»TODO: Replace with actual name of relationship «ENDREM»
 				<s:conversationPropagation type="join" />
-			  </a:support>
+			  </p:ajax>
 			«ENDIF»
 		«ENDIF»
 		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.all"»}" var="itemIter"
@@ -513,11 +513,11 @@
           	action="#{«getActionForFileMode()»downloadFile(null)}" propagation="none"> 
               <f:param name="currentEntityId" value="#{«getActionForFileMode()»instance.id}" /> 
             </h:link> 
-        <rich:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
+        <p:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
         	autoclear="false"  listHeight="30" listWidth="250"> 	
         	<s:conversationPropagation type="join" />
-        	<a:ajax event="uploadcomplete" render="«name»_file" /> 
-        </rich:fileUpload>
+        	<p:ajax event="uploadcomplete" render="«name»_file" /> 
+        </p:fileUpload>
      </h:panelGroup>
     «ELSE» 
 		«EXPAND getFileView » 
@@ -575,7 +575,7 @@
 	«IF !isColumn() || (isColumn() &&  systemModifyOnly == false) »
 	«setCurrentMultiMode(true)-»
 	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
-	<rich:dataTable id="«name»" var="_«type.asVar()»" 
+	<p:dataTable id="«name»" var="_«type.asVar()»" 
 		«IF !isCurrentEditMode()» 
 			rendered="#{not empty «class.getAction()».list«name.toFirstUpper()» and «genViewPermission()» }"
 			«ELSE»
@@ -592,17 +592,17 @@
 		  «EXPAND genDelete FOR this -»
 		 «ENDIF»
 		«ENDIF»	
-	</rich:dataTable>
+	</p:dataTable>
 	«setCurrentMultiMode(false)-»
 	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genDelete FOR uml::Property»
 	<h:column>
-		<a:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
+		<p:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
 			render="«name»">
 			<s:conversationId/>
-		</a:commandButton>
+		</p:commandButton>
 	</h:column>
 «ENDDEFINE»
 
@@ -613,10 +613,10 @@
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
-	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
+	<p:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
 		render="«name»"  rendered="#{«genEditPermission()»}" >
 		<s:conversationId/>
-	</a:commandButton>
+	</p:commandButton>
 «ENDDEFINE»
 
 «DEFINE genProperty FOR String-»
@@ -630,10 +630,10 @@
         <h:selectOneMenu id="template" label="Template" value="#{«getAction()».entityTemplate}" required="false"> 
           <s:selectItems value="#{prescriptionAction.templateList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select Template"/>  
           <s:convertEntity/> 
-          <a:support event="onchange"
+          <p:ajax event="onchange"
 							action="#{«getAction()».loadFromTemplate}"
 							reRender="edit«name»ComponentPanel#{entityId}" ajaxSingle="true" >
 				<s:conversationPropagation type="begin" />
-		  </a:support> 
+		  </p:ajax> 
         </h:selectOneMenu>  
 «ENDDEFINE»
