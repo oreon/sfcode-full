@@ -12,24 +12,23 @@
 	
 <ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
+	«REM»comment
 	<s:div rendered="false">	
 	<ui:include src="freeTypeSearch«name»Component.xhtml" />
 	</s:div>	
+	«ENDREM»
 	<br/>
-	<p:togglePanel switchType="client" label="Advanced Search" opened="false">
+	<p:panel toggleable="true" header="Advanced Search" opened="false">
 	
 		<p:tabView>
 			<p:tab header="Search">
 				<ui:include src="fieldSearch«name»Component.xhtml" />
 			</p:tab>
-	
-			<p:tab header="Text Search">
-				<ui:include src="textSearch«name»Component.xhtml" />
-			</p:tab>
+		
 		</p:tabView>
 	
 		«EXPAND genCancelSaveBtns FOR this-»
-		</p:togglePanel>
+		</p:panel>
 	</h:form>
 </ui:composition>
 «ENDFILE»

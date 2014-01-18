@@ -28,7 +28,7 @@
 			</f:facet>
 			<f:facet name="controls">
 			   <p:commandLink value="X" >
-      			<p:componentControl target="${modalId}" operation="hide"/> 
+      			
       		   </p:commandLink>
 		    </f:facet>
 			
@@ -38,13 +38,11 @@
 				
 						<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 	
-						 <p:commandButton action="#{«asVar()»Action.save}" styleClass="button" render="«asVar()»List" execute="${modalId}"
-				          	value="Save" 
-				           oncomplete="if (#{facesContext.maximumSeverity==null}) {#{p:component('«name»ModalPanel-«name»')}.hide();}"
-				          /> 
+						 <p:commandButton action="#{«asVar()»Action.save}" styleClass="button" render="«asVar()»List" 
+				          	value="Save" /> 
           
 				        <p:commandButton immediate="true"  value="Hide" styleClass="button">
-				        	<p:componentControl target="${modalId}" operation="hide"/> 
+				        	
 				        </p:commandButton>  
 				        
 				        «REM»
