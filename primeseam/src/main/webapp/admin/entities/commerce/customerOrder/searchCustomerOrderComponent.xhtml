@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <s:div rendered="false"> 
+    <ui:include src="freeTypeSearchCustomerOrderComponent.xhtml"/> 
+  </s:div>  
+  <br/>  
+  <h:form> 
+    <rich:togglePanel switchType="client" label="Advanced Search" opened="false"> 
+      <rich:tabPanel> 
+        <rich:tab header="Search"> 
+          <ui:include src="freeTypeSearchCustomerOrderComponent.xhtml"/>  
+          <ui:include src="fieldSearchCustomerOrderComponent.xhtml"/> 
+        </rich:tab> 
+      </rich:tabPanel>  
+      <div class="actionButtons"> 
+        <a:commandButton id="search" value="Search" render="customerOrderList" view="/admin/entities/commerce/customerOrder/listCustomerOrder.xhtml"> 
+          <s:conversationPropagation type="join"/> 
+        </a:commandButton>  
+        <a:commandButton id="reset" propagation="none" type="reset" value="Reset" render="customerOrderList"/> 
+      </div> 
+    </rich:togglePanel> 
+  </h:form> 
+</ui:composition>

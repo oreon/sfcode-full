@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewCustomerComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{customerAction.load(customerId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomer eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Customer}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>  
+      <h:outputText value="#{customerAction.customer.firstName}" escape="false"/>  
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>  
+      <h:outputText value="#{customerAction.customer.lastName}" escape="false"/>  
+      <h:outputText value="#{msg.customer_type}  " rendered="#{true}"/>  
+      <h:outputText value="#{customerAction.customer.type}" escape="false"/> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{true}"/>  
+      <h:outputText value="#{customerAction.customer.contactDetails.phone}" escape="false"/>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>  
+      <h:outputText value="#{customerAction.customer.contactDetails.secondaryPhone}" escape="false"/>  
+      <h:outputText value="#{msg.contactDetails_city}  " rendered="#{true}"/>  
+      <h:outputText value="#{customerAction.customer.contactDetails.city}" escape="false"/> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

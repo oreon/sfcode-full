@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j"
+ xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" 
+ xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editAppUserComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{appUserAction.load(appUserId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      
+      ${numColumns}
+      ${skipPermissionCheck}
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.AppUser}"/> 
+        </f:facet>  
+        <s:decorate id="userNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_userName}" />
+          </ui:define>  
+          <h:inputText id="userName#{entityId}"  label="#{msg.appUser_userName}" required="true" disabled="false" value="#{appUserAction.appUser.userName}"> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="passwordDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_password}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}"/>
+          </ui:define>  
+          <h:inputSecret redisplay="true" id="password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{appUserAction.appUser.password}"> 
+           
+          </h:inputSecret> 
+        </s:decorate>  
+        <s:decorate id="enabledDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{appUserAction.appUser.enabled}"> 
+           
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="emailDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.appUser_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}"/>
+          </ui:define>  
+          <h:inputText id="email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEmail')}" label="#{msg.appUser_email}" required="true" disabled="false" value="#{appUserAction.appUser.email}"> 
+           
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/>  
+      <br/>  
+      <rich:togglePanel label="#{msg.appUser_appRoles}" switchType="client" id="appRoles"> 
+        <rich:pickList sourceValue="#{appUserAction.listAvailableAppRoles}" targetValue="#{appUserAction.listAppRoles}" var="item"> 
+          <s:convertEntity/>  
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:pickList> 
+      </rich:togglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

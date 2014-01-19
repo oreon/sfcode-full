@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.customerOrder_remarks}  " rendered="#{true}"/>  
+      <br/>  
+      <h:inputText id="remarks" value="#{customerOrderList.customerOrder.remarks}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.customerOrder_customer}  " rendered="#{true}"/>  
+      <br/>  
+      <h:selectOneMenu id="customerId" value="#{ customerOrderList.customerOrder.customer}"> 
+        <s:selectItems value="#{customerList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.customerOrder_total}  " rendered="#{true}"/>  
+      <br/>  
+      <h:inputText id="total_begin" value="#{customerOrderList.totalRange.begin}"> 
+        <f:converter converterId="javax.faces.BigDecimal"/> 
+      </h:inputText>  
+      <h:inputText id="total_end" value="#{customerOrderList.totalRange.end}"> 
+        <f:converter converterId="javax.faces.BigDecimal"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.customerOrder_servicingEmployee}  " rendered="#{true}"/>  
+      <br/>  
+      <h:selectOneMenu id="servicingEmployeeId" value="#{ customerOrderList.customerOrder.servicingEmployee}"> 
+        <s:selectItems value="#{employeeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <p:calendar id="from" value="#{customerOrderList.dateCreatedRange.begin}"/>  
+    <p:calendar id="to" value="#{customerOrderList.dateCreatedRange.end}"/> 
+  </h:panelGrid>  
+  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
+    <h:inputText value="#{customerOrderList.searchName}"/>  
+    <h:commandButton id="savesearch" value="Save Search" action="#{customerOrderList.saveSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton>  
+    <h:selectOneMenu id="svdsearches" value="#{customerOrderList.currentSavedSearch}"> 
+      <s:selectItems value="#{customerOrderList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
+      <s:convertEntity/> 
+    </h:selectOneMenu>  
+    <h:commandButton value="Load Search" action="#{customerOrderList.executeSearch}"> 
+      <s:conversationPropagation type="join"/> 
+    </h:commandButton> 
+  </div> 
+</ui:composition>

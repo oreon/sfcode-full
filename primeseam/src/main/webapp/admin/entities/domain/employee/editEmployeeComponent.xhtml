@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEmployeeComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{employeeAction.load(employeeId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEmployee eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Employee}"/> 
+      </f:facet>  
+      <s:decorate id="firstNameDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="firstName#{entityId}" rendered="#{true}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{employeeAction.employee.firstName}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="lastNameDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="lastName#{entityId}" rendered="#{true}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{employeeAction.employee.lastName}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="employeeNumberDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="employeeNumber#{entityId}" rendered="#{true}" label="#{msg.employee_employeeNumber}" required="false" disabled="false" value="#{employeeAction.employee.employeeNumber}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="employeeTypeDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.employee_employeeType}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="employeeType" rendered="#{true}" value="#{employeeAction.employee.employeeType}" required="false" label="#{msg.employee_employeeType}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="FULL_TIME" itemLabel="#{msg.FULL_TIME}"/>  
+          <f:selectItem itemValue="CONTRACT" itemLabel="#{msg.CONTRACT}"/>  
+          <f:selectItem itemValue="PART_TIME" itemLabel="#{msg.PART_TIME}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="departmentIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.employee_department}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="departmentId" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="false" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <s:decorate id="contactDetails_phoneDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.contactDetails_phone}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="contactDetails_phone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_phone}" required="false" disabled="false" value="#{employeeAction.employee.contactDetails.phone}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="contactDetails_secondaryPhoneDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="contactDetails_secondaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{employeeAction.employee.contactDetails.secondaryPhone}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="contactDetails_cityDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.contactDetails_city}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="contactDetails_city#{entityId}" rendered="#{true}" label="#{msg.contactDetails_city}" required="false" disabled="false" value="#{employeeAction.employee.contactDetails.city}"></h:inputText> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

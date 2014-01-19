@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editUserComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{userAction.load(userId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelUser eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.User}"/> 
+      </f:facet>  
+      <s:decorate id="userNameDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.user_userName}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="userName#{entityId}" rendered="#{true}" label="#{msg.user_userName}" required="true" disabled="false" value="#{userAction.user.userName}"> 
+          <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+        </h:inputText> 
+      </s:decorate>  
+      <s:decorate id="passwordDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.user_password}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputSecret escape="false" redisplay="true" id="password#{entityId}" rendered="#{true}" label="#{msg.user_password}" required="true" disabled="false" value="#{userAction.user.password}"></h:inputSecret> 
+      </s:decorate>  
+      <s:decorate id="enabledDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.user_enabled}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectBooleanCheckbox escape="false" id="enabled#{entityId}" rendered="#{true}" label="#{msg.user_enabled}" required="false" disabled="false" value="#{userAction.user.enabled}"></h:selectBooleanCheckbox> 
+      </s:decorate>  
+      <s:decorate id="emailDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.user_email}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="email#{entityId}" rendered="#{true}" label="#{msg.user_email}" required="true" disabled="false" value="#{userAction.user.email}"> 
+          <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+        </h:inputText> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/>  
+    <br/>  
+    <p:togglePanel label="#{msg.user_roles}" switchType="client" id="roles"> 
+      <p:listShuttle sourceValue="#{userAction.listAvailableRoles}" targetValue="#{userAction.listRoles}" var="item"> 
+        <s:convertEntity/>  
+        <p:column>#{item.displayName}</p:column> 
+      </p:listShuttle> 
+    </p:togglePanel> 
+  </h:panelGroup> 
+</ui:composition>
