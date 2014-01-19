@@ -98,7 +98,7 @@ import «a.type.fqn()»;
 public abstract class «name»ActionBase extends «getParentForAction()» implements java.io.Serializable{
 
 	«REM»
-	«IF getCartridge() == "RICH"»@In(create = true)«ENDIF»
+	«IF isRich()»@In(create = true)«ENDIF»
 	@Out(required = false)
 	private «name» «asVar()»  «IF getCartridge() == "JSF2RICH"»=  new «name»() «ENDIF»;
 	«ENDREM»
@@ -293,7 +293,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 	
 	
-	«IF getCartridge() != "RICH"»
+	«IF isRich()»
 		public void «e.name»UploadListener(FileUploadEvent event) throws Exception {
 		UploadedFile uploadItem = event.getUploadedFile();
 		if (getInstance().getImage() == null)
@@ -302,7 +302,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		getInstance().getImage().setContentType(uploadItem.getContentType());
 		getInstance().getImage().setData((uploadItem.getData()));
 	  }
-	«ELSE»
+	«ELSEIF isJsf2Rich()»
 		public void «e.name»UploadListener(UploadEvent event) throws Exception {
 		  UploadItem uploadItem = event.getUploadItem();
 		  if(getInstance().get«e.name.toFirstUpper()»() == null )
@@ -311,6 +311,8 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		  getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
 		  getInstance().get«e.name.toFirstUpper()»().setData(FileUtils.readFileToByteArray( uploadItem.getFile() )); 
 	  }
+	  «ELSE»
+	  //todo 
 	«ENDIF»
 	
 	«ENDFOREACH»
@@ -358,7 +360,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	}
 	
 	public void updateAssociations(){
-		«IF getCartridge() == "RICH"»
+		«IF isRich()»
 	
 		«FOREACH getNonComposedManyAssociations() AS a»
 		«a.type.fqn()» «a.name» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
@@ -542,7 +544,7 @@ import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
 
-«IF getCartridge() == "RICH"»
+«IF isRich()»
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 «ELSE»

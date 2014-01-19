@@ -107,11 +107,11 @@ import org.hibernate.annotations.FilterDefs;
 		«FILE packagePath() +"/" +name + ".java" man_path »
 			package « packageName() »;
 			«EXPAND genImports FOR this»
-			«IF getCartridge() == "RICH" » import org.jboss.seam.annotations.Name; «ENDIF»
+			«IF isRich() » import org.jboss.seam.annotations.Name; «ENDIF»
 			
 			
 	
-			«IF getCartridge() == "RICH" » //@Name("«name.toFirstLower()»")  «ENDIF»
+			«IF isRich() » //@Name("«name.toFirstLower()»")  «ENDIF»
 			public class «name» extends «name»Base {
 				
 			}

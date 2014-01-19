@@ -323,7 +323,7 @@
 			«EXPAND genLabelAndOutputTabular FOR this»
 		«ELSE»
 			«getOutputMessage()-» 
-			«EXPAND ListRoot::genPropertyValue("") FOR this»
+			«EXPAND ListRoot::genPropertyValue(getActionForMode()) FOR this»
 		«ENDIF»
 		
 	«ENDIF»
@@ -369,15 +369,15 @@
 
 «DEFINE genAssocLink FOR uml::Property»
 	<h:link «getEscape()»  value="#{«getActionForMode()»«genPropertyLabel()».displayName}"  
-			action="view«name»" propagation="none">
+			outcome="view«name»" propagation="none">
 			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
-			 <p:tooltip>
+			 <rich:tooltip>
 	            <span>
 	              #{«getActionForMode()»«genPropertyLabel()».popupInfo} 
 	            </span>
-	        </p:tooltip>
+	        </rich:tooltip>
 	        «ENDIF»
 	</h:link>
 «ENDDEFINE»

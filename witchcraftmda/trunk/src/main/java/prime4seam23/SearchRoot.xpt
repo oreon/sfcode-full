@@ -12,21 +12,16 @@
 	
 <ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
-	«REM»comment
-	<s:div rendered="false">	
-	<ui:include src="freeTypeSearch«name»Component.xhtml" />
-	</s:div>	
-	«ENDREM»
-	<br/>
-	<p:panel toggleable="true" header="Advanced Search" opened="false">
 	
-		<p:tabView>
-			<p:tab header="Search">
-				<ui:include src="fieldSearch«name»Component.xhtml" />
-			</p:tab>
 		
-		</p:tabView>
+	<ui:include src="freeTypeSearch«name»Component.xhtml" />
+		
 	
+	<br/>
+	<p:panel toggleable="true" title="Advanced Search" opened="false">
+	
+				<ui:include src="fieldSearch«name»Component.xhtml" />
+		
 		«EXPAND genCancelSaveBtns FOR this-»
 		</p:panel>
 	</h:form>
@@ -83,8 +78,8 @@
 «DEFINE genFreeTypeSearch FOR uml::Class»
 «FILE getWebPath() +"/" + "freeTypeSearch" + name + "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
-	<p:autocomplete mode="cachedAjax" minChars="2" autocompleteMethod="#{«asVar()»List.autocompletedb}" />
-	<h:button outcome="«getViewFile("view")»" value="GO"/>
+	<p:autoComplete minQueryLength="3" completeMethod="#{«asVar()»List.autocompletedb}" value="#{«asVar()»Action.«asVar()»}"/>
+	<h:commandButton action="«getViewFile("view")»" value="GO"/>
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
