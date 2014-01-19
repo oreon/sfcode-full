@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="CustomerOrderModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="CustomerOrder Search Results (#{empty records ? 0 : (customerOrderList.paginated ? customerOrderList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <p:dataTable var="_customerOrder" value="#{records}" id="customerOrderList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <p:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customerOrderList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="customerOrder.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:link outcome="/admin/entities/commerce/customerOrder/customerOrderActionCustomerOrder.xhtml" rendered="#{s:hasPermission(_customerOrder, 'view')}" propagation="none"> 
+            <h:outputText value="#{_customerOrder.id}"/>  
+            <f:param name="customerOrderId" value="#{_customerOrder.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{true}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customerOrderList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.customerOrder_remarks}"/>  
+              <ui:param name="propertyPath" value="customerOrder.remarks"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:panelGroup> 
+            <p:tooltip value="#{_customerOrder.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="remarksAbbr" value="#{_customerOrder.remarksAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column rendered="#{true}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customerOrderList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.customerOrder_customer}"/>  
+              <ui:param name="propertyPath" value="customerOrder.customer"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:link escape="false" value="#{_customerOrder.customer.displayName}" view="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
+            <f:param name="customerId" value="#{_customerOrder.customer.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{true}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customerOrderList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.customerOrder_total}"/>  
+              <ui:param name="propertyPath" value="customerOrder.total"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_customerOrder.total}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{true}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customerOrderList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.customerOrder_servicingEmployee}"/>  
+              <ui:param name="propertyPath" value="customerOrder.servicingEmployee"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:link escape="false" value="#{_customerOrder.servicingEmployee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+            <f:param name="employeeId" value="#{_customerOrder.servicingEmployee.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customerOrderList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="customerOrder.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_customerOrder.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_customerOrder', 'view') and !_customerOrderCategory.archived}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <h:link outcome="/admin/entities/commerce/customerOrder/viewCustomerOrder.xhtml" rendered="#{s:hasPermission(_customerOrder, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="customerOrderId" value="#{_customerOrder.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_customerOrder', 'edit') and !_customerOrderCategory.archived}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <h:link outcome="/admin/entities/commerce/customerOrder/editCustomerOrder.xhtml" rendered="#{s:hasPermission(_customerOrder, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="customerOrderId" value="#{_customerOrder.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('customerOrderAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_customerOrder.archived}" action="#{customerOrderAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_customerOrder.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_customerOrder.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_customerOrder.archived}" action="#{customerOrderAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_customerOrder.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_customerOrder.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_customerOrder.archived}" action="#{customerOrderAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_customerOrder.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_customerOrderCategory', 'edit') and !_customerOrderCategory.archived}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <p:commandLink render="${modalId}" execute="@this" oncomplete="#{p:component('CustomerOrderModalPanel-CustomerOrder')}.show()"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <f:param value="#{_customerOrder.id}" assignTo="#{customerOrderAction.customerOrderId}"/>  
+            <s:conversationPropagation type="join"/>  
+            <f:setPropertyActionListener target="#{customerOrderAction.entity}" value="#{_customerOrder}"/> 
+          </p:commandLink> 
+        </p:column> 
+      </p:dataTable>  
+      <ui:include src="/admin/entities/commerce/customerOrder/modalDlgCustomerOrderComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </p:panel>  
+  <div class="tableControl"> 
+    <h:link outcome="#{request.servletPath}" rendered="#{customerOrderList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </h:link>  
+    <h:link outcome="#{request.servletPath}" rendered="#{customerOrderList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{customerOrderList.previousFirstResult}"/> 
+    </h:link>  
+    <h:link outcome="#{request.servletPath}" rendered="#{customerOrderList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{customerOrderList.nextFirstResult}"/> 
+    </h:link>  
+    <h:link outcome="#{request.servletPath}" rendered="#{customerOrderList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{customerOrderList.lastFirstResult}"/> 
+    </h:link> 
+  </div> 
+</ui:composition>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="UserModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="User Search Results (#{empty records ? 0 : (userList.paginated ? userList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <p:dataTable var="_user" value="#{records}" id="userList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <p:column rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{userList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="user.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:link outcome="/admin/entities/users/user/userActionUser.xhtml" rendered="#{s:hasPermission(_user, 'view')}" propagation="none"> 
+            <h:outputText value="#{_user.id}"/>  
+            <f:param name="userId" value="#{_user.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{true}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{userList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_userName}"/>  
+              <ui:param name="propertyPath" value="user.userName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_user.userName}" escape="false"/> 
+        </p:column>  
+        <p:column rendered="#{true}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{userList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_enabled}"/>  
+              <ui:param name="propertyPath" value="user.enabled"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_user.enabled? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column rendered="#{true}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{userList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_email}"/>  
+              <ui:param name="propertyPath" value="user.email"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_user.email}" escape="false"/> 
+        </p:column>  
+        <p:column rendered="#{true}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{userList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_lastLogin}"/>  
+              <ui:param name="propertyPath" value="user.lastLogin"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_user.lastLogin}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('creationDate', 'viewCreationDate' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{userList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="user.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_user.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_user', 'view') and !_userCategory.archived}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <h:link outcome="/admin/entities/users/user/viewUser.xhtml" rendered="#{s:hasPermission(_user, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="userId" value="#{_user.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_user', 'edit') and !_userCategory.archived}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <h:link outcome="/admin/entities/users/user/editUser.xhtml" rendered="#{s:hasPermission(_user, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="userId" value="#{_user.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('userAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_user.archived}" action="#{userAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_user.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_user.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_user.archived}" action="#{userAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_user.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_user.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_user.archived}" action="#{userAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_user.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_userCategory', 'edit') and !_userCategory.archived}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <p:commandLink render="${modalId}" execute="@this" oncomplete="#{p:component('UserModalPanel-User')}.show()"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <f:param value="#{_user.id}" assignTo="#{userAction.userId}"/>  
+            <s:conversationPropagation type="join"/>  
+            <f:setPropertyActionListener target="#{userAction.entity}" value="#{_user}"/> 
+          </p:commandLink> 
+        </p:column> 
+      </p:dataTable>  
+      <ui:include src="/admin/entities/users/user/modalDlgUserComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </p:panel>  
+  <div class="tableControl"> 
+    <h:link outcome="#{request.servletPath}" rendered="#{userList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </h:link>  
+    <h:link outcome="#{request.servletPath}" rendered="#{userList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{userList.previousFirstResult}"/> 
+    </h:link>  
+    <h:link outcome="#{request.servletPath}" rendered="#{userList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{userList.nextFirstResult}"/> 
+    </h:link>  
+    <h:link outcome="#{request.servletPath}" rendered="#{userList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{userList.lastFirstResult}"/> 
+    </h:link> 
+  </div> 
+</ui:composition>

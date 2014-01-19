@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:set var="opId" value="outputPanel-${modalId}"/>  
+  <p:dialog id="${modalId}" autosized="true" zindex="2000" domElementAttachment="parent" onshow="adoptCTDialogHeight()"> 
+    <f:facet name="header"> 
+      <h:panelGroup> 
+        <h:outputText value="#{orderItemAction.id == null ? msg.new : msg.edit} OrderItem"/> 
+      </h:panelGroup> 
+    </f:facet>  
+    <f:facet name="controls"> 
+      <p:commandLink value="X"></p:commandLink> 
+    </f:facet>  
+    <p:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list"></p:messages>  
+    <ui:include src="/admin/entities/commerce/orderItem/editOrderItemComponent.xhtml"/>  
+    <p:commandButton action="#{orderItemAction.save}" styleClass="button" render="orderItemList" value="Save"/>  
+    <p:commandButton immediate="true" value="Hide" styleClass="button"></p:commandButton> 
+  </p:dialog> 
+</ui:composition>

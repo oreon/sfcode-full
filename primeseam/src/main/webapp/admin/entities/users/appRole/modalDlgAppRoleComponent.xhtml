@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:set var="opId" value="outputPanel-mdldlg"/>  
+  <rich:popupPanel  id="popup" autosized="true" zindex="2000" domElementAttachment="parent" onshow="adoptCTDialogHeight()"> 
+    <f:facet name="header"> 
+      <h:panelGroup> 
+        <h:outputText value="#{appRoleAction.id == null ? msg.new : msg.edit} AppRole"/> 
+      </h:panelGroup> 
+    </f:facet>  
+    <f:facet name="controls"> 
+       <h:outputLink value="#" onclick="#{rich:component('popup')}.hide(); return false;">
+                X
+       </h:outputLink>
+    </f:facet>  
+    <a:outputPanel  id="ctContent-appRole-mdldlg" style="padding-right:15px" layout="block"> 
+      <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" />  
+      <h:form> 
+        <ui:include src="/admin/entities/users/appRole/editAppRoleComponent.xhtml"/>  
+        
+            <a:commandButton value="Store" action="#{appRoleAction.saveWithoutConversation}" render="appRoleList, popup" execute="popup"
+                oncomplete="if (#{facesContext.maximumSeverity==null || facesContext.maximumSeverity.ordinal le 1}) {#{rich:component('popup')}.hide();}" />
+            <a:commandButton value="Cancel" onclick="#{rich:component('popup')}.hide(); return false;" />
+      </h:form> 
+    </a:outputPanel>
+  </rich:popupPanel> 
+</ui:composition>

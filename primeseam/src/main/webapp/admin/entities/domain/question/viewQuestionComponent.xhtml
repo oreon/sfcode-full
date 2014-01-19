@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewQuestionComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{questionAction.load(questionId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelQuestion eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Question}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{questionAction.question.text}" for="textAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="textAbbr" value="#{questionAction.question.textAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.question_exam}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{questionAction.question.exam.displayName}" view="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
+        <f:param name="examId" value="#{questionAction.question.exam.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

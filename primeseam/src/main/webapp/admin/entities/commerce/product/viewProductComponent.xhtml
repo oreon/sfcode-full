@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewProductComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{productAction.load(productId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelProduct eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Product}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.product_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{productAction.product.name}" escape="false"/>  
+      <h:outputText value="#{msg.product_image}  " rendered="#{true}"/>  
+      <s:graphicImage rendered="#{productAction.product.image ne null and  productAction.product.image.contentType.startsWith('image')}" value="#{productAction.product.image.data}"> 
+        <s:transformImageSize height="100" maintainRatio="true"/> 
+      </s:graphicImage>  
+      <h:link value="#{productAction.product.image.name}" action="#{productAction.downloadImage(productAction.product.id)}" propagation="none" rendered="#{not productAction.product.image.contentType.startsWith('image')}"> 
+        <f:param name="currentEnt ityId" value="#{productAction.product.id}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.product_price}  " rendered="#{true}"/>  
+      <h:outputText value="#{productAction.product.price}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.product_description}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{productAction.product.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="descriptionAbbr" value="#{productAction.product.descriptionAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

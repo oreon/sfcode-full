@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewUserComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{userAction.load(userId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelUser eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.User}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.user_userName}  " rendered="#{true}"/>  
+      <h:outputText value="#{userAction.user.userName}" escape="false"/>  
+      <h:outputText value="#{msg.user_enabled}  " rendered="#{true}"/>  
+      <h:outputText value="#{userAction.user.enabled? msg.yes : msg.no }"/>  
+      <h:outputText value="#{msg.user_email}  " rendered="#{true}"/>  
+      <h:outputText value="#{userAction.user.email}" escape="false"/>  
+      <h:outputText value="#{msg.user_lastLogin}  " rendered="#{true}"/>  
+      <h:outputText value="#{userAction.user.lastLogin}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText> 
+    </h:panelGrid>  
+    <br/>  
+    <br/>  
+    <br/>  
+    <p:togglePanel label="#{msg.user_roles}" switchType="client"> 
+      <p:dataTable value="#{userAction.listRoles}" var="item"> 
+        <p:column>#{item.displayName}</p:column> 
+      </p:dataTable> 
+    </p:togglePanel> 
+  </h:panelGroup> 
+</ui:composition>
