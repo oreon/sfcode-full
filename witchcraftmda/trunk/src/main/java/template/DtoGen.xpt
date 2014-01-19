@@ -68,7 +68,7 @@
 
 «DEFINE genGetterSetter(String ext) FOR uml::Property»
 	«LET  (association == null ? name : name + ext )  AS pname»
-	«LET   (association == null ? name.toFirstUpper() : name.toFirstUpper() + ext) AS pnameu»
+	«LET  name.toFirstUpper()  AS pnameu»
 	«LET  (association == null ? type.fqnForPackage(this.class) :  type.fqnForPackage(this.class, ext.toLowerCase()) + ext) AS ptype» 
 	
 	«IF isMultivalued()»
