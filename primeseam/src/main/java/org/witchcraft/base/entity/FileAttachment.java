@@ -1,12 +1,18 @@
 package org.witchcraft.base.entity;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.primefaces.model.DefaultUploadedFile;
+import org.primefaces.model.UploadedFile;
+import org.richfaces.request.UploadedFile25;
+
 @Embeddable
-public class FileAttachment implements Serializable{
+public class FileAttachment extends DefaultUploadedFile{
 	
 	/**
 	 * 
@@ -23,6 +29,7 @@ public class FileAttachment implements Serializable{
 	
 
 	public String getName() {
+		
 		return name;
 	}
 
@@ -57,6 +64,20 @@ public class FileAttachment implements Serializable{
 	
 	boolean getImage() {
 		return contentType.startsWith("image"); 
-	}	 
+	}
+
+	@Override
+	public byte[] getContents() {
+		// TODO Auto-generated method stub
+		return data;
+	}
+
+	@Override
+	public String getFileName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+
+	
 	
 }
