@@ -6,6 +6,20 @@ import wcprofile;
 extension org::openarchitectureware::uml2::profile::profiling;
 
 
+String getCartridge():
+readPropertyDef("cartridge", "RICH");
+
+isRich():
+getCartridge() ==  "RICH";
+
+isPrimeSeam2():
+getCartridge() ==  "PRIME_SEAM2";
+
+isJsf2Rich():
+getCartridge() ==  "JSF2RICH";
+
+
+
 print(String msg):
 JAVA org.witchcraft.generatorutil.ClassUtil.print(java.lang.String);
 
@@ -210,17 +224,6 @@ if( getCurrentCartridge() == "DOT_NET" ) then
 else
 	" extends ";
 
-String getCartridge():
-readPropertyDef("cartridge", "RICH");
-
-isRich():
-getCartridge() ==  "RICH";
-
-isPrimeSeam2():
-getCartridge() ==  "PRIME_SEAM2";
-
-isJsf2Rich():
-getCartridge() ==  "JSF2RICH";
 
 
 

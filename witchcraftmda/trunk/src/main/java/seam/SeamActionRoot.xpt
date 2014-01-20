@@ -296,11 +296,11 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	«IF isRich()»
 		public void «e.name»UploadListener(FileUploadEvent event) throws Exception {
 		UploadedFile uploadItem = event.getUploadedFile();
-		if (getInstance().getImage() == null)
-			getInstance().setImage(new FileAttachment());
-		getInstance().getImage().setName(uploadItem.getName());
-		getInstance().getImage().setContentType(uploadItem.getContentType());
-		getInstance().getImage().setData((uploadItem.getData()));
+		if (getInstance().get«e.name.toFirstUpper()»() == null)
+			getInstance().set«e.name.toFirstUpper()»(new FileAttachment());
+		getInstance().get«e.name.toFirstUpper()»().setName(uploadItem.getName());
+		getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
+		getInstance().get«e.name.toFirstUpper()»().setData((uploadItem.getData()));
 	  }
 	«ELSEIF isJsf2Rich()»
 		public void «e.name»UploadListener(UploadEvent event) throws Exception {
@@ -311,6 +311,17 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		  getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
 		  getInstance().get«e.name.toFirstUpper()»().setData(FileUtils.readFileToByteArray( uploadItem.getFile() )); 
 	  }
+	 «ELSEIF isPrimeSeam2()»
+	 
+		 public void «e.name»UploadListener(org.primefaces.event.FileUploadEvent  event) {  
+			org.primefaces.model.UploadedFile uploadItem = event.getFile();
+			if (getInstance().get«e.name.toFirstUpper()»() == null)
+				getInstance().set«e.name.toFirstUpper()»(new FileAttachment());
+			getInstance().get«e.name.toFirstUpper()»().setName(uploadItem.getFileName());
+			getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
+			getInstance().get«e.name.toFirstUpper()»().setData((uploadItem.getContents())); 
+	    }  
+		 
 	  «ELSE»
 	  //todo 
 	«ENDIF»
