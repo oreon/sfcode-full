@@ -513,11 +513,9 @@
           	action="#{«getActionForFileMode()»downloadFile(null)}" propagation="none"> 
               <f:param name="currentEntityId" value="#{«getActionForFileMode()»instance.id}" /> 
             </h:link> 
-        <p:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  immediateUpload="true" ajaxSingle="true" 
-        	autoclear="false"  listHeight="30" listWidth="250"> 	
-        	<s:conversationPropagation type="join" />
-        	<p:ajax event="uploadcomplete" render="«name»_file" /> 
-        </p:fileUpload>
+        <p:fileUpload fileUploadListener="#{«getActionForFileMode()»«name»UploadListener}"  
+        	value="#{productAction.product.image}" auto="true" />
+      
      </h:panelGroup>
     «ELSE» 
 		«EXPAND getFileView » 
