@@ -95,7 +95,7 @@
 		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
 		      		</h:button>
-		      		  <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  reRender="${modalId}" >
+		      		  <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  reupdate="${modalId}" >
 			            <f:param name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
 			         	<f:param name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.opposite.name»Id}" 
 			         		value="#{«name.toFirstLower()»Action.instance.id}"  />
@@ -303,7 +303,7 @@
 
 «DEFINE genLabelAndInput FOR uml::Property-»
 	«IF !isDerived() && !type.isEmbeddable() && !systemModify() && !currentUser()»
-		«isCurrentMultiMode()?"<h:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>":""» 
+		«isCurrentMultiMode()?"<p:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>":""» 
 		<s:decorate id="«getId()»Decorate" template="/layout/edit«isCurrentMultiMode()?"TableField":""».xhtml">
 		<ui:define name="label"> «!isCurrentMultiMode()?getOutputMessage():" "»</ui:define> 
 		«IF association != null-»
@@ -312,7 +312,7 @@
 			«EXPAND genPropertyEntry(type) FOR this-»
 		«ENDIF»
 		</s:decorate>
-		«isCurrentMultiMode()?"</h:column>":""»
+		«isCurrentMultiMode()?"</p:column>":""»
 	«ENDIF»
 «ENDDEFINE»
 
@@ -331,12 +331,12 @@
 
 
 «DEFINE genLabelAndOutputTabular FOR uml::Property-»
-<h:column>
+<p:column>
 	<f:facet name="header">
 		«getOutputMessage()-» 
 	</f:facet>
 		«EXPAND ListRoot::genPropertyValue("_") FOR this»
-</h:column>
+</p:column>
 «ENDDEFINE»
 
 
@@ -417,14 +417,14 @@
 	<p:autocomplete  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
 		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
 		«IF type.autoCompleteColumns == null»
-			<h:column>
+			<p:column>
 				<h:outputText value="#{_result.displayName}" />
-			</h:column>
+			</p:column>
 		«ELSE»
 		«FOREACH type.autoCompleteColumns.getAsList() AS e-»
-			<h:column>
+			<p:column>
 				<h:outputText value="#{_result.«e»}" />
-			</h:column>
+			</p:column>
 		«ENDFOREACH»
 		«ENDIF»
 						
@@ -440,12 +440,12 @@
 		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}" 
 		disabled="false" >
 		«IF isColumn() && this.controls != null » 
-			«IF !isCurrentMultiMode()»   «REM»TODO: rerender=controls need to be id aware «ENDREM»
-			<p:ajax event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  reRender="«controls»" ajaxSingle="true" />
+			«IF !isCurrentMultiMode()»   «REM»TODO: reupdate=controls need to be id aware «ENDREM»
+			<p:ajax event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  reupdate="«controls»" ajaxSingle="true" />
 			«ELSE» «REM»For multimode we need to send the variable «ENDREM»
 			  <p:ajax event="onchange"
 				action="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"
-				reRender="«class.asVar()»s" ajaxSingle="true">  «REM»TODO: Replace with actual name of relationship «ENDREM»
+				update="«class.asVar()»s" ajaxSingle="true">  «REM»TODO: Replace with actual name of relationship «ENDREM»
 				<s:conversationPropagation type="join" />
 			  </p:ajax>
 			«ENDIF»
@@ -456,8 +456,20 @@
 		«genAjaxValidatorJSF2()»
 		<s:convertEntity />
 	</h:selectOneMenu>
+	 «REM»comment
+	«EXPAND genSearchForAssoc FOR this»
+	«ENDREM»
 «ENDDEFINE»
 
+«DEFINE genSearchForAssoc FOR uml::Property»
+
+	<p:commandButton oncomplete="«type.name»SearchModalPanel.show()" value="Select"/> 	
+	
+	<ui:include src="«type.getComponentViewFile("modalDlgSearch")»">
+		<ui:param name="targetObj" value="#{«getActionForMode()»«genPropertyLabel()-»}"/>
+		<ui:param name="targetDropdownId" value="«getId()»"/>
+	</ui:include>
+«ENDDEFINE»
 
 
 «REM»Generate text control for the given property «ENDREM»
@@ -596,23 +608,23 @@
 «ENDDEFINE»
 
 «DEFINE genDelete FOR uml::Property»
-	<h:column>
-		<p:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
-			render="«name»">
+	<p:column>
+		<h:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
+			update="«name»">
 			<s:conversationId/>
-		</p:commandButton>
-	</h:column>
+		</h:commandButton>
+	</p:column>
 «ENDDEFINE»
 
 «DEFINE genNew FOR uml::Property»
-	<h:column>
+	<p:column>
 		«EXPAND genNewButton FOR this»
-	</h:column>
+	</p:column>
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
 	<p:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		render="«name»"  rendered="#{«genEditPermission()»}" >
+		update="«name»"  rendered="#{«genEditPermission()»}" >
 		<s:conversationId/>
 	</p:commandButton>
 «ENDDEFINE»
@@ -630,7 +642,7 @@
           <s:convertEntity/> 
           <p:ajax event="onchange"
 							action="#{«getAction()».loadFromTemplate}"
-							reRender="edit«name»ComponentPanel#{entityId}" ajaxSingle="true" >
+							reupdate="edit«name»ComponentPanel#{entityId}" ajaxSingle="true" >
 				<s:conversationPropagation type="begin" />
 		  </p:ajax> 
         </h:selectOneMenu>  

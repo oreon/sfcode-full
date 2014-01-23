@@ -12,17 +12,11 @@
 	
 <ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
-	
-		
-	<ui:include src="freeTypeSearch«name»Component.xhtml" />
-		
-	
-	<br/>
-	<p:panel toggleable="true" title="Advanced Search" opened="false">
-	
-				<ui:include src="fieldSearch«name»Component.xhtml" />
-		
-		«EXPAND genCancelSaveBtns FOR this-»
+		<ui:include src="freeTypeSearch«name»Component.xhtml" />
+		<br/>
+		<p:panel toggleable="true" title="Advanced Search" opened="false">
+			<ui:include src="fieldSearch«name»Component.xhtml" />
+			«EXPAND genSearchResetBtns FOR this-»
 		</p:panel>
 	</h:form>
 </ui:composition>
@@ -78,8 +72,16 @@
 «DEFINE genFreeTypeSearch FOR uml::Class»
 «FILE getWebPath() +"/" + "freeTypeSearch" + name + "Component." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» >
-	<p:autoComplete minQueryLength="3" completeMethod="#{«asVar()»List.autocompletedb}" value="#{«asVar()»Action.«asVar()»}"/>
-	<h:commandButton action="«getViewFile("view")»" value="GO"/>
+	
+	<p:autoComplete minQueryLength="3" completeMethod="#{«asVar()»List.autocomplete}" 
+  		value="#{«asVar()»Action.«asVar()»}" converter="#{«asVar()»Action.converter}"  var = "record" 
+  			itemLabel="#{record.displayName}" itemValue="#{«asVar()»Action.«asVar()»}">
+  		<p:column>
+  			#{record.displayName}
+  		</p:column>
+  	</p:autoComplete>  
+  	
+  	<h:commandButton action="«getViewFile("view")»" value="GO"/>
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
@@ -201,7 +203,7 @@
 	</h:panelGrid>
 «ENDDEFINE»
 
-«DEFINE genCancelSaveBtns FOR uml::Class»
+«DEFINE genSearchResetBtns FOR uml::Class»
 	<div class="actionButtons">
 		<h:commandButton id="search" value="Search" view="«getViewFile("list")»" >
 			 <s:conversationPropagation type="join"/>

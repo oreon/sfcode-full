@@ -21,7 +21,7 @@
 				«EXPAND genButtons FOR this»
 				<div id="printable" >
 				<ui:include src="list«name»Component.«getExtension()»"  >
-					<ui:param name="records" value="#{«asVar()»List.resultList}" />
+					<ui:param name="records" value="#{«asVar()»List.lazyModel}" />
          		</ui:include>
          		</div>
 				«EXPAND genButtons FOR this»
@@ -69,9 +69,7 @@
 		   <h:form>
 			
 				<p:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
-					rowClasses="odd, even" styleClass="dataTable" 
-					     onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
-                        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					paginator="true" lazy="true"  rows="10" 
 					 >	
 				«EXPAND genId FOR this-»	
 				«EXPAND genAttribAsOutput FOR this-»
@@ -89,25 +87,21 @@
 		 	</h:form>		
 		</p:panel>	
 		
-		«EXPAND paginationLinks FOR this»
-		
 		</ui:composition>
 	«ENDFILE»
 «ENDDEFINE»
 
 «DEFINE genButtons FOR wcprofile::Entity»
 	<h:form>
-		<h:button value="Create New" outcome="«getViewFile("edit")»" propagation="none" >
+		<p:button value="Create New" outcome="«getViewFile("edit")»" propagation="none" >
 			<f:param name="«asVar()»Id" value="0"/>
-  		</h:button> 
+  		</p:button> 
   		        
         <p:commandButton render="${modalId}" execute="@this"  value="Quick Create"
 				oncomplete="#{p:component('«name»ModalPanel-«name»')}.show()">
 				<f:param value="0" assignTo="#{«asVar()»Action.«asVar()»Id}" />
 				<s:conversationPropagation type="join" />
 		</p:commandButton>
-  		
-		<h:button value="Export to Excel" action="#{«asVar()»List.exportToCsv}" />
 		
 		<ui:include src="«getComponentViewFile("modalDlg")»" >
 			<ui:param name="modalId" value="${modalId}"/> 
@@ -119,34 +113,7 @@
 «ENDDEFINE»
 
 
-«DEFINE paginationLinks FOR wcprofile::Entity»
- <div class="tableControl">
-<h:link
-	outcome="#{request.servletPath}"
-	rendered="#{«asVar()»List.previousExists}"
-	value="#{messages.left}#{messages.left} First Page" >
-	<f:param name="firstResult" value="0" />
-</h:link> 
 
-<h:link outcome="#{request.servletPath}"
-	rendered="#{«asVar()»List.previousExists}"
-	value="#{messages.left} Previous Page" >
-	<f:param name="firstResult" value="#{«asVar()»List.previousFirstResult}" />
-</h:link> 
-
-<h:link outcome="#{request.servletPath}"
-	rendered="#{«asVar()»List.nextExists}"
-	value="Next Page #{messages.right}" >
-	<f:param name="firstResult" value="#{«asVar()»List.nextFirstResult}" />
-</h:link> 
-
-<h:link outcome="#{request.servletPath}"
-	rendered="#{«asVar()»List.nextExists}"
-	value="Last Page #{messages.right}#{messages.right}" >
-	<f:param name="firstResult" value="#{«asVar()»List.lastFirstResult}" />
-</h:link>
-</div>
-«ENDDEFINE»
 
 «DEFINE genPropsFromBusinessEntity FOR wcprofile::Entity»
     «REM»comment
@@ -185,9 +152,7 @@
 
 «DEFINE genLink(String action, String icon) FOR uml::Class»
 	<p:column  rendered="#{s:hasPermission('_«asVar()»', '«action»') and !_«asVar()»Category.archived}">
-		<f:facet name="header">
-			<h:outputText value=" " />
-		</f:facet>
+		
 		<h:link outcome="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}" propagation="none">
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" alt="«action»"/>
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
@@ -245,14 +210,7 @@
 «ENDDEFINE»
 
 «DEFINE genAssociation FOR uml::Property»
-	<p:column «IF isCompositionContainer()» groupOn="#{«genPropertyLabel()».displayName}" «ENDIF»    «EXPAND genPermission FOR this»>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
-				<ui:param name="propertyLabel" value="«msgBundleKey()-»" />
-				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
-			</ui:include>
-		</f:facet>
+	<p:column headerText="«msgBundleKey()-»" sortBy="«genPropertyLabel()»"    «EXPAND genPermission FOR this»>
 		«EXPAND genPropertyValue("_") FOR this»
 	</p:column>
 «ENDDEFINE»
@@ -276,16 +234,13 @@
 
 
 «DEFINE genProperty FOR uml::Property-»
-	<p:column   «EXPAND genPermission FOR this»>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
-				<ui:param name="propertyLabel" value="«msgBundleKey()-»" />
-				<ui:param name="propertyPath" value="«genPropertyLabel()»" />
-			</ui:include>
-		</f:facet>
+	<p:column headerText="«msgBundleKey()-»" sortBy="«genPropertyLabel()»"    «EXPAND genPermission FOR this»>
 		«EXPAND genPropertyValue("_") FOR this»
 	</p:column>
+«ENDDEFINE»
+
+«DEFINE genColHeader FOR uml::Property»
+	<p:column headerText="«msgBundleKey()-»" sortBy="«genPropertyLabel()»"    «EXPAND genPermission FOR this»>
 «ENDDEFINE»
 
 «DEFINE genPropertyValue(String prefix) FOR uml::Property»
@@ -346,39 +301,21 @@
 «ENDDEFINE»
 
 
-
-
-
 «REM» Creation date and ID  «ENDREM»
 
 
 «DEFINE genId FOR uml::Class»
-	<p:column «EXPAND genPermission FOR 'id'»>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
-				<ui:param name="propertyLabel" value="Id" />
-				<ui:param name="propertyPath" value="«getCurrentEntity().asVar()».id" />
-			</ui:include>
-		</f:facet>
+	<p:column headerText="msg.id" sortBy="«getCurrentEntity().asVar()».id"    «EXPAND genPermission FOR this»>
 		<h:link outcome="«getViewFile(getAction())»"  rendered="#{s:hasPermission(_«asVar()», 'view')}" propagation="none">
 			<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  />
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
 		</h:link>
-		
 	</p:column>
 «ENDDEFINE»
 
 
 «DEFINE genCreationDate FOR uml::Class»
-	<p:column «EXPAND genPermission FOR 'creationDate'»>
-		<f:facet name="header">
-			<ui:include src="/layout/sort.xhtml">
-				<ui:param name="entityList" value="#{«getCurrentEntity().asVar()»List}" />
-				<ui:param name="propertyLabel" value="Creation Date" />
-				<ui:param name="propertyPath" value="«getCurrentEntity().asVar()».dateCreated" />
-			</ui:include>
-		</f:facet>
+	 <p:column headerText="msg.Creation Date" sortBy="«getCurrentEntity().asVar()».dateCreated"    «EXPAND genPermission FOR this»>
 		<h:outputText    value="#{_«getCurrentEntity().asVar()».dateCreated}"  >
 			<s:convertDateTime type="date" dateStyle="medium" />
 		</h:outputText>
