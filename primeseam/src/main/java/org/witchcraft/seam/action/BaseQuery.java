@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -52,13 +51,13 @@ import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
 import org.jboss.seam.security.Identity;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.Range;
 import org.witchcraft.base.entity.SavedSearch;
 import org.witchcraft.exceptions.ContractViolationException;
 import org.witchcraft.users.action.AppUserAction;
-
-import com.oreon.phonestore.domain.commerce.Product;
 
 /**
  * @author User
@@ -156,6 +155,38 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	public void setTextToSearch(String textToSearch) {
 		this.textToSearch = textToSearch;
+	}
+
+	private LazyDataModel<E> lazyModel = new LazyDataModel<E>() {
+		private static final long serialVersionUID = 9151874316516949670L;
+
+		@Override
+		public int getRowCount() {
+			return getResultCount().intValue();
+		}
+
+		public java.util.List<E> load(int first, int pageSize,
+				String sortField, SortOrder sortOrder,
+				java.util.Map<String, String> filters) {
+
+			setFirstResult(first);
+			setMaxResults(pageSize);
+			setOrderColumn(sortField);
+			setOrderDirection(sortOrder == SortOrder.ASCENDING ? "asc" : "desc");
+			List<E> result = getResultList();
+			super.setWrappedData(result);
+			return result;
+
+		}
+
+	};
+
+	public void setLazyModel(LazyDataModel<E> lazyModel) {
+		this.lazyModel = lazyModel;
+	}
+
+	public LazyDataModel<E> getLazyModel() {
+		return lazyModel;
 	}
 
 	/**
@@ -418,7 +449,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	 * @return
 	 */
 	public List<E> autocompletedb(String input) {
-		//String input = (String) suggest;
+		// String input = (String) suggest;
 		setupForAutoComplete(input);
 		super.setRestrictionLogicOperator("or");
 		return getResultList();
