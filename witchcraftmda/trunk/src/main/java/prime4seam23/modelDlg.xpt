@@ -19,13 +19,13 @@
 	
 	<p:dialog header="Edit msg.«asVar()» " widgetVar="edit«name»Dialog" resizable="true"> 
 	  <c:set var="opId" value="outputPanel-${modalId}"/>
-      <h:panelGrid id="editPanel" columns="2" cellpadding="4"> 
+      <h:panelGrid id="edit«name»Panel" columns="2" cellpadding="4"> 
        <p:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" >
 	    </p:messages>
         <ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
       </h:panelGrid> 
      
-      <p:commandButton action="#{«asVar()»Action.save}" styleClass="button" update=":«asVar()»Form:editPanel  :«asVar()»Form"  value="Save"  
+      <p:commandButton action="#{«asVar()»Action.save}" styleClass="button" update=":#{p:component('edit«name»Panel')}  :#{p:component('«asVar()»Form')}"  value="Save"  
       	oncomplete="handleDialogSubmit(xhr, status, args, edit«name»Dialog)" />  
       
     </p:dialog> 
