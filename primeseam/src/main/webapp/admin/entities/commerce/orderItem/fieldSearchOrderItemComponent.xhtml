@@ -52,18 +52,5 @@
     <h:outputText value="Creation Date To"/>  
     <p:calendar id="from" value="#{orderItemList.dateCreatedRange.begin}"/>  
     <p:calendar id="to" value="#{orderItemList.dateCreatedRange.end}"/> 
-  </h:panelGrid>  
-  <div style="background-color: #eef; border: 1 px solid #eeb">Search Name (to save this search ) 
-    <h:inputText value="#{orderItemList.searchName}"/>  
-    <h:commandButton id="savesearch" value="Save Search" action="#{orderItemList.saveSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton>  
-    <h:selectOneMenu id="svdsearches" value="#{orderItemList.currentSavedSearch}"> 
-      <s:selectItems value="#{orderItemList.savedSearches}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Load Saved Search"/>  
-      <s:convertEntity/> 
-    </h:selectOneMenu>  
-    <h:commandButton value="Load Search" action="#{orderItemList.executeSearch}"> 
-      <s:conversationPropagation type="join"/> 
-    </h:commandButton> 
-  </div> 
+  </h:panelGrid> 
 </ui:composition>

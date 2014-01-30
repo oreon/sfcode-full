@@ -11,7 +11,7 @@
     <f:facet name="header">${listTitle}</f:facet>  
     <h:form id="orderItemForm"> 
       <p:dataTable var="_orderItem" value="#{records}" id="orderItemList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{orderItemAction.orderItem}"> 
-        <p:ajax event="rowSelect" update=":orderItemForm:editPanel" oncomplete="editOrderItemDialog.show()" listener="#{orderItemAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editOrderItemPanel')}" oncomplete="editOrderItemDialog.show()" listener="#{orderItemAction.onRowSelect}"/>  
         <p:column headerText="msg.id" sortBy="orderItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/commerce/orderItem/orderItemActionOrderItem.xhtml" rendered="#{s:hasPermission(_orderItem, 'view')}" propagation="none"> 
             <h:outputText value="#{_orderItem.id}"/>  
