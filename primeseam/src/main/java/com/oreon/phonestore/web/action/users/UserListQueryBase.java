@@ -17,6 +17,11 @@ import org.witchcraft.seam.action.BaseQuery;
 
 import org.witchcraft.base.entity.Range;
 
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
+import java.util.Map;
+
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
@@ -128,49 +133,4 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 		refresh();
 	}
 
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	//@Override
-	public void createCsvString(StringBuilder builder, User e) {
-
-		builder.append("\""
-				+ (e.getUserName() != null
-						? e.getUserName().replace(",", "")
-						: "") + "\",");
-
-		builder.append("\"" + (e.getEnabled() != null ? e.getEnabled() : "")
-				+ "\",");
-
-		builder.append("\"" + (e.getRoles() != null ? e.getRoles() : "")
-				+ "\",");
-
-		builder.append("\""
-				+ (e.getEmail() != null ? e.getEmail().replace(",", "") : "")
-				+ "\",");
-
-		builder.append("\""
-				+ (e.getLastLogin() != null ? e.getLastLogin() : "") + "\",");
-
-		builder.append("\r\n");
-	}
-
-	/** create the headings 
-	 * @param builder
-	 */
-	//@Override
-	public void createCSvTitles(StringBuilder builder) {
-
-		builder.append("UserName" + ",");
-
-		builder.append("Enabled" + ",");
-
-		builder.append("Roles" + ",");
-
-		builder.append("Email" + ",");
-
-		builder.append("LastLogin" + ",");
-
-		builder.append("\r\n");
-	}
 }

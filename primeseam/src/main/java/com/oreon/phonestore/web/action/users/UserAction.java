@@ -43,7 +43,7 @@ import org.richfaces.model.UploadedFile;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
-//@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.CONVERSATION)
 @Name("userAction")
 public class UserAction extends UserActionBase implements java.io.Serializable {
 

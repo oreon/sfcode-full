@@ -17,6 +17,11 @@ import org.witchcraft.seam.action.BaseQuery;
 
 import org.witchcraft.base.entity.Range;
 
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
+import java.util.Map;
+
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
@@ -103,10 +108,25 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
 
-	public List<Employee> getEmployeesByDepartment(
-			com.oreon.phonestore.domain.Department department) {
-		employee.setDepartment(department);
-		return getResultList();
+	public LazyDataModel<Employee> getEmployeesByDepartment(
+			final com.oreon.phonestore.domain.Department department) {
+
+		EntityLazyDataModel<Employee, Long> employeeLazyDataModel = new EntityLazyDataModel<Employee, Long>(
+				this) {
+
+			@Override
+			public List<Employee> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+
+				employee.setDepartment(department);
+				return super.load(first, pageSize, sortField, sortOrder,
+						filters);
+			}
+		};
+
+		return employeeLazyDataModel;
+
 	}
 
 	@Observer("archivedEmployee")
@@ -133,39 +153,4 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		refresh();
 	}
 
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	//@Override
-	public void createCsvString(StringBuilder builder, Employee e) {
-
-		builder.append("\""
-				+ (e.getDepartment() != null ? e.getDepartment()
-						.getDisplayName().replace(",", "") : "") + "\",");
-
-		builder.append("\""
-				+ (e.getEmployeeNumber() != null ? e.getEmployeeNumber()
-						.replace(",", "") : "") + "\",");
-
-		builder.append("\""
-				+ (e.getEmployeeType() != null ? e.getEmployeeType() : "")
-				+ "\",");
-
-		builder.append("\r\n");
-	}
-
-	/** create the headings 
-	 * @param builder
-	 */
-	//@Override
-	public void createCSvTitles(StringBuilder builder) {
-
-		builder.append("Department" + ",");
-
-		builder.append("EmployeeNumber" + ",");
-
-		builder.append("EmployeeType" + ",");
-
-		builder.append("\r\n");
-	}
 }

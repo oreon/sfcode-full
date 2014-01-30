@@ -41,8 +41,7 @@ import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
 
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
+import org.primefaces.model.DualListModel;
 
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
@@ -197,28 +196,32 @@ public abstract class UserActionBase extends BaseAction<User>
 		this.listRoles = listRoles;
 	}
 
-	protected List<com.oreon.phonestore.users.Role> listAvailableRoles = new ArrayList<com.oreon.phonestore.users.Role>();
+	protected DualListModel<com.oreon.phonestore.users.Role> listAvailableRoles;
 
 	void initListAvailableRoles() {
 
-		listAvailableRoles = getEntityManager().createQuery(
-				"select r from Role r").getResultList();
-		listAvailableRoles.removeAll(getInstance().getRoles());
+		List<com.oreon.phonestore.users.Role> availableroles = ((com.oreon.phonestore.web.action.users.RoleListQuery) Component
+				.getInstance("roleList")).getAll();
 
+		List<com.oreon.phonestore.users.Role> currentroles = getInstance()
+				.getListRoles();
+
+		if (availableroles == null)
+			availableroles = new ArrayList<com.oreon.phonestore.users.Role>();
+
+		if (getEntity() != null)
+			availableroles.removeAll(getEntity().getRoles());
+
+		listAvailableRoles = new DualListModel<com.oreon.phonestore.users.Role>(
+				availableroles, currentroles);
 	}
 
-	@Begin(join = true)
-	public List<com.oreon.phonestore.users.Role> getListAvailableRoles() {
-
-		prePopulateListAvailableRoles();
+	public DualListModel<com.oreon.phonestore.users.Role> getListAvailableRoles() {
 		return listAvailableRoles;
 	}
 
-	public void prePopulateListAvailableRoles() {
-	}
-
 	public void setListAvailableRoles(
-			List<com.oreon.phonestore.users.Role> listAvailableRoles) {
+			DualListModel<com.oreon.phonestore.users.Role> listAvailableRoles) {
 		this.listAvailableRoles = listAvailableRoles;
 	}
 
