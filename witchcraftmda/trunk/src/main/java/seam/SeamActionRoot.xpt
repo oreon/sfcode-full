@@ -488,31 +488,58 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 	«LET "list" + prefix + name.toFirstUpper()  AS currentList»
 	
-	protected List<«type.fqn()»> «currentList» = new ArrayList<«type.fqn()»>();
+	«IF isLeadingManyToMany() && prefix == "Available"» «REM»for many to many«ENDREM»
 	
-	void init«currentList.toFirstUpper()»(){
+		protected DualListModel<«type.fqn()»> «currentList» ;
+		
+		void init«currentList.toFirstUpper()»(){
+			
+			List<«type.fqn()»> available«name» = 
+				((«type.getListFqn()»)Component.getInstance ("«type.asVar()»List")).getAll();
+			
+			List<«type.fqn()»> currentroles = getInstance().getListRoles();
+			
+			if (available«name» == null)
+				available«name» = new ArrayList<«type.fqn()»>();
+			
+			if (getEntity() != null)
+				available«name».removeAll(getEntity().get«name.toFirstUpper()»());
+		
+			«currentList» = new DualListModel<«type.fqn()»>( available«name», current«name» );
+		}
+		
+		public DualListModel<«type.fqn()»> get«currentList.toFirstUpper()»() {
+			return «currentList»;
+		}
+		
 	
-		«IF isLeadingManyToMany() && prefix == "Available"»
-			«currentList» = getEntityManager().createQuery("select r from «type.name» r").getResultList();
-			«currentList».removeAll(getInstance().get«name.toFirstUpper()»());
-		«ELSE»
-		if(«currentList».isEmpty())
-			«currentList».addAll(getInstance().get«name.toFirstUpper()»());
-		«ENDIF»	
-	}
+		public void set«currentList.toFirstUpper()»(DualListModel<«type.fqn()»> «currentList») {
+			this.«currentList» = «currentList»;
+		}
 	
-	«IF prefix == "Available"»@Begin(join=true)«ENDIF»
-	public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
-		«REM»«IF isLeadingManyToMany() && prefix == "Available"» init«currentList.toFirstUpper()»(); «ENDIF»comment«ENDREM»
-		prePopulate«currentList.toFirstUpper()»();
-		return «currentList»;
-	}
+	«ELSE»
+		protected List<«type.fqn()»> «currentList» = new ArrayList<«type.fqn()»>();
+		
+		void init«currentList.toFirstUpper()»(){
+		
+			if(«currentList».isEmpty())
+				«currentList».addAll(getInstance().get«name.toFirstUpper()»());
+				
+		}
+		
+		«IF prefix == "Available"»@Begin(join=true)«ENDIF»
+		public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
+			«REM»«IF isLeadingManyToMany() && prefix == "Available"» init«currentList.toFirstUpper()»(); «ENDIF»comment«ENDREM»
+			prePopulate«currentList.toFirstUpper()»();
+			return «currentList»;
+		}
+		
+		public void prePopulate«currentList.toFirstUpper()»() {}
 	
-	public void prePopulate«currentList.toFirstUpper()»() {}
-
-	public void set«currentList.toFirstUpper()»(List<«type.fqn()»> «currentList») {
-		this.«currentList» = «currentList»;
-	}
+		public void set«currentList.toFirstUpper()»(List<«type.fqn()»> «currentList») {
+			this.«currentList» = «currentList»;
+		}
+	«ENDIF»
 	«ENDLET»
 «ENDDEFINE»
 
@@ -558,6 +585,8 @@ import org.apache.commons.io.FileUtils;
 «IF isRich()»
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
+«ELSEIF isPrimeSeam2()»
+import org.primefaces.model.DualListModel;
 «ELSE»
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;

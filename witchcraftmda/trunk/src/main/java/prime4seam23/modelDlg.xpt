@@ -13,49 +13,25 @@
 
 
 «DEFINE genEditModelDlgComponent FOR uml::Class»
-	«FILE getWebPath() +"/modalDlg" + name + "Component." + getExtension()  »
+ «FILE getWebPath() +"/modalDlg" + name + "Component." + getExtension()  »
 
 <ui:composition «EXPAND WebRoot::genIncludes-»>	
-
-  <c:set var="opId" value="outputPanel-${modalId}"/>
-
-	<p:dialog id="${modalId}" autosized="true" zindex="2000" domElementAttachment="parent"
-		onshow="adoptCTDialogHeight()"
-		>
-			<f:facet name="header">
-				<h:panelGroup>
-					<h:outputText value="#{«name.toFirstLower()»Action.id == null ? msg.new : msg.edit} «name»"></h:outputText>
-				</h:panelGroup>
-			</f:facet>
-			<f:facet name="controls">
-			   <p:commandLink value="X" >
-      			
-      		   </p:commandLink>
-		    </f:facet>
-			
-					<p:messages passedLabel=""
-						style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" >
-					</p:messages>
-				
-						<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
 	
-						 <p:commandButton action="#{«asVar()»Action.save}" styleClass="button" render="«asVar()»List" 
-				          	value="Save" /> 
-          
-				        <p:commandButton immediate="true"  value="Hide" styleClass="button">
-				        	
-				        </p:commandButton>  
-				        
-				        «REM»
-				        <p:commandButton immediate="true" type="reset" onclick="#{p:component('«name»ModalPanel-«name»')}.hide(); return false;"
-				        	value="Cancel" styleClass="button"> 
-				          <f:param name="conversationPropagation" value="end"/> 
-				        </p:commandButton> 
-						«ENDREM»						
-					
-		</p:dialog>
+	<p:dialog header="Edit msg.«asVar()» " widgetVar="edit«name»Dialog" resizable="true"> 
+	  <c:set var="opId" value="outputPanel-${modalId}"/>
+      <h:panelGrid id="editPanel" columns="2" cellpadding="4"> 
+       <p:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" >
+	    </p:messages>
+        <ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
+      </h:panelGrid> 
+     
+      <p:commandButton action="#{«asVar()»Action.save}" styleClass="button" update=":«asVar()»Form:editPanel  :«asVar()»Form"  value="Save"  
+      	oncomplete="handleDialogSubmit(xhr, status, args, edit«name»Dialog)" />  
+      
+    </p:dialog> 
+
 </ui:composition>
-«ENDFILE»
+ «ENDFILE»
 «ENDDEFINE»
 
 «DEFINE genSearchModelDlgComponent FOR uml::Class»

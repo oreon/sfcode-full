@@ -66,11 +66,14 @@
 		   <f:facet name="header">
 		   		${listTitle}
 		   </f:facet>
-		   <h:form>
+		   <h:form id="«asVar()»Form">
 			
 				<p:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
 					paginator="true" lazy="true"  rows="10" 
-					 >	
+					 selectionMode="single" selection="#{«asVar()»Action.«asVar()»}" >
+                        <p:ajax event="rowSelect" update=":«asVar()»Form:editPanel"
+                              oncomplete="edit«name»Dialog.show()"
+                              listener="#{«asVar()»Action.onRowSelect}" />
 				«EXPAND genId FOR this-»	
 				«EXPAND genAttribAsOutput FOR this-»
 				«EXPAND genPropsFromBusinessEntity FOR this-»
@@ -78,7 +81,9 @@
 				«EXPAND genLink("view", "eye.png") FOR this»
 				«EXPAND genLink ("edit", "edit.png")FOR this»
 				«EXPAND genDeleteLink FOR this»
+				«REM»comment
 				«EXPAND genQuickEditLink FOR this»
+				«ENDREM»
 				</p:dataTable>
 				
 				<ui:include src="«getComponentViewFile("modalDlg")»" >
@@ -97,15 +102,18 @@
 			<f:param name="«asVar()»Id" value="0"/>
   		</p:button> 
   		        
+  		       XXX
+  		«REM»comment        
         <p:commandButton render="${modalId}" execute="@this"  value="Quick Create"
 				oncomplete="#{p:component('«name»ModalPanel-«name»')}.show()">
 				<f:param value="0" assignTo="#{«asVar()»Action.«asVar()»Id}" />
 				<s:conversationPropagation type="join" />
 		</p:commandButton>
-		
+	
 		<ui:include src="«getComponentViewFile("modalDlg")»" >
 			<ui:param name="modalId" value="${modalId}"/> 
 		</ui:include>
+		«ENDREM»
 	</h:form>
 		«IF templatable»
 		 <h:button value="Create Template" view="«getTemplateViewFileName("edit")»"/>
@@ -305,7 +313,7 @@
 
 
 «DEFINE genId FOR uml::Class»
-	<p:column headerText="msg.id" sortBy="«getCurrentEntity().asVar()».id"    «EXPAND genPermission FOR this»>
+	<p:column headerText="msg.id" sortBy="«getCurrentEntity().asVar()».id"  «EXPAND genPermission FOR 'id'»>
 		<h:link outcome="«getViewFile(getAction())»"  rendered="#{s:hasPermission(_«asVar()», 'view')}" propagation="none">
 			<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  />
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
@@ -315,7 +323,7 @@
 
 
 «DEFINE genCreationDate FOR uml::Class»
-	 <p:column headerText="msg.Creation Date" sortBy="«getCurrentEntity().asVar()».dateCreated"    «EXPAND genPermission FOR this»>
+	 <p:column headerText="msg.Creation Date" sortBy="«getCurrentEntity().asVar()».dateCreated"  «EXPAND genPermission FOR 'dateCreated'»>
 		<h:outputText    value="#{_«getCurrentEntity().asVar()».dateCreated}"  >
 			<s:convertDateTime type="date" dateStyle="medium" />
 		</h:outputText>

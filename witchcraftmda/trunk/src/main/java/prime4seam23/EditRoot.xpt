@@ -259,19 +259,18 @@
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
 	<br/>
 	«IF isCurrentEditMode()»
-	<p:togglePanel label="«msgBundleKey()»" switchType="client"  id="«name»">
-		<p:listShuttle sourceValue="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" 
-			targetValue="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
-	        <s:convertEntity />
-	        <p:column> #{item.displayName} </p:column>
-	     </p:listShuttle>
-    </p:togglePanel>
+	<p:panel toggleable="true" header="«msgBundleKey()»" switchType="client"  id="«name»">
+	     
+	     <p:pickList value="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" var="member"
+    	 	itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{«type.name.toFirstLower()»Action.converter}"/>
+	     
+    </p:panel>
 	«ELSE»
-	<p:togglePanel label="«msgBundleKey()»" switchType="client"  >
+	<p:panel toggleable="true" header="«msgBundleKey()»" switchType="client"  >
         <p:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
         	<p:column> #{item.displayName} </p:column>
      	</p:dataTable>
-     </p:togglePanel>
+     </p:panel>
 	«ENDIF»
 «ENDDEFINE»
 

@@ -159,9 +159,29 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 	
 	«FOREACH getOutgoingAssociations() AS e»
 	«IF !e.type.isAbstract && e.opposite.name != null»
-	public List<«name»> get«e.opposite.name.toFirstUpper()»By«e.name.toFirstUpper()»(«e.type.fqn()» «e.type.asVar()»){
-		«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
-		return getResultList();
+	
+	
+	public «isPrimeSeam2()?"LazyDataModel":"List"»<«name»> get«e.opposite.name.toFirstUpper()»By«e.name.toFirstUpper()»(final «e.type.fqn()» «e.type.asVar()»){
+		«IF isPrimeSeam2()»
+			EntityLazyDataModel<«name», Long> «asVar()»LazyDataModel = new EntityLazyDataModel<«name»,Long>(
+				this) {
+
+			@Override
+			public List<«name»> load(int first, int pageSize,String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+
+				«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
+				return super.load(first, pageSize, sortField, sortOrder,filters);
+			}
+		};
+
+		return «asVar()»LazyDataModel;
+			
+		«ELSE»
+			«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
+			return getResultList();
+		«ENDIF»
+		
 	}
 	«ENDIF»
 	«ENDFOREACH»
@@ -205,31 +225,6 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 	}
 	
 	
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	//@Override
-	public void createCsvString(StringBuilder builder, «name» e){
-		«FOREACH getAllAttributes().select(a|a.isSearchable()  )  AS a»
-			«IF a.association != null && !a.type.isEmbeddable() && !a.isMultivalued()-»
-				builder.append("\"" + (e.get«a.name.toFirstUpper()»() != null ?e.get«a.name.toFirstUpper()»().getDisplayName().replace("," , ""):"")   + "\",");
-			«ELSE»
-				builder.append("\"" + (e.get«a.name.toFirstUpper()»() != null ?e.get«a.name.toFirstUpper()»()«IF a.isString()».replace("," , "")«ENDIF»:""  ) + "\",");
-			«ENDIF»
-		«ENDFOREACH»
-		builder.append("\r\n");
-	}
-	
-	/** create the headings 
-	 * @param builder
-	 */
-	 //@Override
-	public void createCSvTitles(StringBuilder builder ){
-		«FOREACH getAllAttributes().select(a|a.isSearchable()  )  AS a»
-			builder.append("«a.name.toFirstUpper()»" + ",");
-		«ENDFOREACH»
-		builder.append("\r\n");
-	}
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -352,6 +347,15 @@ import org.witchcraft.base.entity.Range;
 
 «IF isJsf2Rich()»
 import org.witchcraft.base.entity.EntityQueryDataModel;
+
+
+«ENDIF»
+
+«IF isPrimeSeam2()»
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
+import java.util.Map;
 «ENDIF»
 
 import org.jboss.seam.annotations.Observer;

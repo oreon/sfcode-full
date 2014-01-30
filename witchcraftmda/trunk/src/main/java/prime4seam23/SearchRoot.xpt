@@ -37,7 +37,9 @@
 	«EXPAND genAttribAsOutput FOR this-»
 	</h:panelGrid>
 	«EXPAND genDateRange FOR this»
+	«REM»comment
 	«EXPAND genSavedSearch FOR this»
+	«ENDREM»
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
@@ -49,23 +51,23 @@
                     Search Name (to save this search ) <h:inputText
 						value="#{«asVar()»List.searchName}" />
 
-					<h:commandButton id="savesearch" value="Save Search"
-						action="#{«asVar()»List.saveSearch}">
+		<h:commandButton id="savesearch" value="Save Search"
+			action="#{«asVar()»List.saveSearch}">
 						<s:conversationPropagation type="join" />
 					</h:commandButton>
 
 					<h:selectOneMenu id="svdsearches"
 						value="#{«asVar()»List.currentSavedSearch}">
-						<s:selectItems value="#{«asVar()»List.savedSearches}" var="itemIter"
-							label="#{itemIter.displayName}"
-							noSelectionLabel="Load Saved Search" />
-						<s:convertEntity />
-					</h:selectOneMenu>
-					
-					<h:commandButton value="Load Search"
-						action="#{«asVar()»List.executeSearch}">
-						<s:conversationPropagation type="join" />
-					</h:commandButton>
+			<s:selectItems value="#{«asVar()»List.savedSearches}" var="itemIter"
+				label="#{itemIter.displayName}"
+				noSelectionLabel="Load Saved Search" />
+			<s:convertEntity />
+		</h:selectOneMenu>
+		
+		<h:commandButton value="Load Search"
+			action="#{«asVar()»List.executeSearch}">
+			<s:conversationPropagation type="join" />
+		</h:commandButton>
 	</div>
 «ENDDEFINE»
 
