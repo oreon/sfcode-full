@@ -33,7 +33,11 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_department}  " rendered="#{true}"/>  
       <br/>  
-     
+      <h:selectOneMenu id="departmentId" value="#{ employeeList.employee.department}"> 
+        <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{true}"/>  
@@ -57,6 +61,5 @@
     <h:outputText value="Creation Date To"/>  
     <p:calendar id="from" value="#{employeeList.dateCreatedRange.begin}"/>  
     <p:calendar id="to" value="#{employeeList.dateCreatedRange.end}"/> 
-  </h:panelGrid>  
-  
+  </h:panelGrid> 
 </ui:composition>
