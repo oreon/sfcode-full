@@ -17,6 +17,11 @@ import org.witchcraft.seam.action.BaseQuery;
 
 import org.witchcraft.base.entity.Range;
 
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
+import java.util.Map;
+
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
@@ -91,10 +96,25 @@ public abstract class QuestionListQueryBase extends BaseQuery<Question, Long> {
 			"question.dateCreated <= #{questionList.dateCreatedRange.end}",
 			"question.dateCreated >= #{questionList.dateCreatedRange.begin}",};
 
-	public List<Question> getQuestionsByExam(
-			com.oreon.phonestore.domain.Exam exam) {
-		question.setExam(exam);
-		return getResultList();
+	public LazyDataModel<Question> getQuestionsByExam(
+			final com.oreon.phonestore.domain.Exam exam) {
+
+		EntityLazyDataModel<Question, Long> questionLazyDataModel = new EntityLazyDataModel<Question, Long>(
+				this) {
+
+			@Override
+			public List<Question> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+
+				question.setExam(exam);
+				return super.load(first, pageSize, sortField, sortOrder,
+						filters);
+			}
+		};
+
+		return questionLazyDataModel;
+
 	}
 
 	@Observer("archivedQuestion")
@@ -119,33 +139,4 @@ public abstract class QuestionListQueryBase extends BaseQuery<Question, Long> {
 		refresh();
 	}
 
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	//@Override
-	public void createCsvString(StringBuilder builder, Question e) {
-
-		builder.append("\""
-				+ (e.getText() != null ? e.getText().replace(",", "") : "")
-				+ "\",");
-
-		builder.append("\""
-				+ (e.getExam() != null ? e.getExam().getDisplayName().replace(
-						",", "") : "") + "\",");
-
-		builder.append("\r\n");
-	}
-
-	/** create the headings 
-	 * @param builder
-	 */
-	//@Override
-	public void createCSvTitles(StringBuilder builder) {
-
-		builder.append("Text" + ",");
-
-		builder.append("Exam" + ",");
-
-		builder.append("\r\n");
-	}
 }

@@ -91,7 +91,10 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	private SavedSearch currentSavedSearch;
 
 	private Integer currentPage;
-
+	
+	private EntityLazyDataModel<E,PK> lazyDataModel = new EntityLazyDataModel<E,PK>(this);
+	
+	
 	public Integer getCurrentPage() {
 		return currentPage;
 	}
@@ -157,37 +160,21 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		this.textToSearch = textToSearch;
 	}
 
-	private LazyDataModel<E> lazyModel = new LazyDataModel<E>() {
-		private static final long serialVersionUID = 9151874316516949670L;
+	
 
-		@Override
-		public int getRowCount() {
-			return getResultCount().intValue();
-		}
-
-		public java.util.List<E> load(int first, int pageSize,
-				String sortField, SortOrder sortOrder,
-				java.util.Map<String, String> filters) {
-
-			setFirstResult(first);
-			setMaxResults(pageSize);
-			setOrderColumn(sortField);
-			setOrderDirection(sortOrder == SortOrder.ASCENDING ? "asc" : "desc");
-			List<E> result = getResultList();
-			super.setWrappedData(result);
-			return result;
-
-		}
-
-	};
-
-	public void setLazyModel(LazyDataModel<E> lazyModel) {
-		this.lazyModel = lazyModel;
+	public void setLazyDataModel(EntityLazyDataModel<E,PK> lazyModel) {
+		this.lazyDataModel = lazyModel;
 	}
 
-	public LazyDataModel<E> getLazyModel() {
-		return lazyModel;
+	public EntityLazyDataModel<E,PK> getLazyDataModel() {
+		return lazyDataModel;
 	}
+	
+	public EntityLazyDataModel<E,PK> getLazyModel() {
+		return lazyDataModel;
+	}
+	
+	
 
 	/**
 	 * Get the class of the entity being managed. <br />

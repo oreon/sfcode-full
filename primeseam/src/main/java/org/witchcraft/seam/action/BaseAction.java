@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -39,6 +40,7 @@ import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
+import org.primefaces.event.SelectEvent;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
@@ -181,6 +183,14 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		Events.instance().raiseEvent(EventTypes.ARCHIVE.name(),
 				EventTypes.ARCHIVE, t);
 		return "archived";
+	}
+	
+	
+	// Needed for many to many list initializations in dialog
+	public void onRowSelect( SelectEvent event ) throws Exception {
+		T t = (T) event.getObject();
+		setId( t.getId() );
+		loadAssociations();
 	}
 
 	protected void addInfoMessage(String message, Object... params) {
@@ -754,5 +764,43 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 		return entity;
 	}
+	
+	
+	public Converter getConverter() {
+
+		return new Converter() {
+
+			@Override
+			public Object getAsObject( FacesContext context, UIComponent component, String value ) {
+				if(entityManager == null)
+					return null;
+
+				T t = entityManager.find( getEntityClass(), Long.valueOf( value ) );
+
+				/*
+				 * Hibernate.initialize(t); if (t instanceof HibernateProxy) { t = (T) ((HibernateProxy) t) .getHibernateLazyInitializer().getImplementation();
+				 * }
+				 */
+
+				return t;
+			}
+
+			@Override
+			public String getAsString( FacesContext context, UIComponent component, Object value ) {
+
+				if ( value == null ) {
+					return "";
+				}
+
+				/*
+				 * Hibernate.initialize(value); if (value instanceof HibernateProxy) { value = ((HibernateProxy) value)
+				 * .getHibernateLazyInitializer().getImplementation(); }
+				 */
+
+				return String.valueOf( ( (T) value ).getId() );
+			}
+		};
+	}
+
 
 }

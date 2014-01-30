@@ -17,6 +17,11 @@ import org.witchcraft.seam.action.BaseQuery;
 
 import org.witchcraft.base.entity.Range;
 
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
+import java.util.Map;
+
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
@@ -117,10 +122,25 @@ public abstract class OrderItemListQueryBase extends BaseQuery<OrderItem, Long> 
 			"orderItem.dateCreated <= #{orderItemList.dateCreatedRange.end}",
 			"orderItem.dateCreated >= #{orderItemList.dateCreatedRange.begin}",};
 
-	public List<OrderItem> getOrderItemsByCustomerOrder(
-			com.oreon.phonestore.domain.commerce.CustomerOrder customerOrder) {
-		orderItem.setCustomerOrder(customerOrder);
-		return getResultList();
+	public LazyDataModel<OrderItem> getOrderItemsByCustomerOrder(
+			final com.oreon.phonestore.domain.commerce.CustomerOrder customerOrder) {
+
+		EntityLazyDataModel<OrderItem, Long> orderItemLazyDataModel = new EntityLazyDataModel<OrderItem, Long>(
+				this) {
+
+			@Override
+			public List<OrderItem> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+
+				orderItem.setCustomerOrder(customerOrder);
+				return super.load(first, pageSize, sortField, sortOrder,
+						filters);
+			}
+		};
+
+		return orderItemLazyDataModel;
+
 	}
 
 	@Observer("archivedOrderItem")
@@ -160,50 +180,4 @@ public abstract class OrderItemListQueryBase extends BaseQuery<OrderItem, Long> 
 		refresh();
 	}
 
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	//@Override
-	public void createCsvString(StringBuilder builder, OrderItem e) {
-
-		builder.append("\""
-				+ (e.getRemarks() != null
-						? e.getRemarks().replace(",", "")
-						: "") + "\",");
-
-		builder.append("\""
-				+ (e.getCustomerOrder() != null ? e.getCustomerOrder()
-						.getDisplayName().replace(",", "") : "") + "\",");
-
-		builder.append("\""
-				+ (e.getProduct() != null ? e.getProduct().getDisplayName()
-						.replace(",", "") : "") + "\",");
-
-		builder.append("\"" + (e.getUnits() != null ? e.getUnits() : "")
-				+ "\",");
-
-		builder.append("\""
-				+ (e.getSalePrice() != null ? e.getSalePrice() : "") + "\",");
-
-		builder.append("\r\n");
-	}
-
-	/** create the headings 
-	 * @param builder
-	 */
-	//@Override
-	public void createCSvTitles(StringBuilder builder) {
-
-		builder.append("Remarks" + ",");
-
-		builder.append("CustomerOrder" + ",");
-
-		builder.append("Product" + ",");
-
-		builder.append("Units" + ",");
-
-		builder.append("SalePrice" + ",");
-
-		builder.append("\r\n");
-	}
 }

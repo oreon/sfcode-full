@@ -17,6 +17,11 @@ import org.witchcraft.seam.action.BaseQuery;
 
 import org.witchcraft.base.entity.Range;
 
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
+import java.util.Map;
+
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
@@ -145,45 +150,4 @@ public abstract class CustomerOrderListQueryBase
 		refresh();
 	}
 
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	//@Override
-	public void createCsvString(StringBuilder builder, CustomerOrder e) {
-
-		builder.append("\""
-				+ (e.getRemarks() != null
-						? e.getRemarks().replace(",", "")
-						: "") + "\",");
-
-		builder.append("\""
-				+ (e.getCustomer() != null ? e.getCustomer().getDisplayName()
-						.replace(",", "") : "") + "\",");
-
-		builder.append("\"" + (e.getTotal() != null ? e.getTotal() : "")
-				+ "\",");
-
-		builder.append("\""
-				+ (e.getServicingEmployee() != null ? e.getServicingEmployee()
-						.getDisplayName().replace(",", "") : "") + "\",");
-
-		builder.append("\r\n");
-	}
-
-	/** create the headings 
-	 * @param builder
-	 */
-	//@Override
-	public void createCSvTitles(StringBuilder builder) {
-
-		builder.append("Remarks" + ",");
-
-		builder.append("Customer" + ",");
-
-		builder.append("Total" + ",");
-
-		builder.append("ServicingEmployee" + ",");
-
-		builder.append("\r\n");
-	}
 }

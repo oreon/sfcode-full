@@ -41,8 +41,7 @@ import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
 
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
+import org.primefaces.model.DualListModel;
 
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;

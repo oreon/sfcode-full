@@ -17,6 +17,11 @@ import org.witchcraft.seam.action.BaseQuery;
 
 import org.witchcraft.base.entity.Range;
 
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
+import java.util.Map;
+
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
@@ -102,27 +107,4 @@ public abstract class DepartmentListQueryBase
 		refresh();
 	}
 
-	/** create comma delimited row 
-	 * @param builder
-	 */
-	//@Override
-	public void createCsvString(StringBuilder builder, Department e) {
-
-		builder.append("\""
-				+ (e.getName() != null ? e.getName().replace(",", "") : "")
-				+ "\",");
-
-		builder.append("\r\n");
-	}
-
-	/** create the headings 
-	 * @param builder
-	 */
-	//@Override
-	public void createCSvTitles(StringBuilder builder) {
-
-		builder.append("Name" + ",");
-
-		builder.append("\r\n");
-	}
 }

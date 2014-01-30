@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editCustomerOrderComponentPanel"> 
     <h:panelGrid columns="1" onload="#{customerOrderAction.load(customerOrderId )  }"/>  
     <c:if test="${numColumns == null }"> 
@@ -36,11 +36,11 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" render="orderItems" rendered="#{true}"> 
+    <p:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" update="orderItems" rendered="#{true}"> 
       <s:conversationId/> 
     </p:commandButton>  
     <p:dataTable id="orderItems" var="_orderItem" rendered="#{true}" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <h:column>
+      <p:column>
         <f:facet name="header">
           <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/>
         </f:facet>  
@@ -51,8 +51,8 @@
             <s:convertEntity/> 
           </h:selectOneMenu> 
         </s:decorate> 
-      </h:column>  
-      <h:column>
+      </p:column>  
+      <p:column>
         <f:facet name="header">
           <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/>
         </f:facet>  
@@ -60,8 +60,8 @@
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{_orderItem.remarks}"></h:inputText> 
         </s:decorate> 
-      </h:column>  
-      <h:column>
+      </p:column>  
+      <p:column>
         <f:facet name="header">
           <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/>
         </f:facet>  
@@ -69,8 +69,8 @@
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{_orderItem.units}"></h:inputText> 
         </s:decorate> 
-      </h:column>  
-      <h:column>
+      </p:column>  
+      <p:column>
         <f:facet name="header">
           <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/>
         </f:facet>  
@@ -80,17 +80,17 @@
             <f:converter converterId="javax.faces.BigDecimal"/> 
           </h:inputText> 
         </s:decorate> 
-      </h:column>  
-      <h:column> 
-        <p:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" render="orderItems" rendered="#{true}"> 
+      </p:column>  
+      <p:column> 
+        <p:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" update="orderItems" rendered="#{true}"> 
           <s:conversationId/> 
         </p:commandButton> 
-      </h:column>  
-      <h:column> 
-        <p:commandButton value="Delete" immediate="true" action="#{customerOrderAction.deleteOrderItems(rowIndex)}" render="orderItems"> 
+      </p:column>  
+      <p:column> 
+        <h:commandButton value="Delete" immediate="true" action="#{customerOrderAction.deleteOrderItems(rowIndex)}" update="orderItems"> 
           <s:conversationId/> 
-        </p:commandButton> 
-      </h:column> 
+        </h:commandButton> 
+      </p:column> 
     </p:dataTable>  
     <br/> 
   </h:panelGroup> 

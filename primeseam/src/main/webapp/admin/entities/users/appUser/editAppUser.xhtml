@@ -10,7 +10,9 @@
     <h:form> 
       <ui:include src="/admin/entities/users/appUser/editAppUserComponent.xhtml"/>  
       <div class="buttonBox"> 
-        <h:commandButton value="Save" action="#{appUserAction.save}"></h:commandButton>  
+        <h:commandButton value="Save" action="#{appUserAction.save}">
+        	<s:conversationPropagation type="join" />
+        </h:commandButton>  
         <h:outputText value=" "/>  
         <h:commandButton value="Cancel" immediate="true" action="#{appUserAction.cancel}"></h:commandButton> 
       </div> 

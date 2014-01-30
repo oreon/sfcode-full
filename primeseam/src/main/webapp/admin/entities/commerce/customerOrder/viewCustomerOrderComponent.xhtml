@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="viewCustomerOrderComponentPanel"> 
     <h:panelGrid columns="1" onload="#{customerOrderAction.load(customerOrderId )  }"/>  
     <c:if test="${numColumns == null }"> 
@@ -32,7 +32,7 @@
     </h:panelGrid>  
     <br/>  
     <p:dataTable id="orderItems" var="_orderItem" rendered="#{not empty customerOrderAction.listOrderItems and true }" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <h:column> 
+      <p:column> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/> 
         </f:facet>  
@@ -40,27 +40,27 @@
           <f:param name="productId" value="#{_orderItem.product.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </h:link> 
-      </h:column>  
-      <h:column> 
+      </p:column>  
+      <p:column> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/> 
         </f:facet>  
         <h:outputText value="#{_orderItem.remarks}" escape="false"/> 
-      </h:column>  
-      <h:column> 
+      </p:column>  
+      <p:column> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/> 
         </f:facet>  
         <h:outputText value="#{_orderItem.units}" escape="false"/> 
-      </h:column>  
-      <h:column> 
+      </p:column>  
+      <p:column> 
         <f:facet name="header"> 
           <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/> 
         </f:facet>  
         <h:outputText value="#{_orderItem.salePrice}"> 
           <f:convertNumber pattern="$#,##0.00"/> 
         </h:outputText> 
-      </h:column> 
+      </p:column> 
     </p:dataTable>  
     <br/> 
   </h:panelGroup> 
