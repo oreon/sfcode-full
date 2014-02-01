@@ -8,13 +8,13 @@
 
 
 «DEFINE genSearchView FOR uml::Class»
-«FILE getWebPath() +"/" + "search" + name+ "." + getExtension()»
+«FILE getWebPath() +"/" + "search" + name+  "Component." + getExtension()»
 	
 <ui:composition «EXPAND WebRoot::genIncludes-» >	
 	<h:form>
 		<ui:include src="freeTypeSearch«name»Component.xhtml" />
 		<br/>
-		<p:panel toggleable="true" title="Advanced Search" opened="false">
+		<p:panel  header="Advanced Search" toggleable="true" collapsed="true"> 
 			<ui:include src="fieldSearch«name»Component.xhtml" />
 			«EXPAND genSearchResetBtns FOR this-»
 		</p:panel>
@@ -76,8 +76,8 @@
 <ui:composition «EXPAND WebRoot::genIncludes-» >
 	
 	<p:autoComplete minQueryLength="3" completeMethod="#{«asVar()»List.autocomplete}" 
-  		value="#{«asVar()»Action.«asVar()»}" converter="#{«asVar()»Action.converter}"  var = "record" 
-  			itemLabel="#{record.displayName}" itemValue="#{«asVar()»Action.«asVar()»}">
+  		value="#{«asVar()»Action.«asVar()»}" converter="#{«asVar()»List.converter}"  var = "record" 
+  			itemLabel="#{record.displayName}" itemValue="#{record}">
   		<p:column>
   			#{record.displayName}
   		</p:column>

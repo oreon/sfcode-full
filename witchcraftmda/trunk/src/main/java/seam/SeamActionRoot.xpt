@@ -509,6 +509,9 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		}
 		
 		public DualListModel<«type.fqn()»> get«currentList.toFirstUpper()»() {
+			if («currentList» == null)
+				init«currentList.toFirstUpper()»();
+			
 			return «currentList»;
 		}
 		
