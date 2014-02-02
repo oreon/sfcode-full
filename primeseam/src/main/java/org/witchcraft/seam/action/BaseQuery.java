@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -438,7 +440,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	public List<E> autocompletedb(String input) {
 		// String input = (String) suggest;
 		setupForAutoComplete(input);
-		super.setRestrictionLogicOperator("or");
+		super.setRestrictionLogicOperator("and");
 		return getResultList();
 	}
 
@@ -698,6 +700,44 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	public SavedSearch getCurrentSavedSearch() {
 		return currentSavedSearch;
+	}
+	
+	
+	
+	public Converter getConverter() {
+
+		return new Converter() {
+
+			@Override
+			public Object getAsObject( FacesContext context, UIComponent component, String value ) {
+				if(getEntityManager() == null)
+					return null;
+
+				E t = getEntityManager().find( getEntityClass(), Long.valueOf( value ) );
+
+				/*
+				 * Hibernate.initialize(t); if (t instanceof HibernateProxy) { t = (T) ((HibernateProxy) t) .getHibernateLazyInitializer().getImplementation();
+				 * }
+				 */
+
+				return t;
+			}
+
+			@Override
+			public String getAsString( FacesContext context, UIComponent component, Object value ) {
+
+				if ( value == null || ( (E) value ).getId() == null) {
+					return "";
+				}
+
+				/*
+				 * Hibernate.initialize(value); if (value instanceof HibernateProxy) { value = ((HibernateProxy) value)
+				 * .getHibernateLazyInitializer().getImplementation(); }
+				 */
+
+				return String.valueOf( ( (E) value ).getId() );
+			}
+		};
 	}
 
 }

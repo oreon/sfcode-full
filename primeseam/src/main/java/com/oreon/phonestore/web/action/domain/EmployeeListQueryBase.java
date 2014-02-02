@@ -134,6 +134,17 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		refresh();
 	}
 
+	@Override
+	protected void setupForAutoComplete(String input) {
+
+		employee.setFirstName(input);
+
+		employee.setLastName(input);
+
+		employee.getContactDetails().setPhone(input);
+
+	}
+
 	public void setDepartmentId(Long id) {
 		if (employee.getDepartment() == null) {
 			employee

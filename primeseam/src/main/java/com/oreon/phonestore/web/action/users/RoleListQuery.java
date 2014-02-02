@@ -20,7 +20,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.annotations.In;
 
 @Name("roleList")
-//@Scope(ScopeType.CONVERSATION)
+@Scope(ScopeType.CONVERSATION)
 public class RoleListQuery extends RoleListQueryBase
 		implements
 			java.io.Serializable {
