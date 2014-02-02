@@ -766,41 +766,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	}
 	
 	
-	public Converter getConverter() {
-
-		return new Converter() {
-
-			@Override
-			public Object getAsObject( FacesContext context, UIComponent component, String value ) {
-				if(entityManager == null)
-					return null;
-
-				T t = entityManager.find( getEntityClass(), Long.valueOf( value ) );
-
-				/*
-				 * Hibernate.initialize(t); if (t instanceof HibernateProxy) { t = (T) ((HibernateProxy) t) .getHibernateLazyInitializer().getImplementation();
-				 * }
-				 */
-
-				return t;
-			}
-
-			@Override
-			public String getAsString( FacesContext context, UIComponent component, Object value ) {
-
-				if ( value == null ) {
-					return "";
-				}
-
-				/*
-				 * Hibernate.initialize(value); if (value instanceof HibernateProxy) { value = ((HibernateProxy) value)
-				 * .getHibernateLazyInitializer().getImplementation(); }
-				 */
-
-				return String.valueOf( ( (T) value ).getId() );
-			}
-		};
-	}
+	
 
 
 }
