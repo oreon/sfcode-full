@@ -103,11 +103,10 @@
 		<p:button value="Create New" outcome="«getViewFile("edit")»" propagation="none" >
 			<f:param name="«asVar()»Id" value="0"/>
   		</p:button> 
-  		        
   		      
-  		«REM»comment        
-        <p:commandButton render="${modalId}" execute="@this"  value="Quick Create"
-				oncomplete="#{p:component('«name»ModalPanel-«name»')}.show()">
+        <p:commandButton value="Quick Create"
+        	update=":#{p:component('edit«name»Panel')}"  
+                              oncomplete="edit«name»Dialog.show()">
 				<f:param value="0" assignTo="#{«asVar()»Action.«asVar()»Id}" />
 				<s:conversationPropagation type="join" />
 		</p:commandButton>
@@ -115,7 +114,7 @@
 		<ui:include src="«getComponentViewFile("modalDlg")»" >
 			<ui:param name="modalId" value="${modalId}"/> 
 		</ui:include>
-		«ENDREM»
+		
 	</h:form>
 		«IF templatable»
 		 <h:button value="Create Template" view="«getTemplateViewFileName("edit")»"/>
