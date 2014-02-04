@@ -144,9 +144,10 @@ public abstract class ProductActionBase extends BaseAction<Product>
 
 	public void setProduct(Product t) {
 		this.instance = t;
-		if (getInstance() != null)
+		if (getInstance() != null && t != null) {
 			setProductId(t.getId());
-		loadAssociations();
+			loadAssociations();
+		}
 	}
 
 	@Override

@@ -146,9 +146,10 @@ public abstract class CustomerActionBase
 
 	public void setCustomer(Customer t) {
 		this.instance = t;
-		if (getInstance() != null)
+		if (getInstance() != null && t != null) {
 			setCustomerId(t.getId());
-		loadAssociations();
+			loadAssociations();
+		}
 	}
 
 	@Override

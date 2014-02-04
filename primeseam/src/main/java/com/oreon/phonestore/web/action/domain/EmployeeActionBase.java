@@ -168,9 +168,10 @@ public abstract class EmployeeActionBase
 
 	public void setEmployee(Employee t) {
 		this.instance = t;
-		if (getInstance() != null)
+		if (getInstance() != null && t != null) {
 			setEmployeeId(t.getId());
-		loadAssociations();
+			loadAssociations();
+		}
 	}
 
 	@Override

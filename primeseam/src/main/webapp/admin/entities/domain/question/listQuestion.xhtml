@@ -14,7 +14,14 @@
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/domain/question/editQuestion.xhtml" propagation="none"> 
         <f:param name="questionId" value="0"/> 
-      </p:button> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editQuestionPanel')}" oncomplete="editQuestionDialog.show()"> 
+        <f:param value="0" assignTo="#{questionAction.questionId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </p:commandButton>  
+      <ui:include src="/admin/entities/domain/question/modalDlgQuestionComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listQuestionComponent.xhtml"> 
@@ -24,7 +31,14 @@
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/domain/question/editQuestion.xhtml" propagation="none"> 
         <f:param name="questionId" value="0"/> 
-      </p:button> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editQuestionPanel')}" oncomplete="editQuestionDialog.show()"> 
+        <f:param value="0" assignTo="#{questionAction.questionId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </p:commandButton>  
+      <ui:include src="/admin/entities/domain/question/modalDlgQuestionComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form> 
   </ui:define> 
 </ui:composition>

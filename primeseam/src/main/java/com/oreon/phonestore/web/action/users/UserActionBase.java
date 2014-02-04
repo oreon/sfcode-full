@@ -40,15 +40,15 @@ import org.jboss.seam.annotations.web.RequestParameter;
 import org.witchcraft.base.entity.FileAttachment;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.lucene.util.collections.IntIterator;
 
 import org.primefaces.model.DualListModel;
 
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
-public abstract class UserActionBase extends BaseAction<User> implements
-		java.io.Serializable {
+public abstract class UserActionBase extends BaseAction<User>
+		implements
+			java.io.Serializable {
 
 	@RequestParameter
 	protected Long userId;
@@ -66,9 +66,7 @@ public abstract class UserActionBase extends BaseAction<User> implements
 			loadAssociations();
 	}
 
-	/**
-	 * for modal dlg we need to load associaitons regardless of postback
-	 * 
+	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setUserIdForModalDlg(Long id) {
@@ -86,7 +84,7 @@ public abstract class UserActionBase extends BaseAction<User> implements
 		return instance;
 	}
 
-	// @Override
+	//@Override
 	public void setEntity(User t) {
 		this.instance = t;
 		loadAssociations();
@@ -97,13 +95,13 @@ public abstract class UserActionBase extends BaseAction<User> implements
 	}
 
 	@Override
-	// @Restrict("#{s:hasPermission('user', 'edit')}")
+	//@Restrict("#{s:hasPermission('user', 'edit')}")
 	public String doSave() {
 		return super.doSave();
 	}
 
 	@Override
-	// @Restrict("#{s:hasPermission('user', 'delete')}")
+	//@Restrict("#{s:hasPermission('user', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
@@ -123,9 +121,8 @@ public abstract class UserActionBase extends BaseAction<User> implements
 	}
 
 	/**
-	 * Adds the contained associations that should be available for a newly
-	 * created object e.g. An order should always have at least one order item .
-	 * Marked in uml with 1..* multiplicity
+	 * Adds the contained associations that should be available for a newly created object e.g. 
+	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
 	 */
 	private void addDefaultAssociations() {
 		instance = getInstance();
@@ -147,9 +144,10 @@ public abstract class UserActionBase extends BaseAction<User> implements
 
 	public void setUser(User t) {
 		this.instance = t;
-		if (getInstance() != null)
+		if (getInstance() != null && t != null) {
 			setUserId(t.getId());
-		loadAssociations();
+			loadAssociations();
+		}
 	}
 
 	@Override
@@ -161,11 +159,8 @@ public abstract class UserActionBase extends BaseAction<User> implements
 		return executeSingleResultNamedQuery("user.findByUnqUserName", userName);
 	}
 
-	/**
-	 * This function is responsible for loading associations for the given
-	 * entity e.g. when viewing an order, we load the customer so that customer
-	 * can be shown on the customer tab within viewOrder.xhtml
-	 * 
+	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
+	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
@@ -225,6 +220,7 @@ public abstract class UserActionBase extends BaseAction<User> implements
 	public DualListModel<com.oreon.phonestore.users.Role> getListAvailableRoles() {
 		if (listAvailableRoles == null)
 			initListAvailableRoles();
+
 		return listAvailableRoles;
 	}
 
@@ -235,9 +231,10 @@ public abstract class UserActionBase extends BaseAction<User> implements
 
 	public void updateComposedAssociations() {
 
-		getInstance().getRoles().clear();
-		getInstance().getRoles().addAll(listAvailableRoles.getTarget());
-
+		if (listRoles != null) {
+			getInstance().getRoles().clear();
+			getInstance().getRoles().addAll(listRoles);
+		}
 	}
 
 	public void clearLists() {

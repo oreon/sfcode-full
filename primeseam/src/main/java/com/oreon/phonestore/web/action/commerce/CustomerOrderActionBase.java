@@ -197,9 +197,10 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 
 	public void setCustomerOrder(CustomerOrder t) {
 		this.instance = t;
-		if (getInstance() != null)
+		if (getInstance() != null && t != null) {
 			setCustomerOrderId(t.getId());
-		loadAssociations();
+			loadAssociations();
+		}
 	}
 
 	@Override
