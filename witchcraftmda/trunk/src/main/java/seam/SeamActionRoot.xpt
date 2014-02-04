@@ -262,9 +262,10 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 
 	public void set«name»(«name» t) {
 		this.instance = t;
-		if (getInstance() != null)
+		if (getInstance() != null && t != null){
 			set«name»Id(t.getId());
-		loadAssociations();
+			loadAssociations();
+		}
 	}
 	
 	@Override
