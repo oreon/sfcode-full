@@ -14,7 +14,14 @@
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/commerce/product/editProduct.xhtml" propagation="none"> 
         <f:param name="productId" value="0"/> 
-      </p:button> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editProductPanel')}" oncomplete="editProductDialog.show()"> 
+        <f:param value="0" assignTo="#{productAction.productId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </p:commandButton>  
+      <ui:include src="/admin/entities/commerce/product/modalDlgProductComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listProductComponent.xhtml"> 
@@ -24,7 +31,14 @@
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/commerce/product/editProduct.xhtml" propagation="none"> 
         <f:param name="productId" value="0"/> 
-      </p:button> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editProductPanel')}" oncomplete="editProductDialog.show()"> 
+        <f:param value="0" assignTo="#{productAction.productId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </p:commandButton>  
+      <ui:include src="/admin/entities/commerce/product/modalDlgProductComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form> 
   </ui:define> 
 </ui:composition>

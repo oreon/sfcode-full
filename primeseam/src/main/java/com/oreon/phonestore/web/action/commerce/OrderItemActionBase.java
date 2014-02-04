@@ -188,9 +188,10 @@ public abstract class OrderItemActionBase extends BaseAction<OrderItem>
 
 	public void setOrderItem(OrderItem t) {
 		this.instance = t;
-		if (getInstance() != null)
+		if (getInstance() != null && t != null) {
 			setOrderItemId(t.getId());
-		loadAssociations();
+			loadAssociations();
+		}
 	}
 
 	@Override

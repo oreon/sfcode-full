@@ -165,9 +165,10 @@ public abstract class QuestionActionBase extends BaseAction<Question>
 
 	public void setQuestion(Question t) {
 		this.instance = t;
-		if (getInstance() != null)
+		if (getInstance() != null && t != null) {
 			setQuestionId(t.getId());
-		loadAssociations();
+			loadAssociations();
+		}
 	}
 
 	@Override

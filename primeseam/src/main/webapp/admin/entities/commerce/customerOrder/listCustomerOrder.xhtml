@@ -14,7 +14,14 @@
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/commerce/customerOrder/editCustomerOrder.xhtml" propagation="none"> 
         <f:param name="customerOrderId" value="0"/> 
-      </p:button> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editCustomerOrderPanel')}" oncomplete="editCustomerOrderDialog.show()"> 
+        <f:param value="0" assignTo="#{customerOrderAction.customerOrderId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </p:commandButton>  
+      <ui:include src="/admin/entities/commerce/customerOrder/modalDlgCustomerOrderComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listCustomerOrderComponent.xhtml"> 
@@ -24,7 +31,14 @@
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/commerce/customerOrder/editCustomerOrder.xhtml" propagation="none"> 
         <f:param name="customerOrderId" value="0"/> 
-      </p:button> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editCustomerOrderPanel')}" oncomplete="editCustomerOrderDialog.show()"> 
+        <f:param value="0" assignTo="#{customerOrderAction.customerOrderId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </p:commandButton>  
+      <ui:include src="/admin/entities/commerce/customerOrder/modalDlgCustomerOrderComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form> 
   </ui:define> 
 </ui:composition>

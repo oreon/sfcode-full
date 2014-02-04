@@ -14,7 +14,14 @@
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/domain/employee/editEmployee.xhtml" propagation="none"> 
         <f:param name="employeeId" value="0"/> 
-      </p:button> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editEmployeePanel')}" oncomplete="editEmployeeDialog.show()"> 
+        <f:param value="0" assignTo="#{employeeAction.employeeId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </p:commandButton>  
+      <ui:include src="/admin/entities/domain/employee/modalDlgEmployeeComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listEmployeeComponent.xhtml"> 
@@ -24,7 +31,14 @@
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/domain/employee/editEmployee.xhtml" propagation="none"> 
         <f:param name="employeeId" value="0"/> 
-      </p:button> 
+      </p:button>  
+      <p:commandButton value="Quick Create" update=":#{p:component('editEmployeePanel')}" oncomplete="editEmployeeDialog.show()"> 
+        <f:param value="0" assignTo="#{employeeAction.employeeId}"/>  
+        <s:conversationPropagation type="join"/> 
+      </p:commandButton>  
+      <ui:include src="/admin/entities/domain/employee/modalDlgEmployeeComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
     </h:form> 
   </ui:define> 
 </ui:composition>

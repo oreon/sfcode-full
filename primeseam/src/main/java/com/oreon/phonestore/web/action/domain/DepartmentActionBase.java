@@ -149,9 +149,10 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	public void setDepartment(Department t) {
 		this.instance = t;
-		if (getInstance() != null)
+		if (getInstance() != null && t != null) {
 			setDepartmentId(t.getId());
-		loadAssociations();
+			loadAssociations();
+		}
 	}
 
 	@Override
