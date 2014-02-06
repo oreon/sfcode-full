@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PatientFinding}"/> 
       </f:facet>  
-      <s:decorate id="findingIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="findingIdDecorate" rendered="#{ ! excludeFinding == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{true}"/>
         </ui:define>  
@@ -28,7 +28,7 @@
           </p:region> 
         </h:panelGroup> 
       </s:decorate>  
-      <s:decorate id="patientDiffDxIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientDiffDxIdDecorate" rendered="#{ ! excludePatientDiffDx == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{true}"/>
         </ui:define>  

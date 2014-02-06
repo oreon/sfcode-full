@@ -5,6 +5,7 @@
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
    xmlns:a="http://richfaces.org/a4j"
+    xmlns:p="http://primefaces.org/ui" 
    xmlns:s="http://jboss.org/schema/seam/taglib"
    contentType="text/html">
 <h:html>
@@ -12,14 +13,11 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <title>dpacks</title>
       <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
-      <h:outputStylesheet name="theme.ecss"/>
-      <h:outputStylesheet name="theme.css"/>
+     
       <ui:insert name="head"/>
    </h:head>
    <h:body>
-      <ui:include src="menu.xhtml">
-         <ui:param name="projectName" value="dpacks"/>
-      </ui:include>
+    
       <div class="body">
          <h:messages id="messages" globalOnly="true" styleClass="message"
             errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"
@@ -33,7 +31,7 @@
          <p style="margin-top: -0.5em;">
             Conversation: id = #{conversation.id}, #{conversation.longRunning ? 'long running' : 'temporary'}#{conversation.nested ? ', nested, parent id = '.concat(conversation.parentId) : ''}
             #{' - '}
-            Ajax4jsf Log (Ctrl+Shift+D)
+           
             #{' - '}
             <s:link id="debugConsole" view="/debug.xhtml" value="Debug console" target="debugConsole"/>
             #{' - '}

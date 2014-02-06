@@ -10,25 +10,25 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.ChartProcedure}"/> 
       </f:facet>  
-      <s:decorate id="dueDateDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="dueDateDecorate" rendered="#{ ! excludeDueDate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{true}"/>
         </ui:define>  
         <p:calendar escape="false" navigator="true" id="dueDate#{entityId}" rendered="#{true}" label="#{msg.chartProcedure_dueDate}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.dueDate}"></p:calendar> 
       </s:decorate>  
-      <s:decorate id="datePerformedDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="datePerformedDecorate" rendered="#{ ! excludeDatePerformed == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{true}"/>
         </ui:define>  
         <p:calendar escape="false" navigator="true" id="datePerformed#{entityId}" rendered="#{true}" label="#{msg.chartProcedure_datePerformed}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.datePerformed}"></p:calendar> 
       </s:decorate>  
-      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{true}" label="#{msg.chartProcedure_remarks}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.remarks}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{true}"/>
         </ui:define>  
@@ -37,7 +37,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="chartItemIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="chartItemIdDecorate" rendered="#{ ! excludeChartItem == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{true}"/>
         </ui:define>  

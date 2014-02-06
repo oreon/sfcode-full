@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Facility}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.facility_name}  " rendered="#{true}"/>
         </ui:define>  
@@ -26,7 +26,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.ward_name}" required="true" disabled="false" value="#{_ward.name}"></h:inputText> 
         </s:decorate> 
@@ -35,7 +35,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="genderDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="gender" rendered="#{true}" value="#{_ward.gender}" required="false" label="#{msg.ward_gender}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  

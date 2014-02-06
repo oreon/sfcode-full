@@ -10,25 +10,25 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Appointment}"/> 
       </f:facet>  
-      <s:decorate id="startDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="startDecorate" rendered="#{ ! excludeStart == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appointment_start}  " rendered="#{true}"/>
         </ui:define>  
         <p:calendar escape="false" navigator="true" id="start#{entityId}" rendered="#{true}" label="#{msg.appointment_start}" required="true" disabled="false" value="#{appointmentAction.appointment.start}"></p:calendar> 
       </s:decorate>  
-      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appointment_remarks}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{true}" label="#{msg.appointment_remarks}" required="false" disabled="false" value="#{appointmentAction.appointment.remarks}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="unitsDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="unitsDecorate" rendered="#{ ! excludeUnits == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appointment_units}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.appointment_units}" required="false" disabled="false" value="#{appointmentAction.appointment.units}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="physicianIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="physicianIdDecorate" rendered="#{ ! excludePhysician == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appointment_physician}  " rendered="#{true}"/>
         </ui:define>  
@@ -37,7 +37,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appointment_patient}  " rendered="#{true}"/>
         </ui:define>  

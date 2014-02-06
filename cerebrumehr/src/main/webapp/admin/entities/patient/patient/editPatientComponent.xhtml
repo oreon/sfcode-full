@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Patient}"/> 
       </f:facet>  
-      <s:decorate id="firstNameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="firstNameDecorate" rendered="#{ ! excludeFirstName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>
         </ui:define>  
@@ -18,7 +18,7 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="lastNameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="lastNameDecorate" rendered="#{ ! excludeLastName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>
         </ui:define>  
@@ -26,13 +26,13 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="dateOfBirthDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="dateOfBirthDecorate" rendered="#{ ! excludeDateOfBirth == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{true}"/>
         </ui:define>  
         <p:calendar escape="false" navigator="true" id="dateOfBirth#{entityId}" rendered="#{true}" label="#{msg.person_dateOfBirth}" required="false" disabled="false" value="#{patientAction.patient.dateOfBirth}"></p:calendar> 
       </s:decorate>  
-      <s:decorate id="genderDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_gender}  " rendered="#{true}"/>
         </ui:define>  
@@ -42,7 +42,7 @@
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="titleDecorate" rendered="#{ ! excludeTitle == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_title}  " rendered="#{true}"/>
         </ui:define>  
@@ -54,7 +54,7 @@
           <f:selectItem itemValue="Dr" itemLabel="#{msg.Dr}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="healthNumberDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="healthNumberDecorate" rendered="#{ ! excludeHealthNumber == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{true}"/>
         </ui:define>  
@@ -68,19 +68,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.ContactDetails}"/> 
       </f:facet>  
-      <s:decorate id="contactDetails_primaryPhoneDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="contactDetails_primaryPhoneDecorate" rendered="#{ ! excludePrimaryPhone == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="contactDetails_primaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_primaryPhone}" required="false" disabled="false" value="#{patientAction.patient.contactDetails.primaryPhone}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="contactDetails_secondaryPhoneDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="contactDetails_secondaryPhoneDecorate" rendered="#{ ! excludeSecondaryPhone == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="contactDetails_secondaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{patientAction.patient.contactDetails.secondaryPhone}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="contactDetails_emailDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="contactDetails_emailDecorate" rendered="#{ ! excludeEmail == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.contactDetails_email}  " rendered="#{true}"/>
         </ui:define>  
@@ -94,25 +94,25 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Address}"/> 
       </f:facet>  
-      <s:decorate id="address_streetAddressDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="address_streetAddressDecorate" rendered="#{ ! excludeStreetAddress == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.address_streetAddress}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="address_streetAddress#{entityId}" rendered="#{true}" label="#{msg.address_streetAddress}" required="false" disabled="false" value="#{patientAction.patient.address.streetAddress}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="address_cityDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="address_cityDecorate" rendered="#{ ! excludeCity == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.address_city}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="address_city#{entityId}" rendered="#{true}" label="#{msg.address_city}" required="false" disabled="false" value="#{patientAction.patient.address.city}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="address_StateDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="address_StateDecorate" rendered="#{ ! excludeState == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.address_State}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="address_State#{entityId}" rendered="#{true}" label="#{msg.address_State}" required="false" disabled="false" value="#{patientAction.patient.address.state}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="address_phoneDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="address_phoneDecorate" rendered="#{ ! excludePhone == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.address_phone}  " rendered="#{true}"/>
         </ui:define>  
@@ -126,31 +126,31 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.History}"/> 
       </f:facet>  
-      <s:decorate id="history_medicalHistoryDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="history_medicalHistoryDecorate" rendered="#{ ! excludeMedicalHistory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="history_medicalHistory#{entityId}" rendered="#{true}" label="#{msg.history_medicalHistory}" required="false" disabled="false" value="#{patientAction.patient.history.medicalHistory}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="history_socialHistoryDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="history_socialHistoryDecorate" rendered="#{ ! excludeSocialHistory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_socialHistory}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="history_socialHistory#{entityId}" rendered="#{true}" label="#{msg.history_socialHistory}" required="false" disabled="false" value="#{patientAction.patient.history.socialHistory}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="history_familyHistoryDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="history_familyHistoryDecorate" rendered="#{ ! excludeFamilyHistory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_familyHistory}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="history_familyHistory#{entityId}" rendered="#{true}" label="#{msg.history_familyHistory}" required="false" disabled="false" value="#{patientAction.patient.history.familyHistory}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="history_medicationsDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="history_medicationsDecorate" rendered="#{ ! excludeMedications == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_medications}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="history_medications#{entityId}" rendered="#{true}" label="#{msg.history_medications}" required="false" disabled="false" value="#{patientAction.patient.history.medications}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="history_allergiesDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="history_allergiesDecorate" rendered="#{ ! excludeAllergies == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_allergies}  " rendered="#{true}"/>
         </ui:define>  

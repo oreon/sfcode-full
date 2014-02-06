@@ -3,7 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
@@ -13,86 +13,7 @@
 	<ui:define name="content">
 		<h:form>
 
-			<a:commandLink execute="@this"
-				oncomplete="#{p:component('editCustomerPanel')}.show()"
-				render="editCustomerGrid">
-				<h:graphicImage value="/images/icons/edit.png" style="border: 0px"
-					alt="edit" />
-				<f:setPropertyActionListener
-					target="#{customerAction.selectedCustomer}" value="#{_customer}" />
-			</a:commandLink>
-
-			<p:popupPanel header="Edit Customer Details"
-				id="editCustomerPanel" width="400" height="300"
-				domElementAttachment="parent">
-
-				<ui:include
-					src="/admin/entities/domain/department/editDepartmentComponent.xhtml" />
-
-				<a:commandButton value="Update" action="#{departmentAction.save}"
-					execute="editCustomerPanel" render="customerList"
-					oncomplete="if (#{facesContext.maximumSeverity==null}) {#{p:component('editCustomerPanel')}.hide();}" />
-
-
-				<a:commandButton value="Cancel"
-					onclick="#{p:component('editCustomerPanel')}.hide(); return false;" />
-
-			</p:popupPanel>
-
-		</h:form>
-
-		<hr />
-
-
-		<h:form id="parentForm">
-			you chose product : #{productAction.product.id}	
-
-			<f:facet name="header">
-				<h:outputText value="#{msg.orderItem_product}  " rendered="#{true}" />
-			</f:facet>
-			<ui:define name="label"></ui:define>
-			<h:selectOneMenu id="_productproduct"
-				value="#{productAction.product}" label="#{msg.orderItem_product}"
-				required="true" rendered="#{true}" disabled="false">
-				<s:selectItems value="#{productList.all}" var="itemIter"
-					label="#{itemIter.displayName}" noSelectionLabel="Please Select..." />
-				<s:convertEntity />
-			</h:selectOneMenu>
-
-
-			<a:commandButton value="Search Customers"
-				render="ProductSearchModalPanel">
-				<p:componentControl target="ProductSearchModalPanel"
-					operation="show" />
-			</a:commandButton>
-
-		
-
-		</h:form>
-
-		<H3>TEST FORMS</H3>
-		<h:form id="prn">
-			<a:region id="ff">
-				<div>${departmentAction.counter}</div>
-			</a:region>
-
-			<s:decorate id="#{prefix}_nameDecorate" template="/layout/edit.xhtml">
-				<ui:define name="label">
-					<h:outputText value="#{msg.department_name}  " rendered="#{true}" />
-				</ui:define>
-				<h:inputText escape="false" id="#{prefix}_name#{entityId}"
-					rendered="#{true}" label="#{msg.department_name}" required="true"
-					disabled="false" value="#{departmentAction.department.name}"></h:inputText>
-			</s:decorate>
-
-
-			<h:commandButton action="#{departmentAction.incCounter}"
-				execute="@form" render="prn" value="SSSSS">
-				<a:ajax render="ff" />
-			</h:commandButton>
-
-
-
+			
 
 		</h:form>
 

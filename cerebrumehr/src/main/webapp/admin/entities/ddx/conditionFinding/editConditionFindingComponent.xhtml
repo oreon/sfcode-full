@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.ConditionFinding}"/> 
       </f:facet>  
-      <s:decorate id="falsePositiveDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="falsePositiveDecorate" rendered="#{ ! excludeFalsePositive == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{true}"/>
         </ui:define>  
         <h:selectBooleanCheckbox escape="false" id="falsePositive#{entityId}" rendered="#{true}" label="#{msg.conditionFinding_falsePositive}" required="false" disabled="false" value="#{conditionFindingAction.conditionFinding.falsePositive}"></h:selectBooleanCheckbox> 
       </s:decorate>  
-      <s:decorate id="diseaseIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="diseaseIdDecorate" rendered="#{ ! excludeDisease == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{true}"/>
         </ui:define>  

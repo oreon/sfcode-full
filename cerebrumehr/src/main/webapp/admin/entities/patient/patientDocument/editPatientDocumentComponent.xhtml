@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PatientDocument}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDocument_name}  " rendered="#{true}"/>
         </ui:define>  
@@ -18,7 +18,7 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="fileDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="fileDecorate" rendered="#{ ! excludeFile == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDocument_file}  " rendered="#{true}"/>
         </ui:define>  
@@ -30,13 +30,13 @@
           <p:fileUpload fileUploadListener="#{patientDocumentAction.fileUploadListener}" value="#{productAction.product.image}" auto="true"/> 
         </h:panelGroup> 
       </s:decorate>  
-      <s:decorate id="notesDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="notesDecorate" rendered="#{ ! excludeNotes == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="notes#{entityId}" rendered="#{true}" label="#{msg.patientDocument_notes}" required="false" disabled="false" value="#{patientDocumentAction.patientDocument.notes}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{true}"/>
         </ui:define>  

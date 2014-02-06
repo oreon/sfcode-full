@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.DifferentialDx}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.differentialDx_name}  " rendered="#{true}"/>
         </ui:define>  
@@ -18,7 +18,7 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="dxCategoryIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="dxCategoryIdDecorate" rendered="#{ ! excludeDxCategory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{true}"/>
         </ui:define>  
@@ -27,7 +27,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="findingIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="findingIdDecorate" rendered="#{ ! excludeFinding == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.differentialDx_finding}  " rendered="#{true}"/>
         </ui:define>  

@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Allergy}"/> 
       </f:facet>  
-      <s:decorate id="severityDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="severityDecorate" rendered="#{ ! excludeSeverity == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.allergy_severity}  " rendered="#{true}"/>
         </ui:define>  
@@ -21,7 +21,7 @@
           <f:selectItem itemValue="MILD" itemLabel="#{msg.MILD}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.allergy_patient}  " rendered="#{true}"/>
         </ui:define>  
@@ -30,7 +30,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="allergenIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="allergenIdDecorate" rendered="#{ ! excludeAllergen == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.allergy_allergen}  " rendered="#{true}"/>
         </ui:define>  

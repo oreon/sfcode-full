@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Chapter}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{chapterAction.chapter.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>
         </ui:define>  
@@ -32,7 +32,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{_section.name}"></h:inputText> 
         </s:decorate> 
@@ -41,7 +41,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="descriptionDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{_section.description}"></p:editor> 
         </s:decorate> 

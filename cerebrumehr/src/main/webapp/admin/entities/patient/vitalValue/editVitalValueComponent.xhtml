@@ -10,19 +10,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.VitalValue}"/> 
       </f:facet>  
-      <s:decorate id="valueDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="valueDecorate" rendered="#{ ! excludeValue == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.vitalValue_value}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="value#{entityId}" rendered="#{true}" label="#{msg.vitalValue_value}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.value}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.vitalValue_remarks}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.remarks}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="trackedVitalIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="trackedVitalIdDecorate" rendered="#{ ! excludeTrackedVital == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{true}"/>
         </ui:define>  
@@ -31,7 +31,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{true}"/>
         </ui:define>  

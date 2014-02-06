@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PatientDiffDx}"/> 
       </f:facet>  
-      <s:decorate id="notesDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="notesDecorate" rendered="#{ ! excludeNotes == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="notes#{entityId}" rendered="#{true}" label="#{msg.patientDiffDx_notes}" required="false" disabled="false" value="#{patientDiffDxAction.patientDiffDx.notes}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{true}"/>
         </ui:define>  
@@ -35,7 +35,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="findingIdDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="findingIdDecorate" rendered="#{ ! excludeFinding == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:panelGroup> 
             <p:region> 

@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Frequency}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.frequency_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.frequency_name}" required="true" disabled="false" value="#{frequencyAction.frequency.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="qtyPerDayDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="qtyPerDayDecorate" rendered="#{ ! excludeQtyPerDay == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{true}"/>
         </ui:define>  

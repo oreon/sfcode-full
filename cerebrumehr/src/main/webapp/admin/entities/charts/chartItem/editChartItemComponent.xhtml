@@ -10,19 +10,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.ChartItem}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartItem_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.chartItem_name}" required="true" disabled="false" value="#{chartItemAction.chartItem.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="durationDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartItem_duration}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{chartItemAction.chartItem.duration}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="frequencyPeriodDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="frequencyPeriodDecorate" rendered="#{ ! excludeFrequencyPeriod == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{true}"/>
         </ui:define>  
@@ -35,7 +35,7 @@
           <f:selectItem itemValue="YEAR" itemLabel="#{msg.YEAR}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="chartIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="chartIdDecorate" rendered="#{ ! excludeChart == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartItem_chart}  " rendered="#{true}"/>
         </ui:define>  

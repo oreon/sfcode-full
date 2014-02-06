@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Bed}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.bed_name}  " rendered="#{true}"/>
         </ui:define>  
@@ -18,7 +18,7 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="roomIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="roomIdDecorate" rendered="#{ ! excludeRoom == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.bed_room}  " rendered="#{true}"/>
         </ui:define>  

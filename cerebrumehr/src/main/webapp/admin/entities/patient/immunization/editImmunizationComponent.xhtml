@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Immunization}"/> 
       </f:facet>  
-      <s:decorate id="dateDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="dateDecorate" rendered="#{ ! excludeDate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.immunization_date}  " rendered="#{true}"/>
         </ui:define>  
         <p:calendar escape="false" navigator="true" id="date#{entityId}" rendered="#{true}" label="#{msg.immunization_date}" required="false" disabled="false" value="#{immunizationAction.immunization.date}"></p:calendar> 
       </s:decorate>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.immunization_patient}  " rendered="#{true}"/>
         </ui:define>  
@@ -25,7 +25,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="vaccineIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="vaccineIdDecorate" rendered="#{ ! excludeVaccine == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{true}"/>
         </ui:define>  

@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.AtcDrug}"/> 
       </f:facet>  
-      <s:decorate id="codeDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="codeDecorate" rendered="#{ ! excludeCode == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.atcDrug_code}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="code#{entityId}" rendered="#{true}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{atcDrugAction.atcDrug.code}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.atcDrug_name}  " rendered="#{true}"/>
         </ui:define>  
@@ -24,7 +24,7 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="drugIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{true}"/>
         </ui:define>  
@@ -33,7 +33,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="parentIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="parentIdDecorate" rendered="#{ ! excludeParent == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{true}"/>
         </ui:define>  
@@ -52,7 +52,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="drugIdDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="drugId" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -64,7 +64,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.atcDrug_code}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="codeDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="codeDecorate" rendered="#{ ! excludeCode == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="code#{entityId}" rendered="#{true}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{_atcDrug.code}"></h:inputText> 
         </s:decorate> 
@@ -73,7 +73,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.atcDrug_name}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{_atcDrug.name}"> 
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 

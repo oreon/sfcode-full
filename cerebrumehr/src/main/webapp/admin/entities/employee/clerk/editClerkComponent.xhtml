@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Clerk}"/> 
       </f:facet>  
-      <s:decorate id="firstNameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="firstNameDecorate" rendered="#{ ! excludeFirstName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>
         </ui:define>  
@@ -18,7 +18,7 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="lastNameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="lastNameDecorate" rendered="#{ ! excludeLastName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>
         </ui:define>  
@@ -26,13 +26,13 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="dateOfBirthDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="dateOfBirthDecorate" rendered="#{ ! excludeDateOfBirth == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{true}"/>
         </ui:define>  
         <p:calendar escape="false" navigator="true" id="dateOfBirth#{entityId}" rendered="#{true}" label="#{msg.person_dateOfBirth}" required="false" disabled="false" value="#{clerkAction.clerk.dateOfBirth}"></p:calendar> 
       </s:decorate>  
-      <s:decorate id="genderDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_gender}  " rendered="#{true}"/>
         </ui:define>  
@@ -42,7 +42,7 @@
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="titleDecorate" rendered="#{ ! excludeTitle == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_title}  " rendered="#{true}"/>
         </ui:define>  
@@ -54,7 +54,7 @@
           <f:selectItem itemValue="Dr" itemLabel="#{msg.Dr}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="facilityIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="facilityIdDecorate" rendered="#{ ! excludeFacility == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.employee_facility}  " rendered="#{true}"/>
         </ui:define>  
@@ -63,7 +63,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="departmentIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="departmentIdDecorate" rendered="#{ ! excludeDepartment == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.employee_department}  " rendered="#{true}"/>
         </ui:define>  
@@ -80,19 +80,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.AppUser}"/> 
       </f:facet>  
-      <s:decorate id="appUser_userNameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="appUser_userNameDecorate" rendered="#{ ! excludeUserName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appUser_userName}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="appUser_userName#{entityId}" rendered="#{true}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{clerkAction.clerk.appUser.userName}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="appUser_passwordDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="appUser_passwordDecorate" rendered="#{ ! excludePassword == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appUser_password}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputSecret escape="false" redisplay="true" id="appUser_password#{entityId}" rendered="#{true}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{clerkAction.clerk.appUser.password}"></h:inputSecret> 
       </s:decorate>  
-      <s:decorate id="appUser_enabledDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="appUser_enabledDecorate" rendered="#{ ! excludeEnabled == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appUser_enabled}  " rendered="#{true}"/>
         </ui:define>  
@@ -106,19 +106,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.ContactDetails}"/> 
       </f:facet>  
-      <s:decorate id="contactDetails_primaryPhoneDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="contactDetails_primaryPhoneDecorate" rendered="#{ ! excludePrimaryPhone == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="contactDetails_primaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_primaryPhone}" required="false" disabled="false" value="#{clerkAction.clerk.contactDetails.primaryPhone}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="contactDetails_secondaryPhoneDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="contactDetails_secondaryPhoneDecorate" rendered="#{ ! excludeSecondaryPhone == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="contactDetails_secondaryPhone#{entityId}" rendered="#{true}" label="#{msg.contactDetails_secondaryPhone}" required="false" disabled="false" value="#{clerkAction.clerk.contactDetails.secondaryPhone}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="contactDetails_emailDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="contactDetails_emailDecorate" rendered="#{ ! excludeEmail == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.contactDetails_email}  " rendered="#{true}"/>
         </ui:define>  

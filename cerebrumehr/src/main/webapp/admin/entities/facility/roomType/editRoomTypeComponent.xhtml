@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.RoomType}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.roomType_name}  " rendered="#{true}"/>
         </ui:define>  
@@ -18,19 +18,19 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.roomType_description}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.roomType_description}" required="false" disabled="false" value="#{roomTypeAction.roomType.description}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="rateDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="rateDecorate" rendered="#{ ! excludeRate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.roomType_rate}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="rate#{entityId}" rendered="#{true}" label="#{msg.roomType_rate}" required="false" disabled="false" value="#{roomTypeAction.roomType.rate}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="numberOfBedsDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="numberOfBedsDecorate" rendered="#{ ! excludeNumberOfBeds == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.roomType_numberOfBeds}  " rendered="#{true}"/>
         </ui:define>  

@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Room}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.room_name}  " rendered="#{true}"/>
         </ui:define>  
@@ -18,7 +18,7 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="roomTypeIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="roomTypeIdDecorate" rendered="#{ ! excludeRoomType == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.room_roomType}  " rendered="#{true}"/>
         </ui:define>  
@@ -27,7 +27,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="wardIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="wardIdDecorate" rendered="#{ ! excludeWard == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.room_ward}  " rendered="#{true}"/>
         </ui:define>  
@@ -46,7 +46,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.bed_name}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.bed_name}" required="true" disabled="false" value="#{_bed.name}"> 
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 

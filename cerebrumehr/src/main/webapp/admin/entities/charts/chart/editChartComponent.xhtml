@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Chart}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chart_name}  " rendered="#{true}"/>
         </ui:define>  
@@ -26,7 +26,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.chartItem_name}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.chartItem_name}" required="true" disabled="false" value="#{_chartItem.name}"></h:inputText> 
         </s:decorate> 
@@ -35,7 +35,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.chartItem_duration}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="durationDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{_chartItem.duration}"></h:inputText> 
         </s:decorate> 
@@ -44,7 +44,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="frequencyPeriodDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="frequencyPeriodDecorate" rendered="#{ ! excludeFrequencyPeriod == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="frequencyPeriod" rendered="#{true}" value="#{_chartItem.frequencyPeriod}" required="false" label="#{msg.chartItem_frequencyPeriod}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
