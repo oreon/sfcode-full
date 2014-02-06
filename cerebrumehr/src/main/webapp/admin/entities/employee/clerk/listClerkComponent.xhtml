@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ClerkModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Clerk Search Results (#{empty records ? 0 : (clerkList.paginated ? clerkList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form id="clerkForm"> 
+      <p:dataTable var="_clerk" value="#{records}" id="clerkList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{clerkAction.clerk}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editClerkPanel')}" oncomplete="editClerkDialog.show()" listener="#{clerkAction.onRowSelect}"/>  
+        <p:column headerText="msg.id" sortBy="clerk.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/employee/clerk/clerkActionClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'view')}" propagation="none"> 
+            <h:outputText value="#{_clerk.id}"/>  
+            <f:param name="clerkId" value="#{_clerk.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_employeeNumber}" sortBy="clerk.employeeNumber" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.employeeNumber}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_userName}" sortBy="clerk.appUser.userName" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.appUser.userName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_enabled}" sortBy="clerk.appUser.enabled" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.appUser.enabled? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_facility}" sortBy="clerk.facility" rendered="#{true}"> 
+          <h:link escape="false" value="#{_clerk.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+            <f:param name="facilityId" value="#{_clerk.facility.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_department}" sortBy="clerk.department" rendered="#{true}"> 
+          <h:link escape="false" value="#{_clerk.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+            <f:param name="departmentId" value="#{_clerk.department.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.person_firstName}" sortBy="clerk.firstName" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.firstName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_lastName}" sortBy="clerk.lastName" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.lastName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_dateOfBirth}" sortBy="clerk.dateOfBirth" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.dateOfBirth}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.person_gender}" sortBy="clerk.gender" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.gender}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_primaryPhone}" sortBy="clerk.contactDetails.primaryPhone" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.contactDetails.primaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="clerk.contactDetails.secondaryPhone" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.contactDetails.secondaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_email}" sortBy="clerk.contactDetails.email" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.contactDetails.email}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_age}" sortBy="clerk.age" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.age}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_title}" sortBy="clerk.title" rendered="#{true}"> 
+          <h:outputText value="#{_clerk.title}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="msg.Creation Date" sortBy="clerk.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_clerk.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_clerk', 'view') and !_clerkCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/clerk/viewClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="clerkId" value="#{_clerk.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_clerk', 'edit') and !_clerkCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/clerk/editClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="clerkId" value="#{_clerk.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('clerkAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_clerk.archived}" action="#{clerkAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_clerk.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_clerk.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_clerk.archived}" action="#{clerkAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_clerk.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_clerk.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_clerk.archived}" action="#{clerkAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_clerk.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable>  
+      <ui:include src="/admin/entities/employee/clerk/modalDlgClerkComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

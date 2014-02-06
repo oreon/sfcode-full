@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewRoomComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{roomAction.load(roomId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelRoom eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Room}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.room_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{roomAction.room.name}" escape="false"/>  
+      <h:outputText value="#{msg.room_roomType}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{roomAction.room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
+        <f:param name="roomTypeId" value="#{roomAction.room.roomType.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.room_ward}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{roomAction.room.ward.displayName}" view="/admin/entities/facility/ward/viewWard.xhtml" propagation="none"> 
+        <f:param name="wardId" value="#{roomAction.room.ward.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <p:dataTable id="beds" var="_bed" rendered="#{not empty roomAction.listBeds and true }" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.bed_patient}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:link escape="false" value="#{_bed.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_bed.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{_bed.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.bed_name}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_bed.name}" escape="false"/> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

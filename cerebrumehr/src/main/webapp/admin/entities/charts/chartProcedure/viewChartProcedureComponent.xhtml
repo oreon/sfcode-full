@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewChartProcedureComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{chartProcedureAction.load(chartProcedureId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelChartProcedure eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ChartProcedure}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{true}"/>  
+      <h:outputText value="#{chartProcedureAction.chartProcedure.dueDate}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{true}"/>  
+      <h:outputText value="#{chartProcedureAction.chartProcedure.datePerformed}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{chartProcedureAction.chartProcedure.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="remarksAbbr" value="#{chartProcedureAction.chartProcedure.remarksAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{chartProcedureAction.chartProcedure.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <f:param name="patientId" value="#{chartProcedureAction.chartProcedure.patient.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/>  
+        <p:tooltip> 
+          <span>#{chartProcedureAction.chartProcedure.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:link>  
+      <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{chartProcedureAction.chartProcedure.chartItem.displayName}" view="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
+        <f:param name="chartItemId" value="#{chartProcedureAction.chartProcedure.chartItem.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

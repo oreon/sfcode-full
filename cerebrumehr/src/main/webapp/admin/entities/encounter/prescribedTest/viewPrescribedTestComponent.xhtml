@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPrescribedTestComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{prescribedTestAction.load(prescribedTestId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPrescribedTest eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PrescribedTest}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{prescribedTestAction.prescribedTest.remarks}" escape="false"/>  
+      <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{prescribedTestAction.prescribedTest.dxTest.displayName}" view="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+        <f:param name="dxTestId" value="#{prescribedTestAction.prescribedTest.dxTest.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{prescribedTestAction.prescribedTest.encounter.displayName}" view="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+        <f:param name="encounterId" value="#{prescribedTestAction.prescribedTest.encounter.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelTestResults eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.TestResults}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.testResults_results}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{prescribedTestAction.prescribedTest.testResults.results}" for="resultsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="resultsAbbr" value="#{prescribedTestAction.prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.testResults_document}  " rendered="#{true}"/>  
+      <s:graphicImage rendered="#{prescribedTestAction.prescribedTest.testResults.document ne null and  prescribedTestAction.prescribedTest.testResults.document.contentType.startsWith('image')}" value="#{prescribedTestAction.prescribedTest.testResults.document.data}"> 
+        <s:transformImageSize height="100" maintainRatio="true"/> 
+      </s:graphicImage>  
+      <h:link value="#{prescribedTestAction.prescribedTest.testResults.document.name}" action="#{testResultsAction.downloadDocument(prescribedTestAction.testResults.id)}" propagation="none" rendered="#{not prescribedTestAction.prescribedTest.testResults.document.contentType.startsWith('image')}"> 
+        <f:param name="currentEnt ityId" value="#{prescribedTestAction.testResults.id}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

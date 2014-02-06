@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCodeComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{codeAction.load(codeId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCode eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Code}"/> 
+      </f:facet>  
+      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{codeAction.code.name}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{codeAction.code.description}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="includesDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_includes}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="includes#{entityId}" rendered="#{true}" label="#{msg.code_includes}" required="false" disabled="false" value="#{codeAction.code.includes}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="notIncludedHereDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="notIncludedHere#{entityId}" rendered="#{true}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{codeAction.code.notIncludedHere}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="codeFirstDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_codeFirst}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="codeFirst#{entityId}" rendered="#{true}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{codeAction.code.codeFirst}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="notCodedHereDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="notCodedHere#{entityId}" rendered="#{true}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{codeAction.code.notCodedHere}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="codeAlsoDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_codeAlso}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="codeAlso#{entityId}" rendered="#{true}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{codeAction.code.codeAlso}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="sectionIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.code_section}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="sectionId" label="#{msg.code_section}" value="#{codeAction.code.section}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{sectionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

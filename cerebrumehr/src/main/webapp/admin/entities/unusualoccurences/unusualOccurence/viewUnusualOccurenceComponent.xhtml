@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewUnusualOccurenceComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{unusualOccurenceAction.load(unusualOccurenceId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelUnusualOccurence eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.UnusualOccurence}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{true}"/>  
+      <h:outputText value="#{unusualOccurenceAction.unusualOccurence.category}" escape="false"/>  
+      <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{true}"/>  
+      <h:outputText value="#{unusualOccurenceAction.unusualOccurence.severity}" escape="false"/>  
+      <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{unusualOccurenceAction.unusualOccurence.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="descriptionAbbr" value="#{unusualOccurenceAction.unusualOccurence.descriptionAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.occurenceType.displayName}" view="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
+        <f:param name="occurenceTypeId" value="#{unusualOccurenceAction.unusualOccurence.occurenceType.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <f:param name="patientId" value="#{unusualOccurenceAction.unusualOccurence.patient.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/>  
+        <p:tooltip> 
+          <span>#{unusualOccurenceAction.unusualOccurence.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

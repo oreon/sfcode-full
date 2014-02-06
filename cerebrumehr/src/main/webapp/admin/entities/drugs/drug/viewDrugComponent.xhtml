@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewDrugComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{drugAction.load(drugId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDrug eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Drug}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.drug_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{drugAction.drug.name}" escape="false"/>  
+      <h:outputText value="#{msg.drug_absorption}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.absorption}" for="absorptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="absorptionAbbr" value="#{drugAction.drug.absorptionAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.biotransformation}" for="biotransformationAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="biotransformationAbbr" value="#{drugAction.drug.biotransformationAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{true}"/>  
+      <h:outputText value="#{drugAction.drug.atcCodes}" escape="false"/>  
+      <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.contraIndication}" for="contraIndicationAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="contraIndicationAbbr" value="#{drugAction.drug.contraIndicationAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_description}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="descriptionAbbr" value="#{drugAction.drug.descriptionAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{true}"/>  
+      <h:outputText value="#{drugAction.drug.dosageForm}" escape="false"/>  
+      <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.foodInteractions}" for="foodInteractionsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="foodInteractionsAbbr" value="#{drugAction.drug.foodInteractionsAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_halfLife}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.halfLife}" for="halfLifeAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="halfLifeAbbr" value="#{drugAction.drug.halfLifeAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{true}"/>  
+      <h:outputText value="#{drugAction.drug.halfLifeNumberOfHours}"> 
+        <f:convertNumber pattern="000.00"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.drug_indication}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.indication}" for="indicationAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="indicationAbbr" value="#{drugAction.drug.indicationAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.mechanismOfAction}" for="mechanismOfActionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="mechanismOfActionAbbr" value="#{drugAction.drug.mechanismOfActionAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.patientInfo}" for="patientInfoAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="patientInfoAbbr" value="#{drugAction.drug.patientInfoAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.pharmacology}" for="pharmacologyAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="pharmacologyAbbr" value="#{drugAction.drug.pharmacologyAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_toxicity}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.toxicity}" for="toxicityAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="toxicityAbbr" value="#{drugAction.drug.toxicityAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{drugAction.drug.routeOfElimination}" for="routeOfEliminationAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="routeOfEliminationAbbr" value="#{drugAction.drug.routeOfEliminationAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{true}"/>  
+      <h:outputText value="#{drugAction.drug.volumeOfDistribution}" escape="false"/>  
+      <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{true}"/>  
+      <h:outputText value="#{drugAction.drug.drugBankId}" escape="false"/>  
+      <h:outputText value="#{msg.drug_categories}  " rendered="#{true}"/>  
+      <h:outputText value="#{drugAction.drug.categories}" escape="false"/> 
+    </h:panelGrid>  
+    <br/>  
+    <p:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{not empty drugAction.listDrugInteractions and true }" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:link escape="false" value="#{_drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{_drugInteraction.interactingDrug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{_drugInteraction.interactingDrug.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:panelGroup> 
+          <p:tooltip value="#{_drugInteraction.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+          <h:outputText id="descriptionAbbr" value="#{_drugInteraction.descriptionAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_drugInteraction.severity}" escape="false"/> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editAllergyComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{allergyAction.load(allergyId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAllergy eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Allergy}"/> 
+      </f:facet>  
+      <s:decorate id="severityDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.allergy_severity}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="severity" rendered="#{true}" value="#{allergyAction.allergy.severity}" required="false" label="#{msg.allergy_severity}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="SEVERE" itemLabel="#{msg.SEVERE}"/>  
+          <f:selectItem itemValue="MODERATE" itemLabel="#{msg.MODERATE}"/>  
+          <f:selectItem itemValue="MILD" itemLabel="#{msg.MILD}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.allergy_patient}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="patientId" label="#{msg.allergy_patient}" value="#{allergyAction.allergy.patient}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="allergenIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.allergy_allergen}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="allergenId" label="#{msg.allergy_allergen}" value="#{allergyAction.allergy.allergen}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{allergenList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

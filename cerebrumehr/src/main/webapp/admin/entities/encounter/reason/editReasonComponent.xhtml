@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editReasonComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{reasonAction.load(reasonId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelReason eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Reason}"/> 
+      </f:facet>  
+      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.reason_remarks}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.reason_remarks}" required="false" disabled="false" value="#{reasonAction.reason.remarks}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="encounterIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.reason_encounter}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="encounterId" label="#{msg.reason_encounter}" value="#{reasonAction.reason.encounter}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="codeIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.reason_code}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="codeId" label="#{msg.reason_code}" value="#{reasonAction.reason.code}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{codeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

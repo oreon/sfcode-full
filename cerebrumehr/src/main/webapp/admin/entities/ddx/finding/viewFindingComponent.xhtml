@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewFindingComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{findingAction.load(findingId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFinding eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Finding}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.finding_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{findingAction.finding.name}" escape="false"/> 
+    </h:panelGrid>  
+    <br/>  
+    <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and true }" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:link escape="false" value="#{_differentialDx.dxCategory.displayName}" view="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
+          <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.differentialDx_name}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_differentialDx.name}" escape="false"/> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

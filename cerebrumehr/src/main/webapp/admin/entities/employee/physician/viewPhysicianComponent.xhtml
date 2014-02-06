@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPhysicianComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{physicianAction.load(physicianId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPhysician eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Physician}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.employeeNumber}" escape="false"/>  
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.firstName}" escape="false"/>  
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.lastName}" escape="false"/>  
+      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.dateOfBirth}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.person_gender}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.gender}" escape="false"/>  
+      <h:outputText value="#{msg.person_age}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.age}" escape="false"/>  
+      <h:outputText value="#{msg.person_title}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.title}" escape="false"/>  
+      <h:outputText value="#{msg.employee_facility}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{physicianAction.physician.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+        <f:param name="facilityId" value="#{physicianAction.physician.facility.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.employee_department}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{physicianAction.physician.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+        <f:param name="departmentId" value="#{physicianAction.physician.department.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.physician_specialization}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{physicianAction.physician.specialization.displayName}" view="/admin/entities/employee/specialization/viewSpecialization.xhtml" propagation="none"> 
+        <f:param name="specializationId" value="#{physicianAction.physician.specialization.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.AppUser}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.appUser_userName}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.appUser.userName}" escape="false"/>  
+      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.appUser.enabled? msg.yes : msg.no }"/> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.contactDetails.primaryPhone}" escape="false"/>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.contactDetails.secondaryPhone}" escape="false"/>  
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{true}"/>  
+      <h:outputText value="#{physicianAction.physician.contactDetails.email}" escape="false"/> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

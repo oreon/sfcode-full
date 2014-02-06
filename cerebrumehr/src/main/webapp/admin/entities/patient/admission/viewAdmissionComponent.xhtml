@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewAdmissionComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{admissionAction.load(admissionId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAdmission eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Admission}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{admissionAction.admission.admissionNote}" for="admissionNoteAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="admissionNoteAbbr" value="#{admissionAction.admission.admissionNoteAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{true}"/>  
+      <h:outputText value="#{admissionAction.admission.dischargeDate}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{admissionAction.admission.dischargeNote}" for="dischargeNoteAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="dischargeNoteAbbr" value="#{admissionAction.admission.dischargeNoteAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{true}"/>  
+      <h:outputText value="#{admissionAction.admission.dischargeCode}" escape="false"/>  
+      <h:outputText value="#{msg.admission_patient}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{admissionAction.admission.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <f:param name="patientId" value="#{admissionAction.admission.patient.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/>  
+        <p:tooltip> 
+          <span>#{admissionAction.admission.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:link>  
+      <h:outputText value="#{msg.admission_bed}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{admissionAction.admission.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+        <f:param name="bedId" value="#{admissionAction.admission.bed.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <p:dataTable id="bedStays" var="_bedStay" rendered="#{not empty admissionAction.listBedStays and true }" value="#{admissionAction.listBedStays}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.bedStay_bed}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:link escape="false" value="#{_bedStay.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+          <f:param name="bedId" value="#{_bedStay.bed.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_bedStay.fromDate}"> 
+          <s:convertDateTime type="date" dateStyle="medium"/> 
+        </h:outputText> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_bedStay.toDate}"> 
+          <s:convertDateTime type="date" dateStyle="medium"/> 
+        </h:outputText> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

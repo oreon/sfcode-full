@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="PhysicianModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Physician Search Results (#{empty records ? 0 : (physicianList.paginated ? physicianList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form id="physicianForm"> 
+      <p:dataTable var="_physician" value="#{records}" id="physicianList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{physicianAction.physician}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editPhysicianPanel')}" oncomplete="editPhysicianDialog.show()" listener="#{physicianAction.onRowSelect}"/>  
+        <p:column headerText="msg.id" sortBy="physician.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/employee/physician/physicianActionPhysician.xhtml" rendered="#{s:hasPermission(_physician, 'view')}" propagation="none"> 
+            <h:outputText value="#{_physician.id}"/>  
+            <f:param name="physicianId" value="#{_physician.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_employeeNumber}" sortBy="physician.employeeNumber" rendered="#{true}"> 
+          <h:outputText value="#{_physician.employeeNumber}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_userName}" sortBy="physician.appUser.userName" rendered="#{true}"> 
+          <h:outputText value="#{_physician.appUser.userName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_enabled}" sortBy="physician.appUser.enabled" rendered="#{true}"> 
+          <h:outputText value="#{_physician.appUser.enabled? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_facility}" sortBy="physician.facility" rendered="#{true}"> 
+          <h:link escape="false" value="#{_physician.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+            <f:param name="facilityId" value="#{_physician.facility.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_department}" sortBy="physician.department" rendered="#{true}"> 
+          <h:link escape="false" value="#{_physician.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+            <f:param name="departmentId" value="#{_physician.department.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.person_firstName}" sortBy="physician.firstName" rendered="#{true}"> 
+          <h:outputText value="#{_physician.firstName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_lastName}" sortBy="physician.lastName" rendered="#{true}"> 
+          <h:outputText value="#{_physician.lastName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_dateOfBirth}" sortBy="physician.dateOfBirth" rendered="#{true}"> 
+          <h:outputText value="#{_physician.dateOfBirth}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.person_gender}" sortBy="physician.gender" rendered="#{true}"> 
+          <h:outputText value="#{_physician.gender}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_primaryPhone}" sortBy="physician.contactDetails.primaryPhone" rendered="#{true}"> 
+          <h:outputText value="#{_physician.contactDetails.primaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="physician.contactDetails.secondaryPhone" rendered="#{true}"> 
+          <h:outputText value="#{_physician.contactDetails.secondaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_email}" sortBy="physician.contactDetails.email" rendered="#{true}"> 
+          <h:outputText value="#{_physician.contactDetails.email}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_age}" sortBy="physician.age" rendered="#{true}"> 
+          <h:outputText value="#{_physician.age}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_title}" sortBy="physician.title" rendered="#{true}"> 
+          <h:outputText value="#{_physician.title}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.physician_specialization}" sortBy="physician.specialization" rendered="#{true}"> 
+          <h:link escape="false" value="#{_physician.specialization.displayName}" view="/admin/entities/employee/specialization/viewSpecialization.xhtml" propagation="none"> 
+            <f:param name="specializationId" value="#{_physician.specialization.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="msg.Creation Date" sortBy="physician.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_physician.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_physician', 'view') and !_physicianCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/physician/viewPhysician.xhtml" rendered="#{s:hasPermission(_physician, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="physicianId" value="#{_physician.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_physician', 'edit') and !_physicianCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/physician/editPhysician.xhtml" rendered="#{s:hasPermission(_physician, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="physicianId" value="#{_physician.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('physicianAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_physician.archived}" action="#{physicianAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_physician.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_physician.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_physician.archived}" action="#{physicianAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_physician.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_physician.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_physician.archived}" action="#{physicianAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_physician.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable>  
+      <ui:include src="/admin/entities/employee/physician/modalDlgPhysicianComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>
