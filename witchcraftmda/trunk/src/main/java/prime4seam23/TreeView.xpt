@@ -13,42 +13,42 @@
 
 <ui:composition «EXPAND WebRoot::genIncludes-»>	
 
-<rich:panel id="dynamicTreePanel" header="Dynamic Tree User Interface">
+<p:panel id="dynamicTreePanel" header="Dynamic Tree User Interface">
 
 	<h:form>
 		<h:panelGrid columns="2">
-			<rich:tree icon="/image/node.gif" iconLeaf="/image/node.gif"
+			<p:tree icon="/image/node.gif" iconLeaf="/image/node.gif"
 				nodeSelectListener="#{«getAction()».processSelection}"
 				reRender="selectedNode, detailsView" ajaxSubmitSelection="true">
 
-				<rich:recursiveTreeNodesAdaptor
+				<p:recursiveTreeNodesAdaptor
 					roots="#{«getAction()».topLevel«getTreeParent()»}" var="_«name»">
-					<rich:treeNode>
+					<p:treeNode>
 						<h:outputText value="#{_«name».displayName}" />
-					</rich:treeNode>
+					</p:treeNode>
 
-					<rich:recursiveTreeNodesAdaptor roots="#{_«name».«getTreeChildren()»}"
+					<p:recursiveTreeNodesAdaptor roots="#{_«name».«getTreeChildren()»}"
 						var="_child" nodes="#{_child.«getTreeChildren()»}">
-						<rich:treeNode>
+						<p:treeNode>
 							<h:outputText value="#{_child.displayName}" />
-						</rich:treeNode>
-					</rich:recursiveTreeNodesAdaptor>
+						</p:treeNode>
+					</p:recursiveTreeNodesAdaptor>
 
-				</rich:recursiveTreeNodesAdaptor>
-			</rich:tree>
+				</p:recursiveTreeNodesAdaptor>
+			</p:tree>
 
 			«LET getAttrib(getTreeDetailsFld()) AS e»
-			<rich:panel id="detailsView">
+			<p:panel id="detailsView">
 				<ui:include src="«getViewFile(e.type, "view")»">
 					<ui:param name="«e.type.name.toFirstLower()»Id" value="#{«e.type.getAction()».«e.type.name.toFirstLower()»Id}" />
 				</ui:include>
-			</rich:panel>
+			</p:panel>
 			«ENDLET»
 			
 		</h:panelGrid>
 	</h:form>
 
-</rich:panel>
+</p:panel>
 
 </ui:composition>
 
