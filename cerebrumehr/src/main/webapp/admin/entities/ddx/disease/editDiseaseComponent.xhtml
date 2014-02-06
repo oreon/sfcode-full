@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Disease}"/> 
       </f:facet>  
-      <s:decorate id="genderDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.disease_gender}  " rendered="#{true}"/>
         </ui:define>  
@@ -20,13 +20,13 @@
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.disease_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.disease_name}" required="true" disabled="false" value="#{diseaseAction.disease.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="relatedDiseaseIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="relatedDiseaseIdDecorate" rendered="#{ ! excludeRelatedDisease == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{true}"/>
         </ui:define>  
@@ -35,7 +35,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="conditionCategoryIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="conditionCategoryIdDecorate" rendered="#{ ! excludeConditionCategory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{true}"/>
         </ui:define>  

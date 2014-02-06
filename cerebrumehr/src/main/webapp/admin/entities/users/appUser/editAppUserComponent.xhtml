@@ -10,19 +10,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.AppUser}"/> 
       </f:facet>  
-      <s:decorate id="userNameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="userNameDecorate" rendered="#{ ! excludeUserName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appUser_userName}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="userName#{entityId}" rendered="#{true}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{appUserAction.appUser.userName}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="passwordDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="passwordDecorate" rendered="#{ ! excludePassword == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appUser_password}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputSecret escape="false" redisplay="true" id="password#{entityId}" rendered="#{true}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{appUserAction.appUser.password}"></h:inputSecret> 
       </s:decorate>  
-      <s:decorate id="enabledDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="enabledDecorate" rendered="#{ ! excludeEnabled == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appUser_enabled}  " rendered="#{true}"/>
         </ui:define>  

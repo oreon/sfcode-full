@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Ward}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.ward_name}" required="true" disabled="false" value="#{wardAction.ward.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="genderDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/>
         </ui:define>  
@@ -26,7 +26,7 @@
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="facilityIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="facilityIdDecorate" rendered="#{ ! excludeFacility == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.ward_facility}  " rendered="#{true}"/>
         </ui:define>  
@@ -45,7 +45,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.room_roomType}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="roomTypeIdDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="roomTypeIdDecorate" rendered="#{ ! excludeRoomType == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="roomTypeId" label="#{msg.room_roomType}" value="#{_room.roomType}" required="true" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{roomTypeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -57,7 +57,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.room_name}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.room_name}" required="true" disabled="false" value="#{_room.name}"> 
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 

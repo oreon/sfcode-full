@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.LabFinding}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.finding_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.finding_name}" required="true" disabled="false" value="#{labFindingAction.labFinding.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="testNameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="testNameDecorate" rendered="#{ ! excludeTestName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.labFinding_testName}  " rendered="#{true}"/>
         </ui:define>  
@@ -34,7 +34,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="dxCategoryIdDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="dxCategoryIdDecorate" rendered="#{ ! excludeDxCategory == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{dxCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -46,7 +46,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.differentialDx_name}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="nameDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{_differentialDx.name}"> 
             <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 

@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.UnusualOccurence}"/> 
       </f:facet>  
-      <s:decorate id="categoryDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="categoryDecorate" rendered="#{ ! excludeCategory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{true}"/>
         </ui:define>  
@@ -23,7 +23,7 @@
           <f:selectItem itemValue="Other" itemLabel="#{msg.Other}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="severityDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="severityDecorate" rendered="#{ ! excludeSeverity == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{true}"/>
         </ui:define>  
@@ -34,13 +34,13 @@
           <f:selectItem itemValue="Critical" itemLabel="#{msg.Critical}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.unusualOccurence_description}" required="false" disabled="false" value="#{unusualOccurenceAction.unusualOccurence.description}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="occurenceTypeIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="occurenceTypeIdDecorate" rendered="#{ ! excludeOccurenceType == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{true}"/>
         </ui:define>  
@@ -49,7 +49,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{true}"/>
         </ui:define>  

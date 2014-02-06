@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Differential}"/> 
       </f:facet>  
-      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.differential_remarks}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.differential_remarks}" required="false" disabled="false" value="#{differentialAction.differential.remarks}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="encounterIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="encounterIdDecorate" rendered="#{ ! excludeEncounter == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.differential_encounter}  " rendered="#{true}"/>
         </ui:define>  

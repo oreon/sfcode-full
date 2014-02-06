@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Invoice}"/> 
       </f:facet>  
-      <s:decorate id="notesDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="notesDecorate" rendered="#{ ! excludeNotes == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoice_notes}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="notes#{entityId}" rendered="#{true}" label="#{msg.invoice_notes}" required="false" disabled="false" value="#{invoiceAction.invoice.notes}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoice_patient}  " rendered="#{true}"/>
         </ui:define>  
@@ -35,7 +35,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="serviceIdDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="serviceIdDecorate" rendered="#{ ! excludeService == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="serviceId" label="#{msg.invoiceItem_service}" value="#{_invoiceItem.service}" required="true" rendered="#{true}" disabled="false"> 
             <p:ajax event="onchange" action="#{invoiceItemAction.onChangeService(_invoiceItem)}" update="invoiceItems" ajaxSingle="true"> 
@@ -50,7 +50,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="unitsDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="unitsDecorate" rendered="#{ ! excludeUnits == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{_invoiceItem.units}"></h:inputText> 
         </s:decorate> 
@@ -59,7 +59,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="appliedPriceDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="appliedPriceDecorate" rendered="#{ ! excludeAppliedPrice == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="appliedPrice#{entityId}" rendered="#{true}" label="#{msg.invoiceItem_appliedPrice}" required="true" disabled="false" value="#{_invoiceItem.appliedPrice}"> 
             <f:converter converterId="javax.faces.BigDecimal"/> 

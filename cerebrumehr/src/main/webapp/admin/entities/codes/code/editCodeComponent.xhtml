@@ -10,49 +10,49 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Code}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{codeAction.code.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{codeAction.code.description}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="includesDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="includesDecorate" rendered="#{ ! excludeIncludes == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_includes}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="includes#{entityId}" rendered="#{true}" label="#{msg.code_includes}" required="false" disabled="false" value="#{codeAction.code.includes}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="notIncludedHereDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="notIncludedHereDecorate" rendered="#{ ! excludeNotIncludedHere == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="notIncludedHere#{entityId}" rendered="#{true}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{codeAction.code.notIncludedHere}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="codeFirstDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="codeFirstDecorate" rendered="#{ ! excludeCodeFirst == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_codeFirst}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="codeFirst#{entityId}" rendered="#{true}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{codeAction.code.codeFirst}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="notCodedHereDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="notCodedHereDecorate" rendered="#{ ! excludeNotCodedHere == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="notCodedHere#{entityId}" rendered="#{true}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{codeAction.code.notCodedHere}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="codeAlsoDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="codeAlsoDecorate" rendered="#{ ! excludeCodeAlso == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_codeAlso}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="codeAlso#{entityId}" rendered="#{true}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{codeAction.code.codeAlso}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="sectionIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="sectionIdDecorate" rendered="#{ ! excludeSection == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_section}  " rendered="#{true}"/>
         </ui:define>  

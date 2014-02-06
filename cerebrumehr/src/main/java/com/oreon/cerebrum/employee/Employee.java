@@ -45,6 +45,12 @@ import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.jboss.seam.annotations.Name;
+
+import org.witchcraft.model.support.audit.Auditable;
+
+import org.witchcraft.utils.*;
+
 import org.witchcraft.base.entity.FileAttachment;
 import org.witchcraft.base.entity.BaseEntity;
 
@@ -52,6 +58,7 @@ import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "employee")
+@Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @XmlRootElement
 public abstract class Employee extends com.oreon.cerebrum.patient.Person

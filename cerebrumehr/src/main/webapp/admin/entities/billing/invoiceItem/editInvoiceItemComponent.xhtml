@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.InvoiceItem}"/> 
       </f:facet>  
-      <s:decorate id="unitsDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="unitsDecorate" rendered="#{ ! excludeUnits == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{invoiceItemAction.invoiceItem.units}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="appliedPriceDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="appliedPriceDecorate" rendered="#{ ! excludeAppliedPrice == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{true}"/>
         </ui:define>  
@@ -24,7 +24,7 @@
           <f:converter converterId="javax.faces.BigDecimal"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="serviceIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="serviceIdDecorate" rendered="#{ ! excludeService == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{true}"/>
         </ui:define>  
@@ -34,7 +34,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="invoiceIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="invoiceIdDecorate" rendered="#{ ! excludeInvoice == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{true}"/>
         </ui:define>  

@@ -25,7 +25,7 @@ import org.witchcraft.seam.action.EventTypes;
  *
  */
 @Entity
-@Filter(name = "archiveFilterDef")
+//@Filter(name = "archiveFilterDef")
 @Name("auditLog")
 @Indexed
 @AnalyzerDef(name = "entityAnalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {

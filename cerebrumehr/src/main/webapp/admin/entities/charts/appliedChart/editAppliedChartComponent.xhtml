@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.AppliedChart}"/> 
       </f:facet>  
-      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appliedChart_patient}  " rendered="#{true}"/>
         </ui:define>  
@@ -19,7 +19,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="chartIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="chartIdDecorate" rendered="#{ ! excludeChart == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appliedChart_chart}  " rendered="#{true}"/>
         </ui:define>  

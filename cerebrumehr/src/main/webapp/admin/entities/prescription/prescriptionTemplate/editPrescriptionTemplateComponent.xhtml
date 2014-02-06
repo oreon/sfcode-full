@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PrescriptionTemplate}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.prescriptionTemplate_name}" required="true" disabled="false" value="#{prescriptionTemplateAction.prescriptionTemplate.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="directivesForPatientDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="directivesForPatientDecorate" rendered="#{ ! excludeDirectivesForPatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{true}"/>
         </ui:define>  
@@ -32,7 +32,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="drugIdDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="drugId" label="#{msg.prescriptionItemTemplate_drug}" value="#{_prescriptionItemTemplate.drug}" required="true" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -44,7 +44,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="frequencyIdDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="frequencyIdDecorate" rendered="#{ ! excludeFrequency == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="frequencyId" label="#{msg.prescriptionItemTemplate_frequency}" value="#{_prescriptionItemTemplate.frequency}" required="true" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{frequencyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -56,7 +56,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="qtyDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="qtyDecorate" rendered="#{ ! excludeQty == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="qty#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_qty}" required="false" disabled="false" value="#{_prescriptionItemTemplate.qty}"></h:inputText> 
         </s:decorate> 
@@ -65,7 +65,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="strengthDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="strengthDecorate" rendered="#{ ! excludeStrength == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="strength#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_strength}" required="false" disabled="false" value="#{_prescriptionItemTemplate.strength}"></h:inputText> 
         </s:decorate> 
@@ -74,7 +74,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="routeDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="routeDecorate" rendered="#{ ! excludeRoute == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="route" rendered="#{true}" value="#{_prescriptionItemTemplate.route}" required="false" label="#{msg.prescriptionItemTemplate_route}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -90,7 +90,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="durationDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_duration}" required="false" disabled="false" value="#{_prescriptionItemTemplate.duration}"></h:inputText> 
         </s:decorate> 
@@ -99,7 +99,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="remarksDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_remarks}" required="false" disabled="false" value="#{_prescriptionItemTemplate.remarks}"></h:inputText> 
         </s:decorate> 
@@ -108,7 +108,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="brandNameDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="brandNameDecorate" rendered="#{ ! excludeBrandName == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:inputText escape="false" id="brandName#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_brandName}" required="false" disabled="false" value="#{_prescriptionItemTemplate.brandName}"></h:inputText> 
         </s:decorate> 

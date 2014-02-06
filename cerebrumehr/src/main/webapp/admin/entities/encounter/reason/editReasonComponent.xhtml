@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Reason}"/> 
       </f:facet>  
-      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.reason_remarks}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.reason_remarks}" required="false" disabled="false" value="#{reasonAction.reason.remarks}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="encounterIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="encounterIdDecorate" rendered="#{ ! excludeEncounter == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.reason_encounter}  " rendered="#{true}"/>
         </ui:define>  
@@ -25,7 +25,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="codeIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="codeIdDecorate" rendered="#{ ! excludeCode == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.reason_code}  " rendered="#{true}"/>
         </ui:define>  

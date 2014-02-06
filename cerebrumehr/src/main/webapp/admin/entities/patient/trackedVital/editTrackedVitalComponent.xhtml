@@ -10,19 +10,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.TrackedVital}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.trackedVital_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.trackedVital_name}" required="true" disabled="false" value="#{trackedVitalAction.trackedVital.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="minValDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="minValDecorate" rendered="#{ ! excludeMinVal == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.trackedVital_minVal}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="minVal#{entityId}" rendered="#{true}" label="#{msg.trackedVital_minVal}" required="false" disabled="false" value="#{trackedVitalAction.trackedVital.minVal}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="maxValDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="maxValDecorate" rendered="#{ ! excludeMaxVal == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.trackedVital_maxVal}  " rendered="#{true}"/>
         </ui:define>  

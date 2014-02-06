@@ -10,19 +10,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.BedStay}"/> 
       </f:facet>  
-      <s:decorate id="fromDateDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="fromDateDecorate" rendered="#{ ! excludeFromDate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{true}"/>
         </ui:define>  
         <p:calendar escape="false" navigator="true" id="fromDate#{entityId}" rendered="#{true}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.fromDate}"></p:calendar> 
       </s:decorate>  
-      <s:decorate id="toDateDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="toDateDecorate" rendered="#{ ! excludeToDate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{true}"/>
         </ui:define>  
         <p:calendar escape="false" navigator="true" id="toDate#{entityId}" rendered="#{true}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.toDate}"></p:calendar> 
       </s:decorate>  
-      <s:decorate id="admissionIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="admissionIdDecorate" rendered="#{ ! excludeAdmission == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.bedStay_admission}  " rendered="#{true}"/>
         </ui:define>  
@@ -31,7 +31,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="bedIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="bedIdDecorate" rendered="#{ ! excludeBed == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.bedStay_bed}  " rendered="#{true}"/>
         </ui:define>  

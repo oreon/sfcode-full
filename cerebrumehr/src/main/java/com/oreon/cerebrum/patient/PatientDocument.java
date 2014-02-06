@@ -1,34 +1,64 @@
 package com.oreon.cerebrum.patient;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.Date;
+import javax.ws.rs.core.Response;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.*;
+import org.hibernate.validator.*;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.Cascade;
+
+import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Index;
-import org.hibernate.validator.constraints.Length;
-import org.witchcraft.base.entity.BaseEntity;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
+import org.hibernate.annotations.Filter;
+
+import org.hibernate.validator.constraints.*;
+import javax.validation.constraints.*;
+
+import java.math.BigDecimal;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.jboss.seam.annotations.Name;
+
+import org.witchcraft.model.support.audit.Auditable;
+
+import org.witchcraft.utils.*;
+
 import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.BaseEntity;
+
+import com.oreon.cerebrum.ProjectUtils;
 
 @Entity
 @Table(name = "patientdocument")
+@Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
 public class PatientDocument extends BaseEntity implements java.io.Serializable {

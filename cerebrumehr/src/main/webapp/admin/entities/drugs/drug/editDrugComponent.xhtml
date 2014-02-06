@@ -10,109 +10,109 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Drug}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.drug_name}" required="true" disabled="false" value="#{drugAction.drug.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="absorptionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="absorptionDecorate" rendered="#{ ! excludeAbsorption == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_absorption}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="absorption#{entityId}" rendered="#{true}" label="#{msg.drug_absorption}" required="false" disabled="false" value="#{drugAction.drug.absorption}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="biotransformationDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="biotransformationDecorate" rendered="#{ ! excludeBiotransformation == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="biotransformation#{entityId}" rendered="#{true}" label="#{msg.drug_biotransformation}" required="false" disabled="false" value="#{drugAction.drug.biotransformation}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="atcCodesDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="atcCodesDecorate" rendered="#{ ! excludeAtcCodes == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="atcCodes#{entityId}" rendered="#{true}" label="#{msg.drug_atcCodes}" required="false" disabled="false" value="#{drugAction.drug.atcCodes}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="contraIndicationDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="contraIndicationDecorate" rendered="#{ ! excludeContraIndication == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="contraIndication#{entityId}" rendered="#{true}" label="#{msg.drug_contraIndication}" required="false" disabled="false" value="#{drugAction.drug.contraIndication}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_description}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.drug_description}" required="false" disabled="false" value="#{drugAction.drug.description}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="dosageFormDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="dosageFormDecorate" rendered="#{ ! excludeDosageForm == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="dosageForm#{entityId}" rendered="#{true}" label="#{msg.drug_dosageForm}" required="false" disabled="false" value="#{drugAction.drug.dosageForm}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="foodInteractionsDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="foodInteractionsDecorate" rendered="#{ ! excludeFoodInteractions == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="foodInteractions#{entityId}" rendered="#{true}" label="#{msg.drug_foodInteractions}" required="false" disabled="false" value="#{drugAction.drug.foodInteractions}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="halfLifeDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="halfLifeDecorate" rendered="#{ ! excludeHalfLife == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_halfLife}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="halfLife#{entityId}" rendered="#{true}" label="#{msg.drug_halfLife}" required="false" disabled="false" value="#{drugAction.drug.halfLife}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="halfLifeNumberOfHoursDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="halfLifeNumberOfHoursDecorate" rendered="#{ ! excludeHalfLifeNumberOfHours == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="halfLifeNumberOfHours#{entityId}" rendered="#{true}" label="#{msg.drug_halfLifeNumberOfHours}" required="false" disabled="false" value="#{drugAction.drug.halfLifeNumberOfHours}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="indicationDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="indicationDecorate" rendered="#{ ! excludeIndication == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_indication}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="indication#{entityId}" rendered="#{true}" label="#{msg.drug_indication}" required="false" disabled="false" value="#{drugAction.drug.indication}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="mechanismOfActionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="mechanismOfActionDecorate" rendered="#{ ! excludeMechanismOfAction == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="mechanismOfAction#{entityId}" rendered="#{true}" label="#{msg.drug_mechanismOfAction}" required="false" disabled="false" value="#{drugAction.drug.mechanismOfAction}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="patientInfoDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="patientInfoDecorate" rendered="#{ ! excludePatientInfo == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="patientInfo#{entityId}" rendered="#{true}" label="#{msg.drug_patientInfo}" required="false" disabled="false" value="#{drugAction.drug.patientInfo}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="pharmacologyDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="pharmacologyDecorate" rendered="#{ ! excludePharmacology == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="pharmacology#{entityId}" rendered="#{true}" label="#{msg.drug_pharmacology}" required="false" disabled="false" value="#{drugAction.drug.pharmacology}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="toxicityDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="toxicityDecorate" rendered="#{ ! excludeToxicity == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_toxicity}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="toxicity#{entityId}" rendered="#{true}" label="#{msg.drug_toxicity}" required="false" disabled="false" value="#{drugAction.drug.toxicity}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="routeOfEliminationDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="routeOfEliminationDecorate" rendered="#{ ! excludeRouteOfElimination == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="routeOfElimination#{entityId}" rendered="#{true}" label="#{msg.drug_routeOfElimination}" required="false" disabled="false" value="#{drugAction.drug.routeOfElimination}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="volumeOfDistributionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="volumeOfDistributionDecorate" rendered="#{ ! excludeVolumeOfDistribution == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="volumeOfDistribution#{entityId}" rendered="#{true}" label="#{msg.drug_volumeOfDistribution}" required="false" disabled="false" value="#{drugAction.drug.volumeOfDistribution}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="drugBankIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="drugBankIdDecorate" rendered="#{ ! excludeDrugBankId == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{true}"/>
         </ui:define>  
@@ -128,7 +128,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="interactingDrugIdDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="interactingDrugIdDecorate" rendered="#{ ! excludeInteractingDrug == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="interactingDrugId" label="#{msg.drugInteraction_interactingDrug}" value="#{_drugInteraction.interactingDrug}" required="true" rendered="#{true}" disabled="false"> 
             <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -140,7 +140,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="descriptionDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.drugInteraction_description}" required="false" disabled="false" value="#{_drugInteraction.description}"></p:editor> 
         </s:decorate> 
@@ -149,7 +149,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{true}"/>
         </f:facet>  
-        <s:decorate id="severityDecorate" template="/layout/editTableField.xhtml"> 
+        <s:decorate id="severityDecorate" rendered="#{ ! excludeSeverity == true}" template="/layout/editTableField.xhtml"> 
           <ui:define name="label"></ui:define>  
           <h:selectOneMenu id="severity" rendered="#{true}" value="#{_drugInteraction.severity}" required="false" label="#{msg.drugInteraction_severity}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
