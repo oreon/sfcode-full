@@ -9,8 +9,6 @@ import javax.persistence.Persistence;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.validator.InvalidStateException;
-import org.hibernate.validator.InvalidValue;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

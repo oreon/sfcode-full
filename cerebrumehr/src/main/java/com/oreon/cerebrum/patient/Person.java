@@ -17,6 +17,7 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.validator.constraints.Length;
 import org.witchcraft.base.entity.BaseEntity;
+import org.witchcraft.utils.DateUtils;
 
 @MappedSuperclass
 public class Person extends BaseEntity {
