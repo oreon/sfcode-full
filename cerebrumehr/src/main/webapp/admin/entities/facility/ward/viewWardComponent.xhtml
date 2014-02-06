@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewWardComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{wardAction.load(wardId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelWard eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Ward}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{wardAction.ward.name}" escape="false"/>  
+      <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/>  
+      <h:outputText value="#{wardAction.ward.gender}" escape="false"/>  
+      <h:outputText value="#{msg.ward_facility}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{wardAction.ward.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+        <f:param name="facilityId" value="#{wardAction.ward.facility.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <p:dataTable id="rooms" var="_room" rendered="#{not empty wardAction.listRooms and true }" value="#{wardAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.room_roomType}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:link escape="false" value="#{_room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
+          <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.room_name}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_room.name}" escape="false"/> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

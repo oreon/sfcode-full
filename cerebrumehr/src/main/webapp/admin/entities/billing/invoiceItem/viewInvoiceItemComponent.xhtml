@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewInvoiceItemComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{invoiceItemAction.load(invoiceItemId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelInvoiceItem eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.InvoiceItem}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{true}"/>  
+      <h:outputText value="#{invoiceItemAction.invoiceItem.units}" escape="false"/>  
+      <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{true}"/>  
+      <h:outputText value="#{invoiceItemAction.invoiceItem.appliedPrice}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{true}"/>  
+      <h:outputText value="#{invoiceItemAction.invoiceItem.total}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{invoiceItemAction.invoiceItem.service.displayName}" view="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+        <f:param name="serviceId" value="#{invoiceItemAction.invoiceItem.service.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{invoiceItemAction.invoiceItem.invoice.displayName}" view="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+        <f:param name="invoiceId" value="#{invoiceItemAction.invoiceItem.invoice.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

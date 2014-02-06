@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editImmunizationComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{immunizationAction.load(immunizationId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelImmunization eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Immunization}"/> 
+      </f:facet>  
+      <s:decorate id="dateDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.immunization_date}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:calendar escape="false" navigator="true" id="date#{entityId}" rendered="#{true}" label="#{msg.immunization_date}" required="false" disabled="false" value="#{immunizationAction.immunization.date}"></p:calendar> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.immunization_patient}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="patientId" label="#{msg.immunization_patient}" value="#{immunizationAction.immunization.patient}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="vaccineIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="vaccineId" label="#{msg.immunization_vaccine}" value="#{immunizationAction.immunization.vaccine}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{vaccineList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

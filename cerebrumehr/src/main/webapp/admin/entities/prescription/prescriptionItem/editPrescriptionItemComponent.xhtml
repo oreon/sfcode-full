@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editPrescriptionItemComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{prescriptionItemAction.load(prescriptionItemId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPrescriptionItem eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PrescriptionItem}"/> 
+      </f:facet>  
+      <s:decorate id="qtyDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="qty#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_qty}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.qty}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="strengthDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="strength#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_strength}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.strength}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="routeDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="route" rendered="#{true}" value="#{prescriptionItemAction.prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="PO" itemLabel="#{msg.PO}"/>  
+          <f:selectItem itemValue="IV" itemLabel="#{msg.IV}"/>  
+          <f:selectItem itemValue="IM" itemLabel="#{msg.IM}"/>  
+          <f:selectItem itemValue="SC" itemLabel="#{msg.SC}"/>  
+          <f:selectItem itemValue="TOPICAL" itemLabel="#{msg.TOPICAL}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="durationDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_duration}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.duration}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_remarks}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.remarks}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="brandNameDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="brandName#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_brandName}" required="false" disabled="false" value="#{prescriptionItemAction.prescriptionItem.brandName}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="drugIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:panelGroup> 
+          <p:region> 
+            <h:inputText value="#{prescriptionItemAction.prescriptionItem.drug.displayName}" label="#{msg.prescriptionItem_drug}" id="drugId" required="true"/>  
+            <p:autocomplete for="drugId" rules="all" suggestionAction="#{drugList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
+              <p:column> 
+                <h:outputText value="#{_result.name}"/> 
+              </p:column>  
+              <p:ajax event="onselect"> 
+                <f:setPropertyActionListener value="#{_result}" target="#{prescriptionItemAction.prescriptionItem.drug}"/> 
+              </p:ajax> 
+            </p:autocomplete> 
+          </p:region> 
+        </h:panelGroup> 
+      </s:decorate>  
+      <s:decorate id="prescriptionIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="prescriptionId" label="#{msg.prescriptionItem_prescription}" value="#{prescriptionItemAction.prescriptionItem.prescription}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{prescriptionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="frequencyIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="frequencyId" label="#{msg.prescriptionItem_frequency}" value="#{prescriptionItemAction.prescriptionItem.frequency}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{frequencyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

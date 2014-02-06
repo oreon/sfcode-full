@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_ddx_Disease) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
+      <p:tabView switchType="ajax"> 
+        <p:tab title="Disease"> 
+          <div id="printable"> 
+            <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"/> 
+          </div>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('disease', 'edit')}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{diseaseAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </p:tab>  
+        <p:tab title="RelatedDisease" rendered="#{diseaseAction.instance.relatedDisease != null}"> 
+          <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="diseaseId" value="#{diseaseAction.instance.relatedDisease.id}"/> 
+          </ui:include> 
+        </p:tab>  
+        <p:tab title="ConditionCategory" rendered="#{diseaseAction.instance.conditionCategory != null}"> 
+          <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="conditionCategoryId" value="#{diseaseAction.instance.conditionCategory.id}"/> 
+          </ui:include> 
+        </p:tab> 
+      </p:tabView>  
+      <div class="buttonBox"></div> 
+    </h:form>  
+    <br/>  
+    <p:tabView switchType="client"> 
+      <p:tab title="DifferentialDiagnoses" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="DiseaseModalPanel-differentialDiagnoses"/>  
+        <ui:include src="/admin/entities/ddx/disease/listDiseaseComponent.xhtml"> 
+          <ui:param name="records" value="#{diseaseList.getDifferentialDiagnosesByRelatedDisease(diseaseAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <h:form> 
+          <h:button value="Create New" outcome="/admin/entities/ddx/disease/editDisease.xhtml"> 
+            <f:param name="diseaseId" value="#{diseaseAction.instance.id}"/>  
+            <f:param name="diseaseId" value="0"/> 
+          </h:button>  
+          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
+            <f:param name="diseaseId" assignTo="#{diseaseAction.diseaseId}" value="0"/>  
+            <f:param name="diseaseId" assignTo="#{diseaseAction.relatedDiseaseId}" value="#{diseaseAction.instance.id}"/> 
+          </h:commandButton> 
+        </h:form>  
+        <ui:include src="/admin/entities/ddx/disease/modalDlgDiseaseComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </p:tab> 
+    </p:tabView>  
+    <br/>  
+    <p:tabView switchType="client"> 
+      <p:tab title="Notes"> 
+        <wc:comments backingAction="#{diseaseAction}"/> 
+      </p:tab> 
+    </p:tabView> 
+  </ui:define> 
+</ui:composition>

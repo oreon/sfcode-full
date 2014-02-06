@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editUnusualOccurenceComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{unusualOccurenceAction.load(unusualOccurenceId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelUnusualOccurence eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.UnusualOccurence}"/> 
+      </f:facet>  
+      <s:decorate id="categoryDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="category" rendered="#{true}" value="#{unusualOccurenceAction.unusualOccurence.category}" required="false" label="#{msg.unusualOccurence_category}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Radiation" itemLabel="#{msg.Radiation}"/>  
+          <f:selectItem itemValue="Chemotherapy" itemLabel="#{msg.Chemotherapy}"/>  
+          <f:selectItem itemValue="Anesthesia" itemLabel="#{msg.Anesthesia}"/>  
+          <f:selectItem itemValue="Surgery" itemLabel="#{msg.Surgery}"/>  
+          <f:selectItem itemValue="Other" itemLabel="#{msg.Other}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="severityDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="severity" rendered="#{true}" value="#{unusualOccurenceAction.unusualOccurence.severity}" required="false" label="#{msg.unusualOccurence_severity}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Mild" itemLabel="#{msg.Mild}"/>  
+          <f:selectItem itemValue="Moderate" itemLabel="#{msg.Moderate}"/>  
+          <f:selectItem itemValue="Critical" itemLabel="#{msg.Critical}"/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.unusualOccurence_description}" required="false" disabled="false" value="#{unusualOccurenceAction.unusualOccurence.description}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="occurenceTypeIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="occurenceTypeId" label="#{msg.unusualOccurence_occurenceType}" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{occurenceTypeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="patientId" label="#{msg.unusualOccurence_patient}" value="#{unusualOccurenceAction.unusualOccurence.patient}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

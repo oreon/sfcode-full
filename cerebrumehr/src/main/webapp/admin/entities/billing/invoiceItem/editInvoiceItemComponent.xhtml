@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editInvoiceItemComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{invoiceItemAction.load(invoiceItemId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelInvoiceItem eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.InvoiceItem}"/> 
+      </f:facet>  
+      <s:decorate id="unitsDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{invoiceItemAction.invoiceItem.units}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="appliedPriceDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="appliedPrice#{entityId}" rendered="#{true}" label="#{msg.invoiceItem_appliedPrice}" required="true" disabled="false" value="#{invoiceItemAction.invoiceItem.appliedPrice}"> 
+          <f:converter converterId="javax.faces.BigDecimal"/> 
+        </h:inputText> 
+      </s:decorate>  
+      <s:decorate id="serviceIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="serviceId" label="#{msg.invoiceItem_service}" value="#{invoiceItemAction.invoiceItem.service}" required="true" rendered="#{true}" disabled="false"> 
+          <p:ajax event="onchange" action="#{invoiceItemAction.onChangeService(invoiceItemAction.instance)}" update="appliedPrice" ajaxSingle="true"/>  
+          <s:selectItems value="#{serviceList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="invoiceIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="invoiceId" label="#{msg.invoiceItem_invoice}" value="#{invoiceItemAction.invoiceItem.invoice}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{invoiceList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="PrescriptionItemModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="PrescriptionItem Search Results (#{empty records ? 0 : (prescriptionItemList.paginated ? prescriptionItemList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form id="prescriptionItemForm"> 
+      <p:dataTable var="_prescriptionItem" value="#{records}" id="prescriptionItemList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{prescriptionItemAction.prescriptionItem}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editPrescriptionItemPanel')}" oncomplete="editPrescriptionItemDialog.show()" listener="#{prescriptionItemAction.onRowSelect}"/>  
+        <p:column headerText="msg.id" sortBy="prescriptionItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/prescription/prescriptionItem/prescriptionItemActionPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'view')}" propagation="none"> 
+            <h:outputText value="#{_prescriptionItem.id}"/>  
+            <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.prescriptionItem_drug}" sortBy="prescriptionItem.drug" rendered="#{true}"> 
+          <h:link escape="false" value="#{_prescriptionItem.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_prescriptionItem.drug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <p:tooltip> 
+              <span>#{_prescriptionItem.drug.popupInfo}</span> 
+            </p:tooltip> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.prescriptionItem_qty}" sortBy="prescriptionItem.qty" rendered="#{true}"> 
+          <h:outputText value="#{_prescriptionItem.qty}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.prescriptionItem_strength}" sortBy="prescriptionItem.strength" rendered="#{true}"> 
+          <h:outputText value="#{_prescriptionItem.strength}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.prescriptionItem_prescription}" sortBy="prescriptionItem.prescription" rendered="#{true}"> 
+          <h:link escape="false" value="#{_prescriptionItem.prescription.displayName}" view="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
+            <f:param name="prescriptionId" value="#{_prescriptionItem.prescription.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.prescriptionItem_route}" sortBy="prescriptionItem.route" rendered="#{true}"> 
+          <h:outputText value="#{_prescriptionItem.route}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.prescriptionItem_duration}" sortBy="prescriptionItem.duration" rendered="#{true}"> 
+          <h:outputText value="#{_prescriptionItem.duration}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.prescriptionItem_frequency}" sortBy="prescriptionItem.frequency" rendered="#{true}"> 
+          <h:link escape="false" value="#{_prescriptionItem.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+            <f:param name="frequencyId" value="#{_prescriptionItem.frequency.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.prescriptionItem_remarks}" sortBy="prescriptionItem.remarks" rendered="#{true}"> 
+          <h:outputText value="#{_prescriptionItem.remarks}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.prescriptionItem_brandName}" sortBy="prescriptionItem.brandName" rendered="#{true}"> 
+          <h:outputText value="#{_prescriptionItem.brandName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="msg.Creation Date" sortBy="prescriptionItem.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_prescriptionItem.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_prescriptionItem', 'view') and !_prescriptionItemCategory.archived}"> 
+          <h:link outcome="/admin/entities/prescription/prescriptionItem/viewPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_prescriptionItem', 'edit') and !_prescriptionItemCategory.archived}"> 
+          <h:link outcome="/admin/entities/prescription/prescriptionItem/editPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('prescriptionItemAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_prescriptionItem.archived}" action="#{prescriptionItemAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_prescriptionItem.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_prescriptionItem.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_prescriptionItem.archived}" action="#{prescriptionItemAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_prescriptionItem.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_prescriptionItem.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_prescriptionItem.archived}" action="#{prescriptionItemAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_prescriptionItem.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable>  
+      <ui:include src="/admin/entities/prescription/prescriptionItem/modalDlgPrescriptionItemComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

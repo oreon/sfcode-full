@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="NurseModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Nurse Search Results (#{empty records ? 0 : (nurseList.paginated ? nurseList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form id="nurseForm"> 
+      <p:dataTable var="_nurse" value="#{records}" id="nurseList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{nurseAction.nurse}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editNursePanel')}" oncomplete="editNurseDialog.show()" listener="#{nurseAction.onRowSelect}"/>  
+        <p:column headerText="msg.id" sortBy="nurse.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/employee/nurse/nurseActionNurse.xhtml" rendered="#{s:hasPermission(_nurse, 'view')}" propagation="none"> 
+            <h:outputText value="#{_nurse.id}"/>  
+            <f:param name="nurseId" value="#{_nurse.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_employeeNumber}" sortBy="nurse.employeeNumber" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.employeeNumber}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_userName}" sortBy="nurse.appUser.userName" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.appUser.userName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.appUser_enabled}" sortBy="nurse.appUser.enabled" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.appUser.enabled? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_facility}" sortBy="nurse.facility" rendered="#{true}"> 
+          <h:link escape="false" value="#{_nurse.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+            <f:param name="facilityId" value="#{_nurse.facility.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.employee_department}" sortBy="nurse.department" rendered="#{true}"> 
+          <h:link escape="false" value="#{_nurse.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+            <f:param name="departmentId" value="#{_nurse.department.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.person_firstName}" sortBy="nurse.firstName" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.firstName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_lastName}" sortBy="nurse.lastName" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.lastName}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_dateOfBirth}" sortBy="nurse.dateOfBirth" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.dateOfBirth}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.person_gender}" sortBy="nurse.gender" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.gender}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_primaryPhone}" sortBy="nurse.contactDetails.primaryPhone" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.contactDetails.primaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="nurse.contactDetails.secondaryPhone" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.contactDetails.secondaryPhone}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.contactDetails_email}" sortBy="nurse.contactDetails.email" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.contactDetails.email}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_age}" sortBy="nurse.age" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.age}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.person_title}" sortBy="nurse.title" rendered="#{true}"> 
+          <h:outputText value="#{_nurse.title}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="#{msg.nurse_nurseSpecialty}" sortBy="nurse.nurseSpecialty" rendered="#{true}"> 
+          <h:link escape="false" value="#{_nurse.nurseSpecialty.displayName}" view="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml" propagation="none"> 
+            <f:param name="nurseSpecialtyId" value="#{_nurse.nurseSpecialty.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="msg.Creation Date" sortBy="nurse.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_nurse.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_nurse', 'view') and !_nurseCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/nurse/viewNurse.xhtml" rendered="#{s:hasPermission(_nurse, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="nurseId" value="#{_nurse.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_nurse', 'edit') and !_nurseCategory.archived}"> 
+          <h:link outcome="/admin/entities/employee/nurse/editNurse.xhtml" rendered="#{s:hasPermission(_nurse, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="nurseId" value="#{_nurse.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('nurseAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_nurse.archived}" action="#{nurseAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_nurse.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_nurse.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_nurse.archived}" action="#{nurseAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_nurse.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_nurse.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_nurse.archived}" action="#{nurseAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_nurse.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable>  
+      <ui:include src="/admin/entities/employee/nurse/modalDlgNurseComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

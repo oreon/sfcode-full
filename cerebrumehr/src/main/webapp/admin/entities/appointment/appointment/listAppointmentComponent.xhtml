@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="AppointmentModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Appointment Search Results (#{empty records ? 0 : (appointmentList.paginated ? appointmentList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form id="appointmentForm"> 
+      <p:dataTable var="_appointment" value="#{records}" id="appointmentList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{appointmentAction.appointment}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editAppointmentPanel')}" oncomplete="editAppointmentDialog.show()" listener="#{appointmentAction.onRowSelect}"/>  
+        <p:column headerText="msg.id" sortBy="appointment.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/appointment/appointment/appointmentActionAppointment.xhtml" rendered="#{s:hasPermission(_appointment, 'view')}" propagation="none"> 
+            <h:outputText value="#{_appointment.id}"/>  
+            <f:param name="appointmentId" value="#{_appointment.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.appointment_start}" sortBy="appointment.start" rendered="#{true}"> 
+          <h:outputText value="#{_appointment.start}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.appointment_end}" sortBy="appointment.end" rendered="#{true}"> 
+          <h:outputText value="#{_appointment.end}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column headerText="#{msg.appointment_physician}" sortBy="appointment.physician" rendered="#{true}"> 
+          <h:link escape="false" value="#{_appointment.physician.displayName}" view="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
+            <f:param name="physicianId" value="#{_appointment.physician.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.appointment_patient}" sortBy="appointment.patient" rendered="#{true}"> 
+          <h:link escape="false" value="#{_appointment.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+            <f:param name="patientId" value="#{_appointment.patient.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <p:tooltip> 
+              <span>#{_appointment.patient.popupInfo}</span> 
+            </p:tooltip> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.appointment_remarks}" sortBy="appointment.remarks" rendered="#{true}"> 
+          <h:panelGroup> 
+            <p:tooltip value="#{_appointment.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="remarksAbbr" value="#{_appointment.remarksAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.appointment_units}" sortBy="appointment.units" rendered="#{true}"> 
+          <h:outputText value="#{_appointment.units}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="msg.Creation Date" sortBy="appointment.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_appointment.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_appointment', 'view') and !_appointmentCategory.archived}"> 
+          <h:link outcome="/admin/entities/appointment/appointment/viewAppointment.xhtml" rendered="#{s:hasPermission(_appointment, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="appointmentId" value="#{_appointment.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_appointment', 'edit') and !_appointmentCategory.archived}"> 
+          <h:link outcome="/admin/entities/appointment/appointment/editAppointment.xhtml" rendered="#{s:hasPermission(_appointment, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="appointmentId" value="#{_appointment.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('appointmentAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_appointment.archived}" action="#{appointmentAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_appointment.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_appointment.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_appointment.archived}" action="#{appointmentAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_appointment.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_appointment.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_appointment.archived}" action="#{appointmentAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_appointment.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable>  
+      <ui:include src="/admin/entities/appointment/appointment/modalDlgAppointmentComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

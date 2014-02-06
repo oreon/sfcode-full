@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewAppointmentComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{appointmentAction.load(appointmentId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppointment eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Appointment}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.appointment_start}  " rendered="#{true}"/>  
+      <h:outputText value="#{appointmentAction.appointment.start}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.appointment_end}  " rendered="#{true}"/>  
+      <h:outputText value="#{appointmentAction.appointment.end}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.appointment_remarks}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{appointmentAction.appointment.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="remarksAbbr" value="#{appointmentAction.appointment.remarksAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.appointment_units}  " rendered="#{true}"/>  
+      <h:outputText value="#{appointmentAction.appointment.units}" escape="false"/>  
+      <h:outputText value="#{msg.appointment_physician}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{appointmentAction.appointment.physician.displayName}" view="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
+        <f:param name="physicianId" value="#{appointmentAction.appointment.physician.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link>  
+      <h:outputText value="#{msg.appointment_patient}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{appointmentAction.appointment.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <f:param name="patientId" value="#{appointmentAction.appointment.patient.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/>  
+        <p:tooltip> 
+          <span>#{appointmentAction.appointment.patient.popupInfo}</span> 
+        </p:tooltip> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

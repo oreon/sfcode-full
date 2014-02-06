@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editAppointmentComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{appointmentAction.load(appointmentId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppointment eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Appointment}"/> 
+      </f:facet>  
+      <s:decorate id="startDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.appointment_start}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:calendar escape="false" navigator="true" id="start#{entityId}" rendered="#{true}" label="#{msg.appointment_start}" required="true" disabled="false" value="#{appointmentAction.appointment.start}"></p:calendar> 
+      </s:decorate>  
+      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.appointment_remarks}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{true}" label="#{msg.appointment_remarks}" required="false" disabled="false" value="#{appointmentAction.appointment.remarks}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="unitsDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.appointment_units}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.appointment_units}" required="false" disabled="false" value="#{appointmentAction.appointment.units}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="physicianIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.appointment_physician}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="physicianId" label="#{msg.appointment_physician}" value="#{appointmentAction.appointment.physician}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{physicianList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.appointment_patient}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="patientId" label="#{msg.appointment_patient}" value="#{appointmentAction.appointment.patient}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

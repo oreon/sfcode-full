@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="PrescriptionModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Prescription Search Results (#{empty records ? 0 : (prescriptionList.paginated ? prescriptionList.resultCount : records.size)})"/> 
+  </c:if>  
+  <p:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <h:form id="prescriptionForm"> 
+      <p:dataTable var="_prescription" value="#{records}" id="prescriptionList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{prescriptionAction.prescription}"> 
+        <p:ajax event="rowSelect" update=":#{p:component('editPrescriptionPanel')}" oncomplete="editPrescriptionDialog.show()" listener="#{prescriptionAction.onRowSelect}"/>  
+        <p:column headerText="msg.id" sortBy="prescription.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+          <h:link outcome="/admin/entities/prescription/prescription/prescriptionActionPrescription.xhtml" rendered="#{s:hasPermission(_prescription, 'view')}" propagation="none"> 
+            <h:outputText value="#{_prescription.id}"/>  
+            <f:param name="prescriptionId" value="#{_prescription.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.prescription_patient}" sortBy="prescription.patient" rendered="#{true}"> 
+          <h:link escape="false" value="#{_prescription.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+            <f:param name="patientId" value="#{_prescription.patient.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <p:tooltip> 
+              <span>#{_prescription.patient.popupInfo}</span> 
+            </p:tooltip> 
+          </h:link> 
+        </p:column>  
+        <p:column headerText="#{msg.prescription_directivesForPatient}" sortBy="prescription.directivesForPatient" rendered="#{true}"> 
+          <h:panelGroup> 
+            <p:tooltip value="#{_prescription.directivesForPatient}" for="directivesForPatientAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="directivesForPatientAbbr" value="#{_prescription.directivesForPatientAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column headerText="#{msg.prescription_active}" sortBy="prescription.active" rendered="#{true}"> 
+          <h:outputText value="#{_prescription.active? msg.yes : msg.no }"/> 
+        </p:column>  
+        <p:column headerText="#{msg.prescription_drugs}" sortBy="prescription.drugs" rendered="#{true}"> 
+          <h:outputText value="#{_prescription.drugs}" escape="false"/> 
+        </p:column>  
+        <p:column headerText="msg.Creation Date" sortBy="prescription.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+          <h:outputText value="#{_prescription.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_prescription', 'view') and !_prescriptionCategory.archived}"> 
+          <h:link outcome="/admin/entities/prescription/prescription/viewPrescription.xhtml" rendered="#{s:hasPermission(_prescription, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="prescriptionId" value="#{_prescription.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('_prescription', 'edit') and !_prescriptionCategory.archived}"> 
+          <h:link outcome="/admin/entities/prescription/prescription/editPrescription.xhtml" rendered="#{s:hasPermission(_prescription, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="prescriptionId" value="#{_prescription.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column rendered="#{s:hasPermission('prescriptionAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <h:link rendered="#{!_prescription.archived}" action="#{prescriptionAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_prescription.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="currentEntityId" value="#{_prescription.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_prescription.archived}" action="#{prescriptionAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_prescription.displayName} ?')){ return false; } else { return true; }">Delete 
+            <f:param name="currentEntityId" value="#{_prescription.id}"/> 
+          </h:link>  
+          <h:link rendered="#{_prescription.archived}" action="#{prescriptionAction.restore}">Restore
+            <f:param name="currentEntityId" value="#{_prescription.id}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable>  
+      <ui:include src="/admin/entities/prescription/prescription/modalDlgPrescriptionComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form> 
+  </p:panel> 
+</ui:composition>

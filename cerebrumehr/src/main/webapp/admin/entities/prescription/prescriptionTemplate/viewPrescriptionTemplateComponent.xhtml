@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPrescriptionTemplateComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{prescriptionTemplateAction.load(prescriptionTemplateId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPrescriptionTemplate eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.PrescriptionTemplate}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{prescriptionTemplateAction.prescriptionTemplate.name}" escape="false"/>  
+      <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{prescriptionTemplateAction.prescriptionTemplate.directivesForPatient}" for="directivesForPatientAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="directivesForPatientAbbr" value="#{prescriptionTemplateAction.prescriptionTemplate.directivesForPatientAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <p:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{not empty prescriptionTemplateAction.listPrescriptionItemTemplates and true }" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:link escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{_prescriptionItemTemplate.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{_prescriptionItemTemplate.drug.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:link escape="false" value="#{_prescriptionItemTemplate.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+          <f:param name="frequencyId" value="#{_prescriptionItemTemplate.frequency.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_prescriptionItemTemplate.qty}"> 
+          <f:convertNumber pattern="000.00"/> 
+        </h:outputText> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_prescriptionItemTemplate.strength}" escape="false"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_prescriptionItemTemplate.route}" escape="false"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_prescriptionItemTemplate.duration}" escape="false"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_prescriptionItemTemplate.remarks}" escape="false"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_prescriptionItemTemplate.brandName}" escape="false"/> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

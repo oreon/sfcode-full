@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPatientComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{patientAction.load(patientId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPatient eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Patient}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.firstName}" escape="false"/>  
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.lastName}" escape="false"/>  
+      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.dateOfBirth}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.person_gender}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.gender}" escape="false"/>  
+      <h:outputText value="#{msg.person_age}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.age}" escape="false"/>  
+      <h:outputText value="#{msg.person_title}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.title}" escape="false"/>  
+      <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.healthNumber}" escape="false"/> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ContactDetails}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.contactDetails.primaryPhone}" escape="false"/>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.contactDetails.secondaryPhone}" escape="false"/>  
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.contactDetails.email}" escape="false"/> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAddress eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Address}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.address_streetAddress}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.address.streetAddress}" escape="false"/>  
+      <h:outputText value="#{msg.address_city}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.address.city}" escape="false"/>  
+      <h:outputText value="#{msg.address_State}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.address.state}" escape="false"/>  
+      <h:outputText value="#{msg.address_phone}  " rendered="#{true}"/>  
+      <h:outputText value="#{patientAction.patient.address.phone}" escape="false"/> 
+    </h:panelGrid>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelHistory eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.History}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{patientAction.patient.history.medicalHistory}" for="medicalHistoryAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="medicalHistoryAbbr" value="#{patientAction.patient.history.medicalHistoryAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.history_socialHistory}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{patientAction.patient.history.socialHistory}" for="socialHistoryAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="socialHistoryAbbr" value="#{patientAction.patient.history.socialHistoryAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.history_familyHistory}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{patientAction.patient.history.familyHistory}" for="familyHistoryAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="familyHistoryAbbr" value="#{patientAction.patient.history.familyHistoryAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.history_medications}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{patientAction.patient.history.medications}" for="medicationsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="medicationsAbbr" value="#{patientAction.patient.history.medicationsAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.history_allergies}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{patientAction.patient.history.allergies}" for="allergiesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="allergiesAbbr" value="#{patientAction.patient.history.allergiesAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editChartProcedureComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{chartProcedureAction.load(chartProcedureId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelChartProcedure eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.ChartProcedure}"/> 
+      </f:facet>  
+      <s:decorate id="dueDateDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:calendar escape="false" navigator="true" id="dueDate#{entityId}" rendered="#{true}" label="#{msg.chartProcedure_dueDate}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.dueDate}"></p:calendar> 
+      </s:decorate>  
+      <s:decorate id="datePerformedDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:calendar escape="false" navigator="true" id="datePerformed#{entityId}" rendered="#{true}" label="#{msg.chartProcedure_datePerformed}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.datePerformed}"></p:calendar> 
+      </s:decorate>  
+      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{true}"/>
+        </ui:define>  
+        <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{true}" label="#{msg.chartProcedure_remarks}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.remarks}"></p:editor> 
+      </s:decorate>  
+      <s:decorate id="patientIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="patientId" label="#{msg.chartProcedure_patient}" value="#{chartProcedureAction.chartProcedure.patient}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="chartItemIdDecorate" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{true}"/>
+        </ui:define>  
+        <h:selectOneMenu id="chartItemId" label="#{msg.chartProcedure_chartItem}" value="#{chartProcedureAction.chartProcedure.chartItem}" required="true" rendered="#{true}" disabled="false"> 
+          <s:selectItems value="#{chartItemList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu> 
+      </s:decorate> 
+    </h:panelGrid>  
+    <br/>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewSectionComponentPanel"> 
+    <h:panelGrid columns="1" onload="#{sectionAction.load(sectionId )  }"/>  
+    <c:if test="${numColumns == null }"> 
+      <c:set var="numColumns" value="2"/> 
+    </c:if>  
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelSection eq null}"> 
+      <f:facet name="header"> 
+        <h:outputText value="#{msg.Section}"/> 
+      </f:facet>  
+      <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{sectionAction.section.name}" escape="false"/>  
+      <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>  
+      <h:panelGroup> 
+        <p:tooltip value="#{sectionAction.section.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="descriptionAbbr" value="#{sectionAction.section.descriptionAbbreviated}" escape="false"/> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.section_chapter}  " rendered="#{true}"/>  
+      <h:link escape="false" value="#{sectionAction.section.chapter.displayName}" view="/admin/entities/codes/chapter/viewChapter.xhtml" propagation="none"> 
+        <f:param name="chapterId" value="#{sectionAction.section.chapter.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </h:panelGrid>  
+    <br/>  
+    <p:dataTable id="codes" var="_code" rendered="#{not empty sectionAction.listCodes and true }" value="#{sectionAction.listCodes}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_code.name}" escape="false"/> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:panelGroup> 
+          <p:tooltip value="#{_code.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+          <h:outputText id="descriptionAbbr" value="#{_code.descriptionAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.code_includes}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:panelGroup> 
+          <p:tooltip value="#{_code.includes}" for="includesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+          <h:outputText id="includesAbbr" value="#{_code.includesAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:panelGroup> 
+          <p:tooltip value="#{_code.notIncludedHere}" for="notIncludedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+          <h:outputText id="notIncludedHereAbbr" value="#{_code.notIncludedHereAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.code_codeFirst}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:panelGroup> 
+          <p:tooltip value="#{_code.codeFirst}" for="codeFirstAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+          <h:outputText id="codeFirstAbbr" value="#{_code.codeFirstAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:panelGroup> 
+          <p:tooltip value="#{_code.notCodedHere}" for="notCodedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+          <h:outputText id="notCodedHereAbbr" value="#{_code.notCodedHereAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.code_codeAlso}  " rendered="#{true}"/> 
+        </f:facet>  
+        <h:outputText value="#{_code.codeAlso}" escape="false"/> 
+      </p:column> 
+    </p:dataTable>  
+    <br/> 
+  </h:panelGroup> 
+</ui:composition>
