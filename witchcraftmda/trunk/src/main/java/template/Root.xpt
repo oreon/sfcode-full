@@ -6,7 +6,9 @@
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+	«REM»comment
 	«EXPAND DtoGen::Root FOR this»
+	«ENDREM»
 	«EXPAND ORMGen::Root FOR this»
 	«EXPAND genProjectUtils FOR this»
 	«EXPAND DocumentationRoot::Root FOR this»

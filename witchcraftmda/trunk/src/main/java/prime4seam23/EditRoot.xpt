@@ -95,7 +95,7 @@
 		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
 		      		</h:button>
-		      		  <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  reupdate="${modalId}" >
+		      		  <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  update="${modalId}" >
 			            <f:param name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
 			         	<f:param name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.opposite.name»Id}" 
 			         		value="#{«name.toFirstLower()»Action.instance.id}"  />
@@ -439,8 +439,8 @@
 		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}" 
 		disabled="false" >
 		«IF isColumn() && this.controls != null » 
-			«IF !isCurrentMultiMode()»   «REM»TODO: reupdate=controls need to be id aware «ENDREM»
-			<p:ajax event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  reupdate="«controls»" ajaxSingle="true" />
+			«IF !isCurrentMultiMode()»   «REM»TODO: update=controls need to be id aware «ENDREM»
+			<p:ajax event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  update="«controls»" ajaxSingle="true" />
 			«ELSE» «REM»For multimode we need to send the variable «ENDREM»
 			  <p:ajax event="onchange"
 				action="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"
@@ -482,7 +482,7 @@
 	 «IF isColumn() && secret»
 	 	 redisplay="true" 
 	 «ENDIF»  
-	 «IF isType("Date")»  direction="auto" «ENDIF»
+	 «IF isType("Date")»  navigator="true" «ENDIF»
 	  
 	 id="«getId()»#{entityId}"  rendered="#{«genEditPermission()»}"  
 	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"" + " disabled=\"" + getDisabled() + "\"" :""
@@ -641,7 +641,7 @@
           <s:convertEntity/> 
           <p:ajax event="onchange"
 							action="#{«getAction()».loadFromTemplate}"
-							reupdate="edit«name»ComponentPanel#{entityId}" ajaxSingle="true" >
+							update="edit«name»ComponentPanel#{entityId}" ajaxSingle="true" >
 				<s:conversationPropagation type="begin" />
 		  </p:ajax> 
         </h:selectOneMenu>  
