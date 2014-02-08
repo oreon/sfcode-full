@@ -95,15 +95,18 @@
 		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
 		      		</h:button>
-		      		  <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"  update="${modalId}" >
-			            <f:param name="«a.type.name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.type.name.toFirstLower()»Id}" value="0"  />
-			         	<f:param name="«name.toFirstLower()»Id" assignTo="#{«a.type.name.toFirstLower()»Action.«a.opposite.name»Id}" 
-			         		value="#{«name.toFirstLower()»Action.instance.id}"  />
-			         </h:commandButton>
+		      		
+		      		  <p:commandButton value="Quick Create"
+				        	update=":#{p:component('edit«a.type.name»Panel')}"  
+				                              oncomplete="edit«a.type.name»Dialog.show()">
+								<f:param value="0" assignTo="#{«a.type.asVar()»Action.«asVar()»Id}" />
+						</p:commandButton>
+		      		
+			         <ui:include src="«a.type.getComponentViewFile("modalDlg")»" > 
+			    		<ui:param name="modalId" value="${modalId}" />
+			    	 </ui:include>
 		    	</h:form>
-		    	<ui:include src="«a.type.getComponentViewFile("modalDlg")»" > 
-		    		<ui:param name="modalId" value="${modalId}" />
-		    	</ui:include>
+		    	
 			</p:tab>
 			«ENDFOREACH»
 			</p:tabView>
@@ -404,34 +407,32 @@
 
 «DEFINE genAutoCompleteAssoc FOR uml::Property»
 	<h:panelGroup>
-	 <p:region>
-	<h:inputText value="#{«getActionForMode()»«genPropertyLabel()-».displayName}" label="«msgBundleKey()»"  
-		id="«getId()»" required="«!getAssocOptional()»"   />
-	«EXPAND genSuggestionBox FOR this»
-	 </p:region>
-	</h:panelGroup>
-«ENDDEFINE»
-
-«DEFINE genSuggestionBox FOR uml::Property»
-	<p:autocomplete  for="«getId()»"  rules="all" suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
-		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999">
+		<p:autoComplete minQueryLength="3" completeMethod="#{«type.asVar()»List.autocomplete}" 
+  		value="#{«type.asVar()»Action.«type.asVar()»}" converter="#{«type.asVar()»List.converter}"  var = "record" 
+  			itemLabel="#{record.displayName}" itemValue="#{record}">
 		«IF type.autoCompleteColumns == null»
 			<p:column>
-				<h:outputText value="#{_result.displayName}" />
+				<h:outputText value="#{record.displayName}" />
 			</p:column>
 		«ELSE»
 		«FOREACH type.autoCompleteColumns.getAsList() AS e-»
 			<p:column>
-				<h:outputText value="#{_result.«e»}" />
+				<h:outputText value="#{record.«e»}" />
 			</p:column>
 		«ENDFOREACH»
 		«ENDIF»
-						
+		</p:autoComplete>
+	</h:panelGroup>
+«ENDDEFINE»
+
+«DEFINE genSuggestionBox FOR uml::Property»
+	<p:autocomplete  suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
+		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found"
+		  >			
 		<p:ajax event="onselect">
 			<f:setPropertyActionListener value="#{_result}"
 				target="#{«getActionForMode()»«genPropertyLabel()-»}" />
 		</p:ajax>
-	</p:autocomplete>
 «ENDDEFINE»
 
 «DEFINE genDropDown FOR uml::Property»
@@ -581,8 +582,10 @@
 
 
 «DEFINE gentEditableTable FOR uml::Property-»
+	
 	«IF !isColumn() || (isColumn() &&  systemModifyOnly == false) »
 	«setCurrentMultiMode(true)-»
+	<p:panel rendered="#{ ! exclude«name.toFirstUpper()» == true}" >
 	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
 	<p:dataTable id="«name»" var="_«type.asVar()»" 
 		«IF !isCurrentEditMode()» 
@@ -602,6 +605,7 @@
 		 «ENDIF»
 		«ENDIF»	
 	</p:dataTable>
+	</p:panel>
 	«setCurrentMultiMode(false)-»
 	«ENDIF»
 «ENDDEFINE»
