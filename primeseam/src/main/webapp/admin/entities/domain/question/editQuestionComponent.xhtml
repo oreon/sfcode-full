@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Question}"/> 
       </f:facet>  
-      <s:decorate id="textDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="textDecorate" rendered="#{ ! excludeText == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{questionAction.question.text}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="examIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="examIdDecorate" rendered="#{ ! excludeExam == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.question_exam}  " rendered="#{true}"/>
         </ui:define>  

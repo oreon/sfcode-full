@@ -31,37 +31,39 @@
       </h:link> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="orderItems" var="_orderItem" rendered="#{not empty customerOrderAction.listOrderItems and true }" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_orderItem.product.displayName}" view="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
-          <f:param name="productId" value="#{_orderItem.product.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_orderItem.remarks}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_orderItem.units}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_orderItem.salePrice}"> 
-          <f:convertNumber pattern="$#,##0.00"/> 
-        </h:outputText> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeOrderItems == true}"> 
+      <p:dataTable id="orderItems" var="_orderItem" rendered="#{not empty customerOrderAction.listOrderItems and true }" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_orderItem.product.displayName}" view="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
+            <f:param name="productId" value="#{_orderItem.product.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_orderItem.remarks}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_orderItem.units}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_orderItem.salePrice}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

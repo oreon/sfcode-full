@@ -19,17 +19,19 @@
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions and true }" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.question_text}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:panelGroup> 
-          <p:tooltip value="#{_question.text}" for="textAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="textAbbr" value="#{_question.textAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeQuestions == true}"> 
+      <p:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions and true }" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.question_text}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <p:tooltip value="#{_question.text}" for="textAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="textAbbr" value="#{_question.textAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

@@ -18,24 +18,24 @@
             <f:param name="customerOrderId" value="#{_customerOrder.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.customerOrder_remarks}" sortBy="customerOrder.remarks" rendered="#{true}"> 
+        <p:column headerText="#{msg.customerOrder_remarks}" sortBy="customerOrder.remarks" rendered="#{ ! excludeRemarks == true}"> 
           <h:panelGroup> 
             <p:tooltip value="#{_customerOrder.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="remarksAbbr" value="#{_customerOrder.remarksAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.customerOrder_customer}" sortBy="customerOrder.customer" rendered="#{true}"> 
+        <p:column headerText="#{msg.customerOrder_customer}" sortBy="customerOrder.customer" rendered="#{ ! excludeCustomer == true}"> 
           <h:link escape="false" value="#{_customerOrder.customer.displayName}" view="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
             <f:param name="customerId" value="#{_customerOrder.customer.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.customerOrder_total}" sortBy="customerOrder.total" rendered="#{true}"> 
+        <p:column headerText="#{msg.customerOrder_total}" sortBy="customerOrder.total" rendered="#{ ! excludeTotal == true}"> 
           <h:outputText value="#{_customerOrder.total}"> 
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.customerOrder_servicingEmployee}" sortBy="customerOrder.servicingEmployee" rendered="#{true}"> 
+        <p:column headerText="#{msg.customerOrder_servicingEmployee}" sortBy="customerOrder.servicingEmployee" rendered="#{ ! excludeServicingEmployee == true}"> 
           <h:link escape="false" value="#{_customerOrder.servicingEmployee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
             <f:param name="employeeId" value="#{_customerOrder.servicingEmployee.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 

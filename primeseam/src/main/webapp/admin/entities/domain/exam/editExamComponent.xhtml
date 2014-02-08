@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Exam}"/> 
       </f:facet>  
-      <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="titleDecorate" rendered="#{ ! excludeTitle == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.exam_title}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="title#{entityId}" rendered="#{true}" label="#{msg.exam_title}" required="true" disabled="false" value="#{examAction.exam.title}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.exam_description}  " rendered="#{true}"/>
         </ui:define>  
@@ -24,30 +24,32 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{true}"> 
-      <s:conversationId/> 
-    </p:commandButton>  
-    <p:dataTable id="questions" var="_question" rendered="#{true}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="textDecorate" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <p:editor escape="false" useSeamText="true" id="text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{_question.text}"></p:editor> 
-        </s:decorate> 
-      </p:column>  
-      <p:column> 
-        <p:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{true}"> 
-          <s:conversationId/> 
-        </p:commandButton> 
-      </p:column>  
-      <p:column> 
-        <h:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" update="questions"> 
-          <s:conversationId/> 
-        </h:commandButton> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeQuestions == true}"> 
+      <p:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{true}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="questions" var="_question" rendered="#{true}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="textDecorate" rendered="#{ ! excludeText == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{_question.text}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{true}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" update="questions"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

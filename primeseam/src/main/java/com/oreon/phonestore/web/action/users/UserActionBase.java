@@ -204,7 +204,7 @@ public abstract class UserActionBase extends BaseAction<User>
 		List<com.oreon.phonestore.users.Role> availableroles = ((com.oreon.phonestore.web.action.users.RoleListQuery) Component
 				.getInstance("roleList")).getAll();
 
-		List<com.oreon.phonestore.users.Role> currentroles = getInstance()
+		List<com.oreon.phonestore.users.Role> currentRoles = getInstance()
 				.getListRoles();
 
 		if (availableroles == null)
@@ -214,7 +214,7 @@ public abstract class UserActionBase extends BaseAction<User>
 			availableroles.removeAll(getEntity().getRoles());
 
 		listAvailableRoles = new DualListModel<com.oreon.phonestore.users.Role>(
-				availableroles, currentroles);
+				availableroles, currentRoles);
 	}
 
 	public DualListModel<com.oreon.phonestore.users.Role> getListAvailableRoles() {
