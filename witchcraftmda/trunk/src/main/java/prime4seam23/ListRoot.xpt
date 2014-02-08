@@ -302,7 +302,10 @@
 «ENDDEFINE»
 
 «DEFINE genPermission FOR uml::Property»
-	rendered="#{«genViewPermission()»}"
+	rendered="#{ ! exclude«name.toFirstUpper()» == true}"
+	«REM»comment
+	rendered="#{«genViewPermission()»}"  
+	«ENDREM»
 «ENDDEFINE»
 
 «DEFINE genPermission FOR String»
