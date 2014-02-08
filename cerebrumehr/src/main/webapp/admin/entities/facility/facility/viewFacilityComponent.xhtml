@@ -14,20 +14,22 @@
       <h:outputText value="#{facilityAction.facility.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="wards" var="_ward" rendered="#{not empty facilityAction.listWards and true }" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_ward.name}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_ward.gender}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeWards == true}"> 
+      <p:dataTable id="wards" var="_ward" rendered="#{not empty facilityAction.listWards and true }" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_ward.name}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_ward.gender}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

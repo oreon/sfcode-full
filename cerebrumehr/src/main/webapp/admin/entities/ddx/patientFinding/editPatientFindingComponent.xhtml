@@ -15,17 +15,11 @@
           <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{true}"/>
         </ui:define>  
         <h:panelGroup> 
-          <p:region> 
-            <h:inputText value="#{patientFindingAction.patientFinding.finding.displayName}" label="#{msg.patientFinding_finding}" id="findingId" required="true"/>  
-            <p:autocomplete for="findingId" rules="all" suggestionAction="#{findingList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
-              <p:column> 
-                <h:outputText value="#{_result.name}"/> 
-              </p:column>  
-              <p:ajax event="onselect"> 
-                <f:setPropertyActionListener value="#{_result}" target="#{patientFindingAction.patientFinding.finding}"/> 
-              </p:ajax> 
-            </p:autocomplete> 
-          </p:region> 
+          <p:autoComplete minQueryLength="3" completeMethod="#{findingList.autocomplete}" value="#{findingAction.finding}" converter="#{findingList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
+            <p:column> 
+              <h:outputText value="#{record.name}"/> 
+            </p:column> 
+          </p:autoComplete> 
         </h:panelGroup> 
       </s:decorate>  
       <s:decorate id="patientDiffDxIdDecorate" rendered="#{ ! excludePatientDiffDx == true}" template="/layout/edit.xhtml"> 

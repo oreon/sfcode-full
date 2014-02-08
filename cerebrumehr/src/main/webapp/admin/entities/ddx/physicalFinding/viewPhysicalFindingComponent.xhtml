@@ -16,23 +16,25 @@
       <h:outputText value="#{physicalFindingAction.physicalFinding.icdCode}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and true }" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_differentialDx.dxCategory.displayName}" view="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
-          <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.differentialDx_name}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_differentialDx.name}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeDifferentialDxs == true}"> 
+      <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and true }" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_differentialDx.dxCategory.displayName}" view="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
+            <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_differentialDx.name}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

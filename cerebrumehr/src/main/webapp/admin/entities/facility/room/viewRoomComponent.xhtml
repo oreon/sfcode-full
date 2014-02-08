@@ -24,26 +24,28 @@
       </h:link> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="beds" var="_bed" rendered="#{not empty roomAction.listBeds and true }" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.bed_patient}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_bed.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-          <f:param name="patientId" value="#{_bed.patient.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{_bed.patient.popupInfo}</span> 
-          </p:tooltip> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.bed_name}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_bed.name}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeBeds == true}"> 
+      <p:dataTable id="beds" var="_bed" rendered="#{not empty roomAction.listBeds and true }" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bed_patient}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_bed.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+            <f:param name="patientId" value="#{_bed.patient.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <p:tooltip> 
+              <span>#{_bed.patient.popupInfo}</span> 
+            </p:tooltip> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bed_name}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_bed.name}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

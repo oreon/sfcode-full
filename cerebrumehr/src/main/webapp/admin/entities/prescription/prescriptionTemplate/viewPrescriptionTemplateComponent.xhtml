@@ -19,67 +19,69 @@
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{not empty prescriptionTemplateAction.listPrescriptionItemTemplates and true }" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
-          <f:param name="drugId" value="#{_prescriptionItemTemplate.drug.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{_prescriptionItemTemplate.drug.popupInfo}</span> 
-          </p:tooltip> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_prescriptionItemTemplate.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
-          <f:param name="frequencyId" value="#{_prescriptionItemTemplate.frequency.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItemTemplate.qty}"> 
-          <f:convertNumber pattern="000.00"/> 
-        </h:outputText> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItemTemplate.strength}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItemTemplate.route}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItemTemplate.duration}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItemTemplate.remarks}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItemTemplate.brandName}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludePrescriptionItemTemplates == true}"> 
+      <p:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{not empty prescriptionTemplateAction.listPrescriptionItemTemplates and true }" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_prescriptionItemTemplate.drug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <p:tooltip> 
+              <span>#{_prescriptionItemTemplate.drug.popupInfo}</span> 
+            </p:tooltip> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_prescriptionItemTemplate.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+            <f:param name="frequencyId" value="#{_prescriptionItemTemplate.frequency.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.qty}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.strength}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.route}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.duration}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.remarks}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItemTemplate.brandName}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

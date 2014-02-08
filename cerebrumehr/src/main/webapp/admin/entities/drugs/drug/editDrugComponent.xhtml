@@ -120,56 +120,58 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions" rendered="#{true}"> 
-      <s:conversationId/> 
-    </p:commandButton>  
-    <p:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{true}" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="interactingDrugIdDecorate" rendered="#{ ! excludeInteractingDrug == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:selectOneMenu id="interactingDrugId" label="#{msg.drugInteraction_interactingDrug}" value="#{_drugInteraction.interactingDrug}" required="true" rendered="#{true}" disabled="false"> 
-            <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.drugInteraction_description}" required="false" disabled="false" value="#{_drugInteraction.description}"></p:editor> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="severityDecorate" rendered="#{ ! excludeSeverity == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:selectOneMenu id="severity" rendered="#{true}" value="#{_drugInteraction.severity}" required="false" label="#{msg.drugInteraction_severity}"> 
-            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-            <f:selectItem itemValue="MILD" itemLabel="#{msg.MILD}"/>  
-            <f:selectItem itemValue="MODERATE" itemLabel="#{msg.MODERATE}"/>  
-            <f:selectItem itemValue="SEVERE" itemLabel="#{msg.SEVERE}"/> 
-          </h:selectOneMenu> 
-        </s:decorate> 
-      </p:column>  
-      <p:column> 
-        <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions" rendered="#{true}"> 
-          <s:conversationId/> 
-        </p:commandButton> 
-      </p:column>  
-      <p:column> 
-        <h:commandButton value="Delete" immediate="true" action="#{drugAction.deleteDrugInteractions(rowIndex)}" update="drugInteractions"> 
-          <s:conversationId/> 
-        </h:commandButton> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeDrugInteractions == true}"> 
+      <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions" rendered="#{true}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{true}" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="interactingDrugIdDecorate" rendered="#{ ! excludeInteractingDrug == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="interactingDrugId" label="#{msg.drugInteraction_interactingDrug}" value="#{_drugInteraction.interactingDrug}" required="true" rendered="#{true}" disabled="false"> 
+              <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.drugInteraction_description}" required="false" disabled="false" value="#{_drugInteraction.description}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="severityDecorate" rendered="#{ ! excludeSeverity == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="severity" rendered="#{true}" value="#{_drugInteraction.severity}" required="false" label="#{msg.drugInteraction_severity}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="MILD" itemLabel="#{msg.MILD}"/>  
+              <f:selectItem itemValue="MODERATE" itemLabel="#{msg.MODERATE}"/>  
+              <f:selectItem itemValue="SEVERE" itemLabel="#{msg.SEVERE}"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions" rendered="#{true}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{drugAction.deleteDrugInteractions(rowIndex)}" update="drugInteractions"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

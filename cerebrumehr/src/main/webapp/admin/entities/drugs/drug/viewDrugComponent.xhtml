@@ -88,35 +88,37 @@
       <h:outputText value="#{drugAction.drug.categories}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{not empty drugAction.listDrugInteractions and true }" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
-          <f:param name="drugId" value="#{_drugInteraction.interactingDrug.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{_drugInteraction.interactingDrug.popupInfo}</span> 
-          </p:tooltip> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:panelGroup> 
-          <p:tooltip value="#{_drugInteraction.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="descriptionAbbr" value="#{_drugInteraction.descriptionAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_drugInteraction.severity}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeDrugInteractions == true}"> 
+      <p:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{not empty drugAction.listDrugInteractions and true }" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_drugInteraction.interactingDrug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <p:tooltip> 
+              <span>#{_drugInteraction.interactingDrug.popupInfo}</span> 
+            </p:tooltip> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <p:tooltip value="#{_drugInteraction.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="descriptionAbbr" value="#{_drugInteraction.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_drugInteraction.severity}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

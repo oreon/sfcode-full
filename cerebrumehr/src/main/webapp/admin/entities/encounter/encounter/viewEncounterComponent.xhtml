@@ -57,68 +57,74 @@
       <h:outputText value="#{encounterAction.encounter.vitals.respirationRate}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{not empty encounterAction.listPrescribedTests and true }" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_prescribedTest.dxTest.displayName}" view="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
-          <f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.testResults_results}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:panelGroup> 
-          <p:tooltip value="#{_prescribedTest.testResults.results}" for="resultsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="resultsAbbr" value="#{_prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.testResults_document}  " rendered="#{true}"/> 
-        </f:facet>  
-        <s:graphicImage rendered="#{_prescribedTest.testResults.document ne null and  _prescribedTest.testResults.document.contentType.startsWith('image')}" value="#{_prescribedTest.testResults.document.data}"> 
-          <s:transformImageSize height="100" maintainRatio="true"/> 
-        </s:graphicImage>  
-        <h:link value="#{_prescribedTest.testResults.document.name}" action="#{testResultsAction.downloadDocument(_testResults.id)}" propagation="none" rendered="#{not _prescribedTest.testResults.document.contentType.startsWith('image')}"> 
-          <f:param name="currentEnt ityId" value="#{_testResults.id}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescribedTest.remarks}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
-    <p:dataTable id="differentials" var="_differential" rendered="#{not empty encounterAction.listDifferentials and true }" value="#{encounterAction.listDifferentials}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.differential_remarks}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_differential.remarks}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
-    <p:dataTable id="reasons" var="_reason" rendered="#{not empty encounterAction.listReasons and true }" value="#{encounterAction.listReasons}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.reason_code}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_reason.code.displayName}" view="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
-          <f:param name="codeId" value="#{_reason.code.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.reason_remarks}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_reason.remarks}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludePrescribedTests == true}"> 
+      <p:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{not empty encounterAction.listPrescribedTests and true }" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_prescribedTest.dxTest.displayName}" view="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+            <f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.testResults_results}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <p:tooltip value="#{_prescribedTest.testResults.results}" for="resultsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="resultsAbbr" value="#{_prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.testResults_document}  " rendered="#{true}"/> 
+          </f:facet>  
+          <s:graphicImage rendered="#{_prescribedTest.testResults.document ne null and  _prescribedTest.testResults.document.contentType.startsWith('image')}" value="#{_prescribedTest.testResults.document.data}"> 
+            <s:transformImageSize height="100" maintainRatio="true"/> 
+          </s:graphicImage>  
+          <h:link value="#{_prescribedTest.testResults.document.name}" action="#{testResultsAction.downloadDocument(_testResults.id)}" propagation="none" rendered="#{not _prescribedTest.testResults.document.contentType.startsWith('image')}"> 
+            <f:param name="currentEnt ityId" value="#{_testResults.id}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescribedTest.remarks}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <p:panel rendered="#{ ! excludeDifferentials == true}"> 
+      <p:dataTable id="differentials" var="_differential" rendered="#{not empty encounterAction.listDifferentials and true }" value="#{encounterAction.listDifferentials}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.differential_remarks}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_differential.remarks}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
+    <p:panel rendered="#{ ! excludeReasons == true}"> 
+      <p:dataTable id="reasons" var="_reason" rendered="#{not empty encounterAction.listReasons and true }" value="#{encounterAction.listReasons}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.reason_code}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_reason.code.displayName}" view="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
+            <f:param name="codeId" value="#{_reason.code.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.reason_remarks}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_reason.remarks}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

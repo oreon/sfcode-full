@@ -34,14 +34,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="admissionId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="admissionId" assignTo="#{admissionAction.admissionId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{admissionAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/patient/admission/modalDlgAdmissionComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editAdmissionPanel')}" oncomplete="editAdmissionDialog.show()"> 
+            <f:param value="0" assignTo="#{admissionAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/patient/admission/modalDlgAdmissionComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab>  
       <p:tab title="Prescriptions" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-prescriptions"/>  
@@ -54,14 +53,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="prescriptionId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="prescriptionId" assignTo="#{prescriptionAction.prescriptionId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{prescriptionAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/prescription/prescription/modalDlgPrescriptionComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionPanel')}" oncomplete="editPrescriptionDialog.show()"> 
+            <f:param value="0" assignTo="#{prescriptionAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/prescription/prescription/modalDlgPrescriptionComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab>  
       <p:tab title="UnusualOccurences" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-unusualOccurences"/>  
@@ -74,14 +72,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="unusualOccurenceId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="unusualOccurenceId" assignTo="#{unusualOccurenceAction.unusualOccurenceId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{unusualOccurenceAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/modalDlgUnusualOccurenceComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" oncomplete="editUnusualOccurenceDialog.show()"> 
+            <f:param value="0" assignTo="#{unusualOccurenceAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/modalDlgUnusualOccurenceComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab>  
       <p:tab title="PatientDocuments" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-patientDocuments"/>  
@@ -94,14 +91,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="patientDocumentId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="patientDocumentId" assignTo="#{patientDocumentAction.patientDocumentId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{patientDocumentAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/patient/patientDocument/modalDlgPatientDocumentComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editPatientDocumentPanel')}" oncomplete="editPatientDocumentDialog.show()"> 
+            <f:param value="0" assignTo="#{patientDocumentAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/patient/patientDocument/modalDlgPatientDocumentComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab>  
       <p:tab title="Allergys" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-allergys"/>  
@@ -114,14 +110,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="allergyId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="allergyId" assignTo="#{allergyAction.allergyId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{allergyAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/patient/allergy/modalDlgAllergyComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" oncomplete="editAllergyDialog.show()"> 
+            <f:param value="0" assignTo="#{allergyAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/patient/allergy/modalDlgAllergyComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab>  
       <p:tab title="Immunizations" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-immunizations"/>  
@@ -134,14 +129,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="immunizationId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="immunizationId" assignTo="#{immunizationAction.immunizationId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{immunizationAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/patient/immunization/modalDlgImmunizationComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editImmunizationPanel')}" oncomplete="editImmunizationDialog.show()"> 
+            <f:param value="0" assignTo="#{immunizationAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/patient/immunization/modalDlgImmunizationComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab>  
       <p:tab title="VitalValues" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-vitalValues"/>  
@@ -154,14 +148,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="vitalValueId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="vitalValueId" assignTo="#{vitalValueAction.vitalValueId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{vitalValueAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/patient/vitalValue/modalDlgVitalValueComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editVitalValuePanel')}" oncomplete="editVitalValueDialog.show()"> 
+            <f:param value="0" assignTo="#{vitalValueAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/patient/vitalValue/modalDlgVitalValueComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab>  
       <p:tab title="Encounters" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-encounters"/>  
@@ -174,14 +167,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="encounterId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="encounterId" assignTo="#{encounterAction.encounterId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{encounterAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/encounter/encounter/modalDlgEncounterComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editEncounterPanel')}" oncomplete="editEncounterDialog.show()"> 
+            <f:param value="0" assignTo="#{encounterAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/encounter/encounter/modalDlgEncounterComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab>  
       <p:tab title="AppliedCharts" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-appliedCharts"/>  
@@ -194,14 +186,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="appliedChartId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="appliedChartId" assignTo="#{appliedChartAction.appliedChartId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{appliedChartAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/charts/appliedChart/modalDlgAppliedChartComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editAppliedChartPanel')}" oncomplete="editAppliedChartDialog.show()"> 
+            <f:param value="0" assignTo="#{appliedChartAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/charts/appliedChart/modalDlgAppliedChartComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab>  
       <p:tab title="ChartProcedures" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-chartProcedures"/>  
@@ -214,14 +205,13 @@
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="chartProcedureId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="chartProcedureId" assignTo="#{chartProcedureAction.chartProcedureId}" value="0"/>  
-            <f:param name="patientId" assignTo="#{chartProcedureAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/charts/chartProcedure/modalDlgChartProcedureComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editChartProcedurePanel')}" oncomplete="editChartProcedureDialog.show()"> 
+            <f:param value="0" assignTo="#{chartProcedureAction.patientId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/charts/chartProcedure/modalDlgChartProcedureComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab> 
     </p:tabView>  
     <br/>  

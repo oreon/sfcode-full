@@ -18,43 +18,45 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{true}"> 
-      <s:conversationId/> 
-    </p:commandButton>  
-    <p:dataTable id="wards" var="_ward" rendered="#{true}" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.ward_name}" required="true" disabled="false" value="#{_ward.name}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:selectOneMenu id="gender" rendered="#{true}" value="#{_ward.gender}" required="false" label="#{msg.ward_gender}"> 
-            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-            <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
-            <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
-          </h:selectOneMenu> 
-        </s:decorate> 
-      </p:column>  
-      <p:column> 
-        <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{true}"> 
-          <s:conversationId/> 
-        </p:commandButton> 
-      </p:column>  
-      <p:column> 
-        <h:commandButton value="Delete" immediate="true" action="#{facilityAction.deleteWards(rowIndex)}" update="wards"> 
-          <s:conversationId/> 
-        </h:commandButton> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeWards == true}"> 
+      <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{true}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="wards" var="_ward" rendered="#{true}" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.ward_name}" required="true" disabled="false" value="#{_ward.name}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="gender" rendered="#{true}" value="#{_ward.gender}" required="false" label="#{msg.ward_gender}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
+              <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{true}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{facilityAction.deleteWards(rowIndex)}" update="wards"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>
