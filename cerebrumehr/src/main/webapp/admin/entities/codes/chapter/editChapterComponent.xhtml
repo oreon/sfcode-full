@@ -24,39 +24,41 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections" rendered="#{true}"> 
-      <s:conversationId/> 
-    </p:commandButton>  
-    <p:dataTable id="sections" var="_section" rendered="#{true}" value="#{chapterAction.listSections}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{_section.name}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{_section.description}"></p:editor> 
-        </s:decorate> 
-      </p:column>  
-      <p:column> 
-        <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections" rendered="#{true}"> 
-          <s:conversationId/> 
-        </p:commandButton> 
-      </p:column>  
-      <p:column> 
-        <h:commandButton value="Delete" immediate="true" action="#{chapterAction.deleteSections(rowIndex)}" update="sections"> 
-          <s:conversationId/> 
-        </h:commandButton> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeSections == true}"> 
+      <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections" rendered="#{true}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="sections" var="_section" rendered="#{true}" value="#{chapterAction.listSections}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{_section.name}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{_section.description}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections" rendered="#{true}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{chapterAction.deleteSections(rowIndex)}" update="sections"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

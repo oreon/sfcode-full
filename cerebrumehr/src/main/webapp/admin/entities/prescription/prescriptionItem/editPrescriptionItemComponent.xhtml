@@ -58,17 +58,11 @@
           <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{true}"/>
         </ui:define>  
         <h:panelGroup> 
-          <p:region> 
-            <h:inputText value="#{prescriptionItemAction.prescriptionItem.drug.displayName}" label="#{msg.prescriptionItem_drug}" id="drugId" required="true"/>  
-            <p:autocomplete for="drugId" rules="all" suggestionAction="#{drugList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
-              <p:column> 
-                <h:outputText value="#{_result.name}"/> 
-              </p:column>  
-              <p:ajax event="onselect"> 
-                <f:setPropertyActionListener value="#{_result}" target="#{prescriptionItemAction.prescriptionItem.drug}"/> 
-              </p:ajax> 
-            </p:autocomplete> 
-          </p:region> 
+          <p:autoComplete minQueryLength="3" completeMethod="#{drugList.autocomplete}" value="#{drugAction.drug}" converter="#{drugList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
+            <p:column> 
+              <h:outputText value="#{record.name}"/> 
+            </p:column> 
+          </p:autoComplete> 
         </h:panelGroup> 
       </s:decorate>  
       <s:decorate id="prescriptionIdDecorate" rendered="#{ ! excludePrescription == true}" template="/layout/edit.xhtml"> 

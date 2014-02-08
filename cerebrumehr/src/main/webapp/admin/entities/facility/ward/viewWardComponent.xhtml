@@ -21,23 +21,25 @@
       </h:link> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="rooms" var="_room" rendered="#{not empty wardAction.listRooms and true }" value="#{wardAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.room_roomType}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
-          <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.room_name}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_room.name}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeRooms == true}"> 
+      <p:dataTable id="rooms" var="_room" rendered="#{not empty wardAction.listRooms and true }" value="#{wardAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.room_roomType}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
+            <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.room_name}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_room.name}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

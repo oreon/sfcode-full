@@ -20,10 +20,13 @@
         <rich:panel>
             <f:facet name="header">Register </f:facet>
 			
-            <ui:include src="/admin/entities/facility/facility/editFacilityComponent.xhtml" />
+            <ui:include src="/admin/entities/facility/facility/editFacilityComponent.xhtml" >
+            	<ui:param name="excludeWards" value="true"/> 
+            </ui:include>
             
             <ui:include src="/admin/entities/employee/physician/editPhysicianComponent.xhtml" >
             	<ui:param name="excludeFacility" value="true"/>
+            	<ui:param name="excludeEnabled" value="true"/>
             </ui:include>
 
         </rich:panel>

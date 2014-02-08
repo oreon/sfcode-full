@@ -33,84 +33,86 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes" rendered="#{true}"> 
-      <s:conversationId/> 
-    </p:commandButton>  
-    <p:dataTable id="codes" var="_code" rendered="#{true}" value="#{sectionAction.listCodes}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{_code.name}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{_code.description}"></p:editor> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.code_includes}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="includesDecorate" rendered="#{ ! excludeIncludes == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <p:editor escape="false" useSeamText="true" id="includes#{entityId}" rendered="#{true}" label="#{msg.code_includes}" required="false" disabled="false" value="#{_code.includes}"></p:editor> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="notIncludedHereDecorate" rendered="#{ ! excludeNotIncludedHere == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <p:editor escape="false" useSeamText="true" id="notIncludedHere#{entityId}" rendered="#{true}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{_code.notIncludedHere}"></p:editor> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.code_codeFirst}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="codeFirstDecorate" rendered="#{ ! excludeCodeFirst == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <p:editor escape="false" useSeamText="true" id="codeFirst#{entityId}" rendered="#{true}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{_code.codeFirst}"></p:editor> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="notCodedHereDecorate" rendered="#{ ! excludeNotCodedHere == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <p:editor escape="false" useSeamText="true" id="notCodedHere#{entityId}" rendered="#{true}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{_code.notCodedHere}"></p:editor> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.code_codeAlso}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="codeAlsoDecorate" rendered="#{ ! excludeCodeAlso == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <p:editor escape="false" useSeamText="true" id="codeAlso#{entityId}" rendered="#{true}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{_code.codeAlso}"></p:editor> 
-        </s:decorate> 
-      </p:column>  
-      <p:column> 
-        <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes" rendered="#{true}"> 
-          <s:conversationId/> 
-        </p:commandButton> 
-      </p:column>  
-      <p:column> 
-        <h:commandButton value="Delete" immediate="true" action="#{sectionAction.deleteCodes(rowIndex)}" update="codes"> 
-          <s:conversationId/> 
-        </h:commandButton> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeCodes == true}"> 
+      <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes" rendered="#{true}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="codes" var="_code" rendered="#{true}" value="#{sectionAction.listCodes}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.abstractCode_name}" required="true" disabled="false" value="#{_code.name}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{_code.description}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_includes}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="includesDecorate" rendered="#{ ! excludeIncludes == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="includes#{entityId}" rendered="#{true}" label="#{msg.code_includes}" required="false" disabled="false" value="#{_code.includes}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="notIncludedHereDecorate" rendered="#{ ! excludeNotIncludedHere == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="notIncludedHere#{entityId}" rendered="#{true}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{_code.notIncludedHere}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_codeFirst}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="codeFirstDecorate" rendered="#{ ! excludeCodeFirst == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="codeFirst#{entityId}" rendered="#{true}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{_code.codeFirst}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="notCodedHereDecorate" rendered="#{ ! excludeNotCodedHere == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="notCodedHere#{entityId}" rendered="#{true}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{_code.notCodedHere}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.code_codeAlso}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="codeAlsoDecorate" rendered="#{ ! excludeCodeAlso == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:editor escape="false" useSeamText="true" id="codeAlso#{entityId}" rendered="#{true}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{_code.codeAlso}"></p:editor> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes" rendered="#{true}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{sectionAction.deleteCodes(rowIndex)}" update="codes"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

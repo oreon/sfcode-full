@@ -26,39 +26,41 @@
       </h:link> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{not empty invoiceAction.listInvoiceItems and true }" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_invoiceItem.service.displayName}" view="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
-          <f:param name="serviceId" value="#{_invoiceItem.service.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_invoiceItem.units}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_invoiceItem.appliedPrice}"> 
-          <f:convertNumber pattern="$#,##0.00"/> 
-        </h:outputText> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_invoiceItem.total}"> 
-          <f:convertNumber pattern="$#,##0.00"/> 
-        </h:outputText> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeInvoiceItems == true}"> 
+      <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{not empty invoiceAction.listInvoiceItems and true }" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_invoiceItem.service.displayName}" view="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+            <f:param name="serviceId" value="#{_invoiceItem.service.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_invoiceItem.units}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_invoiceItem.appliedPrice}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_invoiceItem.total}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

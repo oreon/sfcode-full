@@ -18,55 +18,57 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems" rendered="#{true}"> 
-      <s:conversationId/> 
-    </p:commandButton>  
-    <p:dataTable id="chartItems" var="_chartItem" rendered="#{true}" value="#{chartAction.listChartItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.chartItem_name}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.chartItem_name}" required="true" disabled="false" value="#{_chartItem.name}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.chartItem_duration}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{_chartItem.duration}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="frequencyPeriodDecorate" rendered="#{ ! excludeFrequencyPeriod == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:selectOneMenu id="frequencyPeriod" rendered="#{true}" value="#{_chartItem.frequencyPeriod}" required="false" label="#{msg.chartItem_frequencyPeriod}"> 
-            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-            <f:selectItem itemValue="HOUR" itemLabel="#{msg.HOUR}"/>  
-            <f:selectItem itemValue="DAY" itemLabel="#{msg.DAY}"/>  
-            <f:selectItem itemValue="WEEK" itemLabel="#{msg.WEEK}"/>  
-            <f:selectItem itemValue="MONTH" itemLabel="#{msg.MONTH}"/>  
-            <f:selectItem itemValue="YEAR" itemLabel="#{msg.YEAR}"/> 
-          </h:selectOneMenu> 
-        </s:decorate> 
-      </p:column>  
-      <p:column> 
-        <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems" rendered="#{true}"> 
-          <s:conversationId/> 
-        </p:commandButton> 
-      </p:column>  
-      <p:column> 
-        <h:commandButton value="Delete" immediate="true" action="#{chartAction.deleteChartItems(rowIndex)}" update="chartItems"> 
-          <s:conversationId/> 
-        </h:commandButton> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeChartItems == true}"> 
+      <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems" rendered="#{true}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="chartItems" var="_chartItem" rendered="#{true}" value="#{chartAction.listChartItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.chartItem_name}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.chartItem_name}" required="true" disabled="false" value="#{_chartItem.name}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.chartItem_duration}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{_chartItem.duration}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="frequencyPeriodDecorate" rendered="#{ ! excludeFrequencyPeriod == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="frequencyPeriod" rendered="#{true}" value="#{_chartItem.frequencyPeriod}" required="false" label="#{msg.chartItem_frequencyPeriod}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="HOUR" itemLabel="#{msg.HOUR}"/>  
+              <f:selectItem itemValue="DAY" itemLabel="#{msg.DAY}"/>  
+              <f:selectItem itemValue="WEEK" itemLabel="#{msg.WEEK}"/>  
+              <f:selectItem itemValue="MONTH" itemLabel="#{msg.MONTH}"/>  
+              <f:selectItem itemValue="YEAR" itemLabel="#{msg.YEAR}"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems" rendered="#{true}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{chartAction.deleteChartItems(rowIndex)}" update="chartItems"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

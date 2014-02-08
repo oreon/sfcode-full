@@ -41,33 +41,35 @@
       </h:link> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="bedStays" var="_bedStay" rendered="#{not empty admissionAction.listBedStays and true }" value="#{admissionAction.listBedStays}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.bedStay_bed}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_bedStay.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
-          <f:param name="bedId" value="#{_bedStay.bed.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_bedStay.fromDate}"> 
-          <s:convertDateTime type="date" dateStyle="medium"/> 
-        </h:outputText> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_bedStay.toDate}"> 
-          <s:convertDateTime type="date" dateStyle="medium"/> 
-        </h:outputText> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeBedStays == true}"> 
+      <p:dataTable id="bedStays" var="_bedStay" rendered="#{not empty admissionAction.listBedStays and true }" value="#{admissionAction.listBedStays}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bedStay_bed}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_bedStay.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+            <f:param name="bedId" value="#{_bedStay.bed.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_bedStay.fromDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_bedStay.toDate}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

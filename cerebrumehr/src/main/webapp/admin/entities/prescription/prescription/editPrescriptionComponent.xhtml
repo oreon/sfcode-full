@@ -33,115 +33,111 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems" rendered="#{true}"> 
-      <s:conversationId/> 
-    </p:commandButton>  
-    <p:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{true}" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:panelGroup> 
-            <p:region> 
-              <h:inputText value="#{_prescriptionItem.drug.displayName}" label="#{msg.prescriptionItem_drug}" id="drugId" required="true"/>  
-              <p:autocomplete for="drugId" rules="all" suggestionAction="#{drugList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
+    <p:panel rendered="#{ ! excludePrescriptionItems == true}"> 
+      <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems" rendered="#{true}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{true}" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:panelGroup> 
+              <p:autoComplete minQueryLength="3" completeMethod="#{drugList.autocomplete}" value="#{drugAction.drug}" converter="#{drugList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
                 <p:column> 
-                  <h:outputText value="#{_result.name}"/> 
-                </p:column>  
-                <p:ajax event="onselect"> 
-                  <f:setPropertyActionListener value="#{_result}" target="#{_prescriptionItem.drug}"/> 
-                </p:ajax> 
-              </p:autocomplete> 
-            </p:region> 
-          </h:panelGroup> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="frequencyIdDecorate" rendered="#{ ! excludeFrequency == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:selectOneMenu id="frequencyId" label="#{msg.prescriptionItem_frequency}" value="#{_prescriptionItem.frequency}" required="true" rendered="#{true}" disabled="false"> 
-            <s:selectItems value="#{frequencyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="qtyDecorate" rendered="#{ ! excludeQty == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="qty#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_qty}" required="false" disabled="false" value="#{_prescriptionItem.qty}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="strengthDecorate" rendered="#{ ! excludeStrength == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="strength#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_strength}" required="false" disabled="false" value="#{_prescriptionItem.strength}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="routeDecorate" rendered="#{ ! excludeRoute == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:selectOneMenu id="route" rendered="#{true}" value="#{_prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
-            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-            <f:selectItem itemValue="PO" itemLabel="#{msg.PO}"/>  
-            <f:selectItem itemValue="IV" itemLabel="#{msg.IV}"/>  
-            <f:selectItem itemValue="IM" itemLabel="#{msg.IM}"/>  
-            <f:selectItem itemValue="SC" itemLabel="#{msg.SC}"/>  
-            <f:selectItem itemValue="TOPICAL" itemLabel="#{msg.TOPICAL}"/> 
-          </h:selectOneMenu> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_duration}" required="false" disabled="false" value="#{_prescriptionItem.duration}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_remarks}" required="false" disabled="false" value="#{_prescriptionItem.remarks}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="brandNameDecorate" rendered="#{ ! excludeBrandName == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="brandName#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_brandName}" required="false" disabled="false" value="#{_prescriptionItem.brandName}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column> 
-        <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems" rendered="#{true}"> 
-          <s:conversationId/> 
-        </p:commandButton> 
-      </p:column>  
-      <p:column> 
-        <h:commandButton value="Delete" immediate="true" action="#{prescriptionAction.deletePrescriptionItems(rowIndex)}" update="prescriptionItems"> 
-          <s:conversationId/> 
-        </h:commandButton> 
-      </p:column> 
-    </p:dataTable>  
+                  <h:outputText value="#{record.name}"/> 
+                </p:column> 
+              </p:autoComplete> 
+            </h:panelGroup> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="frequencyIdDecorate" rendered="#{ ! excludeFrequency == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="frequencyId" label="#{msg.prescriptionItem_frequency}" value="#{_prescriptionItem.frequency}" required="true" rendered="#{true}" disabled="false"> 
+              <s:selectItems value="#{frequencyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="qtyDecorate" rendered="#{ ! excludeQty == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="qty#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_qty}" required="false" disabled="false" value="#{_prescriptionItem.qty}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="strengthDecorate" rendered="#{ ! excludeStrength == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="strength#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_strength}" required="false" disabled="false" value="#{_prescriptionItem.strength}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="routeDecorate" rendered="#{ ! excludeRoute == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="route" rendered="#{true}" value="#{_prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="PO" itemLabel="#{msg.PO}"/>  
+              <f:selectItem itemValue="IV" itemLabel="#{msg.IV}"/>  
+              <f:selectItem itemValue="IM" itemLabel="#{msg.IM}"/>  
+              <f:selectItem itemValue="SC" itemLabel="#{msg.SC}"/>  
+              <f:selectItem itemValue="TOPICAL" itemLabel="#{msg.TOPICAL}"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_duration}" required="false" disabled="false" value="#{_prescriptionItem.duration}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_remarks}" required="false" disabled="false" value="#{_prescriptionItem.remarks}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="brandNameDecorate" rendered="#{ ! excludeBrandName == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="brandName#{entityId}" rendered="#{true}" label="#{msg.prescriptionItem_brandName}" required="false" disabled="false" value="#{_prescriptionItem.brandName}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems" rendered="#{true}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{prescriptionAction.deletePrescriptionItems(rowIndex)}" update="prescriptionItems"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

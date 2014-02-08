@@ -14,26 +14,28 @@
       <h:outputText value="#{chartAction.chart.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="chartItems" var="_chartItem" rendered="#{not empty chartAction.listChartItems and true }" value="#{chartAction.listChartItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.chartItem_name}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_chartItem.name}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.chartItem_duration}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_chartItem.duration}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_chartItem.frequencyPeriod}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeChartItems == true}"> 
+      <p:dataTable id="chartItems" var="_chartItem" rendered="#{not empty chartAction.listChartItems and true }" value="#{chartAction.listChartItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.chartItem_name}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_chartItem.name}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.chartItem_duration}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_chartItem.duration}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_chartItem.frequencyPeriod}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

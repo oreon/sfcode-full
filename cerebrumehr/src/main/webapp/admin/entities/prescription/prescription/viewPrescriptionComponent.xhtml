@@ -29,67 +29,69 @@
       </h:link> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{not empty prescriptionAction.listPrescriptionItems and true }" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_prescriptionItem.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
-          <f:param name="drugId" value="#{_prescriptionItem.drug.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{_prescriptionItem.drug.popupInfo}</span> 
-          </p:tooltip> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_prescriptionItem.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
-          <f:param name="frequencyId" value="#{_prescriptionItem.frequency.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItem.qty}"> 
-          <f:convertNumber pattern="000.00"/> 
-        </h:outputText> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItem.strength}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItem.route}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItem.duration}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItem.remarks}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_prescriptionItem.brandName}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludePrescriptionItems == true}"> 
+      <p:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{not empty prescriptionAction.listPrescriptionItems and true }" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_prescriptionItem.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_prescriptionItem.drug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <p:tooltip> 
+              <span>#{_prescriptionItem.drug.popupInfo}</span> 
+            </p:tooltip> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_prescriptionItem.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+            <f:param name="frequencyId" value="#{_prescriptionItem.frequency.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItem.qty}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItem.strength}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItem.route}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItem.duration}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItem.remarks}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItem.brandName}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

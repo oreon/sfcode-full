@@ -18,44 +18,46 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs" rendered="#{true}"> 
-      <s:conversationId/> 
-    </p:commandButton>  
-    <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{true}" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="dxCategoryIdDecorate" rendered="#{ ! excludeDxCategory == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:selectOneMenu id="dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{true}" disabled="false"> 
-            <s:selectItems value="#{dxCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.differentialDx_name}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{_differentialDx.name}"> 
-            <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
-          </h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column> 
-        <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs" rendered="#{true}"> 
-          <s:conversationId/> 
-        </p:commandButton> 
-      </p:column>  
-      <p:column> 
-        <h:commandButton value="Delete" immediate="true" action="#{findingAction.deleteDifferentialDxs(rowIndex)}" update="differentialDxs"> 
-          <s:conversationId/> 
-        </h:commandButton> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeDifferentialDxs == true}"> 
+      <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs" rendered="#{true}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{true}" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="dxCategoryIdDecorate" rendered="#{ ! excludeDxCategory == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{true}" disabled="false"> 
+              <s:selectItems value="#{dxCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{_differentialDx.name}"> 
+              <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs" rendered="#{true}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{findingAction.deleteDifferentialDxs(rowIndex)}" update="differentialDxs"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

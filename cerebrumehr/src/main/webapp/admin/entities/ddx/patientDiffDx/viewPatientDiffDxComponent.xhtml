@@ -25,17 +25,19 @@
       </h:link> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{not empty patientDiffDxAction.listPatientFindings and true }" value="#{patientDiffDxAction.listPatientFindings}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:link escape="false" value="#{_patientFinding.finding.displayName}" view="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
-          <f:param name="findingId" value="#{_patientFinding.finding.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludePatientFindings == true}"> 
+      <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{not empty patientDiffDxAction.listPatientFindings and true }" value="#{patientDiffDxAction.listPatientFindings}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:link escape="false" value="#{_patientFinding.finding.displayName}" view="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
+            <f:param name="findingId" value="#{_patientFinding.finding.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </h:link> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

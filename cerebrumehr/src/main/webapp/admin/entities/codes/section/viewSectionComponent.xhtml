@@ -24,65 +24,67 @@
       </h:link> 
     </h:panelGrid>  
     <br/>  
-    <p:dataTable id="codes" var="_code" rendered="#{not empty sectionAction.listCodes and true }" value="#{sectionAction.listCodes}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_code.name}" escape="false"/> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:panelGroup> 
-          <p:tooltip value="#{_code.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="descriptionAbbr" value="#{_code.descriptionAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.code_includes}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:panelGroup> 
-          <p:tooltip value="#{_code.includes}" for="includesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="includesAbbr" value="#{_code.includesAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:panelGroup> 
-          <p:tooltip value="#{_code.notIncludedHere}" for="notIncludedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="notIncludedHereAbbr" value="#{_code.notIncludedHereAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.code_codeFirst}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:panelGroup> 
-          <p:tooltip value="#{_code.codeFirst}" for="codeFirstAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="codeFirstAbbr" value="#{_code.codeFirstAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:panelGroup> 
-          <p:tooltip value="#{_code.notCodedHere}" for="notCodedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-          <h:outputText id="notCodedHereAbbr" value="#{_code.notCodedHereAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
-      </p:column>  
-      <p:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.code_codeAlso}  " rendered="#{true}"/> 
-        </f:facet>  
-        <h:outputText value="#{_code.codeAlso}" escape="false"/> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeCodes == true}"> 
+      <p:dataTable id="codes" var="_code" rendered="#{not empty sectionAction.listCodes and true }" value="#{sectionAction.listCodes}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_code.name}" escape="false"/> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <p:tooltip value="#{_code.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="descriptionAbbr" value="#{_code.descriptionAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.code_includes}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <p:tooltip value="#{_code.includes}" for="includesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="includesAbbr" value="#{_code.includesAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <p:tooltip value="#{_code.notIncludedHere}" for="notIncludedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="notIncludedHereAbbr" value="#{_code.notIncludedHereAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.code_codeFirst}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <p:tooltip value="#{_code.codeFirst}" for="codeFirstAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="codeFirstAbbr" value="#{_code.codeFirstAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <p:tooltip value="#{_code.notCodedHere}" for="notCodedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+            <h:outputText id="notCodedHereAbbr" value="#{_code.notCodedHereAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.code_codeAlso}  " rendered="#{true}"/> 
+          </f:facet>  
+          <h:outputText value="#{_code.codeAlso}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

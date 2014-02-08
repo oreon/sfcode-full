@@ -46,14 +46,13 @@
             <f:param name="diseaseId" value="#{diseaseAction.instance.id}"/>  
             <f:param name="diseaseId" value="0"/> 
           </h:button>  
-          <h:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" update="${modalId}"> 
-            <f:param name="diseaseId" assignTo="#{diseaseAction.diseaseId}" value="0"/>  
-            <f:param name="diseaseId" assignTo="#{diseaseAction.relatedDiseaseId}" value="#{diseaseAction.instance.id}"/> 
-          </h:commandButton> 
-        </h:form>  
-        <ui:include src="/admin/entities/ddx/disease/modalDlgDiseaseComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" oncomplete="editDiseaseDialog.show()"> 
+            <f:param value="0" assignTo="#{diseaseAction.diseaseId}"/> 
+          </p:commandButton>  
+          <ui:include src="/admin/entities/ddx/disease/modalDlgDiseaseComponent.xhtml"> 
+            <ui:param name="modalId" value="${modalId}"/> 
+          </ui:include> 
+        </h:form> 
       </p:tab> 
     </p:tabView>  
     <br/>  
