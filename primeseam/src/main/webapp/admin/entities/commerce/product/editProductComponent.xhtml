@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Product}"/> 
       </f:facet>  
-      <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.product_name}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.product_name}" required="true" disabled="false" value="#{productAction.product.name}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="imageDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="imageDecorate" rendered="#{ ! excludeImage == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.product_image}  " rendered="#{true}"/>
         </ui:define>  
@@ -28,7 +28,7 @@
           <p:fileUpload fileUploadListener="#{productAction.imageUploadListener}" value="#{productAction.product.image}" auto="true"/> 
         </h:panelGroup> 
       </s:decorate>  
-      <s:decorate id="priceDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="priceDecorate" rendered="#{ ! excludePrice == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.product_price}  " rendered="#{true}"/>
         </ui:define>  
@@ -36,7 +36,7 @@
           <f:converter converterId="javax.faces.BigDecimal"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.product_description}  " rendered="#{true}"/>
         </ui:define>  

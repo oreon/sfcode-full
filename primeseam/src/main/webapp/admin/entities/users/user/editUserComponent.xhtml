@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.User}"/> 
       </f:facet>  
-      <s:decorate id="userNameDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="userNameDecorate" rendered="#{ ! excludeUserName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.user_userName}  " rendered="#{true}"/>
         </ui:define>  
@@ -18,19 +18,19 @@
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="passwordDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="passwordDecorate" rendered="#{ ! excludePassword == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.user_password}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputSecret escape="false" redisplay="true" id="password#{entityId}" rendered="#{true}" label="#{msg.user_password}" required="true" disabled="false" value="#{userAction.user.password}"></h:inputSecret> 
       </s:decorate>  
-      <s:decorate id="enabledDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="enabledDecorate" rendered="#{ ! excludeEnabled == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.user_enabled}  " rendered="#{true}"/>
         </ui:define>  
         <h:selectBooleanCheckbox escape="false" id="enabled#{entityId}" rendered="#{true}" label="#{msg.user_enabled}" required="false" disabled="false" value="#{userAction.user.enabled}"></h:selectBooleanCheckbox> 
       </s:decorate>  
-      <s:decorate id="emailDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="emailDecorate" rendered="#{ ! excludeEmail == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.user_email}  " rendered="#{true}"/>
         </ui:define>  

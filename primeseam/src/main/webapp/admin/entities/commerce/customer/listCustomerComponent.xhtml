@@ -18,22 +18,22 @@
             <f:param name="customerId" value="#{_customer.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.person_firstName}" sortBy="customer.firstName" rendered="#{true}"> 
+        <p:column headerText="#{msg.person_firstName}" sortBy="customer.firstName" rendered="#{ ! excludeFirstName == true}"> 
           <h:outputText value="#{_customer.firstName}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.person_lastName}" sortBy="customer.lastName" rendered="#{true}"> 
+        <p:column headerText="#{msg.person_lastName}" sortBy="customer.lastName" rendered="#{ ! excludeLastName == true}"> 
           <h:outputText value="#{_customer.lastName}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.contactDetails_phone}" sortBy="customer.contactDetails.phone" rendered="#{true}"> 
+        <p:column headerText="#{msg.contactDetails_phone}" sortBy="customer.contactDetails.phone" rendered="#{ ! excludePhone == true}"> 
           <h:outputText value="#{_customer.contactDetails.phone}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="customer.contactDetails.secondaryPhone" rendered="#{true}"> 
+        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="customer.contactDetails.secondaryPhone" rendered="#{ ! excludeSecondaryPhone == true}"> 
           <h:outputText value="#{_customer.contactDetails.secondaryPhone}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.contactDetails_city}" sortBy="customer.contactDetails.city" rendered="#{true}"> 
+        <p:column headerText="#{msg.contactDetails_city}" sortBy="customer.contactDetails.city" rendered="#{ ! excludeCity == true}"> 
           <h:outputText value="#{_customer.contactDetails.city}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.customer_type}" sortBy="customer.type" rendered="#{true}"> 
+        <p:column headerText="#{msg.customer_type}" sortBy="customer.type" rendered="#{ ! excludeType == true}"> 
           <h:outputText value="#{_customer.type}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="customer.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 

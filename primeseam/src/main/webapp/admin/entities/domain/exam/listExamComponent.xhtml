@@ -18,10 +18,10 @@
             <f:param name="examId" value="#{_exam.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.exam_title}" sortBy="exam.title" rendered="#{true}"> 
+        <p:column headerText="#{msg.exam_title}" sortBy="exam.title" rendered="#{ ! excludeTitle == true}"> 
           <h:outputText value="#{_exam.title}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.exam_description}" sortBy="exam.description" rendered="#{true}"> 
+        <p:column headerText="#{msg.exam_description}" sortBy="exam.description" rendered="#{ ! excludeDescription == true}"> 
           <h:panelGroup> 
             <p:tooltip value="#{_exam.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="descriptionAbbr" value="#{_exam.descriptionAbbreviated}" escape="false"/> 

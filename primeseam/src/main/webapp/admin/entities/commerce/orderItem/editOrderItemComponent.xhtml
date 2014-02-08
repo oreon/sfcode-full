@@ -10,19 +10,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.OrderItem}"/> 
       </f:facet>  
-      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{orderItemAction.orderItem.remarks}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="unitsDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="unitsDecorate" rendered="#{ ! excludeUnits == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/>
         </ui:define>  
         <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{orderItemAction.orderItem.units}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="salePriceDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="salePriceDecorate" rendered="#{ ! excludeSalePrice == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/>
         </ui:define>  
@@ -30,7 +30,7 @@
           <f:converter converterId="javax.faces.BigDecimal"/> 
         </h:inputText> 
       </s:decorate>  
-      <s:decorate id="customerOrderIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="customerOrderIdDecorate" rendered="#{ ! excludeCustomerOrder == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.orderItem_customerOrder}  " rendered="#{true}"/>
         </ui:define>  
@@ -39,7 +39,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="productIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="productIdDecorate" rendered="#{ ! excludeProduct == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/>
         </ui:define>  

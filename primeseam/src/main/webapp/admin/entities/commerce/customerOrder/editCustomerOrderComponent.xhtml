@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.CustomerOrder}"/> 
       </f:facet>  
-      <s:decorate id="remarksDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.customerOrder_remarks}  " rendered="#{true}"/>
         </ui:define>  
         <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{true}" label="#{msg.customerOrder_remarks}" required="false" disabled="false" value="#{customerOrderAction.customerOrder.remarks}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="customerIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="customerIdDecorate" rendered="#{ ! excludeCustomer == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.customerOrder_customer}  " rendered="#{true}"/>
         </ui:define>  
@@ -25,7 +25,7 @@
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
-      <s:decorate id="servicingEmployeeIdDecorate" template="/layout/edit.xhtml"> 
+      <s:decorate id="servicingEmployeeIdDecorate" rendered="#{ ! excludeServicingEmployee == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.customerOrder_servicingEmployee}  " rendered="#{true}"/>
         </ui:define>  
@@ -36,62 +36,64 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <p:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" update="orderItems" rendered="#{true}"> 
-      <s:conversationId/> 
-    </p:commandButton>  
-    <p:dataTable id="orderItems" var="_orderItem" rendered="#{true}" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="productIdDecorate" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:selectOneMenu id="productId" label="#{msg.orderItem_product}" value="#{_orderItem.product}" required="true" rendered="#{true}" disabled="false"> 
-            <s:selectItems value="#{productList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="remarksDecorate" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{_orderItem.remarks}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="unitsDecorate" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{_orderItem.units}"></h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/>
-        </f:facet>  
-        <s:decorate id="salePriceDecorate" template="/layout/editTableField.xhtml"> 
-          <ui:define name="label"></ui:define>  
-          <h:inputText escape="false" id="salePrice#{entityId}" rendered="#{true}" label="#{msg.orderItem_salePrice}" required="false" disabled="false" value="#{_orderItem.salePrice}"> 
-            <f:converter converterId="javax.faces.BigDecimal"/> 
-          </h:inputText> 
-        </s:decorate> 
-      </p:column>  
-      <p:column> 
-        <p:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" update="orderItems" rendered="#{true}"> 
-          <s:conversationId/> 
-        </p:commandButton> 
-      </p:column>  
-      <p:column> 
-        <h:commandButton value="Delete" immediate="true" action="#{customerOrderAction.deleteOrderItems(rowIndex)}" update="orderItems"> 
-          <s:conversationId/> 
-        </h:commandButton> 
-      </p:column> 
-    </p:dataTable>  
+    <p:panel rendered="#{ ! excludeOrderItems == true}"> 
+      <p:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" update="orderItems" rendered="#{true}"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="orderItems" var="_orderItem" rendered="#{true}" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="productIdDecorate" rendered="#{ ! excludeProduct == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="productId" label="#{msg.orderItem_product}" value="#{_orderItem.product}" required="true" rendered="#{true}" disabled="false"> 
+              <s:selectItems value="#{productList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{_orderItem.remarks}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="unitsDecorate" rendered="#{ ! excludeUnits == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{_orderItem.units}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/>
+          </f:facet>  
+          <s:decorate id="salePriceDecorate" rendered="#{ ! excludeSalePrice == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="salePrice#{entityId}" rendered="#{true}" label="#{msg.orderItem_salePrice}" required="false" disabled="false" value="#{_orderItem.salePrice}"> 
+              <f:converter converterId="javax.faces.BigDecimal"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" update="orderItems" rendered="#{true}"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <h:commandButton value="Delete" immediate="true" action="#{customerOrderAction.deleteOrderItems(rowIndex)}" update="orderItems"> 
+            <s:conversationId/> 
+          </h:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

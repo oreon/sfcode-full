@@ -18,16 +18,16 @@
             <f:param name="userId" value="#{_user.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.user_userName}" sortBy="user.userName" rendered="#{true}"> 
+        <p:column headerText="#{msg.user_userName}" sortBy="user.userName" rendered="#{ ! excludeUserName == true}"> 
           <h:outputText value="#{_user.userName}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.user_enabled}" sortBy="user.enabled" rendered="#{true}"> 
+        <p:column headerText="#{msg.user_enabled}" sortBy="user.enabled" rendered="#{ ! excludeEnabled == true}"> 
           <h:outputText value="#{_user.enabled? msg.yes : msg.no }"/> 
         </p:column>  
-        <p:column headerText="#{msg.user_email}" sortBy="user.email" rendered="#{true}"> 
+        <p:column headerText="#{msg.user_email}" sortBy="user.email" rendered="#{ ! excludeEmail == true}"> 
           <h:outputText value="#{_user.email}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.user_lastLogin}" sortBy="user.lastLogin" rendered="#{true}"> 
+        <p:column headerText="#{msg.user_lastLogin}" sortBy="user.lastLogin" rendered="#{ ! excludeLastLogin == true}"> 
           <h:outputText value="#{_user.lastLogin}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 

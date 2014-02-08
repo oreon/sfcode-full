@@ -18,25 +18,25 @@
             <f:param name="orderItemId" value="#{_orderItem.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.orderItem_remarks}" sortBy="orderItem.remarks" rendered="#{true}"> 
+        <p:column headerText="#{msg.orderItem_remarks}" sortBy="orderItem.remarks" rendered="#{ ! excludeRemarks == true}"> 
           <h:outputText value="#{_orderItem.remarks}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.orderItem_customerOrder}" sortBy="orderItem.customerOrder" rendered="#{true}"> 
+        <p:column headerText="#{msg.orderItem_customerOrder}" sortBy="orderItem.customerOrder" rendered="#{ ! excludeCustomerOrder == true}"> 
           <h:link escape="false" value="#{_orderItem.customerOrder.displayName}" view="/admin/entities/commerce/customerOrder/viewCustomerOrder.xhtml" propagation="none"> 
             <f:param name="customerOrderId" value="#{_orderItem.customerOrder.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.orderItem_product}" sortBy="orderItem.product" rendered="#{true}"> 
+        <p:column headerText="#{msg.orderItem_product}" sortBy="orderItem.product" rendered="#{ ! excludeProduct == true}"> 
           <h:link escape="false" value="#{_orderItem.product.displayName}" view="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
             <f:param name="productId" value="#{_orderItem.product.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.orderItem_units}" sortBy="orderItem.units" rendered="#{true}"> 
+        <p:column headerText="#{msg.orderItem_units}" sortBy="orderItem.units" rendered="#{ ! excludeUnits == true}"> 
           <h:outputText value="#{_orderItem.units}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.orderItem_salePrice}" sortBy="orderItem.salePrice" rendered="#{true}"> 
+        <p:column headerText="#{msg.orderItem_salePrice}" sortBy="orderItem.salePrice" rendered="#{ ! excludeSalePrice == true}"> 
           <h:outputText value="#{_orderItem.salePrice}"> 
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
