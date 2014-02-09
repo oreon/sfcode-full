@@ -17,7 +17,8 @@
 
 <ui:composition «EXPAND WebRoot::genIncludes-»>	
 	
-	<p:dialog header="Edit msg.«asVar()» " widgetVar="edit«name»Dialog" resizable="true"> 
+	<p:dialog header="Edit #{msg.«asVar()»} " widgetVar="edit«name»Dialog" resizable="true"> 
+	  <p:messages autoUpdate="true" />
 	  <c:set var="opId" value="outputPanel-${modalId}"/>
       <h:panelGrid id="edit«name»Panel" columns="2" cellpadding="4"> 
        <p:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" >
