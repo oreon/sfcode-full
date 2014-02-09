@@ -88,10 +88,14 @@
 				«ENDREM»
 				</p:dataTable>
 				
-				<ui:include src="«getComponentViewFile("modalDlg")»" >
+				
+		 	</h:form>		
+		 	
+		 	<h:form>
+		 		<ui:include src="«getComponentViewFile("modalDlg")»" >
 					<ui:param name="modalId" value="${modalId}"/> 
 				</ui:include>
-		 	</h:form>		
+			</h:form>	
 		</p:panel>	
 		
 		</ui:composition>
@@ -105,16 +109,10 @@
   		</p:button> 
   		      
         <p:commandButton value="Quick Create"
-        	update=":#{p:component('edit«name»Panel')}"  
+        	update=":#{p:component('edit«name»Panel')}"  actionListener="#{«asVar()»Action.set«name»Id(0)}"
                               oncomplete="edit«name»Dialog.show()">
-				<f:param value="0" assignTo="#{«asVar()»Action.«asVar()»Id}" />
-				<s:conversationPropagation type="join" />
 		</p:commandButton>
 	
-		<ui:include src="«getComponentViewFile("modalDlg")»" >
-			<ui:param name="modalId" value="${modalId}"/> 
-		</ui:include>
-		
 	</h:form>
 		«IF templatable»
 		 <h:button value="Create Template" view="«getTemplateViewFileName("edit")»"/>
