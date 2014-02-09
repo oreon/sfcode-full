@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/commerce/customer/customer.xhtml">
+
+	<ui:define name="customerList">
+		<p:dataTable var="customer" value="#{customerList.lazyModel}"
+			id="customerList" paginator="true" lazy="true" rows="10"
+			selectionMode="single" selection="#{customerAction.customer}">
+			<p:column headerText="First Name"
+				sortBy="customer.firstName"
+				rendered="#{ ! excludeFirstName == true}">
+				<h:outputText value="#{customer.firstName}" escape="false" />
+			</p:column>
+			<p:column headerText="Last Name"
+				sortBy="customer.lastName" rendered="#{ ! excludeLastName == true}">
+				<h:outputText value="#{customer.lastName}" escape="false" />
+			</p:column>
+			<p:column headerText="Contact Details"
+				sortBy="customer.contactDetails.phone"
+				rendered="#{ ! excludePhone == true}">
+				<h:outputText value="#{customer.contactDetails.phone}"
+					escape="false" />
+			</p:column>
+			<p:column headerText="Secondary Phone"
+				sortBy="customer.contactDetails.secondaryPhone"
+				rendered="#{ ! excludeSecondaryPhone == true}">
+				<h:outputText value="#{customer.contactDetails.secondaryPhone}"
+					escape="false" />
+			</p:column>
+			<p:column headerText="City"
+				sortBy="customer.contactDetails.city"
+				rendered="#{ ! excludeCity == true}">
+				<h:outputText value="#{customer.contactDetails.city}"
+					escape="false" />
+			</p:column>
+			<p:column headerText="Type" sortBy="customer.type"
+				rendered="#{ ! excludeType == true}">
+				<h:outputText value="#{customer.type}" escape="false" />
+			</p:column>
+			<p:column headerText="Creation Date"
+				sortBy="customer.dateCreated"
+				rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}">
+				<h:outputText value="#{customer.dateCreated}">
+				</h:outputText>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+
+</ui:composition>

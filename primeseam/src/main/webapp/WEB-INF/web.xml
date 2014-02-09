@@ -9,18 +9,6 @@
 		<listener-class>org.jboss.seam.servlet.SeamListener</listener-class>
 	</listener>
 
-<!-- 
-	<filter>
-		<filter-name>Seam Filter</filter-name>
-		<filter-class>org.jboss.seam.servlet.SeamFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>Seam Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
- -->
-
 	<filter>
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
@@ -52,7 +40,7 @@
 
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.seam</url-pattern>
+		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
 	<!-- JSF parameters -->
@@ -64,7 +52,7 @@
 
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>bootstrap</param-value>
+		<param-value>bluesky</param-value>
 	</context-param>
 
 	<context-param>
@@ -76,17 +64,5 @@
 		<param-name>facelets.DEVELOPMENT</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
-	<!--
-		<context-param>
-		<param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
-		<param-value>false</param-value> </context-param>
-	-->
-	<!--
-		<listener>
-		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-		</listener> <session-config> <session-timeout>10</session-timeout>
-		</session-config>
-	-->
 
 </web-app>

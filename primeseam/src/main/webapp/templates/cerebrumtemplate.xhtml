@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<f:view contentType="text/html"/>
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+			<meta http-equiv="Pragma" content="no-cache" />
+			<meta http-equiv="Expires" content="0" />
+			<title><ui:insert name="pageTitle"></ui:insert></title>
+		</f:facet>
+		<base href="${facesContext.externalContext.requestContextPath}" />
+		<!-- The base layer -->
+		<h:outputStylesheet name="pure-min.css" library="css"/>
+		<h:outputStylesheet name="side-menu.css" library="css"/>
+		<h:outputScript name="js/ui.js" />
+		<ui:insert name="customHead" />		
+	</h:head>
+	
+	<h:body>
+		<h:form id="template_form" prependId="false" style="height: 100%;">
+			<p:blockUI block="template_form" widgetVar="statusDialog"/>	
+			<div id="layout">
+				<div id="menu">
+	        		<ui:insert name="menu"/>
+	    		</div>
+			
+				<div id="main">
+					<!-- Header -->
+					<div class="header">
+						<ui:insert name="header"/>
+					</div>
+					
+					<!-- Body content -->
+					<div class="content">
+						<p:growl id="messages" severity="info" />
+						<ui:insert name="body" />
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</h:body>
+</html>		
