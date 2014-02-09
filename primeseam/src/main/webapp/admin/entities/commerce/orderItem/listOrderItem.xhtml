@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/commerce/orderItem/editOrderItem.xhtml" propagation="none"> 
         <f:param name="orderItemId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editOrderItemPanel')}" oncomplete="editOrderItemDialog.show()"> 
-        <f:param value="0" assignTo="#{orderItemAction.orderItemId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/commerce/orderItem/modalDlgOrderItemComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editOrderItemPanel')}" actionListener="#{orderItemAction.setOrderItemId(0)}" oncomplete="editOrderItemDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listOrderItemComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/commerce/orderItem/editOrderItem.xhtml" propagation="none"> 
         <f:param name="orderItemId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editOrderItemPanel')}" oncomplete="editOrderItemDialog.show()"> 
-        <f:param value="0" assignTo="#{orderItemAction.orderItemId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/commerce/orderItem/modalDlgOrderItemComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editOrderItemPanel')}" actionListener="#{orderItemAction.setOrderItemId(0)}" oncomplete="editOrderItemDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

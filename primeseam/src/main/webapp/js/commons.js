@@ -1,3 +1,15 @@
+
+ function handleDialogSubmit(xhr, status, args, dlg) {
+	        if (args.validationFailed) {
+	            alert('invalid');
+	        	dlg.show();
+	        } else {
+	        	alert('valid');
+	        	dlg.hide();
+	        }
+	    }
+
+
 function handleDialogSubmit(xhr, status, args) {
 	if (args != null) {
 		if (args.validationFailed) {
