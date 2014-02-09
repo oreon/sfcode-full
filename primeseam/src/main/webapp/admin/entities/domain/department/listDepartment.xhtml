@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/domain/department/editDepartment.xhtml" propagation="none"> 
         <f:param name="departmentId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDepartmentPanel')}" oncomplete="editDepartmentDialog.show()"> 
-        <f:param value="0" assignTo="#{departmentAction.departmentId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/domain/department/modalDlgDepartmentComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDepartmentPanel')}" actionListener="#{departmentAction.setDepartmentId(0)}" oncomplete="editDepartmentDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listDepartmentComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/domain/department/editDepartment.xhtml" propagation="none"> 
         <f:param name="departmentId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDepartmentPanel')}" oncomplete="editDepartmentDialog.show()"> 
-        <f:param value="0" assignTo="#{departmentAction.departmentId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/domain/department/modalDlgDepartmentComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDepartmentPanel')}" actionListener="#{departmentAction.setDepartmentId(0)}" oncomplete="editDepartmentDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>
