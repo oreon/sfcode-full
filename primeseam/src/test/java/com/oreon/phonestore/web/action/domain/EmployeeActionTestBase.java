@@ -1,15 +1,9 @@
 package com.oreon.phonestore.web.action.domain;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import org.jboss.seam.security.Identity;
-import org.testng.annotations.Test;
-import org.witchcraft.base.entity.*;
-import org.hibernate.annotations.Filter;
-
-import org.testng.annotations.BeforeClass;
+import org.junit.Before;
+import org.junit.Test;
 import org.witchcraft.seam.action.BaseAction;
+
 import com.oreon.phonestore.domain.Employee;
 
 public class EmployeeActionTestBase
@@ -18,7 +12,7 @@ public class EmployeeActionTestBase
 
 	EmployeeAction employeeAction = new EmployeeAction();
 
-	@BeforeClass
+	@Before
 	public void init() {
 		super.init();
 	}
@@ -33,8 +27,7 @@ public class EmployeeActionTestBase
 		new ComponentTest() {
 
 			protected void testComponents() throws Exception {
-				EmployeeAction employeeAction = (EmployeeAction) org.jboss.seam.Component
-						.getInstance("employeeAction");
+				EmployeeAction employeeAction = (EmployeeAction) org.jboss.seam.Component.getInstance("employeeAction");
 
 				// assert(employeeAction.register()).equals("");
 			}

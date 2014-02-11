@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.jboss.seam.annotations.In;
 import org.jboss.seam.mock.JUnitSeamTest;
 import org.jboss.seam.security.Identity;
 import org.junit.After;
@@ -16,8 +15,7 @@ public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest{
 	
 	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
 	private EntityManagerFactory emf;
-	
-	@In(create=true)
+
 	protected EntityManager em;
 
 	public EntityManagerFactory getEntityManagerFactory() {
@@ -28,8 +26,6 @@ public abstract class BaseTest<T extends BaseEntity> extends JUnitSeamTest{
 	public void init() {
 		emf = Persistence.createEntityManagerFactory(NOMBRE_PERSISTENCE_UNIT);
 		em = getEntityManagerFactory().createEntityManager();
-		//em.getTransaction().begin();
-		//getAction().setEntityManager(Search.getFullTextEntityManager(em));
 	}
 	
 	@Before

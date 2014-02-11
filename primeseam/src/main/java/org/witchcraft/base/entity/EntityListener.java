@@ -33,7 +33,7 @@ public class EntityListener {
 					modelBase.setCreatedByUser(currentUser);
 				}
 			}else{
-				log.warn("No creator for " + modelBase.getClass().getSimpleName() + "-> " + modelBase.getDisplayName());
+//				log.warn("No creator for " + modelBase.getClass().getSimpleName() + "-> " + modelBase.getDisplayName());
 			}
 
 		} catch (IllegalStateException e) {
