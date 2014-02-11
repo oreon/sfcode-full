@@ -2,7 +2,6 @@ package org.witchcraft.action.test;
 
 import java.io.File;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -16,8 +15,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-//import org.testng.annotations.BeforeClass;
-//import org.testng.annotations.Test;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.users.AppRole;
 import org.witchcraft.users.AppUser;
@@ -44,14 +41,14 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 	@OverProtocol("Servlet 3.0")
 	public static Archive<?> createDeployment()
 	{
-		WebArchive web = ShrinkWrap.create(ZipImporter.class).importFrom(new File("../newrich/target/newrich.war")).as(WebArchive.class);
-		//WebArchive web =  ShrinkWrap.create(ZipImporter.class).importFrom(new File("../registration-ear/target/seam-registration.ear")).as(EnterpriseArchive.class);  //er.getAsType(WebArchive.class, "newrich.war");
-		web.addClasses(AuthenticatorTest.class);
-						
-		// Replacing the SeamListener with MockSeamListener
+		WebArchive web = ShrinkWrap.create(ZipImporter.class)
+				.importFrom(new File("../primeseam/target/primeseam.war"))
+				.as(WebArchive.class);
 		
-		web.delete("/WEB-INF/web.xml");
-		web.addAsWebInfResource("WEB-INF/mock-web.xml", "web.xml");
+		web.addClasses(AuthenticatorTest.class);						
+		// Replacing the SeamListener with MockSeamListener		
+		web.addAsWebInfResource("WEB-INF/web.xml", "web.xml");
+		
 		return web;
 	}
 
@@ -66,8 +63,8 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 				Identity.instance().addRole("lawyer");
 				Identity.instance().addRole("pm");
 				
-				  assert invokeMethod( "#{authenticator.authenticate}")
-				  .equals(true);
+				
+				  assert invokeMethod( "#{authenticator.authenticate}").equals(true);
 				 
 			}
 
@@ -76,11 +73,7 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 
 	@Test
 	public void testRegisterAction() throws Exception {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		em.getTransaction().begin();
-
-		Query query = em
-				.createQuery("Select u From AppUser u where u.userName = ?1 ");
+		Query query = em.createQuery("Select u From AppUser u where u.userName = ?1 ");
 		query.setParameter(1, "admin");
 		if (!query.getResultList().isEmpty())
 			return;
@@ -104,9 +97,7 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 	}
 	
 	private AppUser createUserAndRole(String username, String password, String role) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
-		
 		
 		AppUser admin = new AppUser();
 		admin.setUserName(username);
