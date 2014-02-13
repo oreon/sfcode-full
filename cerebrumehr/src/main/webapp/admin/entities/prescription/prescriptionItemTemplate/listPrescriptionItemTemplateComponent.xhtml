@@ -18,8 +18,8 @@
             <f:param name="prescriptionItemTemplateId" value="#{_prescriptionItemTemplate.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionItemTemplate_drug}" sortBy="prescriptionItemTemplate.drug" rendered="#{true}"> 
-          <h:link escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.prescriptionItemTemplate_drug}" sortBy="prescriptionItemTemplate.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDrug')) }"> 
+          <h:link escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
             <f:param name="drugId" value="#{_prescriptionItemTemplate.drug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -27,34 +27,34 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionItemTemplate_qty}" sortBy="prescriptionItemTemplate.qty" rendered="#{true}"> 
+        <p:column headerText="#{msg.prescriptionItemTemplate_qty}" sortBy="prescriptionItemTemplate.qty" rendered="#{ ! excludeQty == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewQty')) }"> 
           <h:outputText value="#{_prescriptionItemTemplate.qty}"> 
             <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionItemTemplate_frequency}" sortBy="prescriptionItemTemplate.frequency" rendered="#{true}"> 
-          <h:link escape="false" value="#{_prescriptionItemTemplate.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.prescriptionItemTemplate_frequency}" sortBy="prescriptionItemTemplate.frequency" rendered="#{ ! excludeFrequency == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewFrequency')) }"> 
+          <h:link escape="false" value="#{_prescriptionItemTemplate.frequency.displayName}" outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
             <f:param name="frequencyId" value="#{_prescriptionItemTemplate.frequency.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionItemTemplate_strength}" sortBy="prescriptionItemTemplate.strength" rendered="#{true}"> 
+        <p:column headerText="#{msg.prescriptionItemTemplate_strength}" sortBy="prescriptionItemTemplate.strength" rendered="#{ ! excludeStrength == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewStrength')) }"> 
           <h:outputText value="#{_prescriptionItemTemplate.strength}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionItemTemplate_route}" sortBy="prescriptionItemTemplate.route" rendered="#{true}"> 
+        <p:column headerText="#{msg.prescriptionItemTemplate_route}" sortBy="prescriptionItemTemplate.route" rendered="#{ ! excludeRoute == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRoute')) }"> 
           <h:outputText value="#{_prescriptionItemTemplate.route}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionItemTemplate_duration}" sortBy="prescriptionItemTemplate.duration" rendered="#{true}"> 
+        <p:column headerText="#{msg.prescriptionItemTemplate_duration}" sortBy="prescriptionItemTemplate.duration" rendered="#{ ! excludeDuration == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDuration')) }"> 
           <h:outputText value="#{_prescriptionItemTemplate.duration}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionItemTemplate_remarks}" sortBy="prescriptionItemTemplate.remarks" rendered="#{true}"> 
+        <p:column headerText="#{msg.prescriptionItemTemplate_remarks}" sortBy="prescriptionItemTemplate.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRemarks')) }"> 
           <h:outputText value="#{_prescriptionItemTemplate.remarks}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionItemTemplate_brandName}" sortBy="prescriptionItemTemplate.brandName" rendered="#{true}"> 
+        <p:column headerText="#{msg.prescriptionItemTemplate_brandName}" sortBy="prescriptionItemTemplate.brandName" rendered="#{ ! excludeBrandName == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewBrandName')) }"> 
           <h:outputText value="#{_prescriptionItemTemplate.brandName}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionItemTemplate_prescriptionTemplate}" sortBy="prescriptionItemTemplate.prescriptionTemplate" rendered="#{true}"> 
-          <h:link escape="false" value="#{_prescriptionItemTemplate.prescriptionTemplate.displayName}" view="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.prescriptionItemTemplate_prescriptionTemplate}" sortBy="prescriptionItemTemplate.prescriptionTemplate" rendered="#{ ! excludePrescriptionTemplate == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewPrescriptionTemplate')) }"> 
+          <h:link escape="false" value="#{_prescriptionItemTemplate.prescriptionTemplate.displayName}" outcome="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml" propagation="none"> 
             <f:param name="prescriptionTemplateId" value="#{_prescriptionItemTemplate.prescriptionTemplate.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -91,7 +91,9 @@
             <f:param name="currentEntityId" value="#{_prescriptionItemTemplate.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/prescription/prescriptionItemTemplate/modalDlgPrescriptionItemTemplateComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

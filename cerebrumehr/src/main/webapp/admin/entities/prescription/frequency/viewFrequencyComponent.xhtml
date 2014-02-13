@@ -10,9 +10,9 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Frequency}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.frequency_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.frequency_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewName')}"/>  
       <h:outputText value="#{frequencyAction.frequency.name}" escape="false"/>  
-      <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewQtyPerDay')}"/>  
       <h:outputText value="#{frequencyAction.frequency.qtyPerDay}" escape="false"/> 
     </h:panelGrid>  
     <br/>  

@@ -18,14 +18,14 @@
             <f:param name="patientFindingId" value="#{_patientFinding.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.patientFinding_finding}" sortBy="patientFinding.finding" rendered="#{true}"> 
-          <h:link escape="false" value="#{_patientFinding.finding.displayName}" view="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.patientFinding_finding}" sortBy="patientFinding.finding" rendered="#{ ! excludeFinding == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewFinding')) }"> 
+          <h:link escape="false" value="#{_patientFinding.finding.displayName}" outcome="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
             <f:param name="findingId" value="#{_patientFinding.finding.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.patientFinding_patientDiffDx}" sortBy="patientFinding.patientDiffDx" rendered="#{true}"> 
-          <h:link escape="false" value="#{_patientFinding.patientDiffDx.displayName}" view="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.patientFinding_patientDiffDx}" sortBy="patientFinding.patientDiffDx" rendered="#{ ! excludePatientDiffDx == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewPatientDiffDx')) }"> 
+          <h:link escape="false" value="#{_patientFinding.patientDiffDx.displayName}" outcome="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml" propagation="none"> 
             <f:param name="patientDiffDxId" value="#{_patientFinding.patientDiffDx.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -62,7 +62,9 @@
             <f:param name="currentEntityId" value="#{_patientFinding.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/ddx/patientFinding/modalDlgPatientFindingComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

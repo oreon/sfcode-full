@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/employee/specialization/editSpecialization.xhtml" propagation="none"> 
         <f:param name="specializationId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSpecializationPanel')}" oncomplete="editSpecializationDialog.show()"> 
-        <f:param value="0" assignTo="#{specializationAction.specializationId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/employee/specialization/modalDlgSpecializationComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSpecializationPanel')}" actionListener="#{specializationAction.setSpecializationId(0)}" oncomplete="editSpecializationDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listSpecializationComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/employee/specialization/editSpecialization.xhtml" propagation="none"> 
         <f:param name="specializationId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSpecializationPanel')}" oncomplete="editSpecializationDialog.show()"> 
-        <f:param value="0" assignTo="#{specializationAction.specializationId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/employee/specialization/modalDlgSpecializationComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSpecializationPanel')}" actionListener="#{specializationAction.setSpecializationId(0)}" oncomplete="editSpecializationDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

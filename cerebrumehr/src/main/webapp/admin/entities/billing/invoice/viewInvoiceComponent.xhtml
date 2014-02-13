@@ -10,14 +10,14 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Invoice}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.invoice_notes}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}"/>  
       <h:outputText value="#{invoiceAction.invoice.notes}" escape="false"/>  
-      <h:outputText value="#{msg.invoice_totalAmount}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.invoice_totalAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotalAmount')}"/>  
       <h:outputText value="#{invoiceAction.invoice.totalAmount}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.invoice_patient}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{invoiceAction.invoice.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')}"/>  
+      <h:link escape="false" value="#{invoiceAction.invoice.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{invoiceAction.invoice.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
@@ -27,25 +27,25 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeInvoiceItems == true}"> 
-      <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{not empty invoiceAction.listInvoiceItems and true }" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{not empty invoiceAction.listInvoiceItems and skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewInvoiceItems') }" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewService')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_invoiceItem.service.displayName}" view="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+          <h:link escape="false" value="#{_invoiceItem.service.displayName}" outcome="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
             <f:param name="serviceId" value="#{_invoiceItem.service.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}"/> 
           </f:facet>  
           <h:outputText value="#{_invoiceItem.units}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewAppliedPrice')}"/> 
           </f:facet>  
           <h:outputText value="#{_invoiceItem.appliedPrice}"> 
             <f:convertNumber pattern="$#,##0.00"/> 
@@ -53,7 +53,7 @@
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}"/> 
           </f:facet>  
           <h:outputText value="#{_invoiceItem.total}"> 
             <f:convertNumber pattern="$#,##0.00"/> 

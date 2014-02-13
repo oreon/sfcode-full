@@ -18,10 +18,10 @@
             <f:param name="patientDocumentId" value="#{_patientDocument.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.patientDocument_name}" sortBy="patientDocument.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.patientDocument_name}" sortBy="patientDocument.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewName')) }"> 
           <h:outputText value="#{_patientDocument.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.patientDocument_file}" sortBy="patientDocument.file" rendered="#{true}"> 
+        <p:column headerText="#{msg.patientDocument_file}" sortBy="patientDocument.file" rendered="#{ ! excludeFile == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewFile')) }"> 
           <s:graphicImage rendered="#{_patientDocument.file ne null and  _patientDocument.file.contentType.startsWith('image')}" value="#{_patientDocument.file.data}"> 
             <s:transformImageSize height="100" maintainRatio="true"/> 
           </s:graphicImage>  
@@ -29,14 +29,14 @@
             <f:param name="currentEnt ityId" value="#{_patientDocument.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.patientDocument_notes}" sortBy="patientDocument.notes" rendered="#{true}"> 
+        <p:column headerText="#{msg.patientDocument_notes}" sortBy="patientDocument.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewNotes')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_patientDocument.notes}" for="notesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="notesAbbr" value="#{_patientDocument.notesAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.patientDocument_patient}" sortBy="patientDocument.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_patientDocument.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.patientDocument_patient}" sortBy="patientDocument.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_patientDocument.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_patientDocument.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -76,7 +76,9 @@
             <f:param name="currentEntityId" value="#{_patientDocument.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/patient/patientDocument/modalDlgPatientDocumentComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

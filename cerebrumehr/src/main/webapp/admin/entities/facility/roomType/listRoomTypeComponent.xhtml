@@ -18,21 +18,21 @@
             <f:param name="roomTypeId" value="#{_roomType.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.roomType_name}" sortBy="roomType.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.roomType_name}" sortBy="roomType.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewName')) }"> 
           <h:outputText value="#{_roomType.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.roomType_description}" sortBy="roomType.description" rendered="#{true}"> 
+        <p:column headerText="#{msg.roomType_description}" sortBy="roomType.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewDescription')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_roomType.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="descriptionAbbr" value="#{_roomType.descriptionAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.roomType_rate}" sortBy="roomType.rate" rendered="#{true}"> 
+        <p:column headerText="#{msg.roomType_rate}" sortBy="roomType.rate" rendered="#{ ! excludeRate == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewRate')) }"> 
           <h:outputText value="#{_roomType.rate}"> 
             <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.roomType_numberOfBeds}" sortBy="roomType.numberOfBeds" rendered="#{true}"> 
+        <p:column headerText="#{msg.roomType_numberOfBeds}" sortBy="roomType.numberOfBeds" rendered="#{ ! excludeNumberOfBeds == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewNumberOfBeds')) }"> 
           <h:outputText value="#{_roomType.numberOfBeds}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="roomType.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -67,7 +67,9 @@
             <f:param name="currentEntityId" value="#{_roomType.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/facility/roomType/modalDlgRoomTypeComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

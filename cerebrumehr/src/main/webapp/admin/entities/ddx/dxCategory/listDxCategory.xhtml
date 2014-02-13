@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/ddx/dxCategory/editDxCategory.xhtml" propagation="none"> 
         <f:param name="dxCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDxCategoryPanel')}" oncomplete="editDxCategoryDialog.show()"> 
-        <f:param value="0" assignTo="#{dxCategoryAction.dxCategoryId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/ddx/dxCategory/modalDlgDxCategoryComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDxCategoryPanel')}" actionListener="#{dxCategoryAction.setDxCategoryId(0)}" oncomplete="editDxCategoryDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listDxCategoryComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/ddx/dxCategory/editDxCategory.xhtml" propagation="none"> 
         <f:param name="dxCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDxCategoryPanel')}" oncomplete="editDxCategoryDialog.show()"> 
-        <f:param value="0" assignTo="#{dxCategoryAction.dxCategoryId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/ddx/dxCategory/modalDlgDxCategoryComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDxCategoryPanel')}" actionListener="#{dxCategoryAction.setDxCategoryId(0)}" oncomplete="editDxCategoryDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

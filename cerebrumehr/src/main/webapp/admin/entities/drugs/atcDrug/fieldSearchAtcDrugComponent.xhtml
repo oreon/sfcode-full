@@ -6,17 +6,17 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.atcDrug_code}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}"/>  
       <br/>  
       <h:inputText id="code" value="#{atcDrugList.atcDrug.code}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.atcDrug_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{atcDrugList.atcDrug.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>  
       <br/>  
       <h:selectOneMenu id="drugId" value="#{ atcDrugList.atcDrug.drug}"> 
         <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDrug')}"/>  
       <br/>  
       <h:selectOneMenu id="drugId" value="#{ prescriptionItemList.prescriptionItem.drug}"> 
         <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editQty')}"/>  
       <br/>  
       <h:inputText id="qty_begin" value="#{prescriptionItemList.qtyRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 
@@ -24,12 +24,12 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItem_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editStrength')}"/>  
       <br/>  
       <h:inputText id="strength" value="#{prescriptionItemList.prescriptionItem.strength}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescription')}"/>  
       <br/>  
       <h:selectOneMenu id="prescriptionId" value="#{ prescriptionItemList.prescriptionItem.prescription}"> 
         <s:selectItems value="#{prescriptionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -37,7 +37,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRoute')}"/>  
       <br/>  
       <h:selectOneMenu id="route" value="#{prescriptionItemList.prescriptionItem.route}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -50,7 +50,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDuration')}"/>  
       <br/>  
       <h:inputText id="duration_begin" value="#{prescriptionItemList.durationRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -60,7 +60,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequency')}"/>  
       <br/>  
       <h:selectOneMenu id="frequencyId" value="#{ prescriptionItemList.prescriptionItem.frequency}"> 
         <s:selectItems value="#{frequencyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -68,12 +68,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRemarks')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{prescriptionItemList.prescriptionItem.remarks}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItem_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editBrandName')}"/>  
       <br/>  
       <h:inputText id="brandName" value="#{prescriptionItemList.prescriptionItem.brandName}"/> 
     </h:panelGroup> 

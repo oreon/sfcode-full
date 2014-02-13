@@ -231,10 +231,11 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 
 	public void updateComposedAssociations() {
 
-		if (listDrugs != null) {
+		if (listAvailableDrugs != null) {
 			getInstance().getDrugs().clear();
-			getInstance().getDrugs().addAll(listDrugs);
+			getInstance().getDrugs().addAll(listAvailableDrugs.getTarget());
 		}
+
 	}
 
 	public void clearLists() {

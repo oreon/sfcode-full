@@ -18,8 +18,16 @@
             <f:param name="patientDiffDxId" value="#{_patientDiffDx.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.patientDiffDx_patient}" sortBy="patientDiffDx.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_patientDiffDx.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/ddx/patientFinding/miniListPatientFindingComponent.xhtml"> 
+            <ui:param name="records" value="#{_patientDiffDx.listPatientFindings}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.patientDiffDx_patient}" sortBy="patientDiffDx.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_patientDiffDx.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -27,7 +35,7 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.patientDiffDx_notes}" sortBy="patientDiffDx.notes" rendered="#{true}"> 
+        <p:column headerText="#{msg.patientDiffDx_notes}" sortBy="patientDiffDx.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_patientDiffDx.notes}" for="notesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="notesAbbr" value="#{_patientDiffDx.notesAbbreviated}" escape="false"/> 
@@ -65,7 +73,9 @@
             <f:param name="currentEntityId" value="#{_patientDiffDx.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/ddx/patientDiffDx/modalDlgPatientDiffDxComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

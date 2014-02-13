@@ -12,29 +12,29 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.roomType_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.roomType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.roomType_name}" required="true" disabled="false" value="#{roomTypeAction.roomType.name}"> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editName')}" label="#{msg.roomType_name}" required="true" disabled="false" value="#{roomTypeAction.roomType.name}"> 
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
       <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.roomType_description}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.roomType_description}" required="false" disabled="false" value="#{roomTypeAction.roomType.description}"></p:editor> 
+        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}" label="#{msg.roomType_description}" required="false" disabled="false" value="#{roomTypeAction.roomType.description}"></p:editor> 
       </s:decorate>  
       <s:decorate id="rateDecorate" rendered="#{ ! excludeRate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.roomType_rate}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.roomType_rate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="rate#{entityId}" rendered="#{true}" label="#{msg.roomType_rate}" required="false" disabled="false" value="#{roomTypeAction.roomType.rate}"></h:inputText> 
+        <h:inputText escape="false" id="rate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editRate')}" label="#{msg.roomType_rate}" required="false" disabled="false" value="#{roomTypeAction.roomType.rate}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="numberOfBedsDecorate" rendered="#{ ! excludeNumberOfBeds == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.roomType_numberOfBeds}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.roomType_numberOfBeds}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfBeds')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="numberOfBeds#{entityId}" rendered="#{true}" label="#{msg.roomType_numberOfBeds}" required="false" disabled="false" value="#{roomTypeAction.roomType.numberOfBeds}"></h:inputText> 
+        <h:inputText escape="false" id="numberOfBeds#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfBeds')}" label="#{msg.roomType_numberOfBeds}" required="false" disabled="false" value="#{roomTypeAction.roomType.numberOfBeds}"></h:inputText> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

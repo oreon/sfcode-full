@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.ConditionCategory}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.conditionCategory_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.conditionCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionCategory', 'viewName')}"/>  
       <h:outputText value="#{conditionCategoryAction.conditionCategory.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  

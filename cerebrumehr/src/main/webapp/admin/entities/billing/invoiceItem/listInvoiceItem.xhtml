@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/billing/invoiceItem/editInvoiceItem.xhtml" propagation="none"> 
         <f:param name="invoiceItemId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editInvoiceItemPanel')}" oncomplete="editInvoiceItemDialog.show()"> 
-        <f:param value="0" assignTo="#{invoiceItemAction.invoiceItemId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/billing/invoiceItem/modalDlgInvoiceItemComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editInvoiceItemPanel')}" actionListener="#{invoiceItemAction.setInvoiceItemId(0)}" oncomplete="editInvoiceItemDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listInvoiceItemComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/billing/invoiceItem/editInvoiceItem.xhtml" propagation="none"> 
         <f:param name="invoiceItemId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editInvoiceItemPanel')}" oncomplete="editInvoiceItemDialog.show()"> 
-        <f:param value="0" assignTo="#{invoiceItemAction.invoiceItemId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/billing/invoiceItem/modalDlgInvoiceItemComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editInvoiceItemPanel')}" actionListener="#{invoiceItemAction.setInvoiceItemId(0)}" oncomplete="editInvoiceItemDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

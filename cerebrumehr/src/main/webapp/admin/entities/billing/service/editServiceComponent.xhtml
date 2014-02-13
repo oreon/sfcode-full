@@ -12,17 +12,17 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.service_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.service_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.service_name}" required="true" disabled="false" value="#{serviceAction.service.name}"> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editName')}" label="#{msg.service_name}" required="true" disabled="false" value="#{serviceAction.service.name}"> 
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
       <s:decorate id="priceDecorate" rendered="#{ ! excludePrice == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.service_price}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.service_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editPrice')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="price#{entityId}" rendered="#{true}" label="#{msg.service_price}" required="true" disabled="false" value="#{serviceAction.service.price}"> 
+        <h:inputText escape="false" id="price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'editPrice')}" label="#{msg.service_price}" required="true" disabled="false" value="#{serviceAction.service.price}"> 
           <f:converter converterId="javax.faces.BigDecimal"/> 
         </h:inputText> 
       </s:decorate> 

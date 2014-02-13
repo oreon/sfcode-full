@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/patient/allergy/editAllergy.xhtml" propagation="none"> 
         <f:param name="allergyId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" oncomplete="editAllergyDialog.show()"> 
-        <f:param value="0" assignTo="#{allergyAction.allergyId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/patient/allergy/modalDlgAllergyComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" actionListener="#{allergyAction.setAllergyId(0)}" oncomplete="editAllergyDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listAllergyComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/patient/allergy/editAllergy.xhtml" propagation="none"> 
         <f:param name="allergyId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" oncomplete="editAllergyDialog.show()"> 
-        <f:param value="0" assignTo="#{allergyAction.allergyId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/patient/allergy/modalDlgAllergyComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" actionListener="#{allergyAction.setAllergyId(0)}" oncomplete="editAllergyDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

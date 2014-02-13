@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/patient/vitalValue/editVitalValue.xhtml" propagation="none"> 
         <f:param name="vitalValueId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editVitalValuePanel')}" oncomplete="editVitalValueDialog.show()"> 
-        <f:param value="0" assignTo="#{vitalValueAction.vitalValueId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/patient/vitalValue/modalDlgVitalValueComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editVitalValuePanel')}" actionListener="#{vitalValueAction.setVitalValueId(0)}" oncomplete="editVitalValueDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listVitalValueComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/patient/vitalValue/editVitalValue.xhtml" propagation="none"> 
         <f:param name="vitalValueId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editVitalValuePanel')}" oncomplete="editVitalValueDialog.show()"> 
-        <f:param value="0" assignTo="#{vitalValueAction.vitalValueId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/patient/vitalValue/modalDlgVitalValueComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editVitalValuePanel')}" actionListener="#{vitalValueAction.setVitalValueId(0)}" oncomplete="editVitalValueDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

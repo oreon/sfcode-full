@@ -18,58 +18,58 @@
             <f:param name="physicianId" value="#{_physician.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.employee_employeeNumber}" sortBy="physician.employeeNumber" rendered="#{true}"> 
+        <p:column headerText="#{msg.employee_employeeNumber}" sortBy="physician.employeeNumber" rendered="#{ ! excludeEmployeeNumber == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewEmployeeNumber')) }"> 
           <h:outputText value="#{_physician.employeeNumber}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.appUser_userName}" sortBy="physician.appUser.userName" rendered="#{true}"> 
+        <p:column headerText="#{msg.appUser_userName}" sortBy="physician.appUser.userName" rendered="#{ ! excludeUserName == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewUserName')) }"> 
           <h:outputText value="#{_physician.appUser.userName}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.appUser_enabled}" sortBy="physician.appUser.enabled" rendered="#{true}"> 
+        <p:column headerText="#{msg.appUser_enabled}" sortBy="physician.appUser.enabled" rendered="#{ ! excludeEnabled == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewEnabled')) }"> 
           <h:outputText value="#{_physician.appUser.enabled? msg.yes : msg.no }"/> 
         </p:column>  
-        <p:column headerText="#{msg.employee_facility}" sortBy="physician.facility" rendered="#{true}"> 
-          <h:link escape="false" value="#{_physician.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.employee_facility}" sortBy="physician.facility" rendered="#{ ! excludeFacility == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewFacility')) }"> 
+          <h:link escape="false" value="#{_physician.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
             <f:param name="facilityId" value="#{_physician.facility.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.employee_department}" sortBy="physician.department" rendered="#{true}"> 
-          <h:link escape="false" value="#{_physician.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.employee_department}" sortBy="physician.department" rendered="#{ ! excludeDepartment == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewDepartment')) }"> 
+          <h:link escape="false" value="#{_physician.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
             <f:param name="departmentId" value="#{_physician.department.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.person_firstName}" sortBy="physician.firstName" rendered="#{true}"> 
+        <p:column headerText="#{msg.person_firstName}" sortBy="physician.firstName" rendered="#{ ! excludeFirstName == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewFirstName')) }"> 
           <h:outputText value="#{_physician.firstName}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.person_lastName}" sortBy="physician.lastName" rendered="#{true}"> 
+        <p:column headerText="#{msg.person_lastName}" sortBy="physician.lastName" rendered="#{ ! excludeLastName == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewLastName')) }"> 
           <h:outputText value="#{_physician.lastName}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.person_dateOfBirth}" sortBy="physician.dateOfBirth" rendered="#{true}"> 
+        <p:column headerText="#{msg.person_dateOfBirth}" sortBy="physician.dateOfBirth" rendered="#{ ! excludeDateOfBirth == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewDateOfBirth')) }"> 
           <h:outputText value="#{_physician.dateOfBirth}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.person_gender}" sortBy="physician.gender" rendered="#{true}"> 
+        <p:column headerText="#{msg.person_gender}" sortBy="physician.gender" rendered="#{ ! excludeGender == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewGender')) }"> 
           <h:outputText value="#{_physician.gender}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.contactDetails_primaryPhone}" sortBy="physician.contactDetails.primaryPhone" rendered="#{true}"> 
+        <p:column headerText="#{msg.contactDetails_primaryPhone}" sortBy="physician.contactDetails.primaryPhone" rendered="#{ ! excludePrimaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewPrimaryPhone')) }"> 
           <h:outputText value="#{_physician.contactDetails.primaryPhone}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="physician.contactDetails.secondaryPhone" rendered="#{true}"> 
+        <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="physician.contactDetails.secondaryPhone" rendered="#{ ! excludeSecondaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewSecondaryPhone')) }"> 
           <h:outputText value="#{_physician.contactDetails.secondaryPhone}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.contactDetails_email}" sortBy="physician.contactDetails.email" rendered="#{true}"> 
+        <p:column headerText="#{msg.contactDetails_email}" sortBy="physician.contactDetails.email" rendered="#{ ! excludeEmail == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewEmail')) }"> 
           <h:outputText value="#{_physician.contactDetails.email}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.person_age}" sortBy="physician.age" rendered="#{true}"> 
+        <p:column headerText="#{msg.person_age}" sortBy="physician.age" rendered="#{ ! excludeAge == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewAge')) }"> 
           <h:outputText value="#{_physician.age}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.person_title}" sortBy="physician.title" rendered="#{true}"> 
+        <p:column headerText="#{msg.person_title}" sortBy="physician.title" rendered="#{ ! excludeTitle == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewTitle')) }"> 
           <h:outputText value="#{_physician.title}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.physician_specialization}" sortBy="physician.specialization" rendered="#{true}"> 
-          <h:link escape="false" value="#{_physician.specialization.displayName}" view="/admin/entities/employee/specialization/viewSpecialization.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.physician_specialization}" sortBy="physician.specialization" rendered="#{ ! excludeSpecialization == true and ( skipPermissionCheck == 'true' || s:hasPermission('physician', 'viewSpecialization')) }"> 
+          <h:link escape="false" value="#{_physician.specialization.displayName}" outcome="/admin/entities/employee/specialization/viewSpecialization.xhtml" propagation="none"> 
             <f:param name="specializationId" value="#{_physician.specialization.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -106,7 +106,9 @@
             <f:param name="currentEntityId" value="#{_physician.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/employee/physician/modalDlgPhysicianComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

@@ -12,9 +12,9 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.occurenceType_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.occurenceType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('occurenceType', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.occurenceType_name}" required="true" disabled="false" value="#{occurenceTypeAction.occurenceType.name}"></h:inputText> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('occurenceType', 'editName')}" label="#{msg.occurenceType_name}" required="true" disabled="false" value="#{occurenceTypeAction.occurenceType.name}"></h:inputText> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

@@ -18,17 +18,25 @@
             <f:param name="sectionId" value="#{_section.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.abstractCode_name}" sortBy="section.name" rendered="#{true}"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/codes/code/miniListCodeComponent.xhtml"> 
+            <ui:param name="records" value="#{_section.listCodes}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.abstractCode_name}" sortBy="section.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('section', 'viewName')) }"> 
           <h:outputText value="#{_section.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.abstractCode_description}" sortBy="section.description" rendered="#{true}"> 
+        <p:column headerText="#{msg.abstractCode_description}" sortBy="section.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('section', 'viewDescription')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_section.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="descriptionAbbr" value="#{_section.descriptionAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.section_chapter}" sortBy="section.chapter" rendered="#{true}"> 
-          <h:link escape="false" value="#{_section.chapter.displayName}" view="/admin/entities/codes/chapter/viewChapter.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.section_chapter}" sortBy="section.chapter" rendered="#{ ! excludeChapter == true and ( skipPermissionCheck == 'true' || s:hasPermission('section', 'viewChapter')) }"> 
+          <h:link escape="false" value="#{_section.chapter.displayName}" outcome="/admin/entities/codes/chapter/viewChapter.xhtml" propagation="none"> 
             <f:param name="chapterId" value="#{_section.chapter.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -65,7 +73,9 @@
             <f:param name="currentEntityId" value="#{_section.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/codes/section/modalDlgSectionComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

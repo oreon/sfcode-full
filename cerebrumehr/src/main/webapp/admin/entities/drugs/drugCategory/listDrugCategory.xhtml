@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/drugs/drugCategory/editDrugCategory.xhtml" propagation="none"> 
         <f:param name="drugCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDrugCategoryPanel')}" oncomplete="editDrugCategoryDialog.show()"> 
-        <f:param value="0" assignTo="#{drugCategoryAction.drugCategoryId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/drugs/drugCategory/modalDlgDrugCategoryComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDrugCategoryPanel')}" actionListener="#{drugCategoryAction.setDrugCategoryId(0)}" oncomplete="editDrugCategoryDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listDrugCategoryComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/drugs/drugCategory/editDrugCategory.xhtml" propagation="none"> 
         <f:param name="drugCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDrugCategoryPanel')}" oncomplete="editDrugCategoryDialog.show()"> 
-        <f:param value="0" assignTo="#{drugCategoryAction.drugCategoryId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/drugs/drugCategory/modalDlgDrugCategoryComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDrugCategoryPanel')}" actionListener="#{drugCategoryAction.setDrugCategoryId(0)}" oncomplete="editDrugCategoryDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

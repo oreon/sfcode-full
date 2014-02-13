@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.differential_encounter}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.differential_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}"/>  
       <br/>  
       <h:selectOneMenu id="encounterId" value="#{ differentialList.differential.encounter}"> 
         <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.differential_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{differentialList.differential.remarks}"/> 
     </h:panelGroup> 

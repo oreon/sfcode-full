@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/employee/nurse/editNurse.xhtml" propagation="none"> 
         <f:param name="nurseId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editNursePanel')}" oncomplete="editNurseDialog.show()"> 
-        <f:param value="0" assignTo="#{nurseAction.nurseId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/employee/nurse/modalDlgNurseComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editNursePanel')}" actionListener="#{nurseAction.setNurseId(0)}" oncomplete="editNurseDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listNurseComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/employee/nurse/editNurse.xhtml" propagation="none"> 
         <f:param name="nurseId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editNursePanel')}" oncomplete="editNurseDialog.show()"> 
-        <f:param value="0" assignTo="#{nurseAction.nurseId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/employee/nurse/modalDlgNurseComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editNursePanel')}" actionListener="#{nurseAction.setNurseId(0)}" oncomplete="editNurseDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

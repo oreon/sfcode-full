@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/facility/ward/editWard.xhtml" propagation="none"> 
         <f:param name="wardId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editWardPanel')}" oncomplete="editWardDialog.show()"> 
-        <f:param value="0" assignTo="#{wardAction.wardId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/facility/ward/modalDlgWardComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editWardPanel')}" actionListener="#{wardAction.setWardId(0)}" oncomplete="editWardDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listWardComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/facility/ward/editWard.xhtml" propagation="none"> 
         <f:param name="wardId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editWardPanel')}" oncomplete="editWardDialog.show()"> 
-        <f:param value="0" assignTo="#{wardAction.wardId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/facility/ward/modalDlgWardComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editWardPanel')}" actionListener="#{wardAction.setWardId(0)}" oncomplete="editWardDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

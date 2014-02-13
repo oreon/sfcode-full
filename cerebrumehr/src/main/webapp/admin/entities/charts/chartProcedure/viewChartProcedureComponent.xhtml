@@ -10,29 +10,29 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.ChartProcedure}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDueDate')}"/>  
       <h:outputText value="#{chartProcedureAction.chartProcedure.dueDate}"> 
         <s:convertDateTime type="date" dateStyle="medium"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDatePerformed')}"/>  
       <h:outputText value="#{chartProcedureAction.chartProcedure.datePerformed}"> 
         <s:convertDateTime type="date" dateStyle="medium"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewRemarks')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{chartProcedureAction.chartProcedure.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="remarksAbbr" value="#{chartProcedureAction.chartProcedure.remarksAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{chartProcedureAction.chartProcedure.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewPatient')}"/>  
+      <h:link escape="false" value="#{chartProcedureAction.chartProcedure.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{chartProcedureAction.chartProcedure.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
           <span>#{chartProcedureAction.chartProcedure.patient.popupInfo}</span> 
         </p:tooltip> 
       </h:link>  
-      <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{chartProcedureAction.chartProcedure.chartItem.displayName}" view="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewChartItem')}"/>  
+      <h:link escape="false" value="#{chartProcedureAction.chartProcedure.chartItem.displayName}" outcome="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
         <f:param name="chartItemId" value="#{chartProcedureAction.chartProcedure.chartItem.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

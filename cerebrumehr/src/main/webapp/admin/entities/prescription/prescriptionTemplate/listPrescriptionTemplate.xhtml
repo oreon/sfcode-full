@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/prescription/prescriptionTemplate/editPrescriptionTemplate.xhtml" propagation="none"> 
         <f:param name="prescriptionTemplateId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionTemplatePanel')}" oncomplete="editPrescriptionTemplateDialog.show()"> 
-        <f:param value="0" assignTo="#{prescriptionTemplateAction.prescriptionTemplateId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/prescription/prescriptionTemplate/modalDlgPrescriptionTemplateComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionTemplatePanel')}" actionListener="#{prescriptionTemplateAction.setPrescriptionTemplateId(0)}" oncomplete="editPrescriptionTemplateDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listPrescriptionTemplateComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/prescription/prescriptionTemplate/editPrescriptionTemplate.xhtml" propagation="none"> 
         <f:param name="prescriptionTemplateId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionTemplatePanel')}" oncomplete="editPrescriptionTemplateDialog.show()"> 
-        <f:param value="0" assignTo="#{prescriptionTemplateAction.prescriptionTemplateId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/prescription/prescriptionTemplate/modalDlgPrescriptionTemplateComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionTemplatePanel')}" actionListener="#{prescriptionTemplateAction.setPrescriptionTemplateId(0)}" oncomplete="editPrescriptionTemplateDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

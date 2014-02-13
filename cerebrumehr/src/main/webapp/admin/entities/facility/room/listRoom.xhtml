@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/facility/room/editRoom.xhtml" propagation="none"> 
         <f:param name="roomId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editRoomPanel')}" oncomplete="editRoomDialog.show()"> 
-        <f:param value="0" assignTo="#{roomAction.roomId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/facility/room/modalDlgRoomComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editRoomPanel')}" actionListener="#{roomAction.setRoomId(0)}" oncomplete="editRoomDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listRoomComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/facility/room/editRoom.xhtml" propagation="none"> 
         <f:param name="roomId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editRoomPanel')}" oncomplete="editRoomDialog.show()"> 
-        <f:param value="0" assignTo="#{roomAction.roomId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/facility/room/modalDlgRoomComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editRoomPanel')}" actionListener="#{roomAction.setRoomId(0)}" oncomplete="editRoomDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

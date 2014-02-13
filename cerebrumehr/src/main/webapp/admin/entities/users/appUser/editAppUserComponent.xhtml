@@ -12,21 +12,21 @@
       </f:facet>  
       <s:decorate id="userNameDecorate" rendered="#{ ! excludeUserName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.appUser_userName}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editUserName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="userName#{entityId}" rendered="#{true}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{appUserAction.appUser.userName}"></h:inputText> 
+        <h:inputText escape="false" id="userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editUserName')}" label="#{msg.appUser_userName}" required="true" disabled="false" value="#{appUserAction.appUser.userName}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="passwordDecorate" rendered="#{ ! excludePassword == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.appUser_password}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.appUser_password}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}"/>
         </ui:define>  
-        <h:inputSecret escape="false" redisplay="true" id="password#{entityId}" rendered="#{true}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{appUserAction.appUser.password}"></h:inputSecret> 
+        <h:inputSecret escape="false" redisplay="true" id="password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editPassword')}" label="#{msg.appUser_password}" required="true" disabled="false" value="#{appUserAction.appUser.password}"></h:inputSecret> 
       </s:decorate>  
       <s:decorate id="enabledDecorate" rendered="#{ ! excludeEnabled == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.appUser_enabled}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}"/>
         </ui:define>  
-        <h:selectBooleanCheckbox escape="false" id="enabled#{entityId}" rendered="#{true}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{appUserAction.appUser.enabled}"></h:selectBooleanCheckbox> 
+        <h:selectBooleanCheckbox escape="false" id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editEnabled')}" label="#{msg.appUser_enabled}" required="false" disabled="false" value="#{appUserAction.appUser.enabled}"></h:selectBooleanCheckbox> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

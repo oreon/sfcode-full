@@ -10,35 +10,35 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PrescriptionItemTemplate}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewQty')}"/>  
       <h:outputText value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.qty}"> 
         <f:convertNumber pattern="000.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewStrength')}"/>  
       <h:outputText value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.strength}" escape="false"/>  
-      <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRoute')}"/>  
       <h:outputText value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.route}" escape="false"/>  
-      <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDuration')}"/>  
       <h:outputText value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.duration}" escape="false"/>  
-      <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRemarks')}"/>  
       <h:outputText value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.remarks}" escape="false"/>  
-      <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewBrandName')}"/>  
       <h:outputText value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.brandName}" escape="false"/>  
-      <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDrug')}"/>  
+      <h:link escape="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
         <f:param name="drugId" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.drug.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
           <span>#{prescriptionItemTemplateAction.prescriptionItemTemplate.drug.popupInfo}</span> 
         </p:tooltip> 
       </h:link>  
-      <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewFrequency')}"/>  
+      <h:link escape="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.frequency.displayName}" outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
         <f:param name="frequencyId" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.frequency.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
-      <h:outputText value="#{msg.prescriptionItemTemplate_prescriptionTemplate}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.prescriptionTemplate.displayName}" view="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.prescriptionItemTemplate_prescriptionTemplate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewPrescriptionTemplate')}"/>  
+      <h:link escape="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.prescriptionTemplate.displayName}" outcome="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml" propagation="none"> 
         <f:param name="prescriptionTemplateId" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.prescriptionTemplate.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

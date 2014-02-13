@@ -12,9 +12,9 @@
       </f:facet>  
       <s:decorate id="severityDecorate" rendered="#{ ! excludeSeverity == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.allergy_severity}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}"/>
         </ui:define>  
-        <h:selectOneMenu id="severity" rendered="#{true}" value="#{allergyAction.allergy.severity}" required="false" label="#{msg.allergy_severity}"> 
+        <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}" value="#{allergyAction.allergy.severity}" required="false" label="#{msg.allergy_severity}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="SEVERE" itemLabel="#{msg.SEVERE}"/>  
           <f:selectItem itemValue="MODERATE" itemLabel="#{msg.MODERATE}"/>  
@@ -23,18 +23,18 @@
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.allergy_patient}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientId" label="#{msg.allergy_patient}" value="#{allergyAction.allergy.patient}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="patientId" label="#{msg.allergy_patient}" value="#{allergyAction.allergy.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}" disabled="false"> 
           <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="allergenIdDecorate" rendered="#{ ! excludeAllergen == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.allergy_allergen}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}"/>
         </ui:define>  
-        <h:selectOneMenu id="allergenId" label="#{msg.allergy_allergen}" value="#{allergyAction.allergy.allergen}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="allergenId" label="#{msg.allergy_allergen}" value="#{allergyAction.allergy.allergen}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}" disabled="false"> 
           <s:selectItems value="#{allergenList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

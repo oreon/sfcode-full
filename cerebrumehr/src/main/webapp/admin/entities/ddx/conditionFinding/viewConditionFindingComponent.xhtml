@@ -10,10 +10,10 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.ConditionFinding}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewFalsePositive')}"/>  
       <h:outputText value="#{conditionFindingAction.conditionFinding.falsePositive? msg.yes : msg.no }"/>  
-      <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{conditionFindingAction.conditionFinding.disease.displayName}" view="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewDisease')}"/>  
+      <h:link escape="false" value="#{conditionFindingAction.conditionFinding.disease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
         <f:param name="diseaseId" value="#{conditionFindingAction.conditionFinding.disease.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

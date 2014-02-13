@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/ddx/disease/editDisease.xhtml" propagation="none"> 
         <f:param name="diseaseId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" oncomplete="editDiseaseDialog.show()"> 
-        <f:param value="0" assignTo="#{diseaseAction.diseaseId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/ddx/disease/modalDlgDiseaseComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" actionListener="#{diseaseAction.setDiseaseId(0)}" oncomplete="editDiseaseDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listDiseaseComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/ddx/disease/editDisease.xhtml" propagation="none"> 
         <f:param name="diseaseId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" oncomplete="editDiseaseDialog.show()"> 
-        <f:param value="0" assignTo="#{diseaseAction.diseaseId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/ddx/disease/modalDlgDiseaseComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" actionListener="#{diseaseAction.setDiseaseId(0)}" oncomplete="editDiseaseDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

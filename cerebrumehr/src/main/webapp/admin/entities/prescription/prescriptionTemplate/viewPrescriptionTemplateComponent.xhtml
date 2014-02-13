@@ -10,9 +10,9 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PrescriptionTemplate}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewName')}"/>  
       <h:outputText value="#{prescriptionTemplateAction.prescriptionTemplate.name}" escape="false"/>  
-      <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewDirectivesForPatient')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{prescriptionTemplateAction.prescriptionTemplate.directivesForPatient}" for="directivesForPatientAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="directivesForPatientAbbr" value="#{prescriptionTemplateAction.prescriptionTemplate.directivesForPatientAbbreviated}" escape="false"/> 
@@ -20,12 +20,12 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePrescriptionItemTemplates == true}"> 
-      <p:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{not empty prescriptionTemplateAction.listPrescriptionItemTemplates and true }" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{not empty prescriptionTemplateAction.listPrescriptionItemTemplates and skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewPrescriptionItemTemplates') }" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDrug')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <h:link escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
             <f:param name="drugId" value="#{_prescriptionItemTemplate.drug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -35,16 +35,16 @@
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewFrequency')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_prescriptionItemTemplate.frequency.displayName}" view="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
+          <h:link escape="false" value="#{_prescriptionItemTemplate.frequency.displayName}" outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
             <f:param name="frequencyId" value="#{_prescriptionItemTemplate.frequency.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewQty')}"/> 
           </f:facet>  
           <h:outputText value="#{_prescriptionItemTemplate.qty}"> 
             <f:convertNumber pattern="000.00"/> 
@@ -52,31 +52,31 @@
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewStrength')}"/> 
           </f:facet>  
           <h:outputText value="#{_prescriptionItemTemplate.strength}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRoute')}"/> 
           </f:facet>  
           <h:outputText value="#{_prescriptionItemTemplate.route}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDuration')}"/> 
           </f:facet>  
           <h:outputText value="#{_prescriptionItemTemplate.duration}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewRemarks')}"/> 
           </f:facet>  
           <h:outputText value="#{_prescriptionItemTemplate.remarks}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewBrandName')}"/> 
           </f:facet>  
           <h:outputText value="#{_prescriptionItemTemplate.brandName}" escape="false"/> 
         </p:column> 

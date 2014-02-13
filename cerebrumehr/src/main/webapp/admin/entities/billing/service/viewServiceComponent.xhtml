@@ -10,9 +10,9 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Service}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.service_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.service_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'viewName')}"/>  
       <h:outputText value="#{serviceAction.service.name}" escape="false"/>  
-      <h:outputText value="#{msg.service_price}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.service_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('service', 'viewPrice')}"/>  
       <h:outputText value="#{serviceAction.service.price}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText> 

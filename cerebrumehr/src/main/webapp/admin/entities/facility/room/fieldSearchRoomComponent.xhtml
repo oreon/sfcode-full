@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.room_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{roomList.room.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.room_roomType}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}"/>  
       <br/>  
       <h:selectOneMenu id="roomTypeId" value="#{ roomList.room.roomType}"> 
         <s:selectItems value="#{roomTypeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -19,7 +19,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.room_ward}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editWard')}"/>  
       <br/>  
       <h:selectOneMenu id="wardId" value="#{ roomList.room.ward}"> 
         <s:selectItems value="#{wardList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

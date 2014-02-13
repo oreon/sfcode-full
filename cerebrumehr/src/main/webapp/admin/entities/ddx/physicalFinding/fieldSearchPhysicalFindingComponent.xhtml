@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.finding_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{physicalFindingList.physicalFinding.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.physicalFinding_icdCode}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.physicalFinding_icdCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editIcdCode')}"/>  
       <br/>  
       <h:inputText id="icdCode" value="#{physicalFindingList.physicalFinding.icdCode}"/> 
     </h:panelGroup> 

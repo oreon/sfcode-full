@@ -18,8 +18,16 @@
             <f:param name="admissionId" value="#{_admission.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.admission_patient}" sortBy="admission.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_admission.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/patient/bedStay/miniListBedStayComponent.xhtml"> 
+            <ui:param name="records" value="#{_admission.listBedStays}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.admission_patient}" sortBy="admission.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_admission.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_admission.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -27,30 +35,30 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.admission_admissionNote}" sortBy="admission.admissionNote" rendered="#{true}"> 
+        <p:column headerText="#{msg.admission_admissionNote}" sortBy="admission.admissionNote" rendered="#{ ! excludeAdmissionNote == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewAdmissionNote')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_admission.admissionNote}" for="admissionNoteAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="admissionNoteAbbr" value="#{_admission.admissionNoteAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.admission_dischargeDate}" sortBy="admission.dischargeDate" rendered="#{true}"> 
+        <p:column headerText="#{msg.admission_dischargeDate}" sortBy="admission.dischargeDate" rendered="#{ ! excludeDischargeDate == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeDate')) }"> 
           <h:outputText value="#{_admission.dischargeDate}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.admission_bed}" sortBy="admission.bed" rendered="#{true}"> 
-          <h:link escape="false" value="#{_admission.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.admission_bed}" sortBy="admission.bed" rendered="#{ ! excludeBed == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewBed')) }"> 
+          <h:link escape="false" value="#{_admission.bed.displayName}" outcome="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
             <f:param name="bedId" value="#{_admission.bed.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.admission_dischargeNote}" sortBy="admission.dischargeNote" rendered="#{true}"> 
+        <p:column headerText="#{msg.admission_dischargeNote}" sortBy="admission.dischargeNote" rendered="#{ ! excludeDischargeNote == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeNote')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_admission.dischargeNote}" for="dischargeNoteAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="dischargeNoteAbbr" value="#{_admission.dischargeNoteAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.admission_dischargeCode}" sortBy="admission.dischargeCode" rendered="#{true}"> 
+        <p:column headerText="#{msg.admission_dischargeCode}" sortBy="admission.dischargeCode" rendered="#{ ! excludeDischargeCode == true and ( skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewDischargeCode')) }"> 
           <h:outputText value="#{_admission.dischargeCode}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="admission.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -85,7 +93,9 @@
             <f:param name="currentEntityId" value="#{_admission.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/patient/admission/modalDlgAdmissionComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

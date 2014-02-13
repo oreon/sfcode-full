@@ -18,19 +18,19 @@
             <f:param name="chartItemId" value="#{_chartItem.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.chartItem_name}" sortBy="chartItem.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.chartItem_name}" sortBy="chartItem.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewName')) }"> 
           <h:outputText value="#{_chartItem.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.chartItem_duration}" sortBy="chartItem.duration" rendered="#{true}"> 
+        <p:column headerText="#{msg.chartItem_duration}" sortBy="chartItem.duration" rendered="#{ ! excludeDuration == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewDuration')) }"> 
           <h:outputText value="#{_chartItem.duration}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.chartItem_chart}" sortBy="chartItem.chart" rendered="#{true}"> 
-          <h:link escape="false" value="#{_chartItem.chart.displayName}" view="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.chartItem_chart}" sortBy="chartItem.chart" rendered="#{ ! excludeChart == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewChart')) }"> 
+          <h:link escape="false" value="#{_chartItem.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
             <f:param name="chartId" value="#{_chartItem.chart.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.chartItem_frequencyPeriod}" sortBy="chartItem.frequencyPeriod" rendered="#{true}"> 
+        <p:column headerText="#{msg.chartItem_frequencyPeriod}" sortBy="chartItem.frequencyPeriod" rendered="#{ ! excludeFrequencyPeriod == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewFrequencyPeriod')) }"> 
           <h:outputText value="#{_chartItem.frequencyPeriod}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="chartItem.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -65,7 +65,9 @@
             <f:param name="currentEntityId" value="#{_chartItem.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/charts/chartItem/modalDlgChartItemComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

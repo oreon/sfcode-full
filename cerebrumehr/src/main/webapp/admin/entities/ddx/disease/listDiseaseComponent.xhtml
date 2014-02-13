@@ -18,20 +18,20 @@
             <f:param name="diseaseId" value="#{_disease.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.disease_gender}" sortBy="disease.gender" rendered="#{true}"> 
+        <p:column headerText="#{msg.disease_gender}" sortBy="disease.gender" rendered="#{ ! excludeGender == true and ( skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewGender')) }"> 
           <h:outputText value="#{_disease.gender}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.disease_name}" sortBy="disease.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.disease_name}" sortBy="disease.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewName')) }"> 
           <h:outputText value="#{_disease.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.disease_relatedDisease}" sortBy="disease.relatedDisease" rendered="#{true}"> 
-          <h:link escape="false" value="#{_disease.relatedDisease.displayName}" view="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.disease_relatedDisease}" sortBy="disease.relatedDisease" rendered="#{ ! excludeRelatedDisease == true and ( skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewRelatedDisease')) }"> 
+          <h:link escape="false" value="#{_disease.relatedDisease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
             <f:param name="diseaseId" value="#{_disease.relatedDisease.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.disease_conditionCategory}" sortBy="disease.conditionCategory" rendered="#{true}"> 
-          <h:link escape="false" value="#{_disease.conditionCategory.displayName}" view="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.disease_conditionCategory}" sortBy="disease.conditionCategory" rendered="#{ ! excludeConditionCategory == true and ( skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewConditionCategory')) }"> 
+          <h:link escape="false" value="#{_disease.conditionCategory.displayName}" outcome="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" propagation="none"> 
             <f:param name="conditionCategoryId" value="#{_disease.conditionCategory.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -68,7 +68,9 @@
             <f:param name="currentEntityId" value="#{_disease.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/ddx/disease/modalDlgDiseaseComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

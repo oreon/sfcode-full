@@ -15,21 +15,21 @@
 
 			<p:toolbarGroup>
 				<h:graphicImage id="edit" value="/images/icons/bricks.png" />
-				<s:link view="/admin/entities/summary.xhtml" value="Entities" />
+				<h:link outcome="/admin/entities/summary.xhtml" value="Entities" />
 
 				<h:graphicImage id="find" value="/images/icons/clock.png" />
-				<s:link view="/admin/tasks/tasks.xhtml" value="Tasks" />
+				<h:link outcome="/admin/tasks/tasks.xhtml" value="Tasks" />
 
 				<h:graphicImage id="filter" value="/images/icons/chart_bar.png" />
-				<s:link view="/admin/reports/reports.xhtml" value="Reports" />
+				<h:link outcome="/admin/reports/reports.xhtml" value="Reports" />
 
 				<h:graphicImage value="/images/icons/eye.png" />
 				<s:link action="issue" value="Issues" />
 
 				<h:graphicImage id="issues" value="/images/icons/add.png" />
-				<s:link view="/admin/accessControl" value="Access Control">
+				<h:link outcome="/admin/accessControl" value="Access Control" />
 
-				</s:link>
+				
 			</p:toolbarGroup>
 
 
@@ -46,6 +46,9 @@
 					action="#{issueList.textSearch}" value="Search">
 					<s:conversationPropagation type="join"></s:conversationPropagation>
 				</h:commandButton>
+				
+				<s:link action="#{identity.logout}" view="/login.xhtml"
+					value="Logout #{identity.credentials.username}" propagation="none" />
 
 			</p:toolbarGroup>
 

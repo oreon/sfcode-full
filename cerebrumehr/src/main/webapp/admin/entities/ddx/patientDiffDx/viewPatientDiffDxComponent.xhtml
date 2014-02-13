@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PatientDiffDx}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{patientDiffDxAction.patientDiffDx.notes}" for="notesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="notesAbbr" value="#{patientDiffDxAction.patientDiffDx.notesAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{patientDiffDxAction.patientDiffDx.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')}"/>  
+      <h:link escape="false" value="#{patientDiffDxAction.patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{patientDiffDxAction.patientDiffDx.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
@@ -26,12 +26,12 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePatientFindings == true}"> 
-      <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{not empty patientDiffDxAction.listPatientFindings and true }" value="#{patientDiffDxAction.listPatientFindings}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{not empty patientDiffDxAction.listPatientFindings and skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatientFindings') }" value="#{patientDiffDxAction.listPatientFindings}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewFinding')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_patientFinding.finding.displayName}" view="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
+          <h:link escape="false" value="#{_patientFinding.finding.displayName}" outcome="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
             <f:param name="findingId" value="#{_patientFinding.finding.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 

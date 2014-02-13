@@ -18,16 +18,24 @@
             <f:param name="wardId" value="#{_ward.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.ward_facility}" sortBy="ward.facility" rendered="#{true}"> 
-          <h:link escape="false" value="#{_ward.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/facility/room/miniListRoomComponent.xhtml"> 
+            <ui:param name="records" value="#{_ward.listRooms}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.ward_facility}" sortBy="ward.facility" rendered="#{ ! excludeFacility == true and ( skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')) }"> 
+          <h:link escape="false" value="#{_ward.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
             <f:param name="facilityId" value="#{_ward.facility.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.ward_name}" sortBy="ward.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.ward_name}" sortBy="ward.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')) }"> 
           <h:outputText value="#{_ward.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.ward_gender}" sortBy="ward.gender" rendered="#{true}"> 
+        <p:column headerText="#{msg.ward_gender}" sortBy="ward.gender" rendered="#{ ! excludeGender == true and ( skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')) }"> 
           <h:outputText value="#{_ward.gender}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="ward.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -62,7 +70,9 @@
             <f:param name="currentEntityId" value="#{_ward.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/facility/ward/modalDlgWardComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

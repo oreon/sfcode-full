@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_patient}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>  
       <br/>  
       <h:selectOneMenu id="patientId" value="#{ admissionList.admission.patient}"> 
         <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,12 +14,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>  
       <br/>  
       <h:inputText id="admissionNote" value="#{admissionList.admission.admissionNote}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.admission_dischargeDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeDate')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -28,7 +28,7 @@
       <p:calendar value="#{admissionList.dischargeDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_bed}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>  
       <br/>  
       <h:selectOneMenu id="bedId" value="#{ admissionList.admission.bed}"> 
         <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -37,12 +37,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>  
       <br/>  
       <h:inputText id="dischargeNote" value="#{admissionList.admission.dischargeNote}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.admission_dischargeCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeCode')}"/>  
       <br/>  
       <h:selectOneMenu id="dischargeCode" value="#{admissionList.admission.dischargeCode}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  

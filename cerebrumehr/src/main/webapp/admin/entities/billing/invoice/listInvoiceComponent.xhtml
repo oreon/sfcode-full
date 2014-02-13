@@ -18,8 +18,16 @@
             <f:param name="invoiceId" value="#{_invoice.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.invoice_patient}" sortBy="invoice.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_invoice.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/billing/invoiceItem/miniListInvoiceItemComponent.xhtml"> 
+            <ui:param name="records" value="#{_invoice.listInvoiceItems}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.invoice_patient}" sortBy="invoice.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_invoice.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_invoice.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -27,10 +35,10 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.invoice_notes}" sortBy="invoice.notes" rendered="#{true}"> 
+        <p:column headerText="#{msg.invoice_notes}" sortBy="invoice.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')) }"> 
           <h:outputText value="#{_invoice.notes}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.invoice_totalAmount}" sortBy="invoice.totalAmount" rendered="#{true}"> 
+        <p:column headerText="#{msg.invoice_totalAmount}" sortBy="invoice.totalAmount" rendered="#{ ! excludeTotalAmount == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotalAmount')) }"> 
           <h:outputText value="#{_invoice.totalAmount}"> 
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
@@ -67,7 +75,9 @@
             <f:param name="currentEntityId" value="#{_invoice.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/billing/invoice/modalDlgInvoiceComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

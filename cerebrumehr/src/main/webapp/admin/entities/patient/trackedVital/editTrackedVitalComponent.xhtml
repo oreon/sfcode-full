@@ -12,21 +12,21 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.trackedVital_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.trackedVital_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.trackedVital_name}" required="true" disabled="false" value="#{trackedVitalAction.trackedVital.name}"></h:inputText> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}" label="#{msg.trackedVital_name}" required="true" disabled="false" value="#{trackedVitalAction.trackedVital.name}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="minValDecorate" rendered="#{ ! excludeMinVal == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.trackedVital_minVal}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.trackedVital_minVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinVal')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="minVal#{entityId}" rendered="#{true}" label="#{msg.trackedVital_minVal}" required="false" disabled="false" value="#{trackedVitalAction.trackedVital.minVal}"></h:inputText> 
+        <h:inputText escape="false" id="minVal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinVal')}" label="#{msg.trackedVital_minVal}" required="false" disabled="false" value="#{trackedVitalAction.trackedVital.minVal}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="maxValDecorate" rendered="#{ ! excludeMaxVal == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.trackedVital_maxVal}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.trackedVital_maxVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxVal')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="maxVal#{entityId}" rendered="#{true}" label="#{msg.trackedVital_maxVal}" required="false" disabled="false" value="#{trackedVitalAction.trackedVital.maxVal}"></h:inputText> 
+        <h:inputText escape="false" id="maxVal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxVal')}" label="#{msg.trackedVital_maxVal}" required="false" disabled="false" value="#{trackedVitalAction.trackedVital.maxVal}"></h:inputText> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

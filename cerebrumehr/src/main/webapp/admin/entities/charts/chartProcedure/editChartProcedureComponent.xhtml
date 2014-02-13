@@ -12,36 +12,36 @@
       </f:facet>  
       <s:decorate id="dueDateDecorate" rendered="#{ ! excludeDueDate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}"/>
         </ui:define>  
-        <p:calendar escape="false" navigator="true" id="dueDate#{entityId}" rendered="#{true}" label="#{msg.chartProcedure_dueDate}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.dueDate}"></p:calendar> 
+        <p:calendar escape="false" navigator="true" id="dueDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}" label="#{msg.chartProcedure_dueDate}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.dueDate}"></p:calendar> 
       </s:decorate>  
       <s:decorate id="datePerformedDecorate" rendered="#{ ! excludeDatePerformed == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}"/>
         </ui:define>  
-        <p:calendar escape="false" navigator="true" id="datePerformed#{entityId}" rendered="#{true}" label="#{msg.chartProcedure_datePerformed}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.datePerformed}"></p:calendar> 
+        <p:calendar escape="false" navigator="true" id="datePerformed#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}" label="#{msg.chartProcedure_datePerformed}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.datePerformed}"></p:calendar> 
       </s:decorate>  
       <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{true}" label="#{msg.chartProcedure_remarks}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.remarks}"></p:editor> 
+        <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}" label="#{msg.chartProcedure_remarks}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.remarks}"></p:editor> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientId" label="#{msg.chartProcedure_patient}" value="#{chartProcedureAction.chartProcedure.patient}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="patientId" label="#{msg.chartProcedure_patient}" value="#{chartProcedureAction.chartProcedure.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}" disabled="false"> 
           <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="chartItemIdDecorate" rendered="#{ ! excludeChartItem == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/>
         </ui:define>  
-        <h:selectOneMenu id="chartItemId" label="#{msg.chartProcedure_chartItem}" value="#{chartProcedureAction.chartProcedure.chartItem}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="chartItemId" label="#{msg.chartProcedure_chartItem}" value="#{chartProcedureAction.chartProcedure.chartItem}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}" disabled="false"> 
           <s:selectItems value="#{chartItemList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

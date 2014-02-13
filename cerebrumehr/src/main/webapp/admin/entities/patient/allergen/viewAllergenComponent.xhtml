@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Allergen}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.allergen_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.allergen_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergen', 'viewName')}"/>  
       <h:outputText value="#{allergenAction.allergen.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  

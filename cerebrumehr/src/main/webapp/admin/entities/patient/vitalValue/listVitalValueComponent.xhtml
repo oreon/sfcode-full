@@ -18,19 +18,19 @@
             <f:param name="vitalValueId" value="#{_vitalValue.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.vitalValue_value}" sortBy="vitalValue.value" rendered="#{true}"> 
+        <p:column headerText="#{msg.vitalValue_value}" sortBy="vitalValue.value" rendered="#{ ! excludeValue == true and ( skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')) }"> 
           <h:outputText value="#{_vitalValue.value}"> 
             <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.vitalValue_trackedVital}" sortBy="vitalValue.trackedVital" rendered="#{true}"> 
-          <h:link escape="false" value="#{_vitalValue.trackedVital.displayName}" view="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.vitalValue_trackedVital}" sortBy="vitalValue.trackedVital" rendered="#{ ! excludeTrackedVital == true and ( skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')) }"> 
+          <h:link escape="false" value="#{_vitalValue.trackedVital.displayName}" outcome="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
             <f:param name="trackedVitalId" value="#{_vitalValue.trackedVital.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.vitalValue_patient}" sortBy="vitalValue.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_vitalValue.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.vitalValue_patient}" sortBy="vitalValue.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_vitalValue.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_vitalValue.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -38,7 +38,7 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.vitalValue_remarks}" sortBy="vitalValue.remarks" rendered="#{true}"> 
+        <p:column headerText="#{msg.vitalValue_remarks}" sortBy="vitalValue.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')) }"> 
           <h:outputText value="#{_vitalValue.remarks}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="vitalValue.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -73,7 +73,9 @@
             <f:param name="currentEntityId" value="#{_vitalValue.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/patient/vitalValue/modalDlgVitalValueComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

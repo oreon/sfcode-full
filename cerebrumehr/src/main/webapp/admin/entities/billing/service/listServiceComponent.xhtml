@@ -18,10 +18,10 @@
             <f:param name="serviceId" value="#{_service.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.service_name}" sortBy="service.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.service_name}" sortBy="service.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('service', 'viewName')) }"> 
           <h:outputText value="#{_service.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.service_price}" sortBy="service.price" rendered="#{true}"> 
+        <p:column headerText="#{msg.service_price}" sortBy="service.price" rendered="#{ ! excludePrice == true and ( skipPermissionCheck == 'true' || s:hasPermission('service', 'viewPrice')) }"> 
           <h:outputText value="#{_service.price}"> 
             <f:convertNumber pattern="$#,##0.00"/> 
           </h:outputText> 
@@ -58,7 +58,9 @@
             <f:param name="currentEntityId" value="#{_service.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/billing/service/modalDlgServiceComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

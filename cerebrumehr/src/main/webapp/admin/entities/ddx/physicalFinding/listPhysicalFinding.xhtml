@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml" propagation="none"> 
         <f:param name="physicalFindingId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicalFindingPanel')}" oncomplete="editPhysicalFindingDialog.show()"> 
-        <f:param value="0" assignTo="#{physicalFindingAction.physicalFindingId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/ddx/physicalFinding/modalDlgPhysicalFindingComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicalFindingPanel')}" actionListener="#{physicalFindingAction.setPhysicalFindingId(0)}" oncomplete="editPhysicalFindingDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listPhysicalFindingComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml" propagation="none"> 
         <f:param name="physicalFindingId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicalFindingPanel')}" oncomplete="editPhysicalFindingDialog.show()"> 
-        <f:param value="0" assignTo="#{physicalFindingAction.physicalFindingId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/ddx/physicalFinding/modalDlgPhysicalFindingComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicalFindingPanel')}" actionListener="#{physicalFindingAction.setPhysicalFindingId(0)}" oncomplete="editPhysicalFindingDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

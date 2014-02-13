@@ -27,19 +27,17 @@
         <c:set var="modalId" value="DepartmentModalPanel-employees"/>  
         <ui:include src="/admin/entities/employee/employee/listEmployeeComponent.xhtml"> 
           <ui:param name="records" value="#{employeeList.getEmployeesByDepartment(departmentAction.instance)}"/>  
-          <ui:param name="modalId" value="${modalId}"/> 
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludeDepartment" value="true"/> 
         </ui:include>  
         <h:form> 
           <h:button value="Create New" outcome="/admin/entities/employee/employee/editEmployee.xhtml"> 
             <f:param name="departmentId" value="#{departmentAction.instance.id}"/>  
             <f:param name="employeeId" value="0"/> 
           </h:button>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editEmployeePanel')}" oncomplete="editEmployeeDialog.show()"> 
-            <f:param value="0" assignTo="#{employeeAction.departmentId}"/> 
-          </p:commandButton>  
-          <ui:include src="/admin/entities/employee/employee/modalDlgEmployeeComponent.xhtml"> 
-            <ui:param name="modalId" value="${modalId}"/> 
-          </ui:include> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editEmployeePanel')}" oncomplete="editEmployeeDialog.show()" actionListener="#{employeeAction.setEmployeeId(0)}"> 
+            <f:setPropertyActionListener target="#{employeeAction.departmentId}" value="#{departmentAction.instance.id}"/> 
+          </p:commandButton> 
         </h:form> 
       </p:tab> 
     </p:tabView>  

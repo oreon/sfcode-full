@@ -10,15 +10,15 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PrescribedTest}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}"/>  
       <h:outputText value="#{prescribedTestAction.prescribedTest.remarks}" escape="false"/>  
-      <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{prescribedTestAction.prescribedTest.dxTest.displayName}" view="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}"/>  
+      <h:link escape="false" value="#{prescribedTestAction.prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
         <f:param name="dxTestId" value="#{prescribedTestAction.prescribedTest.dxTest.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
-      <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{prescribedTestAction.prescribedTest.encounter.displayName}" view="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewEncounter')}"/>  
+      <h:link escape="false" value="#{prescribedTestAction.prescribedTest.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
         <f:param name="encounterId" value="#{prescribedTestAction.prescribedTest.encounter.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 
@@ -30,12 +30,12 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.TestResults}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.testResults_results}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewResults')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{prescribedTestAction.prescribedTest.testResults.results}" for="resultsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="resultsAbbr" value="#{prescribedTestAction.prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.testResults_document}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.testResults_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDocument')}"/>  
       <s:graphicImage rendered="#{prescribedTestAction.prescribedTest.testResults.document ne null and  prescribedTestAction.prescribedTest.testResults.document.contentType.startsWith('image')}" value="#{prescribedTestAction.prescribedTest.testResults.document.data}"> 
         <s:transformImageSize height="100" maintainRatio="true"/> 
       </s:graphicImage>  

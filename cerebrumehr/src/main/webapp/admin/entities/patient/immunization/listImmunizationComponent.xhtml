@@ -18,13 +18,13 @@
             <f:param name="immunizationId" value="#{_immunization.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.immunization_date}" sortBy="immunization.date" rendered="#{true}"> 
+        <p:column headerText="#{msg.immunization_date}" sortBy="immunization.date" rendered="#{ ! excludeDate == true and ( skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewDate')) }"> 
           <h:outputText value="#{_immunization.date}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.immunization_patient}" sortBy="immunization.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_immunization.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.immunization_patient}" sortBy="immunization.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_immunization.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_immunization.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -32,8 +32,8 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.immunization_vaccine}" sortBy="immunization.vaccine" rendered="#{true}"> 
-          <h:link escape="false" value="#{_immunization.vaccine.displayName}" view="/admin/entities/patient/vaccine/viewVaccine.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.immunization_vaccine}" sortBy="immunization.vaccine" rendered="#{ ! excludeVaccine == true and ( skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewVaccine')) }"> 
+          <h:link escape="false" value="#{_immunization.vaccine.displayName}" outcome="/admin/entities/patient/vaccine/viewVaccine.xhtml" propagation="none"> 
             <f:param name="vaccineId" value="#{_immunization.vaccine.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -70,7 +70,9 @@
             <f:param name="currentEntityId" value="#{_immunization.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/patient/immunization/modalDlgImmunizationComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

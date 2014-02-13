@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/drugs/atcDrug/editAtcDrug.xhtml" propagation="none"> 
         <f:param name="atcDrugId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAtcDrugPanel')}" oncomplete="editAtcDrugDialog.show()"> 
-        <f:param value="0" assignTo="#{atcDrugAction.atcDrugId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/drugs/atcDrug/modalDlgAtcDrugComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAtcDrugPanel')}" actionListener="#{atcDrugAction.setAtcDrugId(0)}" oncomplete="editAtcDrugDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listAtcDrugComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/drugs/atcDrug/editAtcDrug.xhtml" propagation="none"> 
         <f:param name="atcDrugId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAtcDrugPanel')}" oncomplete="editAtcDrugDialog.show()"> 
-        <f:param value="0" assignTo="#{atcDrugAction.atcDrugId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/drugs/atcDrug/modalDlgAtcDrugComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAtcDrugPanel')}" actionListener="#{atcDrugAction.setAtcDrugId(0)}" oncomplete="editAtcDrugDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

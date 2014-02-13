@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Specialization}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.specialization_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.specialization_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('specialization', 'viewName')}"/>  
       <h:outputText value="#{specializationAction.specialization.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  

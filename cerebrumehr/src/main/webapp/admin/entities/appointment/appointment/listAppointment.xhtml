@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/appointment/appointment/editAppointment.xhtml" propagation="none"> 
         <f:param name="appointmentId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAppointmentPanel')}" oncomplete="editAppointmentDialog.show()"> 
-        <f:param value="0" assignTo="#{appointmentAction.appointmentId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/appointment/appointment/modalDlgAppointmentComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAppointmentPanel')}" actionListener="#{appointmentAction.setAppointmentId(0)}" oncomplete="editAppointmentDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listAppointmentComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/appointment/appointment/editAppointment.xhtml" propagation="none"> 
         <f:param name="appointmentId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAppointmentPanel')}" oncomplete="editAppointmentDialog.show()"> 
-        <f:param value="0" assignTo="#{appointmentAction.appointmentId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/appointment/appointment/modalDlgAppointmentComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAppointmentPanel')}" actionListener="#{appointmentAction.setAppointmentId(0)}" oncomplete="editAppointmentDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

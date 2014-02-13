@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.DxCategory}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.dxCategory_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.dxCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxCategory', 'viewName')}"/>  
       <h:outputText value="#{dxCategoryAction.dxCategory.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  

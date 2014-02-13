@@ -10,22 +10,22 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.UnusualOccurence}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCategory')}"/>  
       <h:outputText value="#{unusualOccurenceAction.unusualOccurence.category}" escape="false"/>  
-      <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewSeverity')}"/>  
       <h:outputText value="#{unusualOccurenceAction.unusualOccurence.severity}" escape="false"/>  
-      <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{unusualOccurenceAction.unusualOccurence.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="descriptionAbbr" value="#{unusualOccurenceAction.unusualOccurence.descriptionAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.occurenceType.displayName}" view="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewOccurenceType')}"/>  
+      <h:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.occurenceType.displayName}" outcome="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
         <f:param name="occurenceTypeId" value="#{unusualOccurenceAction.unusualOccurence.occurenceType.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
-      <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewPatient')}"/>  
+      <h:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{unusualOccurenceAction.unusualOccurence.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 

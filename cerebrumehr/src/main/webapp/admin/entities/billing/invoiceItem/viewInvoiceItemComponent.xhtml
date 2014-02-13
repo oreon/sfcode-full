@@ -10,23 +10,23 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.InvoiceItem}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewUnits')}"/>  
       <h:outputText value="#{invoiceItemAction.invoiceItem.units}" escape="false"/>  
-      <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewAppliedPrice')}"/>  
       <h:outputText value="#{invoiceItemAction.invoiceItem.appliedPrice}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewTotal')}"/>  
       <h:outputText value="#{invoiceItemAction.invoiceItem.total}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{invoiceItemAction.invoiceItem.service.displayName}" view="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewService')}"/>  
+      <h:link escape="false" value="#{invoiceItemAction.invoiceItem.service.displayName}" outcome="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
         <f:param name="serviceId" value="#{invoiceItemAction.invoiceItem.service.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
-      <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{invoiceItemAction.invoiceItem.invoice.displayName}" view="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewInvoice')}"/>  
+      <h:link escape="false" value="#{invoiceItemAction.invoiceItem.invoice.displayName}" outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
         <f:param name="invoiceId" value="#{invoiceItemAction.invoiceItem.invoice.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

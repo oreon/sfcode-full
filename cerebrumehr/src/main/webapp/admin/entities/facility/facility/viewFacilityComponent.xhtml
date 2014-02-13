@@ -10,21 +10,21 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Facility}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.facility_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.facility_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewName')}"/>  
       <h:outputText value="#{facilityAction.facility.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeWards == true}"> 
-      <p:dataTable id="wards" var="_ward" rendered="#{not empty facilityAction.listWards and true }" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="wards" var="_ward" rendered="#{not empty facilityAction.listWards and skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewWards') }" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}"/> 
           </f:facet>  
           <h:outputText value="#{_ward.name}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')}"/> 
           </f:facet>  
           <h:outputText value="#{_ward.gender}" escape="false"/> 
         </p:column> 

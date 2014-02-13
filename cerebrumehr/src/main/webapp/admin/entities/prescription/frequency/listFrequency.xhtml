@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/prescription/frequency/editFrequency.xhtml" propagation="none"> 
         <f:param name="frequencyId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editFrequencyPanel')}" oncomplete="editFrequencyDialog.show()"> 
-        <f:param value="0" assignTo="#{frequencyAction.frequencyId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/prescription/frequency/modalDlgFrequencyComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editFrequencyPanel')}" actionListener="#{frequencyAction.setFrequencyId(0)}" oncomplete="editFrequencyDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listFrequencyComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/prescription/frequency/editFrequency.xhtml" propagation="none"> 
         <f:param name="frequencyId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editFrequencyPanel')}" oncomplete="editFrequencyDialog.show()"> 
-        <f:param value="0" assignTo="#{frequencyAction.frequencyId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/prescription/frequency/modalDlgFrequencyComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editFrequencyPanel')}" actionListener="#{frequencyAction.setFrequencyId(0)}" oncomplete="editFrequencyDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

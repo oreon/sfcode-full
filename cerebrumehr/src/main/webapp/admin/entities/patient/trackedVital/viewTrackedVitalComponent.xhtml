@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.TrackedVital}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.trackedVital_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.trackedVital_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewName')}"/>  
       <h:outputText value="#{trackedVitalAction.trackedVital.name}" escape="false"/>  
-      <h:outputText value="#{msg.trackedVital_minVal}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.trackedVital_minVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMinVal')}"/>  
       <h:outputText value="#{trackedVitalAction.trackedVital.minVal}"> 
         <f:convertNumber pattern="000.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.trackedVital_maxVal}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.trackedVital_maxVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMaxVal')}"/>  
       <h:outputText value="#{trackedVitalAction.trackedVital.maxVal}"> 
         <f:convertNumber pattern="000.00"/> 
       </h:outputText> 

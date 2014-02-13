@@ -18,10 +18,10 @@
             <f:param name="labFindingId" value="#{_labFinding.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.finding_name}" sortBy="labFinding.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.finding_name}" sortBy="labFinding.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'viewName')) }"> 
           <h:outputText value="#{_labFinding.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.labFinding_testName}" sortBy="labFinding.testName" rendered="#{true}"> 
+        <p:column headerText="#{msg.labFinding_testName}" sortBy="labFinding.testName" rendered="#{ ! excludeTestName == true and ( skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'viewTestName')) }"> 
           <h:outputText value="#{_labFinding.testName}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="labFinding.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -56,7 +56,9 @@
             <f:param name="currentEntityId" value="#{_labFinding.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/ddx/labFinding/modalDlgLabFindingComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

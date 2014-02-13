@@ -10,27 +10,27 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Chart}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.chart_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chart_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewName')}"/>  
       <h:outputText value="#{chartAction.chart.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeChartItems == true}"> 
-      <p:dataTable id="chartItems" var="_chartItem" rendered="#{not empty chartAction.listChartItems and true }" value="#{chartAction.listChartItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="chartItems" var="_chartItem" rendered="#{not empty chartAction.listChartItems and skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewChartItems') }" value="#{chartAction.listChartItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.chartItem_name}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.chartItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewName')}"/> 
           </f:facet>  
           <h:outputText value="#{_chartItem.name}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.chartItem_duration}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.chartItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewDuration')}"/> 
           </f:facet>  
           <h:outputText value="#{_chartItem.duration}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewFrequencyPeriod')}"/> 
           </f:facet>  
           <h:outputText value="#{_chartItem.frequencyPeriod}" escape="false"/> 
         </p:column> 

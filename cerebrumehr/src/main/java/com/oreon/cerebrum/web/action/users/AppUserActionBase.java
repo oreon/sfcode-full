@@ -233,10 +233,12 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 
 	public void updateComposedAssociations() {
 
-		if (listAppRoles != null) {
+		if (listAvailableAppRoles != null) {
 			getInstance().getAppRoles().clear();
-			getInstance().getAppRoles().addAll(listAppRoles);
+			getInstance().getAppRoles().addAll(
+					listAvailableAppRoles.getTarget());
 		}
+
 	}
 
 	public void clearLists() {

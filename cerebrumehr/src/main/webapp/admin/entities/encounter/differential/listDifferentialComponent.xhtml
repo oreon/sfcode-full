@@ -18,13 +18,13 @@
             <f:param name="differentialId" value="#{_differential.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.differential_encounter}" sortBy="differential.encounter" rendered="#{true}"> 
-          <h:link escape="false" value="#{_differential.encounter.displayName}" view="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.differential_encounter}" sortBy="differential.encounter" rendered="#{ ! excludeEncounter == true and ( skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewEncounter')) }"> 
+          <h:link escape="false" value="#{_differential.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
             <f:param name="encounterId" value="#{_differential.encounter.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.differential_remarks}" sortBy="differential.remarks" rendered="#{true}"> 
+        <p:column headerText="#{msg.differential_remarks}" sortBy="differential.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewRemarks')) }"> 
           <h:outputText value="#{_differential.remarks}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="differential.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -59,7 +59,9 @@
             <f:param name="currentEntityId" value="#{_differential.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/encounter/differential/modalDlgDifferentialComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

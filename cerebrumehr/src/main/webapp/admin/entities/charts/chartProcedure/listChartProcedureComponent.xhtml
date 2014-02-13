@@ -18,8 +18,8 @@
             <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.chartProcedure_patient}" sortBy="chartProcedure.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_chartProcedure.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.chartProcedure_patient}" sortBy="chartProcedure.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_chartProcedure.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_chartProcedure.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -27,23 +27,23 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.chartProcedure_chartItem}" sortBy="chartProcedure.chartItem" rendered="#{true}"> 
-          <h:link escape="false" value="#{_chartProcedure.chartItem.displayName}" view="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.chartProcedure_chartItem}" sortBy="chartProcedure.chartItem" rendered="#{ ! excludeChartItem == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewChartItem')) }"> 
+          <h:link escape="false" value="#{_chartProcedure.chartItem.displayName}" outcome="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
             <f:param name="chartItemId" value="#{_chartProcedure.chartItem.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.chartProcedure_dueDate}" sortBy="chartProcedure.dueDate" rendered="#{true}"> 
+        <p:column headerText="#{msg.chartProcedure_dueDate}" sortBy="chartProcedure.dueDate" rendered="#{ ! excludeDueDate == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDueDate')) }"> 
           <h:outputText value="#{_chartProcedure.dueDate}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.chartProcedure_datePerformed}" sortBy="chartProcedure.datePerformed" rendered="#{true}"> 
+        <p:column headerText="#{msg.chartProcedure_datePerformed}" sortBy="chartProcedure.datePerformed" rendered="#{ ! excludeDatePerformed == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDatePerformed')) }"> 
           <h:outputText value="#{_chartProcedure.datePerformed}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.chartProcedure_remarks}" sortBy="chartProcedure.remarks" rendered="#{true}"> 
+        <p:column headerText="#{msg.chartProcedure_remarks}" sortBy="chartProcedure.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewRemarks')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_chartProcedure.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="remarksAbbr" value="#{_chartProcedure.remarksAbbreviated}" escape="false"/> 
@@ -81,7 +81,9 @@
             <f:param name="currentEntityId" value="#{_chartProcedure.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/charts/chartProcedure/modalDlgChartProcedureComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 
