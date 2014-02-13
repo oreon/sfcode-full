@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_orderItem" value="#{records}"> 
+    <p:column headerText="msg.id" sortBy="orderItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/commerce/orderItem/orderItemActionOrderItem.xhtml" rendered="#{s:hasPermission(_orderItem, 'view')}" propagation="none"> 
+        <h:outputText value="#{_orderItem.id}"/>  
+        <f:param name="orderItemId" value="#{_orderItem.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.orderItem_remarks}" sortBy="orderItem.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewRemarks')) }"> 
+      <h:outputText value="#{_orderItem.remarks}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.orderItem_customerOrder}" sortBy="orderItem.customerOrder" rendered="#{ ! excludeCustomerOrder == true and ( skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewCustomerOrder')) }"> 
+      <h:link escape="false" value="#{_orderItem.customerOrder.displayName}" view="/admin/entities/commerce/customerOrder/viewCustomerOrder.xhtml" propagation="none"> 
+        <f:param name="customerOrderId" value="#{_orderItem.customerOrder.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.orderItem_product}" sortBy="orderItem.product" rendered="#{ ! excludeProduct == true and ( skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewProduct')) }"> 
+      <h:link escape="false" value="#{_orderItem.product.displayName}" view="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
+        <f:param name="productId" value="#{_orderItem.product.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.orderItem_units}" sortBy="orderItem.units" rendered="#{ ! excludeUnits == true and ( skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewUnits')) }"> 
+      <h:outputText value="#{_orderItem.units}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.orderItem_salePrice}" sortBy="orderItem.salePrice" rendered="#{ ! excludeSalePrice == true and ( skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewSalePrice')) }"> 
+      <h:outputText value="#{_orderItem.salePrice}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

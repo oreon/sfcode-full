@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_product" value="#{records}"> 
+    <p:column headerText="msg.id" sortBy="product.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/commerce/product/productActionProduct.xhtml" rendered="#{s:hasPermission(_product, 'view')}" propagation="none"> 
+        <h:outputText value="#{_product.id}"/>  
+        <f:param name="productId" value="#{_product.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.product_name}" sortBy="product.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('product', 'viewName')) }"> 
+      <h:outputText value="#{_product.name}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.product_image}" sortBy="product.image" rendered="#{ ! excludeImage == true and ( skipPermissionCheck == 'true' || s:hasPermission('product', 'viewImage')) }"> 
+      <s:graphicImage rendered="#{_product.image ne null and  _product.image.contentType.startsWith('image')}" value="#{_product.image.data}"> 
+        <s:transformImageSize height="100" maintainRatio="true"/> 
+      </s:graphicImage>  
+      <h:link value="#{_product.image.name}" action="#{productAction.downloadImage(_product.id)}" propagation="none" rendered="#{not _product.image.contentType.startsWith('image')}"> 
+        <f:param name="currentEnt ityId" value="#{_product.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.product_price}" sortBy="product.price" rendered="#{ ! excludePrice == true and ( skipPermissionCheck == 'true' || s:hasPermission('product', 'viewPrice')) }"> 
+      <h:outputText value="#{_product.price}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.product_description}" sortBy="product.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('product', 'viewDescription')) }"> 
+      <h:panelGroup> 
+        <p:tooltip value="#{_product.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="descriptionAbbr" value="#{_product.descriptionAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

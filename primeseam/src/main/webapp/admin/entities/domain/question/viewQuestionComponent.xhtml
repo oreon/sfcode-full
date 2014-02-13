@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Question}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'viewText')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{questionAction.question.text}" for="textAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="textAbbr" value="#{questionAction.question.textAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.question_exam}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{questionAction.question.exam.displayName}" view="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.question_exam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'viewExam')}"/>  
+      <h:link escape="false" value="#{questionAction.question.exam.displayName}" outcome="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
         <f:param name="examId" value="#{questionAction.question.exam.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

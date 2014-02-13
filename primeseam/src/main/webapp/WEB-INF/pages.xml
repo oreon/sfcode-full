@@ -129,6 +129,18 @@
         <end-conversation/>  
         <redirect view-id="/admin/entities/commerce/customer/editCustomer.xhtml"/> 
       </rule>  
+      <rule if-outcome="customerQuestion"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/commerce/customerQuestion/listCustomerQuestion.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewCustomerQuestion"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/commerce/customerQuestion/viewCustomerQuestion.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editCustomerQuestion"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/commerce/customerQuestion/editCustomerQuestion.xhtml"/> 
+      </rule>  
       <rule if-outcome="user"> 
         <end-conversation/>  
         <redirect view-id="/admin/entities/users/user/listUser.xhtml"/> 
@@ -489,7 +501,8 @@
     <param name="remarks" value="#{customerOrderList.customerOrder.remarks}" validateModel="false"/>  
     <param name="customerId" value="#{customerOrderList.customerId}" validateModel="false"/>  
     <param name="total" value="#{customerOrderList.customerOrder.total}" validateModel="false"/>  
-    <param name="servicingEmployeeId" value="#{customerOrderList.servicingEmployeeId}" validateModel="false"/> 
+    <param name="servicingEmployeeId" value="#{customerOrderList.servicingEmployeeId}" validateModel="false"/>  
+    <param name="dateDeliverBy" value="#{customerOrderList.customerOrder.dateDeliverBy}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/commerce/orderItem/editOrderItem.xhtml"> 
     <!-- <description>Edit OrderItem: #{orderItem.displayName}</description> -->  
@@ -607,6 +620,61 @@
     <param name="contactDetails_secondaryPhone" value="#{customerList.customer.contactDetails.secondaryPhone}" validateModel="false"/>  
     <param name="contactDetails_city" value="#{customerList.customer.contactDetails.city}" validateModel="false"/>  
     <param name="type" value="#{customerList.customer.type}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/commerce/customerQuestion/editCustomerQuestion.xhtml"> 
+    <!-- <description>Edit CustomerQuestion: #{customerQuestion.displayName}</description> -->  
+    <restrict>#{s:hasPermission('customerQuestion', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/commerce/customerQuestion/viewCustomerQuestion.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/commerce/customerQuestion/listCustomerQuestion.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="customerQuestionId" value="#{customerQuestionAction.customerQuestionId}"/>  
+    <param name="customerId" value="#{customerQuestionAction.customerId}"/> 
+  </page>  
+  <page view-id="/admin/entities/commerce/customerQuestion/viewCustomerQuestion.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View CustomerQuestion: #{customerQuestion.displayName}</description> -->  
+    <restrict>#{s:hasPermission('customerQuestion', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/commerce/customerQuestion/editCustomerQuestion.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/commerce/customerQuestion/listCustomerQuestion.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="customerQuestionId" value="#{customerQuestionAction.customerQuestionId}"/> 
+  </page>  
+  <page view-id="/admin/entities/commerce/customerQuestion/listCustomerQuestion.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('customerQuestion', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewCustomerQuestion"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/commerce/customerQuestion/viewCustomerQuestion.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/commerce/customerQuestion/editCustomerQuestion.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/commerce/customerQuestion/textSearchResultsCustomerQuestion.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{customerQuestionList.firstResult}"/>  
+    <param name="sort" value="#{customerQuestionList.orderColumn}"/>  
+    <param name="dir" value="#{customerQuestionList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{customerQuestionList.customerQuestion.id}"/>  
+    <param name="text" value="#{customerQuestionList.customerQuestion.text}" validateModel="false"/>  
+    <param name="customerId" value="#{customerQuestionList.customerId}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/users/user/editUser.xhtml"> 
     <!-- <description>Edit User: #{user.displayName}</description> -->  

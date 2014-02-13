@@ -10,13 +10,13 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.User}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.user_userName}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.user_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'viewUserName')}"/>  
       <h:outputText value="#{userAction.user.userName}" escape="false"/>  
-      <h:outputText value="#{msg.user_enabled}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'viewEnabled')}"/>  
       <h:outputText value="#{userAction.user.enabled? msg.yes : msg.no }"/>  
-      <h:outputText value="#{msg.user_email}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.user_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'viewEmail')}"/>  
       <h:outputText value="#{userAction.user.email}" escape="false"/>  
-      <h:outputText value="#{msg.user_lastLogin}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.user_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'viewLastLogin')}"/>  
       <h:outputText value="#{userAction.user.lastLogin}"> 
         <s:convertDateTime type="date" dateStyle="medium"/> 
       </h:outputText> 

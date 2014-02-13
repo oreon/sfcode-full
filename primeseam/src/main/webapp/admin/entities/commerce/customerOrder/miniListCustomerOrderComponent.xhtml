@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_customerOrder" value="#{records}"> 
+    <p:column headerText="msg.id" sortBy="customerOrder.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/commerce/customerOrder/customerOrderActionCustomerOrder.xhtml" rendered="#{s:hasPermission(_customerOrder, 'view')}" propagation="none"> 
+        <h:outputText value="#{_customerOrder.id}"/>  
+        <f:param name="customerOrderId" value="#{_customerOrder.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column style="width:2%"> 
+      <p:rowToggler/> 
+    </p:column>  
+    <p:rowExpansion> 
+      <ui:include src="/admin/entities/commerce/orderItem/miniListOrderItemComponent.xhtml"> 
+        <ui:param name="records" value="#{_customerOrder.listOrderItems}"/> 
+      </ui:include> 
+    </p:rowExpansion>  
+    <p:column headerText="#{msg.customerOrder_remarks}" sortBy="customerOrder.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewRemarks')) }"> 
+      <h:panelGroup> 
+        <p:tooltip value="#{_customerOrder.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="remarksAbbr" value="#{_customerOrder.remarksAbbreviated}" escape="false"/> 
+      </h:panelGroup> 
+    </p:column>  
+    <p:column headerText="#{msg.customerOrder_customer}" sortBy="customerOrder.customer" rendered="#{ ! excludeCustomer == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewCustomer')) }"> 
+      <h:link escape="false" value="#{_customerOrder.customer.displayName}" outcome="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
+        <f:param name="customerId" value="#{_customerOrder.customer.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.customerOrder_total}" sortBy="customerOrder.total" rendered="#{ ! excludeTotal == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewTotal')) }"> 
+      <h:outputText value="#{_customerOrder.total}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.customerOrder_servicingEmployee}" sortBy="customerOrder.servicingEmployee" rendered="#{ ! excludeServicingEmployee == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewServicingEmployee')) }"> 
+      <h:link escape="false" value="#{_customerOrder.servicingEmployee.displayName}" outcome="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+        <f:param name="employeeId" value="#{_customerOrder.servicingEmployee.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.customerOrder_dateDeliverBy}" sortBy="customerOrder.dateDeliverBy" rendered="#{ ! excludeDateDeliverBy == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewDateDeliverBy')) }"> 
+      <h:outputText value="#{_customerOrder.dateDeliverBy}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

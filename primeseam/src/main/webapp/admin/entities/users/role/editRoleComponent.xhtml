@@ -12,9 +12,9 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.role_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.role_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('role', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.role_name}" required="true" disabled="false" value="#{roleAction.role.name}"> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('role', 'editName')}" label="#{msg.role_name}" required="true" disabled="false" value="#{roleAction.role.name}"> 
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate> 

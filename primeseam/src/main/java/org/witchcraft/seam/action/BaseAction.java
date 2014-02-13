@@ -10,6 +10,7 @@ import javax.faces.convert.Converter;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.security.auth.Refreshable;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
@@ -285,6 +286,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 			if (isManaged()) {
 				update();
+				refresh();
 			} else {
 				persist();
 			}
@@ -305,6 +307,19 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public String save() {
 		return doSave();
 	}
+	
+	/**
+	 * Refresh entitymanager so the data is actually read from database as opposed to conversation
+	 */
+	protected  void refresh() {
+		try {
+			if (getInstance() != null)
+				entityManager.refresh(getInstance());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 
 	@End(beforeRedirect = true)
 	public String saveWithoutConversation() {

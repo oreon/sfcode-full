@@ -10,9 +10,9 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Exam}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.exam_title}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.exam_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewTitle')}"/>  
       <h:outputText value="#{examAction.exam.title}" escape="false"/>  
-      <h:outputText value="#{msg.exam_description}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.exam_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewDescription')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{examAction.exam.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="descriptionAbbr" value="#{examAction.exam.descriptionAbbreviated}" escape="false"/> 
@@ -20,10 +20,10 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeQuestions == true}"> 
-      <p:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions and true }" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions and skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewQuestions') }" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.question_text}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'viewText')}"/> 
           </f:facet>  
           <h:panelGroup> 
             <p:tooltip value="#{_question.text}" for="textAbbr" rendered="#{_customerOrder.remarks != null}"/>  

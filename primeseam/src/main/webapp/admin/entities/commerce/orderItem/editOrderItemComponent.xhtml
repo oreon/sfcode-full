@@ -12,38 +12,38 @@
       </f:facet>  
       <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editRemarks')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{orderItemAction.orderItem.remarks}"></h:inputText> 
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editRemarks')}" label="#{msg.orderItem_remarks}" required="false" disabled="false" value="#{orderItemAction.orderItem.remarks}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="unitsDecorate" rendered="#{ ! excludeUnits == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.orderItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editUnits')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="units#{entityId}" rendered="#{true}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{orderItemAction.orderItem.units}"></h:inputText> 
+        <h:inputText escape="false" id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editUnits')}" label="#{msg.orderItem_units}" required="false" disabled="false" value="#{orderItemAction.orderItem.units}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="salePriceDecorate" rendered="#{ ! excludeSalePrice == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editSalePrice')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="salePrice#{entityId}" rendered="#{true}" label="#{msg.orderItem_salePrice}" required="false" disabled="false" value="#{orderItemAction.orderItem.salePrice}"> 
+        <h:inputText escape="false" id="salePrice#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editSalePrice')}" label="#{msg.orderItem_salePrice}" required="false" disabled="false" value="#{orderItemAction.orderItem.salePrice}"> 
           <f:converter converterId="javax.faces.BigDecimal"/> 
         </h:inputText> 
       </s:decorate>  
       <s:decorate id="customerOrderIdDecorate" rendered="#{ ! excludeCustomerOrder == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.orderItem_customerOrder}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.orderItem_customerOrder}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editCustomerOrder')}"/>
         </ui:define>  
-        <h:selectOneMenu id="customerOrderId" label="#{msg.orderItem_customerOrder}" value="#{orderItemAction.orderItem.customerOrder}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="customerOrderId" label="#{msg.orderItem_customerOrder}" value="#{orderItemAction.orderItem.customerOrder}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editCustomerOrder')}" disabled="false"> 
           <s:selectItems value="#{customerOrderList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="productIdDecorate" rendered="#{ ! excludeProduct == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.orderItem_product}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}"/>
         </ui:define>  
-        <h:selectOneMenu id="productId" label="#{msg.orderItem_product}" value="#{orderItemAction.orderItem.product}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="productId" label="#{msg.orderItem_product}" value="#{orderItemAction.orderItem.product}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}" disabled="false"> 
           <s:selectItems value="#{productList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

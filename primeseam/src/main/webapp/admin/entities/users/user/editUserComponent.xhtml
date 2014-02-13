@@ -12,29 +12,29 @@
       </f:facet>  
       <s:decorate id="userNameDecorate" rendered="#{ ! excludeUserName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.user_userName}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.user_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editUserName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="userName#{entityId}" rendered="#{true}" label="#{msg.user_userName}" required="true" disabled="false" value="#{userAction.user.userName}"> 
+        <h:inputText escape="false" id="userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editUserName')}" label="#{msg.user_userName}" required="true" disabled="false" value="#{userAction.user.userName}"> 
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
       <s:decorate id="passwordDecorate" rendered="#{ ! excludePassword == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.user_password}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.user_password}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editPassword')}"/>
         </ui:define>  
-        <h:inputSecret escape="false" redisplay="true" id="password#{entityId}" rendered="#{true}" label="#{msg.user_password}" required="true" disabled="false" value="#{userAction.user.password}"></h:inputSecret> 
+        <h:inputSecret escape="false" redisplay="true" id="password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editPassword')}" label="#{msg.user_password}" required="true" disabled="false" value="#{userAction.user.password}"></h:inputSecret> 
       </s:decorate>  
       <s:decorate id="enabledDecorate" rendered="#{ ! excludeEnabled == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.user_enabled}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editEnabled')}"/>
         </ui:define>  
-        <h:selectBooleanCheckbox escape="false" id="enabled#{entityId}" rendered="#{true}" label="#{msg.user_enabled}" required="false" disabled="false" value="#{userAction.user.enabled}"></h:selectBooleanCheckbox> 
+        <h:selectBooleanCheckbox escape="false" id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editEnabled')}" label="#{msg.user_enabled}" required="false" disabled="false" value="#{userAction.user.enabled}"></h:selectBooleanCheckbox> 
       </s:decorate>  
       <s:decorate id="emailDecorate" rendered="#{ ! excludeEmail == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.user_email}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.user_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editEmail')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="email#{entityId}" rendered="#{true}" label="#{msg.user_email}" required="true" disabled="false" value="#{userAction.user.email}"> 
+        <h:inputText escape="false" id="email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editEmail')}" label="#{msg.user_email}" required="true" disabled="false" value="#{userAction.user.email}"> 
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate> 

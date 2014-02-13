@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editRemarks')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{orderItemList.orderItem.remarks}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.orderItem_customerOrder}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.orderItem_customerOrder}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editCustomerOrder')}"/>  
       <br/>  
       <h:selectOneMenu id="customerOrderId" value="#{ orderItemList.orderItem.customerOrder}"> 
         <s:selectItems value="#{customerOrderList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -19,7 +19,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.orderItem_product}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}"/>  
       <br/>  
       <h:selectOneMenu id="productId" value="#{ orderItemList.orderItem.product}"> 
         <s:selectItems value="#{productList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -27,7 +27,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.orderItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editUnits')}"/>  
       <br/>  
       <h:inputText id="units_begin" value="#{orderItemList.unitsRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -37,7 +37,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editSalePrice')}"/>  
       <br/>  
       <h:inputText id="salePrice_begin" value="#{orderItemList.salePriceRange.begin}"> 
         <f:converter converterId="javax.faces.BigDecimal"/> 

@@ -1,6 +1,6 @@
 package com.oreon.phonestore.web.action.domain;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
 
 import com.oreon.phonestore.domain.Question;
@@ -11,7 +11,7 @@ public class QuestionActionTestBase
 
 	QuestionAction questionAction = new QuestionAction();
 
-	@Before
+	@BeforeClass
 	public void init() {
 		super.init();
 	}

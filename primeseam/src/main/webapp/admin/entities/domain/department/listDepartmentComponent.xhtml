@@ -18,7 +18,7 @@
             <f:param name="departmentId" value="#{_department.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.department_name}" sortBy="department.name" rendered="#{ ! excludeName == true}"> 
+        <p:column headerText="#{msg.department_name}" sortBy="department.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('department', 'viewName')) }"> 
           <h:outputText value="#{_department.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="department.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 

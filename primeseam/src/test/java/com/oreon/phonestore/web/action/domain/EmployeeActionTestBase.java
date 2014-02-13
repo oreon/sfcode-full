@@ -1,6 +1,6 @@
 package com.oreon.phonestore.web.action.domain;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.witchcraft.seam.action.BaseAction;
 
@@ -12,7 +12,7 @@ public class EmployeeActionTestBase
 
 	EmployeeAction employeeAction = new EmployeeAction();
 
-	@Before
+	@BeforeClass
 	public void init() {
 		super.init();
 	}
@@ -27,7 +27,8 @@ public class EmployeeActionTestBase
 		new ComponentTest() {
 
 			protected void testComponents() throws Exception {
-				EmployeeAction employeeAction = (EmployeeAction) org.jboss.seam.Component.getInstance("employeeAction");
+				EmployeeAction employeeAction = (EmployeeAction) org.jboss.seam.Component
+						.getInstance("employeeAction");
 
 				// assert(employeeAction.register()).equals("");
 			}

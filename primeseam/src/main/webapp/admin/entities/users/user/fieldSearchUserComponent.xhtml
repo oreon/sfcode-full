@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_userName}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.user_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editUserName')}"/>  
       <br/>  
       <h:inputText id="userName" value="#{userList.user.userName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_enabled}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editEnabled')}"/>  
       <br/>  
       <h:selectOneMenu id="enabled" value="#{userList.user.enabled}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -20,7 +20,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_roles}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.user_roles}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editRoles')}"/>  
       <br/>  
       <h:selectOneMenu id="rolesId" value="#{ userList.rolesToSearch}"> 
         <s:selectItems value="#{roleList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -29,12 +29,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_email}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.user_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editEmail')}"/>  
       <br/>  
       <h:inputText id="email" value="#{userList.user.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_lastLogin}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.user_lastLogin}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'editLastLogin')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  

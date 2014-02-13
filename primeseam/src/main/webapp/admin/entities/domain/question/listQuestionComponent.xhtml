@@ -18,14 +18,14 @@
             <f:param name="questionId" value="#{_question.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.question_text}" sortBy="question.text" rendered="#{ ! excludeText == true}"> 
+        <p:column headerText="#{msg.question_text}" sortBy="question.text" rendered="#{ ! excludeText == true and ( skipPermissionCheck == 'true' || s:hasPermission('question', 'viewText')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_question.text}" for="textAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="textAbbr" value="#{_question.textAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.question_exam}" sortBy="question.exam" rendered="#{ ! excludeExam == true}"> 
-          <h:link escape="false" value="#{_question.exam.displayName}" view="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.question_exam}" sortBy="question.exam" rendered="#{ ! excludeExam == true and ( skipPermissionCheck == 'true' || s:hasPermission('question', 'viewExam')) }"> 
+          <h:link escape="false" value="#{_question.exam.displayName}" outcome="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
             <f:param name="examId" value="#{_question.exam.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 

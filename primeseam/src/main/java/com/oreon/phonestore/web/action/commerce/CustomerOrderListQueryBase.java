@@ -95,6 +95,15 @@ public abstract class CustomerOrderListQueryBase
 		this.totalRange = totalRange;
 	}
 
+	private Range<Date> dateDeliverByRange = new Range<Date>();
+
+	public Range<Date> getDateDeliverByRange() {
+		return dateDeliverByRange;
+	}
+	public void setDateDeliverBy(Range<Date> dateDeliverByRange) {
+		this.dateDeliverByRange = dateDeliverByRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"customerOrder.id = #{customerOrderList.customerOrder.id}",
 
@@ -108,6 +117,9 @@ public abstract class CustomerOrderListQueryBase
 			"customerOrder.total <= #{customerOrderList.totalRange.end}",
 
 			"customerOrder.servicingEmployee.id = #{customerOrderList.customerOrder.servicingEmployee.id}",
+
+			"customerOrder.dateDeliverBy >= #{customerOrderList.dateDeliverByRange.begin}",
+			"customerOrder.dateDeliverBy <= #{customerOrderList.dateDeliverByRange.end}",
 
 			"customerOrder.dateCreated <= #{customerOrderList.dateCreatedRange.end}",
 			"customerOrder.dateCreated >= #{customerOrderList.dateCreatedRange.begin}",};

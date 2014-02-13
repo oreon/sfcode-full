@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <p:dataTable var="_employee" value="#{records}"> 
+    <p:column headerText="msg.id" sortBy="employee.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/domain/employee/employeeActionEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'view')}" propagation="none"> 
+        <h:outputText value="#{_employee.id}"/>  
+        <f:param name="employeeId" value="#{_employee.id}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.person_firstName}" sortBy="employee.firstName" rendered="#{ ! excludeFirstName == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewFirstName')) }"> 
+      <h:outputText value="#{_employee.firstName}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.person_lastName}" sortBy="employee.lastName" rendered="#{ ! excludeLastName == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewLastName')) }"> 
+      <h:outputText value="#{_employee.lastName}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.contactDetails_phone}" sortBy="employee.contactDetails.phone" rendered="#{ ! excludePhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewPhone')) }"> 
+      <h:outputText value="#{_employee.contactDetails.phone}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.contactDetails_secondaryPhone}" sortBy="employee.contactDetails.secondaryPhone" rendered="#{ ! excludeSecondaryPhone == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewSecondaryPhone')) }"> 
+      <h:outputText value="#{_employee.contactDetails.secondaryPhone}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.contactDetails_city}" sortBy="employee.contactDetails.city" rendered="#{ ! excludeCity == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewCity')) }"> 
+      <h:outputText value="#{_employee.contactDetails.city}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.employee_department}" sortBy="employee.department" rendered="#{ ! excludeDepartment == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewDepartment')) }"> 
+      <h:link escape="false" value="#{_employee.department.displayName}" outcome="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
+        <f:param name="departmentId" value="#{_employee.department.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link> 
+    </p:column>  
+    <p:column headerText="#{msg.employee_employeeNumber}" sortBy="employee.employeeNumber" rendered="#{ ! excludeEmployeeNumber == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeNumber')) }"> 
+      <h:outputText value="#{_employee.employeeNumber}" escape="false"/> 
+    </p:column>  
+    <p:column headerText="#{msg.employee_employeeType}" sortBy="employee.employeeType" rendered="#{ ! excludeEmployeeType == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeType')) }"> 
+      <h:outputText value="#{_employee.employeeType}" escape="false"/> 
+    </p:column> 
+  </p:dataTable> 
+</ui:composition>

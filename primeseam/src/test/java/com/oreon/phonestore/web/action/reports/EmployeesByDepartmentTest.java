@@ -16,7 +16,7 @@ public class EmployeesByDepartmentTest extends BaseReportsTest {
 		}
 	}
 
-
+	//@Test
 	public void testEmployeesByDepartmentReportAction() throws Exception {
 		new ComponentTest() {
 			protected void testComponents() throws Exception {
