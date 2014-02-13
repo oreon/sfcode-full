@@ -1,6 +1,6 @@
 package com.oreon.phonestore.web.action.commerce;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
 
 import com.oreon.phonestore.domain.commerce.CustomerOrder;
@@ -11,7 +11,7 @@ public class CustomerOrderActionTestBase
 
 	CustomerOrderAction customerOrderAction = new CustomerOrderAction();
 
-	@Before
+	@BeforeClass
 	public void init() {
 		super.init();
 	}

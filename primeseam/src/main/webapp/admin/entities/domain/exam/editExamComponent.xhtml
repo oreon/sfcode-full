@@ -12,34 +12,34 @@
       </f:facet>  
       <s:decorate id="titleDecorate" rendered="#{ ! excludeTitle == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.exam_title}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.exam_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'editTitle')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="title#{entityId}" rendered="#{true}" label="#{msg.exam_title}" required="true" disabled="false" value="#{examAction.exam.title}"></h:inputText> 
+        <h:inputText escape="false" id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'editTitle')}" label="#{msg.exam_title}" required="true" disabled="false" value="#{examAction.exam.title}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.exam_description}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.exam_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.exam_description}" required="false" disabled="false" value="#{examAction.exam.description}"></p:editor> 
+        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'editDescription')}" label="#{msg.exam_description}" required="false" disabled="false" value="#{examAction.exam.description}"></p:editor> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeQuestions == true}"> 
-      <p:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{true}"> 
+      <p:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'editQuestions')}" process="@this"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="questions" var="_question" rendered="#{true}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="questions" var="_question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'editQuestions')}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>
+            <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editText')}"/>
           </f:facet>  
           <s:decorate id="textDecorate" rendered="#{ ! excludeText == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <p:editor escape="false" useSeamText="true" id="text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{_question.text}"></p:editor> 
+            <p:editor escape="false" useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editText')}" label="#{msg.question_text}" required="false" disabled="false" value="#{_question.text}"></p:editor> 
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{true}"> 
+          <p:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editQuestions')}" process="@this"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

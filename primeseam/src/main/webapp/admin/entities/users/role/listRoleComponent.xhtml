@@ -18,7 +18,7 @@
             <f:param name="roleId" value="#{_role.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.role_name}" sortBy="role.name" rendered="#{ ! excludeName == true}"> 
+        <p:column headerText="#{msg.role_name}" sortBy="role.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('role', 'viewName')) }"> 
           <h:outputText value="#{_role.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="role.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 

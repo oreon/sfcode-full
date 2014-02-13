@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editText')}"/>  
       <br/>  
       <h:inputText id="text" value="#{questionList.question.text}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.question_exam}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.question_exam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editExam')}"/>  
       <br/>  
       <h:selectOneMenu id="examId" value="#{ questionList.question.exam}"> 
         <s:selectItems value="#{examList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

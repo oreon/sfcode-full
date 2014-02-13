@@ -10,53 +10,57 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.CustomerOrder}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.customerOrder_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.customerOrder_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewRemarks')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{customerOrderAction.customerOrder.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="remarksAbbr" value="#{customerOrderAction.customerOrder.remarksAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.customerOrder_total}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.customerOrder_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewTotal')}"/>  
       <h:outputText value="#{customerOrderAction.customerOrder.total}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.customerOrder_customer}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{customerOrderAction.customerOrder.customer.displayName}" view="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.customerOrder_dateDeliverBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewDateDeliverBy')}"/>  
+      <h:outputText value="#{customerOrderAction.customerOrder.dateDeliverBy}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.customerOrder_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewCustomer')}"/>  
+      <h:link escape="false" value="#{customerOrderAction.customerOrder.customer.displayName}" outcome="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
         <f:param name="customerId" value="#{customerOrderAction.customerOrder.customer.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
-      <h:outputText value="#{msg.customerOrder_servicingEmployee}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{customerOrderAction.customerOrder.servicingEmployee.displayName}" view="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.customerOrder_servicingEmployee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewServicingEmployee')}"/>  
+      <h:link escape="false" value="#{customerOrderAction.customerOrder.servicingEmployee.displayName}" outcome="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
         <f:param name="employeeId" value="#{customerOrderAction.customerOrder.servicingEmployee.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeOrderItems == true}"> 
-      <p:dataTable id="orderItems" var="_orderItem" rendered="#{not empty customerOrderAction.listOrderItems and true }" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="orderItems" var="_orderItem" rendered="#{not empty customerOrderAction.listOrderItems and skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewOrderItems') }" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.orderItem_product}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.orderItem_product}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewProduct')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_orderItem.product.displayName}" view="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
+          <h:link escape="false" value="#{_orderItem.product.displayName}" outcome="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
             <f:param name="productId" value="#{_orderItem.product.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.orderItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewRemarks')}"/> 
           </f:facet>  
           <h:outputText value="#{_orderItem.remarks}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.orderItem_units}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.orderItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewUnits')}"/> 
           </f:facet>  
           <h:outputText value="#{_orderItem.units}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.orderItem_salePrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewSalePrice')}"/> 
           </f:facet>  
           <h:outputText value="#{_orderItem.salePrice}"> 
             <f:convertNumber pattern="$#,##0.00"/> 

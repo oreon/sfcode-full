@@ -71,6 +71,29 @@ public class Customer extends com.oreon.phonestore.domain.Person
 
 	;
 
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "customer_ID", nullable = true)
+	@OrderBy("id DESC")
+	private Set<CustomerQuestion> customerQuestions = new HashSet<CustomerQuestion>();
+
+	public void addCustomerQuestion(CustomerQuestion customerQuestion) {
+
+		customerQuestion.setCustomer(this);
+
+		this.customerQuestions.add(customerQuestion);
+	}
+
+	@Transient
+	public List<com.oreon.phonestore.domain.commerce.CustomerQuestion> getListCustomerQuestions() {
+		return new ArrayList<com.oreon.phonestore.domain.commerce.CustomerQuestion>(
+				customerQuestions);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getCustomerQuestionsCount() {
+		return customerQuestions.size();
+	}
+
 	public void setType(CustomerType type) {
 		this.type = type;
 	}
@@ -79,6 +102,14 @@ public class Customer extends com.oreon.phonestore.domain.Person
 
 		return type;
 
+	}
+
+	public void setCustomerQuestions(Set<CustomerQuestion> customerQuestions) {
+		this.customerQuestions = customerQuestions;
+	}
+
+	public Set<CustomerQuestion> getCustomerQuestions() {
+		return customerQuestions;
 	}
 
 	@Transient
@@ -109,6 +140,10 @@ public class Customer extends com.oreon.phonestore.domain.Person
 	@Analyzer(definition = "entityAnalyzer")
 	public String getSearchData() {
 		StringBuilder builder = new StringBuilder();
+
+		for (BaseEntity e : customerQuestions) {
+			builder.append(e.getDisplayName() + " ");
+		}
 
 		return builder.toString();
 	}

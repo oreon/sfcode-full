@@ -231,10 +231,11 @@ public abstract class UserActionBase extends BaseAction<User>
 
 	public void updateComposedAssociations() {
 
-		if (listRoles != null) {
+		if (listAvailableRoles != null) {
 			getInstance().getRoles().clear();
-			getInstance().getRoles().addAll(listRoles);
+			getInstance().getRoles().addAll(listAvailableRoles.getTarget());
 		}
+
 	}
 
 	public void clearLists() {

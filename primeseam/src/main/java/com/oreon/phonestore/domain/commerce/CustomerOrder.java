@@ -112,6 +112,11 @@ public class CustomerOrder extends BaseEntity implements java.io.Serializable {
 
 	;
 
+	@Column(unique = false)
+	protected Date dateDeliverBy
+
+	;
+
 	public void setOrderItems(Set<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
@@ -158,6 +163,16 @@ public class CustomerOrder extends BaseEntity implements java.io.Serializable {
 	public com.oreon.phonestore.domain.Employee getServicingEmployee() {
 
 		return servicingEmployee;
+
+	}
+
+	public void setDateDeliverBy(Date dateDeliverBy) {
+		this.dateDeliverBy = dateDeliverBy;
+	}
+
+	public Date getDateDeliverBy() {
+
+		return dateDeliverBy;
 
 	}
 

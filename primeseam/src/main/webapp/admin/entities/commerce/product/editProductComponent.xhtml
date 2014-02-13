@@ -12,15 +12,15 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.product_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.product_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.product_name}" required="true" disabled="false" value="#{productAction.product.name}"></h:inputText> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editName')}" label="#{msg.product_name}" required="true" disabled="false" value="#{productAction.product.name}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="imageDecorate" rendered="#{ ! excludeImage == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.product_image}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.product_image}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editImage')}"/>
         </ui:define>  
-        <h:panelGroup rendered="#{true}"> 
+        <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editImage')}"> 
           <h:outputText value="Current File:"/>  
           <h:link value="#{productAction.product.image.name}" id="image_file" action="#{productAction.downloadFile(null)}" propagation="none"> 
             <f:param name="currentEntityId" value="#{productAction.instance.id}"/> 
@@ -30,17 +30,17 @@
       </s:decorate>  
       <s:decorate id="priceDecorate" rendered="#{ ! excludePrice == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.product_price}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.product_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editPrice')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="price#{entityId}" rendered="#{true}" label="#{msg.product_price}" required="false" disabled="false" value="#{productAction.product.price}"> 
+        <h:inputText escape="false" id="price#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editPrice')}" label="#{msg.product_price}" required="false" disabled="false" value="#{productAction.product.price}"> 
           <f:converter converterId="javax.faces.BigDecimal"/> 
         </h:inputText> 
       </s:decorate>  
       <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.product_description}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.product_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.product_description}" required="false" disabled="false" value="#{productAction.product.description}"></p:editor> 
+        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editDescription')}" label="#{msg.product_description}" required="false" disabled="false" value="#{productAction.product.description}"></p:editor> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

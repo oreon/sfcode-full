@@ -18,16 +18,16 @@
             <f:param name="userId" value="#{_user.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.user_userName}" sortBy="user.userName" rendered="#{ ! excludeUserName == true}"> 
+        <p:column headerText="#{msg.user_userName}" sortBy="user.userName" rendered="#{ ! excludeUserName == true and ( skipPermissionCheck == 'true' || s:hasPermission('user', 'viewUserName')) }"> 
           <h:outputText value="#{_user.userName}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.user_enabled}" sortBy="user.enabled" rendered="#{ ! excludeEnabled == true}"> 
+        <p:column headerText="#{msg.user_enabled}" sortBy="user.enabled" rendered="#{ ! excludeEnabled == true and ( skipPermissionCheck == 'true' || s:hasPermission('user', 'viewEnabled')) }"> 
           <h:outputText value="#{_user.enabled? msg.yes : msg.no }"/> 
         </p:column>  
-        <p:column headerText="#{msg.user_email}" sortBy="user.email" rendered="#{ ! excludeEmail == true}"> 
+        <p:column headerText="#{msg.user_email}" sortBy="user.email" rendered="#{ ! excludeEmail == true and ( skipPermissionCheck == 'true' || s:hasPermission('user', 'viewEmail')) }"> 
           <h:outputText value="#{_user.email}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.user_lastLogin}" sortBy="user.lastLogin" rendered="#{ ! excludeLastLogin == true}"> 
+        <p:column headerText="#{msg.user_lastLogin}" sortBy="user.lastLogin" rendered="#{ ! excludeLastLogin == true and ( skipPermissionCheck == 'true' || s:hasPermission('user', 'viewLastLogin')) }"> 
           <h:outputText value="#{_user.lastLogin}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 

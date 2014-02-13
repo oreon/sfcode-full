@@ -10,20 +10,20 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Product}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.product_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.product_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewName')}"/>  
       <h:outputText value="#{productAction.product.name}" escape="false"/>  
-      <h:outputText value="#{msg.product_image}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.product_image}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewImage')}"/>  
       <s:graphicImage rendered="#{productAction.product.image ne null and  productAction.product.image.contentType.startsWith('image')}" value="#{productAction.product.image.data}"> 
         <s:transformImageSize height="100" maintainRatio="true"/> 
       </s:graphicImage>  
       <h:link value="#{productAction.product.image.name}" action="#{productAction.downloadImage(productAction.product.id)}" propagation="none" rendered="#{not productAction.product.image.contentType.startsWith('image')}"> 
         <f:param name="currentEnt ityId" value="#{productAction.product.id}"/> 
       </h:link>  
-      <h:outputText value="#{msg.product_price}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.product_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewPrice')}"/>  
       <h:outputText value="#{productAction.product.price}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.product_description}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.product_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewDescription')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{productAction.product.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="descriptionAbbr" value="#{productAction.product.descriptionAbbreviated}" escape="false"/> 

@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.product_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.product_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{productList.product.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.product_price}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.product_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editPrice')}"/>  
       <br/>  
       <h:inputText id="price_begin" value="#{productList.priceRange.begin}"> 
         <f:converter converterId="javax.faces.BigDecimal"/> 
@@ -21,7 +21,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.product_description}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.product_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'editDescription')}"/>  
       <br/>  
       <h:inputText id="description" value="#{productList.product.description}"/> 
     </h:panelGroup> 

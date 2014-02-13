@@ -46,6 +46,8 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+import com.oreon.phonestore.domain.commerce.CustomerQuestion;
+
 public abstract class CustomerActionBase
 		extends
 			com.oreon.phonestore.web.action.domain.PersonAction<Customer>
@@ -54,6 +56,9 @@ public abstract class CustomerActionBase
 
 	@RequestParameter
 	protected Long customerId;
+
+	@In(create = true, value = "customerQuestionAction")
+	com.oreon.phonestore.web.action.commerce.CustomerQuestionAction customerQuestionsAction;
 
 	public void setCustomerId(Long id) {
 		if (id == 0) {
@@ -163,6 +168,8 @@ public abstract class CustomerActionBase
 	 */
 	public void loadAssociations() {
 
+		initListCustomerQuestions();
+
 		addDefaultAssociations();
 	}
 
@@ -170,10 +177,55 @@ public abstract class CustomerActionBase
 
 	}
 
+	protected List<com.oreon.phonestore.domain.commerce.CustomerQuestion> listCustomerQuestions = new ArrayList<com.oreon.phonestore.domain.commerce.CustomerQuestion>();
+
+	void initListCustomerQuestions() {
+
+		if (listCustomerQuestions.isEmpty())
+			listCustomerQuestions.addAll(getInstance().getCustomerQuestions());
+
+	}
+
+	public List<com.oreon.phonestore.domain.commerce.CustomerQuestion> getListCustomerQuestions() {
+
+		prePopulateListCustomerQuestions();
+		return listCustomerQuestions;
+	}
+
+	public void prePopulateListCustomerQuestions() {
+	}
+
+	public void setListCustomerQuestions(
+			List<com.oreon.phonestore.domain.commerce.CustomerQuestion> listCustomerQuestions) {
+		this.listCustomerQuestions = listCustomerQuestions;
+	}
+
+	public void deleteCustomerQuestions(int index) {
+		listCustomerQuestions.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addCustomerQuestions() {
+
+		initListCustomerQuestions();
+		CustomerQuestion customerQuestions = new CustomerQuestion();
+
+		customerQuestions.setCustomer(getInstance());
+
+		getListCustomerQuestions().add(customerQuestions);
+
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listCustomerQuestions != null) {
+			getInstance().getCustomerQuestions().clear();
+			getInstance().getCustomerQuestions().addAll(listCustomerQuestions);
+		}
 	}
 
 	public void clearLists() {
+		listCustomerQuestions.clear();
 
 	}
 

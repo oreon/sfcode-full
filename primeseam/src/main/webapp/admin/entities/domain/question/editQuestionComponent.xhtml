@@ -12,15 +12,15 @@
       </f:facet>  
       <s:decorate id="textDecorate" rendered="#{ ! excludeText == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.question_text}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editText')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="text#{entityId}" rendered="#{true}" label="#{msg.question_text}" required="false" disabled="false" value="#{questionAction.question.text}"></p:editor> 
+        <p:editor escape="false" useSeamText="true" id="text#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editText')}" label="#{msg.question_text}" required="false" disabled="false" value="#{questionAction.question.text}"></p:editor> 
       </s:decorate>  
       <s:decorate id="examIdDecorate" rendered="#{ ! excludeExam == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.question_exam}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.question_exam}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editExam')}"/>
         </ui:define>  
-        <h:selectOneMenu id="examId" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="examId" label="#{msg.question_exam}" value="#{questionAction.question.exam}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editExam')}" disabled="false"> 
           <s:selectItems value="#{examList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

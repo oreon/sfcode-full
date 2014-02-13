@@ -74,6 +74,8 @@ public class MetaData {
 
 	"servicingEmployee.displayName", "java.lang.String",
 
+	"dateDeliverBy", "java.util.Date",
+
 	},
 
 	{"com.oreon.phonestore.domain.commerce.OrderItem",
@@ -103,6 +105,16 @@ public class MetaData {
 	"contactDetails.city", "java.lang.String",
 
 	"type.name", "java.lang.String",
+
+	"customerQuestionsCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.phonestore.domain.commerce.CustomerQuestion",
+
+	"text", "java.lang.String",
+
+	"customer.displayName", "java.lang.String",
 
 	},
 

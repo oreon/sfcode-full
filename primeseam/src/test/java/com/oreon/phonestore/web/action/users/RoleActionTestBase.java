@@ -1,6 +1,6 @@
 package com.oreon.phonestore.web.action.users;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
 
 import com.oreon.phonestore.users.Role;
@@ -11,7 +11,7 @@ public class RoleActionTestBase
 
 	RoleAction roleAction = new RoleAction();
 
-	@Before
+	@BeforeClass
 	public void init() {
 		super.init();
 	}

@@ -22,7 +22,25 @@
       <div class="buttonBox"></div> 
     </h:form>  
     <br/>  
-    <p:tabView switchType="client"></p:tabView>  
+    <p:tabView switchType="client"> 
+      <p:tab title="CustomerQuestions" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="CustomerModalPanel-customerQuestions"/>  
+        <ui:include src="/admin/entities/commerce/customerQuestion/listCustomerQuestionComponent.xhtml"> 
+          <ui:param name="records" value="#{customerQuestionList.getCustomerQuestionsByCustomer(customerAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludeCustomer" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <h:button value="Create New" outcome="/admin/entities/commerce/customerQuestion/editCustomerQuestion.xhtml"> 
+            <f:param name="customerId" value="#{customerAction.instance.id}"/>  
+            <f:param name="customerQuestionId" value="0"/> 
+          </h:button>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editCustomerQuestionPanel')}" oncomplete="editCustomerQuestionDialog.show()" actionListener="#{customerQuestionAction.setCustomerQuestionId(0)}"> 
+            <f:setPropertyActionListener target="#{customerQuestionAction.customerId}" value="#{customerAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab> 
+    </p:tabView>  
     <br/>  
     <p:tabView switchType="client"> 
       <p:tab title="Notes"> 

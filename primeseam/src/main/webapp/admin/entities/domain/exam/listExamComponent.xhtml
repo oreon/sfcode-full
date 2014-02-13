@@ -18,10 +18,18 @@
             <f:param name="examId" value="#{_exam.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.exam_title}" sortBy="exam.title" rendered="#{ ! excludeTitle == true}"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/domain/question/miniListQuestionComponent.xhtml"> 
+            <ui:param name="records" value="#{_exam.listQuestions}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.exam_title}" sortBy="exam.title" rendered="#{ ! excludeTitle == true and ( skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewTitle')) }"> 
           <h:outputText value="#{_exam.title}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.exam_description}" sortBy="exam.description" rendered="#{ ! excludeDescription == true}"> 
+        <p:column headerText="#{msg.exam_description}" sortBy="exam.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewDescription')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_exam.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="descriptionAbbr" value="#{_exam.descriptionAbbreviated}" escape="false"/> 

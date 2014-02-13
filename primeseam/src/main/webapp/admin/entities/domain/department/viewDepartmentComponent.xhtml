@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Department}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.department_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.department_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'viewName')}"/>  
       <h:outputText value="#{departmentAction.department.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
