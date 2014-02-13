@@ -390,7 +390,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 	public void updateComposedAssociations(){
 		«EXPAND updateList FOREACH getMultiValued() -»
-		«EXPAND updateList FOREACH getLeadingManyToMany() -»
+		«EXPAND updateListManyToMany FOREACH getLeadingManyToMany() -»
 	}
 	
 	
@@ -448,6 +448,23 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		getInstance().get«name.toFirstUpper()»().clear();
 		getInstance().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
 	  }
+«ENDDEFINE»
+
+
+«DEFINE updateListManyToMany FOR uml::Property»
+	«IF isPrimeSeam2()»
+		
+	  if (listAvailable«name.toFirstUpper()» != null) {
+		getInstance().get«name.toFirstUpper()»().clear();
+		getInstance().get«name.toFirstUpper()»().addAll(listAvailable«name.toFirstUpper()».getTarget());
+	}
+	«ELSE»
+	«REM»todo for jsf 2 and jsf 1.2 with richfacse«ENDREM»
+	if (list«name.toFirstUpper()» != null) {
+		getInstance().get«name.toFirstUpper()»().clear();
+		getInstance().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()».getTarget());
+	}
+	«ENDIF»
 «ENDDEFINE»
 
 

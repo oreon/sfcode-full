@@ -86,26 +86,24 @@
 			«FOREACH getNonComposedManyAssociations() AS a»
 			<p:tab title="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
+				
 				<ui:include src = "«a.type.getComponentViewFile("list")»" >
 					<ui:param name="records" value="#{«a.type.asVar()»List.get«a.name.toFirstUpper()»By«a.opposite.name.toFirstUpper()»(«getAction()».instance)}" />
          			<ui:param name="modalId" value="${modalId}" />
          			<ui:param name="exclude«a.opposite.name.toFirstUpper()»" value="true"/>
          		</ui:include>
+         		
          		<h:form> 
 		      		<h:button value="Create New" outcome="«a.type.getViewFile("edit")»" > 
 		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
 		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
 		      		</h:button>
+	      		
+			  		<p:commandButton value="Quick Create" update=":#{p:component('edit«a.type.name»Panel')}"  
+			          oncomplete="edit«a.type.name»Dialog.show()"  actionListener="#{«a.type.getAction()».set«a.type.name»Id(0)}">
+						 <f:setPropertyActionListener target="#{«a.type.getAction()».«a.opposite.name»Id}" value="#{«getAction()».instance.id}" /> 	
+			  		</p:commandButton>
 		      		
-		      		  <p:commandButton value="Quick Create"
-				        	update=":#{p:component('edit«a.type.name»Panel')}"  
-				                              oncomplete="edit«a.type.name»Dialog.show()">
-								<f:param value="0" assignTo="#{«a.type.asVar()»Action.«asVar()»Id}" />
-						</p:commandButton>
-		      		
-			         <ui:include src="«a.type.getComponentViewFile("modalDlg")»" > 
-			    		<ui:param name="modalId" value="${modalId}" />
-			    	 </ui:include>
 		    	</h:form>
 		    	
 			</p:tab>
@@ -442,7 +440,7 @@
 		disabled="false" >
 		«IF isColumn() && this.controls != null » 
 			«IF !isCurrentMultiMode()»   «REM»TODO: update=controls need to be id aware «ENDREM»
-			<p:ajax event="onchange" action="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  update="«controls»" ajaxSingle="true" />
+			<p:ajax  listener="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  update=":#{p:component('«controls»')}"    />
 			«ELSE» «REM»For multimode we need to send the variable «ENDREM»
 			  <p:ajax event="onchange"
 				action="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"
@@ -628,7 +626,7 @@
 
 «DEFINE genNewButton FOR uml::Property»
 	<p:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		update="«name»"  rendered="#{«genEditPermission()»}" >
+		update="«name»"  rendered="#{«genEditPermission()»}"  process="@this" >
 		<s:conversationId/>
 	</p:commandButton>
 «ENDDEFINE»
