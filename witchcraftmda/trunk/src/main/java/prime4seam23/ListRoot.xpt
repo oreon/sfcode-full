@@ -37,6 +37,8 @@
 			
 			«EXPAND genArchivedFile FOR this»
 			
+			«EXPAND genMiniTable FOR this»
+			
 «ENDDEFINE»
 		
 «DEFINE genFullTextBtn FOR uml::Class»
@@ -50,7 +52,7 @@
 
 «REM» Create the actual table component«ENDREM»
 «DEFINE genViewComponent FOR uml::Class»
-			«FILE getWebPath() +"/list" +name+ "Component." + getExtension()»
+	«FILE getWebPath() +"/list" +name+ "Component." + getExtension()»
 		<ui:composition «EXPAND WebRoot::genIncludes-» >	
 		
 		 <c:if test="${empty modalId}">
@@ -76,9 +78,7 @@
                               oncomplete="edit«name»Dialog.show()"
                               listener="#{«asVar()»Action.onRowSelect}" />
                               
-				«EXPAND genId FOR this-»	
-				«EXPAND genAttribAsOutput FOR this-»
-				«EXPAND genPropsFromBusinessEntity FOR this-»
+				«EXPAND genCoreColumns FOR this»
 				«EXPAND genCreationDate FOR this-»	
 				«EXPAND genLink("view", "eye.png") FOR this»
 				«EXPAND genLink ("edit", "edit.png")FOR this»
@@ -102,6 +102,36 @@
 	«ENDFILE»
 «ENDDEFINE»
 
+«DEFINE genExpandRow FOR uml::Property»
+	<p:column style="width:2%">
+		<p:rowToggler />
+	</p:column>
+	<p:rowExpansion>
+		<ui:include src="«this.type.getComponentViewFile("miniList")»"  >
+			<ui:param name="records" value="#{_«class.asVar()».list«name.toFirstUpper()»}" />
+        </ui:include>
+	</p:rowExpansion>
+«ENDDEFINE»
+
+
+«REM»TAble to be included in rowedits «ENDREM»
+«DEFINE genMiniTable FOR wcprofile::Entity»
+ «FILE getWebPath() +"/miniList" +name+ "Component." + getExtension()»
+ <ui:composition «EXPAND WebRoot::genIncludes-» >
+	<p:dataTable var="_«name.toFirstLower()»" value="#{records}">
+		«EXPAND genCoreColumns»
+ 	</p:dataTable>
+ </ui:composition>
+ «ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genCoreColumns FOR wcprofile::Entity»
+	«EXPAND genId FOR this-»	
+	«EXPAND genExpandRow FOREACH getComposed() -»
+	«EXPAND genAttribAsOutput FOR this-»
+	«EXPAND genPropsFromBusinessEntity FOR this-»
+«ENDDEFINE»
+
 «DEFINE genButtons FOR wcprofile::Entity»
 	<h:form>
 		<p:button value="Create New" outcome="«getViewFile("edit")»" propagation="none" >
@@ -109,13 +139,13 @@
   		</p:button> 
   		      
         <p:commandButton value="Quick Create"
-        	update=":#{p:component('edit«name»Panel')}"  actionListener="#{«asVar()»Action.set«name»Id(0)}"
+        	update=":#{p:component('edit«name»Panel')}"  actionListener="#{«getAction()».set«name»Id(0)}"
                               oncomplete="edit«name»Dialog.show()">
 		</p:commandButton>
 	
 	</h:form>
 		«IF templatable»
-		 <h:button value="Create Template" view="«getTemplateViewFileName("edit")»"/>
+		 <h:button value="Create Template" outcome="«getTemplateViewFileName("edit")»"/>
 		 «ENDIF»
 «ENDDEFINE»
 
@@ -225,7 +255,7 @@
 
 «DEFINE genAssocValue(String prefix) FOR uml::Property»
 	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
-	<h:link «getEscape()»  value="#{«prefix»«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
+	<h:link «getEscape()»  value="#{«prefix»«genPropertyLabel()».displayName}"  outcome="«type.getViewFile("view")»" propagation="none">
 			<f:param name="«type.name.toFirstLower()»Id" value="#{«prefix»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
@@ -281,7 +311,8 @@
 				<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
 			«ELSE»
 			 <h:panelGroup>
-			 <p:tooltip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr"   rendered="#{_customerOrder.remarks != null}" /> 
+			 <p:tooltip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr" 
+			 	 rendered="#{_customerOrder.remarks != null}" /> 
 	         <h:outputText id="«name»Abbr" value="#{«prefix»«genPropertyLabel()»Abbreviated}" escape="false"/> 
 	         </h:panelGroup>
 	         «ENDIF»				
