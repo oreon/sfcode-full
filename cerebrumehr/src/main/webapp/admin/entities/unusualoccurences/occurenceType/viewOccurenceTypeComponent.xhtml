@@ -10,7 +10,7 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.OccurenceType}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.occurenceType_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.occurenceType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('occurenceType', 'viewName')}"/>  
       <h:outputText value="#{occurenceTypeAction.occurenceType.name}" escape="false"/> 
     </h:panelGrid>  
     <br/>  

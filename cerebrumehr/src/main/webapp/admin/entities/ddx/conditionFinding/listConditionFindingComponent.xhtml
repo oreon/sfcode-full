@@ -18,13 +18,13 @@
             <f:param name="conditionFindingId" value="#{_conditionFinding.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.conditionFinding_disease}" sortBy="conditionFinding.disease" rendered="#{true}"> 
-          <h:link escape="false" value="#{_conditionFinding.disease.displayName}" view="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.conditionFinding_disease}" sortBy="conditionFinding.disease" rendered="#{ ! excludeDisease == true and ( skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewDisease')) }"> 
+          <h:link escape="false" value="#{_conditionFinding.disease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
             <f:param name="diseaseId" value="#{_conditionFinding.disease.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.conditionFinding_falsePositive}" sortBy="conditionFinding.falsePositive" rendered="#{true}"> 
+        <p:column headerText="#{msg.conditionFinding_falsePositive}" sortBy="conditionFinding.falsePositive" rendered="#{ ! excludeFalsePositive == true and ( skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewFalsePositive')) }"> 
           <h:outputText value="#{_conditionFinding.falsePositive? msg.yes : msg.no }"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="conditionFinding.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -59,7 +59,9 @@
             <f:param name="currentEntityId" value="#{_conditionFinding.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/ddx/conditionFinding/modalDlgConditionFindingComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

@@ -10,91 +10,91 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Drug}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.drug_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewName')}"/>  
       <h:outputText value="#{drugAction.drug.name}" escape="false"/>  
-      <h:outputText value="#{msg.drug_absorption}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_absorption}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAbsorption')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.absorption}" for="absorptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="absorptionAbbr" value="#{drugAction.drug.absorptionAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewBiotransformation')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.biotransformation}" for="biotransformationAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="biotransformationAbbr" value="#{drugAction.drug.biotransformationAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewAtcCodes')}"/>  
       <h:outputText value="#{drugAction.drug.atcCodes}" escape="false"/>  
-      <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewContraIndication')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.contraIndication}" for="contraIndicationAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="contraIndicationAbbr" value="#{drugAction.drug.contraIndicationAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_description}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDescription')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="descriptionAbbr" value="#{drugAction.drug.descriptionAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDosageForm')}"/>  
       <h:outputText value="#{drugAction.drug.dosageForm}" escape="false"/>  
-      <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewFoodInteractions')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.foodInteractions}" for="foodInteractionsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="foodInteractionsAbbr" value="#{drugAction.drug.foodInteractionsAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_halfLife}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_halfLife}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLife')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.halfLife}" for="halfLifeAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="halfLifeAbbr" value="#{drugAction.drug.halfLifeAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLifeNumberOfHours')}"/>  
       <h:outputText value="#{drugAction.drug.halfLifeNumberOfHours}"> 
         <f:convertNumber pattern="000.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.drug_indication}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewIndication')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.indication}" for="indicationAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="indicationAbbr" value="#{drugAction.drug.indicationAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewMechanismOfAction')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.mechanismOfAction}" for="mechanismOfActionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="mechanismOfActionAbbr" value="#{drugAction.drug.mechanismOfActionAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPatientInfo')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.patientInfo}" for="patientInfoAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="patientInfoAbbr" value="#{drugAction.drug.patientInfoAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPharmacology')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.pharmacology}" for="pharmacologyAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="pharmacologyAbbr" value="#{drugAction.drug.pharmacologyAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_toxicity}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_toxicity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewToxicity')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.toxicity}" for="toxicityAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="toxicityAbbr" value="#{drugAction.drug.toxicityAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewRouteOfElimination')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{drugAction.drug.routeOfElimination}" for="routeOfEliminationAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="routeOfEliminationAbbr" value="#{drugAction.drug.routeOfEliminationAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewVolumeOfDistribution')}"/>  
       <h:outputText value="#{drugAction.drug.volumeOfDistribution}" escape="false"/>  
-      <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDrugBankId')}"/>  
       <h:outputText value="#{drugAction.drug.drugBankId}" escape="false"/>  
-      <h:outputText value="#{msg.drug_categories}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drug_categories}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewCategories')}"/>  
       <h:outputText value="#{drugAction.drug.categories}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeDrugInteractions == true}"> 
-      <p:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{not empty drugAction.listDrugInteractions and true }" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{not empty drugAction.listDrugInteractions and skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewDrugInteractions') }" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewInteractingDrug')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <h:link escape="false" value="#{_drugInteraction.interactingDrug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
             <f:param name="drugId" value="#{_drugInteraction.interactingDrug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -104,7 +104,7 @@
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')}"/> 
           </f:facet>  
           <h:panelGroup> 
             <p:tooltip value="#{_drugInteraction.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
@@ -113,7 +113,7 @@
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewSeverity')}"/> 
           </f:facet>  
           <h:outputText value="#{_drugInteraction.severity}" escape="false"/> 
         </p:column> 

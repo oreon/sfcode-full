@@ -12,30 +12,30 @@
       </f:facet>  
       <s:decorate id="fromDateDecorate" rendered="#{ ! excludeFromDate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}"/>
         </ui:define>  
-        <p:calendar escape="false" navigator="true" id="fromDate#{entityId}" rendered="#{true}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.fromDate}"></p:calendar> 
+        <p:calendar escape="false" navigator="true" id="fromDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}" label="#{msg.bedStay_fromDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.fromDate}"></p:calendar> 
       </s:decorate>  
       <s:decorate id="toDateDecorate" rendered="#{ ! excludeToDate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}"/>
         </ui:define>  
-        <p:calendar escape="false" navigator="true" id="toDate#{entityId}" rendered="#{true}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.toDate}"></p:calendar> 
+        <p:calendar escape="false" navigator="true" id="toDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}" label="#{msg.bedStay_toDate}" required="false" disabled="false" value="#{bedStayAction.bedStay.toDate}"></p:calendar> 
       </s:decorate>  
       <s:decorate id="admissionIdDecorate" rendered="#{ ! excludeAdmission == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.bedStay_admission}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}"/>
         </ui:define>  
-        <h:selectOneMenu id="admissionId" label="#{msg.bedStay_admission}" value="#{bedStayAction.bedStay.admission}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="admissionId" label="#{msg.bedStay_admission}" value="#{bedStayAction.bedStay.admission}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}" disabled="false"> 
           <s:selectItems value="#{admissionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="bedIdDecorate" rendered="#{ ! excludeBed == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.bedStay_bed}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>
         </ui:define>  
-        <h:selectOneMenu id="bedId" label="#{msg.bedStay_bed}" value="#{bedStayAction.bedStay.bed}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="bedId" label="#{msg.bedStay_bed}" value="#{bedStayAction.bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false"> 
           <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

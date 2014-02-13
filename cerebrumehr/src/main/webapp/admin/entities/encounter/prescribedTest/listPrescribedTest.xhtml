@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/encounter/prescribedTest/editPrescribedTest.xhtml" propagation="none"> 
         <f:param name="prescribedTestId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescribedTestPanel')}" oncomplete="editPrescribedTestDialog.show()"> 
-        <f:param value="0" assignTo="#{prescribedTestAction.prescribedTestId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/encounter/prescribedTest/modalDlgPrescribedTestComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescribedTestPanel')}" actionListener="#{prescribedTestAction.setPrescribedTestId(0)}" oncomplete="editPrescribedTestDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listPrescribedTestComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/encounter/prescribedTest/editPrescribedTest.xhtml" propagation="none"> 
         <f:param name="prescribedTestId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescribedTestPanel')}" oncomplete="editPrescribedTestDialog.show()"> 
-        <f:param value="0" assignTo="#{prescribedTestAction.prescribedTestId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/encounter/prescribedTest/modalDlgPrescribedTestComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescribedTestPanel')}" actionListener="#{prescribedTestAction.setPrescribedTestId(0)}" oncomplete="editPrescribedTestDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

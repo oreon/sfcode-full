@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.reason_encounter}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/>  
       <br/>  
       <h:selectOneMenu id="encounterId" value="#{ reasonList.reason.encounter}"> 
         <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.reason_code}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>  
       <br/>  
       <h:selectOneMenu id="codeId" value="#{ reasonList.reason.code}"> 
         <s:selectItems value="#{codeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -22,7 +22,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.reason_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{reasonList.reason.remarks}"/> 
     </h:panelGroup> 

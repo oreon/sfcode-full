@@ -18,17 +18,17 @@
             <f:param name="bedId" value="#{_bed.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.bed_room}" sortBy="bed.room" rendered="#{true}"> 
-          <h:link escape="false" value="#{_bed.room.displayName}" view="/admin/entities/facility/room/viewRoom.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.bed_room}" sortBy="bed.room" rendered="#{ ! excludeRoom == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewRoom')) }"> 
+          <h:link escape="false" value="#{_bed.room.displayName}" outcome="/admin/entities/facility/room/viewRoom.xhtml" propagation="none"> 
             <f:param name="roomId" value="#{_bed.room.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.bed_name}" sortBy="bed.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.bed_name}" sortBy="bed.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')) }"> 
           <h:outputText value="#{_bed.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.bed_patient}" sortBy="bed.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_bed.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.bed_patient}" sortBy="bed.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_bed.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_bed.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -68,7 +68,9 @@
             <f:param name="currentEntityId" value="#{_bed.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/facility/bed/modalDlgBedComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

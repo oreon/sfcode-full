@@ -10,16 +10,16 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.AppliedChart}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.appliedChart_patient}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{appliedChartAction.appliedChart.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.appliedChart_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewPatient')}"/>  
+      <h:link escape="false" value="#{appliedChartAction.appliedChart.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{appliedChartAction.appliedChart.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
           <span>#{appliedChartAction.appliedChart.patient.popupInfo}</span> 
         </p:tooltip> 
       </h:link>  
-      <h:outputText value="#{msg.appliedChart_chart}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{appliedChartAction.appliedChart.chart.displayName}" view="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.appliedChart_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewChart')}"/>  
+      <h:link escape="false" value="#{appliedChartAction.appliedChart.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
         <f:param name="chartId" value="#{appliedChartAction.appliedChart.chart.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

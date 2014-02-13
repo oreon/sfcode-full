@@ -12,7 +12,7 @@
       </f:facet>  
       <s:decorate id="findingIdDecorate" rendered="#{ ! excludeFinding == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>
         </ui:define>  
         <h:panelGroup> 
           <p:autoComplete minQueryLength="3" completeMethod="#{findingList.autocomplete}" value="#{findingAction.finding}" converter="#{findingList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
@@ -24,9 +24,9 @@
       </s:decorate>  
       <s:decorate id="patientDiffDxIdDecorate" rendered="#{ ! excludePatientDiffDx == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.patientFinding_patientDiffDx}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientDiffDxId" label="#{msg.patientFinding_patientDiffDx}" value="#{patientFindingAction.patientFinding.patientDiffDx}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="patientDiffDxId" label="#{msg.patientFinding_patientDiffDx}" value="#{patientFindingAction.patientFinding.patientDiffDx}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}" disabled="false"> 
           <s:selectItems value="#{patientDiffDxList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

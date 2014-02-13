@@ -12,21 +12,21 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.chartItem_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.chartItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.chartItem_name}" required="true" disabled="false" value="#{chartItemAction.chartItem.name}"></h:inputText> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editName')}" label="#{msg.chartItem_name}" required="true" disabled="false" value="#{chartItemAction.chartItem.name}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.chartItem_duration}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.chartItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{chartItemAction.chartItem.duration}"></h:inputText> 
+        <h:inputText escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{chartItemAction.chartItem.duration}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="frequencyPeriodDecorate" rendered="#{ ! excludeFrequencyPeriod == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editFrequencyPeriod')}"/>
         </ui:define>  
-        <h:selectOneMenu id="frequencyPeriod" rendered="#{true}" value="#{chartItemAction.chartItem.frequencyPeriod}" required="false" label="#{msg.chartItem_frequencyPeriod}"> 
+        <h:selectOneMenu id="frequencyPeriod" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editFrequencyPeriod')}" value="#{chartItemAction.chartItem.frequencyPeriod}" required="false" label="#{msg.chartItem_frequencyPeriod}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="HOUR" itemLabel="#{msg.HOUR}"/>  
           <f:selectItem itemValue="DAY" itemLabel="#{msg.DAY}"/>  
@@ -37,9 +37,9 @@
       </s:decorate>  
       <s:decorate id="chartIdDecorate" rendered="#{ ! excludeChart == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.chartItem_chart}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.chartItem_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChart')}"/>
         </ui:define>  
-        <h:selectOneMenu id="chartId" label="#{msg.chartItem_chart}" value="#{chartItemAction.chartItem.chart}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="chartId" label="#{msg.chartItem_chart}" value="#{chartItemAction.chartItem.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChart')}" disabled="false"> 
           <s:selectItems value="#{chartList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

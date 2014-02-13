@@ -18,24 +18,24 @@
             <f:param name="bedStayId" value="#{_bedStay.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.bedStay_fromDate}" sortBy="bedStay.fromDate" rendered="#{true}"> 
+        <p:column headerText="#{msg.bedStay_fromDate}" sortBy="bedStay.fromDate" rendered="#{ ! excludeFromDate == true and ( skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewFromDate')) }"> 
           <h:outputText value="#{_bedStay.fromDate}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.bedStay_toDate}" sortBy="bedStay.toDate" rendered="#{true}"> 
+        <p:column headerText="#{msg.bedStay_toDate}" sortBy="bedStay.toDate" rendered="#{ ! excludeToDate == true and ( skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewToDate')) }"> 
           <h:outputText value="#{_bedStay.toDate}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.bedStay_admission}" sortBy="bedStay.admission" rendered="#{true}"> 
-          <h:link escape="false" value="#{_bedStay.admission.displayName}" view="/admin/entities/patient/admission/viewAdmission.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.bedStay_admission}" sortBy="bedStay.admission" rendered="#{ ! excludeAdmission == true and ( skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewAdmission')) }"> 
+          <h:link escape="false" value="#{_bedStay.admission.displayName}" outcome="/admin/entities/patient/admission/viewAdmission.xhtml" propagation="none"> 
             <f:param name="admissionId" value="#{_bedStay.admission.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.bedStay_bed}" sortBy="bedStay.bed" rendered="#{true}"> 
-          <h:link escape="false" value="#{_bedStay.bed.displayName}" view="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.bedStay_bed}" sortBy="bedStay.bed" rendered="#{ ! excludeBed == true and ( skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewBed')) }"> 
+          <h:link escape="false" value="#{_bedStay.bed.displayName}" outcome="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
             <f:param name="bedId" value="#{_bedStay.bed.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -72,7 +72,9 @@
             <f:param name="currentEntityId" value="#{_bedStay.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/patient/bedStay/modalDlgBedStayComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

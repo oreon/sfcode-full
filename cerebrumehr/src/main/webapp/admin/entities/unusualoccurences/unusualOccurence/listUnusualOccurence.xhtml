@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurence.xhtml" propagation="none"> 
         <f:param name="unusualOccurenceId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" oncomplete="editUnusualOccurenceDialog.show()"> 
-        <f:param value="0" assignTo="#{unusualOccurenceAction.unusualOccurenceId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/modalDlgUnusualOccurenceComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}" oncomplete="editUnusualOccurenceDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listUnusualOccurenceComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurence.xhtml" propagation="none"> 
         <f:param name="unusualOccurenceId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" oncomplete="editUnusualOccurenceDialog.show()"> 
-        <f:param value="0" assignTo="#{unusualOccurenceAction.unusualOccurenceId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/modalDlgUnusualOccurenceComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}" oncomplete="editUnusualOccurenceDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{prescriptionTemplateList.prescriptionTemplate.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editDirectivesForPatient')}"/>  
       <br/>  
       <h:inputText id="directivesForPatient" value="#{prescriptionTemplateList.prescriptionTemplate.directivesForPatient}"/> 
     </h:panelGroup> 

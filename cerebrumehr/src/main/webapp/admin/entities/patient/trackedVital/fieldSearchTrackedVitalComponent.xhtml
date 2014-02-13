@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.trackedVital_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.trackedVital_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{trackedVitalList.trackedVital.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.trackedVital_minVal}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.trackedVital_minVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMinVal')}"/>  
       <br/>  
       <h:inputText id="minVal_begin" value="#{trackedVitalList.minValRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 
@@ -21,7 +21,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.trackedVital_maxVal}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.trackedVital_maxVal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editMaxVal')}"/>  
       <br/>  
       <h:inputText id="maxVal_begin" value="#{trackedVitalList.maxValRange.begin}"> 
         <f:converter converterId="javax.faces.Double"/> 

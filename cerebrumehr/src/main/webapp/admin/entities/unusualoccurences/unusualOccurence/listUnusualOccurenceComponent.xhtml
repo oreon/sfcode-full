@@ -18,26 +18,26 @@
             <f:param name="unusualOccurenceId" value="#{_unusualOccurence.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.unusualOccurence_occurenceType}" sortBy="unusualOccurence.occurenceType" rendered="#{true}"> 
-          <h:link escape="false" value="#{_unusualOccurence.occurenceType.displayName}" view="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.unusualOccurence_occurenceType}" sortBy="unusualOccurence.occurenceType" rendered="#{ ! excludeOccurenceType == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewOccurenceType')) }"> 
+          <h:link escape="false" value="#{_unusualOccurence.occurenceType.displayName}" outcome="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
             <f:param name="occurenceTypeId" value="#{_unusualOccurence.occurenceType.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.unusualOccurence_category}" sortBy="unusualOccurence.category" rendered="#{true}"> 
+        <p:column headerText="#{msg.unusualOccurence_category}" sortBy="unusualOccurence.category" rendered="#{ ! excludeCategory == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCategory')) }"> 
           <h:outputText value="#{_unusualOccurence.category}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.unusualOccurence_severity}" sortBy="unusualOccurence.severity" rendered="#{true}"> 
+        <p:column headerText="#{msg.unusualOccurence_severity}" sortBy="unusualOccurence.severity" rendered="#{ ! excludeSeverity == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewSeverity')) }"> 
           <h:outputText value="#{_unusualOccurence.severity}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.unusualOccurence_description}" sortBy="unusualOccurence.description" rendered="#{true}"> 
+        <p:column headerText="#{msg.unusualOccurence_description}" sortBy="unusualOccurence.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_unusualOccurence.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="descriptionAbbr" value="#{_unusualOccurence.descriptionAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.unusualOccurence_patient}" sortBy="unusualOccurence.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_unusualOccurence.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.unusualOccurence_patient}" sortBy="unusualOccurence.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_unusualOccurence.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_unusualOccurence.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -77,7 +77,9 @@
             <f:param name="currentEntityId" value="#{_unusualOccurence.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/modalDlgUnusualOccurenceComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

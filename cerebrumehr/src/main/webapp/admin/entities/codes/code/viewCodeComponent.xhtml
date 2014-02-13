@@ -10,37 +10,37 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Code}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewName')}"/>  
       <h:outputText value="#{codeAction.code.name}" escape="false"/>  
-      <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewDescription')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{codeAction.code.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="descriptionAbbr" value="#{codeAction.code.descriptionAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.code_includes}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.code_includes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewIncludes')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{codeAction.code.includes}" for="includesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="includesAbbr" value="#{codeAction.code.includesAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotIncludedHere')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{codeAction.code.notIncludedHere}" for="notIncludedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="notIncludedHereAbbr" value="#{codeAction.code.notIncludedHereAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.code_codeFirst}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.code_codeFirst}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewCodeFirst')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{codeAction.code.codeFirst}" for="codeFirstAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="codeFirstAbbr" value="#{codeAction.code.codeFirstAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotCodedHere')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{codeAction.code.notCodedHere}" for="notCodedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="notCodedHereAbbr" value="#{codeAction.code.notCodedHereAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.code_codeAlso}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewCodeAlso')}"/>  
       <h:outputText value="#{codeAction.code.codeAlso}" escape="false"/>  
-      <h:outputText value="#{msg.code_section}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{codeAction.code.section.displayName}" view="/admin/entities/codes/section/viewSection.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.code_section}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'viewSection')}"/>  
+      <h:link escape="false" value="#{codeAction.code.section.displayName}" outcome="/admin/entities/codes/section/viewSection.xhtml" propagation="none"> 
         <f:param name="sectionId" value="#{codeAction.code.section.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

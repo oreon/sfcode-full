@@ -12,32 +12,32 @@
       </f:facet>  
       <s:decorate id="codeDecorate" rendered="#{ ! excludeCode == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.atcDrug_code}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="code#{entityId}" rendered="#{true}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{atcDrugAction.atcDrug.code}"></h:inputText> 
+        <h:inputText escape="false" id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{atcDrugAction.atcDrug.code}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.atcDrug_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{atcDrugAction.atcDrug.name}"> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{atcDrugAction.atcDrug.name}"> 
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
       <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>
         </ui:define>  
-        <h:selectOneMenu id="drugId" label="#{msg.atcDrug_drug}" value="#{atcDrugAction.atcDrug.drug}" required="false" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="drugId" label="#{msg.atcDrug_drug}" value="#{atcDrugAction.atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false"> 
           <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="parentIdDecorate" rendered="#{ ! excludeParent == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editParent')}"/>
         </ui:define>  
-        <h:selectOneMenu id="parentId" label="#{msg.atcDrug_parent}" value="#{atcDrugAction.atcDrug.parent}" required="false" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="parentId" label="#{msg.atcDrug_parent}" value="#{atcDrugAction.atcDrug.parent}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editParent')}" disabled="false"> 
           <s:selectItems value="#{atcDrugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
@@ -45,17 +45,17 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeSubcategories == true}"> 
-      <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories" rendered="#{true}"> 
+      <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}" process="@this"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="subcategories" var="_atcDrug" rendered="#{true}" value="#{atcDrugAction.listSubcategories}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="subcategories" var="_atcDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}" value="#{atcDrugAction.listSubcategories}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{true}"/>
+            <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}"/>
           </f:facet>  
           <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="drugId" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{true}" disabled="false"> 
+            <h:selectOneMenu id="drugId" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false"> 
               <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
               <s:convertEntity/> 
             </h:selectOneMenu> 
@@ -63,26 +63,26 @@
         </p:column>  
         <p:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.atcDrug_code}  " rendered="#{true}"/>
+            <h:outputText value="#{msg.atcDrug_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}"/>
           </f:facet>  
           <s:decorate id="codeDecorate" rendered="#{ ! excludeCode == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText escape="false" id="code#{entityId}" rendered="#{true}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{_atcDrug.code}"></h:inputText> 
+            <h:inputText escape="false" id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editCode')}" label="#{msg.atcDrug_code}" required="false" disabled="false" value="#{_atcDrug.code}"></h:inputText> 
           </s:decorate> 
         </p:column>  
         <p:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{true}"/>
+            <h:outputText value="#{msg.atcDrug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}"/>
           </f:facet>  
           <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{_atcDrug.name}"> 
+            <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editName')}" label="#{msg.atcDrug_name}" required="true" disabled="false" value="#{_atcDrug.name}"> 
               <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
             </h:inputText> 
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories" rendered="#{true}"> 
+          <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}" process="@this"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

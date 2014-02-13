@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/charts/chartItem/editChartItem.xhtml" propagation="none"> 
         <f:param name="chartItemId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChartItemPanel')}" oncomplete="editChartItemDialog.show()"> 
-        <f:param value="0" assignTo="#{chartItemAction.chartItemId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/charts/chartItem/modalDlgChartItemComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChartItemPanel')}" actionListener="#{chartItemAction.setChartItemId(0)}" oncomplete="editChartItemDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listChartItemComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/charts/chartItem/editChartItem.xhtml" propagation="none"> 
         <f:param name="chartItemId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChartItemPanel')}" oncomplete="editChartItemDialog.show()"> 
-        <f:param value="0" assignTo="#{chartItemAction.chartItemId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/charts/chartItem/modalDlgChartItemComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChartItemPanel')}" actionListener="#{chartItemAction.setChartItemId(0)}" oncomplete="editChartItemDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

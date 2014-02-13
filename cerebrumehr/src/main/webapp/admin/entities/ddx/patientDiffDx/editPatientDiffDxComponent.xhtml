@@ -12,15 +12,15 @@
       </f:facet>  
       <s:decorate id="notesDecorate" rendered="#{ ! excludeNotes == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editNotes')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="notes#{entityId}" rendered="#{true}" label="#{msg.patientDiffDx_notes}" required="false" disabled="false" value="#{patientDiffDxAction.patientDiffDx.notes}"></p:editor> 
+        <p:editor escape="false" useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editNotes')}" label="#{msg.patientDiffDx_notes}" required="false" disabled="false" value="#{patientDiffDxAction.patientDiffDx.notes}"></p:editor> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientId" label="#{msg.patientDiffDx_patient}" value="#{patientDiffDxAction.patientDiffDx.patient}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="patientId" label="#{msg.patientDiffDx_patient}" value="#{patientDiffDxAction.patientDiffDx.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}" disabled="false"> 
           <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
@@ -28,13 +28,13 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePatientFindings == true}"> 
-      <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings" rendered="#{true}"> 
+      <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}" process="@this"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{true}" value="#{patientDiffDxAction.listPatientFindings}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}" value="#{patientDiffDxAction.listPatientFindings}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{true}"/>
+            <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>
           </f:facet>  
           <s:decorate id="findingIdDecorate" rendered="#{ ! excludeFinding == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
@@ -48,7 +48,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings" rendered="#{true}"> 
+          <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientFindings')}" process="@this"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

@@ -18,10 +18,18 @@
             <f:param name="prescriptionTemplateId" value="#{_prescriptionTemplate.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionTemplate_name}" sortBy="prescriptionTemplate.name" rendered="#{true}"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/prescription/prescriptionItemTemplate/miniListPrescriptionItemTemplateComponent.xhtml"> 
+            <ui:param name="records" value="#{_prescriptionTemplate.listPrescriptionItemTemplates}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.prescriptionTemplate_name}" sortBy="prescriptionTemplate.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewName')) }"> 
           <h:outputText value="#{_prescriptionTemplate.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.prescriptionTemplate_directivesForPatient}" sortBy="prescriptionTemplate.directivesForPatient" rendered="#{true}"> 
+        <p:column headerText="#{msg.prescriptionTemplate_directivesForPatient}" sortBy="prescriptionTemplate.directivesForPatient" rendered="#{ ! excludeDirectivesForPatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewDirectivesForPatient')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_prescriptionTemplate.directivesForPatient}" for="directivesForPatientAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="directivesForPatientAbbr" value="#{_prescriptionTemplate.directivesForPatientAbbreviated}" escape="false"/> 
@@ -59,7 +67,9 @@
             <f:param name="currentEntityId" value="#{_prescriptionTemplate.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/prescription/prescriptionTemplate/modalDlgPrescriptionTemplateComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

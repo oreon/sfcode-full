@@ -10,17 +10,17 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Disease}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.disease_gender}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.disease_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewGender')}"/>  
       <h:outputText value="#{diseaseAction.disease.gender}" escape="false"/>  
-      <h:outputText value="#{msg.disease_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.disease_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewName')}"/>  
       <h:outputText value="#{diseaseAction.disease.name}" escape="false"/>  
-      <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{diseaseAction.disease.relatedDisease.displayName}" view="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewRelatedDisease')}"/>  
+      <h:link escape="false" value="#{diseaseAction.disease.relatedDisease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
         <f:param name="diseaseId" value="#{diseaseAction.disease.relatedDisease.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
-      <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{diseaseAction.disease.conditionCategory.displayName}" view="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewConditionCategory')}"/>  
+      <h:link escape="false" value="#{diseaseAction.disease.conditionCategory.displayName}" outcome="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" propagation="none"> 
         <f:param name="conditionCategoryId" value="#{diseaseAction.disease.conditionCategory.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

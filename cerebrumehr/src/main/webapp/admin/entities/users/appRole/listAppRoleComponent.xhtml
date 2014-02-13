@@ -18,7 +18,7 @@
             <f:param name="appRoleId" value="#{_appRole.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.appRole_name}" sortBy="appRole.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.appRole_name}" sortBy="appRole.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('appRole', 'viewName')) }"> 
           <h:outputText value="#{_appRole.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="appRole.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -53,7 +53,9 @@
             <f:param name="currentEntityId" value="#{_appRole.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/users/appRole/modalDlgAppRoleComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

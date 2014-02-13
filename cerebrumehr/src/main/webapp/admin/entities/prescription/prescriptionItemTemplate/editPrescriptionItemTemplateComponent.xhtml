@@ -12,21 +12,21 @@
       </f:facet>  
       <s:decorate id="qtyDecorate" rendered="#{ ! excludeQty == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescriptionItemTemplate_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editQty')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="qty#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_qty}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.qty}"></h:inputText> 
+        <h:inputText escape="false" id="qty#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editQty')}" label="#{msg.prescriptionItemTemplate_qty}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.qty}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="strengthDecorate" rendered="#{ ! excludeStrength == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescriptionItemTemplate_strength}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editStrength')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="strength#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_strength}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.strength}"></h:inputText> 
+        <h:inputText escape="false" id="strength#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editStrength')}" label="#{msg.prescriptionItemTemplate_strength}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.strength}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="routeDecorate" rendered="#{ ! excludeRoute == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescriptionItemTemplate_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRoute')}"/>
         </ui:define>  
-        <h:selectOneMenu id="route" rendered="#{true}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.route}" required="false" label="#{msg.prescriptionItemTemplate_route}"> 
+        <h:selectOneMenu id="route" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRoute')}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.route}" required="false" label="#{msg.prescriptionItemTemplate_route}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="PO" itemLabel="#{msg.PO}"/>  
           <f:selectItem itemValue="IV" itemLabel="#{msg.IV}"/>  
@@ -37,45 +37,45 @@
       </s:decorate>  
       <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="duration#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_duration}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.duration}"></h:inputText> 
+        <h:inputText escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}" label="#{msg.prescriptionItemTemplate_duration}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.duration}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescriptionItemTemplate_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRemarks')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_remarks}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.remarks}"></h:inputText> 
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editRemarks')}" label="#{msg.prescriptionItemTemplate_remarks}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.remarks}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="brandNameDecorate" rendered="#{ ! excludeBrandName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescriptionItemTemplate_brandName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editBrandName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="brandName#{entityId}" rendered="#{true}" label="#{msg.prescriptionItemTemplate_brandName}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.brandName}"></h:inputText> 
+        <h:inputText escape="false" id="brandName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editBrandName')}" label="#{msg.prescriptionItemTemplate_brandName}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.brandName}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDrug')}"/>
         </ui:define>  
-        <h:selectOneMenu id="drugId" label="#{msg.prescriptionItemTemplate_drug}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.drug}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="drugId" label="#{msg.prescriptionItemTemplate_drug}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.drug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDrug')}" disabled="false"> 
           <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="frequencyIdDecorate" rendered="#{ ! excludeFrequency == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editFrequency')}"/>
         </ui:define>  
-        <h:selectOneMenu id="frequencyId" label="#{msg.prescriptionItemTemplate_frequency}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.frequency}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="frequencyId" label="#{msg.prescriptionItemTemplate_frequency}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.frequency}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editFrequency')}" disabled="false"> 
           <s:selectItems value="#{frequencyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="prescriptionTemplateIdDecorate" rendered="#{ ! excludePrescriptionTemplate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescriptionItemTemplate_prescriptionTemplate}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescriptionItemTemplate_prescriptionTemplate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionTemplate')}"/>
         </ui:define>  
-        <h:selectOneMenu id="prescriptionTemplateId" label="#{msg.prescriptionItemTemplate_prescriptionTemplate}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.prescriptionTemplate}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="prescriptionTemplateId" label="#{msg.prescriptionItemTemplate_prescriptionTemplate}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.prescriptionTemplate}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionTemplate')}" disabled="false"> 
           <s:selectItems value="#{prescriptionTemplateList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

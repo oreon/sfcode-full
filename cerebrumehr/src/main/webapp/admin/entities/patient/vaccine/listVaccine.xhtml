@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/patient/vaccine/editVaccine.xhtml" propagation="none"> 
         <f:param name="vaccineId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editVaccinePanel')}" oncomplete="editVaccineDialog.show()"> 
-        <f:param value="0" assignTo="#{vaccineAction.vaccineId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/patient/vaccine/modalDlgVaccineComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editVaccinePanel')}" actionListener="#{vaccineAction.setVaccineId(0)}" oncomplete="editVaccineDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listVaccineComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/patient/vaccine/editVaccine.xhtml" propagation="none"> 
         <f:param name="vaccineId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editVaccinePanel')}" oncomplete="editVaccineDialog.show()"> 
-        <f:param value="0" assignTo="#{vaccineAction.vaccineId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/patient/vaccine/modalDlgVaccineComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editVaccinePanel')}" actionListener="#{vaccineAction.setVaccineId(0)}" oncomplete="editVaccineDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

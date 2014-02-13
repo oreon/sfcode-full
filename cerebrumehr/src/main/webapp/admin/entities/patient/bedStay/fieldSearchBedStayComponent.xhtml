@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -15,7 +15,7 @@
       <p:calendar value="#{bedStayList.fromDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.bedStay_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editToDate')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -24,7 +24,7 @@
       <p:calendar value="#{bedStayList.toDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.bedStay_admission}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}"/>  
       <br/>  
       <h:selectOneMenu id="admissionId" value="#{ bedStayList.bedStay.admission}"> 
         <s:selectItems value="#{admissionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -32,7 +32,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.bedStay_bed}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>  
       <br/>  
       <h:selectOneMenu id="bedId" value="#{ bedStayList.bedStay.bed}"> 
         <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

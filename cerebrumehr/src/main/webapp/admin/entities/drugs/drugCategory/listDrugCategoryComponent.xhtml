@@ -18,7 +18,7 @@
             <f:param name="drugCategoryId" value="#{_drugCategory.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.drugCategory_name}" sortBy="drugCategory.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.drugCategory_name}" sortBy="drugCategory.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'viewName')) }"> 
           <h:outputText value="#{_drugCategory.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="drugCategory.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -53,7 +53,9 @@
             <f:param name="currentEntityId" value="#{_drugCategory.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/drugs/drugCategory/modalDlgDrugCategoryComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

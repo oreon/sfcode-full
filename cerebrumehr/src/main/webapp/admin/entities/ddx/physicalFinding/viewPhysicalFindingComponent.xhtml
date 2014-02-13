@@ -10,26 +10,26 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PhysicalFinding}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.finding_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewName')}"/>  
       <h:outputText value="#{physicalFindingAction.physicalFinding.name}" escape="false"/>  
-      <h:outputText value="#{msg.physicalFinding_icdCode}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.physicalFinding_icdCode}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewIcdCode')}"/>  
       <h:outputText value="#{physicalFindingAction.physicalFinding.icdCode}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeDifferentialDxs == true}"> 
-      <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and true }" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'viewDifferentialDxs') }" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewDxCategory')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_differentialDx.dxCategory.displayName}" view="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
+          <h:link escape="false" value="#{_differentialDx.dxCategory.displayName}" outcome="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
             <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewName')}"/> 
           </f:facet>  
           <h:outputText value="#{_differentialDx.name}" escape="false"/> 
         </p:column> 

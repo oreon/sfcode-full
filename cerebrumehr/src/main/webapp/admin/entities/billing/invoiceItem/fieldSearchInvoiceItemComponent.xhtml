@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}"/>  
       <br/>  
       <h:inputText id="units_begin" value="#{invoiceItemList.unitsRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -16,7 +16,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>  
       <br/>  
       <h:selectOneMenu id="serviceId" value="#{ invoiceItemList.invoiceItem.service}"> 
         <s:selectItems value="#{serviceList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -24,7 +24,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}"/>  
       <br/>  
       <h:selectOneMenu id="invoiceId" value="#{ invoiceItemList.invoiceItem.invoice}"> 
         <s:selectItems value="#{invoiceList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -32,7 +32,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.invoiceItem_appliedPrice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editAppliedPrice')}"/>  
       <br/>  
       <h:inputText id="appliedPrice_begin" value="#{invoiceItemList.appliedPriceRange.begin}"> 
         <f:converter converterId="javax.faces.BigDecimal"/> 

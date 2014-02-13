@@ -10,20 +10,20 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Immunization}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.immunization_date}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.immunization_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewDate')}"/>  
       <h:outputText value="#{immunizationAction.immunization.date}"> 
         <s:convertDateTime type="date" dateStyle="medium"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.immunization_patient}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{immunizationAction.immunization.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.immunization_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewPatient')}"/>  
+      <h:link escape="false" value="#{immunizationAction.immunization.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{immunizationAction.immunization.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
           <span>#{immunizationAction.immunization.patient.popupInfo}</span> 
         </p:tooltip> 
       </h:link>  
-      <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{immunizationAction.immunization.vaccine.displayName}" view="/admin/entities/patient/vaccine/viewVaccine.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewVaccine')}"/>  
+      <h:link escape="false" value="#{immunizationAction.immunization.vaccine.displayName}" outcome="/admin/entities/patient/vaccine/viewVaccine.xhtml" propagation="none"> 
         <f:param name="vaccineId" value="#{immunizationAction.immunization.vaccine.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

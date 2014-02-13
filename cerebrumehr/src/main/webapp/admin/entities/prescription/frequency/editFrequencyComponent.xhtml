@@ -12,15 +12,15 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.frequency_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.frequency_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.frequency_name}" required="true" disabled="false" value="#{frequencyAction.frequency.name}"></h:inputText> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}" label="#{msg.frequency_name}" required="true" disabled="false" value="#{frequencyAction.frequency.name}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="qtyPerDayDecorate" rendered="#{ ! excludeQtyPerDay == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="qtyPerDay#{entityId}" rendered="#{true}" label="#{msg.frequency_qtyPerDay}" required="false" disabled="false" value="#{frequencyAction.frequency.qtyPerDay}"></h:inputText> 
+        <h:inputText escape="false" id="qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}" label="#{msg.frequency_qtyPerDay}" required="false" disabled="false" value="#{frequencyAction.frequency.qtyPerDay}"></h:inputText> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

@@ -12,18 +12,18 @@
       </f:facet>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.appliedChart_patient}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.appliedChart_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editPatient')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientId" label="#{msg.appliedChart_patient}" value="#{appliedChartAction.appliedChart.patient}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="patientId" label="#{msg.appliedChart_patient}" value="#{appliedChartAction.appliedChart.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editPatient')}" disabled="false"> 
           <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="chartIdDecorate" rendered="#{ ! excludeChart == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.appliedChart_chart}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.appliedChart_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChart')}"/>
         </ui:define>  
-        <h:selectOneMenu id="chartId" label="#{msg.appliedChart_chart}" value="#{appliedChartAction.appliedChart.chart}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="chartId" label="#{msg.appliedChart_chart}" value="#{appliedChartAction.appliedChart.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChart')}" disabled="false"> 
           <s:selectItems value="#{chartList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

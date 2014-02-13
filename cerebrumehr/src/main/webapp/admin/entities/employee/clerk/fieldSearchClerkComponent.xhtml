@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.appUser_userName}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editUserName')}"/>  
       <br/>  
       <h:inputText id="appUser_userName" value="#{clerkList.clerk.appUser.userName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.appUser_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEnabled')}"/>  
       <br/>  
       <h:selectOneMenu id="appUser_enabled" value="#{clerkList.clerk.appUser.enabled}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -20,7 +20,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.employee_facility}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFacility')}"/>  
       <br/>  
       <h:selectOneMenu id="facilityId" value="#{ clerkList.clerk.facility}"> 
         <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -28,7 +28,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.employee_department}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDepartment')}"/>  
       <br/>  
       <h:selectOneMenu id="departmentId" value="#{ clerkList.clerk.department}"> 
         <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -37,17 +37,17 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_firstName}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editFirstName')}"/>  
       <br/>  
       <h:inputText id="firstName" value="#{clerkList.clerk.firstName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_lastName}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editLastName')}"/>  
       <br/>  
       <h:inputText id="lastName" value="#{clerkList.clerk.lastName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editDateOfBirth')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -56,7 +56,7 @@
       <p:calendar value="#{clerkList.dateOfBirthRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_gender}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.person_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editGender')}"/>  
       <br/>  
       <h:selectOneMenu id="gender" value="#{clerkList.clerk.gender}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -66,22 +66,22 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editPrimaryPhone')}"/>  
       <br/>  
       <h:inputText id="contactDetails_primaryPhone" value="#{clerkList.clerk.contactDetails.primaryPhone}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editSecondaryPhone')}"/>  
       <br/>  
       <h:inputText id="contactDetails_secondaryPhone" value="#{clerkList.clerk.contactDetails.secondaryPhone}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editEmail')}"/>  
       <br/>  
       <h:inputText id="contactDetails_email" value="#{clerkList.clerk.contactDetails.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_title}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'editTitle')}"/>  
       <br/>  
       <h:selectOneMenu id="title" value="#{clerkList.clerk.title}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  

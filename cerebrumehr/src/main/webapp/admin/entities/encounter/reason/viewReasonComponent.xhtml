@@ -10,15 +10,15 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Reason}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.reason_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewRemarks')}"/>  
       <h:outputText value="#{reasonAction.reason.remarks}" escape="false"/>  
-      <h:outputText value="#{msg.reason_encounter}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{reasonAction.reason.encounter.displayName}" view="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewEncounter')}"/>  
+      <h:link escape="false" value="#{reasonAction.reason.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
         <f:param name="encounterId" value="#{reasonAction.reason.encounter.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
-      <h:outputText value="#{msg.reason_code}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{reasonAction.reason.code.displayName}" view="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewCode')}"/>  
+      <h:link escape="false" value="#{reasonAction.reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
         <f:param name="codeId" value="#{reasonAction.reason.code.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

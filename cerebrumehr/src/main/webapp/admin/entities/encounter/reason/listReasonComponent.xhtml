@@ -18,19 +18,19 @@
             <f:param name="reasonId" value="#{_reason.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.reason_encounter}" sortBy="reason.encounter" rendered="#{true}"> 
-          <h:link escape="false" value="#{_reason.encounter.displayName}" view="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.reason_encounter}" sortBy="reason.encounter" rendered="#{ ! excludeEncounter == true and ( skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewEncounter')) }"> 
+          <h:link escape="false" value="#{_reason.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
             <f:param name="encounterId" value="#{_reason.encounter.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.reason_code}" sortBy="reason.code" rendered="#{true}"> 
-          <h:link escape="false" value="#{_reason.code.displayName}" view="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.reason_code}" sortBy="reason.code" rendered="#{ ! excludeCode == true and ( skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewCode')) }"> 
+          <h:link escape="false" value="#{_reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
             <f:param name="codeId" value="#{_reason.code.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.reason_remarks}" sortBy="reason.remarks" rendered="#{true}"> 
+        <p:column headerText="#{msg.reason_remarks}" sortBy="reason.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewRemarks')) }"> 
           <h:outputText value="#{_reason.remarks}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="reason.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -65,7 +65,9 @@
             <f:param name="currentEntityId" value="#{_reason.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/encounter/reason/modalDlgReasonComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

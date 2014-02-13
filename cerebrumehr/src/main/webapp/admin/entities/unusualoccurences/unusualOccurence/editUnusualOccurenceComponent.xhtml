@@ -12,9 +12,9 @@
       </f:facet>  
       <s:decorate id="categoryDecorate" rendered="#{ ! excludeCategory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.unusualOccurence_category}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCategory')}"/>
         </ui:define>  
-        <h:selectOneMenu id="category" rendered="#{true}" value="#{unusualOccurenceAction.unusualOccurence.category}" required="false" label="#{msg.unusualOccurence_category}"> 
+        <h:selectOneMenu id="category" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editCategory')}" value="#{unusualOccurenceAction.unusualOccurence.category}" required="false" label="#{msg.unusualOccurence_category}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="Radiation" itemLabel="#{msg.Radiation}"/>  
           <f:selectItem itemValue="Chemotherapy" itemLabel="#{msg.Chemotherapy}"/>  
@@ -25,9 +25,9 @@
       </s:decorate>  
       <s:decorate id="severityDecorate" rendered="#{ ! excludeSeverity == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editSeverity')}"/>
         </ui:define>  
-        <h:selectOneMenu id="severity" rendered="#{true}" value="#{unusualOccurenceAction.unusualOccurence.severity}" required="false" label="#{msg.unusualOccurence_severity}"> 
+        <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editSeverity')}" value="#{unusualOccurenceAction.unusualOccurence.severity}" required="false" label="#{msg.unusualOccurence_severity}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="Mild" itemLabel="#{msg.Mild}"/>  
           <f:selectItem itemValue="Moderate" itemLabel="#{msg.Moderate}"/>  
@@ -36,24 +36,24 @@
       </s:decorate>  
       <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{true}" label="#{msg.unusualOccurence_description}" required="false" disabled="false" value="#{unusualOccurenceAction.unusualOccurence.description}"></p:editor> 
+        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editDescription')}" label="#{msg.unusualOccurence_description}" required="false" disabled="false" value="#{unusualOccurenceAction.unusualOccurence.description}"></p:editor> 
       </s:decorate>  
       <s:decorate id="occurenceTypeIdDecorate" rendered="#{ ! excludeOccurenceType == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}"/>
         </ui:define>  
-        <h:selectOneMenu id="occurenceTypeId" label="#{msg.unusualOccurence_occurenceType}" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="occurenceTypeId" label="#{msg.unusualOccurence_occurenceType}" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}" disabled="false"> 
           <s:selectItems value="#{occurenceTypeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientId" label="#{msg.unusualOccurence_patient}" value="#{unusualOccurenceAction.unusualOccurence.patient}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="patientId" label="#{msg.unusualOccurence_patient}" value="#{unusualOccurenceAction.unusualOccurence.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}" disabled="false"> 
           <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

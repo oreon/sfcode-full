@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.frequency_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.frequency_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{frequencyList.frequency.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}"/>  
       <br/>  
       <h:inputText id="qtyPerDay_begin" value="#{frequencyList.qtyPerDayRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 

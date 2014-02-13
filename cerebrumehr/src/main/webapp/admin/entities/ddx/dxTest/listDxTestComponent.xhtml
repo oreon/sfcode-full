@@ -18,10 +18,10 @@
             <f:param name="dxTestId" value="#{_dxTest.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.dxTest_name}" sortBy="dxTest.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.dxTest_name}" sortBy="dxTest.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewName')) }"> 
           <h:outputText value="#{_dxTest.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.dxTest_description}" sortBy="dxTest.description" rendered="#{true}"> 
+        <p:column headerText="#{msg.dxTest_description}" sortBy="dxTest.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewDescription')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_dxTest.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="descriptionAbbr" value="#{_dxTest.descriptionAbbreviated}" escape="false"/> 
@@ -59,7 +59,9 @@
             <f:param name="currentEntityId" value="#{_dxTest.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/ddx/dxTest/modalDlgDxTestComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

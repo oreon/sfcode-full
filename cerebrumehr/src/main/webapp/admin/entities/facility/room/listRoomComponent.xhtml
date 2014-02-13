@@ -18,17 +18,25 @@
             <f:param name="roomId" value="#{_room.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.room_name}" sortBy="room.name" rendered="#{true}"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/facility/bed/miniListBedComponent.xhtml"> 
+            <ui:param name="records" value="#{_room.listBeds}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.room_name}" sortBy="room.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')) }"> 
           <h:outputText value="#{_room.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.room_roomType}" sortBy="room.roomType" rendered="#{true}"> 
-          <h:link escape="false" value="#{_room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.room_roomType}" sortBy="room.roomType" rendered="#{ ! excludeRoomType == true and ( skipPermissionCheck == 'true' || s:hasPermission('room', 'viewRoomType')) }"> 
+          <h:link escape="false" value="#{_room.roomType.displayName}" outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
             <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.room_ward}" sortBy="room.ward" rendered="#{true}"> 
-          <h:link escape="false" value="#{_room.ward.displayName}" view="/admin/entities/facility/ward/viewWard.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.room_ward}" sortBy="room.ward" rendered="#{ ! excludeWard == true and ( skipPermissionCheck == 'true' || s:hasPermission('room', 'viewWard')) }"> 
+          <h:link escape="false" value="#{_room.ward.displayName}" outcome="/admin/entities/facility/ward/viewWard.xhtml" propagation="none"> 
             <f:param name="wardId" value="#{_room.ward.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -65,7 +73,9 @@
             <f:param name="currentEntityId" value="#{_room.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/facility/room/modalDlgRoomComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

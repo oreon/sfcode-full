@@ -10,9 +10,9 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.DxTest}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.dxTest_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.dxTest_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewName')}"/>  
       <h:outputText value="#{dxTestAction.dxTest.name}" escape="false"/>  
-      <h:outputText value="#{msg.dxTest_description}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.dxTest_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewDescription')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{dxTestAction.dxTest.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="descriptionAbbr" value="#{dxTestAction.dxTest.descriptionAbbreviated}" escape="false"/> 

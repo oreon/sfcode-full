@@ -12,15 +12,15 @@
       </f:facet>  
       <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.differential_remarks}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.differential_remarks}" required="false" disabled="false" value="#{differentialAction.differential.remarks}"></h:inputText> 
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}" label="#{msg.differential_remarks}" required="false" disabled="false" value="#{differentialAction.differential.remarks}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="encounterIdDecorate" rendered="#{ ! excludeEncounter == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.differential_encounter}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.differential_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}"/>
         </ui:define>  
-        <h:selectOneMenu id="encounterId" label="#{msg.differential_encounter}" value="#{differentialAction.differential.encounter}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="encounterId" label="#{msg.differential_encounter}" value="#{differentialAction.differential.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}" disabled="false"> 
           <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

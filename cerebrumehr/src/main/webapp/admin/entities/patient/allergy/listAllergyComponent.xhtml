@@ -18,8 +18,8 @@
             <f:param name="allergyId" value="#{_allergy.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.allergy_patient}" sortBy="allergy.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_allergy.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.allergy_patient}" sortBy="allergy.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_allergy.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_allergy.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -27,13 +27,13 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.allergy_allergen}" sortBy="allergy.allergen" rendered="#{true}"> 
-          <h:link escape="false" value="#{_allergy.allergen.displayName}" view="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.allergy_allergen}" sortBy="allergy.allergen" rendered="#{ ! excludeAllergen == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewAllergen')) }"> 
+          <h:link escape="false" value="#{_allergy.allergen.displayName}" outcome="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
             <f:param name="allergenId" value="#{_allergy.allergen.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.allergy_severity}" sortBy="allergy.severity" rendered="#{true}"> 
+        <p:column headerText="#{msg.allergy_severity}" sortBy="allergy.severity" rendered="#{ ! excludeSeverity == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewSeverity')) }"> 
           <h:outputText value="#{_allergy.severity}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="allergy.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -68,7 +68,9 @@
             <f:param name="currentEntityId" value="#{_allergy.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/patient/allergy/modalDlgAllergyComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

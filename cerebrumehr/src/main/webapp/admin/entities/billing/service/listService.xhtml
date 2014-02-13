@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/billing/service/editService.xhtml" propagation="none"> 
         <f:param name="serviceId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editServicePanel')}" oncomplete="editServiceDialog.show()"> 
-        <f:param value="0" assignTo="#{serviceAction.serviceId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/billing/service/modalDlgServiceComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editServicePanel')}" actionListener="#{serviceAction.setServiceId(0)}" oncomplete="editServiceDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listServiceComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/billing/service/editService.xhtml" propagation="none"> 
         <f:param name="serviceId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editServicePanel')}" oncomplete="editServiceDialog.show()"> 
-        <f:param value="0" assignTo="#{serviceAction.serviceId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/billing/service/modalDlgServiceComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editServicePanel')}" actionListener="#{serviceAction.setServiceId(0)}" oncomplete="editServiceDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

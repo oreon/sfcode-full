@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/prescription/prescription/editPrescription.xhtml" propagation="none"> 
         <f:param name="prescriptionId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionPanel')}" oncomplete="editPrescriptionDialog.show()"> 
-        <f:param value="0" assignTo="#{prescriptionAction.prescriptionId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/prescription/prescription/modalDlgPrescriptionComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionPanel')}" actionListener="#{prescriptionAction.setPrescriptionId(0)}" oncomplete="editPrescriptionDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listPrescriptionComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/prescription/prescription/editPrescription.xhtml" propagation="none"> 
         <f:param name="prescriptionId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionPanel')}" oncomplete="editPrescriptionDialog.show()"> 
-        <f:param value="0" assignTo="#{prescriptionAction.prescriptionId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/prescription/prescription/modalDlgPrescriptionComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionPanel')}" actionListener="#{prescriptionAction.setPrescriptionId(0)}" oncomplete="editPrescriptionDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

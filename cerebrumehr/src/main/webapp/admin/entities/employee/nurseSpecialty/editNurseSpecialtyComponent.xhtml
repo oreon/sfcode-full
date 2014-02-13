@@ -12,9 +12,9 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.nurseSpecialty_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.nurseSpecialty_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurseSpecialty', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.nurseSpecialty_name}" required="true" disabled="false" value="#{nurseSpecialtyAction.nurseSpecialty.name}"></h:inputText> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurseSpecialty', 'editName')}" label="#{msg.nurseSpecialty_name}" required="true" disabled="false" value="#{nurseSpecialtyAction.nurseSpecialty.name}"></h:inputText> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

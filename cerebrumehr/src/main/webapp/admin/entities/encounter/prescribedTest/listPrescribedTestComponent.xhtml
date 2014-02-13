@@ -18,28 +18,28 @@
             <f:param name="prescribedTestId" value="#{_prescribedTest.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.prescribedTest_dxTest}" sortBy="prescribedTest.dxTest" rendered="#{true}"> 
-          <h:link escape="false" value="#{_prescribedTest.dxTest.displayName}" view="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.prescribedTest_dxTest}" sortBy="prescribedTest.dxTest" rendered="#{ ! excludeDxTest == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')) }"> 
+          <h:link escape="false" value="#{_prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
             <f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.prescribedTest_encounter}" sortBy="prescribedTest.encounter" rendered="#{true}"> 
-          <h:link escape="false" value="#{_prescribedTest.encounter.displayName}" view="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.prescribedTest_encounter}" sortBy="prescribedTest.encounter" rendered="#{ ! excludeEncounter == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewEncounter')) }"> 
+          <h:link escape="false" value="#{_prescribedTest.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
             <f:param name="encounterId" value="#{_prescribedTest.encounter.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.prescribedTest_remarks}" sortBy="prescribedTest.remarks" rendered="#{true}"> 
+        <p:column headerText="#{msg.prescribedTest_remarks}" sortBy="prescribedTest.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')) }"> 
           <h:outputText value="#{_prescribedTest.remarks}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.testResults_results}" sortBy="prescribedTest.testResults.results" rendered="#{true}"> 
+        <p:column headerText="#{msg.testResults_results}" sortBy="prescribedTest.testResults.results" rendered="#{ ! excludeResults == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewResults')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_prescribedTest.testResults.results}" for="resultsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="resultsAbbr" value="#{_prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.testResults_document}" sortBy="prescribedTest.testResults.document" rendered="#{true}"> 
+        <p:column headerText="#{msg.testResults_document}" sortBy="prescribedTest.testResults.document" rendered="#{ ! excludeDocument == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDocument')) }"> 
           <s:graphicImage rendered="#{_prescribedTest.testResults.document ne null and  _prescribedTest.testResults.document.contentType.startsWith('image')}" value="#{_prescribedTest.testResults.document.data}"> 
             <s:transformImageSize height="100" maintainRatio="true"/> 
           </s:graphicImage>  
@@ -79,7 +79,9 @@
             <f:param name="currentEntityId" value="#{_prescribedTest.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/encounter/prescribedTest/modalDlgPrescribedTestComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

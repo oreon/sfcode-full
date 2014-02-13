@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.chart_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chart_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{chartList.chart.name}"/> 
     </h:panelGroup> 

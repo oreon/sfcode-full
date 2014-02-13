@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/>  
       <br/>  
       <h:selectOneMenu id="patientId" value="#{ chartProcedureList.chartProcedure.patient}"> 
         <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}"/>  
       <br/>  
       <h:selectOneMenu id="chartItemId" value="#{ chartProcedureList.chartProcedure.chartItem}"> 
         <s:selectItems value="#{chartItemList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -22,7 +22,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartProcedure_dueDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDueDate')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -31,7 +31,7 @@
       <p:calendar value="#{chartProcedureList.dueDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartProcedure_datePerformed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editDatePerformed')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -40,7 +40,7 @@
       <p:calendar value="#{chartProcedureList.datePerformedRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{chartProcedureList.chartProcedure.remarks}"/> 
     </h:panelGroup> 

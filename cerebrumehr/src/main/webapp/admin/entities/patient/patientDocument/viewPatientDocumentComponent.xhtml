@@ -10,22 +10,22 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.PatientDocument}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.patientDocument_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.patientDocument_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewName')}"/>  
       <h:outputText value="#{patientDocumentAction.patientDocument.name}" escape="false"/>  
-      <h:outputText value="#{msg.patientDocument_file}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.patientDocument_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewFile')}"/>  
       <s:graphicImage rendered="#{patientDocumentAction.patientDocument.file ne null and  patientDocumentAction.patientDocument.file.contentType.startsWith('image')}" value="#{patientDocumentAction.patientDocument.file.data}"> 
         <s:transformImageSize height="100" maintainRatio="true"/> 
       </s:graphicImage>  
       <h:link value="#{patientDocumentAction.patientDocument.file.name}" action="#{patientDocumentAction.downloadFile(patientDocumentAction.patientDocument.id)}" propagation="none" rendered="#{not patientDocumentAction.patientDocument.file.contentType.startsWith('image')}"> 
         <f:param name="currentEnt ityId" value="#{patientDocumentAction.patientDocument.id}"/> 
       </h:link>  
-      <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewNotes')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{patientDocumentAction.patientDocument.notes}" for="notesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="notesAbbr" value="#{patientDocumentAction.patientDocument.notesAbbreviated}" escape="false"/> 
       </h:panelGroup>  
-      <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{patientDocumentAction.patientDocument.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewPatient')}"/>  
+      <h:link escape="false" value="#{patientDocumentAction.patientDocument.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{patientDocumentAction.patientDocument.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 

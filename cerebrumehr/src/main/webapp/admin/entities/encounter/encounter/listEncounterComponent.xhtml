@@ -18,37 +18,61 @@
             <f:param name="encounterId" value="#{_encounter.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.encounter_patientNote}" sortBy="encounter.patientNote" rendered="#{true}"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/encounter/prescribedTest/miniListPrescribedTestComponent.xhtml"> 
+            <ui:param name="records" value="#{_encounter.listPrescribedTests}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/encounter/differential/miniListDifferentialComponent.xhtml"> 
+            <ui:param name="records" value="#{_encounter.listDifferentials}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/encounter/reason/miniListReasonComponent.xhtml"> 
+            <ui:param name="records" value="#{_encounter.listReasons}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.encounter_patientNote}" sortBy="encounter.patientNote" rendered="#{ ! excludePatientNote == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatientNote')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_encounter.patientNote}" for="patientNoteAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="patientNoteAbbr" value="#{_encounter.patientNoteAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.vitals_SysBP}" sortBy="encounter.vitals.sysBP" rendered="#{true}"> 
+        <p:column headerText="#{msg.vitals_SysBP}" sortBy="encounter.vitals.sysBP" rendered="#{ ! excludeSysBP == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewSysBP')) }"> 
           <h:outputText value="#{_encounter.vitals.sysBP}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.vitals_DiasBP}" sortBy="encounter.vitals.diasBP" rendered="#{true}"> 
+        <p:column headerText="#{msg.vitals_DiasBP}" sortBy="encounter.vitals.diasBP" rendered="#{ ! excludeDiasBP == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewDiasBP')) }"> 
           <h:outputText value="#{_encounter.vitals.diasBP}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.vitals_Temperature}" sortBy="encounter.vitals.temperature" rendered="#{true}"> 
+        <p:column headerText="#{msg.vitals_Temperature}" sortBy="encounter.vitals.temperature" rendered="#{ ! excludeTemperature == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTemperature')) }"> 
           <h:outputText value="#{_encounter.vitals.temperature}"> 
             <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.vitals_Pulse}" sortBy="encounter.vitals.pulse" rendered="#{true}"> 
+        <p:column headerText="#{msg.vitals_Pulse}" sortBy="encounter.vitals.pulse" rendered="#{ ! excludePulse == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPulse')) }"> 
           <h:outputText value="#{_encounter.vitals.pulse}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.vitals_RespirationRate}" sortBy="encounter.vitals.respirationRate" rendered="#{true}"> 
+        <p:column headerText="#{msg.vitals_RespirationRate}" sortBy="encounter.vitals.respirationRate" rendered="#{ ! excludeRespirationRate == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewRespirationRate')) }"> 
           <h:outputText value="#{_encounter.vitals.respirationRate}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.encounter_prescription}" sortBy="encounter.prescription" rendered="#{true}"> 
-          <h:link escape="false" value="#{_encounter.prescription.displayName}" view="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.encounter_prescription}" sortBy="encounter.prescription" rendered="#{ ! excludePrescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescription')) }"> 
+          <h:link escape="false" value="#{_encounter.prescription.displayName}" outcome="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
             <f:param name="prescriptionId" value="#{_encounter.prescription.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.encounter_patient}" sortBy="encounter.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_encounter.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.encounter_patient}" sortBy="encounter.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_encounter.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_encounter.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -56,13 +80,13 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.encounter_creator}" sortBy="encounter.creator" rendered="#{true}"> 
-          <h:link escape="false" value="#{_encounter.creator.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.encounter_creator}" sortBy="encounter.creator" rendered="#{ ! excludeCreator == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewCreator')) }"> 
+          <h:link escape="false" value="#{_encounter.creator.displayName}" outcome="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
             <f:param name="employeeId" value="#{_encounter.creator.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.encounter_tests}" sortBy="encounter.tests" rendered="#{true}"> 
+        <p:column headerText="#{msg.encounter_tests}" sortBy="encounter.tests" rendered="#{ ! excludeTests == true and ( skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTests')) }"> 
           <h:outputText value="#{_encounter.tests}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="encounter.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -97,7 +121,9 @@
             <f:param name="currentEntityId" value="#{_encounter.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/encounter/encounter/modalDlgEncounterComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

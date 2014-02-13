@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/users/appRole/editAppRole.xhtml" propagation="none"> 
         <f:param name="appRoleId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAppRolePanel')}" oncomplete="editAppRoleDialog.show()"> 
-        <f:param value="0" assignTo="#{appRoleAction.appRoleId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/users/appRole/modalDlgAppRoleComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAppRolePanel')}" actionListener="#{appRoleAction.setAppRoleId(0)}" oncomplete="editAppRoleDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listAppRoleComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/users/appRole/editAppRole.xhtml" propagation="none"> 
         <f:param name="appRoleId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAppRolePanel')}" oncomplete="editAppRoleDialog.show()"> 
-        <f:param value="0" assignTo="#{appRoleAction.appRoleId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/users/appRole/modalDlgAppRoleComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAppRolePanel')}" actionListener="#{appRoleAction.setAppRoleId(0)}" oncomplete="editAppRoleDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

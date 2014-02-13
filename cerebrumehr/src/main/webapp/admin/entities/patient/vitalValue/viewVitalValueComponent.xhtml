@@ -10,19 +10,19 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.VitalValue}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.vitalValue_value}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}"/>  
       <h:outputText value="#{vitalValueAction.vitalValue.value}"> 
         <f:convertNumber pattern="000.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}"/>  
       <h:outputText value="#{vitalValueAction.vitalValue.remarks}" escape="false"/>  
-      <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{vitalValueAction.vitalValue.trackedVital.displayName}" view="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')}"/>  
+      <h:link escape="false" value="#{vitalValueAction.vitalValue.trackedVital.displayName}" outcome="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
         <f:param name="trackedVitalId" value="#{vitalValueAction.vitalValue.trackedVital.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
-      <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{vitalValueAction.vitalValue.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewPatient')}"/>  
+      <h:link escape="false" value="#{vitalValueAction.vitalValue.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{vitalValueAction.vitalValue.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 

@@ -290,7 +290,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 			if (isManaged())
 				update();
 			else{
-				instance = entityManager.merge(instance);
+				//instance = entityManager.merge(instance);
 				persist();
 				//getEntityManager().flush();
 			}
@@ -345,7 +345,9 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 
 	public String save() {
-		return doSave();
+		String result =  doSave();
+		refresh();
+		return result;
 	}
 
 	@End(beforeRedirect = true)

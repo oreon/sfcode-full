@@ -18,7 +18,15 @@
             <f:param name="chartId" value="#{_chart.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.chart_name}" sortBy="chart.name" rendered="#{true}"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/charts/chartItem/miniListChartItemComponent.xhtml"> 
+            <ui:param name="records" value="#{_chart.listChartItems}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.chart_name}" sortBy="chart.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewName')) }"> 
           <h:outputText value="#{_chart.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="chart.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -53,7 +61,9 @@
             <f:param name="currentEntityId" value="#{_chart.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/charts/chart/modalDlgChartComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

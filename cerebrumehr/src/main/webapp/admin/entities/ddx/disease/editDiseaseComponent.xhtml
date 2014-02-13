@@ -12,9 +12,9 @@
       </f:facet>  
       <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.disease_gender}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.disease_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editGender')}"/>
         </ui:define>  
-        <h:selectOneMenu id="gender" rendered="#{true}" value="#{diseaseAction.disease.gender}" required="false" label="#{msg.disease_gender}"> 
+        <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editGender')}" value="#{diseaseAction.disease.gender}" required="false" label="#{msg.disease_gender}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
@@ -22,24 +22,24 @@
       </s:decorate>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.disease_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.disease_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.disease_name}" required="true" disabled="false" value="#{diseaseAction.disease.name}"></h:inputText> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editName')}" label="#{msg.disease_name}" required="true" disabled="false" value="#{diseaseAction.disease.name}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="relatedDiseaseIdDecorate" rendered="#{ ! excludeRelatedDisease == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.disease_relatedDisease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editRelatedDisease')}"/>
         </ui:define>  
-        <h:selectOneMenu id="relatedDiseaseId" label="#{msg.disease_relatedDisease}" value="#{diseaseAction.disease.relatedDisease}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="relatedDiseaseId" label="#{msg.disease_relatedDisease}" value="#{diseaseAction.disease.relatedDisease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editRelatedDisease')}" disabled="false"> 
           <s:selectItems value="#{diseaseList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="conditionCategoryIdDecorate" rendered="#{ ! excludeConditionCategory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/>
         </ui:define>  
-        <h:selectOneMenu id="conditionCategoryId" label="#{msg.disease_conditionCategory}" value="#{diseaseAction.disease.conditionCategory}" required="false" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="conditionCategoryId" label="#{msg.disease_conditionCategory}" value="#{diseaseAction.disease.conditionCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}" disabled="false"> 
           <s:selectItems value="#{conditionCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

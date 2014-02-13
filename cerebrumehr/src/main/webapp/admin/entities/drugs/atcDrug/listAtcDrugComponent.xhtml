@@ -18,14 +18,22 @@
             <f:param name="atcDrugId" value="#{_atcDrug.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.atcDrug_code}" sortBy="atcDrug.code" rendered="#{true}"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/drugs/atcDrug/miniListAtcDrugComponent.xhtml"> 
+            <ui:param name="records" value="#{_atcDrug.listSubcategories}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.atcDrug_code}" sortBy="atcDrug.code" rendered="#{ ! excludeCode == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')) }"> 
           <h:outputText value="#{_atcDrug.code}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.atcDrug_name}" sortBy="atcDrug.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.atcDrug_name}" sortBy="atcDrug.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')) }"> 
           <h:outputText value="#{_atcDrug.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.atcDrug_drug}" sortBy="atcDrug.drug" rendered="#{true}"> 
-          <h:link escape="false" value="#{_atcDrug.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.atcDrug_drug}" sortBy="atcDrug.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')) }"> 
+          <h:link escape="false" value="#{_atcDrug.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
             <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -33,8 +41,8 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.atcDrug_parent}" sortBy="atcDrug.parent" rendered="#{true}"> 
-          <h:link escape="false" value="#{_atcDrug.parent.displayName}" view="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.atcDrug_parent}" sortBy="atcDrug.parent" rendered="#{ ! excludeParent == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')) }"> 
+          <h:link escape="false" value="#{_atcDrug.parent.displayName}" outcome="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
             <f:param name="atcDrugId" value="#{_atcDrug.parent.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -71,7 +79,9 @@
             <f:param name="currentEntityId" value="#{_atcDrug.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/drugs/atcDrug/modalDlgAtcDrugComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/codes/chapter/editChapter.xhtml" propagation="none"> 
         <f:param name="chapterId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChapterPanel')}" oncomplete="editChapterDialog.show()"> 
-        <f:param value="0" assignTo="#{chapterAction.chapterId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/codes/chapter/modalDlgChapterComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChapterPanel')}" actionListener="#{chapterAction.setChapterId(0)}" oncomplete="editChapterDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listChapterComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/codes/chapter/editChapter.xhtml" propagation="none"> 
         <f:param name="chapterId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChapterPanel')}" oncomplete="editChapterDialog.show()"> 
-        <f:param value="0" assignTo="#{chapterAction.chapterId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/codes/chapter/modalDlgChapterComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChapterPanel')}" actionListener="#{chapterAction.setChapterId(0)}" oncomplete="editChapterDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

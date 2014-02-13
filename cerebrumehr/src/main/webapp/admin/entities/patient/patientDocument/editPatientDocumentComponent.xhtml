@@ -12,17 +12,17 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.patientDocument_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.patientDocument_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.patientDocument_name}" required="true" disabled="false" value="#{patientDocumentAction.patientDocument.name}"> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editName')}" label="#{msg.patientDocument_name}" required="true" disabled="false" value="#{patientDocumentAction.patientDocument.name}"> 
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
       <s:decorate id="fileDecorate" rendered="#{ ! excludeFile == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.patientDocument_file}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.patientDocument_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editFile')}"/>
         </ui:define>  
-        <h:panelGroup rendered="#{true}"> 
+        <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editFile')}"> 
           <h:outputText value="Current File:"/>  
           <h:link value="#{patientDocumentAction.patientDocument.file.name}" id="file_file" action="#{patientDocumentAction.downloadFile(null)}" propagation="none"> 
             <f:param name="currentEntityId" value="#{patientDocumentAction.instance.id}"/> 
@@ -32,15 +32,15 @@
       </s:decorate>  
       <s:decorate id="notesDecorate" rendered="#{ ! excludeNotes == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="notes#{entityId}" rendered="#{true}" label="#{msg.patientDocument_notes}" required="false" disabled="false" value="#{patientDocumentAction.patientDocument.notes}"></p:editor> 
+        <p:editor escape="false" useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}" label="#{msg.patientDocument_notes}" required="false" disabled="false" value="#{patientDocumentAction.patientDocument.notes}"></p:editor> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientId" label="#{msg.patientDocument_patient}" value="#{patientDocumentAction.patientDocument.patient}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="patientId" label="#{msg.patientDocument_patient}" value="#{patientDocumentAction.patientDocument.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}" disabled="false"> 
           <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

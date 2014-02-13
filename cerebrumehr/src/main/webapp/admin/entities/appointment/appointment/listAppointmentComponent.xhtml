@@ -18,24 +18,24 @@
             <f:param name="appointmentId" value="#{_appointment.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.appointment_start}" sortBy="appointment.start" rendered="#{true}"> 
+        <p:column headerText="#{msg.appointment_start}" sortBy="appointment.start" rendered="#{ ! excludeStart == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewStart')) }"> 
           <h:outputText value="#{_appointment.start}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.appointment_end}" sortBy="appointment.end" rendered="#{true}"> 
+        <p:column headerText="#{msg.appointment_end}" sortBy="appointment.end" rendered="#{ ! excludeEnd == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewEnd')) }"> 
           <h:outputText value="#{_appointment.end}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.appointment_physician}" sortBy="appointment.physician" rendered="#{true}"> 
-          <h:link escape="false" value="#{_appointment.physician.displayName}" view="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.appointment_physician}" sortBy="appointment.physician" rendered="#{ ! excludePhysician == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewPhysician')) }"> 
+          <h:link escape="false" value="#{_appointment.physician.displayName}" outcome="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
             <f:param name="physicianId" value="#{_appointment.physician.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.appointment_patient}" sortBy="appointment.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_appointment.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.appointment_patient}" sortBy="appointment.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_appointment.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_appointment.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -43,13 +43,13 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.appointment_remarks}" sortBy="appointment.remarks" rendered="#{true}"> 
+        <p:column headerText="#{msg.appointment_remarks}" sortBy="appointment.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewRemarks')) }"> 
           <h:panelGroup> 
             <p:tooltip value="#{_appointment.remarks}" for="remarksAbbr" rendered="#{_customerOrder.remarks != null}"/>  
             <h:outputText id="remarksAbbr" value="#{_appointment.remarksAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="#{msg.appointment_units}" sortBy="appointment.units" rendered="#{true}"> 
+        <p:column headerText="#{msg.appointment_units}" sortBy="appointment.units" rendered="#{ ! excludeUnits == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewUnits')) }"> 
           <h:outputText value="#{_appointment.units}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="appointment.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -84,7 +84,9 @@
             <f:param name="currentEntityId" value="#{_appointment.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/appointment/appointment/modalDlgAppointmentComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

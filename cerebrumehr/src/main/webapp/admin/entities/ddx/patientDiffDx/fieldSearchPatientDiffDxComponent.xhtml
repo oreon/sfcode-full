@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}"/>  
       <br/>  
       <h:selectOneMenu id="patientId" value="#{ patientDiffDxList.patientDiffDx.patient}"> 
         <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editNotes')}"/>  
       <br/>  
       <h:inputText id="notes" value="#{patientDiffDxList.patientDiffDx.notes}"/> 
     </h:panelGroup> 

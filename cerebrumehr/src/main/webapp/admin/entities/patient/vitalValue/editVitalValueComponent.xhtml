@@ -12,30 +12,30 @@
       </f:facet>  
       <s:decorate id="valueDecorate" rendered="#{ ! excludeValue == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.vitalValue_value}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="value#{entityId}" rendered="#{true}" label="#{msg.vitalValue_value}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.value}"></h:inputText> 
+        <h:inputText escape="false" id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}" label="#{msg.vitalValue_value}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.value}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.vitalValue_remarks}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.remarks}"></h:inputText> 
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}" label="#{msg.vitalValue_remarks}" required="false" disabled="false" value="#{vitalValueAction.vitalValue.remarks}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="trackedVitalIdDecorate" rendered="#{ ! excludeTrackedVital == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/>
         </ui:define>  
-        <h:selectOneMenu id="trackedVitalId" label="#{msg.vitalValue_trackedVital}" value="#{vitalValueAction.vitalValue.trackedVital}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="trackedVitalId" label="#{msg.vitalValue_trackedVital}" value="#{vitalValueAction.vitalValue.trackedVital}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}" disabled="false"> 
           <s:selectItems value="#{trackedVitalList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientId" label="#{msg.vitalValue_patient}" value="#{vitalValueAction.vitalValue.patient}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="patientId" label="#{msg.vitalValue_patient}" value="#{vitalValueAction.vitalValue.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}" disabled="false"> 
           <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

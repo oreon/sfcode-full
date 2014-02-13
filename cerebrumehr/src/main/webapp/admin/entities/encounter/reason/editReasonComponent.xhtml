@@ -12,24 +12,24 @@
       </f:facet>  
       <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.reason_remarks}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.reason_remarks}" required="false" disabled="false" value="#{reasonAction.reason.remarks}"></h:inputText> 
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}" label="#{msg.reason_remarks}" required="false" disabled="false" value="#{reasonAction.reason.remarks}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="encounterIdDecorate" rendered="#{ ! excludeEncounter == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.reason_encounter}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/>
         </ui:define>  
-        <h:selectOneMenu id="encounterId" label="#{msg.reason_encounter}" value="#{reasonAction.reason.encounter}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="encounterId" label="#{msg.reason_encounter}" value="#{reasonAction.reason.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}" disabled="false"> 
           <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="codeIdDecorate" rendered="#{ ! excludeCode == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.reason_code}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>
         </ui:define>  
-        <h:selectOneMenu id="codeId" label="#{msg.reason_code}" value="#{reasonAction.reason.code}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="codeId" label="#{msg.reason_code}" value="#{reasonAction.reason.code}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}" disabled="false"> 
           <s:selectItems value="#{codeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

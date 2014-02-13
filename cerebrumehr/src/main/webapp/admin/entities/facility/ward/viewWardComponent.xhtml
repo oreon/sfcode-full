@@ -10,31 +10,31 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Ward}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}"/>  
       <h:outputText value="#{wardAction.ward.name}" escape="false"/>  
-      <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')}"/>  
       <h:outputText value="#{wardAction.ward.gender}" escape="false"/>  
-      <h:outputText value="#{msg.ward_facility}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{wardAction.ward.facility.displayName}" view="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')}"/>  
+      <h:link escape="false" value="#{wardAction.ward.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
         <f:param name="facilityId" value="#{wardAction.ward.facility.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeRooms == true}"> 
-      <p:dataTable id="rooms" var="_room" rendered="#{not empty wardAction.listRooms and true }" value="#{wardAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="rooms" var="_room" rendered="#{not empty wardAction.listRooms and skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewRooms') }" value="#{wardAction.listRooms}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.room_roomType}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewRoomType')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_room.roomType.displayName}" view="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
+          <h:link escape="false" value="#{_room.roomType.displayName}" outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
             <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.room_name}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}"/> 
           </f:facet>  
           <h:outputText value="#{_room.name}" escape="false"/> 
         </p:column> 

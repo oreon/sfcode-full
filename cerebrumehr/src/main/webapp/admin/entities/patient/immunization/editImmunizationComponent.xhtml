@@ -12,24 +12,24 @@
       </f:facet>  
       <s:decorate id="dateDecorate" rendered="#{ ! excludeDate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.immunization_date}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.immunization_date}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editDate')}"/>
         </ui:define>  
-        <p:calendar escape="false" navigator="true" id="date#{entityId}" rendered="#{true}" label="#{msg.immunization_date}" required="false" disabled="false" value="#{immunizationAction.immunization.date}"></p:calendar> 
+        <p:calendar escape="false" navigator="true" id="date#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editDate')}" label="#{msg.immunization_date}" required="false" disabled="false" value="#{immunizationAction.immunization.date}"></p:calendar> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.immunization_patient}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.immunization_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientId" label="#{msg.immunization_patient}" value="#{immunizationAction.immunization.patient}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="patientId" label="#{msg.immunization_patient}" value="#{immunizationAction.immunization.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}" disabled="false"> 
           <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="vaccineIdDecorate" rendered="#{ ! excludeVaccine == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.immunization_vaccine}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}"/>
         </ui:define>  
-        <h:selectOneMenu id="vaccineId" label="#{msg.immunization_vaccine}" value="#{immunizationAction.immunization.vaccine}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="vaccineId" label="#{msg.immunization_vaccine}" value="#{immunizationAction.immunization.vaccine}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}" disabled="false"> 
           <s:selectItems value="#{vaccineList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

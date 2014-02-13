@@ -18,15 +18,15 @@
             <f:param name="trackedVitalId" value="#{_trackedVital.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.trackedVital_name}" sortBy="trackedVital.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.trackedVital_name}" sortBy="trackedVital.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewName')) }"> 
           <h:outputText value="#{_trackedVital.name}" escape="false"/> 
         </p:column>  
-        <p:column headerText="#{msg.trackedVital_minVal}" sortBy="trackedVital.minVal" rendered="#{true}"> 
+        <p:column headerText="#{msg.trackedVital_minVal}" sortBy="trackedVital.minVal" rendered="#{ ! excludeMinVal == true and ( skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMinVal')) }"> 
           <h:outputText value="#{_trackedVital.minVal}"> 
             <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
         </p:column>  
-        <p:column headerText="#{msg.trackedVital_maxVal}" sortBy="trackedVital.maxVal" rendered="#{true}"> 
+        <p:column headerText="#{msg.trackedVital_maxVal}" sortBy="trackedVital.maxVal" rendered="#{ ! excludeMaxVal == true and ( skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'viewMaxVal')) }"> 
           <h:outputText value="#{_trackedVital.maxVal}"> 
             <f:convertNumber pattern="000.00"/> 
           </h:outputText> 
@@ -63,7 +63,9 @@
             <f:param name="currentEntityId" value="#{_trackedVital.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/patient/trackedVital/modalDlgTrackedVitalComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

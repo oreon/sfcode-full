@@ -12,33 +12,33 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.facility_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.facility_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.facility_name}" required="false" disabled="false" value="#{facilityAction.facility.name}"></h:inputText> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editName')}" label="#{msg.facility_name}" required="false" disabled="false" value="#{facilityAction.facility.name}"></h:inputText> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeWards == true}"> 
-      <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{true}"> 
+      <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" process="@this"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="wards" var="_ward" rendered="#{true}" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="wards" var="_ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.ward_name}  " rendered="#{true}"/>
+            <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}"/>
           </f:facet>  
           <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.ward_name}" required="true" disabled="false" value="#{_ward.name}"></h:inputText> 
+            <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}" label="#{msg.ward_name}" required="true" disabled="false" value="#{_ward.name}"></h:inputText> 
           </s:decorate> 
         </p:column>  
         <p:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.ward_gender}  " rendered="#{true}"/>
+            <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editGender')}"/>
           </f:facet>  
           <s:decorate id="genderDecorate" rendered="#{ ! excludeGender == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="gender" rendered="#{true}" value="#{_ward.gender}" required="false" label="#{msg.ward_gender}"> 
+            <h:selectOneMenu id="gender" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editGender')}" value="#{_ward.gender}" required="false" label="#{msg.ward_gender}"> 
               <f:selectItem itemLabel="Please Select..." itemValue=""/>  
               <f:selectItem itemValue="F" itemLabel="#{msg.F}"/>  
               <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
@@ -46,7 +46,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{true}"> 
+          <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}" process="@this"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

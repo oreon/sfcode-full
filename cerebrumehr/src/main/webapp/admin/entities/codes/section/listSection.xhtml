@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/codes/section/editSection.xhtml" propagation="none"> 
         <f:param name="sectionId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSectionPanel')}" oncomplete="editSectionDialog.show()"> 
-        <f:param value="0" assignTo="#{sectionAction.sectionId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/codes/section/modalDlgSectionComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSectionPanel')}" actionListener="#{sectionAction.setSectionId(0)}" oncomplete="editSectionDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listSectionComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/codes/section/editSection.xhtml" propagation="none"> 
         <f:param name="sectionId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSectionPanel')}" oncomplete="editSectionDialog.show()"> 
-        <f:param value="0" assignTo="#{sectionAction.sectionId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/codes/section/modalDlgSectionComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSectionPanel')}" actionListener="#{sectionAction.setSectionId(0)}" oncomplete="editSectionDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

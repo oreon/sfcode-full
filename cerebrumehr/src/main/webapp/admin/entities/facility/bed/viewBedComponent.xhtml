@@ -10,15 +10,15 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Bed}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.bed_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')}"/>  
       <h:outputText value="#{bedAction.bed.name}" escape="false"/>  
-      <h:outputText value="#{msg.bed_room}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{bedAction.bed.room.displayName}" view="/admin/entities/facility/room/viewRoom.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.bed_room}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewRoom')}"/>  
+      <h:link escape="false" value="#{bedAction.bed.room.displayName}" outcome="/admin/entities/facility/room/viewRoom.xhtml" propagation="none"> 
         <f:param name="roomId" value="#{bedAction.bed.room.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
-      <h:outputText value="#{msg.bed_patient}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{bedAction.bed.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.bed_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewPatient')}"/>  
+      <h:link escape="false" value="#{bedAction.bed.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{bedAction.bed.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 

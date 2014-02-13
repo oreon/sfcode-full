@@ -18,7 +18,7 @@
             <f:param name="specializationId" value="#{_specialization.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.specialization_name}" sortBy="specialization.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.specialization_name}" sortBy="specialization.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('specialization', 'viewName')) }"> 
           <h:outputText value="#{_specialization.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="specialization.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -53,7 +53,9 @@
             <f:param name="currentEntityId" value="#{_specialization.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/employee/specialization/modalDlgSpecializationComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

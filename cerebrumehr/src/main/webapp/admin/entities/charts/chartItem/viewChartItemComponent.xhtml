@@ -10,14 +10,14 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.ChartItem}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.chartItem_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewName')}"/>  
       <h:outputText value="#{chartItemAction.chartItem.name}" escape="false"/>  
-      <h:outputText value="#{msg.chartItem_duration}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewDuration')}"/>  
       <h:outputText value="#{chartItemAction.chartItem.duration}" escape="false"/>  
-      <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.chartItem_frequencyPeriod}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewFrequencyPeriod')}"/>  
       <h:outputText value="#{chartItemAction.chartItem.frequencyPeriod}" escape="false"/>  
-      <h:outputText value="#{msg.chartItem_chart}  " rendered="#{true}"/>  
-      <h:link escape="false" value="#{chartItemAction.chartItem.chart.displayName}" view="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
+      <h:outputText value="#{msg.chartItem_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewChart')}"/>  
+      <h:link escape="false" value="#{chartItemAction.chartItem.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
         <f:param name="chartId" value="#{chartItemAction.chartItem.chart.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link> 

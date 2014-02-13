@@ -12,26 +12,26 @@
       </f:facet>  
       <s:decorate id="nameDecorate" rendered="#{ ! excludeName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.differentialDx_name}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="name#{entityId}" rendered="#{true}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{differentialDxAction.differentialDx.name}"> 
+        <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}" label="#{msg.differentialDx_name}" required="true" disabled="false" value="#{differentialDxAction.differentialDx.name}"> 
           <f:converter converterId="witchcraft.ui.jsf.capitalizeConverter"/> 
         </h:inputText> 
       </s:decorate>  
       <s:decorate id="dxCategoryIdDecorate" rendered="#{ ! excludeDxCategory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>
         </ui:define>  
-        <h:selectOneMenu id="dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{differentialDxAction.differentialDx.dxCategory}" required="false" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{differentialDxAction.differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false"> 
           <s:selectItems value="#{dxCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="findingIdDecorate" rendered="#{ ! excludeFinding == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.differentialDx_finding}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.differentialDx_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}"/>
         </ui:define>  
-        <h:selectOneMenu id="findingId" label="#{msg.differentialDx_finding}" value="#{differentialDxAction.differentialDx.finding}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="findingId" label="#{msg.differentialDx_finding}" value="#{differentialDxAction.differentialDx.finding}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}" disabled="false"> 
           <s:selectItems value="#{findingList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

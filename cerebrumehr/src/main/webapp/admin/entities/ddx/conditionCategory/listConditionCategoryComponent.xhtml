@@ -18,7 +18,7 @@
             <f:param name="conditionCategoryId" value="#{_conditionCategory.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.conditionCategory_name}" sortBy="conditionCategory.name" rendered="#{true}"> 
+        <p:column headerText="#{msg.conditionCategory_name}" sortBy="conditionCategory.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('conditionCategory', 'viewName')) }"> 
           <h:outputText value="#{_conditionCategory.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="conditionCategory.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -53,7 +53,9 @@
             <f:param name="currentEntityId" value="#{_conditionCategory.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/ddx/conditionCategory/modalDlgConditionCategoryComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

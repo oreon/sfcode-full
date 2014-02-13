@@ -12,15 +12,15 @@
       </f:facet>  
       <s:decorate id="falsePositiveDecorate" rendered="#{ ! excludeFalsePositive == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}"/>
         </ui:define>  
-        <h:selectBooleanCheckbox escape="false" id="falsePositive#{entityId}" rendered="#{true}" label="#{msg.conditionFinding_falsePositive}" required="false" disabled="false" value="#{conditionFindingAction.conditionFinding.falsePositive}"></h:selectBooleanCheckbox> 
+        <h:selectBooleanCheckbox escape="false" id="falsePositive#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editFalsePositive')}" label="#{msg.conditionFinding_falsePositive}" required="false" disabled="false" value="#{conditionFindingAction.conditionFinding.falsePositive}"></h:selectBooleanCheckbox> 
       </s:decorate>  
       <s:decorate id="diseaseIdDecorate" rendered="#{ ! excludeDisease == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}"/>
         </ui:define>  
-        <h:selectOneMenu id="diseaseId" label="#{msg.conditionFinding_disease}" value="#{conditionFindingAction.conditionFinding.disease}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="diseaseId" label="#{msg.conditionFinding_disease}" value="#{conditionFindingAction.conditionFinding.disease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}" disabled="false"> 
           <s:selectItems value="#{diseaseList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 

@@ -18,8 +18,8 @@
             <f:param name="appliedChartId" value="#{_appliedChart.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.appliedChart_patient}" sortBy="appliedChart.patient" rendered="#{true}"> 
-          <h:link escape="false" value="#{_appliedChart.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.appliedChart_patient}" sortBy="appliedChart.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewPatient')) }"> 
+          <h:link escape="false" value="#{_appliedChart.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_appliedChart.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
@@ -27,8 +27,8 @@
             </p:tooltip> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.appliedChart_chart}" sortBy="appliedChart.chart" rendered="#{true}"> 
-          <h:link escape="false" value="#{_appliedChart.chart.displayName}" view="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
+        <p:column headerText="#{msg.appliedChart_chart}" sortBy="appliedChart.chart" rendered="#{ ! excludeChart == true and ( skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewChart')) }"> 
+          <h:link escape="false" value="#{_appliedChart.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
             <f:param name="chartId" value="#{_appliedChart.chart.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link> 
@@ -65,7 +65,9 @@
             <f:param name="currentEntityId" value="#{_appliedChart.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/charts/appliedChart/modalDlgAppliedChartComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

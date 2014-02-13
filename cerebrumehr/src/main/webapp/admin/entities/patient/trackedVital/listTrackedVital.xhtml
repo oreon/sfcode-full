@@ -15,13 +15,7 @@
       <p:button value="Create New" outcome="/admin/entities/patient/trackedVital/editTrackedVital.xhtml" propagation="none"> 
         <f:param name="trackedVitalId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editTrackedVitalPanel')}" oncomplete="editTrackedVitalDialog.show()"> 
-        <f:param value="0" assignTo="#{trackedVitalAction.trackedVitalId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/patient/trackedVital/modalDlgTrackedVitalComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editTrackedVitalPanel')}" actionListener="#{trackedVitalAction.setTrackedVitalId(0)}" oncomplete="editTrackedVitalDialog.show()"></p:commandButton> 
     </h:form>  
     <div id="printable"> 
       <ui:include src="listTrackedVitalComponent.xhtml"> 
@@ -32,13 +26,7 @@
       <p:button value="Create New" outcome="/admin/entities/patient/trackedVital/editTrackedVital.xhtml" propagation="none"> 
         <f:param name="trackedVitalId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editTrackedVitalPanel')}" oncomplete="editTrackedVitalDialog.show()"> 
-        <f:param value="0" assignTo="#{trackedVitalAction.trackedVitalId}"/>  
-        <s:conversationPropagation type="join"/> 
-      </p:commandButton>  
-      <ui:include src="/admin/entities/patient/trackedVital/modalDlgTrackedVitalComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editTrackedVitalPanel')}" actionListener="#{trackedVitalAction.setTrackedVitalId(0)}" oncomplete="editTrackedVitalDialog.show()"></p:commandButton> 
     </h:form> 
   </ui:define> 
 </ui:composition>

@@ -10,9 +10,9 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Chapter}"/> 
       </f:facet>  
-      <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewName')}"/>  
       <h:outputText value="#{chapterAction.chapter.name}" escape="false"/>  
-      <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewDescription')}"/>  
       <h:panelGroup> 
         <p:tooltip value="#{chapterAction.chapter.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
         <h:outputText id="descriptionAbbr" value="#{chapterAction.chapter.descriptionAbbreviated}" escape="false"/> 
@@ -20,16 +20,16 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeSections == true}"> 
-      <p:dataTable id="sections" var="_section" rendered="#{not empty chapterAction.listSections and true }" value="#{chapterAction.listSections}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="sections" var="_section" rendered="#{not empty chapterAction.listSections and skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewSections') }" value="#{chapterAction.listSections}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.abstractCode_name}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'viewName')}"/> 
           </f:facet>  
           <h:outputText value="#{_section.name}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
-            <h:outputText value="#{msg.abstractCode_description}  " rendered="#{true}"/> 
+            <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'viewDescription')}"/> 
           </f:facet>  
           <h:panelGroup> 
             <p:tooltip value="#{_section.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  

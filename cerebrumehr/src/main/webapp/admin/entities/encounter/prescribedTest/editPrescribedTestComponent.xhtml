@@ -12,24 +12,24 @@
       </f:facet>  
       <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{true}" label="#{msg.prescribedTest_remarks}" required="false" disabled="false" value="#{prescribedTestAction.prescribedTest.remarks}"></h:inputText> 
+        <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editRemarks')}" label="#{msg.prescribedTest_remarks}" required="false" disabled="false" value="#{prescribedTestAction.prescribedTest.remarks}"></h:inputText> 
       </s:decorate>  
       <s:decorate id="dxTestIdDecorate" rendered="#{ ! excludeDxTest == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>
         </ui:define>  
-        <h:selectOneMenu id="dxTestId" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="dxTestId" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false"> 
           <s:selectItems value="#{dxTestList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="encounterIdDecorate" rendered="#{ ! excludeEncounter == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}"/>
         </ui:define>  
-        <h:selectOneMenu id="encounterId" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{true}" disabled="false"> 
+        <h:selectOneMenu id="encounterId" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}" disabled="false"> 
           <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
@@ -44,15 +44,15 @@
       </f:facet>  
       <s:decorate id="testResults_resultsDecorate" rendered="#{ ! excludeResults == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.testResults_results}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="testResults_results#{entityId}" rendered="#{true}" label="#{msg.testResults_results}" required="false" disabled="false" value="#{prescribedTestAction.prescribedTest.testResults.results}"></p:editor> 
+        <p:editor escape="false" useSeamText="true" id="testResults_results#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editResults')}" label="#{msg.testResults_results}" required="false" disabled="false" value="#{prescribedTestAction.prescribedTest.testResults.results}"></p:editor> 
       </s:decorate>  
       <s:decorate id="testResults_documentDecorate" rendered="#{ ! excludeDocument == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.testResults_document}  " rendered="#{true}"/>
+          <h:outputText value="#{msg.testResults_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDocument')}"/>
         </ui:define>  
-        <h:panelGroup rendered="#{true}"> 
+        <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDocument')}"> 
           <h:outputText value="Current File:"/>  
           <h:link value="#{prescribedTestAction.testResults.document.name}" id="document_file" action="#{prescribedTestAction.downloadFile(null)}" propagation="none"> 
             <f:param name="currentEntityId" value="#{prescribedTestAction.instance.id}"/> 

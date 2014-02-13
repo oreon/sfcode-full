@@ -18,7 +18,15 @@
             <f:param name="findingId" value="#{_finding.id}"/> 
           </h:link> 
         </p:column>  
-        <p:column headerText="#{msg.finding_name}" sortBy="finding.name" rendered="#{true}"> 
+        <p:column style="width:2%"> 
+          <p:rowToggler/> 
+        </p:column>  
+        <p:rowExpansion> 
+          <ui:include src="/admin/entities/ddx/differentialDx/miniListDifferentialDxComponent.xhtml"> 
+            <ui:param name="records" value="#{_finding.listDifferentialDxs}"/> 
+          </ui:include> 
+        </p:rowExpansion>  
+        <p:column headerText="#{msg.finding_name}" sortBy="finding.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewName')) }"> 
           <h:outputText value="#{_finding.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="finding.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -53,7 +61,9 @@
             <f:param name="currentEntityId" value="#{_finding.id}"/> 
           </h:link> 
         </p:column> 
-      </p:dataTable>  
+      </p:dataTable> 
+    </h:form>  
+    <h:form> 
       <ui:include src="/admin/entities/ddx/finding/modalDlgFindingComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 

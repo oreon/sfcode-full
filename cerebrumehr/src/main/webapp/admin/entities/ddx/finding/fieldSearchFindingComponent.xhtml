@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.finding_name}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.finding_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{findingList.finding.name}"/> 
     </h:panelGroup> 

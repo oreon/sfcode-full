@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDescription')}"/>  
       <br/>  
       <h:inputText id="description" value="#{drugInteractionList.drugInteraction.description}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drugInteraction_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrug')}"/>  
       <br/>  
       <h:selectOneMenu id="drugId" value="#{ drugInteractionList.drugInteraction.drug}"> 
         <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -19,7 +19,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editInteractingDrug')}"/>  
       <br/>  
       <h:selectOneMenu id="interactingDrugId" value="#{ drugInteractionList.drugInteraction.interactingDrug}"> 
         <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -27,7 +27,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{true}"/>  
+      <h:outputText value="#{msg.drugInteraction_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editSeverity')}"/>  
       <br/>  
       <h:selectOneMenu id="severity" value="#{drugInteractionList.drugInteraction.severity}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
