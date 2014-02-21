@@ -84,8 +84,7 @@ skipOnErrors="true">
 -->
 
 
-<component id="BeansGenerator" class="oaw.xpand2.Generator"
-skipOnErrors="true">
+<component id="BeansGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
 	<metaModel class="oaw.type.emf.EmfMetaModel">
 	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
 	</metaModel>
@@ -98,6 +97,10 @@ skipOnErrors="true">
 	<prDefaultExcludes value="false"/>
 	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
 	<expand value="template::Root::Root FOR model"/>
+	<beautifier class="oaw.xpand2.output.JavaBeautifier"/>
+	
+	<globalVarDef name="ImplClassSuffix" value="'Impl'"/>
+	
 	<outlet path="${srcGenPath}/">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter"  />
@@ -108,6 +111,14 @@ organizeImports="true" format="true"/>
 	</outlet>
 </component>
 
+
+ <component adviceTarget="BeansGenerator"  id="reflectionAdvice"
+              class="oaw.xpand2.GeneratorAdvice">
+      <advices value="template::advices"/>
+ </component>
+
+
+ 
 
 <component id="MessageBundleGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
 	<metaModel class="oaw.type.emf.EmfMetaModel">
@@ -150,6 +161,12 @@ organizeImports="true" format="true"/>
 		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter"  />
 	</outlet>
 </component>
+
+
+<component adviceTarget="SeamGenerator"  id="reflectionAdvice"
+              class="oaw.xpand2.GeneratorAdvice">
+      <advices value="template::advices"/>
+ </component>
 
 
 <!--

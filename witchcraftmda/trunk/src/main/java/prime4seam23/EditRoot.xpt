@@ -36,7 +36,9 @@
 		«ENDIF»
 	
 		<div id="printable" >
-		<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
+		<ui:include src="«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" >
+			<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
+		</ui:include>
 		</div>
 		«EXPAND genCancelSaveBtns(true) FOR this»
 		</h:form>
@@ -64,17 +66,21 @@
 			<p:tabView switchType="ajax">
 				<p:tab title="«name»">
 					<div id="printable" >
-					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" />
+					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" >
+						<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
+					</ui:include>
 					</div>
 					«EXPAND genCancelSaveBtns(false) FOR this»
 				</p:tab>
 			«FOREACH getOutgoingAssociations() AS a ITERATOR iter»
 				<p:tab title="«a.name.toFirstUpper()»"  rendered="#{«getAction()».instance.«a.name» != null}">
+				  <h:form>
 					<ui:include src = "«a.type.getComponentViewFile("view")»" >
 						«REM»comment<ui:param name="entityId" value="«getRandomNumber()»" />«ENDREM»
 						<ui:param name="entityId" value="«iter.counter1»" />
 						<ui:param name="«a.type.name.toFirstLower()»Id" value="#{«getAction()».instance.«a.name».id}" />
 					</ui:include>
+				 </h:form>
 				</p:tab>
 			«ENDFOREACH»	
 			</p:tabView>
@@ -139,7 +145,7 @@
 	<h:panelGroup  id="«(edit?"edit":"view")»«name»ComponentPanel" >
 		«REM»<s:validateAll>«ENDREM»
 		«setAsCurrentEntity(this)-»
-		<h:panelGrid columns="«edit?"1":"1"»"  onload="#{«getAction()».load(«asVar()»Id )  }"></h:panelGrid>
+		<h:panelGrid columns="«edit?"1":"1"»" ></h:panelGrid>
 		«REM»comment
 		«IF !isCurrentEditMode() && fieldsFromSuperClass != null» «EXPAND genProperty FOREACH getStringsAsList(fieldsFromSuperClass)» «ENDIF»
 		«ENDREM»
@@ -324,7 +330,7 @@
 			«EXPAND genLabelAndOutputTabular FOR this»
 		«ELSE»
 			«getOutputMessage()-» 
-			«EXPAND ListRoot::genPropertyValue(getActionForMode()) FOR this»
+			«EXPAND ListRoot::genPropertyValue("") FOR this»
 		«ENDIF»
 		
 	«ENDIF»
@@ -355,7 +361,7 @@
 «DEFINE panelBegin FOR uml::Class»
 	«IF !isCurrentMultiMode()»
 		<c:if test="${numColumns == null }" > <c:set var="numColumns" value="2" /> </c:if>
-  		<h:panelGrid columns="${numColumns}" styleClass="«isCurrentEditMode()?"edit":"view"»Info" columnClasses="leftCol, rightCol"   rendered="#{ hidePanel«name» eq null}" >
+  		<h:panelGrid columns="${numColumns}" styleClass="«isCurrentEditMode()?"edit":"view"»Info" columnClasses="leftCol, rightCol"    >
   		<f:facet name="header"> 
 			<h:outputText value="#{msg.«name»}"/> 
   		</f:facet>
@@ -435,26 +441,24 @@
 «ENDDEFINE»
 
 «DEFINE genDropDown FOR uml::Property»
-	<h:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" 
+	<p:selectOneMenu id="«getId()»"   label="«msgBundleKey()»" value="#{«getActionForMode()»«genPropertyLabel()-»}" 
 		required="«!getAssocOptional() && !isCurrentTemplateMode()»"  rendered="#{«genEditPermission()»}" 
-		disabled="false" >
+		disabled="false"  converter="#{«type.asVar()»List.converter}">
 		«IF isColumn() && this.controls != null » 
 			«IF !isCurrentMultiMode()»   «REM»TODO: update=controls need to be id aware «ENDREM»
 			<p:ajax  listener="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  update=":#{p:component('«controls»')}"    />
 			«ELSE» «REM»For multimode we need to send the variable «ENDREM»
-			  <p:ajax event="onchange"
-				action="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"
-				update="«class.asVar()»s" ajaxSingle="true">  «REM»TODO: Replace with actual name of relationship «ENDREM»
+			 <p:ajax  listener="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"  update=":#{p:component('«class.asVar()»s')}" >
+			 	«REM»TODO: Replace with actual name of relationship «ENDREM»
 				<s:conversationPropagation type="join" />
 			  </p:ajax>
 			«ENDIF»
 		«ENDIF»
-		<s:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.all"»}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
+		<f:selectItem itemLabel="Select One" itemValue="" /> 
+		<f:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.all"»}" var="itemIter"
+			itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"   />
 		«genAjaxValidatorJSF2()»
-		<s:convertEntity />
-	</h:selectOneMenu>
+	</p:selectOneMenu>
 	 «REM»comment
 	«EXPAND genSearchForAssoc FOR this»
 	«ENDREM»
@@ -592,9 +596,7 @@
 			«ELSE»
 				rendered="#{«genEditPermission()»}"
 		 «ENDIF»
-				value="#{«class.getAction()».list«name.toFirstUpper()»}" 
-				rowKeyVar="rowIndex" 
-				rowClasses="odd, even" styleClass="viewInfo" rules="all">
+				value="#{«class.getAction()».list«name.toFirstUpper()»}" rowIndexVar="rowIndex">
 		«setAsCurrentEntity(type)»
 		«EXPAND genAttribAsOutput FOR type-»
 		«IF isCurrentEditMode()  -»
@@ -611,10 +613,10 @@
 
 «DEFINE genDelete FOR uml::Property»
 	<p:column>
-		<h:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
-			update="«name»">
+		<p:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
+			update="«name»"  process="@this">
 			<s:conversationId/>
-		</h:commandButton>
+		</p:commandButton>
 	</p:column>
 «ENDDEFINE»
 

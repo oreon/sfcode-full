@@ -64,7 +64,7 @@
 «DEFINE GenPackageInfo FOR uml::Package»
 «IF !name.startsWith("UML")»
 
-«FILE packagePathPck() +"/package-info.java"  »
+«FILE packagePathPck() +"/package-info.java"  »«EXPAND genFileHeader FOR this»
 package «packageNamePck()»; 
 «ENDFILE»
 
@@ -72,7 +72,7 @@ package «packageNamePck()»;
 «ENDDEFINE»
 
 «DEFINE GenPackageInfo FOR wcprofile::EntitiesPackage»
-«FILE packagePathPck() +"/package-info.java"  »
+«FILE packagePathPck() +"/package-info.java"  »«EXPAND genFileHeader FOR this»
 «IF isSeam2()»
 @FilterDefs({
 @FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", parameters = @ParamDef(name = "aArchived", type = "string")),
@@ -93,9 +93,12 @@ import org.hibernate.annotations.FilterDefs;
 	«IF name != null && package != null»
 	
 	«FILE packagePath() +"/" +name+".java"»
+		«EXPAND genFileHeader FOR this»
 		package « packageName() »;
 		«EXPAND genImports FOR this»
 		«EXPAND genPersistenceImports FOR this»
+		
+		//«implClassSuffix()» 
 		«EXPAND genClassBody FOR this»
 		
 		
@@ -104,9 +107,16 @@ import org.hibernate.annotations.FilterDefs;
 	«ENDIF»
 «ENDDEFINE»
 
+
+«DEFINE genFileHeader FOR uml::Element»
+
+«ENDDEFINE»
+
+
 «DEFINE ClassRoot FOR wcprofile::WebAction»
 	«IF name != null && package != null »
 		«FILE packagePath() +"/" +name + ".java" man_path »
+			«EXPAND genFileHeader FOR this»
 			package « packageName() »;
 			«EXPAND genImports FOR this»
 			«IF isRich() » import org.jboss.seam.annotations.Name; «ENDIF»
@@ -145,6 +155,8 @@ import org.hibernate.annotations.FilterDefs;
 
 «DEFINE ClassRoot FOR uml::Interface»
 	«FILE packagePath() +"/" +name+".java"»
+	«EXPAND genFileHeader FOR this»
+	«EXPAND genFileHeader FOR this»
 	package « packageName() »;
 	«EXPAND genImports »
 	
@@ -542,7 +554,7 @@ a
 	«ELSE»
 		«IF association != null &&  !type.isEmbeddable()»
 			«REM»comment//«isOneOnOne()» unq «isUnique» opp is unq«opposite.isUnique» mult «isMultivalued()» opp mult «opposite.isMultivalued()» «opposite.isMultivalued() == null ? "unspec" : "spec-blank" » «ENDREM»
-			@« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+			@« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY)
 			«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = «getAssocUpdatable()») «ENDIF»
     		«IF type.name != class.name  && class.isFullTextSearchable()»@ContainedIn«ENDIF»
 		«ENDIF» 

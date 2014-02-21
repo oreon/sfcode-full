@@ -95,6 +95,7 @@ import «a.type.fqn()»;
 «ENDFOREACH»
 
 
+//«implClassSuffix()»
 public abstract class «name»ActionBase extends «getParentForAction()» implements java.io.Serializable{
 
 	«REM»
@@ -126,26 +127,14 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	«ENDIF»
 	
 	public void set«name»Id(Long id) {
-		if(id == 0){
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if(!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 	
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void set«name»IdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 	
 	«FOREACH getOutgoingAssociations() AS e-»
@@ -445,6 +434,13 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 
 «DEFINE updateList FOR uml::Property»
 	  if (list«name.toFirstUpper()» != null) {
+	  
+	  	java.util.Set<«type.name»> items = getInstance().get«name.toFirstUpper()»();
+			for («type.name» item : items) {
+				if(!list«name.toFirstUpper()».contains(item))
+					getEntityManager().remove(item);
+			}
+	  
 		getInstance().get«name.toFirstUpper()»().clear();
 		getInstance().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
 	  }

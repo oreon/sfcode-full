@@ -109,6 +109,7 @@
 	<p:rowExpansion>
 		<ui:include src="«this.type.getComponentViewFile("miniList")»"  >
 			<ui:param name="records" value="#{_«class.asVar()».list«name.toFirstUpper()»}" />
+			 <ui:param name="exclude«opposite.name.toFirstUpper()»" value="true"/>
         </ui:include>
 	</p:rowExpansion>
 «ENDDEFINE»
@@ -255,7 +256,7 @@
 
 «DEFINE genAssocValue(String prefix) FOR uml::Property»
 	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
-	<h:link «getEscape()»  value="#{«prefix»«genPropertyLabel()».displayName}"  outcome="«type.getViewFile("view")»" propagation="none">
+	<h:link id="«getSimpleId()»" «getEscape()»  value="#{«prefix»«genPropertyLabel()».displayName}"  outcome="«type.getViewFile("view")»" propagation="none">
 			<f:param name="«type.name.toFirstLower()»Id" value="#{«prefix»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
@@ -265,7 +266,15 @@
 	            </span>
 	        </p:tooltip>
 	        «ENDIF»
+	       
 	</h:link>
+	
+		  <p:overlayPanel for="«getSimpleId()»" showEvent="mouseover" hideEffect="fade" dynamic="false">
+	           <ui:include src="«type.getComponentViewFile("view")»"> 
+	             <ui:param name="«type.asVar()»" value="#{«prefix»«genPropertyLabel()»}"/> 
+	             <ui:param name="numColumns" value="4"/> 
+	           </ui:include>
+           </p:overlayPanel>
 «ENDDEFINE»
 
 
