@@ -34,10 +34,16 @@
           <h:outputText value="#{_employee.contactDetails.city}" escape="false"/> 
         </p:column>  
         <p:column headerText="#{msg.employee_department}" sortBy="employee.department" rendered="#{ ! excludeDepartment == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewDepartment')) }"> 
-          <h:link escape="false" value="#{_employee.department.displayName}" outcome="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
+          <h:link id="departmentemployee_department" escape="false" value="#{_employee.department.displayName}" outcome="/admin/entities/domain/department/viewDepartment.xhtml" propagation="none"> 
             <f:param name="departmentId" value="#{_employee.department.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <ui:include src="/admin/entities/domain/department/viewDepartmentComponent.xhtml"> 
+              <ui:param name="department" value="#{_employee.department}"/>  
+              <ui:param name="numColumns" value="4"/> 
+            </ui:include> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.employee_employeeNumber}" sortBy="employee.employeeNumber" rendered="#{ ! excludeEmployeeNumber == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeNumber')) }"> 
           <h:outputText value="#{_employee.employeeNumber}" escape="false"/> 

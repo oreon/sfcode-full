@@ -2,24 +2,30 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="viewCustomerQuestionComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{customerQuestionAction.load(customerQuestionId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomerQuestion eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.CustomerQuestion}"/> 
       </f:facet>  
       <h:outputText value="#{msg.customerQuestion_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerQuestion', 'viewText')}"/>  
       <h:panelGroup> 
-        <p:tooltip value="#{customerQuestionAction.customerQuestion.text}" for="textAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="textAbbr" value="#{customerQuestionAction.customerQuestion.textAbbreviated}" escape="false"/> 
+        <p:tooltip value="#{customerQuestion.text}" for="textAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="textAbbr" value="#{customerQuestion.textAbbreviated}" escape="false"/> 
       </h:panelGroup>  
       <h:outputText value="#{msg.customerQuestion_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerQuestion', 'viewCustomer')}"/>  
-      <h:link escape="false" value="#{customerQuestionAction.customerQuestion.customer.displayName}" outcome="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
-        <f:param name="customerId" value="#{customerQuestionAction.customerQuestion.customer.id}"/>  
+      <h:link id="customercustomerQuestion_customer" escape="false" value="#{customerQuestion.customer.displayName}" outcome="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
+        <f:param name="customerId" value="#{customerQuestion.customer.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="customercustomerQuestion_customer" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <ui:include src="/admin/entities/commerce/customer/viewCustomerComponent.xhtml"> 
+          <ui:param name="customer" value="#{customerQuestion.customer}"/>  
+          <ui:param name="numColumns" value="4"/> 
+        </ui:include> 
+      </p:overlayPanel> 
     </h:panelGrid>  
     <br/>  
     <br/> 

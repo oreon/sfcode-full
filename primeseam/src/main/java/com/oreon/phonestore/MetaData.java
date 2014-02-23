@@ -68,13 +68,13 @@ public class MetaData {
 
 	"remarks", "java.lang.String",
 
-	"customer.displayName", "java.lang.String",
-
 	"total", "BigDecimal",
 
 	"servicingEmployee.displayName", "java.lang.String",
 
 	"dateDeliverBy", "java.util.Date",
+
+	"customer.displayName", "java.lang.String",
 
 	},
 
@@ -107,6 +107,8 @@ public class MetaData {
 	"type.name", "java.lang.String",
 
 	"customerQuestionsCount", "java.lang.Integer",
+
+	"customerOrdersCount", "java.lang.Integer",
 
 	},
 

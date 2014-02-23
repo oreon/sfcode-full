@@ -2,25 +2,25 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="viewExamComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{examAction.load(examId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelExam eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Exam}"/> 
       </f:facet>  
       <h:outputText value="#{msg.exam_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewTitle')}"/>  
-      <h:outputText value="#{examAction.exam.title}" escape="false"/>  
+      <h:outputText value="#{exam.title}" escape="false"/>  
       <h:outputText value="#{msg.exam_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewDescription')}"/>  
       <h:panelGroup> 
-        <p:tooltip value="#{examAction.exam.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="descriptionAbbr" value="#{examAction.exam.descriptionAbbreviated}" escape="false"/> 
+        <p:tooltip value="#{exam.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="descriptionAbbr" value="#{exam.descriptionAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeQuestions == true}"> 
-      <p:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions and skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewQuestions') }" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="questions" var="_question" rendered="#{not empty examAction.listQuestions and skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewQuestions') }" value="#{examAction.listQuestions}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'viewText')}"/> 

@@ -13,7 +13,8 @@
     </p:column>  
     <p:rowExpansion> 
       <ui:include src="/admin/entities/commerce/orderItem/miniListOrderItemComponent.xhtml"> 
-        <ui:param name="records" value="#{_customerOrder.listOrderItems}"/> 
+        <ui:param name="records" value="#{_customerOrder.listOrderItems}"/>  
+        <ui:param name="excludeCustomerOrder" value="true"/> 
       </ui:include> 
     </p:rowExpansion>  
     <p:column headerText="#{msg.customerOrder_remarks}" sortBy="customerOrder.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewRemarks')) }"> 
@@ -22,27 +23,39 @@
         <h:outputText id="remarksAbbr" value="#{_customerOrder.remarksAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column>  
-    <p:column headerText="#{msg.customerOrder_customer}" sortBy="customerOrder.customer" rendered="#{ ! excludeCustomer == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewCustomer')) }"> 
-      <h:link escape="false" value="#{_customerOrder.customer.displayName}" outcome="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
-        <f:param name="customerId" value="#{_customerOrder.customer.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
-    </p:column>  
     <p:column headerText="#{msg.customerOrder_total}" sortBy="customerOrder.total" rendered="#{ ! excludeTotal == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewTotal')) }"> 
       <h:outputText value="#{_customerOrder.total}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText> 
     </p:column>  
     <p:column headerText="#{msg.customerOrder_servicingEmployee}" sortBy="customerOrder.servicingEmployee" rendered="#{ ! excludeServicingEmployee == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewServicingEmployee')) }"> 
-      <h:link escape="false" value="#{_customerOrder.servicingEmployee.displayName}" outcome="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
+      <h:link id="servicingEmployeecustomerOrder_servicingEmployee" escape="false" value="#{_customerOrder.servicingEmployee.displayName}" outcome="/admin/entities/domain/employee/viewEmployee.xhtml" propagation="none"> 
         <f:param name="employeeId" value="#{_customerOrder.servicingEmployee.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="servicingEmployeecustomerOrder_servicingEmployee" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml"> 
+          <ui:param name="employee" value="#{_customerOrder.servicingEmployee}"/>  
+          <ui:param name="numColumns" value="4"/> 
+        </ui:include> 
+      </p:overlayPanel> 
     </p:column>  
     <p:column headerText="#{msg.customerOrder_dateDeliverBy}" sortBy="customerOrder.dateDeliverBy" rendered="#{ ! excludeDateDeliverBy == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewDateDeliverBy')) }"> 
       <h:outputText value="#{_customerOrder.dateDeliverBy}"> 
         <s:convertDateTime type="date" dateStyle="medium"/> 
       </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.customerOrder_customer}" sortBy="customerOrder.customer" rendered="#{ ! excludeCustomer == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'viewCustomer')) }"> 
+      <h:link id="customercustomerOrder_customer" escape="false" value="#{_customerOrder.customer.displayName}" outcome="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
+        <f:param name="customerId" value="#{_customerOrder.customer.id}"/>  
+        <f:param name="from" value="#{request.servletPath}"/> 
+      </h:link>  
+      <p:overlayPanel for="customercustomerOrder_customer" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <ui:include src="/admin/entities/commerce/customer/viewCustomerComponent.xhtml"> 
+          <ui:param name="customer" value="#{_customerOrder.customer}"/>  
+          <ui:param name="numColumns" value="4"/> 
+        </ui:include> 
+      </p:overlayPanel> 
     </p:column> 
   </p:dataTable> 
 </ui:composition>

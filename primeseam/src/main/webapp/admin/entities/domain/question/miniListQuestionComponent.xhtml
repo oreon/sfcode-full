@@ -15,10 +15,16 @@
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.question_exam}" sortBy="question.exam" rendered="#{ ! excludeExam == true and ( skipPermissionCheck == 'true' || s:hasPermission('question', 'viewExam')) }"> 
-      <h:link escape="false" value="#{_question.exam.displayName}" outcome="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
+      <h:link id="examquestion_exam" escape="false" value="#{_question.exam.displayName}" outcome="/admin/entities/domain/exam/viewExam.xhtml" propagation="none"> 
         <f:param name="examId" value="#{_question.exam.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="examquestion_exam" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <ui:include src="/admin/entities/domain/exam/viewExamComponent.xhtml"> 
+          <ui:param name="exam" value="#{_question.exam}"/>  
+          <ui:param name="numColumns" value="4"/> 
+        </ui:include> 
+      </p:overlayPanel> 
     </p:column> 
   </p:dataTable> 
 </ui:composition>

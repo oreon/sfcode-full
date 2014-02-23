@@ -23,7 +23,8 @@
         </p:column>  
         <p:rowExpansion> 
           <ui:include src="/admin/entities/domain/question/miniListQuestionComponent.xhtml"> 
-            <ui:param name="records" value="#{_exam.listQuestions}"/> 
+            <ui:param name="records" value="#{_exam.listQuestions}"/>  
+            <ui:param name="excludeExam" value="true"/> 
           </ui:include> 
         </p:rowExpansion>  
         <p:column headerText="#{msg.exam_title}" sortBy="exam.title" rendered="#{ ! excludeTitle == true and ( skipPermissionCheck == 'true' || s:hasPermission('exam', 'viewTitle')) }"> 

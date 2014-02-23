@@ -25,10 +25,16 @@
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.customerQuestion_customer}" sortBy="customerQuestion.customer" rendered="#{ ! excludeCustomer == true and ( skipPermissionCheck == 'true' || s:hasPermission('customerQuestion', 'viewCustomer')) }"> 
-          <h:link escape="false" value="#{_customerQuestion.customer.displayName}" outcome="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
+          <h:link id="customercustomerQuestion_customer" escape="false" value="#{_customerQuestion.customer.displayName}" outcome="/admin/entities/commerce/customer/viewCustomer.xhtml" propagation="none"> 
             <f:param name="customerId" value="#{_customerQuestion.customer.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="customercustomerQuestion_customer" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <ui:include src="/admin/entities/commerce/customer/viewCustomerComponent.xhtml"> 
+              <ui:param name="customer" value="#{_customerQuestion.customer}"/>  
+              <ui:param name="numColumns" value="4"/> 
+            </ui:include> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="customerQuestion.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_customerQuestion.dateCreated}"> 

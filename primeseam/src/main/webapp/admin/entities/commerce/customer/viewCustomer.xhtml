@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="Customer"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/commerce/customer/viewCustomerComponent.xhtml"/> 
+            <ui:include src="/admin/entities/commerce/customer/viewCustomerComponent.xhtml"> 
+              <ui:param name="customer" value="#{customerAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('customer', 'edit')}" action="edit"></h:commandButton>  
@@ -37,6 +39,23 @@
           </h:button>  
           <p:commandButton value="Quick Create" update=":#{p:component('editCustomerQuestionPanel')}" oncomplete="editCustomerQuestionDialog.show()" actionListener="#{customerQuestionAction.setCustomerQuestionId(0)}"> 
             <f:setPropertyActionListener target="#{customerQuestionAction.customerId}" value="#{customerAction.instance.id}"/> 
+          </p:commandButton> 
+        </h:form> 
+      </p:tab>  
+      <p:tab title="CustomerOrders" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="CustomerModalPanel-customerOrders"/>  
+        <ui:include src="/admin/entities/commerce/customerOrder/listCustomerOrderComponent.xhtml"> 
+          <ui:param name="records" value="#{customerOrderList.getCustomerOrdersByCustomer(customerAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/>  
+          <ui:param name="excludeCustomer" value="true"/> 
+        </ui:include>  
+        <h:form> 
+          <h:button value="Create New" outcome="/admin/entities/commerce/customerOrder/editCustomerOrder.xhtml"> 
+            <f:param name="customerId" value="#{customerAction.instance.id}"/>  
+            <f:param name="customerOrderId" value="0"/> 
+          </h:button>  
+          <p:commandButton value="Quick Create" update=":#{p:component('editCustomerOrderPanel')}" oncomplete="editCustomerOrderDialog.show()" actionListener="#{customerOrderAction.setCustomerOrderId(0)}"> 
+            <f:setPropertyActionListener target="#{customerOrderAction.customerId}" value="#{customerAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
       </p:tab> 

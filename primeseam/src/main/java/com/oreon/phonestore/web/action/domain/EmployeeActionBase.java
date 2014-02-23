@@ -46,6 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+//
 public abstract class EmployeeActionBase
 		extends
 			com.oreon.phonestore.web.action.domain.PersonAction<Employee>
@@ -59,26 +60,14 @@ public abstract class EmployeeActionBase
 	com.oreon.phonestore.web.action.domain.DepartmentAction departmentAction;
 
 	public void setEmployeeId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setEmployeeIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setDepartmentId(Long id) {

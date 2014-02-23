@@ -22,16 +22,28 @@
           <h:outputText value="#{_orderItem.remarks}" escape="false"/> 
         </p:column>  
         <p:column headerText="#{msg.orderItem_customerOrder}" sortBy="orderItem.customerOrder" rendered="#{ ! excludeCustomerOrder == true and ( skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewCustomerOrder')) }"> 
-          <h:link escape="false" value="#{_orderItem.customerOrder.displayName}" outcome="/admin/entities/commerce/customerOrder/viewCustomerOrder.xhtml" propagation="none"> 
+          <h:link id="customerOrderorderItem_customerOrder" escape="false" value="#{_orderItem.customerOrder.displayName}" outcome="/admin/entities/commerce/customerOrder/viewCustomerOrder.xhtml" propagation="none"> 
             <f:param name="customerOrderId" value="#{_orderItem.customerOrder.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="customerOrderorderItem_customerOrder" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <ui:include src="/admin/entities/commerce/customerOrder/viewCustomerOrderComponent.xhtml"> 
+              <ui:param name="customerOrder" value="#{_orderItem.customerOrder}"/>  
+              <ui:param name="numColumns" value="4"/> 
+            </ui:include> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.orderItem_product}" sortBy="orderItem.product" rendered="#{ ! excludeProduct == true and ( skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewProduct')) }"> 
-          <h:link escape="false" value="#{_orderItem.product.displayName}" outcome="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
+          <h:link id="productorderItem_product" escape="false" value="#{_orderItem.product.displayName}" outcome="/admin/entities/commerce/product/viewProduct.xhtml" propagation="none"> 
             <f:param name="productId" value="#{_orderItem.product.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="productorderItem_product" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <ui:include src="/admin/entities/commerce/product/viewProductComponent.xhtml"> 
+              <ui:param name="product" value="#{_orderItem.product}"/>  
+              <ui:param name="numColumns" value="4"/> 
+            </ui:include> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.orderItem_units}" sortBy="orderItem.units" rendered="#{ ! excludeUnits == true and ( skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'viewUnits')) }"> 
           <h:outputText value="#{_orderItem.units}" escape="false"/> 

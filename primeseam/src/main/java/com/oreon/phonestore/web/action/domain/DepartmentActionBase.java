@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.phonestore.domain.Employee;
 
+//
 public abstract class DepartmentActionBase extends BaseAction<Department>
 		implements
 			java.io.Serializable {
@@ -59,26 +60,14 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	com.oreon.phonestore.web.action.domain.EmployeeAction employeesAction;
 
 	public void setDepartmentId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setDepartmentIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getDepartmentId() {
@@ -221,6 +210,13 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	public void updateComposedAssociations() {
 
 		if (listEmployees != null) {
+
+			java.util.Set<Employee> items = getInstance().getEmployees();
+			for (Employee item : items) {
+				if (!listEmployees.contains(item))
+					getEntityManager().remove(item);
+			}
+
 			getInstance().getEmployees().clear();
 			getInstance().getEmployees().addAll(listEmployees);
 		}
