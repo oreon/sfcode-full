@@ -9,6 +9,14 @@
           <p:chartSeries label="Incidents" value="#{dep.customerQuestionsCount}"/> 
         </p:barChart> 
       </h:panelGrid> 
+    </p:panel>  
+    <p:panel id="pnlCustomerOrders" header="CustomerOrders" toggleable="true" closable="true"> 
+      <h:panelGrid columns="2"> 
+        <p:pieChart value="#{customerList.resultList}" var="dep" categoryField="#{dep.displayName}" dataField="#{dep.customerOrdersCount}"/>  
+        <p:barChart value="#{customerList.resultList}" var="dep" yfield="#{dep.displayName}"> 
+          <p:chartSeries label="Incidents" value="#{dep.customerOrdersCount}"/> 
+        </p:barChart> 
+      </h:panelGrid> 
     </p:panel> 
   </h:panelGrid> 
 </ui:composition>

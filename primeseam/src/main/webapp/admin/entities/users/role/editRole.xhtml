@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/users/role/editRoleComponent.xhtml"/> 
+        <ui:include src="/admin/entities/users/role/editRoleComponent.xhtml"> 
+          <ui:param name="role" value="#{roleAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{roleAction.save}"></h:commandButton>  

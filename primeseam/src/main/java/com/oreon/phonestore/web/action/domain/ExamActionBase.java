@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.phonestore.domain.Question;
 
+//
 public abstract class ExamActionBase extends BaseAction<Exam>
 		implements
 			java.io.Serializable {
@@ -56,26 +57,14 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 	protected Long examId;
 
 	public void setExamId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setExamIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getExamId() {
@@ -224,6 +213,13 @@ public abstract class ExamActionBase extends BaseAction<Exam>
 	public void updateComposedAssociations() {
 
 		if (listQuestions != null) {
+
+			java.util.Set<Question> items = getInstance().getQuestions();
+			for (Question item : items) {
+				if (!listQuestions.contains(item))
+					getEntityManager().remove(item);
+			}
+
 			getInstance().getQuestions().clear();
 			getInstance().getQuestions().addAll(listQuestions);
 		}

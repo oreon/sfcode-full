@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.phonestore.domain.commerce.OrderItem;
 
+//
 public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 		implements
 			java.io.Serializable {
@@ -55,46 +56,21 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	@RequestParameter
 	protected Long customerOrderId;
 
-	@In(create = true, value = "customerAction")
-	com.oreon.phonestore.web.action.commerce.CustomerAction customerAction;
-
 	@In(create = true, value = "employeeAction")
 	com.oreon.phonestore.web.action.domain.EmployeeAction servicingEmployeeAction;
 
+	@In(create = true, value = "customerAction")
+	com.oreon.phonestore.web.action.commerce.CustomerAction customerAction;
+
 	public void setCustomerOrderId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setCustomerOrderIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
-	}
-
-	public void setCustomerId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setCustomer(customerAction.loadFromId(id));
-
-	}
-
-	public Long getCustomerId() {
-		if (getInstance().getCustomer() != null)
-			return getInstance().getCustomer().getId();
-		return 0L;
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setServicingEmployeeId(Long id) {
@@ -108,6 +84,19 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	public Long getServicingEmployeeId() {
 		if (getInstance().getServicingEmployee() != null)
 			return getInstance().getServicingEmployee().getId();
+		return 0L;
+	}
+
+	public void setCustomerId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setCustomer(customerAction.loadFromId(id));
+
+	}
+
+	public Long getCustomerId() {
+		if (getInstance().getCustomer() != null)
+			return getInstance().getCustomer().getId();
 		return 0L;
 	}
 
@@ -173,16 +162,16 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	public void wire() {
 		getInstance();
 
-		com.oreon.phonestore.domain.commerce.Customer customer = customerAction
-				.getDefinedInstance();
-		if (customer != null && isNew()) {
-			getInstance().setCustomer(customer);
-		}
-
 		com.oreon.phonestore.domain.Employee servicingEmployee = servicingEmployeeAction
 				.getDefinedInstance();
 		if (servicingEmployee != null && isNew()) {
 			getInstance().setServicingEmployee(servicingEmployee);
+		}
+
+		com.oreon.phonestore.domain.commerce.Customer customer = customerAction
+				.getDefinedInstance();
+		if (customer != null && isNew()) {
+			getInstance().setCustomer(customer);
 		}
 
 	}
@@ -214,14 +203,14 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (instance.getCustomer() != null) {
-			criteria = criteria.add(Restrictions.eq("customer.id", instance
-					.getCustomer().getId()));
-		}
-
 		if (instance.getServicingEmployee() != null) {
 			criteria = criteria.add(Restrictions.eq("servicingEmployee.id",
 					instance.getServicingEmployee().getId()));
+		}
+
+		if (instance.getCustomer() != null) {
+			criteria = criteria.add(Restrictions.eq("customer.id", instance
+					.getCustomer().getId()));
 		}
 
 	}
@@ -232,15 +221,15 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getCustomer() != null) {
-			customerAction.setInstance(getInstance().getCustomer());
-			customerAction.loadAssociations();
-		}
-
 		if (getInstance().getServicingEmployee() != null) {
 			servicingEmployeeAction.setInstance(getInstance()
 					.getServicingEmployee());
 			servicingEmployeeAction.loadAssociations();
+		}
+
+		if (getInstance().getCustomer() != null) {
+			customerAction.setInstance(getInstance().getCustomer());
+			customerAction.loadAssociations();
 		}
 
 		initListOrderItems();
@@ -294,6 +283,13 @@ public abstract class CustomerOrderActionBase extends BaseAction<CustomerOrder>
 	public void updateComposedAssociations() {
 
 		if (listOrderItems != null) {
+
+			java.util.Set<OrderItem> items = getInstance().getOrderItems();
+			for (OrderItem item : items) {
+				if (!listOrderItems.contains(item))
+					getEntityManager().remove(item);
+			}
+
 			getInstance().getOrderItems().clear();
 			getInstance().getOrderItems().addAll(listOrderItems);
 		}

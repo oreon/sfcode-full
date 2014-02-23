@@ -2,31 +2,31 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="viewProductComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{productAction.load(productId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelProduct eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Product}"/> 
       </f:facet>  
       <h:outputText value="#{msg.product_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewName')}"/>  
-      <h:outputText value="#{productAction.product.name}" escape="false"/>  
+      <h:outputText value="#{product.name}" escape="false"/>  
       <h:outputText value="#{msg.product_image}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewImage')}"/>  
-      <s:graphicImage rendered="#{productAction.product.image ne null and  productAction.product.image.contentType.startsWith('image')}" value="#{productAction.product.image.data}"> 
+      <s:graphicImage rendered="#{product.image ne null and  product.image.contentType.startsWith('image')}" value="#{product.image.data}"> 
         <s:transformImageSize height="100" maintainRatio="true"/> 
       </s:graphicImage>  
-      <h:link value="#{productAction.product.image.name}" action="#{productAction.downloadImage(productAction.product.id)}" propagation="none" rendered="#{not productAction.product.image.contentType.startsWith('image')}"> 
-        <f:param name="currentEnt ityId" value="#{productAction.product.id}"/> 
+      <h:link value="#{product.image.name}" action="#{productAction.downloadImage(product.id)}" propagation="none" rendered="#{not product.image.contentType.startsWith('image')}"> 
+        <f:param name="currentEnt ityId" value="#{product.id}"/> 
       </h:link>  
       <h:outputText value="#{msg.product_price}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewPrice')}"/>  
-      <h:outputText value="#{productAction.product.price}"> 
+      <h:outputText value="#{product.price}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText>  
       <h:outputText value="#{msg.product_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('product', 'viewDescription')}"/>  
       <h:panelGroup> 
-        <p:tooltip value="#{productAction.product.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="descriptionAbbr" value="#{productAction.product.descriptionAbbreviated}" escape="false"/> 
+        <p:tooltip value="#{product.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
+        <h:outputText id="descriptionAbbr" value="#{product.descriptionAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  

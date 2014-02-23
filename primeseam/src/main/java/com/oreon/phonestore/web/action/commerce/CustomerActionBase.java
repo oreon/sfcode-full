@@ -47,7 +47,9 @@ import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.phonestore.domain.commerce.CustomerQuestion;
+import com.oreon.phonestore.domain.commerce.CustomerOrder;
 
+//
 public abstract class CustomerActionBase
 		extends
 			com.oreon.phonestore.web.action.domain.PersonAction<Customer>
@@ -60,27 +62,18 @@ public abstract class CustomerActionBase
 	@In(create = true, value = "customerQuestionAction")
 	com.oreon.phonestore.web.action.commerce.CustomerQuestionAction customerQuestionsAction;
 
+	@In(create = true, value = "customerOrderAction")
+	com.oreon.phonestore.web.action.commerce.CustomerOrderAction customerOrdersAction;
+
 	public void setCustomerId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setCustomerIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getCustomerId() {
@@ -170,6 +163,8 @@ public abstract class CustomerActionBase
 
 		initListCustomerQuestions();
 
+		initListCustomerOrders();
+
 		addDefaultAssociations();
 	}
 
@@ -216,16 +211,77 @@ public abstract class CustomerActionBase
 
 	}
 
+	protected List<com.oreon.phonestore.domain.commerce.CustomerOrder> listCustomerOrders = new ArrayList<com.oreon.phonestore.domain.commerce.CustomerOrder>();
+
+	void initListCustomerOrders() {
+
+		if (listCustomerOrders.isEmpty())
+			listCustomerOrders.addAll(getInstance().getCustomerOrders());
+
+	}
+
+	public List<com.oreon.phonestore.domain.commerce.CustomerOrder> getListCustomerOrders() {
+
+		prePopulateListCustomerOrders();
+		return listCustomerOrders;
+	}
+
+	public void prePopulateListCustomerOrders() {
+	}
+
+	public void setListCustomerOrders(
+			List<com.oreon.phonestore.domain.commerce.CustomerOrder> listCustomerOrders) {
+		this.listCustomerOrders = listCustomerOrders;
+	}
+
+	public void deleteCustomerOrders(int index) {
+		listCustomerOrders.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addCustomerOrders() {
+
+		initListCustomerOrders();
+		CustomerOrder customerOrders = new CustomerOrder();
+
+		customerOrders.setCustomer(getInstance());
+
+		getListCustomerOrders().add(customerOrders);
+
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listCustomerQuestions != null) {
+
+			java.util.Set<CustomerQuestion> items = getInstance()
+					.getCustomerQuestions();
+			for (CustomerQuestion item : items) {
+				if (!listCustomerQuestions.contains(item))
+					getEntityManager().remove(item);
+			}
+
 			getInstance().getCustomerQuestions().clear();
 			getInstance().getCustomerQuestions().addAll(listCustomerQuestions);
+		}
+
+		if (listCustomerOrders != null) {
+
+			java.util.Set<CustomerOrder> items = getInstance()
+					.getCustomerOrders();
+			for (CustomerOrder item : items) {
+				if (!listCustomerOrders.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			getInstance().getCustomerOrders().clear();
+			getInstance().getCustomerOrders().addAll(listCustomerOrders);
 		}
 	}
 
 	public void clearLists() {
 		listCustomerQuestions.clear();
+		listCustomerOrders.clear();
 
 	}
 

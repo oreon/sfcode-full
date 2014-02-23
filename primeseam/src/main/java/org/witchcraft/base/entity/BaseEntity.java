@@ -170,6 +170,13 @@ public class BaseEntity implements Serializable{
     	return this.getId() == entity.getId();
     }
 	
+	@Override
+	public int hashCode() {
+		if(id != null)
+			return getId().hashCode();
+		return super.hashCode();
+	}
+	
 	public String getCollectionAsString(Collection<? extends BaseEntity> list){
 		StringBuffer ret = new StringBuffer();
 		for (BaseEntity businessEntity : list) {

@@ -111,8 +111,6 @@ public abstract class CustomerOrderListQueryBase
 
 			"lower(customerOrder.remarks) like concat(lower(#{customerOrderList.customerOrder.remarks}),'%')",
 
-			"customerOrder.customer.id = #{customerOrderList.customerOrder.customer.id}",
-
 			"customerOrder.total >= #{customerOrderList.totalRange.begin}",
 			"customerOrder.total <= #{customerOrderList.totalRange.end}",
 
@@ -121,25 +119,35 @@ public abstract class CustomerOrderListQueryBase
 			"customerOrder.dateDeliverBy >= #{customerOrderList.dateDeliverByRange.begin}",
 			"customerOrder.dateDeliverBy <= #{customerOrderList.dateDeliverByRange.end}",
 
+			"customerOrder.customer.id = #{customerOrderList.customerOrder.customer.id}",
+
 			"customerOrder.dateCreated <= #{customerOrderList.dateCreatedRange.end}",
 			"customerOrder.dateCreated >= #{customerOrderList.dateCreatedRange.begin}",};
+
+	public LazyDataModel<CustomerOrder> getCustomerOrdersByCustomer(
+			final com.oreon.phonestore.domain.commerce.Customer customer) {
+
+		EntityLazyDataModel<CustomerOrder, Long> customerOrderLazyDataModel = new EntityLazyDataModel<CustomerOrder, Long>(
+				this) {
+
+			@Override
+			public List<CustomerOrder> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+
+				customerOrder.setCustomer(customer);
+				return super.load(first, pageSize, sortField, sortOrder,
+						filters);
+			}
+		};
+
+		return customerOrderLazyDataModel;
+
+	}
 
 	@Observer("archivedCustomerOrder")
 	public void onArchive() {
 		refresh();
-	}
-
-	public void setCustomerId(Long id) {
-		if (customerOrder.getCustomer() == null) {
-			customerOrder
-					.setCustomer(new com.oreon.phonestore.domain.commerce.Customer());
-		}
-		customerOrder.getCustomer().setId(id);
-	}
-
-	public Long getCustomerId() {
-		return customerOrder.getCustomer() == null ? null : customerOrder
-				.getCustomer().getId();
 	}
 
 	public void setServicingEmployeeId(Long id) {
@@ -154,6 +162,19 @@ public abstract class CustomerOrderListQueryBase
 		return customerOrder.getServicingEmployee() == null
 				? null
 				: customerOrder.getServicingEmployee().getId();
+	}
+
+	public void setCustomerId(Long id) {
+		if (customerOrder.getCustomer() == null) {
+			customerOrder
+					.setCustomer(new com.oreon.phonestore.domain.commerce.Customer());
+		}
+		customerOrder.getCustomer().setId(id);
+	}
+
+	public Long getCustomerId() {
+		return customerOrder.getCustomer() == null ? null : customerOrder
+				.getCustomer().getId();
 	}
 
 	//@Restrict("#{s:hasPermission('customerOrder', 'delete')}")

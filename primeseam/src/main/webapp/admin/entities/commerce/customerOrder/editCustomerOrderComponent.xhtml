@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editCustomerOrderComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{customerOrderAction.load(customerOrderId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomerOrder eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.CustomerOrder}"/> 
       </f:facet>  
@@ -22,23 +22,23 @@
         </ui:define>  
         <p:calendar escape="false" navigator="true" id="dateDeliverBy#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editDateDeliverBy')}" label="#{msg.customerOrder_dateDeliverBy}" required="false" disabled="false" value="#{customerOrderAction.customerOrder.dateDeliverBy}"></p:calendar> 
       </s:decorate>  
-      <s:decorate id="customerIdDecorate" rendered="#{ ! excludeCustomer == true}" template="/layout/edit.xhtml"> 
-        <ui:define name="label"> 
-          <h:outputText value="#{msg.customerOrder_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editCustomer')}"/>
-        </ui:define>  
-        <h:selectOneMenu id="customerId" label="#{msg.customerOrder_customer}" value="#{customerOrderAction.customerOrder.customer}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editCustomer')}" disabled="false"> 
-          <s:selectItems value="#{customerList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
-      </s:decorate>  
       <s:decorate id="servicingEmployeeIdDecorate" rendered="#{ ! excludeServicingEmployee == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.customerOrder_servicingEmployee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editServicingEmployee')}"/>
         </ui:define>  
-        <h:selectOneMenu id="servicingEmployeeId" label="#{msg.customerOrder_servicingEmployee}" value="#{customerOrderAction.customerOrder.servicingEmployee}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editServicingEmployee')}" disabled="false"> 
-          <s:selectItems value="#{employeeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
+        <p:selectOneMenu id="servicingEmployeeId" label="#{msg.customerOrder_servicingEmployee}" value="#{customerOrderAction.customerOrder.servicingEmployee}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editServicingEmployee')}" disabled="false" converter="#{employeeList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{employeeList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
+      </s:decorate>  
+      <s:decorate id="customerIdDecorate" rendered="#{ ! excludeCustomer == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.customerOrder_customer}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editCustomer')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="customerId" label="#{msg.customerOrder_customer}" value="#{customerOrderAction.customerOrder.customer}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editCustomer')}" disabled="false" converter="#{customerList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{customerList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
@@ -46,17 +46,17 @@
       <p:commandButton value="New OrderItem" action="#{customerOrderAction.addOrderItems}" update="orderItems" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editOrderItems')}" process="@this"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="orderItems" var="_orderItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editOrderItems')}" value="#{customerOrderAction.listOrderItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="orderItems" var="_orderItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customerOrder', 'editOrderItems')}" value="#{customerOrderAction.listOrderItems}" rowIndexVar="rowIndex"> 
         <p:column>
           <f:facet name="header">
             <h:outputText value="#{msg.orderItem_product}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}"/>
           </f:facet>  
           <s:decorate id="productIdDecorate" rendered="#{ ! excludeProduct == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="productId" label="#{msg.orderItem_product}" value="#{_orderItem.product}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}" disabled="false"> 
-              <s:selectItems value="#{productList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-              <s:convertEntity/> 
-            </h:selectOneMenu> 
+            <p:selectOneMenu id="productId" label="#{msg.orderItem_product}" value="#{_orderItem.product}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('orderItem', 'editProduct')}" disabled="false" converter="#{productList.converter}"> 
+              <f:selectItem itemLabel="Select One" itemValue=""/>  
+              <f:selectItems value="#{productList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+            </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -94,9 +94,9 @@
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <h:commandButton value="Delete" immediate="true" action="#{customerOrderAction.deleteOrderItems(rowIndex)}" update="orderItems"> 
+          <p:commandButton value="Delete" immediate="true" action="#{customerOrderAction.deleteOrderItems(rowIndex)}" update="orderItems" process="@this"> 
             <s:conversationId/> 
-          </h:commandButton> 
+          </p:commandButton> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="CustomerOrder"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/commerce/customerOrder/viewCustomerOrderComponent.xhtml"/> 
+            <ui:include src="/admin/entities/commerce/customerOrder/viewCustomerOrderComponent.xhtml"> 
+              <ui:param name="customerOrder" value="#{customerOrderAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('customerOrder', 'edit')}" action="edit"></h:commandButton>  
@@ -18,17 +20,21 @@
             </h:commandButton> 
           </div> 
         </p:tab>  
-        <p:tab title="Customer" rendered="#{customerOrderAction.instance.customer != null}"> 
-          <ui:include src="/admin/entities/commerce/customer/viewCustomerComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="customerId" value="#{customerOrderAction.instance.customer.id}"/> 
-          </ui:include> 
-        </p:tab>  
         <p:tab title="ServicingEmployee" rendered="#{customerOrderAction.instance.servicingEmployee != null}"> 
-          <ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="employeeId" value="#{customerOrderAction.instance.servicingEmployee.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="employeeId" value="#{customerOrderAction.instance.servicingEmployee.id}"/> 
+            </ui:include> 
+          </h:form> 
+        </p:tab>  
+        <p:tab title="Customer" rendered="#{customerOrderAction.instance.customer != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/commerce/customer/viewCustomerComponent.xhtml"> 
+              <ui:param name="entityId" value="2"/>  
+              <ui:param name="customerId" value="#{customerOrderAction.instance.customer.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

@@ -190,7 +190,27 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	// Needed for many to many list initializations in dialog
 	public void onRowSelect( SelectEvent event ) throws Exception {
 		T t = (T) event.getObject();
-		setId( t.getId() );
+		setEntityIdForModalDlg( t.getId() );
+	}
+	
+	
+	public void setEntityId(Long entityId){
+		if (entityId == 0) {
+			clearInstance();
+			clearLists();
+			loadAssociations();
+			return;
+		}
+		setId(entityId);
+		instance = loadInstance();
+		if (!isPostBack())
+			loadAssociations();
+	}
+	
+	public void setEntityIdForModalDlg(Long entityId){
+		setId(entityId);
+		instance = loadInstance();
+		clearLists();
 		loadAssociations();
 	}
 
@@ -286,7 +306,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 			if (isManaged()) {
 				update();
-				refresh();
+				//refresh();
 			} else {
 				persist();
 			}
@@ -401,6 +421,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	 */
 	public void archiveById(Long id) {
 		//TODO: provide implementation
+		System.out.println("in acrvhi by id");
 	}
 
 	@SuppressWarnings("unchecked")

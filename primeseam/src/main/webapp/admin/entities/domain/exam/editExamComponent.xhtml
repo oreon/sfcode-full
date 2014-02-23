@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editExamComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{examAction.load(examId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelExam eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Exam}"/> 
       </f:facet>  
@@ -28,7 +28,7 @@
       <p:commandButton value="New Question" action="#{examAction.addQuestions}" update="questions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'editQuestions')}" process="@this"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="questions" var="_question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'editQuestions')}" value="#{examAction.listQuestions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="questions" var="_question" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('exam', 'editQuestions')}" value="#{examAction.listQuestions}" rowIndexVar="rowIndex"> 
         <p:column>
           <f:facet name="header">
             <h:outputText value="#{msg.question_text}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('question', 'editText')}"/>
@@ -44,9 +44,9 @@
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <h:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" update="questions"> 
+          <p:commandButton value="Delete" immediate="true" action="#{examAction.deleteQuestions(rowIndex)}" update="questions" process="@this"> 
             <s:conversationId/> 
-          </h:commandButton> 
+          </p:commandButton> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  
