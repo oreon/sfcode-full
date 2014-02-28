@@ -13,22 +13,31 @@
     </p:column>  
     <p:rowExpansion> 
       <ui:include src="/admin/entities/prescription/prescriptionItem/miniListPrescriptionItemComponent.xhtml"> 
-        <ui:param name="records" value="#{_prescription.listPrescriptionItems}"/> 
+        <ui:param name="records" value="#{_prescription.listPrescriptionItems}"/>  
+        <ui:param name="excludePrescription" value="true"/> 
       </ui:include> 
     </p:rowExpansion>  
     <p:column headerText="#{msg.prescription_patient}" sortBy="prescription.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewPatient')) }"> 
-      <h:link escape="false" value="#{_prescription.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:link id="patientprescription_patient" escape="false" value="#{_prescription.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{_prescription.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
           <span>#{_prescription.patient.popupInfo}</span> 
         </p:tooltip> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="patientprescription_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+            <ui:param name="patient" value="#{_prescription.patient}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="patientPrescriptions"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </p:column>  
     <p:column headerText="#{msg.prescription_directivesForPatient}" sortBy="prescription.directivesForPatient" rendered="#{ ! excludeDirectivesForPatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_prescription.directivesForPatient}" for="directivesForPatientAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="directivesForPatientAbbr" value="#{_prescription.directivesForPatientAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}directivesForPatientAbbr" value="#{_prescription.directivesForPatientAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.prescription_active}" sortBy="prescription.active" rendered="#{ ! excludeActive == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')) }"> 

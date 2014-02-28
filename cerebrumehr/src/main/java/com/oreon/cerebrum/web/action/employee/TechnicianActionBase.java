@@ -46,6 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+//
 public abstract class TechnicianActionBase
 		extends
 			com.oreon.cerebrum.web.action.employee.AbstractEmployeeAction<Technician>
@@ -58,26 +59,14 @@ public abstract class TechnicianActionBase
 	public static final String DEFAULT_ROLE_NAME = "technician";
 
 	public void setTechnicianId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setTechnicianIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getTechnicianId() {
@@ -172,7 +161,7 @@ public abstract class TechnicianActionBase
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 	}
 
 	public void clearLists() {

@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="Differential"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/encounter/differential/viewDifferentialComponent.xhtml"/> 
+            <ui:include src="/admin/entities/encounter/differential/viewDifferentialComponent.xhtml"> 
+              <ui:param name="differential" value="#{differentialAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('differential', 'edit')}" action="edit"></h:commandButton>  
@@ -19,10 +21,12 @@
           </div> 
         </p:tab>  
         <p:tab title="Encounter" rendered="#{differentialAction.instance.encounter != null}"> 
-          <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="encounterId" value="#{differentialAction.instance.encounter.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="encounterId" value="#{differentialAction.instance.encounter.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/ddx/conditionFinding/editConditionFindingComponent.xhtml"/> 
+        <ui:include src="/admin/entities/ddx/conditionFinding/editConditionFindingComponent.xhtml"> 
+          <ui:param name="conditionFinding" value="#{conditionFindingAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{conditionFindingAction.save}"></h:commandButton>  

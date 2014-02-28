@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="Finding"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/ddx/finding/viewFindingComponent.xhtml"/> 
+            <ui:include src="/admin/entities/ddx/finding/viewFindingComponent.xhtml"> 
+              <ui:param name="finding" value="#{findingAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('finding', 'edit')}" action="edit"></h:commandButton>  

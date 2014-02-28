@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editAdmissionComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{admissionAction.load(admissionId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAdmission eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Admission}"/> 
       </f:facet>  
@@ -55,28 +55,28 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>
         </ui:define>  
-        <h:selectOneMenu id="bedId" label="#{msg.admission_bed}" value="#{admissionAction.admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}" disabled="false"> 
-          <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
+        <p:selectOneMenu id="bedId" label="#{msg.admission_bed}" value="#{admissionAction.admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}" disabled="false" converter="#{bedList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeBedStays == true}"> 
-      <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}" process="@this"> 
+      <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="bedStays" var="_bedStay" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}" value="#{admissionAction.listBedStays}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="bedStays" var="_bedStay" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}" value="#{admissionAction.listBedStays}" rowIndexVar="rowIndex"> 
         <p:column>
           <f:facet name="header">
             <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}"/>
           </f:facet>  
           <s:decorate id="bedIdDecorate" rendered="#{ ! excludeBed == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="bedId" label="#{msg.bedStay_bed}" value="#{_bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false"> 
-              <s:selectItems value="#{bedList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-              <s:convertEntity/> 
-            </h:selectOneMenu> 
+            <p:selectOneMenu id="bedId" label="#{msg.bedStay_bed}" value="#{_bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false" converter="#{bedList.converter}"> 
+              <f:selectItem itemLabel="Select One" itemValue=""/>  
+              <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+            </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -98,14 +98,14 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}" process="@this"> 
+          <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <h:commandButton value="Delete" immediate="true" action="#{admissionAction.deleteBedStays(rowIndex)}" update="bedStays"> 
+          <p:commandButton value="Delete" immediate="true" action="#{admissionAction.deleteBedStays(rowIndex)}" update="bedStays" process="@this"> 
             <s:conversationId/> 
-          </h:commandButton> 
+          </p:commandButton> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

@@ -46,6 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+//
 public abstract class ReasonActionBase extends BaseAction<Reason>
 		implements
 			java.io.Serializable {
@@ -60,26 +61,14 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 	com.oreon.cerebrum.web.action.codes.CodeAction codeAction;
 
 	public void setReasonId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setReasonIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setEncounterId(Long id) {
@@ -239,7 +228,7 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 	}
 
 	public void clearLists() {

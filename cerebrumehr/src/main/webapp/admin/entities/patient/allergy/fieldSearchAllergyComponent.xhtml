@@ -8,18 +8,18 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patientId" value="#{ allergyList.allergy.patient}"> 
-        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="patientId" converter="#{patientList.converter}" value="#{ allergyList.allergy.patient}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editAllergen')}"/>  
       <br/>  
-      <h:selectOneMenu id="allergenId" value="#{ allergyList.allergy.allergen}"> 
-        <s:selectItems value="#{allergenList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="allergenId" converter="#{allergenList.converter}" value="#{ allergyList.allergy.allergen}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{allergenList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}"/>  

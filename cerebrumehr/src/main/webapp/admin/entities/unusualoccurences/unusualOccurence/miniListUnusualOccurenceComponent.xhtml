@@ -9,10 +9,19 @@
       </h:link> 
     </p:column>  
     <p:column headerText="#{msg.unusualOccurence_occurenceType}" sortBy="unusualOccurence.occurenceType" rendered="#{ ! excludeOccurenceType == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewOccurenceType')) }"> 
-      <h:link escape="false" value="#{_unusualOccurence.occurenceType.displayName}" outcome="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
+      <h:link id="occurenceTypeunusualOccurence_occurenceType" escape="false" value="#{_unusualOccurence.occurenceType.displayName}" outcome="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
         <f:param name="occurenceTypeId" value="#{_unusualOccurence.occurenceType.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="occurenceTypeunusualOccurence_occurenceType" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/unusualoccurences/occurenceType/viewOccurenceTypeComponent.xhtml"> 
+            <ui:param name="occurenceType" value="#{_unusualOccurence.occurenceType}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="occurenceType"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </p:column>  
     <p:column headerText="#{msg.unusualOccurence_category}" sortBy="unusualOccurence.category" rendered="#{ ! excludeCategory == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewCategory')) }"> 
       <h:outputText value="#{_unusualOccurence.category}" escape="false"/> 
@@ -22,18 +31,26 @@
     </p:column>  
     <p:column headerText="#{msg.unusualOccurence_description}" sortBy="unusualOccurence.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_unusualOccurence.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="descriptionAbbr" value="#{_unusualOccurence.descriptionAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}descriptionAbbr" value="#{_unusualOccurence.descriptionAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.unusualOccurence_patient}" sortBy="unusualOccurence.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewPatient')) }"> 
-      <h:link escape="false" value="#{_unusualOccurence.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:link id="patientunusualOccurence_patient" escape="false" value="#{_unusualOccurence.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{_unusualOccurence.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
           <span>#{_unusualOccurence.patient.popupInfo}</span> 
         </p:tooltip> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="patientunusualOccurence_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+            <ui:param name="patient" value="#{_unusualOccurence.patient}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="patientUnusualOccurences"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </p:column> 
   </p:dataTable> 
 </ui:composition>

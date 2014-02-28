@@ -13,19 +13,19 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>  
       <br/>  
-      <h:selectOneMenu id="dxCategoryId" value="#{ differentialDxList.differentialDx.dxCategory}"> 
-        <s:selectItems value="#{dxCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="dxCategoryId" converter="#{dxCategoryList.converter}" value="#{ differentialDxList.differentialDx.dxCategory}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{dxCategoryList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.differentialDx_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}"/>  
       <br/>  
-      <h:selectOneMenu id="findingId" value="#{ differentialDxList.differentialDx.finding}"> 
-        <s:selectItems value="#{findingList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="findingId" converter="#{findingList.converter}" value="#{ differentialDxList.differentialDx.finding}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{findingList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

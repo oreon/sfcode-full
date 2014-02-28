@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editPrescribedTestComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{prescribedTestAction.load(prescribedTestId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPrescribedTest eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.PrescribedTest}"/> 
       </f:facet>  
@@ -20,25 +20,25 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>
         </ui:define>  
-        <h:selectOneMenu id="dxTestId" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false"> 
-          <s:selectItems value="#{dxTestList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
+        <p:selectOneMenu id="dxTestId" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}" disabled="false" converter="#{dxTestList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{dxTestList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="encounterIdDecorate" rendered="#{ ! excludeEncounter == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}"/>
         </ui:define>  
-        <h:selectOneMenu id="encounterId" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}" disabled="false"> 
-          <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
+        <p:selectOneMenu id="encounterId" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editEncounter')}" disabled="false" converter="#{encounterList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{encounterList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelTestResults eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.TestResults}"/> 
       </f:facet>  

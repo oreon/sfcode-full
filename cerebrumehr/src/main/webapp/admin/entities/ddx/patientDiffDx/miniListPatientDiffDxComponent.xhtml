@@ -13,22 +13,31 @@
     </p:column>  
     <p:rowExpansion> 
       <ui:include src="/admin/entities/ddx/patientFinding/miniListPatientFindingComponent.xhtml"> 
-        <ui:param name="records" value="#{_patientDiffDx.listPatientFindings}"/> 
+        <ui:param name="records" value="#{_patientDiffDx.listPatientFindings}"/>  
+        <ui:param name="excludePatientDiffDx" value="true"/> 
       </ui:include> 
     </p:rowExpansion>  
     <p:column headerText="#{msg.patientDiffDx_patient}" sortBy="patientDiffDx.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')) }"> 
-      <h:link escape="false" value="#{_patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+      <h:link id="patientpatientDiffDx_patient" escape="false" value="#{_patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="#{_patientDiffDx.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
           <span>#{_patientDiffDx.patient.popupInfo}</span> 
         </p:tooltip> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="patientpatientDiffDx_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+            <ui:param name="patient" value="#{_patientDiffDx.patient}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="patient"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </p:column>  
     <p:column headerText="#{msg.patientDiffDx_notes}" sortBy="patientDiffDx.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_patientDiffDx.notes}" for="notesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="notesAbbr" value="#{_patientDiffDx.notesAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}notesAbbr" value="#{_patientDiffDx.notesAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column> 
   </p:dataTable> 

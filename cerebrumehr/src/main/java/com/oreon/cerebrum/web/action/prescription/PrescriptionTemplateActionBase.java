@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.prescription.PrescriptionItemTemplate;
 
+//
 public abstract class PrescriptionTemplateActionBase
 		extends
 			BaseAction<PrescriptionTemplate> implements java.io.Serializable {
@@ -56,26 +57,14 @@ public abstract class PrescriptionTemplateActionBase
 	protected Long prescriptionTemplateId;
 
 	public void setPrescriptionTemplateId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setPrescriptionTemplateIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getPrescriptionTemplateId() {
@@ -225,9 +214,21 @@ public abstract class PrescriptionTemplateActionBase
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listPrescriptionItemTemplates != null) {
+
+			java.util.Set<PrescriptionItemTemplate> items = getInstance()
+					.getPrescriptionItemTemplates();
+			for (PrescriptionItemTemplate item : items) {
+				if (!listPrescriptionItemTemplates.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (PrescriptionItemTemplate item : listPrescriptionItemTemplates) {
+				item.setPrescriptionTemplate(getInstance());
+			}
+
 			getInstance().getPrescriptionItemTemplates().clear();
 			getInstance().getPrescriptionItemTemplates().addAll(
 					listPrescriptionItemTemplates);

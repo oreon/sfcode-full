@@ -8,10 +8,10 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDrug')}"/>  
       <br/>  
-      <h:selectOneMenu id="drugId" value="#{ prescriptionItemList.prescriptionItem.drug}"> 
-        <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="drugId" converter="#{drugList.converter}" value="#{ prescriptionItemList.prescriptionItem.drug}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_qty}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editQty')}"/>  
@@ -31,10 +31,10 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescription')}"/>  
       <br/>  
-      <h:selectOneMenu id="prescriptionId" value="#{ prescriptionItemList.prescriptionItem.prescription}"> 
-        <s:selectItems value="#{prescriptionList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="prescriptionId" converter="#{prescriptionList.converter}" value="#{ prescriptionItemList.prescriptionItem.prescription}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{prescriptionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_route}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRoute')}"/>  
@@ -62,10 +62,10 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequency')}"/>  
       <br/>  
-      <h:selectOneMenu id="frequencyId" value="#{ prescriptionItemList.prescriptionItem.frequency}"> 
-        <s:selectItems value="#{frequencyList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="frequencyId" converter="#{frequencyList.converter}" value="#{ prescriptionItemList.prescriptionItem.frequency}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{frequencyList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editRemarks')}"/>  

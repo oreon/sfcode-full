@@ -13,11 +13,11 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.drugCategory_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'editDrugs')}"/>  
       <br/>  
-      <h:selectOneMenu id="drugsId" value="#{ drugCategoryList.drugsToSearch}"> 
-        <s:selectItems value="#{drugList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="drugsId" converter="#{drugList.converter}" value="#{ drugCategoryList.drugsToSearch}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

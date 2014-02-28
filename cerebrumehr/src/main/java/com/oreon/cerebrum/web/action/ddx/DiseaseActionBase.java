@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ddx.Disease;
 
+//
 public abstract class DiseaseActionBase extends BaseAction<Disease>
 		implements
 			java.io.Serializable {
@@ -65,26 +66,14 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	com.oreon.cerebrum.web.action.ddx.DiseaseAction differentialDiagnosesAction;
 
 	public void setDiseaseId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setDiseaseIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setRelatedDiseaseId(Long id) {
@@ -294,9 +283,21 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listDifferentialDiagnoses != null) {
+
+			java.util.Set<Disease> items = getInstance()
+					.getDifferentialDiagnoses();
+			for (Disease item : items) {
+				if (!listDifferentialDiagnoses.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Disease item : listDifferentialDiagnoses) {
+				item.setRelatedDisease(getInstance());
+			}
+
 			getInstance().getDifferentialDiagnoses().clear();
 			getInstance().getDifferentialDiagnoses().addAll(
 					listDifferentialDiagnoses);

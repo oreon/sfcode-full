@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.facility.Ward;
 
+//
 public abstract class FacilityActionBase extends BaseAction<Facility>
 		implements
 			java.io.Serializable {
@@ -56,26 +57,14 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	protected Long facilityId;
 
 	public void setFacilityId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setFacilityIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getFacilityId() {
@@ -210,9 +199,20 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listWards != null) {
+
+			java.util.Set<Ward> items = getInstance().getWards();
+			for (Ward item : items) {
+				if (!listWards.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Ward item : listWards) {
+				item.setFacility(getInstance());
+			}
+
 			getInstance().getWards().clear();
 			getInstance().getWards().addAll(listWards);
 		}

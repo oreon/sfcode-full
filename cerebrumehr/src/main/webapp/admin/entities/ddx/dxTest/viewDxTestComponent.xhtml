@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup id="viewDxTestComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{dxTestAction.load(dxTestId )  }"/>  
+  <h:panelGroup id="${panelId == null ? 'viewDxTestPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDxTest eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.DxTest}"/> 
       </f:facet>  
       <h:outputText value="#{msg.dxTest_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewName')}"/>  
-      <h:outputText value="#{dxTestAction.dxTest.name}" escape="false"/>  
+      <h:outputText value="#{dxTest.name}" escape="false"/>  
       <h:outputText value="#{msg.dxTest_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewDescription')}"/>  
       <h:panelGroup> 
-        <p:tooltip value="#{dxTestAction.dxTest.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="descriptionAbbr" value="#{dxTestAction.dxTest.descriptionAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}descriptionAbbr" value="#{dxTest.descriptionAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  

@@ -8,18 +8,18 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/>  
       <br/>  
-      <h:selectOneMenu id="encounterId" value="#{ reasonList.reason.encounter}"> 
-        <s:selectItems value="#{encounterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="encounterId" converter="#{encounterList.converter}" value="#{ reasonList.reason.encounter}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{encounterList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>  
       <br/>  
-      <h:selectOneMenu id="codeId" value="#{ reasonList.reason.code}"> 
-        <s:selectItems value="#{codeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="codeId" converter="#{codeList.converter}" value="#{ reasonList.reason.code}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{codeList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}"/>  

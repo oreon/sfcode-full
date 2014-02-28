@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editSectionComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{sectionAction.load(sectionId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelSection eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Section}"/> 
       </f:facet>  
@@ -26,18 +26,18 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.section_chapter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}"/>
         </ui:define>  
-        <h:selectOneMenu id="chapterId" label="#{msg.section_chapter}" value="#{sectionAction.section.chapter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}" disabled="false"> 
-          <s:selectItems value="#{chapterList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
+        <p:selectOneMenu id="chapterId" label="#{msg.section_chapter}" value="#{sectionAction.section.chapter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}" disabled="false" converter="#{chapterList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{chapterList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeCodes == true}"> 
-      <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}" process="@this"> 
+      <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="codes" var="_code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}" value="#{sectionAction.listCodes}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="codes" var="_code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}" value="#{sectionAction.listCodes}" rowIndexVar="rowIndex"> 
         <p:column>
           <f:facet name="header">
             <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editName')}"/>
@@ -102,14 +102,14 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodes')}" process="@this"> 
+          <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodes')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <h:commandButton value="Delete" immediate="true" action="#{sectionAction.deleteCodes(rowIndex)}" update="codes"> 
+          <p:commandButton value="Delete" immediate="true" action="#{sectionAction.deleteCodes(rowIndex)}" update="codes" process="@this"> 
             <s:conversationId/> 
-          </h:commandButton> 
+          </p:commandButton> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

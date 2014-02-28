@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editInvoiceComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{invoiceAction.load(invoiceId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelInvoice eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Invoice}"/> 
       </f:facet>  
@@ -20,31 +20,31 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/>
         </ui:define>  
-        <h:selectOneMenu id="patientId" label="#{msg.invoice_patient}" value="#{invoiceAction.invoice.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}" disabled="false"> 
-          <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
+        <p:selectOneMenu id="patientId" label="#{msg.invoice_patient}" value="#{invoiceAction.invoice.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeInvoiceItems == true}"> 
-      <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}" process="@this"> 
+      <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}" value="#{invoiceAction.listInvoiceItems}" rowIndexVar="rowIndex"> 
         <p:column>
           <f:facet name="header">
             <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>
           </f:facet>  
           <s:decorate id="serviceIdDecorate" rendered="#{ ! excludeService == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="serviceId" label="#{msg.invoiceItem_service}" value="#{_invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false"> 
-              <p:ajax event="onchange" action="#{invoiceItemAction.onChangeService(_invoiceItem)}" update="invoiceItems" ajaxSingle="true"> 
+            <p:selectOneMenu id="serviceId" label="#{msg.invoiceItem_service}" value="#{_invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false" converter="#{serviceList.converter}"> 
+              <p:ajax listener="#{invoiceItemAction.onChangeService(_invoiceItem)}" update=":#{p:component('invoiceItems')}"> 
                 <s:conversationPropagation type="join"/> 
               </p:ajax>  
-              <s:selectItems value="#{serviceList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-              <s:convertEntity/> 
-            </h:selectOneMenu> 
+              <f:selectItem itemLabel="Select One" itemValue=""/>  
+              <f:selectItems value="#{serviceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+            </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -68,14 +68,14 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}" process="@this"> 
+          <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <h:commandButton value="Delete" immediate="true" action="#{invoiceAction.deleteInvoiceItems(rowIndex)}" update="invoiceItems"> 
+          <p:commandButton value="Delete" immediate="true" action="#{invoiceAction.deleteInvoiceItems(rowIndex)}" update="invoiceItems" process="@this"> 
             <s:conversationId/> 
-          </h:commandButton> 
+          </p:commandButton> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

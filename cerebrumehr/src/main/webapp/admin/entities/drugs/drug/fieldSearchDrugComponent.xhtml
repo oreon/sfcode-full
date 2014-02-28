@@ -83,11 +83,11 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.drug_drugCategorys}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugCategorys')}"/>  
       <br/>  
-      <h:selectOneMenu id="drugCategorysId" value="#{ drugList.drugCategorysToSearch}"> 
-        <s:selectItems value="#{drugCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="drugCategorysId" converter="#{drugCategoryList.converter}" value="#{ drugList.drugCategorysToSearch}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{drugCategoryList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.drug_toxicity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editToxicity')}"/>  

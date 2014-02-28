@@ -46,6 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+//
 public abstract class VaccineActionBase extends BaseAction<Vaccine>
 		implements
 			java.io.Serializable {
@@ -54,26 +55,14 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 	protected Long vaccineId;
 
 	public void setVaccineId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setVaccineIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getVaccineId() {
@@ -172,7 +161,7 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 	}
 
 	public void clearLists() {

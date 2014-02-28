@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="UnusualOccurence"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/viewUnusualOccurenceComponent.xhtml"/> 
+            <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/viewUnusualOccurenceComponent.xhtml"> 
+              <ui:param name="unusualOccurence" value="#{unusualOccurenceAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('unusualOccurence', 'edit')}" action="edit"></h:commandButton>  
@@ -19,16 +21,20 @@
           </div> 
         </p:tab>  
         <p:tab title="OccurenceType" rendered="#{unusualOccurenceAction.instance.occurenceType != null}"> 
-          <ui:include src="/admin/entities/unusualoccurences/occurenceType/viewOccurenceTypeComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="occurenceTypeId" value="#{unusualOccurenceAction.instance.occurenceType.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/unusualoccurences/occurenceType/viewOccurenceTypeComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="occurenceTypeId" value="#{unusualOccurenceAction.instance.occurenceType.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab>  
         <p:tab title="Patient" rendered="#{unusualOccurenceAction.instance.patient != null}"> 
-          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="patientId" value="#{unusualOccurenceAction.instance.patient.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="entityId" value="2"/>  
+              <ui:param name="patientId" value="#{unusualOccurenceAction.instance.patient.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

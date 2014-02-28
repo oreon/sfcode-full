@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="PrescriptionItem"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/prescription/prescriptionItem/viewPrescriptionItemComponent.xhtml"/> 
+            <ui:include src="/admin/entities/prescription/prescriptionItem/viewPrescriptionItemComponent.xhtml"> 
+              <ui:param name="prescriptionItem" value="#{prescriptionItemAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('prescriptionItem', 'edit')}" action="edit"></h:commandButton>  
@@ -19,22 +21,28 @@
           </div> 
         </p:tab>  
         <p:tab title="Drug" rendered="#{prescriptionItemAction.instance.drug != null}"> 
-          <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="drugId" value="#{prescriptionItemAction.instance.drug.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="drugId" value="#{prescriptionItemAction.instance.drug.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab>  
         <p:tab title="Prescription" rendered="#{prescriptionItemAction.instance.prescription != null}"> 
-          <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="prescriptionId" value="#{prescriptionItemAction.instance.prescription.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
+              <ui:param name="entityId" value="2"/>  
+              <ui:param name="prescriptionId" value="#{prescriptionItemAction.instance.prescription.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab>  
         <p:tab title="Frequency" rendered="#{prescriptionItemAction.instance.frequency != null}"> 
-          <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
-            <ui:param name="entityId" value="3"/>  
-            <ui:param name="frequencyId" value="#{prescriptionItemAction.instance.frequency.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
+              <ui:param name="entityId" value="3"/>  
+              <ui:param name="frequencyId" value="#{prescriptionItemAction.instance.frequency.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

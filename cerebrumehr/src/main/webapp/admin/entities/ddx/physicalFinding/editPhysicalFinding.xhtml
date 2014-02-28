@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/ddx/physicalFinding/editPhysicalFindingComponent.xhtml"/> 
+        <ui:include src="/admin/entities/ddx/physicalFinding/editPhysicalFindingComponent.xhtml"> 
+          <ui:param name="physicalFinding" value="#{physicalFindingAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{physicalFindingAction.save}"></h:commandButton>  

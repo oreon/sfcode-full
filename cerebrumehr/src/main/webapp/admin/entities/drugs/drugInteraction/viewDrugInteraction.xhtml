@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="DrugInteraction"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/drugs/drugInteraction/viewDrugInteractionComponent.xhtml"/> 
+            <ui:include src="/admin/entities/drugs/drugInteraction/viewDrugInteractionComponent.xhtml"> 
+              <ui:param name="drugInteraction" value="#{drugInteractionAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('drugInteraction', 'edit')}" action="edit"></h:commandButton>  
@@ -19,16 +21,20 @@
           </div> 
         </p:tab>  
         <p:tab title="Drug" rendered="#{drugInteractionAction.instance.drug != null}"> 
-          <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="drugId" value="#{drugInteractionAction.instance.drug.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="drugId" value="#{drugInteractionAction.instance.drug.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab>  
         <p:tab title="InteractingDrug" rendered="#{drugInteractionAction.instance.interactingDrug != null}"> 
-          <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="drugId" value="#{drugInteractionAction.instance.interactingDrug.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
+              <ui:param name="entityId" value="2"/>  
+              <ui:param name="drugId" value="#{drugInteractionAction.instance.interactingDrug.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

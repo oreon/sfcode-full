@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/ddx/patientDiffDx/editPatientDiffDxComponent.xhtml"/> 
+        <ui:include src="/admin/entities/ddx/patientDiffDx/editPatientDiffDxComponent.xhtml"> 
+          <ui:param name="patientDiffDx" value="#{patientDiffDxAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{patientDiffDxAction.save}"></h:commandButton>  

@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup id="viewAppliedChartComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{appliedChartAction.load(appliedChartId )  }"/>  
+  <h:panelGroup id="${panelId == null ? 'viewAppliedChartPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppliedChart eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.AppliedChart}"/> 
       </f:facet>  
       <h:outputText value="#{msg.appliedChart_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewPatient')}"/>  
-      <h:link escape="false" value="#{appliedChartAction.appliedChart.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{appliedChartAction.appliedChart.patient.id}"/>  
+      <h:link id="patientappliedChart_patient" escape="false" value="#{appliedChart.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <f:param name="patientId" value="#{appliedChart.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
-          <span>#{appliedChartAction.appliedChart.patient.popupInfo}</span> 
+          <span>#{appliedChart.patient.popupInfo}</span> 
         </p:tooltip> 
       </h:link>  
+      <p:overlayPanel for="patientappliedChart_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+            <ui:param name="patient" value="#{appliedChart.patient}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="patientAppliedCharts"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel>  
       <h:outputText value="#{msg.appliedChart_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'viewChart')}"/>  
-      <h:link escape="false" value="#{appliedChartAction.appliedChart.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
-        <f:param name="chartId" value="#{appliedChartAction.appliedChart.chart.id}"/>  
+      <h:link id="chartappliedChart_chart" escape="false" value="#{appliedChart.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
+        <f:param name="chartId" value="#{appliedChart.chart.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="chartappliedChart_chart" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/charts/chart/viewChartComponent.xhtml"> 
+            <ui:param name="chart" value="#{appliedChart.chart}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="chart"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </h:panelGrid>  
     <br/>  
     <br/> 

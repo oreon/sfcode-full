@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
@@ -38,8 +37,8 @@ import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.Redirect;
 import org.jboss.seam.faces.Renderer;
 import org.jboss.seam.framework.EntityHome;
-import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.international.StatusMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
 import org.primefaces.event.SelectEvent;
@@ -191,7 +190,27 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	// Needed for many to many list initializations in dialog
 	public void onRowSelect( SelectEvent event ) throws Exception {
 		T t = (T) event.getObject();
-		setId( t.getId() );
+		setEntityIdForModalDlg( t.getId() );
+	}
+	
+	
+	public void setEntityId(Long entityId){
+		if (entityId == 0) {
+			clearInstance();
+			clearLists();
+			loadAssociations();
+			return;
+		}
+		setId(entityId);
+		instance = loadInstance();
+		if (!isPostBack())
+			loadAssociations();
+	}
+	
+	public void setEntityIdForModalDlg(Long entityId){
+		setId(entityId);
+		instance = loadInstance();
+		clearLists();
 		loadAssociations();
 	}
 
@@ -279,6 +298,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		return e;
 	}
 
+
 	@Transactional
 	public String doSave() {
 		try {
@@ -349,6 +369,18 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		refresh();
 		return result;
 	}
+	/**
+	 * Refresh entitymanager so the data is actually read from database as opposed to conversation
+	 */
+	protected  void refresh() {
+		try {
+			if (getInstance() != null)
+				entityManager.refresh(getInstance());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 
 	@End(beforeRedirect = true)
 	public String saveWithoutConversation() {
@@ -430,6 +462,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	 */
 	public void archiveById(Long id) {
 		//TODO: provide implementation
+		System.out.println("in acrvhi by id");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -781,19 +814,6 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 		return data;
 	}
-	
-	/**
-	 * Refresh entitymanager so the data is actually read from database as opposed to conversation
-	 */
-	protected  void refresh() {
-		try {
-			if (getInstance() != null)
-				entityManager.refresh(getInstance());
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
 
 	/**
 	 * The method searches for the entity by class type and primary key.

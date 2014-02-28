@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="AppRole"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/users/appRole/viewAppRoleComponent.xhtml"/> 
+            <ui:include src="/admin/entities/users/appRole/viewAppRoleComponent.xhtml"> 
+              <ui:param name="appRole" value="#{appRoleAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('appRole', 'edit')}" action="edit"></h:commandButton>  

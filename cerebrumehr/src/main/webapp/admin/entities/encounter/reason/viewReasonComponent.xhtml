@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup id="viewReasonComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{reasonAction.load(reasonId )  }"/>  
+  <h:panelGroup id="${panelId == null ? 'viewReasonPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelReason eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Reason}"/> 
       </f:facet>  
       <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewRemarks')}"/>  
-      <h:outputText value="#{reasonAction.reason.remarks}" escape="false"/>  
+      <h:outputText value="#{reason.remarks}" escape="false"/>  
       <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewEncounter')}"/>  
-      <h:link escape="false" value="#{reasonAction.reason.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
-        <f:param name="encounterId" value="#{reasonAction.reason.encounter.id}"/>  
+      <h:link id="encounterreason_encounter" escape="false" value="#{reason.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+        <f:param name="encounterId" value="#{reason.encounter.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
       </h:link>  
+      <p:overlayPanel for="encounterreason_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+            <ui:param name="encounter" value="#{reason.encounter}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="encounterReasons"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel>  
       <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewCode')}"/>  
-      <h:link escape="false" value="#{reasonAction.reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
-        <f:param name="codeId" value="#{reasonAction.reason.code.id}"/>  
+      <h:link id="codereason_code" escape="false" value="#{reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
+        <f:param name="codeId" value="#{reason.code.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="codereason_code" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/codes/code/viewCodeComponent.xhtml"> 
+            <ui:param name="code" value="#{reason.code}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="code"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </h:panelGrid>  
     <br/>  
     <br/> 

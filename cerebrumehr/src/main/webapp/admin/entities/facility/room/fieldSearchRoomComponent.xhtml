@@ -13,18 +13,18 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}"/>  
       <br/>  
-      <h:selectOneMenu id="roomTypeId" value="#{ roomList.room.roomType}"> 
-        <s:selectItems value="#{roomTypeList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="roomTypeId" converter="#{roomTypeList.converter}" value="#{ roomList.room.roomType}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{roomTypeList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editWard')}"/>  
       <br/>  
-      <h:selectOneMenu id="wardId" value="#{ roomList.room.ward}"> 
-        <s:selectItems value="#{wardList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="wardId" converter="#{wardList.converter}" value="#{ roomList.room.ward}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{wardList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

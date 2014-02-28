@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="Disease"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"/> 
+            <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
+              <ui:param name="disease" value="#{diseaseAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('disease', 'edit')}" action="edit"></h:commandButton>  
@@ -19,16 +21,20 @@
           </div> 
         </p:tab>  
         <p:tab title="RelatedDisease" rendered="#{diseaseAction.instance.relatedDisease != null}"> 
-          <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="diseaseId" value="#{diseaseAction.instance.relatedDisease.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="diseaseId" value="#{diseaseAction.instance.relatedDisease.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab>  
         <p:tab title="ConditionCategory" rendered="#{diseaseAction.instance.conditionCategory != null}"> 
-          <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="conditionCategoryId" value="#{diseaseAction.instance.conditionCategory.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
+              <ui:param name="entityId" value="2"/>  
+              <ui:param name="conditionCategoryId" value="#{diseaseAction.instance.conditionCategory.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

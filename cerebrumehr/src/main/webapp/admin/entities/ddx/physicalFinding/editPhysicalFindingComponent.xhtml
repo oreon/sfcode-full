@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editPhysicalFindingComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{physicalFindingAction.load(physicalFindingId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPhysicalFinding eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.PhysicalFinding}"/> 
       </f:facet>  
@@ -25,20 +25,20 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeDifferentialDxs == true}"> 
-      <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editDifferentialDxs')}" process="@this"> 
+      <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editDifferentialDxs')}"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editDifferentialDxs')}" value="#{findingAction.listDifferentialDxs}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physicalFinding', 'editDifferentialDxs')}" value="#{findingAction.listDifferentialDxs}" rowIndexVar="rowIndex"> 
         <p:column>
           <f:facet name="header">
             <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}"/>
           </f:facet>  
           <s:decorate id="dxCategoryIdDecorate" rendered="#{ ! excludeDxCategory == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:selectOneMenu id="dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false"> 
-              <s:selectItems value="#{dxCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-              <s:convertEntity/> 
-            </h:selectOneMenu> 
+            <p:selectOneMenu id="dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false" converter="#{dxCategoryList.converter}"> 
+              <f:selectItem itemLabel="Select One" itemValue=""/>  
+              <f:selectItems value="#{dxCategoryList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+            </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -53,14 +53,14 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDifferentialDxs')}" process="@this"> 
+          <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDifferentialDxs')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <h:commandButton value="Delete" immediate="true" action="#{findingAction.deleteDifferentialDxs(rowIndex)}" update="differentialDxs"> 
+          <p:commandButton value="Delete" immediate="true" action="#{findingAction.deleteDifferentialDxs(rowIndex)}" update="differentialDxs" process="@this"> 
             <s:conversationId/> 
-          </h:commandButton> 
+          </p:commandButton> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

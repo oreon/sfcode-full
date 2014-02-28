@@ -8,10 +8,10 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patientId" value="#{ patientDiffDxList.patientDiffDx.patient}"> 
-        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="patientId" converter="#{patientList.converter}" value="#{ patientDiffDxList.patientDiffDx.patient}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editNotes')}"/>  

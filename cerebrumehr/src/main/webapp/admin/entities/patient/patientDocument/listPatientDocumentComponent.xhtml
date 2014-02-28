@@ -31,18 +31,26 @@
         </p:column>  
         <p:column headerText="#{msg.patientDocument_notes}" sortBy="patientDocument.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewNotes')) }"> 
           <h:panelGroup> 
-            <p:tooltip value="#{_patientDocument.notes}" for="notesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-            <h:outputText id="notesAbbr" value="#{_patientDocument.notesAbbreviated}" escape="false"/> 
+            <h:outputText id="${panelId}notesAbbr" value="#{_patientDocument.notesAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.patientDocument_patient}" sortBy="patientDocument.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'viewPatient')) }"> 
-          <h:link escape="false" value="#{_patientDocument.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <h:link id="patientpatientDocument_patient" escape="false" value="#{_patientDocument.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_patientDocument.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
               <span>#{_patientDocument.patient.popupInfo}</span> 
             </p:tooltip> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="patientpatientDocument_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+                <ui:param name="patient" value="#{_patientDocument.patient}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="patientPatientDocuments"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="patientDocument.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_patientDocument.dateCreated}"> 

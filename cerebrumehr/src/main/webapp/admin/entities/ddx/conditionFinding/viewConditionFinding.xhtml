@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="ConditionFinding"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/ddx/conditionFinding/viewConditionFindingComponent.xhtml"/> 
+            <ui:include src="/admin/entities/ddx/conditionFinding/viewConditionFindingComponent.xhtml"> 
+              <ui:param name="conditionFinding" value="#{conditionFindingAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('conditionFinding', 'edit')}" action="edit"></h:commandButton>  
@@ -19,10 +21,12 @@
           </div> 
         </p:tab>  
         <p:tab title="Disease" rendered="#{conditionFindingAction.instance.disease != null}"> 
-          <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="diseaseId" value="#{conditionFindingAction.instance.disease.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="diseaseId" value="#{conditionFindingAction.instance.disease.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

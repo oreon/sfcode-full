@@ -19,10 +19,19 @@
           </h:link> 
         </p:column>  
         <p:column headerText="#{msg.conditionFinding_disease}" sortBy="conditionFinding.disease" rendered="#{ ! excludeDisease == true and ( skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewDisease')) }"> 
-          <h:link escape="false" value="#{_conditionFinding.disease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
+          <h:link id="diseaseconditionFinding_disease" escape="false" value="#{_conditionFinding.disease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
             <f:param name="diseaseId" value="#{_conditionFinding.disease.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="diseaseconditionFinding_disease" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
+                <ui:param name="disease" value="#{_conditionFinding.disease}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="disease"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.conditionFinding_falsePositive}" sortBy="conditionFinding.falsePositive" rendered="#{ ! excludeFalsePositive == true and ( skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewFalsePositive')) }"> 
           <h:outputText value="#{_conditionFinding.falsePositive? msg.yes : msg.no }"/> 

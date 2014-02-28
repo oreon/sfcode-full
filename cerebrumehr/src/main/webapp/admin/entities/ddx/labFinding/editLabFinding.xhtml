@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/ddx/labFinding/editLabFindingComponent.xhtml"/> 
+        <ui:include src="/admin/entities/ddx/labFinding/editLabFindingComponent.xhtml"> 
+          <ui:param name="labFinding" value="#{labFindingAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{labFindingAction.save}"></h:commandButton>  

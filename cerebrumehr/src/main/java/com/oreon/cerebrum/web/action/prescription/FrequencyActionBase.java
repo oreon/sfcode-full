@@ -46,6 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+//
 public abstract class FrequencyActionBase extends BaseAction<Frequency>
 		implements
 			java.io.Serializable {
@@ -54,26 +55,14 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 	protected Long frequencyId;
 
 	public void setFrequencyId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setFrequencyIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getFrequencyId() {
@@ -172,7 +161,7 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 	}
 
 	public void clearLists() {

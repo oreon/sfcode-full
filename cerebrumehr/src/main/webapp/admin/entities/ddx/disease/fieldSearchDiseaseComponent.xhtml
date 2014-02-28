@@ -23,11 +23,11 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.disease_conditionCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}"/>  
       <br/>  
-      <h:selectOneMenu id="conditionCategoryId" value="#{ diseaseList.disease.conditionCategory}"> 
-        <s:selectItems value="#{conditionCategoryList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="conditionCategoryId" converter="#{conditionCategoryList.converter}" value="#{ diseaseList.disease.conditionCategory}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{conditionCategoryList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

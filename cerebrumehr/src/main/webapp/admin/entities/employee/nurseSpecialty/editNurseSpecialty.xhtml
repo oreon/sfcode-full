@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/employee/nurseSpecialty/editNurseSpecialtyComponent.xhtml"/> 
+        <ui:include src="/admin/entities/employee/nurseSpecialty/editNurseSpecialtyComponent.xhtml"> 
+          <ui:param name="nurseSpecialty" value="#{nurseSpecialtyAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{nurseSpecialtyAction.save}"></h:commandButton>  

@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -24,6 +25,7 @@ import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
+import org.jboss.seam.Component;
 
 import com.oreon.cerebrum.users.AppUser;
 
@@ -204,6 +206,21 @@ public class BaseEntity implements Serializable{
 
 	public Long getTenant() {
 		return tenant;
+	}
+	
+
+	@PrePersist
+	// @PreUpdate
+	public void updateTenant() {
+		// if (this instanceof AppUser)
+		// return;
+
+		UserUtilAction userUtilAction = (UserUtilAction) Component
+				.getInstance("userUtilAction");
+
+		if (tenant == null || tenant == 0)
+			setTenant(userUtilAction.getCurrentTenantId());
+
 	}
 	
 /*

@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="Frequency"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"/> 
+            <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
+              <ui:param name="frequency" value="#{frequencyAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('frequency', 'edit')}" action="edit"></h:commandButton>  

@@ -1,40 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup id="viewPatientDiffDxComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{patientDiffDxAction.load(patientDiffDxId )  }"/>  
+  <h:panelGroup id="${panelId == null ? 'viewPatientDiffDxPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPatientDiffDx eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.PatientDiffDx}"/> 
       </f:facet>  
       <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')}"/>  
       <h:panelGroup> 
-        <p:tooltip value="#{patientDiffDxAction.patientDiffDx.notes}" for="notesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="notesAbbr" value="#{patientDiffDxAction.patientDiffDx.notesAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}notesAbbr" value="#{patientDiffDx.notesAbbreviated}" escape="false"/> 
       </h:panelGroup>  
       <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')}"/>  
-      <h:link escape="false" value="#{patientDiffDxAction.patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{patientDiffDxAction.patientDiffDx.patient.id}"/>  
+      <h:link id="patientpatientDiffDx_patient" escape="false" value="#{patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <f:param name="patientId" value="#{patientDiffDx.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
-          <span>#{patientDiffDxAction.patientDiffDx.patient.popupInfo}</span> 
+          <span>#{patientDiffDx.patient.popupInfo}</span> 
         </p:tooltip> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="patientpatientDiffDx_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+            <ui:param name="patient" value="#{patientDiffDx.patient}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="patient"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePatientFindings == true}"> 
-      <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{not empty patientDiffDxAction.listPatientFindings and skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatientFindings') }" value="#{patientDiffDxAction.listPatientFindings}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{not empty patientDiffDxAction.listPatientFindings and skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatientFindings') }" value="#{patientDiffDxAction.listPatientFindings}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewFinding')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_patientFinding.finding.displayName}" outcome="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
+          <h:link id="findingpatientFinding_finding" escape="false" value="#{_patientFinding.finding.displayName}" outcome="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
             <f:param name="findingId" value="#{_patientFinding.finding.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="findingpatientFinding_finding" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/ddx/finding/viewFindingComponent.xhtml"> 
+                <ui:param name="finding" value="#{_patientFinding.finding}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="finding"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

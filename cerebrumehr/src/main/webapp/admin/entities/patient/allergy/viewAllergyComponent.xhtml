@@ -1,30 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup id="viewAllergyComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{allergyAction.load(allergyId )  }"/>  
+  <h:panelGroup id="${panelId == null ? 'viewAllergyPanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAllergy eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Allergy}"/> 
       </f:facet>  
       <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewSeverity')}"/>  
-      <h:outputText value="#{allergyAction.allergy.severity}" escape="false"/>  
+      <h:outputText value="#{allergy.severity}" escape="false"/>  
       <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')}"/>  
-      <h:link escape="false" value="#{allergyAction.allergy.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{allergyAction.allergy.patient.id}"/>  
+      <h:link id="patientallergy_patient" escape="false" value="#{allergy.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <f:param name="patientId" value="#{allergy.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
-          <span>#{allergyAction.allergy.patient.popupInfo}</span> 
+          <span>#{allergy.patient.popupInfo}</span> 
         </p:tooltip> 
       </h:link>  
+      <p:overlayPanel for="patientallergy_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+            <ui:param name="patient" value="#{allergy.patient}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="patientAllergys"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel>  
       <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewAllergen')}"/>  
-      <h:link escape="false" value="#{allergyAction.allergy.allergen.displayName}" outcome="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
-        <f:param name="allergenId" value="#{allergyAction.allergy.allergen.id}"/>  
+      <h:link id="allergenallergy_allergen" escape="false" value="#{allergy.allergen.displayName}" outcome="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
+        <f:param name="allergenId" value="#{allergy.allergen.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="allergenallergy_allergen" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/patient/allergen/viewAllergenComponent.xhtml"> 
+            <ui:param name="allergen" value="#{allergy.allergen}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="allergen"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </h:panelGrid>  
     <br/>  
     <br/> 

@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.codes.Code;
 
+//
 public abstract class SectionActionBase
 		extends
 			com.oreon.cerebrum.web.action.codes.AbstractCodeAction<Section>
@@ -61,26 +62,14 @@ public abstract class SectionActionBase
 	com.oreon.cerebrum.web.action.codes.ChapterAction chapterAction;
 
 	public void setSectionId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setSectionIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setChapterId(Long id) {
@@ -252,9 +241,20 @@ public abstract class SectionActionBase
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listCodes != null) {
+
+			java.util.Set<Code> items = getInstance().getCodes();
+			for (Code item : items) {
+				if (!listCodes.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Code item : listCodes) {
+				item.setSection(getInstance());
+			}
+
 			getInstance().getCodes().clear();
 			getInstance().getCodes().addAll(listCodes);
 		}

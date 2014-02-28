@@ -46,6 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+//
 public abstract class UnusualOccurenceActionBase
 		extends
 			BaseAction<UnusualOccurence> implements java.io.Serializable {
@@ -60,26 +61,14 @@ public abstract class UnusualOccurenceActionBase
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
 	public void setUnusualOccurenceId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setUnusualOccurenceIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setOccurenceTypeId(Long id) {
@@ -240,7 +229,7 @@ public abstract class UnusualOccurenceActionBase
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 	}
 
 	public void clearLists() {

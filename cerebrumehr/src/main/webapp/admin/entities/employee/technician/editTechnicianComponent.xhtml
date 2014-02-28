@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editTechnicianComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{technicianAction.load(technicianId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelTechnician eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Technician}"/> 
       </f:facet>  
@@ -58,25 +58,25 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFacility')}"/>
         </ui:define>  
-        <h:selectOneMenu id="facilityId" label="#{msg.employee_facility}" value="#{technicianAction.technician.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFacility')}" disabled="false"> 
-          <s:selectItems value="#{facilityList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
+        <p:selectOneMenu id="facilityId" label="#{msg.employee_facility}" value="#{technicianAction.technician.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editFacility')}" disabled="false" converter="#{facilityList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{facilityList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="departmentIdDecorate" rendered="#{ ! excludeDepartment == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}"/>
         </ui:define>  
-        <h:selectOneMenu id="departmentId" label="#{msg.employee_department}" value="#{technicianAction.technician.department}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}" disabled="false"> 
-          <s:selectItems value="#{departmentList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
+        <p:selectOneMenu id="departmentId" label="#{msg.employee_department}" value="#{technicianAction.technician.department}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('technician', 'editDepartment')}" disabled="false" converter="#{departmentList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{departmentList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAppUser eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.AppUser}"/> 
       </f:facet>  
@@ -102,7 +102,7 @@
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.ContactDetails}"/> 
       </f:facet>  

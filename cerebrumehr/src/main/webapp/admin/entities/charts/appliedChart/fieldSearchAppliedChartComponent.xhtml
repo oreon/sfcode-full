@@ -8,18 +8,18 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.appliedChart_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editPatient')}"/>  
       <br/>  
-      <h:selectOneMenu id="patientId" value="#{ appliedChartList.appliedChart.patient}"> 
-        <s:selectItems value="#{patientList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="patientId" converter="#{patientList.converter}" value="#{ appliedChartList.appliedChart.patient}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appliedChart_chart}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChart')}"/>  
       <br/>  
-      <h:selectOneMenu id="chartId" value="#{ appliedChartList.appliedChart.chart}"> 
-        <s:selectItems value="#{chartList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="chartId" converter="#{chartList.converter}" value="#{ appliedChartList.appliedChart.chart}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{chartList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 
