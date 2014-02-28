@@ -255,13 +255,12 @@
 	 «IF !isManyToMany() || getCurrentEmbeddable() == null»
 	<h:panelGroup>
 	«getOutputMessage()» <br/>
-	<h:selectOneMenu id="«getId()»" value="#{ «getCurrentEntity().asVar()»List.«isManyToMany() ? name +"ToSearch": genPropertyLabel()»}" >
-		<s:selectItems value="#{«type.asVar()»List.all}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Any..." />
-		<s:convertEntity />
+	<p:selectOneMenu id="«getId()»" converter="#{«type.asVar()»List.converter}"  value="#{ «getCurrentEntity().asVar()»List.«isManyToMany() ? name +"ToSearch": genPropertyLabel()»}" >
+		<f:selectItem itemLabel="Any..." itemValue="" /> 
 		«getAssocOptional()?"<f:selectItem itemLabel=\"--None--\" itemValue=\"\"/>":""»
-	</h:selectOneMenu>
+		<f:selectItems value="#{«type.asVar()»List.all}" var="itemIter"
+			itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"   />
+	</p:selectOneMenu>
 	</h:panelGroup>
 	«ENDIF»
 «ENDDEFINE»
