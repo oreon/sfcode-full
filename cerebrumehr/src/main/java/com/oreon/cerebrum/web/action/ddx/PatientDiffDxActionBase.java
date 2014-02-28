@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ddx.PatientFinding;
 
+//
 public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 		implements
 			java.io.Serializable {
@@ -59,26 +60,14 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
 	public void setPatientDiffDxId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setPatientDiffDxIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setPatientId(Long id) {
@@ -251,9 +240,21 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listPatientFindings != null) {
+
+			java.util.Set<PatientFinding> items = getInstance()
+					.getPatientFindings();
+			for (PatientFinding item : items) {
+				if (!listPatientFindings.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (PatientFinding item : listPatientFindings) {
+				item.setPatientDiffDx(getInstance());
+			}
+
 			getInstance().getPatientFindings().clear();
 			getInstance().getPatientFindings().addAll(listPatientFindings);
 		}

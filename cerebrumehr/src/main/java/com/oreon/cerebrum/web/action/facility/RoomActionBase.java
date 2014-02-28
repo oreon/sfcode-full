@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.facility.Bed;
 
+//
 public abstract class RoomActionBase extends BaseAction<Room>
 		implements
 			java.io.Serializable {
@@ -62,26 +63,14 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	com.oreon.cerebrum.web.action.facility.WardAction wardAction;
 
 	public void setRoomId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setRoomIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setRoomTypeId(Long id) {
@@ -281,9 +270,20 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listBeds != null) {
+
+			java.util.Set<Bed> items = getInstance().getBeds();
+			for (Bed item : items) {
+				if (!listBeds.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Bed item : listBeds) {
+				item.setRoom(getInstance());
+			}
+
 			getInstance().getBeds().clear();
 			getInstance().getBeds().addAll(listBeds);
 		}

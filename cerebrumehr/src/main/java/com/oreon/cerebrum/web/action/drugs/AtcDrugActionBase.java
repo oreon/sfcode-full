@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.drugs.AtcDrug;
 
+//
 public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 		implements
 			java.io.Serializable {
@@ -62,26 +63,14 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	com.oreon.cerebrum.web.action.drugs.AtcDrugAction parentAction;
 
 	public void setAtcDrugId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setAtcDrugIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setDrugId(Long id) {
@@ -288,9 +277,20 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listSubcategories != null) {
+
+			java.util.Set<AtcDrug> items = getInstance().getSubcategories();
+			for (AtcDrug item : items) {
+				if (!listSubcategories.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (AtcDrug item : listSubcategories) {
+				item.setParent(getInstance());
+			}
+
 			getInstance().getSubcategories().clear();
 			getInstance().getSubcategories().addAll(listSubcategories);
 		}

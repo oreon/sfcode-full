@@ -19,22 +19,40 @@
           </h:link> 
         </p:column>  
         <p:column headerText="#{msg.bed_room}" sortBy="bed.room" rendered="#{ ! excludeRoom == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewRoom')) }"> 
-          <h:link escape="false" value="#{_bed.room.displayName}" outcome="/admin/entities/facility/room/viewRoom.xhtml" propagation="none"> 
+          <h:link id="roombed_room" escape="false" value="#{_bed.room.displayName}" outcome="/admin/entities/facility/room/viewRoom.xhtml" propagation="none"> 
             <f:param name="roomId" value="#{_bed.room.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="roombed_room" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/facility/room/viewRoomComponent.xhtml"> 
+                <ui:param name="room" value="#{_bed.room}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="roomBeds"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.bed_name}" sortBy="bed.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')) }"> 
           <h:outputText value="#{_bed.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="#{msg.bed_patient}" sortBy="bed.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewPatient')) }"> 
-          <h:link escape="false" value="#{_bed.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <h:link id="patientbed_patient" escape="false" value="#{_bed.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_bed.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
               <span>#{_bed.patient.popupInfo}</span> 
             </p:tooltip> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="patientbed_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+                <ui:param name="patient" value="#{_bed.patient}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="patient"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="bed.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_bed.dateCreated}"> 

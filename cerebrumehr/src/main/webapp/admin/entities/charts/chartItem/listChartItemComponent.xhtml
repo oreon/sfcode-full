@@ -25,10 +25,19 @@
           <h:outputText value="#{_chartItem.duration}" escape="false"/> 
         </p:column>  
         <p:column headerText="#{msg.chartItem_chart}" sortBy="chartItem.chart" rendered="#{ ! excludeChart == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewChart')) }"> 
-          <h:link escape="false" value="#{_chartItem.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
+          <h:link id="chartchartItem_chart" escape="false" value="#{_chartItem.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
             <f:param name="chartId" value="#{_chartItem.chart.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="chartchartItem_chart" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/charts/chart/viewChartComponent.xhtml"> 
+                <ui:param name="chart" value="#{_chartItem.chart}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="chartChartItems"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.chartItem_frequencyPeriod}" sortBy="chartItem.frequencyPeriod" rendered="#{ ! excludeFrequencyPeriod == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewFrequencyPeriod')) }"> 
           <h:outputText value="#{_chartItem.frequencyPeriod}" escape="false"/> 

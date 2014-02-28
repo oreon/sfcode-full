@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.charts.ChartItem;
 
+//
 public abstract class ChartActionBase extends BaseAction<Chart>
 		implements
 			java.io.Serializable {
@@ -56,26 +57,14 @@ public abstract class ChartActionBase extends BaseAction<Chart>
 	protected Long chartId;
 
 	public void setChartId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setChartIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getChartId() {
@@ -221,9 +210,20 @@ public abstract class ChartActionBase extends BaseAction<Chart>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listChartItems != null) {
+
+			java.util.Set<ChartItem> items = getInstance().getChartItems();
+			for (ChartItem item : items) {
+				if (!listChartItems.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (ChartItem item : listChartItems) {
+				item.setChart(getInstance());
+			}
+
 			getInstance().getChartItems().clear();
 			getInstance().getChartItems().addAll(listChartItems);
 		}

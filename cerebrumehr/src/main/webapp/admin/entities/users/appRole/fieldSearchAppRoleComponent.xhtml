@@ -13,11 +13,11 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.appRole_appUsers}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appRole', 'editAppUsers')}"/>  
       <br/>  
-      <h:selectOneMenu id="appUsersId" value="#{ appRoleList.appUsersToSearch}"> 
-        <s:selectItems value="#{appUserList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="appUsersId" converter="#{appUserList.converter}" value="#{ appRoleList.appUsersToSearch}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{appUserList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

@@ -46,6 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+//
 public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 		implements
 			java.io.Serializable {
@@ -57,26 +58,14 @@ public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 	com.oreon.cerebrum.web.action.charts.ChartAction chartAction;
 
 	public void setChartItemId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setChartItemIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setChartId(Long id) {
@@ -212,7 +201,7 @@ public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 	}
 
 	public void clearLists() {

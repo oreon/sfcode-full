@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/ddx/conditionCategory/editConditionCategoryComponent.xhtml"/> 
+        <ui:include src="/admin/entities/ddx/conditionCategory/editConditionCategoryComponent.xhtml"> 
+          <ui:param name="conditionCategory" value="#{conditionCategoryAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{conditionCategoryAction.save}"></h:commandButton>  

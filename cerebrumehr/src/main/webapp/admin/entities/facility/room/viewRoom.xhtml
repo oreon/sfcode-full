@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="Room"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/facility/room/viewRoomComponent.xhtml"/> 
+            <ui:include src="/admin/entities/facility/room/viewRoomComponent.xhtml"> 
+              <ui:param name="room" value="#{roomAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('room', 'edit')}" action="edit"></h:commandButton>  
@@ -19,16 +21,20 @@
           </div> 
         </p:tab>  
         <p:tab title="RoomType" rendered="#{roomAction.instance.roomType != null}"> 
-          <ui:include src="/admin/entities/facility/roomType/viewRoomTypeComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="roomTypeId" value="#{roomAction.instance.roomType.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/roomType/viewRoomTypeComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="roomTypeId" value="#{roomAction.instance.roomType.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab>  
         <p:tab title="Ward" rendered="#{roomAction.instance.ward != null}"> 
-          <ui:include src="/admin/entities/facility/ward/viewWardComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="wardId" value="#{roomAction.instance.ward.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/ward/viewWardComponent.xhtml"> 
+              <ui:param name="entityId" value="2"/>  
+              <ui:param name="wardId" value="#{roomAction.instance.ward.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

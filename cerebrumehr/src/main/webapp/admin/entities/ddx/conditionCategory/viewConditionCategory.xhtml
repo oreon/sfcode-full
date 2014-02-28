@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="ConditionCategory"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"/> 
+            <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
+              <ui:param name="conditionCategory" value="#{conditionCategoryAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('conditionCategory', 'edit')}" action="edit"></h:commandButton>  

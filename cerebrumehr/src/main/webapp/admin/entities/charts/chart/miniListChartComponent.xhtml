@@ -13,7 +13,8 @@
     </p:column>  
     <p:rowExpansion> 
       <ui:include src="/admin/entities/charts/chartItem/miniListChartItemComponent.xhtml"> 
-        <ui:param name="records" value="#{_chart.listChartItems}"/> 
+        <ui:param name="records" value="#{_chart.listChartItems}"/>  
+        <ui:param name="excludeChart" value="true"/> 
       </ui:include> 
     </p:rowExpansion>  
     <p:column headerText="#{msg.chart_name}" sortBy="chart.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewName')) }"> 

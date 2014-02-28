@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/facility/bed/editBedComponent.xhtml"/> 
+        <ui:include src="/admin/entities/facility/bed/editBedComponent.xhtml"> 
+          <ui:param name="bed" value="#{bedAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{bedAction.save}"></h:commandButton>  

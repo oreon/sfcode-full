@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/drugs/drugCategory/editDrugCategoryComponent.xhtml"/> 
+        <ui:include src="/admin/entities/drugs/drugCategory/editDrugCategoryComponent.xhtml"> 
+          <ui:param name="drugCategory" value="#{drugCategoryAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{drugCategoryAction.save}"></h:commandButton>  

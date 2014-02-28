@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.employee.Employee;
 
+//
 public abstract class DepartmentActionBase extends BaseAction<Department>
 		implements
 			java.io.Serializable {
@@ -56,26 +57,14 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	protected Long departmentId;
 
 	public void setDepartmentId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setDepartmentIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getDepartmentId() {
@@ -208,9 +197,20 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listEmployees != null) {
+
+			java.util.Set<Employee> items = getInstance().getEmployees();
+			for (Employee item : items) {
+				if (!listEmployees.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Employee item : listEmployees) {
+				item.setDepartment(getInstance());
+			}
+
 			getInstance().getEmployees().clear();
 			getInstance().getEmployees().addAll(listEmployees);
 		}

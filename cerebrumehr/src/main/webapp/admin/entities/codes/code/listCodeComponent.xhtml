@@ -23,42 +23,48 @@
         </p:column>  
         <p:column headerText="#{msg.abstractCode_description}" sortBy="code.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('code', 'viewDescription')) }"> 
           <h:panelGroup> 
-            <p:tooltip value="#{_code.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-            <h:outputText id="descriptionAbbr" value="#{_code.descriptionAbbreviated}" escape="false"/> 
+            <h:outputText id="${panelId}descriptionAbbr" value="#{_code.descriptionAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.code_includes}" sortBy="code.includes" rendered="#{ ! excludeIncludes == true and ( skipPermissionCheck == 'true' || s:hasPermission('code', 'viewIncludes')) }"> 
           <h:panelGroup> 
-            <p:tooltip value="#{_code.includes}" for="includesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-            <h:outputText id="includesAbbr" value="#{_code.includesAbbreviated}" escape="false"/> 
+            <h:outputText id="${panelId}includesAbbr" value="#{_code.includesAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.code_notIncludedHere}" sortBy="code.notIncludedHere" rendered="#{ ! excludeNotIncludedHere == true and ( skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotIncludedHere')) }"> 
           <h:panelGroup> 
-            <p:tooltip value="#{_code.notIncludedHere}" for="notIncludedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-            <h:outputText id="notIncludedHereAbbr" value="#{_code.notIncludedHereAbbreviated}" escape="false"/> 
+            <h:outputText id="${panelId}notIncludedHereAbbr" value="#{_code.notIncludedHereAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.code_codeFirst}" sortBy="code.codeFirst" rendered="#{ ! excludeCodeFirst == true and ( skipPermissionCheck == 'true' || s:hasPermission('code', 'viewCodeFirst')) }"> 
           <h:panelGroup> 
-            <p:tooltip value="#{_code.codeFirst}" for="codeFirstAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-            <h:outputText id="codeFirstAbbr" value="#{_code.codeFirstAbbreviated}" escape="false"/> 
+            <h:outputText id="${panelId}codeFirstAbbr" value="#{_code.codeFirstAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.code_section}" sortBy="code.section" rendered="#{ ! excludeSection == true and ( skipPermissionCheck == 'true' || s:hasPermission('code', 'viewSection')) }"> 
-          <h:link escape="false" value="#{_code.section.displayName}" outcome="/admin/entities/codes/section/viewSection.xhtml" propagation="none"> 
+          <h:link id="sectioncode_section" escape="false" value="#{_code.section.displayName}" outcome="/admin/entities/codes/section/viewSection.xhtml" propagation="none"> 
             <f:param name="sectionId" value="#{_code.section.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="sectioncode_section" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/codes/section/viewSectionComponent.xhtml"> 
+                <ui:param name="section" value="#{_code.section}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="sectionCodes"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.code_notCodedHere}" sortBy="code.notCodedHere" rendered="#{ ! excludeNotCodedHere == true and ( skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotCodedHere')) }"> 
           <h:panelGroup> 
-            <p:tooltip value="#{_code.notCodedHere}" for="notCodedHereAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-            <h:outputText id="notCodedHereAbbr" value="#{_code.notCodedHereAbbreviated}" escape="false"/> 
+            <h:outputText id="${panelId}notCodedHereAbbr" value="#{_code.notCodedHereAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.code_codeAlso}" sortBy="code.codeAlso" rendered="#{ ! excludeCodeAlso == true and ( skipPermissionCheck == 'true' || s:hasPermission('code', 'viewCodeAlso')) }"> 
-          <h:outputText value="#{_code.codeAlso}" escape="false"/> 
+          <h:panelGroup> 
+            <h:outputText id="${panelId}codeAlsoAbbr" value="#{_code.codeAlsoAbbreviated}" escape="false"/> 
+          </h:panelGroup> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="code.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_code.dateCreated}"> 

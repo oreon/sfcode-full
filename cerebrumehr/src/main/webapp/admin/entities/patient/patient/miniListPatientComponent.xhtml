@@ -54,32 +54,27 @@
     </p:column>  
     <p:column headerText="#{msg.history_medicalHistory}" sortBy="patient.history.medicalHistory" rendered="#{ ! excludeMedicalHistory == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedicalHistory')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_patient.history.medicalHistory}" for="medicalHistoryAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="medicalHistoryAbbr" value="#{_patient.history.medicalHistoryAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}medicalHistoryAbbr" value="#{_patient.history.medicalHistoryAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.history_socialHistory}" sortBy="patient.history.socialHistory" rendered="#{ ! excludeSocialHistory == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewSocialHistory')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_patient.history.socialHistory}" for="socialHistoryAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="socialHistoryAbbr" value="#{_patient.history.socialHistoryAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}socialHistoryAbbr" value="#{_patient.history.socialHistoryAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.history_familyHistory}" sortBy="patient.history.familyHistory" rendered="#{ ! excludeFamilyHistory == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewFamilyHistory')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_patient.history.familyHistory}" for="familyHistoryAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="familyHistoryAbbr" value="#{_patient.history.familyHistoryAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}familyHistoryAbbr" value="#{_patient.history.familyHistoryAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.history_medications}" sortBy="patient.history.medications" rendered="#{ ! excludeMedications == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedications')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_patient.history.medications}" for="medicationsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="medicationsAbbr" value="#{_patient.history.medicationsAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}medicationsAbbr" value="#{_patient.history.medicationsAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.history_allergies}" sortBy="patient.history.allergies" rendered="#{ ! excludeAllergies == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewAllergies')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_patient.history.allergies}" for="allergiesAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="allergiesAbbr" value="#{_patient.history.allergiesAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}allergiesAbbr" value="#{_patient.history.allergiesAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column> 
   </p:dataTable> 

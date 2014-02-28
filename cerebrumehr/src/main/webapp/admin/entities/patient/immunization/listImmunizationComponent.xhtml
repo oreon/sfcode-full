@@ -24,19 +24,37 @@
           </h:outputText> 
         </p:column>  
         <p:column headerText="#{msg.immunization_patient}" sortBy="immunization.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewPatient')) }"> 
-          <h:link escape="false" value="#{_immunization.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <h:link id="patientimmunization_patient" escape="false" value="#{_immunization.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
             <f:param name="patientId" value="#{_immunization.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <p:tooltip> 
               <span>#{_immunization.patient.popupInfo}</span> 
             </p:tooltip> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="patientimmunization_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+                <ui:param name="patient" value="#{_immunization.patient}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="patientImmunizations"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.immunization_vaccine}" sortBy="immunization.vaccine" rendered="#{ ! excludeVaccine == true and ( skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewVaccine')) }"> 
-          <h:link escape="false" value="#{_immunization.vaccine.displayName}" outcome="/admin/entities/patient/vaccine/viewVaccine.xhtml" propagation="none"> 
+          <h:link id="vaccineimmunization_vaccine" escape="false" value="#{_immunization.vaccine.displayName}" outcome="/admin/entities/patient/vaccine/viewVaccine.xhtml" propagation="none"> 
             <f:param name="vaccineId" value="#{_immunization.vaccine.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="vaccineimmunization_vaccine" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/patient/vaccine/viewVaccineComponent.xhtml"> 
+                <ui:param name="vaccine" value="#{_immunization.vaccine}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="vaccine"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="immunization.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_immunization.dateCreated}"> 

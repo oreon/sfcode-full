@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.drugs.DrugInteraction;
 
+//
 public abstract class DrugActionBase extends BaseAction<Drug>
 		implements
 			java.io.Serializable {
@@ -56,26 +57,14 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 	protected Long drugId;
 
 	public void setDrugId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setDrugIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getDrugId() {
@@ -215,9 +204,21 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listDrugInteractions != null) {
+
+			java.util.Set<DrugInteraction> items = getInstance()
+					.getDrugInteractions();
+			for (DrugInteraction item : items) {
+				if (!listDrugInteractions.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (DrugInteraction item : listDrugInteractions) {
+				item.setDrug(getInstance());
+			}
+
 			getInstance().getDrugInteractions().clear();
 			getInstance().getDrugInteractions().addAll(listDrugInteractions);
 		}

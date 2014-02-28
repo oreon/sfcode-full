@@ -46,6 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+//
 public abstract class ConditionFindingActionBase
 		extends
 			BaseAction<ConditionFinding> implements java.io.Serializable {
@@ -57,26 +58,14 @@ public abstract class ConditionFindingActionBase
 	com.oreon.cerebrum.web.action.ddx.DiseaseAction diseaseAction;
 
 	public void setConditionFindingId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setConditionFindingIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setDiseaseId(Long id) {
@@ -208,7 +197,7 @@ public abstract class ConditionFindingActionBase
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 	}
 
 	public void clearLists() {

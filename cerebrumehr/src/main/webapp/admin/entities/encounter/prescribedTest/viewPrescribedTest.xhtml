@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="PrescribedTest"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/encounter/prescribedTest/viewPrescribedTestComponent.xhtml"/> 
+            <ui:include src="/admin/entities/encounter/prescribedTest/viewPrescribedTestComponent.xhtml"> 
+              <ui:param name="prescribedTest" value="#{prescribedTestAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('prescribedTest', 'edit')}" action="edit"></h:commandButton>  
@@ -19,16 +21,20 @@
           </div> 
         </p:tab>  
         <p:tab title="DxTest" rendered="#{prescribedTestAction.instance.dxTest != null}"> 
-          <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="dxTestId" value="#{prescribedTestAction.instance.dxTest.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="dxTestId" value="#{prescribedTestAction.instance.dxTest.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab>  
         <p:tab title="Encounter" rendered="#{prescribedTestAction.instance.encounter != null}"> 
-          <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="encounterId" value="#{prescribedTestAction.instance.encounter.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+              <ui:param name="entityId" value="2"/>  
+              <ui:param name="encounterId" value="#{prescribedTestAction.instance.encounter.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

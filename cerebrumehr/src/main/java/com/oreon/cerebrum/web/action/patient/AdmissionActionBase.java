@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.patient.BedStay;
 
+//
 public abstract class AdmissionActionBase extends BaseAction<Admission>
 		implements
 			java.io.Serializable {
@@ -62,26 +63,14 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	com.oreon.cerebrum.web.action.facility.BedAction bedAction;
 
 	public void setAdmissionId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setAdmissionIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setPatientId(Long id) {
@@ -287,9 +276,20 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listBedStays != null) {
+
+			java.util.Set<BedStay> items = getInstance().getBedStays();
+			for (BedStay item : items) {
+				if (!listBedStays.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (BedStay item : listBedStays) {
+				item.setAdmission(getInstance());
+			}
+
 			getInstance().getBedStays().clear();
 			getInstance().getBedStays().addAll(listBedStays);
 		}

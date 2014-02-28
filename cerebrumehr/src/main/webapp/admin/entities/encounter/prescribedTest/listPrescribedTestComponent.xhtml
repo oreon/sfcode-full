@@ -19,24 +19,41 @@
           </h:link> 
         </p:column>  
         <p:column headerText="#{msg.prescribedTest_dxTest}" sortBy="prescribedTest.dxTest" rendered="#{ ! excludeDxTest == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')) }"> 
-          <h:link escape="false" value="#{_prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+          <h:link id="dxTestprescribedTest_dxTest" escape="false" value="#{_prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
             <f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="dxTestprescribedTest_dxTest" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
+                <ui:param name="dxTest" value="#{_prescribedTest.dxTest}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="dxTest"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.prescribedTest_encounter}" sortBy="prescribedTest.encounter" rendered="#{ ! excludeEncounter == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewEncounter')) }"> 
-          <h:link escape="false" value="#{_prescribedTest.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+          <h:link id="encounterprescribedTest_encounter" escape="false" value="#{_prescribedTest.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
             <f:param name="encounterId" value="#{_prescribedTest.encounter.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="encounterprescribedTest_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+                <ui:param name="encounter" value="#{_prescribedTest.encounter}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="encounterPrescribedTests"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column headerText="#{msg.prescribedTest_remarks}" sortBy="prescribedTest.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')) }"> 
           <h:outputText value="#{_prescribedTest.remarks}" escape="false"/> 
         </p:column>  
         <p:column headerText="#{msg.testResults_results}" sortBy="prescribedTest.testResults.results" rendered="#{ ! excludeResults == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewResults')) }"> 
           <h:panelGroup> 
-            <p:tooltip value="#{_prescribedTest.testResults.results}" for="resultsAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-            <h:outputText id="resultsAbbr" value="#{_prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
+            <h:outputText id="${panelId}resultsAbbr" value="#{_prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.testResults_document}" sortBy="prescribedTest.testResults.document" rendered="#{ ! excludeDocument == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDocument')) }"> 

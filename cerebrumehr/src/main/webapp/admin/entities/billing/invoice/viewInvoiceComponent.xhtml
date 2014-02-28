@@ -1,41 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup id="viewInvoiceComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{invoiceAction.load(invoiceId )  }"/>  
+  <h:panelGroup id="${panelId == null ? 'viewInvoicePanel' : panelId}"> 
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelInvoice eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Invoice}"/> 
       </f:facet>  
       <h:outputText value="#{msg.invoice_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')}"/>  
-      <h:outputText value="#{invoiceAction.invoice.notes}" escape="false"/>  
+      <h:outputText value="#{invoice.notes}" escape="false"/>  
       <h:outputText value="#{msg.invoice_totalAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewTotalAmount')}"/>  
-      <h:outputText value="#{invoiceAction.invoice.totalAmount}"> 
+      <h:outputText value="#{invoice.totalAmount}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText>  
       <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')}"/>  
-      <h:link escape="false" value="#{invoiceAction.invoice.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{invoiceAction.invoice.patient.id}"/>  
+      <h:link id="patientinvoice_patient" escape="false" value="#{invoice.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+        <f:param name="patientId" value="#{invoice.patient.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
-          <span>#{invoiceAction.invoice.patient.popupInfo}</span> 
+          <span>#{invoice.patient.popupInfo}</span> 
         </p:tooltip> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="patientinvoice_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+            <ui:param name="patient" value="#{invoice.patient}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="patient"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeInvoiceItems == true}"> 
-      <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{not empty invoiceAction.listInvoiceItems and skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewInvoiceItems') }" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{not empty invoiceAction.listInvoiceItems and skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewInvoiceItems') }" value="#{invoiceAction.listInvoiceItems}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewService')}"/> 
           </f:facet>  
-          <h:link escape="false" value="#{_invoiceItem.service.displayName}" outcome="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+          <h:link id="serviceinvoiceItem_service" escape="false" value="#{_invoiceItem.service.displayName}" outcome="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
             <f:param name="serviceId" value="#{_invoiceItem.service.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link> 
+          </h:link>  
+          <p:overlayPanel for="serviceinvoiceItem_service" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+            <h:form> 
+              <ui:include src="/admin/entities/billing/service/viewServiceComponent.xhtml"> 
+                <ui:param name="service" value="#{_invoiceItem.service}"/>  
+                <ui:param name="numColumns" value="4"/>  
+                <ui:param name="panelId" value="service"/> 
+              </ui:include> 
+            </h:form> 
+          </p:overlayPanel> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 

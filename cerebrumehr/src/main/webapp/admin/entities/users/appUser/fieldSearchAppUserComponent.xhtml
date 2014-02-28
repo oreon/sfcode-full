@@ -22,11 +22,11 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.appUser_appRoles}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appUser', 'editAppRoles')}"/>  
       <br/>  
-      <h:selectOneMenu id="appRolesId" value="#{ appUserList.appRolesToSearch}"> 
-        <s:selectItems value="#{appRoleList.all}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/> 
-      </h:selectOneMenu> 
+      <p:selectOneMenu id="appRolesId" converter="#{appRoleList.converter}" value="#{ appUserList.appRolesToSearch}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{appRoleList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

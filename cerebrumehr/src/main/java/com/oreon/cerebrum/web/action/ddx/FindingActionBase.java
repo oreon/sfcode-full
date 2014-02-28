@@ -48,6 +48,7 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ddx.DifferentialDx;
 
+//
 public abstract class FindingActionBase extends BaseAction<Finding>
 		implements
 			java.io.Serializable {
@@ -56,26 +57,14 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 	protected Long findingId;
 
 	public void setFindingId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setFindingIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getFindingId() {
@@ -215,9 +204,21 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listDifferentialDxs != null) {
+
+			java.util.Set<DifferentialDx> items = getInstance()
+					.getDifferentialDxs();
+			for (DifferentialDx item : items) {
+				if (!listDifferentialDxs.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (DifferentialDx item : listDifferentialDxs) {
+				item.setFinding(getInstance());
+			}
+
 			getInstance().getDifferentialDxs().clear();
 			getInstance().getDifferentialDxs().addAll(listDifferentialDxs);
 		}

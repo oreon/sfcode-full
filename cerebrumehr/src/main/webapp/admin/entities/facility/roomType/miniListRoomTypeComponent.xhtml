@@ -13,8 +13,7 @@
     </p:column>  
     <p:column headerText="#{msg.roomType_description}" sortBy="roomType.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewDescription')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_roomType.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="descriptionAbbr" value="#{_roomType.descriptionAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}descriptionAbbr" value="#{_roomType.descriptionAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.roomType_rate}" sortBy="roomType.rate" rendered="#{ ! excludeRate == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewRate')) }"> 

@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="Physician"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/employee/physician/viewPhysicianComponent.xhtml"/> 
+            <ui:include src="/admin/entities/employee/physician/viewPhysicianComponent.xhtml"> 
+              <ui:param name="physician" value="#{physicianAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('physician', 'edit')}" action="edit"></h:commandButton>  
@@ -19,10 +21,12 @@
           </div> 
         </p:tab>  
         <p:tab title="Specialization" rendered="#{physicianAction.instance.specialization != null}"> 
-          <ui:include src="/admin/entities/employee/specialization/viewSpecializationComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="specializationId" value="#{physicianAction.instance.specialization.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/employee/specialization/viewSpecializationComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="specializationId" value="#{physicianAction.instance.specialization.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

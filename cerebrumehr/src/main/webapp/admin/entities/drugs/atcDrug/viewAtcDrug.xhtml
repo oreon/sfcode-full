@@ -8,7 +8,9 @@
       <p:tabView switchType="ajax"> 
         <p:tab title="AtcDrug"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"/> 
+            <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
+              <ui:param name="atcDrug" value="#{atcDrugAction.instance}"/> 
+            </ui:include> 
           </div>  
           <div class="buttonBox"> 
             <h:commandButton value="Edit" rendered="#{s:hasPermission('atcDrug', 'edit')}" action="edit"></h:commandButton>  
@@ -19,16 +21,20 @@
           </div> 
         </p:tab>  
         <p:tab title="Drug" rendered="#{atcDrugAction.instance.drug != null}"> 
-          <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="drugId" value="#{atcDrugAction.instance.drug.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
+              <ui:param name="entityId" value="1"/>  
+              <ui:param name="drugId" value="#{atcDrugAction.instance.drug.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab>  
         <p:tab title="Parent" rendered="#{atcDrugAction.instance.parent != null}"> 
-          <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="atcDrugId" value="#{atcDrugAction.instance.parent.id}"/> 
-          </ui:include> 
+          <h:form> 
+            <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
+              <ui:param name="entityId" value="2"/>  
+              <ui:param name="atcDrugId" value="#{atcDrugAction.instance.parent.id}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

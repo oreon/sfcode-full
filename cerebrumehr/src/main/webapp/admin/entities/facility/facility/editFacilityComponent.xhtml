@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup id="editFacilityComponentPanel"> 
-    <h:panelGrid columns="1" onload="#{facilityAction.load(facilityId )  }"/>  
+    <h:panelGrid columns="1"/>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
     </c:if>  
-    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFacility eq null}"> 
+    <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol"> 
       <f:facet name="header"> 
         <h:outputText value="#{msg.Facility}"/> 
       </f:facet>  
@@ -19,10 +19,10 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeWards == true}"> 
-      <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" process="@this"> 
+      <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}"> 
         <s:conversationId/> 
       </p:commandButton>  
-      <p:dataTable id="wards" var="_ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" value="#{facilityAction.listWards}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+      <p:dataTable id="wards" var="_ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" value="#{facilityAction.listWards}" rowIndexVar="rowIndex"> 
         <p:column>
           <f:facet name="header">
             <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editName')}"/>
@@ -46,14 +46,14 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}" process="@this"> 
+          <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <h:commandButton value="Delete" immediate="true" action="#{facilityAction.deleteWards(rowIndex)}" update="wards"> 
+          <p:commandButton value="Delete" immediate="true" action="#{facilityAction.deleteWards(rowIndex)}" update="wards" process="@this"> 
             <s:conversationId/> 
-          </h:commandButton> 
+          </p:commandButton> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

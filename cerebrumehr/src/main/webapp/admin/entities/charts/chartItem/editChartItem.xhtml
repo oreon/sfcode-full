@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/charts/chartItem/editChartItemComponent.xhtml"/> 
+        <ui:include src="/admin/entities/charts/chartItem/editChartItemComponent.xhtml"> 
+          <ui:param name="chartItem" value="#{chartItemAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{chartItemAction.save}"></h:commandButton>  

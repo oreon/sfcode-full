@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/patient/trackedVital/editTrackedVitalComponent.xhtml"/> 
+        <ui:include src="/admin/entities/patient/trackedVital/editTrackedVitalComponent.xhtml"> 
+          <ui:param name="trackedVital" value="#{trackedVitalAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{trackedVitalAction.save}"></h:commandButton>  

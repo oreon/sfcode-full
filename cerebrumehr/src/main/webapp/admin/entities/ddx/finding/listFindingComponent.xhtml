@@ -23,7 +23,8 @@
         </p:column>  
         <p:rowExpansion> 
           <ui:include src="/admin/entities/ddx/differentialDx/miniListDifferentialDxComponent.xhtml"> 
-            <ui:param name="records" value="#{_finding.listDifferentialDxs}"/> 
+            <ui:param name="records" value="#{_finding.listDifferentialDxs}"/>  
+            <ui:param name="excludeFinding" value="true"/> 
           </ui:include> 
         </p:rowExpansion>  
         <p:column headerText="#{msg.finding_name}" sortBy="finding.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewName')) }"> 

@@ -10,12 +10,11 @@
     </p:column>  
     <p:column headerText="#{msg.drugInteraction_description}" sortBy="drugInteraction.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDescription')) }"> 
       <h:panelGroup> 
-        <p:tooltip value="#{_drugInteraction.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-        <h:outputText id="descriptionAbbr" value="#{_drugInteraction.descriptionAbbreviated}" escape="false"/> 
+        <h:outputText id="${panelId}descriptionAbbr" value="#{_drugInteraction.descriptionAbbreviated}" escape="false"/> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.drugInteraction_drug}" sortBy="drugInteraction.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewDrug')) }"> 
-      <h:link escape="false" value="#{_drugInteraction.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+      <h:link id="drugdrugInteraction_drug" escape="false" value="#{_drugInteraction.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
         <f:param name="drugId" value="#{_drugInteraction.drug.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 
@@ -24,7 +23,7 @@
       </h:link> 
     </p:column>  
     <p:column headerText="#{msg.drugInteraction_interactingDrug}" sortBy="drugInteraction.interactingDrug" rendered="#{ ! excludeInteractingDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'viewInteractingDrug')) }"> 
-      <h:link escape="false" value="#{_drugInteraction.interactingDrug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+      <h:link id="interactingDrugdrugInteraction_interactingDrug" escape="false" value="#{_drugInteraction.interactingDrug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
         <f:param name="drugId" value="#{_drugInteraction.interactingDrug.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/>  
         <p:tooltip> 

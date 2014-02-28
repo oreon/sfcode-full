@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/patient/allergy/editAllergyComponent.xhtml"/> 
+        <ui:include src="/admin/entities/patient/allergy/editAllergyComponent.xhtml"> 
+          <ui:param name="allergy" value="#{allergyAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{allergyAction.save}"></h:commandButton>  

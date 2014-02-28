@@ -46,6 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+//
 public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 		implements
 			java.io.Serializable {
@@ -54,26 +55,14 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	protected Long trackedVitalId;
 
 	public void setTrackedVitalId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setTrackedVitalIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getTrackedVitalId() {
@@ -172,7 +161,7 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 	}
 
 	public void clearLists() {

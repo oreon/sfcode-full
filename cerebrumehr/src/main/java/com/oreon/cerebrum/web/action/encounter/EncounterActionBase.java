@@ -50,6 +50,7 @@ import com.oreon.cerebrum.encounter.PrescribedTest;
 import com.oreon.cerebrum.encounter.Differential;
 import com.oreon.cerebrum.encounter.Reason;
 
+//
 public abstract class EncounterActionBase extends BaseAction<Encounter>
 		implements
 			java.io.Serializable {
@@ -64,26 +65,14 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
 	public void setEncounterId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setEncounterIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public void setPrescriptionId(Long id) {
@@ -387,19 +376,54 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listPrescribedTests != null) {
+
+			java.util.Set<PrescribedTest> items = getInstance()
+					.getPrescribedTests();
+			for (PrescribedTest item : items) {
+				if (!listPrescribedTests.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (PrescribedTest item : listPrescribedTests) {
+				item.setEncounter(getInstance());
+			}
+
 			getInstance().getPrescribedTests().clear();
 			getInstance().getPrescribedTests().addAll(listPrescribedTests);
 		}
 
 		if (listDifferentials != null) {
+
+			java.util.Set<Differential> items = getInstance()
+					.getDifferentials();
+			for (Differential item : items) {
+				if (!listDifferentials.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Differential item : listDifferentials) {
+				item.setEncounter(getInstance());
+			}
+
 			getInstance().getDifferentials().clear();
 			getInstance().getDifferentials().addAll(listDifferentials);
 		}
 
 		if (listReasons != null) {
+
+			java.util.Set<Reason> items = getInstance().getReasons();
+			for (Reason item : items) {
+				if (!listReasons.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Reason item : listReasons) {
+				item.setEncounter(getInstance());
+			}
+
 			getInstance().getReasons().clear();
 			getInstance().getReasons().addAll(listReasons);
 		}

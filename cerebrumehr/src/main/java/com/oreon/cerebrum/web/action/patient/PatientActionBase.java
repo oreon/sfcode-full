@@ -57,6 +57,7 @@ import com.oreon.cerebrum.encounter.Encounter;
 import com.oreon.cerebrum.charts.AppliedChart;
 import com.oreon.cerebrum.charts.ChartProcedure;
 
+//
 public abstract class PatientActionBase
 		extends
 			com.oreon.cerebrum.web.action.patient.PersonAction<Patient>
@@ -97,26 +98,14 @@ public abstract class PatientActionBase
 	com.oreon.cerebrum.web.action.charts.ChartProcedureAction chartProceduresAction;
 
 	public void setPatientId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setPatientIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
 	}
 
 	public Long getPatientId() {
@@ -621,54 +610,170 @@ public abstract class PatientActionBase
 
 	}
 
-	public void updateComposedAssociations() {
+	public void tions() {
 
 		if (listAdmissions != null) {
+
+			java.util.Set<Admission> items = getInstance().getAdmissions();
+			for (Admission item : items) {
+				if (!listAdmissions.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Admission item : listAdmissions) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getAdmissions().clear();
 			getInstance().getAdmissions().addAll(listAdmissions);
 		}
 
 		if (listPrescriptions != null) {
+
+			java.util.Set<Prescription> items = getInstance()
+					.getPrescriptions();
+			for (Prescription item : items) {
+				if (!listPrescriptions.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Prescription item : listPrescriptions) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getPrescriptions().clear();
 			getInstance().getPrescriptions().addAll(listPrescriptions);
 		}
 
 		if (listUnusualOccurences != null) {
+
+			java.util.Set<UnusualOccurence> items = getInstance()
+					.getUnusualOccurences();
+			for (UnusualOccurence item : items) {
+				if (!listUnusualOccurences.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (UnusualOccurence item : listUnusualOccurences) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getUnusualOccurences().clear();
 			getInstance().getUnusualOccurences().addAll(listUnusualOccurences);
 		}
 
 		if (listPatientDocuments != null) {
+
+			java.util.Set<PatientDocument> items = getInstance()
+					.getPatientDocuments();
+			for (PatientDocument item : items) {
+				if (!listPatientDocuments.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (PatientDocument item : listPatientDocuments) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getPatientDocuments().clear();
 			getInstance().getPatientDocuments().addAll(listPatientDocuments);
 		}
 
 		if (listAllergys != null) {
+
+			java.util.Set<Allergy> items = getInstance().getAllergys();
+			for (Allergy item : items) {
+				if (!listAllergys.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Allergy item : listAllergys) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getAllergys().clear();
 			getInstance().getAllergys().addAll(listAllergys);
 		}
 
 		if (listImmunizations != null) {
+
+			java.util.Set<Immunization> items = getInstance()
+					.getImmunizations();
+			for (Immunization item : items) {
+				if (!listImmunizations.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Immunization item : listImmunizations) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getImmunizations().clear();
 			getInstance().getImmunizations().addAll(listImmunizations);
 		}
 
 		if (listVitalValues != null) {
+
+			java.util.Set<VitalValue> items = getInstance().getVitalValues();
+			for (VitalValue item : items) {
+				if (!listVitalValues.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (VitalValue item : listVitalValues) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getVitalValues().clear();
 			getInstance().getVitalValues().addAll(listVitalValues);
 		}
 
 		if (listEncounters != null) {
+
+			java.util.Set<Encounter> items = getInstance().getEncounters();
+			for (Encounter item : items) {
+				if (!listEncounters.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (Encounter item : listEncounters) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getEncounters().clear();
 			getInstance().getEncounters().addAll(listEncounters);
 		}
 
 		if (listAppliedCharts != null) {
+
+			java.util.Set<AppliedChart> items = getInstance()
+					.getAppliedCharts();
+			for (AppliedChart item : items) {
+				if (!listAppliedCharts.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (AppliedChart item : listAppliedCharts) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getAppliedCharts().clear();
 			getInstance().getAppliedCharts().addAll(listAppliedCharts);
 		}
 
 		if (listChartProcedures != null) {
+
+			java.util.Set<ChartProcedure> items = getInstance()
+					.getChartProcedures();
+			for (ChartProcedure item : items) {
+				if (!listChartProcedures.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (ChartProcedure item : listChartProcedures) {
+				item.setPatient(getInstance());
+			}
+
 			getInstance().getChartProcedures().clear();
 			getInstance().getChartProcedures().addAll(listChartProcedures);
 		}

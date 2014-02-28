@@ -708,35 +708,46 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		return new Converter() {
 
 			@Override
-			public Object getAsObject( FacesContext context, UIComponent component, String value ) {
-				if(getEntityManager() == null)
+			public Object getAsObject(FacesContext context,
+					UIComponent component, String value) {
+				if (getEntityManager() == null)
 					return null;
 
-				E t = getEntityManager().find( getEntityClass(), Long.valueOf( value ) );
+				Long id = 0L;
+				try {
+					id = Long.valueOf(value);
+				} catch (NumberFormatException nfe) {
+					return null;
+				}
+
+				E t = getEntityManager().find(getEntityClass(),id);
 
 				/*
-				 * Hibernate.initialize(t); if (t instanceof HibernateProxy) { t = (T) ((HibernateProxy) t) .getHibernateLazyInitializer().getImplementation();
-				 * }
+				 * Hibernate.initialize(t); if (t instanceof HibernateProxy) { t
+				 * = (T) ((HibernateProxy) t)
+				 * .getHibernateLazyInitializer().getImplementation(); }
 				 */
 
 				return t;
 			}
 
 			@Override
-			public String getAsString( FacesContext context, UIComponent component, Object value ) {
+			public String getAsString(FacesContext context,
+					UIComponent component, Object value) {
 
-				if ( value == null || ( (E) value ).getId() == null) {
+				if (value == null || (value instanceof String)
+						|| ((E) value).getId() == null) {
 					return "";
 				}
 
 				/*
-				 * Hibernate.initialize(value); if (value instanceof HibernateProxy) { value = ((HibernateProxy) value)
+				 * Hibernate.initialize(value); if (value instanceof
+				 * HibernateProxy) { value = ((HibernateProxy) value)
 				 * .getHibernateLazyInitializer().getImplementation(); }
 				 */
 
-				return String.valueOf( ( (E) value ).getId() );
+				return String.valueOf(((E) value).getId());
 			}
 		};
 	}
-
 }

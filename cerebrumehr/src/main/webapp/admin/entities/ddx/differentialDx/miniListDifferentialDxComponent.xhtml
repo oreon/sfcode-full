@@ -12,16 +12,34 @@
       <h:outputText value="#{_differentialDx.name}" escape="false"/> 
     </p:column>  
     <p:column headerText="#{msg.differentialDx_dxCategory}" sortBy="differentialDx.dxCategory" rendered="#{ ! excludeDxCategory == true and ( skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewDxCategory')) }"> 
-      <h:link escape="false" value="#{_differentialDx.dxCategory.displayName}" outcome="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
+      <h:link id="dxCategorydifferentialDx_dxCategory" escape="false" value="#{_differentialDx.dxCategory.displayName}" outcome="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
         <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="dxCategorydifferentialDx_dxCategory" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/ddx/dxCategory/viewDxCategoryComponent.xhtml"> 
+            <ui:param name="dxCategory" value="#{_differentialDx.dxCategory}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="dxCategory"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </p:column>  
     <p:column headerText="#{msg.differentialDx_finding}" sortBy="differentialDx.finding" rendered="#{ ! excludeFinding == true and ( skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewFinding')) }"> 
-      <h:link escape="false" value="#{_differentialDx.finding.displayName}" outcome="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
+      <h:link id="findingdifferentialDx_finding" escape="false" value="#{_differentialDx.finding.displayName}" outcome="/admin/entities/ddx/finding/viewFinding.xhtml" propagation="none"> 
         <f:param name="findingId" value="#{_differentialDx.finding.id}"/>  
         <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link> 
+      </h:link>  
+      <p:overlayPanel for="findingdifferentialDx_finding" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+        <h:form> 
+          <ui:include src="/admin/entities/ddx/finding/viewFindingComponent.xhtml"> 
+            <ui:param name="finding" value="#{_differentialDx.finding}"/>  
+            <ui:param name="numColumns" value="4"/>  
+            <ui:param name="panelId" value="findingDifferentialDxs"/> 
+          </ui:include> 
+        </h:form> 
+      </p:overlayPanel> 
     </p:column> 
   </p:dataTable> 
 </ui:composition>

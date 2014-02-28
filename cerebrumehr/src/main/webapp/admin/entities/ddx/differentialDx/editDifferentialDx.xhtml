@@ -4,7 +4,9 @@
   <ui:define name="content"> 
     <h:form> 
       <div id="printable"> 
-        <ui:include src="/admin/entities/ddx/differentialDx/editDifferentialDxComponent.xhtml"/> 
+        <ui:include src="/admin/entities/ddx/differentialDx/editDifferentialDxComponent.xhtml"> 
+          <ui:param name="differentialDx" value="#{differentialDxAction.instance}"/> 
+        </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{differentialDxAction.save}"></h:commandButton>  

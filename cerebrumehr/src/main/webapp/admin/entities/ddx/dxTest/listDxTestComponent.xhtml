@@ -23,8 +23,7 @@
         </p:column>  
         <p:column headerText="#{msg.dxTest_description}" sortBy="dxTest.description" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'viewDescription')) }"> 
           <h:panelGroup> 
-            <p:tooltip value="#{_dxTest.description}" for="descriptionAbbr" rendered="#{_customerOrder.remarks != null}"/>  
-            <h:outputText id="descriptionAbbr" value="#{_dxTest.descriptionAbbreviated}" escape="false"/> 
+            <h:outputText id="${panelId}descriptionAbbr" value="#{_dxTest.descriptionAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="dxTest.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
