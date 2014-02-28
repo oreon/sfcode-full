@@ -249,7 +249,7 @@
 
 «DEFINE genAssociation FOR uml::Property»
 	<p:column headerText="«msgBundleKey()-»" sortBy="«genPropertyLabel()»"    «EXPAND genPermission FOR this»>
-		«EXPAND genPropertyValue("_") FOR this»
+		«EXPAND genPropertyValue("_", true) FOR this»
 	</p:column>
 «ENDDEFINE»
 
@@ -269,19 +269,24 @@
 	       
 	</h:link>
 	
-		  <p:overlayPanel for="«getSimpleId()»" showEvent="mouseover" hideEffect="fade" dynamic="false">
-	           <ui:include src="«type.getComponentViewFile("view")»"> 
-	             <ui:param name="«type.asVar()»" value="#{«prefix»«genPropertyLabel()»}"/> 
-	             <ui:param name="numColumns" value="4"/> 
-	           </ui:include>
-           </p:overlayPanel>
+	«IF type.name != "Drug" »«REM»MAJOR TODO «ENDREM»
+	  <p:overlayPanel for="«getSimpleId()»" showEvent="mouseover" hideEffect="fade" dynamic="false">
+	  	<h:form>
+           <ui:include src="«type.getComponentViewFile("view")»"> 
+             <ui:param name="«type.asVar()»" value="#{«prefix»«genPropertyLabel()»}"/> 
+             <ui:param name="numColumns" value="4"/> 
+             <ui:param name="panelId" value="«name»«opposite.name.toFirstUpper()»"/>
+           </ui:include>
+        </h:form>
+       </p:overlayPanel>
+    «ENDIF»
 «ENDDEFINE»
 
 
 
 «DEFINE genProperty FOR uml::Property-»
 	<p:column headerText="«msgBundleKey()-»" sortBy="«genPropertyLabel()»"    «EXPAND genPermission FOR this»>
-		«EXPAND genPropertyValue("_") FOR this»
+		«EXPAND genPropertyValue("_", true) FOR this»
 	</p:column>
 «ENDDEFINE»
 
@@ -289,7 +294,7 @@
 	<p:column headerText="«msgBundleKey()-»" sortBy="«genPropertyLabel()»"    «EXPAND genPermission FOR this»>
 «ENDDEFINE»
 
-«DEFINE genPropertyValue(String prefix) FOR uml::Property»
+«DEFINE genPropertyValue(String prefix, boolean isListView) FOR uml::Property»
 		«IF association != null -»
 			«EXPAND genAssocValue(prefix) FOR this»
 		«ELSEIF isFile()»
@@ -316,13 +321,11 @@
 				<f:convertNumber pattern="000.00"/>
 			</h:outputText>
 		«ELSEIF isLargeText()»
-			«IF isColumn() && !abbreviateInListing»
+			«IF isColumn() && !abbreviateInListing  && !isListView»
 				<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
 			«ELSE»
 			 <h:panelGroup>
-			 <p:tooltip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr" 
-			 	 rendered="#{_customerOrder.remarks != null}" /> 
-	         <h:outputText id="«name»Abbr" value="#{«prefix»«genPropertyLabel()»Abbreviated}" escape="false"/> 
+	         <h:outputText id="${panelId}«name»Abbr" value="#{«prefix»«genPropertyLabel()»Abbreviated}" escape="false"/> 
 	         </h:panelGroup>
 	         «ENDIF»				
 		«ELSE»

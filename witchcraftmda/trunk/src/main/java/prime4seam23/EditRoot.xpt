@@ -142,7 +142,7 @@
 	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
 	<ui:composition «EXPAND WebRoot::genIncludes-» >	
 	
-	<h:panelGroup  id="«(edit?"edit":"view")»«name»ComponentPanel" >
+	<h:panelGroup  id="«IF edit»edit«name»ComponentPanel«ELSE»${panelId == null ? 'view«name»Panel' : panelId}«ENDIF»" >
 		«REM»<s:validateAll>«ENDREM»
 		«setAsCurrentEntity(this)-»
 		<h:panelGrid columns="«edit?"1":"1"»" ></h:panelGrid>
@@ -330,7 +330,7 @@
 			«EXPAND genLabelAndOutputTabular FOR this»
 		«ELSE»
 			«getOutputMessage()-» 
-			«EXPAND ListRoot::genPropertyValue("") FOR this»
+			«EXPAND ListRoot::genPropertyValue("", false) FOR this»
 		«ENDIF»
 		
 	«ENDIF»
@@ -342,7 +342,7 @@
 	<f:facet name="header">
 		«getOutputMessage()-» 
 	</f:facet>
-		«EXPAND ListRoot::genPropertyValue("_") FOR this»
+		«EXPAND ListRoot::genPropertyValue("_", false) FOR this»
 </p:column>
 «ENDDEFINE»
 
@@ -628,7 +628,7 @@
 
 «DEFINE genNewButton FOR uml::Property»
 	<p:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		update="«name»"  rendered="#{«genEditPermission()»}"  process="@this" >
+		update="«name», @form"  rendered="#{«genEditPermission()»}" >
 		<s:conversationId/>
 	</p:commandButton>
 «ENDDEFINE»

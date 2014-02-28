@@ -95,7 +95,7 @@ import «a.type.fqn()»;
 «ENDFOREACH»
 
 
-//«implClassSuffix()»
+//«REM»comment«implClassSuffix()»«ENDREM»
 public abstract class «name»ActionBase extends «getParentForAction()» implements java.io.Serializable{
 
 	«REM»
@@ -377,7 +377,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	«EXPAND genManyToMany FOREACH getLeadingManyToMany() -»
 	
 	
-	public void updateComposedAssociations(){
+	public void tions(){
 		«EXPAND updateList FOREACH getMultiValued() -»
 		«EXPAND updateListManyToMany FOREACH getLeadingManyToMany() -»
 	}
@@ -439,6 +439,10 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 			for («type.name» item : items) {
 				if(!list«name.toFirstUpper()».contains(item))
 					getEntityManager().remove(item);
+			}
+			
+			for («type.name» item : list«name.toFirstUpper()») {
+				item.set«opposite.name.toFirstUpper()»(getInstance());
 			}
 	  
 		getInstance().get«name.toFirstUpper()»().clear();
