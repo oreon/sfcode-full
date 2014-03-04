@@ -34,7 +34,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeCodes == true}"> 
-      <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}"> 
+      <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, :#{p:component('editSectionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="codes" var="_code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}" value="#{sectionAction.listCodes}" rowIndexVar="rowIndex"> 
@@ -102,7 +102,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodes')}"> 
+          <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, :#{p:component('editSectionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodes')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

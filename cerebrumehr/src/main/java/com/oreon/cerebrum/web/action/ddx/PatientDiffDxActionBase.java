@@ -240,7 +240,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listPatientFindings != null) {
 

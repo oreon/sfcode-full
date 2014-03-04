@@ -45,9 +45,6 @@ public abstract class FindingListQueryBase extends BaseQuery<Finding, Long> {
 
 	protected Finding finding = new Finding();
 
-	@In(create = true)
-	FindingAction findingAction;
-
 	public FindingListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class FindingListQueryBase extends BaseQuery<Finding, Long> {
 	}
 
 	@Override
-	public Finding getInstance() {
-		return getFinding();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Finding getInstance() {
+		return getFinding();
 	}
 
 	@Override
@@ -104,12 +101,6 @@ public abstract class FindingListQueryBase extends BaseQuery<Finding, Long> {
 
 		finding.setName(input);
 
-	}
-
-	//@Restrict("#{s:hasPermission('finding', 'delete')}")
-	public void archiveById(Long id) {
-		findingAction.archiveById(id);
-		refresh();
 	}
 
 }

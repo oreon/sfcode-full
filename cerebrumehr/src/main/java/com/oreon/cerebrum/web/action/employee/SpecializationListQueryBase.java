@@ -47,9 +47,6 @@ public abstract class SpecializationListQueryBase
 
 	protected Specialization specialization = new Specialization();
 
-	@In(create = true)
-	SpecializationAction specializationAction;
-
 	public SpecializationListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class SpecializationListQueryBase
 	}
 
 	@Override
-	public Specialization getInstance() {
-		return getSpecialization();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Specialization getInstance() {
+		return getSpecialization();
 	}
 
 	@Override
@@ -98,12 +95,6 @@ public abstract class SpecializationListQueryBase
 
 	@Observer("archivedSpecialization")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('specialization', 'delete')}")
-	public void archiveById(Long id) {
-		specializationAction.archiveById(id);
 		refresh();
 	}
 

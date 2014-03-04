@@ -246,7 +246,7 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listPrescriptionItems != null) {
 

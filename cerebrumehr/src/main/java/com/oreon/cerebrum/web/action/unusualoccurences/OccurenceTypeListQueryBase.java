@@ -47,9 +47,6 @@ public abstract class OccurenceTypeListQueryBase
 
 	protected OccurenceType occurenceType = new OccurenceType();
 
-	@In(create = true)
-	OccurenceTypeAction occurenceTypeAction;
-
 	public OccurenceTypeListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class OccurenceTypeListQueryBase
 	}
 
 	@Override
-	public OccurenceType getInstance() {
-		return getOccurenceType();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public OccurenceType getInstance() {
+		return getOccurenceType();
 	}
 
 	@Override
@@ -98,12 +95,6 @@ public abstract class OccurenceTypeListQueryBase
 
 	@Observer("archivedOccurenceType")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('occurenceType', 'delete')}")
-	public void archiveById(Long id) {
-		occurenceTypeAction.archiveById(id);
 		refresh();
 	}
 

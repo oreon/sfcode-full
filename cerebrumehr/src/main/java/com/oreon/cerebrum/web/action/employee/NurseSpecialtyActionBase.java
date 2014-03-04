@@ -162,7 +162,7 @@ public abstract class NurseSpecialtyActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

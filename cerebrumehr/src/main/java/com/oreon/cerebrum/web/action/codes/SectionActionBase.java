@@ -241,7 +241,7 @@ public abstract class SectionActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listCodes != null) {
 

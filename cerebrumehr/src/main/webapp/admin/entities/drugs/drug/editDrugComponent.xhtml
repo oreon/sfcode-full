@@ -121,7 +121,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeDrugInteractions == true}"> 
-      <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugInteractions')}"> 
+      <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions, :#{p:component('editDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugInteractions')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugInteractions')}" value="#{drugAction.listDrugInteractions}" rowIndexVar="rowIndex"> 
@@ -161,7 +161,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrugInteractions')}"> 
+          <p:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" update="drugInteractions, :#{p:component('editDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDrugInteractions')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

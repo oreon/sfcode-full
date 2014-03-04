@@ -45,9 +45,6 @@ public abstract class AllergenListQueryBase extends BaseQuery<Allergen, Long> {
 
 	protected Allergen allergen = new Allergen();
 
-	@In(create = true)
-	AllergenAction allergenAction;
-
 	public AllergenListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class AllergenListQueryBase extends BaseQuery<Allergen, Long> {
 	}
 
 	@Override
-	public Allergen getInstance() {
-		return getAllergen();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Allergen getInstance() {
+		return getAllergen();
 	}
 
 	@Override
@@ -96,12 +93,6 @@ public abstract class AllergenListQueryBase extends BaseQuery<Allergen, Long> {
 
 	@Observer("archivedAllergen")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('allergen', 'delete')}")
-	public void archiveById(Long id) {
-		allergenAction.archiveById(id);
 		refresh();
 	}
 

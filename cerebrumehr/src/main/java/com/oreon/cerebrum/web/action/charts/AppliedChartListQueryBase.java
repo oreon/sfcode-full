@@ -47,9 +47,6 @@ public abstract class AppliedChartListQueryBase
 
 	protected AppliedChart appliedChart = new AppliedChart();
 
-	@In(create = true)
-	AppliedChartAction appliedChartAction;
-
 	public AppliedChartListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class AppliedChartListQueryBase
 	}
 
 	@Override
-	public AppliedChart getInstance() {
-		return getAppliedChart();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public AppliedChart getInstance() {
+		return getAppliedChart();
 	}
 
 	@Override
@@ -146,12 +143,6 @@ public abstract class AppliedChartListQueryBase
 	public Long getChartId() {
 		return appliedChart.getChart() == null ? null : appliedChart.getChart()
 				.getId();
-	}
-
-	//@Restrict("#{s:hasPermission('appliedChart', 'delete')}")
-	public void archiveById(Long id) {
-		appliedChartAction.archiveById(id);
-		refresh();
 	}
 
 }

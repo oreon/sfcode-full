@@ -214,7 +214,7 @@ public abstract class PatientDocumentActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

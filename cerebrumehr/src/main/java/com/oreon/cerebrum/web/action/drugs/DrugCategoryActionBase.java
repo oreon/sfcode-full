@@ -218,7 +218,7 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 		this.listAvailableDrugs = listAvailableDrugs;
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listAvailableDrugs != null) {
 			getInstance().getDrugs().clear();

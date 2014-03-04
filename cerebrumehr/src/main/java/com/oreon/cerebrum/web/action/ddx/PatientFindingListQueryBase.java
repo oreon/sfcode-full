@@ -47,9 +47,6 @@ public abstract class PatientFindingListQueryBase
 
 	protected PatientFinding patientFinding = new PatientFinding();
 
-	@In(create = true)
-	PatientFindingAction patientFindingAction;
-
 	public PatientFindingListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class PatientFindingListQueryBase
 	}
 
 	@Override
-	public PatientFinding getInstance() {
-		return getPatientFinding();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public PatientFinding getInstance() {
+		return getPatientFinding();
 	}
 
 	@Override
@@ -148,12 +145,6 @@ public abstract class PatientFindingListQueryBase
 		return patientFinding.getPatientDiffDx() == null
 				? null
 				: patientFinding.getPatientDiffDx().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('patientFinding', 'delete')}")
-	public void archiveById(Long id) {
-		patientFindingAction.archiveById(id);
-		refresh();
 	}
 
 }

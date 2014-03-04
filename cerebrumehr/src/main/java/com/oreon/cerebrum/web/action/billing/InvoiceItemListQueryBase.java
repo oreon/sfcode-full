@@ -47,9 +47,6 @@ public abstract class InvoiceItemListQueryBase
 
 	protected InvoiceItem invoiceItem = new InvoiceItem();
 
-	@In(create = true)
-	InvoiceItemAction invoiceItemAction;
-
 	public InvoiceItemListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class InvoiceItemListQueryBase
 	}
 
 	@Override
-	public InvoiceItem getInstance() {
-		return getInvoiceItem();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public InvoiceItem getInstance() {
+		return getInvoiceItem();
 	}
 
 	@Override
@@ -170,12 +167,6 @@ public abstract class InvoiceItemListQueryBase
 	public Long getInvoiceId() {
 		return invoiceItem.getInvoice() == null ? null : invoiceItem
 				.getInvoice().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('invoiceItem', 'delete')}")
-	public void archiveById(Long id) {
-		invoiceItemAction.archiveById(id);
-		refresh();
 	}
 
 }

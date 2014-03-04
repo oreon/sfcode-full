@@ -202,7 +202,7 @@ public abstract class ChapterActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listSections != null) {
 

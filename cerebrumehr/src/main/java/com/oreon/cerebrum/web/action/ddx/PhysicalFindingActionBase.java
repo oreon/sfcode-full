@@ -159,7 +159,7 @@ public abstract class PhysicalFindingActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

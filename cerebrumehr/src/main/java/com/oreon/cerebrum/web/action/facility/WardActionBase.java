@@ -243,7 +243,7 @@ public abstract class WardActionBase extends BaseAction<Ward>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listRooms != null) {
 

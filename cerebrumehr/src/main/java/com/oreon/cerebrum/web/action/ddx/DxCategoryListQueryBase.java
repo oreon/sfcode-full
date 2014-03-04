@@ -47,9 +47,6 @@ public abstract class DxCategoryListQueryBase
 
 	protected DxCategory dxCategory = new DxCategory();
 
-	@In(create = true)
-	DxCategoryAction dxCategoryAction;
-
 	public DxCategoryListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class DxCategoryListQueryBase
 	}
 
 	@Override
-	public DxCategory getInstance() {
-		return getDxCategory();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public DxCategory getInstance() {
+		return getDxCategory();
 	}
 
 	@Override
@@ -98,12 +95,6 @@ public abstract class DxCategoryListQueryBase
 
 	@Observer("archivedDxCategory")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('dxCategory', 'delete')}")
-	public void archiveById(Long id) {
-		dxCategoryAction.archiveById(id);
 		refresh();
 	}
 

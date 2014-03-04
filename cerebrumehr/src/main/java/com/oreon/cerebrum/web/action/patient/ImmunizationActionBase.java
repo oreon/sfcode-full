@@ -229,7 +229,7 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

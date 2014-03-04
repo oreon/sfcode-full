@@ -45,9 +45,6 @@ public abstract class VaccineListQueryBase extends BaseQuery<Vaccine, Long> {
 
 	protected Vaccine vaccine = new Vaccine();
 
-	@In(create = true)
-	VaccineAction vaccineAction;
-
 	public VaccineListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class VaccineListQueryBase extends BaseQuery<Vaccine, Long> {
 	}
 
 	@Override
-	public Vaccine getInstance() {
-		return getVaccine();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Vaccine getInstance() {
+		return getVaccine();
 	}
 
 	@Override
@@ -96,12 +93,6 @@ public abstract class VaccineListQueryBase extends BaseQuery<Vaccine, Long> {
 
 	@Observer("archivedVaccine")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('vaccine', 'delete')}")
-	public void archiveById(Long id) {
-		vaccineAction.archiveById(id);
 		refresh();
 	}
 

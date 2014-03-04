@@ -229,7 +229,7 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

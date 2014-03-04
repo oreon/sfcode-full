@@ -199,7 +199,7 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listWards != null) {
 

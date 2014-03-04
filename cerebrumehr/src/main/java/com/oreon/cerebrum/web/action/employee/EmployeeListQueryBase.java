@@ -39,14 +39,13 @@ import com.oreon.cerebrum.employee.Employee;
  * @author WitchcraftMDA Seam Cartridge - 
  *
  */
-public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
+public abstract class EmployeeListQueryBase<T extends Employee>
+		extends
+			BaseQuery<T, Long> {
 
 	private static final String EJBQL = "select employee from Employee employee";
 
 	protected Employee employee = new com.oreon.cerebrum.employee.Physician();
-
-	@In(create = true)
-	EmployeeAction employeeAction;
 
 	public EmployeeListQueryBase() {
 		super();
@@ -59,24 +58,24 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	}
 
 	@Override
-	public Employee getInstance() {
-		return getEmployee();
-	}
-
-	@Override
 	protected String getql() {
 		return EJBQL;
 	}
 
 	@Override
+	public T getInstance() {
+		return (T) getEmployee();
+	}
+
+	@Override
 	//@Restrict("#{s:hasPermission('employee', 'view')}")
-	public List<Employee> getResultList() {
+	public List<T> getResultList() {
 		return super.getResultList();
 	}
 
 	@Override
-	public Class<Employee> getEntityClass() {
-		return Employee.class;
+	public Class<T> getEntityClass() {
+		return (Class<T>) Employee.class;
 	}
 
 	@Override
@@ -126,14 +125,14 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
 
-	public LazyDataModel<Employee> getEmployeesByDepartment(
+	public LazyDataModel<T> getEmployeesByDepartment(
 			final com.oreon.cerebrum.employee.Department department) {
 
-		EntityLazyDataModel<Employee, Long> employeeLazyDataModel = new EntityLazyDataModel<Employee, Long>(
+		EntityLazyDataModel<T, Long> employeeLazyDataModel = new EntityLazyDataModel<T, Long>(
 				this) {
 
 			@Override
-			public List<Employee> load(int first, int pageSize,
+			public List<T> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
 					Map<String, String> filters) {
 
@@ -187,12 +186,6 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	public Long getDepartmentId() {
 		return employee.getDepartment() == null ? null : employee
 				.getDepartment().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('employee', 'delete')}")
-	public void archiveById(Long id) {
-		employeeAction.archiveById(id);
-		refresh();
 	}
 
 }

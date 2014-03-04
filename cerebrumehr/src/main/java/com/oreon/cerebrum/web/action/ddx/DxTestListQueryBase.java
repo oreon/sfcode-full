@@ -45,9 +45,6 @@ public abstract class DxTestListQueryBase extends BaseQuery<DxTest, Long> {
 
 	protected DxTest dxTest = new DxTest();
 
-	@In(create = true)
-	DxTestAction dxTestAction;
-
 	public DxTestListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class DxTestListQueryBase extends BaseQuery<DxTest, Long> {
 	}
 
 	@Override
-	public DxTest getInstance() {
-		return getDxTest();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public DxTest getInstance() {
+		return getDxTest();
 	}
 
 	@Override
@@ -98,12 +95,6 @@ public abstract class DxTestListQueryBase extends BaseQuery<DxTest, Long> {
 
 	@Observer("archivedDxTest")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('dxTest', 'delete')}")
-	public void archiveById(Long id) {
-		dxTestAction.archiveById(id);
 		refresh();
 	}
 

@@ -63,110 +63,11 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "chart")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class Chart extends BaseEntity implements java.io.Serializable {
+public class Chart extends ChartBase implements java.io.Serializable {
 	private static final long serialVersionUID = 604771653L;
-
-	@OneToMany(mappedBy = "chart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "chart_ID", nullable = false)
-	@OrderBy("id DESC")
-	private Set<ChartItem> chartItems = new HashSet<ChartItem>();
-
-	public void addChartItem(ChartItem chartItem) {
-
-		chartItem.setChart(this);
-
-		this.chartItems.add(chartItem);
-	}
-
-	@Transient
-	public List<com.oreon.cerebrum.charts.ChartItem> getListChartItems() {
-		return new ArrayList<com.oreon.cerebrum.charts.ChartItem>(chartItems);
-	}
-
-	//JSF Friendly function to get count of collections
-	public int getChartItemsCount() {
-		return chartItems.size();
-	}
-
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = true)
-	@Field(index = Index.YES)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String name
-
-	;
-
-	public void setChartItems(Set<ChartItem> chartItems) {
-		this.chartItems = chartItems;
-	}
-
-	public Set<ChartItem> getChartItems() {
-		return chartItems;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-
-		return name;
-
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return name;
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("name");
-
-		listSearchableFields.add("chartItems.name");
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(getName() + " ");
-
-		for (BaseEntity e : chartItems) {
-			builder.append(e.getDisplayName() + " ");
-		}
-
-		return builder.toString();
-	}
-
 }

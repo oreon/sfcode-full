@@ -202,7 +202,7 @@ public abstract class PhysicianActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

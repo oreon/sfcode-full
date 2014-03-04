@@ -45,9 +45,6 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 
 	protected Facility facility = new Facility();
 
-	@In(create = true)
-	FacilityAction facilityAction;
-
 	public FacilityListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 	}
 
 	@Override
-	public Facility getInstance() {
-		return getFacility();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Facility getInstance() {
+		return getFacility();
 	}
 
 	@Override
@@ -96,12 +93,6 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 
 	@Observer("archivedFacility")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('facility', 'delete')}")
-	public void archiveById(Long id) {
-		facilityAction.archiveById(id);
 		refresh();
 	}
 

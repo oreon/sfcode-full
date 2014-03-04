@@ -45,9 +45,6 @@ public abstract class SectionListQueryBase extends BaseQuery<Section, Long> {
 
 	protected Section section = new Section();
 
-	@In(create = true)
-	SectionAction sectionAction;
-
 	public SectionListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class SectionListQueryBase extends BaseQuery<Section, Long> {
 	}
 
 	@Override
-	public Section getInstance() {
-		return getSection();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Section getInstance() {
+		return getSection();
 	}
 
 	@Override
@@ -134,12 +131,6 @@ public abstract class SectionListQueryBase extends BaseQuery<Section, Long> {
 	public Long getChapterId() {
 		return section.getChapter() == null ? null : section.getChapter()
 				.getId();
-	}
-
-	//@Restrict("#{s:hasPermission('section', 'delete')}")
-	public void archiveById(Long id) {
-		sectionAction.archiveById(id);
-		refresh();
 	}
 
 }

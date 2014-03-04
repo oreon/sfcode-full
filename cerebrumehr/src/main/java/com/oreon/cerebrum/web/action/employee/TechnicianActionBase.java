@@ -161,7 +161,7 @@ public abstract class TechnicianActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

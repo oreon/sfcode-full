@@ -38,7 +38,7 @@
           <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>
         </ui:define>  
         <h:panelGroup> 
-          <p:autoComplete minQueryLength="3" completeMethod="#{patientList.autocomplete}" value="#{patientAction.patient}" converter="#{patientList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
+          <p:autoComplete minQueryLength="3" completeMethod="#{patientList.autocomplete}" value="#{admissionAction.admission.patient}" converter="#{patientList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
             <p:column> 
               <h:outputText value="#{record.firstName}"/> 
             </p:column>  
@@ -63,7 +63,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeBedStays == true}"> 
-      <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}"> 
+      <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, :#{p:component('editAdmissionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="bedStays" var="_bedStay" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}" value="#{admissionAction.listBedStays}" rowIndexVar="rowIndex"> 
@@ -98,7 +98,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}"> 
+          <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, :#{p:component('editAdmissionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

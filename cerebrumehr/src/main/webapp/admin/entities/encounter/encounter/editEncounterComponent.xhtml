@@ -75,7 +75,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePrescribedTests == true}"> 
-      <p:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" update="prescribedTests, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}"> 
+      <p:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" update="prescribedTests, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPrescribedTests')}" value="#{encounterAction.listPrescribedTests}" rowIndexVar="rowIndex"> 
@@ -125,7 +125,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" update="prescribedTests, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editPrescribedTests')}"> 
+          <p:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" update="prescribedTests, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editPrescribedTests')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
@@ -137,7 +137,7 @@
       </p:dataTable> 
     </p:panel>  
     <p:panel rendered="#{ ! excludeDifferentials == true}"> 
-      <p:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" update="differentials, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}"> 
+      <p:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" update="differentials, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="differentials" var="_differential" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}" value="#{encounterAction.listDifferentials}" rowIndexVar="rowIndex"> 
@@ -151,7 +151,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" update="differentials, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editDifferentials')}"> 
+          <p:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" update="differentials, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editDifferentials')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
@@ -163,7 +163,7 @@
       </p:dataTable> 
     </p:panel>  
     <p:panel rendered="#{ ! excludeReasons == true}"> 
-      <p:commandButton value="New Reason" action="#{encounterAction.addReasons}" update="reasons, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editReasons')}"> 
+      <p:commandButton value="New Reason" action="#{encounterAction.addReasons}" update="reasons, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editReasons')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="reasons" var="_reason" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editReasons')}" value="#{encounterAction.listReasons}" rowIndexVar="rowIndex"> 
@@ -189,7 +189,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Reason" action="#{encounterAction.addReasons}" update="reasons, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editReasons')}"> 
+          <p:commandButton value="New Reason" action="#{encounterAction.addReasons}" update="reasons, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editReasons')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

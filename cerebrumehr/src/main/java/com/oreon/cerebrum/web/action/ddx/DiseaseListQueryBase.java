@@ -45,9 +45,6 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 
 	protected Disease disease = new Disease();
 
-	@In(create = true)
-	DiseaseAction diseaseAction;
-
 	public DiseaseListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 	}
 
 	@Override
-	public Disease getInstance() {
-		return getDisease();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Disease getInstance() {
+		return getDisease();
 	}
 
 	@Override
@@ -149,12 +146,6 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 	public Long getConditionCategoryId() {
 		return disease.getConditionCategory() == null ? null : disease
 				.getConditionCategory().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('disease', 'delete')}")
-	public void archiveById(Long id) {
-		diseaseAction.archiveById(id);
-		refresh();
 	}
 
 }

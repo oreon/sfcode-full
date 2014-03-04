@@ -161,7 +161,7 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

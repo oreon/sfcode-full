@@ -45,9 +45,6 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 
 	protected Ward ward = new Ward();
 
-	@In(create = true)
-	WardAction wardAction;
-
 	public WardListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 	}
 
 	@Override
-	public Ward getInstance() {
-		return getWard();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Ward getInstance() {
+		return getWard();
 	}
 
 	@Override
@@ -132,12 +129,6 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 
 	public Long getFacilityId() {
 		return ward.getFacility() == null ? null : ward.getFacility().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('ward', 'delete')}")
-	public void archiveById(Long id) {
-		wardAction.archiveById(id);
-		refresh();
 	}
 
 }

@@ -63,112 +63,11 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "reason")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class Reason extends BaseEntity implements java.io.Serializable {
+public class Reason extends ReasonBase implements java.io.Serializable {
 	private static final long serialVersionUID = 171711755L;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "encounter_id", nullable = false, updatable = true)
-	protected Encounter encounter
-
-	;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "code_id", nullable = false, updatable = true)
-	protected com.oreon.cerebrum.codes.Code code
-
-	;
-
-	@Column(unique = false)
-	@Field(index = Index.YES)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String remarks
-
-	;
-
-	public void setEncounter(Encounter encounter) {
-		this.encounter = encounter;
-	}
-
-	public Encounter getEncounter() {
-
-		return encounter;
-
-	}
-
-	public void setCode(com.oreon.cerebrum.codes.Code code) {
-		this.code = code;
-	}
-
-	public com.oreon.cerebrum.codes.Code getCode() {
-
-		return code;
-
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-
-	public String getRemarks() {
-
-		return remarks;
-
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return remarks;
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("remarks");
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(getRemarks() + " ");
-
-		if (getEncounter() != null)
-			builder
-					.append("encounter:" + getEncounter().getDisplayName()
-							+ " ");
-
-		if (getCode() != null)
-			builder.append("code:" + getCode().getDisplayName() + " ");
-
-		return builder.toString();
-	}
-
 }

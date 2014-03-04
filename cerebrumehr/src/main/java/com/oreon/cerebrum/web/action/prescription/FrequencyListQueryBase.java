@@ -45,9 +45,6 @@ public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> 
 
 	protected Frequency frequency = new Frequency();
 
-	@In(create = true)
-	FrequencyAction frequencyAction;
-
 	public FrequencyListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> 
 	}
 
 	@Override
-	public Frequency getInstance() {
-		return getFrequency();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Frequency getInstance() {
+		return getFrequency();
 	}
 
 	@Override
@@ -108,12 +105,6 @@ public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> 
 
 	@Observer("archivedFrequency")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('frequency', 'delete')}")
-	public void archiveById(Long id) {
-		frequencyAction.archiveById(id);
 		refresh();
 	}
 

@@ -229,7 +229,7 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

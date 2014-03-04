@@ -63,101 +63,13 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "drugcategory")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class DrugCategory extends BaseEntity implements java.io.Serializable {
+public class DrugCategory extends DrugCategoryBase
+		implements
+			java.io.Serializable {
 	private static final long serialVersionUID = 1100168997L;
-
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = true)
-	@Field(index = Index.YES)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String name
-
-	;
-
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "drugCategorys_drugs", joinColumns = @JoinColumn(name = "drugCategorys_ID"), inverseJoinColumns = @JoinColumn(name = "drugs_ID"))
-	private Set<Drug> drugs = new HashSet<Drug>();
-
-	public void addDrug(Drug drug) {
-
-		this.drugs.add(drug);
-	}
-
-	@Transient
-	public List<com.oreon.cerebrum.drugs.Drug> getListDrugs() {
-		return new ArrayList<com.oreon.cerebrum.drugs.Drug>(drugs);
-	}
-
-	//JSF Friendly function to get count of collections
-	public int getDrugsCount() {
-		return drugs.size();
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-
-		return name;
-
-	}
-
-	public void setDrugs(Set<Drug> drugs) {
-		this.drugs = drugs;
-	}
-
-	public Set<Drug> getDrugs() {
-		return drugs;
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return name;
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("name");
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(getName() + " ");
-
-		return builder.toString();
-	}
-
 }

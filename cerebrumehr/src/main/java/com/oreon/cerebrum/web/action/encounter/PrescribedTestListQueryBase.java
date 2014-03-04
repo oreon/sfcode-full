@@ -47,9 +47,6 @@ public abstract class PrescribedTestListQueryBase
 
 	protected PrescribedTest prescribedTest = new PrescribedTest();
 
-	@In(create = true)
-	PrescribedTestAction prescribedTestAction;
-
 	public PrescribedTestListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class PrescribedTestListQueryBase
 	}
 
 	@Override
-	public PrescribedTest getInstance() {
-		return getPrescribedTest();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public PrescribedTest getInstance() {
+		return getPrescribedTest();
 	}
 
 	@Override
@@ -151,12 +148,6 @@ public abstract class PrescribedTestListQueryBase
 	public Long getEncounterId() {
 		return prescribedTest.getEncounter() == null ? null : prescribedTest
 				.getEncounter().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('prescribedTest', 'delete')}")
-	public void archiveById(Long id) {
-		prescribedTestAction.archiveById(id);
-		refresh();
 	}
 
 }

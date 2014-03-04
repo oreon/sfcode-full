@@ -39,14 +39,13 @@ import com.oreon.cerebrum.employee.Nurse;
  * @author WitchcraftMDA Seam Cartridge - 
  *
  */
-public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
+public abstract class NurseListQueryBase extends
+
+EmployeeListQueryBase<Nurse> {
 
 	private static final String EJBQL = "select nurse from Nurse nurse";
 
 	protected Nurse nurse = new Nurse();
-
-	@In(create = true)
-	NurseAction nurseAction;
 
 	public NurseListQueryBase() {
 		super();
@@ -59,13 +58,13 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 	}
 
 	@Override
-	public Nurse getInstance() {
-		return getNurse();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Nurse getInstance() {
+		return getNurse();
 	}
 
 	@Override
@@ -144,12 +143,6 @@ public abstract class NurseListQueryBase extends BaseQuery<Nurse, Long> {
 	public Long getNurseSpecialtyId() {
 		return nurse.getNurseSpecialty() == null ? null : nurse
 				.getNurseSpecialty().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('nurse', 'delete')}")
-	public void archiveById(Long id) {
-		nurseAction.archiveById(id);
-		refresh();
 	}
 
 }

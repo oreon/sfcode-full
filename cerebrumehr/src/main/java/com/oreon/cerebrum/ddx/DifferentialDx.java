@@ -63,113 +63,13 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "differentialdx")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class DifferentialDx extends BaseEntity implements java.io.Serializable {
+public class DifferentialDx extends DifferentialDxBase
+		implements
+			java.io.Serializable {
 	private static final long serialVersionUID = -105796933L;
-
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = false)
-	@Field(index = Index.YES)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String name
-
-	;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "dxCategory_id", nullable = true, updatable = true)
-	protected DxCategory dxCategory
-
-	;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "finding_id", nullable = false, updatable = true)
-	protected Finding finding
-
-	;
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-
-		return name;
-
-	}
-
-	public void setDxCategory(DxCategory dxCategory) {
-		this.dxCategory = dxCategory;
-	}
-
-	public DxCategory getDxCategory() {
-
-		return dxCategory;
-
-	}
-
-	public void setFinding(Finding finding) {
-		this.finding = finding;
-	}
-
-	public Finding getFinding() {
-
-		return finding;
-
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return name;
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("name");
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(getName() + " ");
-
-		if (getDxCategory() != null)
-			builder.append("dxCategory:" + getDxCategory().getDisplayName()
-					+ " ");
-
-		if (getFinding() != null)
-			builder.append("finding:" + getFinding().getDisplayName() + " ");
-
-		return builder.toString();
-	}
-
 }

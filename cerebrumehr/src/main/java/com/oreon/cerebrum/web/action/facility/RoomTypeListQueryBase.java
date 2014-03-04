@@ -45,9 +45,6 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 
 	protected RoomType roomType = new RoomType();
 
-	@In(create = true)
-	RoomTypeAction roomTypeAction;
-
 	public RoomTypeListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 	}
 
 	@Override
-	public RoomType getInstance() {
-		return getRoomType();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public RoomType getInstance() {
+		return getRoomType();
 	}
 
 	@Override
@@ -122,12 +119,6 @@ public abstract class RoomTypeListQueryBase extends BaseQuery<RoomType, Long> {
 
 	@Observer("archivedRoomType")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('roomType', 'delete')}")
-	public void archiveById(Long id) {
-		roomTypeAction.archiveById(id);
 		refresh();
 	}
 

@@ -204,7 +204,7 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listDrugInteractions != null) {
 

@@ -47,9 +47,6 @@ public abstract class DifferentialDxListQueryBase
 
 	protected DifferentialDx differentialDx = new DifferentialDx();
 
-	@In(create = true)
-	DifferentialDxAction differentialDxAction;
-
 	public DifferentialDxListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class DifferentialDxListQueryBase
 	}
 
 	@Override
-	public DifferentialDx getInstance() {
-		return getDifferentialDx();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public DifferentialDx getInstance() {
+		return getDifferentialDx();
 	}
 
 	@Override
@@ -149,12 +146,6 @@ public abstract class DifferentialDxListQueryBase
 	public Long getFindingId() {
 		return differentialDx.getFinding() == null ? null : differentialDx
 				.getFinding().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('differentialDx', 'delete')}")
-	public void archiveById(Long id) {
-		differentialDxAction.archiveById(id);
-		refresh();
 	}
 
 }

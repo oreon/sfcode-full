@@ -47,9 +47,6 @@ public abstract class PrescriptionListQueryBase
 
 	protected Prescription prescription = new Prescription();
 
-	@In(create = true)
-	PrescriptionAction prescriptionAction;
-
 	public PrescriptionListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class PrescriptionListQueryBase
 	}
 
 	@Override
-	public Prescription getInstance() {
-		return getPrescription();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Prescription getInstance() {
+		return getPrescription();
 	}
 
 	@Override
@@ -136,12 +133,6 @@ public abstract class PrescriptionListQueryBase
 	public Long getPatientId() {
 		return prescription.getPatient() == null ? null : prescription
 				.getPatient().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('prescription', 'delete')}")
-	public void archiveById(Long id) {
-		prescriptionAction.archiveById(id);
-		refresh();
 	}
 
 }

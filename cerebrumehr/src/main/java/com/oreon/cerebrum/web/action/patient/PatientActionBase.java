@@ -610,7 +610,7 @@ public abstract class PatientActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listAdmissions != null) {
 

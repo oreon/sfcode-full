@@ -45,9 +45,6 @@ public abstract class ChapterListQueryBase extends BaseQuery<Chapter, Long> {
 
 	protected Chapter chapter = new Chapter();
 
-	@In(create = true)
-	ChapterAction chapterAction;
-
 	public ChapterListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class ChapterListQueryBase extends BaseQuery<Chapter, Long> {
 	}
 
 	@Override
-	public Chapter getInstance() {
-		return getChapter();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Chapter getInstance() {
+		return getChapter();
 	}
 
 	@Override
@@ -98,12 +95,6 @@ public abstract class ChapterListQueryBase extends BaseQuery<Chapter, Long> {
 
 	@Observer("archivedChapter")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('chapter', 'delete')}")
-	public void archiveById(Long id) {
-		chapterAction.archiveById(id);
 		refresh();
 	}
 

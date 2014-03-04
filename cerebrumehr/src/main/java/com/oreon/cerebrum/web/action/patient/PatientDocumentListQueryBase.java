@@ -47,9 +47,6 @@ public abstract class PatientDocumentListQueryBase
 
 	protected PatientDocument patientDocument = new PatientDocument();
 
-	@In(create = true)
-	PatientDocumentAction patientDocumentAction;
-
 	public PatientDocumentListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class PatientDocumentListQueryBase
 	}
 
 	@Override
-	public PatientDocument getInstance() {
-		return getPatientDocument();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public PatientDocument getInstance() {
+		return getPatientDocument();
 	}
 
 	@Override
@@ -137,12 +134,6 @@ public abstract class PatientDocumentListQueryBase
 	public Long getPatientId() {
 		return patientDocument.getPatient() == null ? null : patientDocument
 				.getPatient().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('patientDocument', 'delete')}")
-	public void archiveById(Long id) {
-		patientDocumentAction.archiveById(id);
-		refresh();
 	}
 
 }

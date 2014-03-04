@@ -229,7 +229,7 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

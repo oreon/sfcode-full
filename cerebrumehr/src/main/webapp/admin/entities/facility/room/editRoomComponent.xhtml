@@ -39,7 +39,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeBeds == true}"> 
-      <p:commandButton value="New Bed" action="#{roomAction.addBeds}" update="beds, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editBeds')}"> 
+      <p:commandButton value="New Bed" action="#{roomAction.addBeds}" update="beds, :#{p:component('editRoomComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editBeds')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="beds" var="_bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editBeds')}" value="#{roomAction.listBeds}" rowIndexVar="rowIndex"> 
@@ -55,7 +55,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Bed" action="#{roomAction.addBeds}" update="beds, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editBeds')}"> 
+          <p:commandButton value="New Bed" action="#{roomAction.addBeds}" update="beds, :#{p:component('editRoomComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editBeds')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

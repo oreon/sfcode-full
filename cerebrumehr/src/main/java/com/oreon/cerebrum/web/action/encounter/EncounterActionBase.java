@@ -376,7 +376,7 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listPrescribedTests != null) {
 

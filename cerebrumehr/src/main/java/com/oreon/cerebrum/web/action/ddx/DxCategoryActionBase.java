@@ -161,7 +161,7 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

@@ -47,9 +47,6 @@ public abstract class UnusualOccurenceListQueryBase
 
 	protected UnusualOccurence unusualOccurence = new UnusualOccurence();
 
-	@In(create = true)
-	UnusualOccurenceAction unusualOccurenceAction;
-
 	public UnusualOccurenceListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class UnusualOccurenceListQueryBase
 	}
 
 	@Override
-	public UnusualOccurence getInstance() {
-		return getUnusualOccurence();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public UnusualOccurence getInstance() {
+		return getUnusualOccurence();
 	}
 
 	@Override
@@ -155,12 +152,6 @@ public abstract class UnusualOccurenceListQueryBase
 	public Long getPatientId() {
 		return unusualOccurence.getPatient() == null ? null : unusualOccurence
 				.getPatient().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('unusualOccurence', 'delete')}")
-	public void archiveById(Long id) {
-		unusualOccurenceAction.archiveById(id);
-		refresh();
 	}
 
 }

@@ -45,9 +45,6 @@ public abstract class ChartListQueryBase extends BaseQuery<Chart, Long> {
 
 	protected Chart chart = new Chart();
 
-	@In(create = true)
-	ChartAction chartAction;
-
 	public ChartListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class ChartListQueryBase extends BaseQuery<Chart, Long> {
 	}
 
 	@Override
-	public Chart getInstance() {
-		return getChart();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Chart getInstance() {
+		return getChart();
 	}
 
 	@Override
@@ -96,12 +93,6 @@ public abstract class ChartListQueryBase extends BaseQuery<Chart, Long> {
 
 	@Observer("archivedChart")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('chart', 'delete')}")
-	public void archiveById(Long id) {
-		chartAction.archiveById(id);
 		refresh();
 	}
 

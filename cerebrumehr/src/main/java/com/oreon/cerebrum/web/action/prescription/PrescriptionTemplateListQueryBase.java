@@ -47,9 +47,6 @@ public abstract class PrescriptionTemplateListQueryBase
 
 	protected PrescriptionTemplate prescriptionTemplate = new PrescriptionTemplate();
 
-	@In(create = true)
-	PrescriptionTemplateAction prescriptionTemplateAction;
-
 	public PrescriptionTemplateListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class PrescriptionTemplateListQueryBase
 	}
 
 	@Override
-	public PrescriptionTemplate getInstance() {
-		return getPrescriptionTemplate();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public PrescriptionTemplate getInstance() {
+		return getPrescriptionTemplate();
 	}
 
 	@Override
@@ -100,12 +97,6 @@ public abstract class PrescriptionTemplateListQueryBase
 
 	@Observer("archivedPrescriptionTemplate")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('prescriptionTemplate', 'delete')}")
-	public void archiveById(Long id) {
-		prescriptionTemplateAction.archiveById(id);
 		refresh();
 	}
 

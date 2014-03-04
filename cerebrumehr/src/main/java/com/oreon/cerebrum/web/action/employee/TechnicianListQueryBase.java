@@ -39,16 +39,13 @@ import com.oreon.cerebrum.employee.Technician;
  * @author WitchcraftMDA Seam Cartridge - 
  *
  */
-public abstract class TechnicianListQueryBase
-		extends
-			BaseQuery<Technician, Long> {
+public abstract class TechnicianListQueryBase extends
+
+EmployeeListQueryBase<Technician> {
 
 	private static final String EJBQL = "select technician from Technician technician";
 
 	protected Technician technician = new Technician();
-
-	@In(create = true)
-	TechnicianAction technicianAction;
 
 	public TechnicianListQueryBase() {
 		super();
@@ -61,13 +58,13 @@ public abstract class TechnicianListQueryBase
 	}
 
 	@Override
-	public Technician getInstance() {
-		return getTechnician();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Technician getInstance() {
+		return getTechnician();
 	}
 
 	@Override
@@ -130,12 +127,6 @@ public abstract class TechnicianListQueryBase
 
 	@Observer("archivedTechnician")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('technician', 'delete')}")
-	public void archiveById(Long id) {
-		technicianAction.archiveById(id);
 		refresh();
 	}
 

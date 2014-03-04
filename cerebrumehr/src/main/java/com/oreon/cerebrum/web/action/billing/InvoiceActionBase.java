@@ -246,7 +246,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listInvoiceItems != null) {
 

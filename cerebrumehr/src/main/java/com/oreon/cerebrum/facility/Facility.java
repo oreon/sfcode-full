@@ -63,108 +63,11 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "facility")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class Facility extends BaseEntity implements java.io.Serializable {
+public class Facility extends FacilityBase implements java.io.Serializable {
 	private static final long serialVersionUID = -840267156L;
-
-	@Column(unique = false)
-	@Field(index = Index.YES)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String name
-
-	;
-
-	@OneToMany(mappedBy = "facility", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "facility_ID", nullable = true)
-	@OrderBy("id DESC")
-	private Set<Ward> wards = new HashSet<Ward>();
-
-	public void addWard(Ward ward) {
-
-		ward.setFacility(this);
-
-		this.wards.add(ward);
-	}
-
-	@Transient
-	public List<com.oreon.cerebrum.facility.Ward> getListWards() {
-		return new ArrayList<com.oreon.cerebrum.facility.Ward>(wards);
-	}
-
-	//JSF Friendly function to get count of collections
-	public int getWardsCount() {
-		return wards.size();
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-
-		return name;
-
-	}
-
-	public void setWards(Set<Ward> wards) {
-		this.wards = wards;
-	}
-
-	public Set<Ward> getWards() {
-		return wards;
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return name;
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("name");
-
-		listSearchableFields.add("wards.name");
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(getName() + " ");
-
-		for (BaseEntity e : wards) {
-			builder.append(e.getDisplayName() + " ");
-		}
-
-		return builder.toString();
-	}
-
 }

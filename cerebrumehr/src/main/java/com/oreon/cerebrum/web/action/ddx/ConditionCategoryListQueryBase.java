@@ -47,9 +47,6 @@ public abstract class ConditionCategoryListQueryBase
 
 	protected ConditionCategory conditionCategory = new ConditionCategory();
 
-	@In(create = true)
-	ConditionCategoryAction conditionCategoryAction;
-
 	public ConditionCategoryListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class ConditionCategoryListQueryBase
 	}
 
 	@Override
-	public ConditionCategory getInstance() {
-		return getConditionCategory();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public ConditionCategory getInstance() {
+		return getConditionCategory();
 	}
 
 	@Override
@@ -98,12 +95,6 @@ public abstract class ConditionCategoryListQueryBase
 
 	@Observer("archivedConditionCategory")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('conditionCategory', 'delete')}")
-	public void archiveById(Long id) {
-		conditionCategoryAction.archiveById(id);
 		refresh();
 	}
 

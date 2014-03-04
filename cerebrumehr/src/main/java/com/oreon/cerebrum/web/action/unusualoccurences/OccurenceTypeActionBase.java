@@ -163,7 +163,7 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

@@ -63,70 +63,9 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Embeddable
-public class TestResults implements java.io.Serializable {
+public class TestResults extends TestResultsBase
+		implements
+			java.io.Serializable {
 	private static final long serialVersionUID = -1311421045L;
-
-	@Lob
-	@Column(unique = false)
-	@Field(index = Index.YES)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String results
-
-	;
-
-	@Column(unique = false)
-	@Embedded
-	@AttributeOverrides({
-			@AttributeOverride(name = "name", column = @Column(name = "document_name")),
-			@AttributeOverride(name = "contentType", column = @Column(name = "document_contentType")),
-			@AttributeOverride(name = "data", column = @Column(name = "document_data", length = 4194304))})
-	protected FileAttachment document = new FileAttachment();
-
-	public void setResults(String results) {
-		this.results = results;
-	}
-
-	public String getResults() {
-
-		return results;
-
-	}
-
-	public void setDocument(FileAttachment document) {
-		this.document = document;
-	}
-
-	public FileAttachment getDocument() {
-
-		return document;
-
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return results + "";
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	@Transient
-	public String getResultsAbbreviated() {
-		try {
-			return org.apache.commons.lang.WordUtils.abbreviate(results.trim(),
-					100, 200, "...");
-		} catch (Exception e) {
-			return results != null ? results : "";
-		}
-	}
-
 }

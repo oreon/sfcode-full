@@ -63,108 +63,11 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "department")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class Department extends BaseEntity implements java.io.Serializable {
+public class Department extends DepartmentBase implements java.io.Serializable {
 	private static final long serialVersionUID = -416183640L;
-
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = true)
-	@Field(index = Index.YES)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String name
-
-	;
-
-	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "department_ID", nullable = true)
-	@OrderBy("id DESC")
-	private Set<Employee> employees = new HashSet<Employee>();
-
-	public void addEmployee(Employee employee) {
-
-		employee.setDepartment(this);
-
-		this.employees.add(employee);
-	}
-
-	@Transient
-	public List<com.oreon.cerebrum.employee.Employee> getListEmployees() {
-		return new ArrayList<com.oreon.cerebrum.employee.Employee>(employees);
-	}
-
-	//JSF Friendly function to get count of collections
-	public int getEmployeesCount() {
-		return employees.size();
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-
-		return name;
-
-	}
-
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
-	}
-
-	public Set<Employee> getEmployees() {
-		return employees;
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return name;
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("name");
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(getName() + " ");
-
-		for (BaseEntity e : employees) {
-			builder.append(e.getDisplayName() + " ");
-		}
-
-		return builder.toString();
-	}
-
 }

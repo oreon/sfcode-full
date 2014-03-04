@@ -45,9 +45,6 @@ public abstract class ServiceListQueryBase extends BaseQuery<Service, Long> {
 
 	protected Service service = new Service();
 
-	@In(create = true)
-	ServiceAction serviceAction;
-
 	public ServiceListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class ServiceListQueryBase extends BaseQuery<Service, Long> {
 	}
 
 	@Override
-	public Service getInstance() {
-		return getService();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Service getInstance() {
+		return getService();
 	}
 
 	@Override
@@ -108,12 +105,6 @@ public abstract class ServiceListQueryBase extends BaseQuery<Service, Long> {
 
 	@Observer("archivedService")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('service', 'delete')}")
-	public void archiveById(Long id) {
-		serviceAction.archiveById(id);
 		refresh();
 	}
 
