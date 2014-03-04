@@ -275,6 +275,14 @@ type.getAppliedStereotype("wcprofile::Embeddable") != null;
 boolean isEntity(Type type):
 type.getAppliedStereotype("wcprofile::Entity") != null;
 
+isParentAbstractEntity(Type type):
+type.getFirstParentCls() != null && type.getFirstParentCls().isAbstract  && type.getFirstParentCls().isEntity();
+
+
+isAbstractEntity(Type type):
+type.isAbstract  && type.isEntity();
+
+
 boolean isMappedSuperClass(Type type):
 type.getAppliedStereotype("wcprofile::MappedSuperClass") != null || type.getAppliedStereotype("wcprofile::MappedSuperclass") != null ;
 

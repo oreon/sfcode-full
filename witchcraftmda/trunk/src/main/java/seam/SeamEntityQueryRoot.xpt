@@ -46,15 +46,22 @@ import «packageName()».«name»;
  * @author WitchcraftMDA Seam Cartridge - 
  *
  */
-public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
+public abstract class «name»ListQueryBase«IF isAbstractEntity()» <T  extends «name»> «ENDIF» extends 
+ «IF isParentAbstractEntity() » 
+   «getFirstParentCls().name»ListQueryBase<«name»>  
+ «ELSE-» 
+ BaseQuery<«isAbstractEntity()?"T":name», Long> 
+ «ENDIF-» {
 
     private static final String EJBQL = "select «asVar()» from «name» «asVar()»";
     
     protected «name» «asVar()» = new «IF isAbstract» «getFirstChild().fqn()» «ELSE» «name» «ENDIF»();
     
-    
+    «REM»comment
     @In(create=true)
 	«name»Action «asVar()»Action;
+	«ENDREM»
+	
 	
 	«IF isJsf2Rich()»
 		«name»DataModel «asVar()»DataModel;
@@ -96,9 +103,11 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 		return «asVar()»;
 	}
 	
+	
+	
 	@Override
-	public «name» getInstance() {
-		return get«name»();
+	protected String getql() {
+		return EJBQL;
 	}
 	
 	
@@ -108,11 +117,28 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 	
 	«EXPAND genManyToManySearch FOREACH getAllAttributes().select(a|a.isManyToMany()  ) -»
 
+	«IF isAbstractEntity()»
+	
 
+	@Override
+	public T getInstance() {
+		return (T) get«name»();
+	}
+
+	@Override
+	//@Restrict("#{s:hasPermission('«asVar()»', 'view')}")
+	public List<T> getResultList() {
+		return super.getResultList();
+	}
 	
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Class<T> getEntityClass() {
+		return (Class<T>) «name».class;
+	}
+	«ELSE»
+	@Override
+	public «name» getInstance() {
+		return get«name»();
 	}
 	
 	@Override
@@ -120,12 +146,14 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 	public List<«name»> getResultList() {
 		return super.getResultList();
 	}
-
+	
 
 	@Override
 	public Class<«name»> getEntityClass() {
 		return «name».class;
 	}
+	
+	«ENDIF»
 	
 	@Override
 	public String[] getEntityRestrictions() {
@@ -218,12 +246,13 @@ public abstract class «name»ListQueryBase extends  BaseQuery<«name», Long> {
 	«ENDFOREACH»
 	
 	
+	«REM»comment
 	//@Restrict("#{s:hasPermission('«asVar()»', 'delete')}")
 	public void archiveById(Long id) {
 		«asVar()»Action.archiveById(id);
 		refresh();
 	}
-	
+	«ENDREM»
 	
 }
 «ENDFILE»
