@@ -413,7 +413,7 @@
 «DEFINE genAutoCompleteAssoc FOR uml::Property»
 	<h:panelGroup>
 		<p:autoComplete minQueryLength="3" completeMethod="#{«type.asVar()»List.autocomplete}" 
-  		value="#{«type.asVar()»Action.«type.asVar()»}" converter="#{«type.asVar()»List.converter}"  var = "record" 
+  		value="#{«getActionForMode()»«genPropertyLabel()-»}" converter="#{«type.asVar()»List.converter}"  var = "record" 
   			itemLabel="#{record.displayName}" itemValue="#{record}">
 		«IF type.autoCompleteColumns == null»
 			<p:column>
@@ -627,8 +627,9 @@
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
+	«REM»TODO -  edit«class.name.toFirstUpper()»ComponentPanel should be a function «ENDREM»
 	<p:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		update="«name», @form"  rendered="#{«genEditPermission()»}" >
+		update="«name», :#{p:component('edit«class.name.toFirstUpper()»ComponentPanel')}"  rendered="#{«genEditPermission()»}" >
 		<s:conversationId/>
 	</p:commandButton>
 «ENDDEFINE»
