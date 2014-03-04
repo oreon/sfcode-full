@@ -229,7 +229,7 @@ public abstract class DifferentialDxActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

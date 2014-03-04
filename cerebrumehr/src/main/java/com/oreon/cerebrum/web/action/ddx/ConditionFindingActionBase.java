@@ -197,7 +197,7 @@ public abstract class ConditionFindingActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

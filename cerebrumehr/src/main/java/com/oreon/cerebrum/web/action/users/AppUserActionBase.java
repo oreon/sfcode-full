@@ -220,7 +220,7 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 		this.listAvailableAppRoles = listAvailableAppRoles;
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listAvailableAppRoles != null) {
 			getInstance().getAppRoles().clear();

@@ -45,9 +45,6 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 
 	protected Bed bed = new Bed();
 
-	@In(create = true)
-	BedAction bedAction;
-
 	public BedListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 	}
 
 	@Override
-	public Bed getInstance() {
-		return getBed();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Bed getInstance() {
+		return getBed();
 	}
 
 	@Override
@@ -142,12 +139,6 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 
 	public Long getPatientId() {
 		return bed.getPatient() == null ? null : bed.getPatient().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('bed', 'delete')}")
-	public void archiveById(Long id) {
-		bedAction.archiveById(id);
-		refresh();
 	}
 
 }

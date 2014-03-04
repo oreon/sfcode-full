@@ -157,7 +157,7 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

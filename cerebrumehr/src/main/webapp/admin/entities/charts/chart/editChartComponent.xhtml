@@ -19,7 +19,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeChartItems == true}"> 
-      <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChartItems')}"> 
+      <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems, :#{p:component('editChartComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChartItems')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="chartItems" var="_chartItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChartItems')}" value="#{chartAction.listChartItems}" rowIndexVar="rowIndex"> 
@@ -58,7 +58,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChartItems')}"> 
+          <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems, :#{p:component('editChartComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChartItems')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

@@ -45,9 +45,6 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 
 	protected Code code = new Code();
 
-	@In(create = true)
-	CodeAction codeAction;
-
 	public CodeListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 	}
 
 	@Override
-	public Code getInstance() {
-		return getCode();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Code getInstance() {
+		return getCode();
 	}
 
 	@Override
@@ -142,12 +139,6 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 
 	public Long getSectionId() {
 		return code.getSection() == null ? null : code.getSection().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('code', 'delete')}")
-	public void archiveById(Long id) {
-		codeAction.archiveById(id);
-		refresh();
 	}
 
 }

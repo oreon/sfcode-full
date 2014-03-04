@@ -277,7 +277,7 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listSubcategories != null) {
 

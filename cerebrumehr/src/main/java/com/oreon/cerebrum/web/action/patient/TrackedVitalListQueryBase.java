@@ -47,9 +47,6 @@ public abstract class TrackedVitalListQueryBase
 
 	protected TrackedVital trackedVital = new TrackedVital();
 
-	@In(create = true)
-	TrackedVitalAction trackedVitalAction;
-
 	public TrackedVitalListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class TrackedVitalListQueryBase
 	}
 
 	@Override
-	public TrackedVital getInstance() {
-		return getTrackedVital();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public TrackedVital getInstance() {
+		return getTrackedVital();
 	}
 
 	@Override
@@ -122,12 +119,6 @@ public abstract class TrackedVitalListQueryBase
 
 	@Observer("archivedTrackedVital")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('trackedVital', 'delete')}")
-	public void archiveById(Long id) {
-		trackedVitalAction.archiveById(id);
 		refresh();
 	}
 

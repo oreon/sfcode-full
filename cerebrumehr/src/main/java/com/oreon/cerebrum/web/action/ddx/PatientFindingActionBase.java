@@ -229,7 +229,7 @@ public abstract class PatientFindingActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

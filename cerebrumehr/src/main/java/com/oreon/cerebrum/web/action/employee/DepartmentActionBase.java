@@ -197,7 +197,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listEmployees != null) {
 

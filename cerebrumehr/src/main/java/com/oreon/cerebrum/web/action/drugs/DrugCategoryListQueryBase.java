@@ -47,9 +47,6 @@ public abstract class DrugCategoryListQueryBase
 
 	protected DrugCategory drugCategory = new DrugCategory();
 
-	@In(create = true)
-	DrugCategoryAction drugCategoryAction;
-
 	public DrugCategoryListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,8 +58,8 @@ public abstract class DrugCategoryListQueryBase
 	}
 
 	@Override
-	public DrugCategory getInstance() {
-		return getDrugCategory();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	private com.oreon.cerebrum.drugs.Drug drugsToSearch;
@@ -76,8 +73,8 @@ public abstract class DrugCategoryListQueryBase
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public DrugCategory getInstance() {
+		return getDrugCategory();
 	}
 
 	@Override
@@ -110,12 +107,6 @@ public abstract class DrugCategoryListQueryBase
 
 	@Observer("archivedDrugCategory")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('drugCategory', 'delete')}")
-	public void archiveById(Long id) {
-		drugCategoryAction.archiveById(id);
 		refresh();
 	}
 

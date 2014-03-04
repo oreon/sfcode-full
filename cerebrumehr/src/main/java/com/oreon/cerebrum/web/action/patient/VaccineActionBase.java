@@ -161,7 +161,7 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

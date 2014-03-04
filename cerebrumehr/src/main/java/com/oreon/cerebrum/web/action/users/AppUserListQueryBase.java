@@ -45,9 +45,6 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 
 	protected AppUser appUser = new AppUser();
 
-	@In(create = true)
-	AppUserAction appUserAction;
-
 	public AppUserListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,8 +56,8 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 	}
 
 	@Override
-	public AppUser getInstance() {
-		return getAppUser();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	private com.oreon.cerebrum.users.AppRole appRolesToSearch;
@@ -75,8 +72,8 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public AppUser getInstance() {
+		return getAppUser();
 	}
 
 	@Override
@@ -111,12 +108,6 @@ public abstract class AppUserListQueryBase extends BaseQuery<AppUser, Long> {
 
 	@Observer("archivedAppUser")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('appUser', 'delete')}")
-	public void archiveById(Long id) {
-		appUserAction.archiveById(id);
 		refresh();
 	}
 

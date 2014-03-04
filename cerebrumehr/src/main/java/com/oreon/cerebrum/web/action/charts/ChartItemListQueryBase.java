@@ -45,9 +45,6 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 
 	protected ChartItem chartItem = new ChartItem();
 
-	@In(create = true)
-	ChartItemAction chartItemAction;
-
 	public ChartItemListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 	}
 
 	@Override
-	public ChartItem getInstance() {
-		return getChartItem();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public ChartItem getInstance() {
+		return getChartItem();
 	}
 
 	@Override
@@ -146,12 +143,6 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 	public Long getChartId() {
 		return chartItem.getChart() == null ? null : chartItem.getChart()
 				.getId();
-	}
-
-	//@Restrict("#{s:hasPermission('chartItem', 'delete')}")
-	public void archiveById(Long id) {
-		chartItemAction.archiveById(id);
-		refresh();
 	}
 
 }

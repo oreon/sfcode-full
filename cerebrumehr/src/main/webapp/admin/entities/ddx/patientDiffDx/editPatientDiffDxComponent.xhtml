@@ -28,7 +28,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePatientFindings == true}"> 
-      <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}"> 
+      <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings, :#{p:component('editPatientDiffDxComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}" value="#{patientDiffDxAction.listPatientFindings}" rowIndexVar="rowIndex"> 
@@ -39,7 +39,7 @@
           <s:decorate id="findingIdDecorate" rendered="#{ ! excludeFinding == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <h:panelGroup> 
-              <p:autoComplete minQueryLength="3" completeMethod="#{findingList.autocomplete}" value="#{findingAction.finding}" converter="#{findingList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
+              <p:autoComplete minQueryLength="3" completeMethod="#{findingList.autocomplete}" value="#{_patientFinding.finding}" converter="#{findingList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
                 <p:column> 
                   <h:outputText value="#{record.name}"/> 
                 </p:column> 
@@ -48,7 +48,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientFindings')}"> 
+          <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings, :#{p:component('editPatientDiffDxComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientFindings')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

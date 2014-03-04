@@ -28,7 +28,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeInvoiceItems == true}"> 
-      <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}"> 
+      <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, :#{p:component('editInvoiceComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}" value="#{invoiceAction.listInvoiceItems}" rowIndexVar="rowIndex"> 
@@ -68,7 +68,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}"> 
+          <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, :#{p:component('editInvoiceComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

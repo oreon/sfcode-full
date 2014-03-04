@@ -157,7 +157,7 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

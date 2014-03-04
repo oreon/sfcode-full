@@ -204,7 +204,7 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listDifferentialDxs != null) {
 

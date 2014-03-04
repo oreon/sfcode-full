@@ -45,9 +45,6 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 
 	protected Drug drug = new Drug();
 
-	@In(create = true)
-	DrugAction drugAction;
-
 	public DrugListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,8 +56,8 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 	}
 
 	@Override
-	public Drug getInstance() {
-		return getDrug();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	private com.oreon.cerebrum.drugs.DrugCategory drugCategorysToSearch;
@@ -75,8 +72,8 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Drug getInstance() {
+		return getDrug();
 	}
 
 	@Override
@@ -162,12 +159,6 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 
 		drug.setName(input);
 
-	}
-
-	//@Restrict("#{s:hasPermission('drug', 'delete')}")
-	public void archiveById(Long id) {
-		drugAction.archiveById(id);
-		refresh();
 	}
 
 }

@@ -210,7 +210,7 @@ public abstract class ChartActionBase extends BaseAction<Chart>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listChartItems != null) {
 

@@ -47,9 +47,6 @@ public abstract class DrugInteractionListQueryBase
 
 	protected DrugInteraction drugInteraction = new DrugInteraction();
 
-	@In(create = true)
-	DrugInteractionAction drugInteractionAction;
-
 	public DrugInteractionListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class DrugInteractionListQueryBase
 	}
 
 	@Override
-	public DrugInteraction getInstance() {
-		return getDrugInteraction();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public DrugInteraction getInstance() {
+		return getDrugInteraction();
 	}
 
 	@Override
@@ -152,12 +149,6 @@ public abstract class DrugInteractionListQueryBase
 		return drugInteraction.getInteractingDrug() == null
 				? null
 				: drugInteraction.getInteractingDrug().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('drugInteraction', 'delete')}")
-	public void archiveById(Long id) {
-		drugInteractionAction.archiveById(id);
-		refresh();
 	}
 
 }

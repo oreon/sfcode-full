@@ -63,89 +63,13 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "appliedchart")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class AppliedChart extends BaseEntity implements java.io.Serializable {
+public class AppliedChart extends AppliedChartBase
+		implements
+			java.io.Serializable {
 	private static final long serialVersionUID = -223725024L;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
-	protected com.oreon.cerebrum.patient.Patient patient
-
-	;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "chart_id", nullable = false, updatable = true)
-	protected Chart chart
-
-	;
-
-	public void setPatient(com.oreon.cerebrum.patient.Patient patient) {
-		this.patient = patient;
-	}
-
-	public com.oreon.cerebrum.patient.Patient getPatient() {
-
-		return patient;
-
-	}
-
-	public void setChart(Chart chart) {
-		this.chart = chart;
-	}
-
-	public Chart getChart() {
-
-		return chart;
-
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return patient + "";
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		if (getPatient() != null)
-			builder.append("patient:" + getPatient().getDisplayName() + " ");
-
-		if (getChart() != null)
-			builder.append("chart:" + getChart().getDisplayName() + " ");
-
-		return builder.toString();
-	}
-
 }

@@ -34,7 +34,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePrescriptionItems == true}"> 
-      <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptionItems')}"> 
+      <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems, :#{p:component('editPrescriptionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptionItems')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptionItems')}" value="#{prescriptionAction.listPrescriptionItems}" rowIndexVar="rowIndex"> 
@@ -45,7 +45,7 @@
           <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <h:panelGroup> 
-              <p:autoComplete minQueryLength="3" completeMethod="#{drugList.autocomplete}" value="#{drugAction.drug}" converter="#{drugList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
+              <p:autoComplete minQueryLength="3" completeMethod="#{drugList.autocomplete}" value="#{_prescriptionItem.drug}" converter="#{drugList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
                 <p:column> 
                   <h:outputText value="#{record.name}"/> 
                 </p:column> 
@@ -127,7 +127,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionItems')}"> 
+          <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems, :#{p:component('editPrescriptionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionItems')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

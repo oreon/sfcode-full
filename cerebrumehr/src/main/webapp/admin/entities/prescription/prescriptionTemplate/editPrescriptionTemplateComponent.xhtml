@@ -25,7 +25,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePrescriptionItemTemplates == true}"> 
-      <p:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" update="prescriptionItemTemplates, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editPrescriptionItemTemplates')}"> 
+      <p:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" update="prescriptionItemTemplates, :#{p:component('editPrescriptionTemplateComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editPrescriptionItemTemplates')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'editPrescriptionItemTemplates')}" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowIndexVar="rowIndex"> 
@@ -115,7 +115,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" update="prescriptionItemTemplates, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionItemTemplates')}"> 
+          <p:commandButton value="New PrescriptionItemTemplate" action="#{prescriptionTemplateAction.addPrescriptionItemTemplates}" update="prescriptionItemTemplates, :#{p:component('editPrescriptionTemplateComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionItemTemplates')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

@@ -19,7 +19,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeWards == true}"> 
-      <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}"> 
+      <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, :#{p:component('editFacilityComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="wards" var="_ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" value="#{facilityAction.listWards}" rowIndexVar="rowIndex"> 
@@ -46,7 +46,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}"> 
+          <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, :#{p:component('editFacilityComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

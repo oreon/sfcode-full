@@ -45,9 +45,6 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 	protected Patient patient = new Patient();
 
-	@In(create = true)
-	PatientAction patientAction;
-
 	public PatientListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 	}
 
 	@Override
-	public Patient getInstance() {
-		return getPatient();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Patient getInstance() {
+		return getPatient();
 	}
 
 	@Override
@@ -152,12 +149,6 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 		patient.getAddress().setPhone(input);
 
-	}
-
-	//@Restrict("#{s:hasPermission('patient', 'delete')}")
-	public void archiveById(Long id) {
-		patientAction.archiveById(id);
-		refresh();
 	}
 
 }

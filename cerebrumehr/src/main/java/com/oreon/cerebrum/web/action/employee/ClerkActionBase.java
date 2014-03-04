@@ -159,7 +159,7 @@ public abstract class ClerkActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

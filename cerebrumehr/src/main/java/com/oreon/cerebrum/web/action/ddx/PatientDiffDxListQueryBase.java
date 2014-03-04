@@ -47,9 +47,6 @@ public abstract class PatientDiffDxListQueryBase
 
 	protected PatientDiffDx patientDiffDx = new PatientDiffDx();
 
-	@In(create = true)
-	PatientDiffDxAction patientDiffDxAction;
-
 	public PatientDiffDxListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class PatientDiffDxListQueryBase
 	}
 
 	@Override
-	public PatientDiffDx getInstance() {
-		return getPatientDiffDx();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public PatientDiffDx getInstance() {
+		return getPatientDiffDx();
 	}
 
 	@Override
@@ -113,12 +110,6 @@ public abstract class PatientDiffDxListQueryBase
 	public Long getPatientId() {
 		return patientDiffDx.getPatient() == null ? null : patientDiffDx
 				.getPatient().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('patientDiffDx', 'delete')}")
-	public void archiveById(Long id) {
-		patientDiffDxAction.archiveById(id);
-		refresh();
 	}
 
 }

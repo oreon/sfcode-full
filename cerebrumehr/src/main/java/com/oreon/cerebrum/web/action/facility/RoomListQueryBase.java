@@ -45,9 +45,6 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 
 	protected Room room = new Room();
 
-	@In(create = true)
-	RoomAction roomAction;
-
 	public RoomListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 	}
 
 	@Override
-	public Room getInstance() {
-		return getRoom();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Room getInstance() {
+		return getRoom();
 	}
 
 	@Override
@@ -143,12 +140,6 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 
 	public Long getWardId() {
 		return room.getWard() == null ? null : room.getWard().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('room', 'delete')}")
-	public void archiveById(Long id) {
-		roomAction.archiveById(id);
-		refresh();
 	}
 
 }

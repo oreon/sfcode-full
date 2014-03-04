@@ -47,9 +47,6 @@ public abstract class ConditionFindingListQueryBase
 
 	protected ConditionFinding conditionFinding = new ConditionFinding();
 
-	@In(create = true)
-	ConditionFindingAction conditionFindingAction;
-
 	public ConditionFindingListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class ConditionFindingListQueryBase
 	}
 
 	@Override
-	public ConditionFinding getInstance() {
-		return getConditionFinding();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public ConditionFinding getInstance() {
+		return getConditionFinding();
 	}
 
 	@Override
@@ -113,12 +110,6 @@ public abstract class ConditionFindingListQueryBase
 	public Long getDiseaseId() {
 		return conditionFinding.getDisease() == null ? null : conditionFinding
 				.getDisease().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('conditionFinding', 'delete')}")
-	public void archiveById(Long id) {
-		conditionFindingAction.archiveById(id);
-		refresh();
 	}
 
 }

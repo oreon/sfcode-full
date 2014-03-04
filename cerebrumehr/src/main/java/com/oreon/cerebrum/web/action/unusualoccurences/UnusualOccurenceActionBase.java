@@ -229,7 +229,7 @@ public abstract class UnusualOccurenceActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

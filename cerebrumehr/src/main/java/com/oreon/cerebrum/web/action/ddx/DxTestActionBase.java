@@ -157,7 +157,7 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

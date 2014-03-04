@@ -270,7 +270,7 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listBeds != null) {
 

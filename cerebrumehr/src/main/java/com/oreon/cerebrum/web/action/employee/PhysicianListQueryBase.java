@@ -39,14 +39,13 @@ import com.oreon.cerebrum.employee.Physician;
  * @author WitchcraftMDA Seam Cartridge - 
  *
  */
-public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> {
+public abstract class PhysicianListQueryBase extends
+
+EmployeeListQueryBase<Physician> {
 
 	private static final String EJBQL = "select physician from Physician physician";
 
 	protected Physician physician = new Physician();
-
-	@In(create = true)
-	PhysicianAction physicianAction;
 
 	public PhysicianListQueryBase() {
 		super();
@@ -59,13 +58,13 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 	}
 
 	@Override
-	public Physician getInstance() {
-		return getPhysician();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Physician getInstance() {
+		return getPhysician();
 	}
 
 	@Override
@@ -144,12 +143,6 @@ public abstract class PhysicianListQueryBase extends BaseQuery<Physician, Long> 
 	public Long getSpecializationId() {
 		return physician.getSpecialization() == null ? null : physician
 				.getSpecialization().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('physician', 'delete')}")
-	public void archiveById(Long id) {
-		physicianAction.archiveById(id);
-		refresh();
 	}
 
 }

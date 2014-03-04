@@ -63,87 +63,13 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "conditionfinding")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class ConditionFinding extends BaseEntity
+public class ConditionFinding extends ConditionFindingBase
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = 76310456L;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "disease_id", nullable = false, updatable = true)
-	protected Disease disease
-
-	;
-
-	@Column(unique = false)
-	protected Boolean falsePositive
-
-	;
-
-	public void setDisease(Disease disease) {
-		this.disease = disease;
-	}
-
-	public Disease getDisease() {
-
-		return disease;
-
-	}
-
-	public void setFalsePositive(Boolean falsePositive) {
-		this.falsePositive = falsePositive;
-	}
-
-	public Boolean getFalsePositive() {
-
-		return falsePositive;
-
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return disease + "";
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		if (getDisease() != null)
-			builder.append("disease:" + getDisease().getDisplayName() + " ");
-
-		return builder.toString();
-	}
-
 }

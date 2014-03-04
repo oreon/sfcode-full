@@ -45,7 +45,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeSubcategories == true}"> 
-      <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
+      <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories, :#{p:component('editAtcDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="subcategories" var="_atcDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}" value="#{atcDrugAction.listSubcategories}" rowIndexVar="rowIndex"> 
@@ -82,7 +82,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
+          <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories, :#{p:component('editAtcDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

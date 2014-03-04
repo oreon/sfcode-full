@@ -25,7 +25,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeSections == true}"> 
-      <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'editSections')}"> 
+      <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections, :#{p:component('editChapterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'editSections')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="sections" var="_section" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'editSections')}" value="#{chapterAction.listSections}" rowIndexVar="rowIndex"> 
@@ -48,7 +48,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editSections')}"> 
+          <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections, :#{p:component('editChapterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editSections')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

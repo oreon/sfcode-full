@@ -45,9 +45,6 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 
 	protected AtcDrug atcDrug = new AtcDrug();
 
-	@In(create = true)
-	AtcDrugAction atcDrugAction;
-
 	public AtcDrugListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 	}
 
 	@Override
-	public AtcDrug getInstance() {
-		return getAtcDrug();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public AtcDrug getInstance() {
+		return getAtcDrug();
 	}
 
 	@Override
@@ -146,12 +143,6 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 
 	public Long getParentId() {
 		return atcDrug.getParent() == null ? null : atcDrug.getParent().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('atcDrug', 'delete')}")
-	public void archiveById(Long id) {
-		atcDrugAction.archiveById(id);
-		refresh();
 	}
 
 }

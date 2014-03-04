@@ -27,7 +27,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeDifferentialDxs == true}"> 
-      <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'editDifferentialDxs')}"> 
+      <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, :#{p:component('editFindingComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'editDifferentialDxs')}"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('labFinding', 'editDifferentialDxs')}" value="#{findingAction.listDifferentialDxs}" rowIndexVar="rowIndex"> 
@@ -55,7 +55,7 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, @form" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDifferentialDxs')}"> 
+          <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, :#{p:component('editFindingComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDifferentialDxs')}"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  

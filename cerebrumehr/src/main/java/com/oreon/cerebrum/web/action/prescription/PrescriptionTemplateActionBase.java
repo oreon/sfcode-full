@@ -214,7 +214,7 @@ public abstract class PrescriptionTemplateActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listPrescriptionItemTemplates != null) {
 

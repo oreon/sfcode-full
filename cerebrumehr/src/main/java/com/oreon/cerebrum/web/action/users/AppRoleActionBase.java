@@ -161,7 +161,7 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

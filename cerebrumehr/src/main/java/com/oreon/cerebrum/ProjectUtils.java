@@ -7,14 +7,14 @@ import java.util.Set;
 
 import org.drools.util.StringUtils;
 
-import com.oreon.cerebrum.encounter.Encounter;
+import com.oreon.cerebrum.encounter.EncounterBase;
 import com.oreon.cerebrum.encounter.PrescribedTest;
-import com.oreon.cerebrum.prescription.Prescription;
+import com.oreon.cerebrum.prescription.PrescriptionBase;
 import com.oreon.cerebrum.prescription.PrescriptionItem;
 
 public class ProjectUtils {
 	
-	public static String getPrescripitonItems(Prescription prescription){
+	public static String getPrescripitonItems(PrescriptionBase prescription){
 		Set<PrescriptionItem> items = prescription.getPrescriptionItems();
 		StringBuilder builder = new StringBuilder();
 		for (PrescriptionItem prescriptionItem : items) {
@@ -23,7 +23,7 @@ public class ProjectUtils {
 		return builder.toString();
 	}
 
-	public static String getTests(Encounter encounter) {
+	public static String getTests(EncounterBase encounter) {
 		StringBuilder builder = new StringBuilder();
 		for (PrescribedTest prescribedTest : encounter.getPrescribedTests()){
 			builder.append(prescribedTest.getDxTest().getName());

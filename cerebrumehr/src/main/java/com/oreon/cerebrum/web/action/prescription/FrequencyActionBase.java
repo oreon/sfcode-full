@@ -161,7 +161,7 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

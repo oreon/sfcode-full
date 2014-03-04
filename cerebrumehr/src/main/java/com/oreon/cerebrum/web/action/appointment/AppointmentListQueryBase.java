@@ -47,9 +47,6 @@ public abstract class AppointmentListQueryBase
 
 	protected Appointment appointment = new Appointment();
 
-	@In(create = true)
-	AppointmentAction appointmentAction;
-
 	public AppointmentListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class AppointmentListQueryBase
 	}
 
 	@Override
-	public Appointment getInstance() {
-		return getAppointment();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Appointment getInstance() {
+		return getAppointment();
 	}
 
 	@Override
@@ -164,12 +161,6 @@ public abstract class AppointmentListQueryBase
 	public Long getPatientId() {
 		return appointment.getPatient() == null ? null : appointment
 				.getPatient().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('appointment', 'delete')}")
-	public void archiveById(Long id) {
-		appointmentAction.archiveById(id);
-		refresh();
 	}
 
 }

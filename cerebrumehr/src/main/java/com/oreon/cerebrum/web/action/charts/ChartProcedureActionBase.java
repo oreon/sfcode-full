@@ -229,7 +229,7 @@ public abstract class ChartProcedureActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

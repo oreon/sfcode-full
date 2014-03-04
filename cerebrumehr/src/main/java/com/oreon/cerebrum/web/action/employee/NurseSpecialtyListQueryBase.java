@@ -47,9 +47,6 @@ public abstract class NurseSpecialtyListQueryBase
 
 	protected NurseSpecialty nurseSpecialty = new NurseSpecialty();
 
-	@In(create = true)
-	NurseSpecialtyAction nurseSpecialtyAction;
-
 	public NurseSpecialtyListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class NurseSpecialtyListQueryBase
 	}
 
 	@Override
-	public NurseSpecialty getInstance() {
-		return getNurseSpecialty();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public NurseSpecialty getInstance() {
+		return getNurseSpecialty();
 	}
 
 	@Override
@@ -98,12 +95,6 @@ public abstract class NurseSpecialtyListQueryBase
 
 	@Observer("archivedNurseSpecialty")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('nurseSpecialty', 'delete')}")
-	public void archiveById(Long id) {
-		nurseSpecialtyAction.archiveById(id);
 		refresh();
 	}
 

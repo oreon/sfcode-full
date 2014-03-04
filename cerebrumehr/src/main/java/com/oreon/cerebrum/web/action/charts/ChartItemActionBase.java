@@ -201,7 +201,7 @@ public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

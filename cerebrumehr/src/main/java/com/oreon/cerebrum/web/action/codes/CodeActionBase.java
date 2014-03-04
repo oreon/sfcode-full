@@ -199,7 +199,7 @@ public abstract class CodeActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

@@ -230,7 +230,7 @@ public abstract class DrugInteractionActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

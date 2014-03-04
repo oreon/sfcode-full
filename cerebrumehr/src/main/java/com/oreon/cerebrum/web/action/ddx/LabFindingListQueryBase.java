@@ -47,9 +47,6 @@ public abstract class LabFindingListQueryBase
 
 	protected LabFinding labFinding = new LabFinding();
 
-	@In(create = true)
-	LabFindingAction labFindingAction;
-
 	public LabFindingListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class LabFindingListQueryBase
 	}
 
 	@Override
-	public LabFinding getInstance() {
-		return getLabFinding();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public LabFinding getInstance() {
+		return getLabFinding();
 	}
 
 	@Override
@@ -100,12 +97,6 @@ public abstract class LabFindingListQueryBase
 
 	@Observer("archivedLabFinding")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('labFinding', 'delete')}")
-	public void archiveById(Long id) {
-		labFindingAction.archiveById(id);
 		refresh();
 	}
 

@@ -229,7 +229,7 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

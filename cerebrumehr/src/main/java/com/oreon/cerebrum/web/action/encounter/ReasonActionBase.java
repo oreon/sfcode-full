@@ -228,7 +228,7 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

@@ -229,7 +229,7 @@ public abstract class AppliedChartActionBase extends BaseAction<AppliedChart>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

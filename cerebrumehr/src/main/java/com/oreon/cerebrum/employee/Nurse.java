@@ -63,73 +63,11 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "nurse")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class Nurse extends com.oreon.cerebrum.employee.Employee
-		implements
-			java.io.Serializable {
+public class Nurse extends NurseBase implements java.io.Serializable {
 	private static final long serialVersionUID = -613325953L;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "nurseSpecialty_id", nullable = true, updatable = true)
-	protected NurseSpecialty nurseSpecialty
-
-	;
-
-	public void setNurseSpecialty(NurseSpecialty nurseSpecialty) {
-		this.nurseSpecialty = nurseSpecialty;
-	}
-
-	public NurseSpecialty getNurseSpecialty() {
-
-		return nurseSpecialty;
-
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return nurseSpecialty + "";
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		if (getNurseSpecialty() != null)
-			builder.append("nurseSpecialty:"
-					+ getNurseSpecialty().getDisplayName() + " ");
-
-		return builder.toString();
-	}
-
 }

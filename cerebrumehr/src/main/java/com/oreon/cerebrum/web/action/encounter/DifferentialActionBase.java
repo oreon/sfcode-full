@@ -197,7 +197,7 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

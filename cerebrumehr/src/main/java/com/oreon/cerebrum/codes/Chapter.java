@@ -63,87 +63,11 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "chapter")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class Chapter extends com.oreon.cerebrum.codes.AbstractCode
-		implements
-			java.io.Serializable {
+public class Chapter extends ChapterBase implements java.io.Serializable {
 	private static final long serialVersionUID = -485514617L;
-
-	@OneToMany(mappedBy = "chapter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "chapter_ID", nullable = true)
-	@OrderBy("id DESC")
-	private Set<Section> sections = new HashSet<Section>();
-
-	public void addSection(Section section) {
-
-		section.setChapter(this);
-
-		this.sections.add(section);
-	}
-
-	@Transient
-	public List<com.oreon.cerebrum.codes.Section> getListSections() {
-		return new ArrayList<com.oreon.cerebrum.codes.Section>(sections);
-	}
-
-	//JSF Friendly function to get count of collections
-	public int getSectionsCount() {
-		return sections.size();
-	}
-
-	public void setSections(Set<Section> sections) {
-		this.sections = sections;
-	}
-
-	public Set<Section> getSections() {
-		return sections;
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return super.getDisplayName();
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		for (BaseEntity e : sections) {
-			builder.append(e.getDisplayName() + " ");
-		}
-
-		return builder.toString();
-	}
-
 }

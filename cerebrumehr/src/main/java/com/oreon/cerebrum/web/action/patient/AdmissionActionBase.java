@@ -276,7 +276,7 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listBedStays != null) {
 

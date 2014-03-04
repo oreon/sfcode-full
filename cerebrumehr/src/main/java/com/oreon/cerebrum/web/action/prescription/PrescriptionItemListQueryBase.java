@@ -47,9 +47,6 @@ public abstract class PrescriptionItemListQueryBase
 
 	protected PrescriptionItem prescriptionItem = new PrescriptionItem();
 
-	@In(create = true)
-	PrescriptionItemAction prescriptionItemAction;
-
 	public PrescriptionItemListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class PrescriptionItemListQueryBase
 	}
 
 	@Override
-	public PrescriptionItem getInstance() {
-		return getPrescriptionItem();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public PrescriptionItem getInstance() {
+		return getPrescriptionItem();
 	}
 
 	@Override
@@ -196,12 +193,6 @@ public abstract class PrescriptionItemListQueryBase
 		return prescriptionItem.getFrequency() == null
 				? null
 				: prescriptionItem.getFrequency().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('prescriptionItem', 'delete')}")
-	public void archiveById(Long id) {
-		prescriptionItemAction.archiveById(id);
-		refresh();
 	}
 
 }

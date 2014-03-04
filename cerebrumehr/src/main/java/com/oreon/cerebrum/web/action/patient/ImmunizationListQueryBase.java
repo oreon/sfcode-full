@@ -47,9 +47,6 @@ public abstract class ImmunizationListQueryBase
 
 	protected Immunization immunization = new Immunization();
 
-	@In(create = true)
-	ImmunizationAction immunizationAction;
-
 	public ImmunizationListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class ImmunizationListQueryBase
 	}
 
 	@Override
-	public Immunization getInstance() {
-		return getImmunization();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Immunization getInstance() {
+		return getImmunization();
 	}
 
 	@Override
@@ -158,12 +155,6 @@ public abstract class ImmunizationListQueryBase
 	public Long getVaccineId() {
 		return immunization.getVaccine() == null ? null : immunization
 				.getVaccine().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('immunization', 'delete')}")
-	public void archiveById(Long id) {
-		immunizationAction.archiveById(id);
-		refresh();
 	}
 
 }

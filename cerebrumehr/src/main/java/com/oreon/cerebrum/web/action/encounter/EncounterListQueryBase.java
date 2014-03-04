@@ -45,9 +45,6 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 
 	protected Encounter encounter = new Encounter();
 
-	@In(create = true)
-	EncounterAction encounterAction;
-
 	public EncounterListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	}
 
 	@Override
-	public Encounter getInstance() {
-		return getEncounter();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Encounter getInstance() {
+		return getEncounter();
 	}
 
 	@Override
@@ -210,12 +207,6 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	public Long getPatientId() {
 		return encounter.getPatient() == null ? null : encounter.getPatient()
 				.getId();
-	}
-
-	//@Restrict("#{s:hasPermission('encounter', 'delete')}")
-	public void archiveById(Long id) {
-		encounterAction.archiveById(id);
-		refresh();
 	}
 
 }

@@ -45,9 +45,6 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 
 	protected Invoice invoice = new Invoice();
 
-	@In(create = true)
-	InvoiceAction invoiceAction;
-
 	public InvoiceListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 	}
 
 	@Override
-	public Invoice getInstance() {
-		return getInvoice();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Invoice getInstance() {
+		return getInvoice();
 	}
 
 	@Override
@@ -123,12 +120,6 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 	public Long getPatientId() {
 		return invoice.getPatient() == null ? null : invoice.getPatient()
 				.getId();
-	}
-
-	//@Restrict("#{s:hasPermission('invoice', 'delete')}")
-	public void archiveById(Long id) {
-		invoiceAction.archiveById(id);
-		refresh();
 	}
 
 }

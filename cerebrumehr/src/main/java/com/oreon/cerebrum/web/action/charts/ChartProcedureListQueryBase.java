@@ -47,9 +47,6 @@ public abstract class ChartProcedureListQueryBase
 
 	protected ChartProcedure chartProcedure = new ChartProcedure();
 
-	@In(create = true)
-	ChartProcedureAction chartProcedureAction;
-
 	public ChartProcedureListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class ChartProcedureListQueryBase
 	}
 
 	@Override
-	public ChartProcedure getInstance() {
-		return getChartProcedure();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public ChartProcedure getInstance() {
+		return getChartProcedure();
 	}
 
 	@Override
@@ -173,12 +170,6 @@ public abstract class ChartProcedureListQueryBase
 	public Long getChartItemId() {
 		return chartProcedure.getChartItem() == null ? null : chartProcedure
 				.getChartItem().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('chartProcedure', 'delete')}")
-	public void archiveById(Long id) {
-		chartProcedureAction.archiveById(id);
-		refresh();
 	}
 
 }

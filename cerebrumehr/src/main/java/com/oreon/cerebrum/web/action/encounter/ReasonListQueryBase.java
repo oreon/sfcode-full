@@ -45,9 +45,6 @@ public abstract class ReasonListQueryBase extends BaseQuery<Reason, Long> {
 
 	protected Reason reason = new Reason();
 
-	@In(create = true)
-	ReasonAction reasonAction;
-
 	public ReasonListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -59,13 +56,13 @@ public abstract class ReasonListQueryBase extends BaseQuery<Reason, Long> {
 	}
 
 	@Override
-	public Reason getInstance() {
-		return getReason();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Reason getInstance() {
+		return getReason();
 	}
 
 	@Override
@@ -144,12 +141,6 @@ public abstract class ReasonListQueryBase extends BaseQuery<Reason, Long> {
 
 	public Long getCodeId() {
 		return reason.getCode() == null ? null : reason.getCode().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('reason', 'delete')}")
-	public void archiveById(Long id) {
-		reasonAction.archiveById(id);
-		refresh();
 	}
 
 }

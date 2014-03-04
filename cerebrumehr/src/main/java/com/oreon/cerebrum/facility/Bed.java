@@ -63,112 +63,11 @@ import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-//Impl 
-
-/**
- * 
- *
- */
-
 @Entity
 @Table(name = "bed")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
-public class Bed extends BaseEntity implements java.io.Serializable {
+public class Bed extends BedBase implements java.io.Serializable {
 	private static final long serialVersionUID = 1419594382L;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "room_id", nullable = false, updatable = true)
-	protected Room room
-
-	;
-
-	@NotNull
-	@Length(min = 1, max = 250)
-	@Column(unique = false)
-	@Field(index = Index.YES)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String name
-
-	;
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_id", nullable = true, updatable = true)
-	protected com.oreon.cerebrum.patient.Patient patient
-
-	;
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-
-	public Room getRoom() {
-
-		return room;
-
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-
-		return name;
-
-	}
-
-	public void setPatient(com.oreon.cerebrum.patient.Patient patient) {
-		this.patient = patient;
-	}
-
-	public com.oreon.cerebrum.patient.Patient getPatient() {
-
-		return patient;
-
-	}
-
-	@Transient
-	public String getDisplayName() {
-		try {
-			return room.getName() + " " + name;
-		} catch (Exception e) {
-			return "Exception - " + e.getMessage();
-		}
-	}
-
-	//Empty setter , needed for richfaces autocomplete to work 
-	public void setDisplayName(String name) {
-	}
-
-	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
-	 */
-	@Override
-	public List<String> listSearchableFields() {
-		List<String> listSearchableFields = new ArrayList<String>();
-		listSearchableFields.addAll(super.listSearchableFields());
-
-		listSearchableFields.add("name");
-
-		return listSearchableFields;
-	}
-
-	@Field(index = Index.YES, name = "searchData")
-	@Analyzer(definition = "entityAnalyzer")
-	public String getSearchData() {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(getName() + " ");
-
-		if (getRoom() != null)
-			builder.append("room:" + getRoom().getDisplayName() + " ");
-
-		if (getPatient() != null)
-			builder.append("patient:" + getPatient().getDisplayName() + " ");
-
-		return builder.toString();
-	}
-
 }

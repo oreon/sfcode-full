@@ -260,7 +260,7 @@ public abstract class PrescriptionItemActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

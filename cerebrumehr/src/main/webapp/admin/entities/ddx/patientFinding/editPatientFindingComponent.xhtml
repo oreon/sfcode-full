@@ -15,7 +15,7 @@
           <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editFinding')}"/>
         </ui:define>  
         <h:panelGroup> 
-          <p:autoComplete minQueryLength="3" completeMethod="#{findingList.autocomplete}" value="#{findingAction.finding}" converter="#{findingList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
+          <p:autoComplete minQueryLength="3" completeMethod="#{findingList.autocomplete}" value="#{patientFindingAction.patientFinding.finding}" converter="#{findingList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
             <p:column> 
               <h:outputText value="#{record.name}"/> 
             </p:column> 

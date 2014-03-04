@@ -47,9 +47,6 @@ public abstract class PhysicalFindingListQueryBase
 
 	protected PhysicalFinding physicalFinding = new PhysicalFinding();
 
-	@In(create = true)
-	PhysicalFindingAction physicalFindingAction;
-
 	public PhysicalFindingListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class PhysicalFindingListQueryBase
 	}
 
 	@Override
-	public PhysicalFinding getInstance() {
-		return getPhysicalFinding();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public PhysicalFinding getInstance() {
+		return getPhysicalFinding();
 	}
 
 	@Override
@@ -100,12 +97,6 @@ public abstract class PhysicalFindingListQueryBase
 
 	@Observer("archivedPhysicalFinding")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('physicalFinding', 'delete')}")
-	public void archiveById(Long id) {
-		physicalFindingAction.archiveById(id);
 		refresh();
 	}
 

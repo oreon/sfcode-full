@@ -162,7 +162,7 @@ public abstract class ConditionCategoryActionBase
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

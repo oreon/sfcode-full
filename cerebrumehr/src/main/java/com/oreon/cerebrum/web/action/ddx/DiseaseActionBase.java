@@ -283,7 +283,7 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 
 		if (listDifferentialDiagnoses != null) {
 

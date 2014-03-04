@@ -47,9 +47,6 @@ public abstract class DepartmentListQueryBase
 
 	protected Department department = new Department();
 
-	@In(create = true)
-	DepartmentAction departmentAction;
-
 	public DepartmentListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class DepartmentListQueryBase
 	}
 
 	@Override
-	public Department getInstance() {
-		return getDepartment();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Department getInstance() {
+		return getDepartment();
 	}
 
 	@Override
@@ -98,12 +95,6 @@ public abstract class DepartmentListQueryBase
 
 	@Observer("archivedDepartment")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('department', 'delete')}")
-	public void archiveById(Long id) {
-		departmentAction.archiveById(id);
 		refresh();
 	}
 

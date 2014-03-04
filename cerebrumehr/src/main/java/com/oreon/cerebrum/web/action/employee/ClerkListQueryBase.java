@@ -39,14 +39,13 @@ import com.oreon.cerebrum.employee.Clerk;
  * @author WitchcraftMDA Seam Cartridge - 
  *
  */
-public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
+public abstract class ClerkListQueryBase extends
+
+EmployeeListQueryBase<Clerk> {
 
 	private static final String EJBQL = "select clerk from Clerk clerk";
 
 	protected Clerk clerk = new Clerk();
-
-	@In(create = true)
-	ClerkAction clerkAction;
 
 	public ClerkListQueryBase() {
 		super();
@@ -59,13 +58,13 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 	}
 
 	@Override
-	public Clerk getInstance() {
-		return getClerk();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public Clerk getInstance() {
+		return getClerk();
 	}
 
 	@Override
@@ -128,12 +127,6 @@ public abstract class ClerkListQueryBase extends BaseQuery<Clerk, Long> {
 
 	@Observer("archivedClerk")
 	public void onArchive() {
-		refresh();
-	}
-
-	//@Restrict("#{s:hasPermission('clerk', 'delete')}")
-	public void archiveById(Long id) {
-		clerkAction.archiveById(id);
 		refresh();
 	}
 

@@ -47,9 +47,6 @@ public abstract class VitalValueListQueryBase
 
 	protected VitalValue vitalValue = new VitalValue();
 
-	@In(create = true)
-	VitalValueAction vitalValueAction;
-
 	public VitalValueListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class VitalValueListQueryBase
 	}
 
 	@Override
-	public VitalValue getInstance() {
-		return getVitalValue();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public VitalValue getInstance() {
+		return getVitalValue();
 	}
 
 	@Override
@@ -161,12 +158,6 @@ public abstract class VitalValueListQueryBase
 	public Long getPatientId() {
 		return vitalValue.getPatient() == null ? null : vitalValue.getPatient()
 				.getId();
-	}
-
-	//@Restrict("#{s:hasPermission('vitalValue', 'delete')}")
-	public void archiveById(Long id) {
-		vitalValueAction.archiveById(id);
-		refresh();
 	}
 
 }

@@ -228,7 +228,7 @@ public abstract class BedActionBase extends BaseAction<Bed>
 
 	}
 
-	public void tions() {
+	public void updateComposedAssociations() {
 	}
 
 	public void clearLists() {

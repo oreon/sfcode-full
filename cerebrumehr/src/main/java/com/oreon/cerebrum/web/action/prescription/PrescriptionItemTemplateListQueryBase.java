@@ -47,9 +47,6 @@ public abstract class PrescriptionItemTemplateListQueryBase
 
 	protected PrescriptionItemTemplate prescriptionItemTemplate = new PrescriptionItemTemplate();
 
-	@In(create = true)
-	PrescriptionItemTemplateAction prescriptionItemTemplateAction;
-
 	public PrescriptionItemTemplateListQueryBase() {
 		super();
 		setOrderColumn("id");
@@ -61,13 +58,13 @@ public abstract class PrescriptionItemTemplateListQueryBase
 	}
 
 	@Override
-	public PrescriptionItemTemplate getInstance() {
-		return getPrescriptionItemTemplate();
+	protected String getql() {
+		return EJBQL;
 	}
 
 	@Override
-	protected String getql() {
-		return EJBQL;
+	public PrescriptionItemTemplate getInstance() {
+		return getPrescriptionItemTemplate();
 	}
 
 	@Override
@@ -199,12 +196,6 @@ public abstract class PrescriptionItemTemplateListQueryBase
 		return prescriptionItemTemplate.getPrescriptionTemplate() == null
 				? null
 				: prescriptionItemTemplate.getPrescriptionTemplate().getId();
-	}
-
-	//@Restrict("#{s:hasPermission('prescriptionItemTemplate', 'delete')}")
-	public void archiveById(Long id) {
-		prescriptionItemTemplateAction.archiveById(id);
-		refresh();
 	}
 
 }
