@@ -35,21 +35,6 @@
 			
 		}
 	«ENDFILE»
-	
-	
-	«IF hasParent() && ! getFirstParentCls().isMappedSuperClass()»
-	
-	   «FILE getFirstParentCls().getWebPackagePathModified("Abstract","Action")  man_path »
-		
-				package « getWebPackageName() »;
-					
-				«EXPAND genImports FOR this»	
-				
-				public abstract class Abstract«getFirstParentCls().name»Action<T extends «getFirstParentCls().fqn()»> extends 
-					«getFirstParentCls().hasParent()?getFirstParentCls().getFirstParentCls().getActionFqn():"BaseAction"»<T> implements java.io.Serializable{
-				}
-		«ENDFILE»
-	«ENDIF»
 
 «ENDDEFINE»
 
@@ -58,23 +43,22 @@
 «ENDDEFINE»
 
 «DEFINE BaseGen FOR wcprofile::Entity»
-	«IF !isAbstract»
-		«EXPAND BaseGenImpl FOR this»
-	«ELSE»
+	«IF isAbstract»
 		«EXPAND AbstractGen FOR this»
 	«ENDIF»
+	«EXPAND BaseGenImpl FOR this»
 «ENDDEFINE»
 
 
 «DEFINE AbstractGen FOR uml::Class»
-	«FILE getWebPackagePath("Action")  man_path »
+	«FILE getWebPackagePathWithPrefix("Abstract" , "Action")  man_path »
 		
 		package « getWebPackageName() »;
 		
 		«EXPAND genImports FOR this»	
 		
 		
-		public  abstract class «name»Action<T extends BaseEntity> extends BaseAction<T> implements java.io.Serializable{
+		public  abstract class Abstract«name»Action<T extends «fqn()»> extends BaseAction<T> implements java.io.Serializable{
 			
 		}
 	«ENDFILE»
@@ -137,6 +121,15 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		setEntityIdForModalDlg(id);
 	}
 	
+	
+	«IF isAbstract»
+		@Override
+		public Class<«name»> getEntityClass() {
+			return «name».class;
+		}
+	«ENDIF»
+	
+	
 	«FOREACH getOutgoingAssociations() AS e-»
 	
 	public void set«e.name.toFirstUpper()»Id(Long id) {
@@ -198,17 +191,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		«ENDFOREACH»
 		«EXPAND genCurrentUser FOREACH getAllAttributes().select(a|a.currentUser()) -»
 		
-		
 		 return instance;
-	}
-	
-
-
-	public void load() {
-		if (isIdDefined()) {
-			wire();
-		}
-		
 	}
 	
 	
@@ -240,9 +223,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		«ENDFOREACH»
 	}
 
-	public boolean isWired() {
-		return true;
-	}
+	
 
 	public «name» getDefinedInstance() {
 		return («name») (isIdDefined() ? getInstance() : null);

@@ -359,19 +359,28 @@ getEmbeddableClassNameSuffix(Property prop, String suffix):
 getCurrentEmbeddable() != null? getCurrentEmbeddable().name + suffix:"" ;
 
 
+getWebPackagePath(Class cls, String prefix, string ext,  String subpackage):
+getTopLevelPackage(cls).packagePath() + "/web/action/"  +  cls.package.name + "/" + subpackage + "/" + prefix + cls.name + ext + ".java";
 
 getWebPackagePath(Class cls, String ext, String subpackage):
 getTopLevelPackage(cls).packagePath() + "/web/action/"  +  cls.package.name + "/" + subpackage + "/" + cls.name + ext + ".java";
+
+getWebPackagePath(Class cls, String ext):
+getTopLevelPackage(cls).packagePath() + "/web/action/"  + cls.package.name + "/" + cls.name + ext + ".java";
+
+getWebPackagePathWithPrefix(Class cls, String prefix, String ext):
+getTopLevelPackage(cls).packagePath() + "/web/action/"  + cls.package.name + "/" + prefix  + cls.name + ext + ".java";
+
+getWebPackagePathModified(Class cls, String prefix, String suffix):
+getTopLevelPackage(cls).packagePath() + "/web/action/"  + cls.package.name + "/" + prefix + cls.name + suffix + ".java";
+
+
+
 
 getWebPackageName(Class cls, String subpackage):
 getTopLevelPackage(cls) + ".web.action." + cls.package.name +  "." + subpackage;
 
 
-getWebPackagePathModified(Class cls, String prefix, String suffix):
-getTopLevelPackage(cls).packagePath() + "/web/action/"  + cls.package.name + "/" + prefix + cls.name + suffix + ".java";
-
-getWebPackagePath(Class cls, String ext):
-getTopLevelPackage(cls).packagePath() + "/web/action/"  + cls.package.name + "/" + cls.name + ext + ".java";
 
 getWebPackageName(Class cls):
 getTopLevelPackage(cls) + ".web.action." + cls.package.name;
