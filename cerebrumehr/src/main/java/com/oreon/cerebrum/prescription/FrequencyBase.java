@@ -144,4 +144,8 @@ public class FrequencyBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

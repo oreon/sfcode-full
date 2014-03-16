@@ -194,4 +194,8 @@ public class AppUserBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

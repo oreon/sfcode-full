@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/facility/facility/modalDlgFacilityComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="facilityForm"> 
       <p:dataTable var="_facility" value="#{records}" id="facilityList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{facilityAction.facility}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editFacilityPanel')}" oncomplete="editFacilityDialog.show()" listener="#{facilityAction.onRowSelect}"/>  
@@ -36,15 +41,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_facility', 'view') and !_facilityCategory.archived}"> 
-          <h:link outcome="/admin/entities/facility/facility/viewFacility.xhtml" rendered="#{s:hasPermission(_facility, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/facility/facility/viewFacility.xhtml" rendered="#{s:hasPermission(_facility, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="facilityId" value="#{_facility.id}"/> 
+            <f:param name="facilityId" value="#{_facility.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_facility', 'edit') and !_facilityCategory.archived}"> 
-          <h:link outcome="/admin/entities/facility/facility/editFacility.xhtml" rendered="#{s:hasPermission(_facility, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/facility/facility/editFacility.xhtml" rendered="#{s:hasPermission(_facility, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="facilityId" value="#{_facility.id}"/> 
+            <f:param name="facilityId" value="#{_facility.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('facilityAction', 'archive')}" propagation="none"> 
@@ -63,11 +70,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/facility/facility/modalDlgFacilityComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

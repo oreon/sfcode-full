@@ -132,9 +132,8 @@ public abstract class EmployeeListQueryBase<T extends Employee>
 				this) {
 
 			@Override
-			public List<T> load(int first, int pageSize,
-					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+			public List<T> load(int first, int pageSize, String sortField,
+					SortOrder sortOrder, Map<String, String> filters) {
 
 				employee.setDepartment(department);
 				return super.load(first, pageSize, sortField, sortOrder,

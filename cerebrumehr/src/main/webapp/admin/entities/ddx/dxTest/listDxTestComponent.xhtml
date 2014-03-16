@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/dxTest/modalDlgDxTestComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="dxTestForm"> 
       <p:dataTable var="_dxTest" value="#{records}" id="dxTestList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{dxTestAction.dxTest}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editDxTestPanel')}" oncomplete="editDxTestDialog.show()" listener="#{dxTestAction.onRowSelect}"/>  
@@ -32,15 +37,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_dxTest', 'view') and !_dxTestCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="dxTestId" value="#{_dxTest.id}"/> 
+            <f:param name="dxTestId" value="#{_dxTest.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_dxTest', 'edit') and !_dxTestCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/dxTest/editDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/dxTest/editDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="dxTestId" value="#{_dxTest.id}"/> 
+            <f:param name="dxTestId" value="#{_dxTest.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('dxTestAction', 'archive')}" propagation="none"> 
@@ -59,11 +66,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/ddx/dxTest/modalDlgDxTestComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/encounter/differential/modalDlgDifferentialComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="differentialForm"> 
       <p:dataTable var="_differential" value="#{records}" id="differentialList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{differentialAction.differential}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editDifferentialPanel')}" oncomplete="editDifferentialDialog.show()" listener="#{differentialAction.onRowSelect}"/>  
@@ -42,15 +47,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_differential', 'view') and !_differentialCategory.archived}"> 
-          <h:link outcome="/admin/entities/encounter/differential/viewDifferential.xhtml" rendered="#{s:hasPermission(_differential, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/encounter/differential/viewDifferential.xhtml" rendered="#{s:hasPermission(_differential, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="differentialId" value="#{_differential.id}"/> 
+            <f:param name="differentialId" value="#{_differential.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_differential', 'edit') and !_differentialCategory.archived}"> 
-          <h:link outcome="/admin/entities/encounter/differential/editDifferential.xhtml" rendered="#{s:hasPermission(_differential, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/encounter/differential/editDifferential.xhtml" rendered="#{s:hasPermission(_differential, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="differentialId" value="#{_differential.id}"/> 
+            <f:param name="differentialId" value="#{_differential.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('differentialAction', 'archive')}" propagation="none"> 
@@ -69,11 +76,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/encounter/differential/modalDlgDifferentialComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

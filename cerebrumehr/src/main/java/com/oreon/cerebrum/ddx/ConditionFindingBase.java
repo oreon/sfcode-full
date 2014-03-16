@@ -140,4 +140,9 @@ public class ConditionFindingBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="diseaseId" value="#{diseaseId}" />
+	
+	 */
+
 }

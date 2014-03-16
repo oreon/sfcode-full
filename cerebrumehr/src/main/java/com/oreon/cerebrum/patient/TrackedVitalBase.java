@@ -159,4 +159,8 @@ public class TrackedVitalBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

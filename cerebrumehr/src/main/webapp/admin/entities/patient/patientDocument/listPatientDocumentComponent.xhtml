@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/patient/patientDocument/modalDlgPatientDocumentComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="patientDocumentForm"> 
       <p:dataTable var="_patientDocument" value="#{records}" id="patientDocumentList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{patientDocumentAction.patientDocument}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editPatientDocumentPanel')}" oncomplete="editPatientDocumentDialog.show()" listener="#{patientDocumentAction.onRowSelect}"/>  
@@ -58,15 +63,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_patientDocument', 'view') and !_patientDocumentCategory.archived}"> 
-          <h:link outcome="/admin/entities/patient/patientDocument/viewPatientDocument.xhtml" rendered="#{s:hasPermission(_patientDocument, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/patient/patientDocument/viewPatientDocument.xhtml" rendered="#{s:hasPermission(_patientDocument, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="patientDocumentId" value="#{_patientDocument.id}"/> 
+            <f:param name="patientDocumentId" value="#{_patientDocument.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_patientDocument', 'edit') and !_patientDocumentCategory.archived}"> 
-          <h:link outcome="/admin/entities/patient/patientDocument/editPatientDocument.xhtml" rendered="#{s:hasPermission(_patientDocument, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/patient/patientDocument/editPatientDocument.xhtml" rendered="#{s:hasPermission(_patientDocument, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="patientDocumentId" value="#{_patientDocument.id}"/> 
+            <f:param name="patientDocumentId" value="#{_patientDocument.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('patientDocumentAction', 'archive')}" propagation="none"> 
@@ -85,11 +92,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/patient/patientDocument/modalDlgPatientDocumentComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

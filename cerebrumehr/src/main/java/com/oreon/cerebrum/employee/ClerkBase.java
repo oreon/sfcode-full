@@ -97,4 +97,8 @@ public class ClerkBase extends com.oreon.cerebrum.employee.Employee {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

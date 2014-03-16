@@ -129,4 +129,8 @@ public class ConditionCategoryBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

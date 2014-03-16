@@ -191,4 +191,10 @@ public class PrescribedTestBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="dxTestId" value="#{dxTestId}" />
+	<param name="encounterId" value="#{encounterId}" />
+	
+	 */
+
 }

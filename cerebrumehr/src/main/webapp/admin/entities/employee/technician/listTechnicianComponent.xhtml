@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/employee/technician/modalDlgTechnicianComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="technicianForm"> 
       <p:dataTable var="_technician" value="#{records}" id="technicianList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{technicianAction.technician}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editTechnicianPanel')}" oncomplete="editTechnicianDialog.show()" listener="#{technicianAction.onRowSelect}"/>  
@@ -92,15 +97,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_technician', 'view') and !_technicianCategory.archived}"> 
-          <h:link outcome="/admin/entities/employee/technician/viewTechnician.xhtml" rendered="#{s:hasPermission(_technician, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/employee/technician/viewTechnician.xhtml" rendered="#{s:hasPermission(_technician, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="technicianId" value="#{_technician.id}"/> 
+            <f:param name="technicianId" value="#{_technician.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_technician', 'edit') and !_technicianCategory.archived}"> 
-          <h:link outcome="/admin/entities/employee/technician/editTechnician.xhtml" rendered="#{s:hasPermission(_technician, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/employee/technician/editTechnician.xhtml" rendered="#{s:hasPermission(_technician, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="technicianId" value="#{_technician.id}"/> 
+            <f:param name="technicianId" value="#{_technician.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('technicianAction', 'archive')}" propagation="none"> 
@@ -119,11 +126,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/employee/technician/modalDlgTechnicianComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

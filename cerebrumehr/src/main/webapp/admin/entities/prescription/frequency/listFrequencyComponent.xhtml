@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/prescription/frequency/modalDlgFrequencyComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="frequencyForm"> 
       <p:dataTable var="_frequency" value="#{records}" id="frequencyList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{frequencyAction.frequency}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editFrequencyPanel')}" oncomplete="editFrequencyDialog.show()" listener="#{frequencyAction.onRowSelect}"/>  
@@ -30,15 +35,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_frequency', 'view') and !_frequencyCategory.archived}"> 
-          <h:link outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="frequencyId" value="#{_frequency.id}"/> 
+            <f:param name="frequencyId" value="#{_frequency.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_frequency', 'edit') and !_frequencyCategory.archived}"> 
-          <h:link outcome="/admin/entities/prescription/frequency/editFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/prescription/frequency/editFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="frequencyId" value="#{_frequency.id}"/> 
+            <f:param name="frequencyId" value="#{_frequency.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('frequencyAction', 'archive')}" propagation="none"> 
@@ -57,11 +64,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/prescription/frequency/modalDlgFrequencyComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

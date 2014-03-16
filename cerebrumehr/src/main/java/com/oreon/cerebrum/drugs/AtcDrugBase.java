@@ -226,4 +226,10 @@ public class AtcDrugBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="drugId" value="#{drugId}" />
+	<param name="parentId" value="#{parentId}" />
+	
+	 */
+
 }

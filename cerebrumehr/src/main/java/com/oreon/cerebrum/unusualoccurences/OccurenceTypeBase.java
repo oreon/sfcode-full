@@ -129,4 +129,8 @@ public class OccurenceTypeBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

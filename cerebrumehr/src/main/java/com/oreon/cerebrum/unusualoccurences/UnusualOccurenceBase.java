@@ -207,6 +207,12 @@ public class UnusualOccurenceBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="occurenceTypeId" value="#{occurenceTypeId}" />
+	<param name="patientId" value="#{patientId}" />
+	
+	 */
+
 	private Long processId;
 
 	private String processName;

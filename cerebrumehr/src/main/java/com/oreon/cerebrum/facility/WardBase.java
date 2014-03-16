@@ -199,4 +199,9 @@ public class WardBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="facilityId" value="#{facilityId}" />
+	
+	 */
+
 }

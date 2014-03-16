@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/appointment/appointment/modalDlgAppointmentComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="appointmentForm"> 
       <p:dataTable var="_appointment" value="#{records}" id="appointmentList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{appointmentAction.appointment}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editAppointmentPanel')}" oncomplete="editAppointmentDialog.show()" listener="#{appointmentAction.onRowSelect}"/>  
@@ -75,15 +80,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_appointment', 'view') and !_appointmentCategory.archived}"> 
-          <h:link outcome="/admin/entities/appointment/appointment/viewAppointment.xhtml" rendered="#{s:hasPermission(_appointment, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/appointment/appointment/viewAppointment.xhtml" rendered="#{s:hasPermission(_appointment, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="appointmentId" value="#{_appointment.id}"/> 
+            <f:param name="appointmentId" value="#{_appointment.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_appointment', 'edit') and !_appointmentCategory.archived}"> 
-          <h:link outcome="/admin/entities/appointment/appointment/editAppointment.xhtml" rendered="#{s:hasPermission(_appointment, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/appointment/appointment/editAppointment.xhtml" rendered="#{s:hasPermission(_appointment, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="appointmentId" value="#{_appointment.id}"/> 
+            <f:param name="appointmentId" value="#{_appointment.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('appointmentAction', 'archive')}" propagation="none"> 
@@ -102,11 +109,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/appointment/appointment/modalDlgAppointmentComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

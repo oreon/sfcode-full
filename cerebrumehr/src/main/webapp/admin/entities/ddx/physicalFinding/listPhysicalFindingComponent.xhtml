@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/physicalFinding/modalDlgPhysicalFindingComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="physicalFindingForm"> 
       <p:dataTable var="_physicalFinding" value="#{records}" id="physicalFindingList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{physicalFindingAction.physicalFinding}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editPhysicalFindingPanel')}" oncomplete="editPhysicalFindingDialog.show()" listener="#{physicalFindingAction.onRowSelect}"/>  
@@ -30,15 +35,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_physicalFinding', 'view') and !_physicalFindingCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/physicalFinding/viewPhysicalFinding.xhtml" rendered="#{s:hasPermission(_physicalFinding, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/physicalFinding/viewPhysicalFinding.xhtml" rendered="#{s:hasPermission(_physicalFinding, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="physicalFindingId" value="#{_physicalFinding.id}"/> 
+            <f:param name="physicalFindingId" value="#{_physicalFinding.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_physicalFinding', 'edit') and !_physicalFindingCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml" rendered="#{s:hasPermission(_physicalFinding, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml" rendered="#{s:hasPermission(_physicalFinding, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="physicalFindingId" value="#{_physicalFinding.id}"/> 
+            <f:param name="physicalFindingId" value="#{_physicalFinding.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('physicalFindingAction', 'archive')}" propagation="none"> 
@@ -57,11 +64,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/ddx/physicalFinding/modalDlgPhysicalFindingComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

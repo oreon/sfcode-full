@@ -140,4 +140,8 @@ public class ChapterBase extends com.oreon.cerebrum.codes.AbstractCode {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

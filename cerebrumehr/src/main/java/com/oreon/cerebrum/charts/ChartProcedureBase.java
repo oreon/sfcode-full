@@ -208,4 +208,10 @@ public class ChartProcedureBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="patientId" value="#{patientId}" />
+	<param name="chartItemId" value="#{chartItemId}" />
+	
+	 */
+
 }

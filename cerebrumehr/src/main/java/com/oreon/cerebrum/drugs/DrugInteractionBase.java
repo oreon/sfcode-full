@@ -192,4 +192,10 @@ public class DrugInteractionBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="drugId" value="#{drugId}" />
+	<param name="interactingDrugId" value="#{interactingDrugId}" />
+	
+	 */
+
 }

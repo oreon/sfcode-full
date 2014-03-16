@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/finding/modalDlgFindingComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="findingForm"> 
       <p:dataTable var="_finding" value="#{records}" id="findingList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{findingAction.finding}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editFindingPanel')}" oncomplete="editFindingDialog.show()" listener="#{findingAction.onRowSelect}"/>  
@@ -36,15 +41,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_finding', 'view') and !_findingCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/finding/viewFinding.xhtml" rendered="#{s:hasPermission(_finding, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/finding/viewFinding.xhtml" rendered="#{s:hasPermission(_finding, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="findingId" value="#{_finding.id}"/> 
+            <f:param name="findingId" value="#{_finding.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_finding', 'edit') and !_findingCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/finding/editFinding.xhtml" rendered="#{s:hasPermission(_finding, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/finding/editFinding.xhtml" rendered="#{s:hasPermission(_finding, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="findingId" value="#{_finding.id}"/> 
+            <f:param name="findingId" value="#{_finding.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('findingAction', 'archive')}" propagation="none"> 
@@ -63,11 +70,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/ddx/finding/modalDlgFindingComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

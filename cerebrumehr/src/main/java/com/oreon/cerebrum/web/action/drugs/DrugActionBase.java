@@ -104,13 +104,6 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 		return instance;
 	}
 
-	public void load() {
-		if (isIdDefined()) {
-			wire();
-		}
-
-	}
-
 	/**
 	 * Adds the contained associations that should be available for a newly created object e.g. 
 	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
@@ -123,10 +116,6 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 	public void wire() {
 		getInstance();
 
-	}
-
-	public boolean isWired() {
-		return true;
 	}
 
 	public Drug getDefinedInstance() {

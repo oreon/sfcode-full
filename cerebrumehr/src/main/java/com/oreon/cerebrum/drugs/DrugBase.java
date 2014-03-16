@@ -713,4 +713,8 @@ public class DrugBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

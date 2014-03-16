@@ -126,4 +126,9 @@ public class NurseBase extends com.oreon.cerebrum.employee.Employee {
 		return builder.toString();
 	}
 
+	/*
+	<param name="nurseSpecialtyId" value="#{nurseSpecialtyId}" />
+	
+	 */
+
 }

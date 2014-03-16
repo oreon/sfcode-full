@@ -196,4 +196,10 @@ public class InvoiceItemBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="serviceId" value="#{serviceId}" />
+	<param name="invoiceId" value="#{invoiceId}" />
+	
+	 */
+
 }

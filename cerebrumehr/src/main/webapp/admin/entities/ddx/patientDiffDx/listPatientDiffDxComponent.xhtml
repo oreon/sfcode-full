@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/patientDiffDx/modalDlgPatientDiffDxComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="patientDiffDxForm"> 
       <p:dataTable var="_patientDiffDx" value="#{records}" id="patientDiffDxList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{patientDiffDxAction.patientDiffDx}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editPatientDiffDxPanel')}" oncomplete="editPatientDiffDxDialog.show()" listener="#{patientDiffDxAction.onRowSelect}"/>  
@@ -56,15 +61,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_patientDiffDx', 'view') and !_patientDiffDxCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml" rendered="#{s:hasPermission(_patientDiffDx, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/patientDiffDx/viewPatientDiffDx.xhtml" rendered="#{s:hasPermission(_patientDiffDx, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="patientDiffDxId" value="#{_patientDiffDx.id}"/> 
+            <f:param name="patientDiffDxId" value="#{_patientDiffDx.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_patientDiffDx', 'edit') and !_patientDiffDxCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/patientDiffDx/editPatientDiffDx.xhtml" rendered="#{s:hasPermission(_patientDiffDx, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/patientDiffDx/editPatientDiffDx.xhtml" rendered="#{s:hasPermission(_patientDiffDx, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="patientDiffDxId" value="#{_patientDiffDx.id}"/> 
+            <f:param name="patientDiffDxId" value="#{_patientDiffDx.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('patientDiffDxAction', 'archive')}" propagation="none"> 
@@ -83,11 +90,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/ddx/patientDiffDx/modalDlgPatientDiffDxComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

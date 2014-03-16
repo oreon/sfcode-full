@@ -19,20 +19,26 @@
 				widgetVar="myschedule">
 
 				<p:ajax event="dateSelect"
-					listener="#{appointmentAction.onDateSelect}" update=":#{p:component('editAppointmentPanel')}"
-					oncomplete="PF('editAppointmentDialog').show()" />	
-					
+					listener="#{appointmentAction.onDateSelect}"
+					update=":#{p:component('editAppointmentPanel')}"
+					oncomplete="editAppointmentDialog.show()">
+					<s:conversationId />
+				</p:ajax>
+
 				<p:ajax event="eventSelect"
 					listener="#{appointmentAction.onEventSelect}"
-					update=":#{p:component('editAppointmentPanel')}" oncomplete="PF('editAppointmentDialog').show()" />
-					
-					<p:ajax event="eventMove"
+					update=":#{p:component('editAppointmentPanel')}"
+					oncomplete="PF('editAppointmentDialog').show()">
+					<s:conversationId />
+				</p:ajax>
+
+				<p:ajax event="eventMove"
 					listener="#{appointmentAction.onEventMove}" update="messages" />
-					
-					
+
+
 				<p:ajax event="eventResize"
 					listener="#{appointmentAction.onEventResize}" update="messages" />
-				
+
 			</p:schedule>
 
 			<ui:include

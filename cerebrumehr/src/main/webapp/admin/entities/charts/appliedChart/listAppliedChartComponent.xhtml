@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/charts/appliedChart/modalDlgAppliedChartComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="appliedChartForm"> 
       <p:dataTable var="_appliedChart" value="#{records}" id="appliedChartList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{appliedChartAction.appliedChart}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editAppliedChartPanel')}" oncomplete="editAppliedChartDialog.show()" listener="#{appliedChartAction.onRowSelect}"/>  
@@ -57,15 +62,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_appliedChart', 'view') and !_appliedChartCategory.archived}"> 
-          <h:link outcome="/admin/entities/charts/appliedChart/viewAppliedChart.xhtml" rendered="#{s:hasPermission(_appliedChart, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/charts/appliedChart/viewAppliedChart.xhtml" rendered="#{s:hasPermission(_appliedChart, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="appliedChartId" value="#{_appliedChart.id}"/> 
+            <f:param name="appliedChartId" value="#{_appliedChart.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_appliedChart', 'edit') and !_appliedChartCategory.archived}"> 
-          <h:link outcome="/admin/entities/charts/appliedChart/editAppliedChart.xhtml" rendered="#{s:hasPermission(_appliedChart, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/charts/appliedChart/editAppliedChart.xhtml" rendered="#{s:hasPermission(_appliedChart, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="appliedChartId" value="#{_appliedChart.id}"/> 
+            <f:param name="appliedChartId" value="#{_appliedChart.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('appliedChartAction', 'archive')}" propagation="none"> 
@@ -84,11 +91,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/charts/appliedChart/modalDlgAppliedChartComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

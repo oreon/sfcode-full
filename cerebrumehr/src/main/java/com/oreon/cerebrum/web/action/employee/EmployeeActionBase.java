@@ -1,18 +1,60 @@
 package com.oreon.cerebrum.web.action.employee;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-import org.jboss.seam.annotations.In;
-
 import com.oreon.cerebrum.employee.Employee;
 
+import org.witchcraft.seam.action.BaseAction;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
+
+import org.apache.commons.lang.StringUtils;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Scope;
+
+import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.Factory;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
+import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
+
+import org.jboss.seam.annotations.datamodel.DataModel;
+import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.log.Log;
+import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.annotations.web.RequestParameter;
+
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+
+import org.primefaces.model.DualListModel;
+
+import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
+
+//
 public abstract class EmployeeActionBase
 		extends
 			com.oreon.cerebrum.web.action.patient.PersonAction<Employee>
 		implements
 			java.io.Serializable {
 
-	
+	@RequestParameter
+	protected Long employeeId;
 
 	@In(create = true, value = "appUserAction")
 	com.oreon.cerebrum.web.action.users.AppUserAction appUserAction;
@@ -20,30 +62,23 @@ public abstract class EmployeeActionBase
 	@In(create = true, value = "facilityAction")
 	com.oreon.cerebrum.web.action.facility.FacilityAction facilityAction;
 
-	@In(create = true, value = "unusualOccurenceAction")
-	com.oreon.cerebrum.web.action.unusualoccurences.UnusualOccurenceAction unusualOccurencesAction;
+	@In(create = true, value = "departmentAction")
+	com.oreon.cerebrum.web.action.employee.DepartmentAction departmentAction;
 
 	public void setEmployeeId(Long id) {
-		if (id == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
-			return;
-		}
-		setId(id);
-		instance = loadInstance();
-		if (!isPostBack())
-			loadAssociations();
+		setEntityId(id);
 	}
 
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
 	public void setEmployeeIdForModalDlg(Long id) {
-		setId(id);
-		instance = loadInstance();
-		clearLists();
-		loadAssociations();
+		setEntityIdForModalDlg(id);
+	}
+
+	@Override
+	public Class<Employee> getEntityClass() {
+		return Employee.class;
 	}
 
 	public void setAppUserId(Long id) {
@@ -72,6 +107,19 @@ public abstract class EmployeeActionBase
 		return 0L;
 	}
 
+	public void setDepartmentId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setDepartment(departmentAction.loadFromId(id));
+
+	}
+
+	public Long getDepartmentId() {
+		if (getInstance().getDepartment() != null)
+			return getInstance().getDepartment().getId();
+		return 0L;
+	}
+
 	public Long getEmployeeId() {
 		return (Long) getId();
 	}
@@ -82,7 +130,7 @@ public abstract class EmployeeActionBase
 
 	//@Override
 	public void setEntity(Employee t) {
-		this.instance =t;
+		this.instance = t;
 		loadAssociations();
 	}
 
@@ -91,102 +139,15 @@ public abstract class EmployeeActionBase
 	}
 
 	@Override
-	protected Employee createInstance() {
-		Employee instance = super.createInstance();
-
-		return instance;
-	}
-
-	public void load() {
-		if (isIdDefined()) {
-			wire();
-		}
-	}
-
-	public void wire() {
-		getInstance();
-
-		com.oreon.cerebrum.users.AppUser appUser = appUserAction
-				.getDefinedInstance();
-		if (appUser != null && isNew()) {
-			getInstance().setAppUser(appUser);
-		}
-
-		com.oreon.cerebrum.facility.Facility facility = facilityAction
-				.getDefinedInstance();
-		if (facility != null && isNew()) {
-			getInstance().setFacility(facility);
-		}
-
-	}
-
-	public boolean isWired() {
-		return true;
-	}
-
-	public Employee getDefinedInstance() {
-		return (Employee) (isIdDefined() ? getInstance() : null);
-	}
-
-	public void setEmployee(Employee t) {
-		this.instance =t;
-		if (instance != null)
-			setEmployeeId(t.getId());
-		loadAssociations();
+	//@Restrict("#{s:hasPermission('employee', 'edit')}")
+	public String doSave() {
+		return super.doSave();
 	}
 
 	@Override
-	public Class<Employee> getEntityClass() {
-		return Employee.class;
-	}
-
-	public com.oreon.cerebrum.employee.Employee findByUnqEmployeeNumber(
-			String employeeNumber) {
-		return executeSingleResultNamedQuery(
-				"employee.findByUnqEmployeeNumber", employeeNumber);
-	}
-
-	/** This function adds associated entities to an example criterion
-	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
-	 */
-	@Override
-	public void addAssociations(Criteria criteria) {
-
-		if (instance.getAppUser() != null) {
-			criteria = criteria.add(Restrictions.eq("appUser.id", instance
-					.getAppUser().getId()));
-		}
-
-		if (instance.getFacility() != null) {
-			criteria = criteria.add(Restrictions.eq("facility.id", instance
-					.getFacility().getId()));
-		}
-
-	}
-
-	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
-	 * that customer can be shown on the customer tab within viewOrder.xhtml
-	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
-	 */
-	public void loadAssociations() {
-
-		if (instance.getAppUser() != null) {
-			appUserAction.setInstance(getInstance().getAppUser());
-			appUserAction.loadAssociations();
-		}
-
-		if (instance.getFacility() != null) {
-			facilityAction.setInstance(getInstance().getFacility());
-			facilityAction.loadAssociations();
-		}
-
-	}
-
-	
-
-	public String viewEmployee() {
-		load(currentEntityId);
-		return "viewEmployee";
+	//@Restrict("#{s:hasPermission('employee', 'delete')}")
+	public void archiveById() {
+		super.archiveById();
 	}
 
 }

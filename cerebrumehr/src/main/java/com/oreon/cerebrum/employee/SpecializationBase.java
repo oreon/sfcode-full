@@ -129,4 +129,8 @@ public class SpecializationBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

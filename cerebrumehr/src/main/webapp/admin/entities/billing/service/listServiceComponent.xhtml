@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/billing/service/modalDlgServiceComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="serviceForm"> 
       <p:dataTable var="_service" value="#{records}" id="serviceList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{serviceAction.service}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editServicePanel')}" oncomplete="editServiceDialog.show()" listener="#{serviceAction.onRowSelect}"/>  
@@ -32,15 +37,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_service', 'view') and !_serviceCategory.archived}"> 
-          <h:link outcome="/admin/entities/billing/service/viewService.xhtml" rendered="#{s:hasPermission(_service, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/billing/service/viewService.xhtml" rendered="#{s:hasPermission(_service, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="serviceId" value="#{_service.id}"/> 
+            <f:param name="serviceId" value="#{_service.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_service', 'edit') and !_serviceCategory.archived}"> 
-          <h:link outcome="/admin/entities/billing/service/editService.xhtml" rendered="#{s:hasPermission(_service, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/billing/service/editService.xhtml" rendered="#{s:hasPermission(_service, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="serviceId" value="#{_service.id}"/> 
+            <f:param name="serviceId" value="#{_service.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('serviceAction', 'archive')}" propagation="none"> 
@@ -59,11 +66,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/billing/service/modalDlgServiceComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

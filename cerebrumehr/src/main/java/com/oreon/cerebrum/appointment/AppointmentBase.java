@@ -224,4 +224,10 @@ public class AppointmentBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="physicianId" value="#{physicianId}" />
+	<param name="patientId" value="#{patientId}" />
+	
+	 */
+
 }

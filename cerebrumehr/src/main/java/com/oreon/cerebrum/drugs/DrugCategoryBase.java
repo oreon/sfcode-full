@@ -156,4 +156,8 @@ public class DrugCategoryBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/facility/bed/modalDlgBedComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="bedForm"> 
       <p:dataTable var="_bed" value="#{records}" id="bedList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{bedAction.bed}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editBedPanel')}" oncomplete="editBedDialog.show()" listener="#{bedAction.onRowSelect}"/>  
@@ -60,15 +65,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_bed', 'view') and !_bedCategory.archived}"> 
-          <h:link outcome="/admin/entities/facility/bed/viewBed.xhtml" rendered="#{s:hasPermission(_bed, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/facility/bed/viewBed.xhtml" rendered="#{s:hasPermission(_bed, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="bedId" value="#{_bed.id}"/> 
+            <f:param name="bedId" value="#{_bed.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_bed', 'edit') and !_bedCategory.archived}"> 
-          <h:link outcome="/admin/entities/facility/bed/editBed.xhtml" rendered="#{s:hasPermission(_bed, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/facility/bed/editBed.xhtml" rendered="#{s:hasPermission(_bed, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="bedId" value="#{_bed.id}"/> 
+            <f:param name="bedId" value="#{_bed.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('bedAction', 'archive')}" propagation="none"> 
@@ -87,11 +94,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/facility/bed/modalDlgBedComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

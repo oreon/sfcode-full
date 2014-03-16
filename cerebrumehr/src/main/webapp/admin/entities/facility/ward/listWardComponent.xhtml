@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/facility/ward/modalDlgWardComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="wardForm"> 
       <p:dataTable var="_ward" value="#{records}" id="wardList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{wardAction.ward}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editWardPanel')}" oncomplete="editWardDialog.show()" listener="#{wardAction.onRowSelect}"/>  
@@ -54,15 +59,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_ward', 'view') and !_wardCategory.archived}"> 
-          <h:link outcome="/admin/entities/facility/ward/viewWard.xhtml" rendered="#{s:hasPermission(_ward, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/facility/ward/viewWard.xhtml" rendered="#{s:hasPermission(_ward, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="wardId" value="#{_ward.id}"/> 
+            <f:param name="wardId" value="#{_ward.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_ward', 'edit') and !_wardCategory.archived}"> 
-          <h:link outcome="/admin/entities/facility/ward/editWard.xhtml" rendered="#{s:hasPermission(_ward, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/facility/ward/editWard.xhtml" rendered="#{s:hasPermission(_ward, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="wardId" value="#{_ward.id}"/> 
+            <f:param name="wardId" value="#{_ward.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('wardAction', 'archive')}" propagation="none"> 
@@ -81,11 +88,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/facility/ward/modalDlgWardComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

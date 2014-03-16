@@ -196,4 +196,9 @@ public class InvoiceBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="patientId" value="#{patientId}" />
+	
+	 */
+
 }

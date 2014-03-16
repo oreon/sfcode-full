@@ -362,4 +362,11 @@ public class EncounterBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="prescriptionId" value="#{prescriptionId}" />
+	<param name="patientId" value="#{patientId}" />
+	<param name="creatorId" value="#{creatorId}" />
+	
+	 */
+
 }

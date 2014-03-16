@@ -191,4 +191,8 @@ public class RoomTypeBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

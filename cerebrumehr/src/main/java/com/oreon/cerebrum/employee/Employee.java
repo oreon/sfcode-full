@@ -69,5 +69,5 @@ import com.oreon.cerebrum.ProjectUtils;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @XmlRootElement
 public class Employee extends EmployeeBase implements java.io.Serializable {
-	private static final long serialVersionUID = -426154292L;
+	private static final long serialVersionUID = -426154292L; 
 }

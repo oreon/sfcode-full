@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/encounter/reason/modalDlgReasonComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="reasonForm"> 
       <p:dataTable var="_reason" value="#{records}" id="reasonList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{reasonAction.reason}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editReasonPanel')}" oncomplete="editReasonDialog.show()" listener="#{reasonAction.onRowSelect}"/>  
@@ -57,15 +62,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_reason', 'view') and !_reasonCategory.archived}"> 
-          <h:link outcome="/admin/entities/encounter/reason/viewReason.xhtml" rendered="#{s:hasPermission(_reason, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/encounter/reason/viewReason.xhtml" rendered="#{s:hasPermission(_reason, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="reasonId" value="#{_reason.id}"/> 
+            <f:param name="reasonId" value="#{_reason.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_reason', 'edit') and !_reasonCategory.archived}"> 
-          <h:link outcome="/admin/entities/encounter/reason/editReason.xhtml" rendered="#{s:hasPermission(_reason, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/encounter/reason/editReason.xhtml" rendered="#{s:hasPermission(_reason, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="reasonId" value="#{_reason.id}"/> 
+            <f:param name="reasonId" value="#{_reason.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('reasonAction', 'archive')}" propagation="none"> 
@@ -84,11 +91,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/encounter/reason/modalDlgReasonComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>
