@@ -203,4 +203,10 @@ public class RoomBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="roomTypeId" value="#{roomTypeId}" />
+	<param name="wardId" value="#{wardId}" />
+	
+	 */
+
 }

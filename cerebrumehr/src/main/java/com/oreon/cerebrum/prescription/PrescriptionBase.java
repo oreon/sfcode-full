@@ -240,4 +240,9 @@ public class PrescriptionBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="patientId" value="#{patientId}" />
+	
+	 */
+
 }

@@ -205,4 +205,8 @@ public class PrescriptionTemplateBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

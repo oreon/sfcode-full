@@ -165,4 +165,8 @@ public class ChartBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

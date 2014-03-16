@@ -157,4 +157,8 @@ public class AppRoleBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

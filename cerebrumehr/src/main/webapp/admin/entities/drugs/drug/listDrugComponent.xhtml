@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/drugs/drug/modalDlgDrugComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="drugForm"> 
       <p:dataTable var="_drug" value="#{records}" id="drugList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{drugAction.drug}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editDrugPanel')}" oncomplete="editDrugDialog.show()" listener="#{drugAction.onRowSelect}"/>  
@@ -116,15 +121,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_drug', 'view') and !_drugCategory.archived}"> 
-          <h:link outcome="/admin/entities/drugs/drug/viewDrug.xhtml" rendered="#{s:hasPermission(_drug, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/drugs/drug/viewDrug.xhtml" rendered="#{s:hasPermission(_drug, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="drugId" value="#{_drug.id}"/> 
+            <f:param name="drugId" value="#{_drug.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_drug', 'edit') and !_drugCategory.archived}"> 
-          <h:link outcome="/admin/entities/drugs/drug/editDrug.xhtml" rendered="#{s:hasPermission(_drug, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/drugs/drug/editDrug.xhtml" rendered="#{s:hasPermission(_drug, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="drugId" value="#{_drug.id}"/> 
+            <f:param name="drugId" value="#{_drug.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('drugAction', 'archive')}" propagation="none"> 
@@ -143,11 +150,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/drugs/drug/modalDlgDrugComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

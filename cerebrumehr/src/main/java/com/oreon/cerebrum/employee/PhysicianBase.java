@@ -126,4 +126,9 @@ public class PhysicianBase extends com.oreon.cerebrum.employee.Employee {
 		return builder.toString();
 	}
 
+	/*
+	<param name="specializationId" value="#{specializationId}" />
+	
+	 */
+
 }

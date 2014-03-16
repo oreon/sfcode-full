@@ -28,7 +28,7 @@ public class EncounterAction extends EncounterActionBase implements java.io.Seri
 	
 	@Override
 	public String save() {
-		instance.setCreator(physicianAction.getCurrentLoggedInEmployee());
+		//instance.setCreator(physicianAction.getCurrentLoggedInEmployee());
 		
 		prescriptionAction.getInstance().setPatient(instance.getPatient());
 		prescriptionAction.save();

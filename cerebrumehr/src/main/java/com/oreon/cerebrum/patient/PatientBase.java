@@ -563,4 +563,8 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

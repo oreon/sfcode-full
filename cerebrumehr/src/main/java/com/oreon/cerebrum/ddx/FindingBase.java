@@ -166,4 +166,8 @@ public class FindingBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

@@ -144,4 +144,10 @@ public class AppliedChartBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="patientId" value="#{patientId}" />
+	<param name="chartId" value="#{chartId}" />
+	
+	 */
+
 }

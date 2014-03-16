@@ -198,4 +198,9 @@ public class PatientDocumentBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="patientId" value="#{patientId}" />
+	
+	 */
+
 }

@@ -159,4 +159,10 @@ public class ImmunizationBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="patientId" value="#{patientId}" />
+	<param name="vaccineId" value="#{vaccineId}" />
+	
+	 */
+
 }

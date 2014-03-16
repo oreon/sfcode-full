@@ -97,4 +97,8 @@ public class TechnicianBase extends com.oreon.cerebrum.employee.Employee {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

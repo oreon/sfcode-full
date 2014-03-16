@@ -24,26 +24,24 @@
 				<h:link outcome="/admin/reports/reports.xhtml" value="Reports" />
 
 				<h:graphicImage value="/images/icons/eye.png" />
-				<s:link action="issue" value="Issues" />
+				<h:link outcome="/admin/entities/patient/patient/listPatient.xhtml" value="Patients" />
 
-				<h:graphicImage id="issues" value="/images/icons/add.png" />
-				<h:link outcome="/admin/accessControl" value="Access Control" />
+				<h:graphicImage  value="/images/icons/add.png" />
+				<h:link outcome="/admin/entities/appointment/appointment/createAppt.xhtml"
+			value="Appointments" >
+				<s:conversationPropagation type="begin" />
+			</h:link>
 
 				
 			</p:toolbarGroup>
 
 
 			<p:toolbarGroup align="right">
-				<h:selectOneMenu value="#{localeSelector.localeString}">
-					<a:ajax event="change" action="#{customLocaleSelector.select}"
-						ajaxSingle="true" />
-					<f:selectItems value="#{localeSelector.supportedLocales}" />
-				</h:selectOneMenu>
-
+			
 				<h:inputText styleClass="barsearch"
-					value="#{issueList.textToSearch}" required="true" />
+					value="#{patientList.textToSearch}" required="true" />
 				<h:commandButton styleClass="barsearchbutton"
-					action="#{issueList.textSearch}" value="Search">
+					action="#{patientList.textSearch}" value="Search">
 					<s:conversationPropagation type="join"></s:conversationPropagation>
 				</h:commandButton>
 				

@@ -106,13 +106,6 @@ public abstract class TechnicianActionBase
 		return instance;
 	}
 
-	public void load() {
-		if (isIdDefined()) {
-			wire();
-		}
-
-	}
-
 	/**
 	 * Adds the contained associations that should be available for a newly created object e.g. 
 	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
@@ -125,10 +118,6 @@ public abstract class TechnicianActionBase
 	public void wire() {
 		getInstance();
 
-	}
-
-	public boolean isWired() {
-		return true;
 	}
 
 	public Technician getDefinedInstance() {

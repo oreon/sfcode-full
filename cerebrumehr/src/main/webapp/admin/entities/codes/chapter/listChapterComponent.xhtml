@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/codes/chapter/modalDlgChapterComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="chapterForm"> 
       <p:dataTable var="_chapter" value="#{records}" id="chapterList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{chapterAction.chapter}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editChapterPanel')}" oncomplete="editChapterDialog.show()" listener="#{chapterAction.onRowSelect}"/>  
@@ -41,15 +46,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_chapter', 'view') and !_chapterCategory.archived}"> 
-          <h:link outcome="/admin/entities/codes/chapter/viewChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/codes/chapter/viewChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="chapterId" value="#{_chapter.id}"/> 
+            <f:param name="chapterId" value="#{_chapter.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_chapter', 'edit') and !_chapterCategory.archived}"> 
-          <h:link outcome="/admin/entities/codes/chapter/editChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/codes/chapter/editChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="chapterId" value="#{_chapter.id}"/> 
+            <f:param name="chapterId" value="#{_chapter.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('chapterAction', 'archive')}" propagation="none"> 
@@ -68,11 +75,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/codes/chapter/modalDlgChapterComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

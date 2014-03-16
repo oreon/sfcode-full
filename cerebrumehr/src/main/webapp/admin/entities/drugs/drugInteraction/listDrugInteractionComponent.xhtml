@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/drugs/drugInteraction/modalDlgDrugInteractionComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="drugInteractionForm"> 
       <p:dataTable var="_drugInteraction" value="#{records}" id="drugInteractionList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{drugInteractionAction.drugInteraction}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editDrugInteractionPanel')}" oncomplete="editDrugInteractionDialog.show()" listener="#{drugInteractionAction.onRowSelect}"/>  
@@ -50,15 +55,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_drugInteraction', 'view') and !_drugInteractionCategory.archived}"> 
-          <h:link outcome="/admin/entities/drugs/drugInteraction/viewDrugInteraction.xhtml" rendered="#{s:hasPermission(_drugInteraction, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/drugs/drugInteraction/viewDrugInteraction.xhtml" rendered="#{s:hasPermission(_drugInteraction, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="drugInteractionId" value="#{_drugInteraction.id}"/> 
+            <f:param name="drugInteractionId" value="#{_drugInteraction.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_drugInteraction', 'edit') and !_drugInteractionCategory.archived}"> 
-          <h:link outcome="/admin/entities/drugs/drugInteraction/editDrugInteraction.xhtml" rendered="#{s:hasPermission(_drugInteraction, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/drugs/drugInteraction/editDrugInteraction.xhtml" rendered="#{s:hasPermission(_drugInteraction, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="drugInteractionId" value="#{_drugInteraction.id}"/> 
+            <f:param name="drugInteractionId" value="#{_drugInteraction.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('drugInteractionAction', 'archive')}" propagation="none"> 
@@ -77,11 +84,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/drugs/drugInteraction/modalDlgDrugInteractionComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.render.ResponseStateManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
@@ -319,6 +320,8 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 			updateAssociations();
 			
 			postSave();
+			
+			//Conversation.instance().end(true);
 
 		}catch(PersistenceException pe){
 			
@@ -366,9 +369,21 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	public String save() {
 		String result =  doSave();
-		refresh();
+		//refresh();
+		Conversation.instance().end(true);
 		return result;
 	}
+	
+	public String saveConversational(){
+		return doSave();
+	}
+	
+	public String saveAndClear(){
+		String result = save();
+		clearInstance();
+		return result;
+	}
+	
 	/**
 	 * Refresh entitymanager so the data is actually read from database as opposed to conversation
 	 */
@@ -385,7 +400,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	@End(beforeRedirect = true)
 	public String saveWithoutConversation() {
 		String result = save();
-		Conversation.instance().end();
+		//Conversation.instance().end(true);
 		clearInstance();
 		return result;
 	}
@@ -431,6 +446,20 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		// setInstance(loadFromId(entityId));
 		// return "edit";
 	}
+	
+	
+	public void load() {
+		if (isIdDefined()) {
+			wire();
+		}
+	}
+	
+	public void wire() {}
+		
+
+	public boolean isWired() {
+		return true;
+	}
 
 	public void loadAssociations() {
 	};
@@ -452,8 +481,14 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	}
 
 	// @Restrict
+	public void archiveById(ActionEvent ae) {
+		T t = loadFromId(currentEntityId);
+		archive(t);
+	}
+	
+	// @Restrict
 	public void archiveById() {
-		T t = loadFromId(idToArchive);
+		T t = loadFromId(currentEntityId);
 		archive(t);
 	}
 

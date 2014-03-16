@@ -219,4 +219,10 @@ public class DiseaseBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="relatedDiseaseId" value="#{relatedDiseaseId}" />
+	<param name="conditionCategoryId" value="#{conditionCategoryId}" />
+	
+	 */
+
 }

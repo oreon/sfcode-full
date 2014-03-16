@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/patient/immunization/modalDlgImmunizationComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="immunizationForm"> 
       <p:dataTable var="_immunization" value="#{records}" id="immunizationList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{immunizationAction.immunization}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editImmunizationPanel')}" oncomplete="editImmunizationDialog.show()" listener="#{immunizationAction.onRowSelect}"/>  
@@ -62,15 +67,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_immunization', 'view') and !_immunizationCategory.archived}"> 
-          <h:link outcome="/admin/entities/patient/immunization/viewImmunization.xhtml" rendered="#{s:hasPermission(_immunization, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/patient/immunization/viewImmunization.xhtml" rendered="#{s:hasPermission(_immunization, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="immunizationId" value="#{_immunization.id}"/> 
+            <f:param name="immunizationId" value="#{_immunization.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_immunization', 'edit') and !_immunizationCategory.archived}"> 
-          <h:link outcome="/admin/entities/patient/immunization/editImmunization.xhtml" rendered="#{s:hasPermission(_immunization, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/patient/immunization/editImmunization.xhtml" rendered="#{s:hasPermission(_immunization, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="immunizationId" value="#{_immunization.id}"/> 
+            <f:param name="immunizationId" value="#{_immunization.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('immunizationAction', 'archive')}" propagation="none"> 
@@ -89,11 +96,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/patient/immunization/modalDlgImmunizationComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

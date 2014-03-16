@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/charts/chartProcedure/modalDlgChartProcedureComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="chartProcedureForm"> 
       <p:dataTable var="_chartProcedure" value="#{records}" id="chartProcedureList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{chartProcedureAction.chartProcedure}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editChartProcedurePanel')}" oncomplete="editChartProcedureDialog.show()" listener="#{chartProcedureAction.onRowSelect}"/>  
@@ -72,15 +77,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_chartProcedure', 'view') and !_chartProcedureCategory.archived}"> 
-          <h:link outcome="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/> 
+            <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_chartProcedure', 'edit') and !_chartProcedureCategory.archived}"> 
-          <h:link outcome="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/> 
+            <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('chartProcedureAction', 'archive')}" propagation="none"> 
@@ -99,11 +106,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/charts/chartProcedure/modalDlgChartProcedureComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

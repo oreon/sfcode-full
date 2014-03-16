@@ -129,4 +129,8 @@ public class AllergenBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

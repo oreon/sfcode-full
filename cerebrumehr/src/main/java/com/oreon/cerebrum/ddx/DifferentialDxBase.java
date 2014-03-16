@@ -168,4 +168,10 @@ public class DifferentialDxBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="dxCategoryId" value="#{dxCategoryId}" />
+	<param name="findingId" value="#{findingId}" />
+	
+	 */
+
 }

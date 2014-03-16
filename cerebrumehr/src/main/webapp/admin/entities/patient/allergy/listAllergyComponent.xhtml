@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/patient/allergy/modalDlgAllergyComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="allergyForm"> 
       <p:dataTable var="_allergy" value="#{records}" id="allergyList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{allergyAction.allergy}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editAllergyPanel')}" oncomplete="editAllergyDialog.show()" listener="#{allergyAction.onRowSelect}"/>  
@@ -60,15 +65,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_allergy', 'view') and !_allergyCategory.archived}"> 
-          <h:link outcome="/admin/entities/patient/allergy/viewAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/patient/allergy/viewAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="allergyId" value="#{_allergy.id}"/> 
+            <f:param name="allergyId" value="#{_allergy.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_allergy', 'edit') and !_allergyCategory.archived}"> 
-          <h:link outcome="/admin/entities/patient/allergy/editAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/patient/allergy/editAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="allergyId" value="#{_allergy.id}"/> 
+            <f:param name="allergyId" value="#{_allergy.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('allergyAction', 'archive')}" propagation="none"> 
@@ -87,11 +94,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/patient/allergy/modalDlgAllergyComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

@@ -148,4 +148,9 @@ public class DifferentialBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="encounterId" value="#{encounterId}" />
+	
+	 */
+
 }

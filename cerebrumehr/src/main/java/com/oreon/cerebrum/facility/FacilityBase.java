@@ -163,4 +163,8 @@ public class FacilityBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

@@ -127,4 +127,8 @@ public class PhysicalFindingBase extends com.oreon.cerebrum.ddx.Finding {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

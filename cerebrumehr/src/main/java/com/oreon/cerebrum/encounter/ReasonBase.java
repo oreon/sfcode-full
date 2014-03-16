@@ -167,4 +167,10 @@ public class ReasonBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="encounterId" value="#{encounterId}" />
+	<param name="codeId" value="#{codeId}" />
+	
+	 */
+
 }

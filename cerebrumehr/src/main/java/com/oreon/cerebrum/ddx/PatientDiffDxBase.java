@@ -192,4 +192,9 @@ public class PatientDiffDxBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="patientId" value="#{patientId}" />
+	
+	 */
+
 }

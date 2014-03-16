@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/prescription/prescriptionItem/modalDlgPrescriptionItemComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="prescriptionItemForm"> 
       <p:dataTable var="_prescriptionItem" value="#{records}" id="prescriptionItemList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{prescriptionItemAction.prescriptionItem}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editPrescriptionItemPanel')}" oncomplete="editPrescriptionItemDialog.show()" listener="#{prescriptionItemAction.onRowSelect}"/>  
@@ -83,15 +88,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_prescriptionItem', 'view') and !_prescriptionItemCategory.archived}"> 
-          <h:link outcome="/admin/entities/prescription/prescriptionItem/viewPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/prescription/prescriptionItem/viewPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/> 
+            <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_prescriptionItem', 'edit') and !_prescriptionItemCategory.archived}"> 
-          <h:link outcome="/admin/entities/prescription/prescriptionItem/editPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/prescription/prescriptionItem/editPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/> 
+            <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('prescriptionItemAction', 'archive')}" propagation="none"> 
@@ -110,11 +117,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/prescription/prescriptionItem/modalDlgPrescriptionItemComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

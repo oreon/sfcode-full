@@ -15,7 +15,6 @@ import java.util.Date;
 import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
-
 import org.hibernate.validator.*;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -82,7 +81,7 @@ public abstract class EmployeeBase extends com.oreon.cerebrum.patient.Person {
 
 	;
 
-	@OneToOne(optional = false, fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "appUser_id", nullable = false, updatable = true)
 	protected com.oreon.cerebrum.users.AppUser appUser = new com.oreon.cerebrum.users.AppUser();
 
@@ -189,5 +188,12 @@ public abstract class EmployeeBase extends com.oreon.cerebrum.patient.Person {
 
 		return builder.toString();
 	}
+
+	/*
+	<param name="appUserId" value="#{appUserId}" />
+	<param name="facilityId" value="#{facilityId}" />
+	<param name="departmentId" value="#{departmentId}" />
+	
+	 */
 
 }

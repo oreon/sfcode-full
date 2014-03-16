@@ -167,4 +167,10 @@ public class BedBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="roomId" value="#{roomId}" />
+	<param name="patientId" value="#{patientId}" />
+	
+	 */
+
 }

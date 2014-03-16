@@ -181,4 +181,10 @@ public class VitalValueBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="trackedVitalId" value="#{trackedVitalId}" />
+	<param name="patientId" value="#{patientId}" />
+	
+	 */
+
 }

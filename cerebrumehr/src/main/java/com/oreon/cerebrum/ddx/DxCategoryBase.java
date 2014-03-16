@@ -129,4 +129,8 @@ public class DxCategoryBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/employee/clerk/modalDlgClerkComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="clerkForm"> 
       <p:dataTable var="_clerk" value="#{records}" id="clerkList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{clerkAction.clerk}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editClerkPanel')}" oncomplete="editClerkDialog.show()" listener="#{clerkAction.onRowSelect}"/>  
@@ -92,15 +97,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_clerk', 'view') and !_clerkCategory.archived}"> 
-          <h:link outcome="/admin/entities/employee/clerk/viewClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/employee/clerk/viewClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="clerkId" value="#{_clerk.id}"/> 
+            <f:param name="clerkId" value="#{_clerk.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_clerk', 'edit') and !_clerkCategory.archived}"> 
-          <h:link outcome="/admin/entities/employee/clerk/editClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/employee/clerk/editClerk.xhtml" rendered="#{s:hasPermission(_clerk, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="clerkId" value="#{_clerk.id}"/> 
+            <f:param name="clerkId" value="#{_clerk.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('clerkAction', 'archive')}" propagation="none"> 
@@ -119,11 +126,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/employee/clerk/modalDlgClerkComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

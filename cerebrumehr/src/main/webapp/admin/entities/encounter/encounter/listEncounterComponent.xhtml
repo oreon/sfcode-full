@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/encounter/encounter/modalDlgEncounterComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="encounterForm"> 
       <p:dataTable var="_encounter" value="#{records}" id="encounterList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{encounterAction.encounter}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editEncounterPanel')}" oncomplete="editEncounterDialog.show()" listener="#{encounterAction.onRowSelect}"/>  
@@ -124,15 +129,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_encounter', 'view') and !_encounterCategory.archived}"> 
-          <h:link outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" rendered="#{s:hasPermission(_encounter, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" rendered="#{s:hasPermission(_encounter, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="encounterId" value="#{_encounter.id}"/> 
+            <f:param name="encounterId" value="#{_encounter.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_encounter', 'edit') and !_encounterCategory.archived}"> 
-          <h:link outcome="/admin/entities/encounter/encounter/editEncounter.xhtml" rendered="#{s:hasPermission(_encounter, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/encounter/encounter/editEncounter.xhtml" rendered="#{s:hasPermission(_encounter, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="encounterId" value="#{_encounter.id}"/> 
+            <f:param name="encounterId" value="#{_encounter.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('encounterAction', 'archive')}" propagation="none"> 
@@ -151,11 +158,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/encounter/encounter/modalDlgEncounterComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

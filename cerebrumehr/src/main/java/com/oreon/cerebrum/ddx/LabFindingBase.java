@@ -129,4 +129,8 @@ public class LabFindingBase extends com.oreon.cerebrum.ddx.Finding {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

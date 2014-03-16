@@ -143,4 +143,10 @@ public class PatientFindingBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="findingId" value="#{findingId}" />
+	<param name="patientDiffDxId" value="#{patientDiffDxId}" />
+	
+	 */
+
 }

@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/differentialDx/modalDlgDifferentialDxComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="differentialDxForm"> 
       <p:dataTable var="_differentialDx" value="#{records}" id="differentialDxList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{differentialDxAction.differentialDx}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editDifferentialDxPanel')}" oncomplete="editDifferentialDxDialog.show()" listener="#{differentialDxAction.onRowSelect}"/>  
@@ -57,15 +62,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_differentialDx', 'view') and !_differentialDxCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/differentialDx/viewDifferentialDx.xhtml" rendered="#{s:hasPermission(_differentialDx, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/differentialDx/viewDifferentialDx.xhtml" rendered="#{s:hasPermission(_differentialDx, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="differentialDxId" value="#{_differentialDx.id}"/> 
+            <f:param name="differentialDxId" value="#{_differentialDx.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_differentialDx', 'edit') and !_differentialDxCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml" rendered="#{s:hasPermission(_differentialDx, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml" rendered="#{s:hasPermission(_differentialDx, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="differentialDxId" value="#{_differentialDx.id}"/> 
+            <f:param name="differentialDxId" value="#{_differentialDx.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('differentialDxAction', 'archive')}" propagation="none"> 
@@ -84,11 +91,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/ddx/differentialDx/modalDlgDifferentialDxComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

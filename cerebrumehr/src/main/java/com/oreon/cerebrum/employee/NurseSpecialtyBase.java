@@ -129,4 +129,8 @@ public class NurseSpecialtyBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

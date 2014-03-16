@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/users/appUser/modalDlgAppUserComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="appUserForm"> 
       <p:dataTable var="_appUser" value="#{records}" id="appUserList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{appUserAction.appUser}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editAppUserPanel')}" oncomplete="editAppUserDialog.show()" listener="#{appUserAction.onRowSelect}"/>  
@@ -30,15 +35,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_appUser', 'view') and !_appUserCategory.archived}"> 
-          <h:link outcome="/admin/entities/users/appUser/viewAppUser.xhtml" rendered="#{s:hasPermission(_appUser, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/users/appUser/viewAppUser.xhtml" rendered="#{s:hasPermission(_appUser, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="appUserId" value="#{_appUser.id}"/> 
+            <f:param name="appUserId" value="#{_appUser.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_appUser', 'edit') and !_appUserCategory.archived}"> 
-          <h:link outcome="/admin/entities/users/appUser/editAppUser.xhtml" rendered="#{s:hasPermission(_appUser, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/users/appUser/editAppUser.xhtml" rendered="#{s:hasPermission(_appUser, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="appUserId" value="#{_appUser.id}"/> 
+            <f:param name="appUserId" value="#{_appUser.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('appUserAction', 'archive')}" propagation="none"> 
@@ -57,11 +64,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/users/appUser/modalDlgAppUserComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

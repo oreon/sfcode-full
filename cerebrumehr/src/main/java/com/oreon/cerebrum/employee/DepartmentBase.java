@@ -163,4 +163,8 @@ public class DepartmentBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

@@ -178,4 +178,9 @@ public class ChartItemBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="chartId" value="#{chartId}" />
+	
+	 */
+
 }

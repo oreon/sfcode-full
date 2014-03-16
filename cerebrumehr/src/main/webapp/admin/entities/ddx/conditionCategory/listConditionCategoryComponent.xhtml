@@ -9,6 +9,11 @@
   </c:if>  
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
+    <h:form> 
+      <ui:include src="/admin/entities/ddx/conditionCategory/modalDlgConditionCategoryComponent.xhtml"> 
+        <ui:param name="modalId" value="${modalId}"/> 
+      </ui:include> 
+    </h:form>  
     <h:form id="conditionCategoryForm"> 
       <p:dataTable var="_conditionCategory" value="#{records}" id="conditionCategoryList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{conditionCategoryAction.conditionCategory}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editConditionCategoryPanel')}" oncomplete="editConditionCategoryDialog.show()" listener="#{conditionCategoryAction.onRowSelect}"/>  
@@ -27,15 +32,17 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_conditionCategory', 'view') and !_conditionCategoryCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" rendered="#{s:hasPermission(_conditionCategory, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" rendered="#{s:hasPermission(_conditionCategory, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="conditionCategoryId" value="#{_conditionCategory.id}"/> 
+            <f:param name="conditionCategoryId" value="#{_conditionCategory.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_conditionCategory', 'edit') and !_conditionCategoryCategory.archived}"> 
-          <h:link outcome="/admin/entities/ddx/conditionCategory/editConditionCategory.xhtml" rendered="#{s:hasPermission(_conditionCategory, 'edit')}" propagation="none"> 
+          <h:link outcome="/admin/entities/ddx/conditionCategory/editConditionCategory.xhtml" rendered="#{s:hasPermission(_conditionCategory, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="conditionCategoryId" value="#{_conditionCategory.id}"/> 
+            <f:param name="conditionCategoryId" value="#{_conditionCategory.id}"/>  
+            <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('conditionCategoryAction', 'archive')}" propagation="none"> 
@@ -54,11 +61,6 @@
           </h:link> 
         </p:column> 
       </p:dataTable> 
-    </h:form>  
-    <h:form> 
-      <ui:include src="/admin/entities/ddx/conditionCategory/modalDlgConditionCategoryComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
     </h:form> 
   </p:panel> 
 </ui:composition>

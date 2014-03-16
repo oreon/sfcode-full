@@ -129,4 +129,8 @@ public class VaccineBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	
+	 */
+
 }

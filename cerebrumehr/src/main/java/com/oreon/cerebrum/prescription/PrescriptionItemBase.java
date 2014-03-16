@@ -272,4 +272,11 @@ public class PrescriptionItemBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="drugId" value="#{drugId}" />
+	<param name="prescriptionId" value="#{prescriptionId}" />
+	<param name="frequencyId" value="#{frequencyId}" />
+	
+	 */
+
 }

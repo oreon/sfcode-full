@@ -159,4 +159,10 @@ public class AllergyBase extends BaseEntity {
 		return builder.toString();
 	}
 
+	/*
+	<param name="patientId" value="#{patientId}" />
+	<param name="allergenId" value="#{allergenId}" />
+	
+	 */
+
 }
