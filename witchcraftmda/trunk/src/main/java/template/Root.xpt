@@ -239,7 +239,12 @@ import org.hibernate.annotations.FilterDefs;
 	    }
 	    
 	    «EXPAND genSearchFieldsArray FOR this»
-	   
+	    
+	    /*
+	   	«FOREACH getOutgoingAssociations() AS a-»
+		<param name="«a.name»Id" value="#{«a.name»Id}" />
+		«ENDFOREACH»
+	    */
 	    
 	    «IF isProcessToken()»
 	    	private Long processId;

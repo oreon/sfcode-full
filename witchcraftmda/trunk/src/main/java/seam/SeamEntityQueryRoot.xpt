@@ -188,14 +188,15 @@ public abstract class «name»ListQueryBase«IF isAbstractEntity()» <T  extends «na
 	«FOREACH getOutgoingAssociations() AS e»
 	«IF !e.type.isAbstract && e.opposite.name != null»
 	
+	«LET !isAbstractEntity()? name : "T" AS param»
 	
-	public «isPrimeSeam2()?"LazyDataModel":"List"»<«name»> get«e.opposite.name.toFirstUpper()»By«e.name.toFirstUpper()»(final «e.type.fqn()» «e.type.asVar()»){
+	public «isPrimeSeam2()?"LazyDataModel":"List"»<«param»> get«e.opposite.name.toFirstUpper()»By«e.name.toFirstUpper()»(final «e.type.fqn()» «e.type.asVar()»){
 		«IF isPrimeSeam2()»
-			EntityLazyDataModel<«name», Long> «asVar()»LazyDataModel = new EntityLazyDataModel<«name»,Long>(
+			EntityLazyDataModel<«param», Long> «asVar()»LazyDataModel = new EntityLazyDataModel<«param»,Long>(
 				this) {
 
 			@Override
-			public List<«name»> load(int first, int pageSize,String sortField, SortOrder sortOrder,
+			public List<«param»> load(int first, int pageSize,String sortField, SortOrder sortOrder,
 					Map<String, String> filters) {
 
 				«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
@@ -211,6 +212,7 @@ public abstract class «name»ListQueryBase«IF isAbstractEntity()» <T  extends «na
 		«ENDIF»
 		
 	}
+	«ENDLET»
 	«ENDIF»
 	«ENDFOREACH»
 

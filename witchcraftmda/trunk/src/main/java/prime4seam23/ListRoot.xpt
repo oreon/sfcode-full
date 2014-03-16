@@ -63,11 +63,16 @@
        		 <c:set var="listTitle" value="«name» Search Results (#{empty records ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : records.size)})" />
     	</c:if>
     	
-			
+		
 		<p:panel>
 		   <f:facet name="header">
 		   		${listTitle}
 		   </f:facet>
+		   <h:form>
+		 		<ui:include src="«getComponentViewFile("modalDlg")»" >
+					<ui:param name="modalId" value="${modalId}"/> 
+				</ui:include>
+			</h:form>	
 		   <h:form id="«asVar()»Form">
 			
 				<p:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
@@ -87,15 +92,9 @@
 				«EXPAND genQuickEditLink FOR this»
 				«ENDREM»
 				</p:dataTable>
-				
-				
 		 	</h:form>		
 		 	
-		 	<h:form>
-		 		<ui:include src="«getComponentViewFile("modalDlg")»" >
-					<ui:param name="modalId" value="${modalId}"/> 
-				</ui:include>
-			</h:form>	
+		 	
 		</p:panel>	
 		
 		</ui:composition>
@@ -191,9 +190,10 @@
 «DEFINE genLink(String action, String icon) FOR uml::Class»
 	<p:column  rendered="#{s:hasPermission('_«asVar()»', '«action»') and !_«asVar()»Category.archived}">
 		
-		<h:link outcome="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}" propagation="none">
+		<h:link outcome="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}" >
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" alt="«action»"/>
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
+			<s:conversationPropagation type="none"/>
 		</h:link>
 	</p:column>
 «ENDDEFINE»
