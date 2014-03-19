@@ -435,39 +435,54 @@ import org.hibernate.annotations.FilterDefs;
 
 
 «DEFINE genWrappedOperation FOR uml::Operation»
-	/** 
-	 * «getDocumentation()»
-	 «FOREACH ownedParameter AS e-» 
-	 	
-	 «IF e.name != null && e.name != ""» @param «e.name»  «e.type.name» «e.getDocumentation()» «ENDIF» 
-	 *«ENDFOREACH»
-	 * @return «type.name» 
-	 */
-	 @Restrict("#{s:hasPermission('«class.name»','«name»')}")
-	«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){
-	
-		StringBuilder exceptionMessages = new StringBuilder();
-		
-		«EXPAND applyConstaints FOREACH ownedParameter»
-	
-		
-		if(!StringUtils.isEmpty(exceptionMessages.toString())){
-			throw new ContractViolationException(exceptionMessages.toString());
-		}
-		
-		«IF type != null» return «ENDIF» do«name.toFirstUpper()»(«getParameters()»); 
-	}
-	
-	/** 
-	 * «ownedComment.body»
-	 */
-	 «IF readPropertyDef("generateAbstractMethods","true") == "true"»
-	  protected  abstract «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («getParametersSignature()»);
-	«ELSE» 
-	protected «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («getParametersSignature()»){ 
-		«IF type != null» return null; «ENDIF»
-	}
-	«ENDIF»
+      /**
+       * «getDocumentation()»
+       «FOREACH ownedParameter AS e-»
+           
+       «IF e.name != null && e.name != ""» @param «e.name»  «e.type.name» «e.getDocumentation()» «ENDIF»
+       *«ENDFOREACH»
+       * @return «type.name»
+       */
+       @Restrict("#{s:hasPermission('«class.name»','«name»')}")
+      «visibility»  «EXPAND methodSignature("") FOR this»{
+     
+            StringBuilder exceptionMessages = new StringBuilder();
+           
+            «EXPAND applyConstaints FOREACH ownedParameter»
+                             
+            if(!StringUtils.isEmpty(exceptionMessages.toString())){
+                  throw new ContractViolationException(exceptionMessages.toString());
+            }
+           
+            «IF type != null» return «ENDIF» do«name.toFirstUpper()»(«getParameters()»);
+      }
+     
+      /**
+       * «ownedComment.body»
+       */
+       «IF readPropertyDef("generateAbstractMethods","true") == "true"»
+       protected  abstract «EXPAND methodSignature("do") FOR this»;
+      «ELSE»
+      protected «EXPAND methodSignature("do") FOR this»{
+            «IF type != null» return null; «ENDIF»
+      }
+      «ENDIF»
+«ENDDEFINE»
+ 
+ 
+«DEFINE methodSignature(String prefix) FOR uml::Operation»
+      «EXPAND genParamSignature(true) FOR this»  «prefix»«prefix != "" ? name.toFirstUpper() : name» («EXPAND genParamSignature(false) FOR this»)
+«ENDDEFINE»
+ 
+ 
+«DEFINE genParamSignature(boolean isret) FOR uml::Operation»
+«FOREACH ownedParameter.select( a | ( isret ? a.name == "" : a.name != "" ) ) AS a  SEPARATOR ','-»
+       «a.type.fqn()-»
+      «FOREACH a.eContents().typeSelect(uml::Comment) AS c-»
+            <«FOREACH c.annotatedElement AS e SEPARATOR ','-»«e.fqn()-»«ENDFOREACH-»>
+      «ENDFOREACH-»
+      «a.name-»
+«ENDFOREACH-»
 «ENDDEFINE»
 
 «DEFINE applyConstaints FOR uml::Parameter»
