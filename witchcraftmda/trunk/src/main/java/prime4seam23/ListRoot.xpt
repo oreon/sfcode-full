@@ -13,8 +13,8 @@
 			«setAsCurrentEntity(this)-»
 			«clearCurrentEmbeddable()-»
 			<ui:define name="content">
-				«EXPAND genFullTextBtn FOR this»
-	
+				«IF isFullTextSearchable()» «EXPAND genFullTextBtn FOR this» «ENDIF»
+				
 				<c:set var="modalId" value="«name»ModalPanel-«name»" />
 				<ui:include src="«getComponentViewFile("search")»" />
 				<br/> <br/>

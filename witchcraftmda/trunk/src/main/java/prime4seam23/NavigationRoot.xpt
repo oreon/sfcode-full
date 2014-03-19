@@ -9,7 +9,7 @@
 	«FILE getEntitiesRoot() +"/" + "navigation"  + "." + getExtension()»
 	<ui:composition «EXPAND WebRoot::genIncludes-» >
 		<h:form>
-		<p:accordionPanel>
+		<p:accordionPanel  activeIndex="#{panelMenuStateBean.activeIndex}">
 		«FOREACH allOwnedElements().typeSelect(uml::Package) AS p»
 		«IF !p.packagedElement.typeSelect(wcprofile::Entity).isEmpty-»
 	
@@ -17,7 +17,7 @@
 		
 		«FOREACH p.packagedElement.typeSelect(wcprofile::Entity) AS e-»
 		 «IF e.navigable != false »
-			«REM»comment<rich:panelMenuItem>«ENDREM»
+			«REM»comment<rich:panelMenuItem>«ENDREM»	
 				<h:commandLink  value="«e.name»" action="«e.asVar()»" >
 					<s:conversationPropagation type="none" />
 				</h:commandLink>
