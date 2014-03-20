@@ -51,13 +51,21 @@ public class AppointmentAction extends AppointmentActionBase implements
 
 		List<Appointment> appts = appointmentListQuery.getAll();
 		for (Appointment appointment : appts) {
-			
-			DefaultScheduleEvent evt = new DefaultScheduleEvent(appointment
-					.getPatient().getDisplayName(), appointment.getStart(), appointment.getEnd());
-			evt.setData(appointment.getId());
-			// evt.setId(appointment.getId().toString());
-			eventModel.addEvent(evt);
+			addAppointmentToSchedule(appointment, null);
 		}
+	}
+
+	private void addAppointmentToSchedule(Appointment appointment,
+			DefaultScheduleEvent evt) {
+
+		if (evt == null)
+			evt = new DefaultScheduleEvent("", appointment.getStart(),
+					appointment.getEnd());
+
+		evt.setTitle(appointment.getPatient().getDisplayName());
+		evt.setData(appointment.getId());
+		// evt.setId(appointment.getId().toString());
+		eventModel.addEvent(evt);
 	}
 
 	public void addEvent(ActionEvent actionEvent) {
@@ -72,47 +80,58 @@ public class AppointmentAction extends AppointmentActionBase implements
 
 	public void onEventSelect(SelectEvent selectEvent) {
 		event = (ScheduleEvent) selectEvent.getObject();
-		load((Long)event.getData());
-		//updateAppointmentFromScheduleEvent(getInstance(), (ScheduleEvent) selectEvent.getObject());
+		load((Long) event.getData());
+		// updateAppointmentFromScheduleEvent(getInstance(), (ScheduleEvent)
+		// selectEvent.getObject());
 	}
 
 	@Begin(join = true)
 	public void onDateSelect(SelectEvent selectEvent) {
 		clearInstance();
-		
+
 		Date start = (Date) selectEvent.getObject();
 		System.out.println(start);
-		
+
 		DateTime dtEnd = new DateTime(start);
 		dtEnd = dtEnd.plusMinutes(30);
-		
+
 		event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(),
 				dtEnd.toDate());
-		
-		
-		
+
 		getInstance().setStart(event.getStartDate());
-		if(Conversation.instance().getId() == null)
+		if (Conversation.instance().getId() == null)
 			Conversation.instance().begin(true, false);
-		System.out.println("current conersation bef " + Conversation.instance().getId());
-		//instance.setUnits(4);
+		System.out.println("current conersation bef "
+				+ Conversation.instance().getId());
+		// instance.setUnits(4);
 	}
 
 	@Override
 	@Begin(join = true)
 	public String saveConversational() {
-		//instance.setStart(event.getStartDate());
-		
-		System.out.println("current conersation end " + Conversation.instance().getId());
-		
-		
+		// instance.setStart(event.getStartDate());
+
+		System.out.println("current conersation end "
+				+ Conversation.instance().getId());
+
 		DateTime dtEnd = new DateTime(getInstance().getStart());
 		dtEnd = dtEnd.plusMinutes(30 * instance.getUnits());
 		instance.setEnd(dtEnd.toDate());
-		
-		((DefaultScheduleEvent)event).setEndDate( getInstance().getEnd());
-	
+
+		((DefaultScheduleEvent) event).setEndDate(getInstance().getEnd());
+
+		// else
+		if (!isNew())
+			eventModel.updateEvent(event);
+
 		return super.saveConversational();
+	}
+
+	@Override
+	protected void postSave() {
+		if (event.getData() == null)
+			addAppointmentToSchedule(instance, (DefaultScheduleEvent) event);
+		super.postSave();
 	}
 
 	public void onEventMove(ScheduleEntryMoveEvent event) {
