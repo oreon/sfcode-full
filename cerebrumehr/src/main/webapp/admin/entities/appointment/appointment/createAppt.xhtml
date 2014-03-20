@@ -16,7 +16,7 @@
 			<p:growl id="messages" showDetail="true" />
 
 			<p:schedule id="schedule" value="#{appointmentAction.eventModel}"
-				widgetVar="myschedule">
+				widgetVar="myschedule"  view="agendaWeek" >
 
 				<p:ajax event="dateSelect"
 					listener="#{appointmentAction.onDateSelect}"
@@ -45,6 +45,7 @@
 				src="/admin/entities/appointment/appointment/modalDlgAppointmentComponent.xhtml">
 				<ui:param name="modalId" value="${modalId}" />
 				<ui:param name="excludeStart" value="true" />
+				<!--  <ui:param name="excludePhysician" value="true" />-->
 			</ui:include>
 
 		</h:form>

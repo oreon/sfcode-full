@@ -7,13 +7,23 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
+/**
+ * @author jagdeep singh
+ * 
+ * This class holds the state of side navigation menus 
+ *
+ */
 @Name("panelMenuStateBean")
 @Scope(ScopeType.SESSION)
 public class PanelMenuStateBean {
 	
-    HashMap<String, Boolean> menueState=new HashMap<String, Boolean>();
+	private String activeIndex;
 
-    public Map getState() {
-        return menueState;
-    }  
+	public void setActiveIndex(String activeIndex) {
+		this.activeIndex = activeIndex;
+	}
+
+	public String getActiveIndex() {
+		return activeIndex;
+	}  
 }

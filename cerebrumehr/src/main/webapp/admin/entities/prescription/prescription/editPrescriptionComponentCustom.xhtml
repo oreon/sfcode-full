@@ -4,8 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:s="http://jboss.org/schema/seam/taglib"
-	xmlns:a="http://richfaces.org/a4j"
-	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.org/ui"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -22,11 +21,7 @@
 			<s:selectItems value="#{prescriptionTemplateList}" var="itemIter"
 				label="#{itemIter.displayName}" noSelectionLabel="Select Template" />
 			<s:convertEntity />
-			<p:ajax event="onchange"
-				action="#{prescriptionAction.loadDrugsFromTemplate}"
-				reRender="prescriptionItems" ajaxSingle="true">
-				<s:conversationPropagation type="join" />
-			</p:ajax>
+			
 		</h:selectOneMenu>
 
 		<br />
@@ -56,8 +51,9 @@
 					<h:outputText value="#{msg.Prescription}" />
 				</f:facet>
 
-				
-				<s:decorate id="patientDecorate" template="/layout/edit.xhtml" rendered="#{ ! excludePatient == true}" >
+
+				<s:decorate id="patientDecorate" template="/layout/edit.xhtml"
+					rendered="#{ ! excludePatient == true}">
 					<ui:define name="label">
 						<h:outputText value="#{msg.prescription_patient}  "
 							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'patientEdit')}" />
@@ -68,20 +64,20 @@
 						<s:selectItems value="#{patientList}" var="itemIter"
 							label="#{itemIter.displayName}"
 							noSelectionLabel="Please Select..." />
-						<p:ajaxValidator event="onsubmit" />
+						
 						<s:convertEntity />
 					</h:selectOneMenu>
 				</s:decorate>
-			
-				
+
+
 			</h:panelGrid>
 			<br />
-			<a:commandButton value="New PrescriptionItem"
+			<p:commandButton value="New PrescriptionItem"
 				action="#{prescriptionAction.addPrescriptionItems}"
 				reRender="prescriptionItems"
 				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'prescriptionItemsEdit')}">
 				<s:conversationPropagation type="join" />
-			</a:commandButton>
+			</p:commandButton>
 			<p:dataTable id="prescriptionItems" var="_prescriptionItem"
 				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'prescriptionItemsEdit')}"
 				value="#{prescriptionAction.listPrescriptionItems}"
@@ -92,54 +88,67 @@
 						<h:outputText value="#{msg.prescriptionItem_drug}  "
 							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'drugEdit')}" />
 					</f:facet>
-					<s:decorate id="drugDecorate" template="/layout/editTableField.xhtml">
+					<s:decorate id="drugDecorate"
+						template="/layout/editTableField.xhtml">
 						<ui:define name="label"></ui:define>
 						<h:panelGroup>
-							<a:region>
-								<h:inputText value="#{_prescriptionItem.drug.displayName}"
-									label="#{msg.prescriptionItem_drug}" id="drug" required="true">
-									<p:ajax event="onchange" reRender="ixmsgs" />
-								</h:inputText>
-								<p:suggestionbox for="drug" rules="all"
-									suggestionAction="#{drugList.autocompletedb}" ajaxSingle="true"
-									var="_result" fetchValue="#{_result.displayName}" minChars="2"
-									nothingLabel="No Results found" zindex="99999">
-									<h:column>
-										<h:outputText value="#{_result.name}" />
-									</h:column>
-									<p:ajax event="onselect" reRender="interactionMsg">
-										<f:setPropertyActionListener value="#{_result}"
-											target="#{_prescriptionItem.drug}" />
-										<f:setPropertyActionListener value="#{_result}"
-											target="#{prescriptionAction.newDrug}" />
-									</p:ajax>
 
 
-								</p:suggestionbox>
-							</a:region>
-							
-							
-							
+							<f:facet name="header">
+								<h:outputText value="#{msg.prescriptionItem_drug}  "
+									rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDrug')}" />
+							</f:facet>
+							<s:decorate id="drugIdDecorate"
+								rendered="#{ ! excludeDrug == true}"
+								template="/layout/editTableField.xhtml">
+								<ui:define name="label"></ui:define>
+								<h:panelGroup>
+									<p:autoComplete minQueryLength="3"
+										completeMethod="#{drugList.autocomplete}"
+										value="#{_prescriptionItem.drug}"
+										converter="#{drugList.converter}" var="record"
+										itemLabel="#{record.displayName}" itemValue="#{record}">
+										<p:column>
+											<h:outputText value="#{record.name}" />
+										</p:column>
+									</p:autoComplete>
+								</h:panelGroup>
+							</s:decorate>
+
+<!--  
+							<p:ajax event="onselect" reRender="interactionMsg">
+								<f:setPropertyActionListener value="#{_result}"
+									target="#{_prescriptionItem.drug}" />
+								<f:setPropertyActionListener value="#{_result}"
+									target="#{prescriptionAction.newDrug}" />
+							</p:ajax>
+
+-->
+
+
 						</h:panelGroup>
 					</s:decorate>
-					
-				
-				 <a:commandButton action="#{drugAction.setDrugId(0)}" 
-				 	oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Find" reRender="${modalId}" />  
-  	
-	
-				 <ui:include src="/admin/entities/drugs/drug/modalDlgDrugComponent.xhtml"> 
-      				<ui:param name="modalId" value="drug"/> 
-    			 </ui:include> 
-					
-					
+
+
+					<a:commandButton action="#{drugAction.setDrugId(0)}"
+						oncomplete="Richfaces.showModalPanel('${modalId}',{});"
+						value="Find" reRender="${modalId}" />
+
+
+					<ui:include
+						src="/admin/entities/drugs/drug/modalDlgDrugComponent.xhtml">
+						<ui:param name="modalId" value="drug" />
+					</ui:include>
+
+
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="#{msg.prescriptionItem_frequency}  "
 							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'frequencyEdit')}" />
 					</f:facet>
-					<s:decorate id="frequencyDecorate" template="/layout/editTableField.xhtml">
+					<s:decorate id="frequencyDecorate"
+						template="/layout/editTableField.xhtml">
 						<ui:define name="label"></ui:define>
 						<h:selectOneMenu id="frequency"
 							label="#{msg.prescriptionItem_frequency}"
@@ -148,7 +157,7 @@
 							<s:selectItems value="#{frequencyList}" var="itemIter"
 								label="#{itemIter.displayName}"
 								noSelectionLabel="Please Select..." />
-							<p:ajaxValidator event="onsubmit" />
+							
 							<s:convertEntity />
 						</h:selectOneMenu>
 					</s:decorate>
@@ -164,7 +173,7 @@
 							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'qtyEdit')}"
 							label="#{msg.prescriptionItem_qty}" required="false"
 							disabled="false" value="#{_prescriptionItem.qty}">
-							<p:ajaxValidator event="onsubmit" />
+							
 						</h:inputText>
 					</s:decorate>
 				</h:column>
@@ -185,7 +194,7 @@
 							<f:selectItem itemValue="IM" itemLabel="#{msg.IM}" />
 							<f:selectItem itemValue="SC" itemLabel="#{msg.SC}" />
 							<f:selectItem itemValue="TOPICAL" itemLabel="#{msg.TOPICAL}" />
-							<p:ajaxValidator event="onsubmit" />
+							
 						</h:selectOneMenu>
 					</s:decorate>
 				</h:column>
@@ -200,7 +209,7 @@
 							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'durationEdit')}"
 							label="#{msg.prescriptionItem_duration}" required="false"
 							disabled="false" value="#{_prescriptionItem.duration}">
-							<p:ajaxValidator event="onsubmit" />
+							
 						</h:inputText>
 					</s:decorate>
 				</h:column>
@@ -215,7 +224,6 @@
 							rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'remarksEdit')}"
 							label="#{msg.prescriptionItem_remarks}" required="false"
 							disabled="false" value="#{_prescriptionItem.remarks}">
-							<p:ajaxValidator event="onsubmit" />
 						</h:inputText>
 					</s:decorate>
 				</h:column>

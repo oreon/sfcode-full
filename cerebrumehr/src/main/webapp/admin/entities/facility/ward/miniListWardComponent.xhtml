@@ -9,9 +9,12 @@
       </h:link> 
     </p:column>  
     <p:column style="width:2%"> 
-      <p:rowToggler/> 
+      <p:rowToggler>
+      	 <p:ajax event="rowToggle" update="wardRows" />
+      </p:rowToggler> 
     </p:column>  
-    <p:rowExpansion> 
+    <p:rowExpansion id="wardRows"> 
+     
       <ui:include src="/admin/entities/facility/room/miniListRoomComponent.xhtml"> 
         <ui:param name="records" value="#{_ward.listRooms}"/>  
         <ui:param name="excludeWard" value="true"/> 
