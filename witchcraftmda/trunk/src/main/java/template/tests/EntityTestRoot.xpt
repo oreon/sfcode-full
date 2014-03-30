@@ -8,6 +8,7 @@
 «DEFINE Root FOR uml::Model»
 	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	
 «ENDDEFINE»
 
 «DEFINE BaseGen FOR uml::Class»
@@ -40,7 +41,7 @@ public class «name»ActionTest extends «name»ActionTestBase{
 
 
 
-«DEFINE genClassBody FOR wcprofile::Entity»
+«DEFINE genClassBody FOR uml::Class»
 public class «name»ActionTestBase extends org.witchcraft.action.test.BaseTest<«name»>{
 
 	«getAction().toFirstUpper()» «getAction()» = new «name»Action();
