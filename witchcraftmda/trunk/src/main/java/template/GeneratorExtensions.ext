@@ -57,7 +57,7 @@ String packageNameWithoutRoot(Package package):
 if ( package !=null && package.getQualifiedName() != null && package.getQualifiedName().startsWith("Data") ) then 
 	package.getQualifiedName().replaceAll("Data::", "")
 else if ( package.getQualifiedName().startsWith("wcprofile") ) then 
-	package.getQualifiedName().replaceAll("wcprofile::", "")
+	package.getQualifiedName().replaceAll("wcprofile::.*", "")
 else
 package.getQualifiedName();
 
@@ -403,6 +403,9 @@ isType(prop, "String") || isType(prop, "uniqueNameType") || isType(prop, "nameTy
 
 isNameType(Property prop):
 isType(prop, "nameType");
+
+isVoid(Operation op):
+op.type == null || op.type.name == "void"; 
 
 //Read property from workflow properties file
 String readProperty(String arg):
