@@ -53,7 +53,8 @@
 	«FILE packagePath() +"/" +name + ".java" »
 		package « packageName() »;
 		«EXPAND genImports FOR this»
-		«EXPAND genClassBody FOR this»
+		«EXPAND genClassBody FOR this»	
+		
 
 	«ENDFILE»
 	«ENDIF»
@@ -64,7 +65,8 @@
 «DEFINE GenPackageInfo FOR uml::Package»
 «IF !name.startsWith("UML")»
 
-«FILE packagePathPck() +"/package-info.java"  »«EXPAND genFileHeader FOR this»
+«FILE packagePathPck() +"/package-info.java"  »
+«EXPAND genFileHeader FOR this»
 package «packageNamePck()»; 
 «ENDFILE»
 
@@ -182,6 +184,7 @@ import org.hibernate.annotations.FilterDefs;
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
 		«EXPAND genOperation FOREACH getAllOperations()»
+		«EXPAND genEqualsHashcode FOR this»
 	}
 «ENDDEFINE»
 
@@ -198,6 +201,7 @@ import org.hibernate.annotations.FilterDefs;
 	//...
 	public class «name» «getParent()» «getInterfaces()»{
 		«EXPAND genClassBodyContents»
+	  
 	}
 «ENDDEFINE»
 
@@ -205,6 +209,7 @@ import org.hibernate.annotations.FilterDefs;
 		«EXPAND genProperty FOREACH getAllAttributes() »
 		«EXPAND JavaBeansRoot::genGetterSetter FOREACH getAllAttributes() »
 		«EXPAND genOperation FOREACH getAllOperations()»
+		«EXPAND genEqualsHashcode FOR this»
 «ENDDEFINE»
 
 «DEFINE genProperty FOR uml::Property»
@@ -240,6 +245,9 @@ import org.hibernate.annotations.FilterDefs;
 	    
 	    «EXPAND genSearchFieldsArray FOR this»
 	    
+	    «REM»comment
+	    «EXPAND genEqualsHashcode FOR this»
+	    «ENDREM»
 	    /*
 	   	«FOREACH getOutgoingAssociations() AS a-»
 		<param name="«a.name»Id" value="#{«a.name»Id}" />
@@ -279,6 +287,52 @@ import org.hibernate.annotations.FilterDefs;
 
 «DEFINE genEntityAnnontations FOR wcprofile::MappedSuperClass»
 	@MappedSuperclass
+«ENDDEFINE»
+
+
+
+«DEFINE genEqualsHashcode FOR uml::Class»
+	 @Override
+	   public boolean equals(Object obj)
+	   {
+	      if (obj == null){
+	         return false;
+	      }
+	      if (getClass() != obj.getClass()){
+	         return false;
+	      }
+	      final «name» other = («name») obj;
+	      
+	      return   
+	      	«FOREACH getAllAttributes() AS e SEPARATOR '&&'»
+	      		Objects.equal(this.get«e.name.toFirstUpper()»(), other.get«e.name.toFirstUpper()»())
+	        «ENDFOREACH»
+	        ;
+	   }
+	   
+	   
+	   @Override
+	   public int hashCode()
+	   {
+	      return Objects.hashCode(
+	      		«FOREACH getAllAttributes() AS e SEPARATOR ','»
+	      			this.get«e.name.toFirstUpper()»()
+	      		«ENDFOREACH»
+	              );
+	   }
+
+	  
+	   @Override
+	   public String toString()
+	   {
+	      return Objects.toStringHelper(this)
+	      			«FOREACH getAllAttributes() AS e -»
+	                .addValue(this.get«e.name.toFirstUpper()-»())
+	                «ENDFOREACH»
+	                .toString();
+	   }
+		
+	
 «ENDDEFINE»
 
 
@@ -506,7 +560,7 @@ import org.hibernate.annotations.FilterDefs;
 	 * «ownedComment.body»
 	 */
 	«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){ 
-		«IF type != null && type.name != "void" »
+		«IF !isVoid()»
 			return null;
 		«ENDIF»
 	}
@@ -785,12 +839,16 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import java.util.Set;
 	import java.util.Date;
 	import javax.ws.rs.core.Response;
+	
+	import com.google.common.base.Objects;
 «ENDDEFINE»
 
 
 «DEFINE genPersistenceImports FOR uml::Class»
 	import javax.persistence.*;
 	import org.hibernate.validator.*;
+	
+	import com.google.common.base.Objects;
 	
 	import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 	import org.apache.commons.lang.builder.ToStringStyle;
