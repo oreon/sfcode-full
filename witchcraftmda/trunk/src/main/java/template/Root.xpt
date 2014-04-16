@@ -50,16 +50,27 @@
 
 «DEFINE ClassRoot FOR uml::Class»
 	«IF name != null && package != null && getAppliedStereotypes().size == 0»
-	«FILE packagePath() +"/" +name + ".java" »
-		package « packageName() »;
-		«EXPAND genImports FOR this»
-		«EXPAND genClassBody FOR this»	
-		
-
-	«ENDFILE»
+		«EXPAND genClassFile FOR this»
+		«EXPAND genClassAbstractFile FOR this»
+	
 	«ENDIF»
 «ENDDEFINE»
 
+«DEFINE genClassFile FOR uml::Class»
+	«FILE packagePath() +"/" + name + ".java" man_path»
+		package « packageName() »;
+		«EXPAND genImports FOR this»
+		«EXPAND genClassBodyMan FOR this»	
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE genClassAbstractFile FOR uml::Class»
+	«FILE packagePath() +"/" + name + "Base.java"»
+		package « packageName() »;
+		«EXPAND genImports FOR this»
+		«EXPAND genClassBody FOR this»	
+	«ENDFILE»
+«ENDDEFINE»
 
 
 «DEFINE GenPackageInfo FOR uml::Package»
@@ -94,13 +105,16 @@ import org.hibernate.annotations.FilterDefs;
 «DEFINE ClassRoot FOR wcprofile::AbstractEntity»
 	«IF name != null && package != null»
 	
-	«FILE packagePath() +"/" +name+"Base.java"»
-		«EXPAND genFileHeader FOR this»
+	«FILE packagePath() +"/" + name + "Base.java"»
+		
 		package « packageName() »;
 		«EXPAND genImports FOR this»
 		«EXPAND genPersistenceImports FOR this»
 		
 		//«implClassSuffix()» 
+		
+		«EXPAND genFileHeaderGenerated FOR this»
+		«EXPAND genDocumentation»
 		«EXPAND genClassBody FOR this»
 	«ENDFILE»
 	
@@ -118,9 +132,20 @@ import org.hibernate.annotations.FilterDefs;
 «ENDDEFINE»
 
 
-«DEFINE genFileHeader FOR uml::Element»
-
+«DEFINE genFileHeaderGenerated FOR uml::Element»
 «ENDDEFINE»
+
+
+«DEFINE genFileHeader FOR uml::Element»
+«ENDDEFINE»
+
+
+«DEFINE genDocumentation FOR uml::Element»
+«getDocumentation()»
+«ENDDEFINE»
+
+
+
 
 
 «DEFINE ClassRoot FOR wcprofile::WebAction»
@@ -130,11 +155,11 @@ import org.hibernate.annotations.FilterDefs;
 			package « packageName() »;
 			«EXPAND genImports FOR this»
 			«IF isRich() » import org.jboss.seam.annotations.Name; «ENDIF»
-			
-			
-	
+		
 			«IF isRich() » //@Name("«name.toFirstLower()»")  «ENDIF»
 			public class «name» extends «name»Base {
+			
+				«EXPAND genSingletonCode FOR this»
 				
 			}
 		«ENDFILE»
@@ -142,15 +167,21 @@ import org.hibernate.annotations.FilterDefs;
 		«FILE packagePath() +"/" +name + "Base.java"  »
 			package « packageName() »;
 			«EXPAND genImports FOR this»
-			import org.jboss.seam.annotations.security.Restrict;
+			//import org.jboss.seam.annotations.security.Restrict;
 			import org.witchcraft.exceptions.ContractViolationException;
+			import com.google.common.base.Strings;
+			import org.apache.log4j.Logger;
 			«REM»import org.witchcraft.dbc.AssertContractCondition;«ENDREM»
-			import org.apache.commons.lang.StringUtils;
 			
+			
+			«EXPAND genFileHeaderGenerated FOR this»
 			/** 
-			 * «getDocumentation()»
+			 * «EXPAND genDocumentation »
 			 */
-			public abstract class «name»Base «getParent() != "" ? getParent() : " extends org.witchcraft.seam.action.BaseWebAction " » «getInterfaces()»{
+			public abstract class «name»Base «getParent() != "" ? getParent() : " /*extends org.witchcraft.seam.action.BaseWebAction*/ " » «getInterfaces()»{
+				
+				«EXPAND genLoggerDefinition FOR this»
+				
 				«EXPAND genProperty FOREACH getAllAttributes() »
 				«EXPAND genGetterSetter FOREACH getAllAttributes() »
 				«EXPAND genWrappedOperation FOREACH getAllOperations()»
@@ -162,10 +193,70 @@ import org.hibernate.annotations.FilterDefs;
 «ENDDEFINE»
 
 
+«DEFINE genSingletonCode FOR wcprofile::WebAction»
+	private static class «name»Loader {
+		private static final «name» INSTANCE = new «name»();
+	}
+
+	private «name»() {
+		if («name»Loader.INSTANCE != null) {
+			throw new IllegalStateException("Already instantiated");
+		}
+	}
+
+	public static «name» getInstance() {
+		return «name»Loader.INSTANCE;
+	}
+«ENDDEFINE»
+
+
+«DEFINE genLoggerDefinition FOR uml::Class»
+	protected static Logger logger = Logger.getLogger(«name».class); 
+«ENDDEFINE»
+
+
+«DEFINE genWrappedOperation FOR uml::Operation»
+      /**
+       * «EXPAND genDocumentation »
+       «FOREACH ownedParameter AS e-»
+       		«IF e.name != null && e.name != ""» @param «e.name»  «e.type.name» «e.getDocumentation()» «ENDIF»
+       *«ENDFOREACH»
+       * @return «type.name»
+       */
+      //@Restrict("#{s:hasPermission('«class.name»','«name»')}")
+      «visibility»  «EXPAND methodSignature("") FOR this»{
+      		logger.info("staring «name»");
+     
+            StringBuilder exceptionMessages = new StringBuilder();
+           
+            «EXPAND applyConstaints FOREACH ownedParameter»
+                             
+            if(!Strings.isNullOrEmpty(exceptionMessages.toString())){
+                  throw new ContractViolationException(exceptionMessages.toString());
+            }
+            
+            «IF type != null» «EXPAND genParamSignature(true) FOR this» result = «ENDIF» do«name.toFirstUpper()»(«getParameters()»);
+           
+           logger.info("finished «name»");
+            «IF type != null» return  result ;«ENDIF» 
+      }
+     
+      /**
+       * «ownedComment.body»
+       */
+      «IF readPropertyDef("generateAbstractMethods","true") == "true"»
+       	protected  abstract «EXPAND methodSignature("do") FOR this»;
+      «ELSE»
+      	protected «EXPAND methodSignature("do") FOR this»{
+           «IF type != null» return null; «ENDIF»
+      	}
+      «ENDIF»
+«ENDDEFINE»
+
+
 
 «DEFINE ClassRoot FOR uml::Interface»
 	«FILE packagePath() +"/" +name+".java"»
-	«EXPAND genFileHeader FOR this»
 	«EXPAND genFileHeader FOR this»
 	package « packageName() »;
 	«EXPAND genImports »
@@ -179,7 +270,6 @@ import org.hibernate.annotations.FilterDefs;
 
 
 «DEFINE genClassBody FOR wcprofile::AbstractEntity»
-	////DING
 	public class «name»Base «getParent()» «getInterfaces()»{
 		«EXPAND genDecl FOREACH getAllAttributes() »
 		«EXPAND genGetterSetter FOREACH getAllAttributes() »
@@ -196,12 +286,17 @@ import org.hibernate.annotations.FilterDefs;
 	}
 «ENDDEFINE»
 
-«DEFINE genClassBody FOR uml::Class»
+«DEFINE genClassBodyMan FOR uml::Class»
 	@javax.xml.bind.annotation.XmlRootElement
-	//...
-	public class «name» «getParent()» «getInterfaces()»{
+	public class «name» extends «name»Base implements java.io.Serializable {
+		private static final long serialVersionUID = «serialver()»;
+	}
+«ENDDEFINE»
+
+
+«DEFINE genClassBody FOR uml::Class»
+	public abstract class «name»Base «getParent()» «getInterfaces()»{
 		«EXPAND genClassBodyContents»
-	  
 	}
 «ENDDEFINE»
 
@@ -488,48 +583,13 @@ import org.hibernate.annotations.FilterDefs;
 
 
 
-«DEFINE genWrappedOperation FOR uml::Operation»
-      /**
-       * «getDocumentation()»
-       «FOREACH ownedParameter AS e-»
-           
-       «IF e.name != null && e.name != ""» @param «e.name»  «e.type.name» «e.getDocumentation()» «ENDIF»
-       *«ENDFOREACH»
-       * @return «type.name»
-       */
-       @Restrict("#{s:hasPermission('«class.name»','«name»')}")
-      «visibility»  «EXPAND methodSignature("") FOR this»{
-     
-            StringBuilder exceptionMessages = new StringBuilder();
-           
-            «EXPAND applyConstaints FOREACH ownedParameter»
-                             
-            if(!StringUtils.isEmpty(exceptionMessages.toString())){
-                  throw new ContractViolationException(exceptionMessages.toString());
-            }
-           
-            «IF type != null» return «ENDIF» do«name.toFirstUpper()»(«getParameters()»);
-      }
-     
-      /**
-       * «ownedComment.body»
-       */
-       «IF readPropertyDef("generateAbstractMethods","true") == "true"»
-       protected  abstract «EXPAND methodSignature("do") FOR this»;
-      «ELSE»
-      protected «EXPAND methodSignature("do") FOR this»{
-            «IF type != null» return null; «ENDIF»
-      }
-      «ENDIF»
-«ENDDEFINE»
- 
- 
 «DEFINE methodSignature(String prefix) FOR uml::Operation»
-      «EXPAND genParamSignature(true) FOR this»  «prefix»«prefix != "" ? name.toFirstUpper() : name» («EXPAND genParamSignature(false) FOR this»)
+       «IF isVoid()» void «ELSE» «EXPAND genParamSignature(true) FOR this» «ENDIF»  «prefix»«prefix != "" ? name.toFirstUpper() : name» («EXPAND genParamSignature(false) FOR this»)
 «ENDDEFINE»
  
  
-«DEFINE genParamSignature(boolean isret) FOR uml::Operation»
+«DEFINE genParamSignature(boolean isret) FOR uml::Operation»  
+
 «FOREACH ownedParameter.select( a | ( isret ? a.name == "" : a.name != "" ) ) AS a  SEPARATOR ','-»
        «a.type.fqn()-»
       «FOREACH a.eContents().typeSelect(uml::Comment) AS c-»
@@ -838,8 +898,9 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import java.util.List;
 	import java.util.Set;
 	import java.util.Date;
+	«REM»
 	import javax.ws.rs.core.Response;
-	
+	«ENDREM»
 	import com.google.common.base.Objects;
 «ENDDEFINE»
 
