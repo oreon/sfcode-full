@@ -75,7 +75,7 @@ public class «name»TestBase {
 		«IF !isVoid()»
 			//assertTrue(getInstance().«name»(«getParameters()»).equals(true));
 		«ELSE»
-			getInstance().«name»(«getParameters()»)
+			//getInstance().«name»(«getParameters()»);
 		«ENDIF»		
 		}catch(Exception e){
 			fail(" Failed Test test«name.toFirstUpper()» " + e.getMessage());
@@ -86,9 +86,10 @@ public class «name»TestBase {
 
 
 «DEFINE genImports FOR uml::Class»
+	«REM»
 	import javax.persistence.EntityManager;
 	import javax.persistence.Query;
-	
+	«ENDREM»
 	import org.junit.BeforeClass;
 	import org.junit.Test;
 	import static org.junit.Assert.*;
