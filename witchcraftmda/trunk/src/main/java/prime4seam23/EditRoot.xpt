@@ -177,7 +177,7 @@
 			<s:conversationPropagation type="end" />
 		</h:commandButton>  
 		«ELSE»
-		<h:commandButton value="Save" action="#{«getAction()».save«isCurrentTemplateMode()?"Template":"" »}" >
+		<h:commandButton value="Save" action="#{«getAction()».save«isCurrentTemplateMode()?"Template":"" »(true)}" >
 		</h:commandButton>  
 		<h:outputText value=" " /> 
 		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" >
@@ -193,11 +193,11 @@
 		«IF o.hasStereo("UserOperation") »
 			«IF o.hasUI»
 			
-			<h:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)  and  «getAction()».«o.name»Allowed }" 
-				oncomplete="Richfaces.showModalPanel('«o.name»«name.toFirstUpper()»Mdl',{});"  />
+			<p:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance)  and  «getAction()».«o.name»Allowed }" 
+				oncomplete="«o.name»«name.toFirstUpper()»Dialog.show()"  />
 	
 			«ELSE»
-			<h:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance) and  «getAction()».«o.name»Allowed}" 
+			<p:commandButton value="«o.name»"  rendered="#{s:hasPermission('«asVar()»', '«o.name»', «getAction()».instance) and  «getAction()».«o.name»Allowed}" 
 					action="#{«getAction()».«o.name»}" />
 			«ENDIF»
 		«ENDIF»

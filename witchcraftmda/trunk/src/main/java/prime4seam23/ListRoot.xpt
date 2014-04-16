@@ -256,6 +256,7 @@
 
 «DEFINE genAssocValue(String prefix) FOR uml::Property»
 	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
+	<h:panelGroup>
 	<h:link id="«getSimpleId()»" «getEscape()»  value="#{«prefix»«genPropertyLabel()».displayName}"  outcome="«type.getViewFile("view")»" propagation="none">
 			<f:param name="«type.name.toFirstLower()»Id" value="#{«prefix»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
@@ -280,6 +281,7 @@
         </h:form>
        </p:overlayPanel>
     «ENDIF»
+    </h:panelGroup>
 «ENDDEFINE»
 
 
