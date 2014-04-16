@@ -116,13 +116,13 @@ public abstract class ChartProcedureActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('chartProcedure', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('chartProcedure', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('chartProcedure', 'delete')}")
+	@Restrict("#{s:hasPermission('chartProcedure', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

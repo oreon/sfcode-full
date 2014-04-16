@@ -23,36 +23,40 @@
         <h:outputText id="${panelId}remarksAbbr" value="#{chartProcedure.remarksAbbreviated}" escape="false"/> 
       </h:panelGroup>  
       <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewPatient')}"/>  
-      <h:link id="patientchartProcedure_patient" escape="false" value="#{chartProcedure.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{chartProcedure.patient.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/>  
-        <p:tooltip> 
-          <span>#{chartProcedure.patient.popupInfo}</span> 
-        </p:tooltip> 
-      </h:link>  
-      <p:overlayPanel for="patientchartProcedure_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="patient" value="#{chartProcedure.patient}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="patientChartProcedures"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="patientchartProcedure_patient" escape="false" value="#{chartProcedure.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{chartProcedure.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{chartProcedure.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link>  
+        <p:overlayPanel for="patientchartProcedure_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="patient" value="#{chartProcedure.patient}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="patientChartProcedures"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewChartItem')}"/>  
-      <h:link id="chartItemchartProcedure_chartItem" escape="false" value="#{chartProcedure.chartItem.displayName}" outcome="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
-        <f:param name="chartItemId" value="#{chartProcedure.chartItem.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="chartItemchartProcedure_chartItem" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/charts/chartItem/viewChartItemComponent.xhtml"> 
-            <ui:param name="chartItem" value="#{chartProcedure.chartItem}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="chartItem"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="chartItemchartProcedure_chartItem" escape="false" value="#{chartProcedure.chartItem.displayName}" outcome="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
+          <f:param name="chartItemId" value="#{chartProcedure.chartItem.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="chartItemchartProcedure_chartItem" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/charts/chartItem/viewChartItemComponent.xhtml"> 
+              <ui:param name="chartItem" value="#{chartProcedure.chartItem}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="chartItem"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <br/> 

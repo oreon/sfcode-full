@@ -116,13 +116,13 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('bedStay', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('bedStay', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('bedStay', 'delete')}")
+	@Restrict("#{s:hasPermission('bedStay', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

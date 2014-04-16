@@ -104,13 +104,13 @@ public abstract class SectionActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('section', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('section', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('section', 'delete')}")
+	@Restrict("#{s:hasPermission('section', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

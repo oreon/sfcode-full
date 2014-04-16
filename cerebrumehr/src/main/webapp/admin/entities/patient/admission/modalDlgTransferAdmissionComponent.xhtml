@@ -2,8 +2,8 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <c:set var="opId" value="outputPanel-${modalId}"/>  
-  <p:dialog id="${modalId}" resizable="true" header="#{msg.Transfer}" widgetVar="transferDialog"> 
-    <p:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list"></p:messages>  
+  <p:dialog id="${modalId}" resizable="true" header="#{msg.Transfer}" widgetVar="transferAdmissionDialog"> 
+    <p:messages autoUpdate="true"/>  
     <h:form> 
       <!--PROTECTED REGION ID(MDL_RGN_VIEW_TransferAdmission) ENABLED START-->  
       <s:decorate id="bedDecorate" template="/layout/edit.xhtml"> 
@@ -12,10 +12,6 @@
         </ui:define>  
         <h:selectOneMenu id="ward" label="#{msg.room_ward}" value="#{admissionAction.ward}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}" disabled="false"> 
           <s:selectItems value="#{admissionAction.wardList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <p:ajaxValidator event="onsubmit"/>  
-          <p:ajax event="onchange" reRender="roombeds, admitForm" ajaxSingle="false"> 
-            <s:conversationId/> 
-          </p:ajax>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
@@ -25,16 +21,12 @@
         </ui:define>  
         <h:selectOneMenu id="roomType" label="#{msg.room_roomType}" value="#{admissionAction.roomType}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}" disabled="false"> 
           <s:selectItems value="#{roomTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <p:ajaxValidator event="onsubmit"/>  
-          <p:ajax event="onchange" reRender="roombeds, admitForm" action="#{admissionAction.updateSelectedBed}" ajaxSingle="false"> 
-            <s:conversationId/> 
-          </p:ajax>  
           <s:convertEntity/> 
         </h:selectOneMenu> 
       </s:decorate>  
       <p:panel id="roombeds"> 
         <h:selectOneRadio> 
-          <p:simpleTogglePanel switchType="client" label="Preferred Rooms" opened="true"> 
+          <p:panel switchType="client" label="Preferred Rooms" opened="true"> 
             <h:panelGroup> 
               <b> 
                 <h:outputText value="Found #{admissionAction.preferredBedsCount} Beds"/> 
@@ -46,9 +38,9 @@
               </h:selectOneMenu>  
               <hr/> 
             </h:panelGroup> 
-          </p:simpleTogglePanel>  
+          </p:panel>  
           <br/>  
-          <p:simpleTogglePanel switchType="client" label="Non Preferred" opened="true"> 
+          <p:panel switchType="client" label="Non Preferred" opened="true"> 
             <h:outputText value="Found #{admissionAction.nonPreferredBedsCount} Beds"/>  
             <br/>  
             <h:panelGroup> 
@@ -58,7 +50,7 @@
               </h:selectOneMenu>  
               <hr/> 
             </h:panelGroup> 
-          </p:simpleTogglePanel> 
+          </p:panel> 
         </h:selectOneRadio> 
       </p:panel>  
       <!--PROTECTED REGION END-->  

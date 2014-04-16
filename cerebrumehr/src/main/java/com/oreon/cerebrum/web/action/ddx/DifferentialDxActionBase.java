@@ -116,13 +116,13 @@ public abstract class DifferentialDxActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('differentialDx', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('differentialDx', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('differentialDx', 'delete')}")
+	@Restrict("#{s:hasPermission('differentialDx', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -88,13 +88,13 @@ public abstract class TechnicianActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('technician', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('technician', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('technician', 'delete')}")
+	@Restrict("#{s:hasPermission('technician', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

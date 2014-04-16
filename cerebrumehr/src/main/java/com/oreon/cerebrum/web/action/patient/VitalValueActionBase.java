@@ -116,13 +116,13 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('vitalValue', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('vitalValue', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('vitalValue', 'delete')}")
+	@Restrict("#{s:hasPermission('vitalValue', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

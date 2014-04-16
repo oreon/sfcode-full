@@ -20,11 +20,7 @@ public class AppliedChartAction extends AppliedChartActionBase
 	
 	private static final int NUMBER_OF_CHART_ITEMS = 5;
 	
-	@Override
-	public String save() {
-		// TODO Auto-generated method stub
-		return super.save();
-	}
+	
 	
 	@Override
 	protected void postSave() {

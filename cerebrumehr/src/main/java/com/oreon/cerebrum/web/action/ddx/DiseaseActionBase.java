@@ -123,13 +123,13 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('disease', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('disease', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('disease', 'delete')}")
+	@Restrict("#{s:hasPermission('disease', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -86,13 +86,13 @@ public abstract class ClerkActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('clerk', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('clerk', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('clerk', 'delete')}")
+	@Restrict("#{s:hasPermission('clerk', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -84,13 +84,13 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('drugCategory', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('drugCategory', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('drugCategory', 'delete')}")
+	@Restrict("#{s:hasPermission('drugCategory', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

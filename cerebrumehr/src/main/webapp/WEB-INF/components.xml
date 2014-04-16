@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components xmlns="http://jboss.org/schema/seam/components"
-	xmlns:core="http://jboss.org/schema/seam/core" 
-	xmlns:drools="http://jboss.org/schema/seam/drools"
-	xmlns:bpm="http://jboss.org/schema/seam/bpm"
-	xmlns:international="http://jboss.org/schema/seam/international"
+	xmlns:core="http://jboss.org/schema/seam/core" xmlns:drools="http://jboss.org/schema/seam/drools"
+	xmlns:bpm="http://jboss.org/schema/seam/bpm" xmlns:international="http://jboss.org/schema/seam/international"
 	xmlns:security="http://jboss.org/schema/seam/security" xmlns:web="http://jboss.org/schema/seam/web"
 	xmlns:mail="http://jboss.org/schema/seam/mail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
@@ -48,7 +46,7 @@
 			<value>#{'0'}</value>
 		</persistence:parameters>
 	</persistence:filter>
-	
+
 	<persistence:filter name="tenantFilter">
 		<persistence:name>tenantFilterDef</persistence:name>
 		<persistence:parameters>
@@ -70,8 +68,8 @@
 		</persistence:filters>
 
 	</persistence:managed-persistence-context>
-	
-		<mail:mail-session host="smtp.gmail.com" username="neonwc@gmail.com"
+
+	<mail:mail-session host="smtp.gmail.com" username="neonwc@gmail.com"
 		password="witchcraft" ssl="true" port="465" />
 
 	<transaction:entity-transaction
@@ -97,9 +95,10 @@
 	<event type="org.jboss.seam.security.postAuthenticate">
 		<action execute="#{redirect.returnToCapturedView}" />
 	</event>
-	
-	<web:cache-control-filter name="commonTypesCacheControlFilter" regex-url-pattern=".*(\.gif|\.png|\.jpg|\.jpeg|\.css|\.js)" value="max-age=86400"/> <!-- 1 day -->
-	
+
+	<web:cache-control-filter name="commonTypesCacheControlFilter"
+		regex-url-pattern=".*(\.gif|\.png|\.jpg|\.jpeg|\.css|\.js)" value="max-age=86400" /> <!-- 1 day -->
+
 	<!--
 		<bpm:jbpm> <bpm:process-definitions>
 		<value>processes/processdefinition.xml</value>

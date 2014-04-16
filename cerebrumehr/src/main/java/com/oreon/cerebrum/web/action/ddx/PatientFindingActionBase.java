@@ -116,13 +116,13 @@ public abstract class PatientFindingActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('patientFinding', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('patientFinding', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('patientFinding', 'delete')}")
+	@Restrict("#{s:hasPermission('patientFinding', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -102,13 +102,13 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('prescription', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('prescription', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('prescription', 'delete')}")
+	@Restrict("#{s:hasPermission('prescription', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

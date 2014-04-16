@@ -116,13 +116,13 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('reason', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('reason', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('reason', 'delete')}")
+	@Restrict("#{s:hasPermission('reason', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

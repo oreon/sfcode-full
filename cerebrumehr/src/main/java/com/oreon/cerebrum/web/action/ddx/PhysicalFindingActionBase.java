@@ -86,13 +86,13 @@ public abstract class PhysicalFindingActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('physicalFinding', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('physicalFinding', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('physicalFinding', 'delete')}")
+	@Restrict("#{s:hasPermission('physicalFinding', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

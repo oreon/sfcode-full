@@ -366,20 +366,24 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	}
 
 
-
+	/**
+	 * @return
+	 */
 	public String save() {
+		return save(true);
+	}
+	
+
+	public String save(boolean endConversation) {
 		String result =  doSave();
-		//refresh();
-		Conversation.instance().end(true);
+		if(endConversation)
+			Conversation.instance().end(true);
 		return result;
 	}
 	
-	public String saveConversational(){
-		return doSave();
-	}
 	
 	public String saveAndClear(){
-		String result = save();
+		String result = save(true);
 		clearInstance();
 		return result;
 	}
@@ -399,7 +403,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	@End(beforeRedirect = true)
 	public String saveWithoutConversation() {
-		String result = save();
+		String result = save(true);
 		//Conversation.instance().end(true);
 		clearInstance();
 		return result;

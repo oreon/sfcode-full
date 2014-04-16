@@ -33,22 +33,24 @@
           </ui:include> 
         </p:rowExpansion>  
         <p:column headerText="#{msg.patientDiffDx_patient}" sortBy="patientDiffDx.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')) }"> 
-          <h:link id="patientpatientDiffDx_patient" escape="false" value="#{_patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-            <f:param name="patientId" value="#{_patientDiffDx.patient.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/>  
-            <p:tooltip> 
-              <span>#{_patientDiffDx.patient.popupInfo}</span> 
-            </p:tooltip> 
-          </h:link>  
-          <p:overlayPanel for="patientpatientDiffDx_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-                <ui:param name="patient" value="#{_patientDiffDx.patient}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="patient"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="patientpatientDiffDx_patient" escape="false" value="#{_patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+              <f:param name="patientId" value="#{_patientDiffDx.patient.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/>  
+              <p:tooltip> 
+                <span>#{_patientDiffDx.patient.popupInfo}</span> 
+              </p:tooltip> 
+            </h:link>  
+            <p:overlayPanel for="patientpatientDiffDx_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+                  <ui:param name="patient" value="#{_patientDiffDx.patient}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="patient"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.patientDiffDx_notes}" sortBy="patientDiffDx.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')) }"> 
           <h:panelGroup> 

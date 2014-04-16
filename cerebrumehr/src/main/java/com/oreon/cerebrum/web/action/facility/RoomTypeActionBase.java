@@ -84,13 +84,13 @@ public abstract class RoomTypeActionBase extends BaseAction<RoomType>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('roomType', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('roomType', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('roomType', 'delete')}")
+	@Restrict("#{s:hasPermission('roomType', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

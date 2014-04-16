@@ -9,37 +9,41 @@
       </h:link> 
     </p:column>  
     <p:column headerText="#{msg.allergy_patient}" sortBy="allergy.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')) }"> 
-      <h:link id="patientallergy_patient" escape="false" value="#{_allergy.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{_allergy.patient.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/>  
-        <p:tooltip> 
-          <span>#{_allergy.patient.popupInfo}</span> 
-        </p:tooltip> 
-      </h:link>  
-      <p:overlayPanel for="patientallergy_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="patient" value="#{_allergy.patient}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="patientAllergys"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="patientallergy_patient" escape="false" value="#{_allergy.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_allergy.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{_allergy.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link>  
+        <p:overlayPanel for="patientallergy_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="patient" value="#{_allergy.patient}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="patientAllergys"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.allergy_allergen}" sortBy="allergy.allergen" rendered="#{ ! excludeAllergen == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewAllergen')) }"> 
-      <h:link id="allergenallergy_allergen" escape="false" value="#{_allergy.allergen.displayName}" outcome="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
-        <f:param name="allergenId" value="#{_allergy.allergen.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="allergenallergy_allergen" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/patient/allergen/viewAllergenComponent.xhtml"> 
-            <ui:param name="allergen" value="#{_allergy.allergen}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="allergen"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="allergenallergy_allergen" escape="false" value="#{_allergy.allergen.displayName}" outcome="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
+          <f:param name="allergenId" value="#{_allergy.allergen.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="allergenallergy_allergen" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/allergen/viewAllergenComponent.xhtml"> 
+              <ui:param name="allergen" value="#{_allergy.allergen}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="allergen"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.allergy_severity}" sortBy="allergy.severity" rendered="#{ ! excludeSeverity == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewSeverity')) }"> 
       <h:outputText value="#{_allergy.severity}" escape="false"/> 

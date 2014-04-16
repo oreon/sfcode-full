@@ -86,13 +86,13 @@ public abstract class FacilityActionBase extends BaseAction<Facility>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('facility', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('facility', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('facility', 'delete')}")
+	@Restrict("#{s:hasPermission('facility', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

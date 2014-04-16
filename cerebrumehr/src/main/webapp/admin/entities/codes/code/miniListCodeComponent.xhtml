@@ -32,19 +32,21 @@
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.code_section}" sortBy="code.section" rendered="#{ ! excludeSection == true and ( skipPermissionCheck == 'true' || s:hasPermission('code', 'viewSection')) }"> 
-      <h:link id="sectioncode_section" escape="false" value="#{_code.section.displayName}" outcome="/admin/entities/codes/section/viewSection.xhtml" propagation="none"> 
-        <f:param name="sectionId" value="#{_code.section.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="sectioncode_section" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/codes/section/viewSectionComponent.xhtml"> 
-            <ui:param name="section" value="#{_code.section}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="sectionCodes"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="sectioncode_section" escape="false" value="#{_code.section.displayName}" outcome="/admin/entities/codes/section/viewSection.xhtml" propagation="none"> 
+          <f:param name="sectionId" value="#{_code.section.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="sectioncode_section" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/codes/section/viewSectionComponent.xhtml"> 
+              <ui:param name="section" value="#{_code.section}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="sectionCodes"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.code_notCodedHere}" sortBy="code.notCodedHere" rendered="#{ ! excludeNotCodedHere == true and ( skipPermissionCheck == 'true' || s:hasPermission('code', 'viewNotCodedHere')) }"> 
       <h:panelGroup> 

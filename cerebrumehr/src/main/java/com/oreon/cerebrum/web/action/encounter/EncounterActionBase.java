@@ -130,13 +130,13 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('encounter', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('encounter', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('encounter', 'delete')}")
+	@Restrict("#{s:hasPermission('encounter', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

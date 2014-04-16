@@ -102,13 +102,13 @@ public abstract class CodeActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('code', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('code', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('code', 'delete')}")
+	@Restrict("#{s:hasPermission('code', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

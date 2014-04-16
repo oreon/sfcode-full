@@ -84,13 +84,13 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('trackedVital', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('trackedVital', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('trackedVital', 'delete')}")
+	@Restrict("#{s:hasPermission('trackedVital', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

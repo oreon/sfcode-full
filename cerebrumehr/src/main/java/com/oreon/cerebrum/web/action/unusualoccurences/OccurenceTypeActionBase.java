@@ -84,13 +84,13 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('occurenceType', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('occurenceType', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('occurenceType', 'delete')}")
+	@Restrict("#{s:hasPermission('occurenceType', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

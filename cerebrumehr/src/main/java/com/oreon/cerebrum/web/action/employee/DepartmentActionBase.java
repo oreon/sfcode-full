@@ -86,13 +86,13 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('department', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('department', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('department', 'delete')}")
+	@Restrict("#{s:hasPermission('department', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

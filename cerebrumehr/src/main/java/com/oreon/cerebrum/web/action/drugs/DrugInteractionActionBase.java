@@ -117,13 +117,13 @@ public abstract class DrugInteractionActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('drugInteraction', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('drugInteraction', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('drugInteraction', 'delete')}")
+	@Restrict("#{s:hasPermission('drugInteraction', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -15,19 +15,21 @@
       <h:outputText value="#{msg.ward_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewGender')}"/>  
       <h:outputText value="#{ward.gender}" escape="false"/>  
       <h:outputText value="#{msg.ward_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')}"/>  
-      <h:link id="facilityward_facility" escape="false" value="#{ward.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
-        <f:param name="facilityId" value="#{ward.facility.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="facilityward_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
-            <ui:param name="facility" value="#{ward.facility}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="facilityWards"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="facilityward_facility" escape="false" value="#{ward.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+          <f:param name="facilityId" value="#{ward.facility.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="facilityward_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
+              <ui:param name="facility" value="#{ward.facility}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="facilityWards"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeRooms == true}"> 
@@ -36,19 +38,21 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewRoomType')}"/> 
           </f:facet>  
-          <h:link id="roomTyperoom_roomType" escape="false" value="#{_room.roomType.displayName}" outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
-            <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="roomTyperoom_roomType" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/facility/roomType/viewRoomTypeComponent.xhtml"> 
-                <ui:param name="roomType" value="#{_room.roomType}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="roomType"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="roomTyperoom_roomType" escape="false" value="#{_room.roomType.displayName}" outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
+              <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="roomTyperoom_roomType" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/facility/roomType/viewRoomTypeComponent.xhtml"> 
+                  <ui:param name="roomType" value="#{_room.roomType}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="roomType"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 

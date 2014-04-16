@@ -27,33 +27,37 @@
       <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewTitle')}"/>  
       <h:outputText value="#{clerk.title}" escape="false"/>  
       <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewFacility')}"/>  
-      <h:link id="facilityemployee_facility" escape="false" value="#{clerk.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
-        <f:param name="facilityId" value="#{clerk.facility.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="facilityemployee_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
-            <ui:param name="facility" value="#{clerk.facility}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="facility"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="facilityemployee_facility" escape="false" value="#{clerk.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+          <f:param name="facilityId" value="#{clerk.facility.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="facilityemployee_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
+              <ui:param name="facility" value="#{clerk.facility}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="facility"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('clerk', 'viewDepartment')}"/>  
-      <h:link id="departmentemployee_department" escape="false" value="#{clerk.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
-        <f:param name="departmentId" value="#{clerk.department.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
-            <ui:param name="department" value="#{clerk.department}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="departmentEmployees"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="departmentemployee_department" escape="false" value="#{clerk.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{clerk.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+              <ui:param name="department" value="#{clerk.department}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="departmentEmployees"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 

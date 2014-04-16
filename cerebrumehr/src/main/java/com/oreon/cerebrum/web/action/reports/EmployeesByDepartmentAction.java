@@ -11,7 +11,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
-import javax.inject.Named;
+import org.jboss.seam.annotations.Name;
 
 import org.witchcraft.jasperreports.BaseReportAction;
 
@@ -20,7 +20,7 @@ import org.witchcraft.utils.DateUtils;
 
 import com.oreon.cerebrum.ProjectUtils;
 
-@Named
+@Name("employeesByDepartmentAction")
 public class EmployeesByDepartmentAction extends BaseReportAction {
 
 	@SuppressWarnings("unchecked")

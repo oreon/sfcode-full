@@ -116,13 +116,13 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('immunization', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('immunization', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('immunization', 'delete')}")
+	@Restrict("#{s:hasPermission('immunization', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -116,13 +116,13 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('invoiceItem', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('invoiceItem', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('invoiceItem', 'delete')}")
+	@Restrict("#{s:hasPermission('invoiceItem', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

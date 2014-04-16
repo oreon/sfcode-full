@@ -27,33 +27,37 @@
       <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewEmployeeNumber')}"/>  
       <h:outputText value="#{employee.employeeNumber}" escape="false"/>  
       <h:outputText value="#{msg.employee_facility}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewFacility')}"/>  
-      <h:link id="facilityemployee_facility" escape="false" value="#{employee.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
-        <f:param name="facilityId" value="#{employee.facility.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="facilityemployee_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
-            <ui:param name="facility" value="#{employee.facility}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="facility"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="facilityemployee_facility" escape="false" value="#{employee.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
+          <f:param name="facilityId" value="#{employee.facility.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="facilityemployee_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
+              <ui:param name="facility" value="#{employee.facility}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="facility"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewDepartment')}"/>  
-      <h:link id="departmentemployee_department" escape="false" value="#{employee.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
-        <f:param name="departmentId" value="#{employee.department.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
-            <ui:param name="department" value="#{employee.department}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="departmentEmployees"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="departmentemployee_department" escape="false" value="#{employee.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{employee.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+              <ui:param name="department" value="#{employee.department}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="departmentEmployees"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 

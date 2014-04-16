@@ -21,33 +21,37 @@
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText>  
       <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewService')}"/>  
-      <h:link id="serviceinvoiceItem_service" escape="false" value="#{invoiceItem.service.displayName}" outcome="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
-        <f:param name="serviceId" value="#{invoiceItem.service.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="serviceinvoiceItem_service" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/billing/service/viewServiceComponent.xhtml"> 
-            <ui:param name="service" value="#{invoiceItem.service}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="service"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="serviceinvoiceItem_service" escape="false" value="#{invoiceItem.service.displayName}" outcome="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+          <f:param name="serviceId" value="#{invoiceItem.service.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="serviceinvoiceItem_service" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/service/viewServiceComponent.xhtml"> 
+              <ui:param name="service" value="#{invoiceItem.service}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="service"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.invoiceItem_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'viewInvoice')}"/>  
-      <h:link id="invoiceinvoiceItem_invoice" escape="false" value="#{invoiceItem.invoice.displayName}" outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
-        <f:param name="invoiceId" value="#{invoiceItem.invoice.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="invoiceinvoiceItem_invoice" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
-            <ui:param name="invoice" value="#{invoiceItem.invoice}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="invoiceInvoiceItems"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="invoiceinvoiceItem_invoice" escape="false" value="#{invoiceItem.invoice.displayName}" outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+          <f:param name="invoiceId" value="#{invoiceItem.invoice.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="invoiceinvoiceItem_invoice" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
+              <ui:param name="invoice" value="#{invoiceItem.invoice}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="invoiceInvoiceItems"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <br/> 

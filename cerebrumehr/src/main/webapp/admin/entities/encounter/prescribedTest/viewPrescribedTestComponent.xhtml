@@ -13,33 +13,37 @@
       <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}"/>  
       <h:outputText value="#{prescribedTest.remarks}" escape="false"/>  
       <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}"/>  
-      <h:link id="dxTestprescribedTest_dxTest" escape="false" value="#{prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
-        <f:param name="dxTestId" value="#{prescribedTest.dxTest.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="dxTestprescribedTest_dxTest" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
-            <ui:param name="dxTest" value="#{prescribedTest.dxTest}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="dxTest"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="dxTestprescribedTest_dxTest" escape="false" value="#{prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+          <f:param name="dxTestId" value="#{prescribedTest.dxTest.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="dxTestprescribedTest_dxTest" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
+              <ui:param name="dxTest" value="#{prescribedTest.dxTest}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="dxTest"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewEncounter')}"/>  
-      <h:link id="encounterprescribedTest_encounter" escape="false" value="#{prescribedTest.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
-        <f:param name="encounterId" value="#{prescribedTest.encounter.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="encounterprescribedTest_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
-            <ui:param name="encounter" value="#{prescribedTest.encounter}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="encounterPrescribedTests"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="encounterprescribedTest_encounter" escape="false" value="#{prescribedTest.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+          <f:param name="encounterId" value="#{prescribedTest.encounter.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="encounterprescribedTest_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+              <ui:param name="encounter" value="#{prescribedTest.encounter}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="encounterPrescribedTests"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 

@@ -84,13 +84,13 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('dxTest', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('dxTest', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('dxTest', 'delete')}")
+	@Restrict("#{s:hasPermission('dxTest', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

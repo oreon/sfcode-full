@@ -17,50 +17,56 @@
       <h:outputText value="#{msg.encounter_tests}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTests')}"/>  
       <h:outputText value="#{encounter.tests}" escape="false"/>  
       <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescription')}"/>  
-      <h:link id="prescriptionencounter_prescription" escape="false" value="#{encounter.prescription.displayName}" outcome="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
-        <f:param name="prescriptionId" value="#{encounter.prescription.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="prescriptionencounter_prescription" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
-            <ui:param name="prescription" value="#{encounter.prescription}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="prescription"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="prescriptionencounter_prescription" escape="false" value="#{encounter.prescription.displayName}" outcome="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
+          <f:param name="prescriptionId" value="#{encounter.prescription.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="prescriptionencounter_prescription" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
+              <ui:param name="prescription" value="#{encounter.prescription}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="prescription"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.encounter_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatient')}"/>  
-      <h:link id="patientencounter_patient" escape="false" value="#{encounter.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{encounter.patient.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/>  
-        <p:tooltip> 
-          <span>#{encounter.patient.popupInfo}</span> 
-        </p:tooltip> 
-      </h:link>  
-      <p:overlayPanel for="patientencounter_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="patient" value="#{encounter.patient}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="patientEncounters"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="patientencounter_patient" escape="false" value="#{encounter.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{encounter.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{encounter.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link>  
+        <p:overlayPanel for="patientencounter_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="patient" value="#{encounter.patient}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="patientEncounters"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewCreator')}"/>  
-      <h:link id="creatorencounter_creator" escape="false" value="#{encounter.creator.displayName}" outcome="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
-        <f:param name="employeeId" value="#{encounter.creator.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="creatorencounter_creator" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
-            <ui:param name="employee" value="#{encounter.creator}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="creator"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="creatorencounter_creator" escape="false" value="#{encounter.creator.displayName}" outcome="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="employeeId" value="#{encounter.creator.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="creatorencounter_creator" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
+              <ui:param name="employee" value="#{encounter.creator}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="creator"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
@@ -89,19 +95,21 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}"/> 
           </f:facet>  
-          <h:link id="dxTestprescribedTest_dxTest" escape="false" value="#{_prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
-            <f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="dxTestprescribedTest_dxTest" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
-                <ui:param name="dxTest" value="#{_prescribedTest.dxTest}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="dxTest"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="dxTestprescribedTest_dxTest" escape="false" value="#{_prescribedTest.dxTest.displayName}" outcome="/admin/entities/ddx/dxTest/viewDxTest.xhtml" propagation="none"> 
+              <f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="dxTestprescribedTest_dxTest" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/ddx/dxTest/viewDxTestComponent.xhtml"> 
+                  <ui:param name="dxTest" value="#{_prescribedTest.dxTest}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="dxTest"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
@@ -146,19 +154,21 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewCode')}"/> 
           </f:facet>  
-          <h:link id="codereason_code" escape="false" value="#{_reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
-            <f:param name="codeId" value="#{_reason.code.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="codereason_code" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/codes/code/viewCodeComponent.xhtml"> 
-                <ui:param name="code" value="#{_reason.code}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="code"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="codereason_code" escape="false" value="#{_reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
+              <f:param name="codeId" value="#{_reason.code.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="codereason_code" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/codes/code/viewCodeComponent.xhtml"> 
+                  <ui:param name="code" value="#{_reason.code}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="code"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 

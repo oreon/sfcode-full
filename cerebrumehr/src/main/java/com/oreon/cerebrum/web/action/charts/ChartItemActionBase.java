@@ -100,13 +100,13 @@ public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('chartItem', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('chartItem', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('chartItem', 'delete')}")
+	@Restrict("#{s:hasPermission('chartItem', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

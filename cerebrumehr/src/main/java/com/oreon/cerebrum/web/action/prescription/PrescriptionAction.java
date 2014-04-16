@@ -10,6 +10,7 @@ import java.util.Set;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.security.permission.PermissionCheck;
 
 import com.oreon.cerebrum.drugs.Drug;
@@ -32,13 +33,17 @@ public class PrescriptionAction extends PrescriptionActionBase implements java.i
 	
 	PermissionCheck pc;
 	
-	/*
+	
 	@Override
-	@Restrict("#{s:hasPermission('prescription', 'edit'}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('prescription', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 	
+
+	
+	
+	/*
 	@Override
 	@Restrict("#{s:hasPermission('prescription', 'delete'}")
 	public void archiveById() {

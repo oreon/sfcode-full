@@ -19,33 +19,37 @@
         <s:convertDateTime type="date" dateStyle="medium"/> 
       </h:outputText>  
       <h:outputText value="#{msg.bedStay_admission}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewAdmission')}"/>  
-      <h:link id="admissionbedStay_admission" escape="false" value="#{bedStay.admission.displayName}" outcome="/admin/entities/patient/admission/viewAdmission.xhtml" propagation="none"> 
-        <f:param name="admissionId" value="#{bedStay.admission.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="admissionbedStay_admission" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/patient/admission/viewAdmissionComponent.xhtml"> 
-            <ui:param name="admission" value="#{bedStay.admission}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="admissionBedStays"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="admissionbedStay_admission" escape="false" value="#{bedStay.admission.displayName}" outcome="/admin/entities/patient/admission/viewAdmission.xhtml" propagation="none"> 
+          <f:param name="admissionId" value="#{bedStay.admission.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="admissionbedStay_admission" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/admission/viewAdmissionComponent.xhtml"> 
+              <ui:param name="admission" value="#{bedStay.admission}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="admissionBedStays"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.bedStay_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewBed')}"/>  
-      <h:link id="bedbedStay_bed" escape="false" value="#{bedStay.bed.displayName}" outcome="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
-        <f:param name="bedId" value="#{bedStay.bed.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="bedbedStay_bed" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
-            <ui:param name="bed" value="#{bedStay.bed}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="bed"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="bedbedStay_bed" escape="false" value="#{bedStay.bed.displayName}" outcome="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+          <f:param name="bedId" value="#{bedStay.bed.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="bedbedStay_bed" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
+              <ui:param name="bed" value="#{bedStay.bed}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="bed"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <br/> 

@@ -105,13 +105,13 @@ public abstract class NurseActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('nurse', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('nurse', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('nurse', 'delete')}")
+	@Restrict("#{s:hasPermission('nurse', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

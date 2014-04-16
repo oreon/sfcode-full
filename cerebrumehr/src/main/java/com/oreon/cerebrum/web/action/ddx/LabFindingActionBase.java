@@ -86,13 +86,13 @@ public abstract class LabFindingActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('labFinding', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('labFinding', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('labFinding', 'delete')}")
+	@Restrict("#{s:hasPermission('labFinding', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

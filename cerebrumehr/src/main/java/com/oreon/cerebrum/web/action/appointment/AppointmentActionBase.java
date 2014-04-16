@@ -116,13 +116,13 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('appointment', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('appointment', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('appointment', 'delete')}")
+	@Restrict("#{s:hasPermission('appointment', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -102,13 +102,13 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('patientDiffDx', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('patientDiffDx', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('patientDiffDx', 'delete')}")
+	@Restrict("#{s:hasPermission('patientDiffDx', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

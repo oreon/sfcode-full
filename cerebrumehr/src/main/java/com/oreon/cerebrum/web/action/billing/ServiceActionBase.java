@@ -84,13 +84,13 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('service', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('service', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('service', 'delete')}")
+	@Restrict("#{s:hasPermission('service', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
