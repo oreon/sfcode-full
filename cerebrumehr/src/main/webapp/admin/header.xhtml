@@ -24,27 +24,21 @@
 				<h:link outcome="/admin/reports/reports.xhtml" value="Reports" />
 
 				<h:graphicImage value="/images/icons/eye.png" />
-				<h:link outcome="/admin/entities/patient/patient/listPatient.xhtml" value="Patients" />
+				<h:link outcome="/admin/entities/patient/patient/listPatient.xhtml"
+					value="Patients" />
 
-				<h:graphicImage  value="/images/icons/add.png" />
-				<h:link outcome="/admin/entities/appointment/appointment/createAppt.xhtml"
-			value="Appointments" >
-				<s:conversationPropagation type="begin" />
-			</h:link>
+				<h:graphicImage value="/images/icons/add.png" />
+				<h:link
+					outcome="/admin/entities/appointment/appointment/createAppt.xhtml"
+					value="Appointments">
+					<s:conversationPropagation type="begin" />
+				</h:link>
 
-				
 			</p:toolbarGroup>
-
-
+ 	
 			<p:toolbarGroup align="right">
+				<ui:include src="/admin/entities/patient/patient/freeTypeSearchPatientComponentCustom.xhtml" />
 			
-				<h:inputText styleClass="barsearch"
-					value="#{patientList.textToSearch}" required="true" />
-				<h:commandButton styleClass="barsearchbutton"
-					action="#{patientList.textSearch}" value="Search">
-					<s:conversationPropagation type="join"></s:conversationPropagation>
-				</h:commandButton>
-				
 				<s:link action="#{identity.logout}" view="/login.xhtml"
 					value="Logout #{identity.credentials.username}" propagation="none" />
 

@@ -30,34 +30,38 @@
           <h:outputText value="#{_disease.name}" escape="false"/> 
         </p:column>  
         <p:column headerText="#{msg.disease_relatedDisease}" sortBy="disease.relatedDisease" rendered="#{ ! excludeRelatedDisease == true and ( skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewRelatedDisease')) }"> 
-          <h:link id="relatedDiseasedisease_relatedDisease" escape="false" value="#{_disease.relatedDisease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
-            <f:param name="diseaseId" value="#{_disease.relatedDisease.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="relatedDiseasedisease_relatedDisease" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
-                <ui:param name="disease" value="#{_disease.relatedDisease}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="relatedDiseaseDifferentialDiagnoses"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="relatedDiseasedisease_relatedDisease" escape="false" value="#{_disease.relatedDisease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
+              <f:param name="diseaseId" value="#{_disease.relatedDisease.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="relatedDiseasedisease_relatedDisease" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
+                  <ui:param name="disease" value="#{_disease.relatedDisease}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="relatedDiseaseDifferentialDiagnoses"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.disease_conditionCategory}" sortBy="disease.conditionCategory" rendered="#{ ! excludeConditionCategory == true and ( skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewConditionCategory')) }"> 
-          <h:link id="conditionCategorydisease_conditionCategory" escape="false" value="#{_disease.conditionCategory.displayName}" outcome="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" propagation="none"> 
-            <f:param name="conditionCategoryId" value="#{_disease.conditionCategory.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="conditionCategorydisease_conditionCategory" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
-                <ui:param name="conditionCategory" value="#{_disease.conditionCategory}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="conditionCategory"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="conditionCategorydisease_conditionCategory" escape="false" value="#{_disease.conditionCategory.displayName}" outcome="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" propagation="none"> 
+              <f:param name="conditionCategoryId" value="#{_disease.conditionCategory.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="conditionCategorydisease_conditionCategory" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
+                  <ui:param name="conditionCategory" value="#{_disease.conditionCategory}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="conditionCategory"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column headerText="msg.Creation Date" sortBy="disease.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_disease.dateCreated}"> 

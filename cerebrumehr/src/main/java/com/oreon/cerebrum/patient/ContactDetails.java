@@ -15,6 +15,7 @@ import java.util.Date;
 import javax.ws.rs.core.Response;
 
 import javax.persistence.*;
+
 import org.hibernate.validator.*;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -34,6 +35,7 @@ import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Boost;
+import org.hibernate.search.annotations.Fields;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
@@ -64,8 +66,20 @@ import org.witchcraft.base.entity.BaseEntity;
 import com.oreon.cerebrum.ProjectUtils;
 
 @Embeddable
+@Indexed
 public class ContactDetails extends ContactDetailsBase
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = 243784283L;
+	
+	
+	
+	@Override
+	@Fields( {
+			@Field(index = Index.YES),
+			@Field(index = Index.YES, name = "phone:ngrams", analyzer = @Analyzer(definition = "ngrams")) })
+	public String getPrimaryPhone() {
+		
+		return super.getPrimaryPhone();
+	}
 }

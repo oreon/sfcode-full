@@ -18,22 +18,24 @@
       </ui:include> 
     </p:rowExpansion>  
     <p:column headerText="#{msg.invoice_patient}" sortBy="invoice.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')) }"> 
-      <h:link id="patientinvoice_patient" escape="false" value="#{_invoice.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{_invoice.patient.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/>  
-        <p:tooltip> 
-          <span>#{_invoice.patient.popupInfo}</span> 
-        </p:tooltip> 
-      </h:link>  
-      <p:overlayPanel for="patientinvoice_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="patient" value="#{_invoice.patient}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="patient"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="patientinvoice_patient" escape="false" value="#{_invoice.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_invoice.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{_invoice.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link>  
+        <p:overlayPanel for="patientinvoice_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="patient" value="#{_invoice.patient}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="patient"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.invoice_notes}" sortBy="invoice.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewNotes')) }"> 
       <h:outputText value="#{_invoice.notes}" escape="false"/> 

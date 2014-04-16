@@ -116,13 +116,13 @@ public abstract class AppliedChartActionBase extends BaseAction<AppliedChart>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('appliedChart', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('appliedChart', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('appliedChart', 'delete')}")
+	@Restrict("#{s:hasPermission('appliedChart', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

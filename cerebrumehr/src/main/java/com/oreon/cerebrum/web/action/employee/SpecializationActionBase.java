@@ -84,13 +84,13 @@ public abstract class SpecializationActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('specialization', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('specialization', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('specialization', 'delete')}")
+	@Restrict("#{s:hasPermission('specialization', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

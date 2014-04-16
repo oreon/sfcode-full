@@ -9,19 +9,21 @@
       </h:link> 
     </p:column>  
     <p:column headerText="#{msg.differential_encounter}" sortBy="differential.encounter" rendered="#{ ! excludeEncounter == true and ( skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewEncounter')) }"> 
-      <h:link id="encounterdifferential_encounter" escape="false" value="#{_differential.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
-        <f:param name="encounterId" value="#{_differential.encounter.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="encounterdifferential_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
-            <ui:param name="encounter" value="#{_differential.encounter}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="encounterDifferentials"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="encounterdifferential_encounter" escape="false" value="#{_differential.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+          <f:param name="encounterId" value="#{_differential.encounter.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="encounterdifferential_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+              <ui:param name="encounter" value="#{_differential.encounter}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="encounterDifferentials"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.differential_remarks}" sortBy="differential.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewRemarks')) }"> 
       <h:outputText value="#{_differential.remarks}" escape="false"/> 

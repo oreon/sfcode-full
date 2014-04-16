@@ -118,13 +118,13 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('atcDrug', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('atcDrug', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('atcDrug', 'delete')}")
+	@Restrict("#{s:hasPermission('atcDrug', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -102,13 +102,13 @@ public abstract class WardActionBase extends BaseAction<Ward>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('ward', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('ward', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('ward', 'delete')}")
+	@Restrict("#{s:hasPermission('ward', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

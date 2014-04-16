@@ -86,13 +86,13 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('finding', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('finding', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('finding', 'delete')}")
+	@Restrict("#{s:hasPermission('finding', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -100,13 +100,13 @@ public abstract class ConditionFindingActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('conditionFinding', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('conditionFinding', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('conditionFinding', 'delete')}")
+	@Restrict("#{s:hasPermission('conditionFinding', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

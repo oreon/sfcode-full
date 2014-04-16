@@ -84,13 +84,13 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('appUser', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('appUser', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('appUser', 'delete')}")
+	@Restrict("#{s:hasPermission('appUser', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

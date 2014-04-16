@@ -13,19 +13,21 @@
       <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewRemarks')}"/>  
       <h:outputText value="#{differential.remarks}" escape="false"/>  
       <h:outputText value="#{msg.differential_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewEncounter')}"/>  
-      <h:link id="encounterdifferential_encounter" escape="false" value="#{differential.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
-        <f:param name="encounterId" value="#{differential.encounter.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="encounterdifferential_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
-            <ui:param name="encounter" value="#{differential.encounter}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="encounterDifferentials"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="encounterdifferential_encounter" escape="false" value="#{differential.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+          <f:param name="encounterId" value="#{differential.encounter.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="encounterdifferential_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+              <ui:param name="encounter" value="#{differential.encounter}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="encounterDifferentials"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <br/> 

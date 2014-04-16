@@ -69,7 +69,7 @@ public class AppointmentAction extends AppointmentActionBase implements
 	}
 
 	public void addEvent(ActionEvent actionEvent) {
-		save();
+		save(true);
 		if (event.getId() == null)
 			eventModel.addEvent(event);
 		else
@@ -108,9 +108,9 @@ public class AppointmentAction extends AppointmentActionBase implements
 
 	@Override
 	@Begin(join = true)
-	public String saveConversational() {
-		// instance.setStart(event.getStartDate());
-
+	public String save(boolean endConv) {
+		
+	
 		System.out.println("current conersation end "
 				+ Conversation.instance().getId());
 
@@ -124,7 +124,7 @@ public class AppointmentAction extends AppointmentActionBase implements
 		if (!isNew())
 			eventModel.updateEvent(event);
 
-		return super.saveConversational();
+		return super.save(endConv);
 	}
 
 	@Override

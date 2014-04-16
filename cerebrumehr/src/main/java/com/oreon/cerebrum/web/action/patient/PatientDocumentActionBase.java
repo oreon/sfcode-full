@@ -100,13 +100,13 @@ public abstract class PatientDocumentActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('patientDocument', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('patientDocument', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('patientDocument', 'delete')}")
+	@Restrict("#{s:hasPermission('patientDocument', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

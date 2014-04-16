@@ -22,19 +22,21 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewDxCategory')}"/> 
           </f:facet>  
-          <h:link id="dxCategorydifferentialDx_dxCategory" escape="false" value="#{_differentialDx.dxCategory.displayName}" outcome="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
-            <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="dxCategorydifferentialDx_dxCategory" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/ddx/dxCategory/viewDxCategoryComponent.xhtml"> 
-                <ui:param name="dxCategory" value="#{_differentialDx.dxCategory}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="dxCategory"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="dxCategorydifferentialDx_dxCategory" escape="false" value="#{_differentialDx.dxCategory.displayName}" outcome="/admin/entities/ddx/dxCategory/viewDxCategory.xhtml" propagation="none"> 
+              <f:param name="dxCategoryId" value="#{_differentialDx.dxCategory.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="dxCategorydifferentialDx_dxCategory" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/ddx/dxCategory/viewDxCategoryComponent.xhtml"> 
+                  <ui:param name="dxCategory" value="#{_differentialDx.dxCategory}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="dxCategory"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 

@@ -116,13 +116,13 @@ public abstract class UnusualOccurenceActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('unusualOccurence', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('unusualOccurence', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('unusualOccurence', 'delete')}")
+	@Restrict("#{s:hasPermission('unusualOccurence', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

@@ -84,13 +84,13 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('dxCategory', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('dxCategory', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('dxCategory', 'delete')}")
+	@Restrict("#{s:hasPermission('dxCategory', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

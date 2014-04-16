@@ -13,36 +13,40 @@
       <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewSeverity')}"/>  
       <h:outputText value="#{allergy.severity}" escape="false"/>  
       <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')}"/>  
-      <h:link id="patientallergy_patient" escape="false" value="#{allergy.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{allergy.patient.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/>  
-        <p:tooltip> 
-          <span>#{allergy.patient.popupInfo}</span> 
-        </p:tooltip> 
-      </h:link>  
-      <p:overlayPanel for="patientallergy_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="patient" value="#{allergy.patient}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="patientAllergys"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="patientallergy_patient" escape="false" value="#{allergy.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{allergy.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{allergy.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link>  
+        <p:overlayPanel for="patientallergy_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="patient" value="#{allergy.patient}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="patientAllergys"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.allergy_allergen}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewAllergen')}"/>  
-      <h:link id="allergenallergy_allergen" escape="false" value="#{allergy.allergen.displayName}" outcome="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
-        <f:param name="allergenId" value="#{allergy.allergen.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="allergenallergy_allergen" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/patient/allergen/viewAllergenComponent.xhtml"> 
-            <ui:param name="allergen" value="#{allergy.allergen}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="allergen"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="allergenallergy_allergen" escape="false" value="#{allergy.allergen.displayName}" outcome="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
+          <f:param name="allergenId" value="#{allergy.allergen.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="allergenallergy_allergen" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/allergen/viewAllergenComponent.xhtml"> 
+              <ui:param name="allergen" value="#{allergy.allergen}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="allergen"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <br/> 

@@ -118,13 +118,13 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('admission', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('admission', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('admission', 'delete')}")
+	@Restrict("#{s:hasPermission('admission', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

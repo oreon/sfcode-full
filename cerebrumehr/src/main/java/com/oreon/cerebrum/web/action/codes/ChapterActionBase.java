@@ -88,13 +88,13 @@ public abstract class ChapterActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('chapter', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('chapter', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('chapter', 'delete')}")
+	@Restrict("#{s:hasPermission('chapter', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

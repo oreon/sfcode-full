@@ -24,28 +24,32 @@
       <h:outputText value="#{_atcDrug.name}" escape="false"/> 
     </p:column>  
     <p:column headerText="#{msg.atcDrug_drug}" sortBy="atcDrug.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')) }"> 
-      <h:link id="drugatcDrug_drug" escape="false" value="#{_atcDrug.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
-        <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/>  
-        <p:tooltip> 
-          <span>#{_atcDrug.drug.popupInfo}</span> 
-        </p:tooltip> 
-      </h:link> 
+      <h:panelGroup> 
+        <h:link id="drugatcDrug_drug" escape="false" value="#{_atcDrug.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{_atcDrug.drug.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
+      </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.atcDrug_parent}" sortBy="atcDrug.parent" rendered="#{ ! excludeParent == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')) }"> 
-      <h:link id="parentatcDrug_parent" escape="false" value="#{_atcDrug.parent.displayName}" outcome="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
-        <f:param name="atcDrugId" value="#{_atcDrug.parent.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="parentatcDrug_parent" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
-            <ui:param name="atcDrug" value="#{_atcDrug.parent}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="parentSubcategories"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="parentatcDrug_parent" escape="false" value="#{_atcDrug.parent.displayName}" outcome="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
+          <f:param name="atcDrugId" value="#{_atcDrug.parent.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="parentatcDrug_parent" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
+              <ui:param name="atcDrug" value="#{_atcDrug.parent}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="parentSubcategories"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </p:column> 
   </p:dataTable> 
 </ui:composition>

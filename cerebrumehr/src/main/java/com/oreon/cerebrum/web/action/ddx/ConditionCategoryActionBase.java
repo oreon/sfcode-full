@@ -84,13 +84,13 @@ public abstract class ConditionCategoryActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('conditionCategory', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('conditionCategory', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('conditionCategory', 'delete')}")
+	@Restrict("#{s:hasPermission('conditionCategory', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

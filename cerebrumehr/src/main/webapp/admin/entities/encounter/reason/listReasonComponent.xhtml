@@ -24,34 +24,38 @@
           </h:link> 
         </p:column>  
         <p:column headerText="#{msg.reason_encounter}" sortBy="reason.encounter" rendered="#{ ! excludeEncounter == true and ( skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewEncounter')) }"> 
-          <h:link id="encounterreason_encounter" escape="false" value="#{_reason.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
-            <f:param name="encounterId" value="#{_reason.encounter.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="encounterreason_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
-                <ui:param name="encounter" value="#{_reason.encounter}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="encounterReasons"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="encounterreason_encounter" escape="false" value="#{_reason.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
+              <f:param name="encounterId" value="#{_reason.encounter.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="encounterreason_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+                  <ui:param name="encounter" value="#{_reason.encounter}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="encounterReasons"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.reason_code}" sortBy="reason.code" rendered="#{ ! excludeCode == true and ( skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewCode')) }"> 
-          <h:link id="codereason_code" escape="false" value="#{_reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
-            <f:param name="codeId" value="#{_reason.code.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="codereason_code" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/codes/code/viewCodeComponent.xhtml"> 
-                <ui:param name="code" value="#{_reason.code}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="code"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="codereason_code" escape="false" value="#{_reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
+              <f:param name="codeId" value="#{_reason.code.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="codereason_code" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/codes/code/viewCodeComponent.xhtml"> 
+                  <ui:param name="code" value="#{_reason.code}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="code"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.reason_remarks}" sortBy="reason.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewRemarks')) }"> 
           <h:outputText value="#{_reason.remarks}" escape="false"/> 

@@ -28,10 +28,41 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.Component;
 
+import com.oreon.cerebrum.patient.Admission;
+
 @Name("admissionList")
 @Scope(ScopeType.CONVERSATION)
 public class AdmissionListQuery extends AdmissionListQueryBase
 		implements
 			java.io.Serializable {
+	
+	
+	public LazyDataModel<Admission> getCurrentAdmissions() {
+
+		EntityLazyDataModel<Admission, Long> admissionLazyDataModel = new EntityLazyDataModel<Admission, Long>(
+				this) {
+
+			@Override
+			public List<Admission> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+
+				getDischargeDateRange().setEnd(new Date());
+				List<Admission> result =  super.load(first, pageSize, sortField, sortOrder,
+						filters);
+				
+				
+				getDischargeDateRange().setEnd(null);
+				return result;
+				
+			}
+		};
+
+		return admissionLazyDataModel;
+
+	}
+	
+	
+	
 
 }

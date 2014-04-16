@@ -86,13 +86,13 @@ public abstract class PrescriptionTemplateActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('prescriptionTemplate', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('prescriptionTemplate', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('prescriptionTemplate', 'delete')}")
+	@Restrict("#{s:hasPermission('prescriptionTemplate', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

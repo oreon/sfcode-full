@@ -13,19 +13,21 @@
       <h:outputText value="#{msg.conditionFinding_falsePositive}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewFalsePositive')}"/>  
       <h:outputText value="#{conditionFinding.falsePositive? msg.yes : msg.no }"/>  
       <h:outputText value="#{msg.conditionFinding_disease}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'viewDisease')}"/>  
-      <h:link id="diseaseconditionFinding_disease" escape="false" value="#{conditionFinding.disease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
-        <f:param name="diseaseId" value="#{conditionFinding.disease.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="diseaseconditionFinding_disease" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
-            <ui:param name="disease" value="#{conditionFinding.disease}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="disease"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="diseaseconditionFinding_disease" escape="false" value="#{conditionFinding.disease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
+          <f:param name="diseaseId" value="#{conditionFinding.disease.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="diseaseconditionFinding_disease" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
+              <ui:param name="disease" value="#{conditionFinding.disease}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="disease"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <br/> 

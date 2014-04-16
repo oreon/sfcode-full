@@ -84,13 +84,13 @@ public abstract class AllergenActionBase extends BaseAction<Allergen>
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('allergen', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('allergen', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('allergen', 'delete')}")
+	@Restrict("#{s:hasPermission('allergen', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

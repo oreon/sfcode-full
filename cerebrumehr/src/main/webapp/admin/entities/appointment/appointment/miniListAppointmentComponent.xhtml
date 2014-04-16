@@ -19,37 +19,41 @@
       </h:outputText> 
     </p:column>  
     <p:column headerText="#{msg.appointment_physician}" sortBy="appointment.physician" rendered="#{ ! excludePhysician == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewPhysician')) }"> 
-      <h:link id="physicianappointment_physician" escape="false" value="#{_appointment.physician.displayName}" outcome="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
-        <f:param name="physicianId" value="#{_appointment.physician.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="physicianappointment_physician" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/employee/physician/viewPhysicianComponent.xhtml"> 
-            <ui:param name="physician" value="#{_appointment.physician}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="physician"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="physicianappointment_physician" escape="false" value="#{_appointment.physician.displayName}" outcome="/admin/entities/employee/physician/viewPhysician.xhtml" propagation="none"> 
+          <f:param name="physicianId" value="#{_appointment.physician.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="physicianappointment_physician" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/employee/physician/viewPhysicianComponent.xhtml"> 
+              <ui:param name="physician" value="#{_appointment.physician}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="physician"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.appointment_patient}" sortBy="appointment.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewPatient')) }"> 
-      <h:link id="patientappointment_patient" escape="false" value="#{_appointment.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-        <f:param name="patientId" value="#{_appointment.patient.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/>  
-        <p:tooltip> 
-          <span>#{_appointment.patient.popupInfo}</span> 
-        </p:tooltip> 
-      </h:link>  
-      <p:overlayPanel for="patientappointment_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="patient" value="#{_appointment.patient}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="patient"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="patientappointment_patient" escape="false" value="#{_appointment.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{_appointment.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{_appointment.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link>  
+        <p:overlayPanel for="patientappointment_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+              <ui:param name="patient" value="#{_appointment.patient}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="patient"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.appointment_remarks}" sortBy="appointment.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('appointment', 'viewRemarks')) }"> 
       <h:panelGroup> 

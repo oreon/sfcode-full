@@ -116,13 +116,13 @@ public abstract class PrescribedTestActionBase
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('prescribedTest', 'edit')}")
-	public String doSave() {
-		return super.doSave();
+	@Restrict("#{s:hasPermission('prescribedTest', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
 	}
 
 	@Override
-	//@Restrict("#{s:hasPermission('prescribedTest', 'delete')}")
+	@Restrict("#{s:hasPermission('prescribedTest', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}

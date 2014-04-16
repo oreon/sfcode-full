@@ -13,33 +13,37 @@
       <h:outputText value="#{msg.room_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewName')}"/>  
       <h:outputText value="#{room.name}" escape="false"/>  
       <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewRoomType')}"/>  
-      <h:link id="roomTyperoom_roomType" escape="false" value="#{room.roomType.displayName}" outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
-        <f:param name="roomTypeId" value="#{room.roomType.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="roomTyperoom_roomType" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/facility/roomType/viewRoomTypeComponent.xhtml"> 
-            <ui:param name="roomType" value="#{room.roomType}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="roomType"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel>  
+      <h:panelGroup> 
+        <h:link id="roomTyperoom_roomType" escape="false" value="#{room.roomType.displayName}" outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
+          <f:param name="roomTypeId" value="#{room.roomType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="roomTyperoom_roomType" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/roomType/viewRoomTypeComponent.xhtml"> 
+              <ui:param name="roomType" value="#{room.roomType}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="roomType"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup>  
       <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewWard')}"/>  
-      <h:link id="wardroom_ward" escape="false" value="#{room.ward.displayName}" outcome="/admin/entities/facility/ward/viewWard.xhtml" propagation="none"> 
-        <f:param name="wardId" value="#{room.ward.id}"/>  
-        <f:param name="from" value="#{request.servletPath}"/> 
-      </h:link>  
-      <p:overlayPanel for="wardroom_ward" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-        <h:form> 
-          <ui:include src="/admin/entities/facility/ward/viewWardComponent.xhtml"> 
-            <ui:param name="ward" value="#{room.ward}"/>  
-            <ui:param name="numColumns" value="4"/>  
-            <ui:param name="panelId" value="wardRooms"/> 
-          </ui:include> 
-        </h:form> 
-      </p:overlayPanel> 
+      <h:panelGroup> 
+        <h:link id="wardroom_ward" escape="false" value="#{room.ward.displayName}" outcome="/admin/entities/facility/ward/viewWard.xhtml" propagation="none"> 
+          <f:param name="wardId" value="#{room.ward.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="wardroom_ward" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/ward/viewWardComponent.xhtml"> 
+              <ui:param name="ward" value="#{room.ward}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="wardRooms"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeBeds == true}"> 
@@ -48,22 +52,24 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.bed_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewPatient')}"/> 
           </f:facet>  
-          <h:link id="patientbed_patient" escape="false" value="#{_bed.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-            <f:param name="patientId" value="#{_bed.patient.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/>  
-            <p:tooltip> 
-              <span>#{_bed.patient.popupInfo}</span> 
-            </p:tooltip> 
-          </h:link>  
-          <p:overlayPanel for="patientbed_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-                <ui:param name="patient" value="#{_bed.patient}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="patient"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          <h:panelGroup> 
+            <h:link id="patientbed_patient" escape="false" value="#{_bed.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+              <f:param name="patientId" value="#{_bed.patient.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/>  
+              <p:tooltip> 
+                <span>#{_bed.patient.popupInfo}</span> 
+              </p:tooltip> 
+            </h:link>  
+            <p:overlayPanel for="patientbed_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+                  <ui:param name="patient" value="#{_bed.patient}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="patient"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 

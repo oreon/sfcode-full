@@ -22,17 +22,17 @@ public class FacilityAction extends FacilityActionBase implements java.io.Serial
 	
 	
 	public String register(){
-		save();
+		save(true);
 		instance.setTenant(instance.getId());
 		//need to do another save to update facility tenant
-		save();
+		save(true);
 		userUtilAction.setCurrentFacility(instance);
 		//physicianAction.getInstance().setTenant(getInstance().getId());
 		physicianAction.getInstance().setFacility(getInstance());
 		
 		physicianAction.getInstance().getAppUser().setEnabled(true);
 		
-		physicianAction.save();
+		physicianAction.save(true);
 		
 		return "success";
 	}
