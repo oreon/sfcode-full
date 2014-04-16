@@ -14,18 +14,15 @@
 
   <c:set var="opId" value="outputPanel-${modalId}"/>  
 
-	<p:dialog id="${modalId}" resizable="true"  header="#{msg.«op.name.toFirstUpper()»}"  widgetVar="«op.name»Dialog">
+	<p:dialog id="${modalId}" resizable="true"  header="#{msg.«op.name.toFirstUpper()»}"  widgetVar="«op.name»«name.toFirstUpper()»Dialog">
 			
-		
-			<p:messages passedLabel=""
-				style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" >
-			</p:messages>
+			<p:messages autoUpdate="true" />
 		
 			<h:form>
 			
-			 «PROTECT CSTART '<!--' CEND '-->' ID  'MDL_RGN_VIEW_' + op.name.toFirstUpper() + name»
+			«PROTECT CSTART '<!--' CEND '-->' ID  'MDL_RGN_VIEW_' + op.name.toFirstUpper() + name»
 
-					«ENDPROTECT»	
+			«ENDPROTECT»	
 			
 			«REM»comment
 					 «FOREACH op.ownedParameter AS e-» 

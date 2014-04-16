@@ -169,14 +169,17 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	}
 	
 	
-	@Override
-	//@Restrict("#{s:hasPermission('«asVar()»', 'edit')}")
-	public String doSave() {
-		return super.doSave();
-	}
 	
 	@Override
-	//@Restrict("#{s:hasPermission('«asVar()»', 'delete')}")
+	@Restrict("#{s:hasPermission('«asVar()»', 'edit')}")
+	public String save(boolean endconv) {
+		return super.save(endconv);
+	}
+	
+
+	
+	@Override
+	@Restrict("#{s:hasPermission('«asVar()»', 'delete')}")
 	public void archiveById() {
 		super.archiveById();
 	}
