@@ -171,6 +171,7 @@ import org.hibernate.annotations.FilterDefs;
 			import org.witchcraft.exceptions.ContractViolationException;
 			import com.google.common.base.Strings;
 			import org.apache.log4j.Logger;
+			import com.google.common.base.Preconditions;
 			«REM»import org.witchcraft.dbc.AssertContractCondition;«ENDREM»
 			
 			
@@ -218,27 +219,30 @@ import org.hibernate.annotations.FilterDefs;
 «DEFINE genWrappedOperation FOR uml::Operation»
       /**
        * «EXPAND genDocumentation »
-       «FOREACH ownedParameter AS e-»
-       		«IF e.name != null && e.name != ""» @param «e.name»  «e.type.name» «e.getDocumentation()» «ENDIF»
+       «FOREACH ownedParameter.select( e | !e.isReturn() ) AS e-»
+       * @param «e.name»  «e.type.name» «e.getDocumentation()» 
        *«ENDFOREACH»
        * @return «type.name»
        */
       //@Restrict("#{s:hasPermission('«class.name»','«name»')}")
       «visibility»  «EXPAND methodSignature("") FOR this»{
-      		logger.info("staring «name»");
-     
-            StringBuilder exceptionMessages = new StringBuilder();
-           
-            «EXPAND applyConstaints FOREACH ownedParameter»
-                             
-            if(!Strings.isNullOrEmpty(exceptionMessages.toString())){
-                  throw new ContractViolationException(exceptionMessages.toString());
-            }
-            
-            «IF type != null» «EXPAND genParamSignature(true) FOR this» result = «ENDIF» do«name.toFirstUpper()»(«getParameters()»);
+      		
+      		try {
+      		 «FOREACH ownedParameter.select( e | !e.isReturn() ) AS e-»
+				Preconditions.checkNotNull(«e.name», "«e.name» cannot be null");
+			 «ENDFOREACH»
+			} catch (NullPointerException npe) {
+				throw new IllegalArgumentException(npe.getMessage());
+			}
+      		 
+			«EXPAND applyConstaints FOREACH ownedParameter.select( e | !e.isReturn() )»
+			
+     		logger.info("starting «name» " );
+	                
+            «IF !isVoid()» «EXPAND genParamSignature(true) FOR this» result = «ENDIF» do«name.toFirstUpper()»(«getParameters()»);
            
            logger.info("finished «name»");
-            «IF type != null» return  result ;«ENDIF» 
+           «IF !isVoid()» return  result ;«ENDIF» 
       }
      
       /**
@@ -583,7 +587,7 @@ import org.hibernate.annotations.FilterDefs;
 
 
 
-«DEFINE methodSignature(String prefix) FOR uml::Operation»
+«DEFINE methodSignature(String prefix) FOR uml::Operation-»
        «IF isVoid()» void «ELSE» «EXPAND genParamSignature(true) FOR this» «ENDIF»  «prefix»«prefix != "" ? name.toFirstUpper() : name» («EXPAND genParamSignature(false) FOR this»)
 «ENDDEFINE»
  
@@ -601,14 +605,12 @@ import org.hibernate.annotations.FilterDefs;
 
 «DEFINE applyConstaints FOR uml::Parameter»
 	«IF getAllConstraints().size > 0»
-	try{
+	
 	«FOREACH getAllConstraints() AS c»
-		AssertContractCondition.enforce(«c.specification.body.get(0).replaceAll(":self",name) »,
-			"«c.errorMessage != null ? c.errorMessage.replaceAll(":self",name) : "Invalid " + name»");
+		Preconditions.checkArgument(«c.specification.body.get(0).replaceAll(":self",name) »,
+			"«c.errorMessage != null ? c.errorMessage.replaceAll(":self",name) : "Invalid " + name»  %s ", «name»);
 	«ENDFOREACH»
-	}catch(ContractViolationException cve){
-			exceptionMessages.append(cve.getMessage() + ";");
-	}
+	
 	«ENDIF»
 «ENDDEFINE»
 
