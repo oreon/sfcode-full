@@ -45,7 +45,7 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 				.importFrom(new File("target/primeseam.war"))
 				.as(WebArchive.class);
 		
-		web.addClasses(AuthenticatorTest.class);						
+		web.addClasses(AuthenticatorTest.class);	      					
 		// Replacing the SeamListener with MockSeamListener		
 		web.setWebXML(new File("src/main/webapp/WEB-INF/web-mock.xml"));
 	
