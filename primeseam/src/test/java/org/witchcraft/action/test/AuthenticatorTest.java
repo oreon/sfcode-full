@@ -42,12 +42,14 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 	public static Archive<?> createDeployment()
 	{
 		WebArchive web = ShrinkWrap.create(ZipImporter.class)
-				.importFrom(new File("../primeseam/target/primeseam.war"))
+				.importFrom(new File("target/primeseam.war"))
 				.as(WebArchive.class);
 		
 		web.addClasses(AuthenticatorTest.class);						
 		// Replacing the SeamListener with MockSeamListener		
-		web.addAsWebInfResource("WEB-INF/web.xml", "web.xml");
+		web.setWebXML(new File("src/main/webapp/WEB-INF/web-mock.xml"));
+	
+		//web.addAsWebInfResource("WEB-INF/web.xml", "web-mock.xml");
 		
 		return web;
 	}
