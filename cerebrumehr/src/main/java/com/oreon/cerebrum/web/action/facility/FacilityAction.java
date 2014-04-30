@@ -3,10 +3,13 @@
 package com.oreon.cerebrum.web.action.facility;
 	
 
+import java.util.List;
+
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.UserUtilAction;
 
+import com.oreon.cerebrum.employee.Physician;
 import com.oreon.cerebrum.web.action.employee.PhysicianAction;
 
 	
@@ -35,6 +38,16 @@ public class FacilityAction extends FacilityActionBase implements java.io.Serial
 		physicianAction.save(true);
 		
 		return "success";
+	}
+	
+	
+	/**
+	 * All physicians for this facility
+	 * @return
+	 */
+	public List<Physician> getAllPhysicians(){
+		String qry = " Select p from Physician p where p.facility =  ? ";
+		return executeQuery(qry, userUtilAction.getCurrentFacility());
 	}
 	
 }

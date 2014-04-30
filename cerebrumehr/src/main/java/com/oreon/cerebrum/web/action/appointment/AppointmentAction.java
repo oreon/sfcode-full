@@ -26,6 +26,7 @@ import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
 import com.oreon.cerebrum.appointment.Appointment;
+import com.oreon.cerebrum.employee.Physician;
 
 @Scope(ScopeType.SESSION)
 @Name("appointmentAction")
@@ -33,6 +34,8 @@ public class AppointmentAction extends AppointmentActionBase implements
 		java.io.Serializable {
 
 	private ScheduleModel eventModel;
+	
+	private Physician currentPhysician;
 
 	private ScheduleEvent event = new DefaultScheduleEvent();
 
@@ -44,12 +47,15 @@ public class AppointmentAction extends AppointmentActionBase implements
 		return eventModel;
 	}
 
-	private void updateEvents() {
+	public void updateEvents() {
 		eventModel = new DefaultScheduleModel();
 		AppointmentListQuery appointmentListQuery = (AppointmentListQuery) Component
 				.getInstance("appointmentList");
 
-		List<Appointment> appts = appointmentListQuery.getAll();
+		if(currentPhysician == null)
+			return;
+		List<Appointment> appts = appointmentListQuery.getAppointmentsByPhysician(currentPhysician);
+		
 		for (Appointment appointment : appts) {
 			addAppointmentToSchedule(appointment, null);
 		}
@@ -117,6 +123,8 @@ public class AppointmentAction extends AppointmentActionBase implements
 		DateTime dtEnd = new DateTime(getInstance().getStart());
 		dtEnd = dtEnd.plusMinutes(30 * instance.getUnits());
 		instance.setEnd(dtEnd.toDate());
+		
+		instance.setPhysician(getCurrentPhysician());
 
 		((DefaultScheduleEvent) event).setEndDate(getInstance().getEnd());
 
@@ -162,6 +170,14 @@ public class AppointmentAction extends AppointmentActionBase implements
 
 	private void addMessage(FacesMessage message) {
 		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+
+	public void setCurrentPhysician(Physician currentPhysician) {
+		this.currentPhysician = currentPhysician;
+	}
+
+	public Physician getCurrentPhysician() {
+		return currentPhysician;
 	}
 
 }
