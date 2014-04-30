@@ -146,7 +146,7 @@ public abstract class EmployeeBase extends com.oreon.cerebrum.patient.Person {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return super.getDisplayName();
+			return lastName != null ? lastName + ", " + firstName : "";
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

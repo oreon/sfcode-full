@@ -43,7 +43,7 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 	@OverProtocol("Servlet 3.0")
 	public static Archive<?> createDeployment()
 	{
-		WebArchive web = ShrinkWrap.create(ZipImporter.class).importFrom(new File("../newrich/target/newrich.war")).as(WebArchive.class);
+		WebArchive web = ShrinkWrap.create(ZipImporter.class).importFrom(new File("../cerebrumehr/target/cerebrumehr.war")).as(WebArchive.class);
 		//WebArchive web =  ShrinkWrap.create(ZipImporter.class).importFrom(new File("../registration-ear/target/seam-registration.ear")).as(EnterpriseArchive.class);  //er.getAsType(WebArchive.class, "newrich.war");
 		web.addClasses(AuthenticatorTest.class);
 						
