@@ -63,7 +63,7 @@
 			 «PROTECT CSTART '<!--' CEND '-->' ID  'EDITABLE_RGN_VIEW_' + package.name + "_" + (isCurrentTemplateMode()?"Template_":"") + name»
 
 			«ENDPROTECT»	
-			<p:tabView switchType="ajax">
+			<p:tabView  dynamic="true" cache="true">
 				<p:tab title="«name»">
 					<div id="printable" >
 					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" >
@@ -88,7 +88,7 @@
 		</h:form>
 		<br/>
 			
-			<p:tabView  switchType="client" >
+			<p:tabView   dynamic="true" cache="true" >
 			«FOREACH getNonComposedManyAssociations() AS a»
 			<p:tab title="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
 				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
@@ -117,7 +117,7 @@
 			</p:tabView>
 		<br/>
 		
-		<p:tabView switchType="client">
+		<p:tabView  dynamic="true" cache="true">
 			<p:tab title="Notes">
 				<wc:comments backingAction="#{«getAction()»}"/>
 			</p:tab>
