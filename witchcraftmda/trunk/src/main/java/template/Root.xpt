@@ -168,7 +168,7 @@ import org.hibernate.annotations.FilterDefs;
 			package « packageName() »;
 			«EXPAND genImports FOR this»
 			//import org.jboss.seam.annotations.security.Restrict;
-			import org.witchcraft.exceptions.ContractViolationException;
+			//import org.witchcraft.exceptions.ContractViolationException;
 			import com.google.common.base.Strings;
 			import org.apache.log4j.Logger;
 			import com.google.common.base.Preconditions;
@@ -225,36 +225,49 @@ import org.hibernate.annotations.FilterDefs;
        * @return «type.name»
        */
       //@Restrict("#{s:hasPermission('«class.name»','«name»')}")
-      «visibility»  «EXPAND methodSignature("") FOR this»{
+      «visibility»  «EXPAND methodSignature("") FOR this-» {
       		
-      		try {
-      		 «FOREACH ownedParameter.select( e | !e.isReturn() ) AS e-»
-				Preconditions.checkNotNull(«e.name», "«e.name» cannot be null");
-			 «ENDFOREACH»
-			} catch (NullPointerException npe) {
-				throw new IllegalArgumentException(npe.getMessage());
-			}
+      		«IF ! ( ownedParameter.select( e | !e.isReturn() ).size == 0 )»
+	      		«EXPAND applyNonNullCheck FOR this»
+			«ENDIF»
       		 
 			«EXPAND applyConstaints FOREACH ownedParameter.select( e | !e.isReturn() )»
 			
-     		logger.info("starting «name» " );
+     		logger.info("starting «name» ......"  «IF ownedParameter.select( e | !e.isReturn() ).size > 0 » +  «ENDIF»
+     			«FOREACH ownedParameter.select( e | !e.isReturn() ) AS e  SEPARATOR '+" "+' -» «e.type.name == "List" ? e.name + ".size()  + \" entries\" ": e.name» «ENDFOREACH»  );
 	                
             «IF !isVoid()» «EXPAND genParamSignature(true) FOR this» result = «ENDIF» do«name.toFirstUpper()»(«getParameters()»);
            
-           logger.info("finished «name»");
-           «IF !isVoid()» return  result ;«ENDIF» 
+           logger.info("finished «name» ....." «IF !isVoid()» + " returning - " + result«type.name == "List" ?  ".size()  + \" entries \" ": ""» «ENDIF»);
+           «IF !isVoid()» return  result  ; «ENDIF» 
       }
      
       /**
        * «ownedComment.body»
        */
       «IF readPropertyDef("generateAbstractMethods","true") == "true"»
-       	protected  abstract «EXPAND methodSignature("do") FOR this»;
+       	protected  abstract «EXPAND methodSignature("do") FOR this»  ;
       «ELSE»
       	protected «EXPAND methodSignature("do") FOR this»{
            «IF type != null» return null; «ENDIF»
       	}
       «ENDIF»
+«ENDDEFINE»
+
+«DEFINE genExceptions FOR uml::Operation-»
+	«IF raisedException.size > 0 -» throws «ENDIF» «FOREACH raisedException AS e SEPARATOR ',' » «e.fqn()-» «ENDFOREACH»
+«ENDDEFINE»
+	
+
+
+«DEFINE applyNonNullCheck FOR uml::Operation»
+	try {
+  		«FOREACH ownedParameter.select( e | !e.isReturn() ) AS e-»
+			Preconditions.checkNotNull(«e.name», "«e.name» cannot be null");
+	 	«ENDFOREACH»
+	} catch (NullPointerException npe) {
+		throw new IllegalArgumentException(npe.getMessage());
+	}
 «ENDDEFINE»
 
 
@@ -588,17 +601,14 @@ import org.hibernate.annotations.FilterDefs;
 
 
 «DEFINE methodSignature(String prefix) FOR uml::Operation-»
-       «IF isVoid()» void «ELSE» «EXPAND genParamSignature(true) FOR this» «ENDIF»  «prefix»«prefix != "" ? name.toFirstUpper() : name» («EXPAND genParamSignature(false) FOR this»)
+       «IF isVoid()-» void «ELSE-» «EXPAND genParamSignature(true) FOR this» «ENDIF»  «prefix»«prefix != "" ? name.toFirstUpper() : name-» («EXPAND genParamSignature(false) FOR this-»)«EXPAND genExceptions FOR this»
 «ENDDEFINE»
  
  
-«DEFINE genParamSignature(boolean isret) FOR uml::Operation»  
-
+«DEFINE genParamSignature(boolean isret) FOR uml::Operation-»  
 «FOREACH ownedParameter.select( a | ( isret ? a.name == "" : a.name != "" ) ) AS a  SEPARATOR ','-»
-       «a.type.fqn()-»
-      «FOREACH a.eContents().typeSelect(uml::Comment) AS c-»
-            <«FOREACH c.annotatedElement AS e SEPARATOR ','-»«e.fqn()-»«ENDFOREACH-»>
-      «ENDFOREACH-»
+       «a.type.fqn()-» «REM» TODO - find a mechanism for generalizing many «ENDREM»
+      «FOREACH a.eContents().typeSelect(uml::Comment) AS c-»<«FOREACH c.annotatedElement AS e SEPARATOR ','-»«e.fqn()-»«ENDFOREACH-»> «ENDFOREACH-»
       «a.name-»
 «ENDFOREACH-»
 «ENDDEFINE»
