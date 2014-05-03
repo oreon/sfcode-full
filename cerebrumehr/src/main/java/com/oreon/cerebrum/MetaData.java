@@ -32,6 +32,8 @@ public class MetaData {
 
 	"reasonsCount", "java.lang.Integer",
 
+	"simpleCodesCount", "java.lang.Integer",
+
 	},
 
 	{"com.oreon.cerebrum.encounter.PrescribedTest",
@@ -763,6 +765,14 @@ public class MetaData {
 	"chapter.displayName", "java.lang.String",
 
 	"codesCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.codes.SimpleCode",
+
+	"name", "java.lang.String",
+
+	"encountersCount", "java.lang.Integer",
 
 	},
 

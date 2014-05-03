@@ -11,7 +11,7 @@
     <h:commandButton value="Search" action="#{patientList.textSearch}"> 
       <s:conversationPropagation type="join"/> 
     </h:commandButton>  
-    <p:tabView switchType="client"> 
+    <p:tabView dynamic="true" cache="true"> 
       <p:tab header="Search Results"> 
         <ui:repeat var="_var" value="#{patientList.entityList}"> 
           <s:link value="${_var.displayName}" action="#{patientAction.viewPatient}"> 

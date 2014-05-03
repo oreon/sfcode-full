@@ -191,6 +191,25 @@ public class EncounterBase extends BaseEntity {
 		return reasons.size();
 	}
 
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "encounters_simpleCodes", joinColumns = @JoinColumn(name = "encounters_ID"), inverseJoinColumns = @JoinColumn(name = "simpleCodes_ID"))
+	private Set<com.oreon.cerebrum.codes.SimpleCode> simpleCodes = new HashSet<com.oreon.cerebrum.codes.SimpleCode>();
+
+	public void addSimpleCode(com.oreon.cerebrum.codes.SimpleCode simpleCode) {
+
+		this.simpleCodes.add(simpleCode);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.codes.SimpleCode> getListSimpleCodes() {
+		return new ArrayList<com.oreon.cerebrum.codes.SimpleCode>(simpleCodes);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getSimpleCodesCount() {
+		return simpleCodes.size();
+	}
+
 	public void setPatientNote(String patientNote) {
 		this.patientNote = patientNote;
 	}
@@ -282,6 +301,15 @@ public class EncounterBase extends BaseEntity {
 
 	public Set<Reason> getReasons() {
 		return reasons;
+	}
+
+	public void setSimpleCodes(
+			Set<com.oreon.cerebrum.codes.SimpleCode> simpleCodes) {
+		this.simpleCodes = simpleCodes;
+	}
+
+	public Set<com.oreon.cerebrum.codes.SimpleCode> getSimpleCodes() {
+		return simpleCodes;
 	}
 
 	@Transient

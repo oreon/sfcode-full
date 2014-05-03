@@ -5,7 +5,7 @@
     <h:form> 
       <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_employee_Department) ENABLED START-->  
       <!--PROTECTED REGION END-->  
-      <p:tabView switchType="ajax"> 
+      <p:tabView dynamic="true" cache="true"> 
         <p:tab title="Department"> 
           <div id="printable"> 
             <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
@@ -24,7 +24,7 @@
       <div class="buttonBox"></div> 
     </h:form>  
     <br/>  
-    <p:tabView switchType="client"> 
+    <p:tabView dynamic="true" cache="true"> 
       <p:tab title="Employees" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="DepartmentModalPanel-employees"/>  
         <ui:include src="/admin/entities/employee/employee/listEmployeeComponent.xhtml"> 
@@ -44,7 +44,7 @@
       </p:tab> 
     </p:tabView>  
     <br/>  
-    <p:tabView switchType="client"> 
+    <p:tabView dynamic="true" cache="true"> 
       <p:tab title="Notes"> 
         <wc:comments backingAction="#{departmentAction}"/> 
       </p:tab> 

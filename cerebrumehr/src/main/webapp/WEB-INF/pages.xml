@@ -732,6 +732,18 @@
         <end-conversation/>  
         <redirect view-id="/admin/entities/codes/section/editSection.xhtml"/> 
       </rule>  
+      <rule if-outcome="simpleCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/simpleCode/listSimpleCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewSimpleCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/simpleCode/viewSimpleCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editSimpleCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/simpleCode/editSimpleCode.xhtml"/> 
+      </rule>  
       <rule if-outcome="appliedChart"> 
         <end-conversation/>  
         <redirect view-id="/admin/entities/charts/appliedChart/listAppliedChart.xhtml"/> 
@@ -4108,6 +4120,59 @@
     <param name="description" value="#{sectionList.section.description}" validateModel="false"/>  
     <param name="chapterId" value="#{sectionList.chapterId}" validateModel="false"/> 
   </page>  
+  <page view-id="/admin/entities/codes/simpleCode/editSimpleCode.xhtml"> 
+    <!-- <description>Edit SimpleCode: #{simpleCode.displayName}</description> -->  
+    <restrict>#{s:hasPermission('simpleCode', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/simpleCode/viewSimpleCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/simpleCode/listSimpleCode.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="simpleCodeId" value="#{simpleCodeAction.simpleCodeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/simpleCode/viewSimpleCode.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View SimpleCode: #{simpleCode.displayName}</description> -->  
+    <restrict>#{s:hasPermission('simpleCode', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/simpleCode/editSimpleCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/simpleCode/listSimpleCode.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="simpleCodeId" value="#{simpleCodeAction.simpleCodeId}"/> 
+  </page>  
+  <page view-id="/admin/entities/codes/simpleCode/listSimpleCode.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('simpleCode', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewSimpleCode"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/simpleCode/viewSimpleCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/codes/simpleCode/editSimpleCode.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/codes/simpleCode/textSearchResultsSimpleCode.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{simpleCodeList.firstResult}"/>  
+    <param name="sort" value="#{simpleCodeList.orderColumn}"/>  
+    <param name="dir" value="#{simpleCodeList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{simpleCodeList.simpleCode.id}"/>  
+    <param name="name" value="#{simpleCodeList.simpleCode.name}" validateModel="false"/> 
+  </page>  
   <page view-id="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"> 
     <!-- <description>Edit AppliedChart: #{appliedChart.displayName}</description> -->  
     <restrict>#{s:hasPermission('appliedChart', 'edit')}</restrict>  
@@ -4334,6 +4399,11 @@
     <param name="remarks" value="#{chartProcedureList.chartProcedure.remarks}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
+  <exception class="org.witchcraft.exceptions.BusinessException"> 
+    <redirect> 
+      <message severity="warn">#{org.jboss.seam.handledException.message}</message> 
+    </redirect> 
+  </exception>  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 
     <redirect view-id="/error.xhtml"> 
       <message severity="warn">Record not found</message> 
