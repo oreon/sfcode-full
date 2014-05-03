@@ -6,6 +6,7 @@ import wcprofile;
 
 extension org::openarchitectureware::uml2::profile::profiling;
 extension template::GeneratorExtensions;
+extension template::webExtensions;
 
 //Associations - e.g for a customer it will return all orders
 getNonComposedManyAssociations(Entity entity):
@@ -16,6 +17,10 @@ entity.getAllAttributes().select(a|a.association != null && a.opposite.isMultiva
 
 getLeadingManyToMany(Class entity):
 entity.getAllAttributes().select(a|a.isLeadingManyToMany());
+
+isLeadingManyToManyAutoComplete(Property a):
+a.isLeadingManyToMany()  && a.isAutoComplete();
+
 
 isLeadingManyToMany(Property a):
 a.association != null && a.opposite != null && a.opposite.isMultivalued() && a.isMultivalued() && a.isAggregate();

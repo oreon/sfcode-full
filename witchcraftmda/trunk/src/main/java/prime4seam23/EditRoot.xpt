@@ -267,12 +267,19 @@
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
 	<br/>
 	«IF isCurrentEditMode()»
-	<p:panel toggleable="true" header="«msgBundleKey()»" switchType="client"  id="«name»">
-	     
-	     <p:pickList value="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" var="member"
-    	 	itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{«type.name.toFirstLower()»List.converter}"/>
-	     
-    </p:panel>
+		«IF  isLeadingManyToManyAutoComplete()»
+			<p:autoComplete minQueryLength="2" 
+				completeMethod="#{«type.name.toFirstLower()»List.searchDataBaseForAutocomplete}"
+				value="#{«class.getAction()».list«name.toFirstUpper()»}" converter="#{«type.name.toFirstLower()»List.converter}"
+				var="record" itemLabel="#{record.displayName}" itemValue="#{record}"   multiple="true">
+				<p:column>#{record.displayName}</p:column>
+			</p:autoComplete>
+		«ELSE»
+		<p:panel toggleable="true" header="«msgBundleKey()»" switchType="client"  id="«name»">     
+		     <p:pickList value="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" var="member"
+	    	 	itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{«type.name.toFirstLower()»List.converter}"/>
+	    </p:panel>
+	    «ENDIF»
 	«ELSE»
 	<p:panel toggleable="true" header="«msgBundleKey()»" switchType="client"  >
         <p:dataTable value="#{«class.getAction()».list«name.toFirstUpper()»}" var="item" >
