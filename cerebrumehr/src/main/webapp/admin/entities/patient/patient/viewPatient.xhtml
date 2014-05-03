@@ -5,7 +5,7 @@
     <h:form> 
       <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_patient_Patient) ENABLED START-->  
       <!--PROTECTED REGION END-->  
-      <p:tabView switchType="ajax"> 
+      <p:tabView dynamic="true" cache="true"> 
         <p:tab title="Patient"> 
           <div id="printable"> 
             <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
@@ -24,7 +24,7 @@
       <div class="buttonBox"></div> 
     </h:form>  
     <br/>  
-    <p:tabView switchType="client"> 
+    <p:tabView dynamic="true" cache="true"> 
       <p:tab title="Admissions" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-admissions"/>  
         <ui:include src="/admin/entities/patient/admission/listAdmissionComponent.xhtml"> 
@@ -197,7 +197,7 @@
       </p:tab> 
     </p:tabView>  
     <br/>  
-    <p:tabView switchType="client"> 
+    <p:tabView dynamic="true" cache="true"> 
       <p:tab title="Notes"> 
         <wc:comments backingAction="#{patientAction}"/> 
       </p:tab> 

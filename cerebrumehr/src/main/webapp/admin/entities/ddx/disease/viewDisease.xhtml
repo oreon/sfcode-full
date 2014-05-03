@@ -5,7 +5,7 @@
     <h:form> 
       <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_ddx_Disease) ENABLED START-->  
       <!--PROTECTED REGION END-->  
-      <p:tabView switchType="ajax"> 
+      <p:tabView dynamic="true" cache="true"> 
         <p:tab title="Disease"> 
           <div id="printable"> 
             <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
@@ -40,7 +40,7 @@
       <div class="buttonBox"></div> 
     </h:form>  
     <br/>  
-    <p:tabView switchType="client"> 
+    <p:tabView dynamic="true" cache="true"> 
       <p:tab title="DifferentialDiagnoses" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="DiseaseModalPanel-differentialDiagnoses"/>  
         <ui:include src="/admin/entities/ddx/disease/listDiseaseComponent.xhtml"> 
@@ -60,7 +60,7 @@
       </p:tab> 
     </p:tabView>  
     <br/>  
-    <p:tabView switchType="client"> 
+    <p:tabView dynamic="true" cache="true"> 
       <p:tab title="Notes"> 
         <wc:comments backingAction="#{diseaseAction}"/> 
       </p:tab> 

@@ -3,9 +3,16 @@
 package com.oreon.cerebrum.web.action.encounter;
 	
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.security.Identity;
+import org.witchcraft.base.entity.UserUtilAction;
 
+import com.oreon.cerebrum.codes.SimpleCode;
 import com.oreon.cerebrum.web.action.employee.PhysicianAction;
 
 	
@@ -15,6 +22,11 @@ public class EncounterAction extends EncounterActionBase implements java.io.Seri
 	
 	@In(create=true)
 	PhysicianAction physicianAction;
+	
+	@In(create=true)
+	UserUtilAction userUtilAction;
+	
+	private List<SimpleCode> selectedSimpleCodes = new ArrayList<SimpleCode>();
 	
 	public EncounterAction(){
 		super();
@@ -28,8 +40,9 @@ public class EncounterAction extends EncounterActionBase implements java.io.Seri
 	
 	@Override
 	public String save(boolean endConversation) {
-		//instance.setCreator(physicianAction.getCurrentLoggedInEmployee());
+		instance.setCreator(userUtilAction.getCurrentLoggedInEmployee());
 		
+		/*
 		prescriptionAction.getInstance().setPatient(instance.getPatient());
 		prescriptionAction.save();
 		
@@ -37,8 +50,19 @@ public class EncounterAction extends EncounterActionBase implements java.io.Seri
 		patientAction.save(endConversation);
 		
 		instance.setPrescription(prescriptionAction.getInstance());
+		*/
 		
+		 
+		//getInstance().setCreatedByUser(userUtilAction.getCurrentUser());
 		return super.save(endConversation);
+	}
+
+	public void setSelectedSimpleCodes(List<SimpleCode> selectedSimpleCodes) {
+		this.selectedSimpleCodes = selectedSimpleCodes;
+	}
+
+	public List<SimpleCode> getSelectedSimpleCodes() {
+		return selectedSimpleCodes;
 	}
 	
 }

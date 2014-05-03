@@ -241,6 +241,9 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 		initListReasons();
 
+		initListSimpleCodes();
+		initListAvailableSimpleCodes();
+
 		addDefaultAssociations();
 	}
 
@@ -365,6 +368,61 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 	}
 
+	protected List<com.oreon.cerebrum.codes.SimpleCode> listSimpleCodes = new ArrayList<com.oreon.cerebrum.codes.SimpleCode>();
+
+	void initListSimpleCodes() {
+
+		if (listSimpleCodes.isEmpty())
+			listSimpleCodes.addAll(getInstance().getSimpleCodes());
+
+	}
+
+	public List<com.oreon.cerebrum.codes.SimpleCode> getListSimpleCodes() {
+
+		prePopulateListSimpleCodes();
+		return listSimpleCodes;
+	}
+
+	public void prePopulateListSimpleCodes() {
+	}
+
+	public void setListSimpleCodes(
+			List<com.oreon.cerebrum.codes.SimpleCode> listSimpleCodes) {
+		this.listSimpleCodes = listSimpleCodes;
+	}
+
+	protected DualListModel<com.oreon.cerebrum.codes.SimpleCode> listAvailableSimpleCodes;
+
+	void initListAvailableSimpleCodes() {
+
+		List<com.oreon.cerebrum.codes.SimpleCode> availablesimpleCodes = ((com.oreon.cerebrum.web.action.codes.SimpleCodeListQuery) Component
+				.getInstance("simpleCodeList")).getAll();
+
+		List<com.oreon.cerebrum.codes.SimpleCode> currentSimpleCodes = getInstance()
+				.getListSimpleCodes();
+
+		if (availablesimpleCodes == null)
+			availablesimpleCodes = new ArrayList<com.oreon.cerebrum.codes.SimpleCode>();
+
+		if (getEntity() != null)
+			availablesimpleCodes.removeAll(getEntity().getSimpleCodes());
+
+		listAvailableSimpleCodes = new DualListModel<com.oreon.cerebrum.codes.SimpleCode>(
+				availablesimpleCodes, currentSimpleCodes);
+	}
+
+	public DualListModel<com.oreon.cerebrum.codes.SimpleCode> getListAvailableSimpleCodes() {
+		if (listAvailableSimpleCodes == null)
+			initListAvailableSimpleCodes();
+
+		return listAvailableSimpleCodes;
+	}
+
+	public void setListAvailableSimpleCodes(
+			DualListModel<com.oreon.cerebrum.codes.SimpleCode> listAvailableSimpleCodes) {
+		this.listAvailableSimpleCodes = listAvailableSimpleCodes;
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listPrescribedTests != null) {
@@ -416,12 +474,21 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 			getInstance().getReasons().clear();
 			getInstance().getReasons().addAll(listReasons);
 		}
+
+		if (listAvailableSimpleCodes != null) {
+			getInstance().getSimpleCodes().clear();
+			getInstance().getSimpleCodes().addAll(
+					listAvailableSimpleCodes.getTarget());
+		}
+
 	}
 
 	public void clearLists() {
 		listPrescribedTests.clear();
 		listDifferentials.clear();
 		listReasons.clear();
+
+		listSimpleCodes.clear();
 
 	}
 

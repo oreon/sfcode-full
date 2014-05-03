@@ -7,11 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.jboss.seam.annotations.Name;
+import org.primefaces.event.SelectEvent;
 
 import com.oreon.cerebrum.charts.AppliedChart;
 import com.oreon.cerebrum.charts.ChartProcedure;
 import com.oreon.cerebrum.encounter.Encounter;
+import com.oreon.cerebrum.patient.Patient;
 import com.oreon.cerebrum.patient.TrackedVital;
 import com.oreon.cerebrum.patient.VitalValue;
 
@@ -25,6 +30,12 @@ public class PatientAction extends PatientActionBase implements
 	public PatientAction() {
 		// TODO Auto-generated constructor stub
 
+	}
+	
+	public void handlePatientSelect(SelectEvent se){
+		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected patient " + se.getObject().toString(), null);
+		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+		setInstance((Patient) se.getObject());
 	}
 
 	/**

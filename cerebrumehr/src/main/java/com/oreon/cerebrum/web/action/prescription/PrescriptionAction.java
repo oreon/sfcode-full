@@ -6,11 +6,14 @@ import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
-import org.jboss.seam.Component;
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.security.permission.PermissionCheck;
+import org.witchcraft.exceptions.BusinessException;
 
 import com.oreon.cerebrum.drugs.Drug;
 import com.oreon.cerebrum.drugs.DrugInteraction;
@@ -40,6 +43,8 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 	@Restrict("#{s:hasPermission('prescription', 'edit')}")
 	public String save(boolean endconv) {
 		if (getInstance().getPatient() == null) {
+			if(patientAction.getInstance() == null || patientAction.getInstance().getId() == null)
+				throw new BusinessException("Must Select a patient");
 			getInstance().setPatient(patientAction.getInstance());
 		}
 		return super.save(endconv);
@@ -103,7 +108,10 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 		return interactions;
 	}
 
+	@Begin(join = true)
 	public void loadDrugsFromTemplate() {
+		
+		System.out.println("Current " + org.jboss.seam.core.Conversation.instance().getId());
 
 		if (currentPrescriptionTemplate == null)
 			return;
@@ -137,10 +145,15 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 	}
 
 	private boolean containsDrug(Drug drug) {
-		System.out.println(" drug " + drug.getName());
 		for (PrescriptionItem prescriptionItem : listPrescriptionItems) {
-			if (prescriptionItem == null)
+			
+			
+			
+			if (prescriptionItem == null || prescriptionItem.getDrug() == null  || prescriptionItem.getDrug().getName() == null)
 				continue;
+			
+			System.out.println(" drug " + drug.getName() + " " + prescriptionItem.getDrug().getName());
+			
 
 			if (prescriptionItem.getDrug().getName().equals(drug.getName())) {
 				System.out.println("found drug " + drug.getName());

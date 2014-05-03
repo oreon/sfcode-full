@@ -60,6 +60,17 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 		return EJBQL;
 	}
 
+	private com.oreon.cerebrum.codes.SimpleCode simpleCodesToSearch;
+
+	public void setSimpleCodesToSearch(
+			com.oreon.cerebrum.codes.SimpleCode simpleCodeToSearch) {
+		this.simpleCodesToSearch = simpleCodeToSearch;
+	}
+
+	public com.oreon.cerebrum.codes.SimpleCode getSimpleCodesToSearch() {
+		return simpleCodesToSearch;
+	}
+
 	@Override
 	public Encounter getInstance() {
 		return getEncounter();
@@ -154,6 +165,8 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 			"encounter.patient.id = #{encounterList.encounter.patient.id}",
 
 			"encounter.creator.id = #{encounterList.encounter.creator.id}",
+
+			"#{encounterList.simpleCodesToSearch} in elements(encounter.simpleCodes)",
 
 			"encounter.dateCreated <= #{encounterList.dateCreatedRange.end}",
 			"encounter.dateCreated >= #{encounterList.dateCreatedRange.begin}",};
