@@ -438,10 +438,16 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 «DEFINE updateListManyToMany FOR uml::Property»
 	«IF isPrimeSeam2()»
 		
-	  if (listAvailable«name.toFirstUpper()» != null) {
+	  «IF isLeadingManyToManyAutoComplete()»
+	  	getInstance().get«name.toFirstUpper()»().clear();
+		getInstance().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
+	  «ELSE»
+	  	if (listAvailable«name.toFirstUpper()» != null) {
 		getInstance().get«name.toFirstUpper()»().clear();
 		getInstance().get«name.toFirstUpper()»().addAll(listAvailable«name.toFirstUpper()».getTarget());
-	}
+	   }
+	  «ENDIF»
+	  
 	«ELSE»
 	«REM»todo for jsf 2 and jsf 1.2 with richfacse«ENDREM»
 	if (list«name.toFirstUpper()» != null) {
