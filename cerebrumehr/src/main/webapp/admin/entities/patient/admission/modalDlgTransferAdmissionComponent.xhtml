@@ -6,53 +6,7 @@
     <p:messages autoUpdate="true"/>  
     <h:form> 
       <!--PROTECTED REGION ID(MDL_RGN_VIEW_TransferAdmission) ENABLED START-->  
-      <s:decorate id="bedDecorate" template="/layout/edit.xhtml"> 
-        <ui:define name="label"> 
-          <h:outputText value="#{msg.room_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}"/> 
-        </ui:define>  
-        <h:selectOneMenu id="ward" label="#{msg.room_ward}" value="#{admissionAction.ward}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'wardEdit')}" disabled="false"> 
-          <s:selectItems value="#{admissionAction.wardList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
-      </s:decorate>  
-      <s:decorate id="roomTypeDecorate" template="/layout/edit.xhtml"> 
-        <ui:define name="label"> 
-          <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"/> 
-        </ui:define>  
-        <h:selectOneMenu id="roomType" label="#{msg.room_roomType}" value="#{admissionAction.roomType}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}" disabled="false"> 
-          <s:selectItems value="#{roomTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu> 
-      </s:decorate>  
-      <p:panel id="roombeds"> 
-        <h:selectOneRadio> 
-          <p:panel switchType="client" label="Preferred Rooms" opened="true"> 
-            <h:panelGroup> 
-              <b> 
-                <h:outputText value="Found #{admissionAction.preferredBedsCount} Beds"/> 
-              </b>  
-              <br/>  
-              <h:selectOneMenu label="#{msg.bedStay_bed}" id="pref" value="#{admissionAction.preferredBed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}" disabled="false"> 
-                <s:selectItems value="#{admissionAction.prefferedBeds}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-                <s:convertEntity/> 
-              </h:selectOneMenu>  
-              <hr/> 
-            </h:panelGroup> 
-          </p:panel>  
-          <br/>  
-          <p:panel switchType="client" label="Non Preferred" opened="true"> 
-            <h:outputText value="Found #{admissionAction.nonPreferredBedsCount} Beds"/>  
-            <br/>  
-            <h:panelGroup> 
-              <h:selectOneMenu label="#{msg.bedStay_bed}" id="nonpref" value="#{admissionAction.nonPreferredBed}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'bedEdit')}" disabled="false"> 
-                <s:selectItems value="#{admissionAction.nonPreferredBedsList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-                <s:convertEntity/> 
-              </h:selectOneMenu>  
-              <hr/> 
-            </h:panelGroup> 
-          </p:panel> 
-        </h:selectOneRadio> 
-      </p:panel>  
+      <ui:include src="editAdmissionComponentCustom.xhtml"/>  
       <!--PROTECTED REGION END-->  
       <h:commandButton action="#{admissionAction.transfer}" styleClass="button" value="Save"> 
         <f:param name="conversationPropagation" value="end"/> 

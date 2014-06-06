@@ -23,16 +23,14 @@
         <p:tab title="Finding" rendered="#{patientFindingAction.instance.finding != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/ddx/finding/viewFindingComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="findingId" value="#{patientFindingAction.instance.finding.id}"/> 
+              <ui:param name="finding" value="#{patientFindingAction.instance.finding}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="PatientDiffDx" rendered="#{patientFindingAction.instance.patientDiffDx != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/ddx/patientDiffDx/viewPatientDiffDxComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="patientDiffDxId" value="#{patientFindingAction.instance.patientDiffDx.id}"/> 
+              <ui:param name="patientDiffDx" value="#{patientFindingAction.instance.patientDiffDx}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

@@ -86,8 +86,6 @@ public abstract class ReasonListQueryBase extends BaseQuery<Reason, Long> {
 
 			"reason.archived = #{reasonList.reason.archived}",
 
-			"reason.encounter.id = #{reasonList.reason.encounter.id}",
-
 			"reason.code.id = #{reasonList.reason.code.id}",
 
 			"lower(reason.remarks) like concat(lower(#{reasonList.reason.remarks}),'%')",
@@ -95,41 +93,9 @@ public abstract class ReasonListQueryBase extends BaseQuery<Reason, Long> {
 			"reason.dateCreated <= #{reasonList.dateCreatedRange.end}",
 			"reason.dateCreated >= #{reasonList.dateCreatedRange.begin}",};
 
-	public LazyDataModel<Reason> getReasonsByEncounter(
-			final com.oreon.cerebrum.encounter.Encounter encounter) {
-
-		EntityLazyDataModel<Reason, Long> reasonLazyDataModel = new EntityLazyDataModel<Reason, Long>(
-				this) {
-
-			@Override
-			public List<Reason> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, String> filters) {
-
-				reason.setEncounter(encounter);
-				return super.load(first, pageSize, sortField, sortOrder,
-						filters);
-			}
-		};
-
-		return reasonLazyDataModel;
-
-	}
-
 	@Observer("archivedReason")
 	public void onArchive() {
 		refresh();
-	}
-
-	public void setEncounterId(Long id) {
-		if (reason.getEncounter() == null) {
-			reason.setEncounter(new com.oreon.cerebrum.encounter.Encounter());
-		}
-		reason.getEncounter().setId(id);
-	}
-
-	public Long getEncounterId() {
-		return reason.getEncounter() == null ? null : reason.getEncounter()
-				.getId();
 	}
 
 	public void setCodeId(Long id) {

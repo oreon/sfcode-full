@@ -107,6 +107,18 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 			"chartItem.dateCreated <= #{chartItemList.dateCreatedRange.end}",
 			"chartItem.dateCreated >= #{chartItemList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all ChartItems for the given Chart
+	 * @param patient
+	 * @return 
+	 */
+	public List<ChartItem> getAllChartItemsByChart(
+			final com.oreon.cerebrum.charts.Chart chart) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		chartItem.setChart(chart);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<ChartItem> getChartItemsByChart(
 			final com.oreon.cerebrum.charts.Chart chart) {
 

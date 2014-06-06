@@ -184,7 +184,9 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		initListPrescriptionItems();

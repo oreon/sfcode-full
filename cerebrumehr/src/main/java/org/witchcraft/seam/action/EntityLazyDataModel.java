@@ -32,7 +32,7 @@ public class EntityLazyDataModel<E extends BaseEntity, PK extends Serializable> 
 		entityQuery.setMaxResults(pageSize);
 		entityQuery.setOrderColumn(sortField);
 		entityQuery.setOrderDirection(sortOrder == SortOrder.ASCENDING ? "asc" : "desc");
-		List<E> result = entityQuery.getResultList();
+		List<E> result = entityQuery.getResultListTable();
 		super.setWrappedData(result);
 		return result;
 

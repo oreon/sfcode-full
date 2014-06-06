@@ -38,8 +38,6 @@ public class AdmissionAction extends AdmissionActionBase implements
 
 	private RoomType roomType;
 
-	private Bed bed;
-
 	private Bed preferredBed;
 
 	private Bed nonPreferredBed;
@@ -50,7 +48,6 @@ public class AdmissionAction extends AdmissionActionBase implements
 	@In(create = true)
 	ServiceAction serviceAction;
 
-	private Patient patient;
 
 	@In(create = true)
 	BedAction bedAction;
@@ -166,61 +163,11 @@ public class AdmissionAction extends AdmissionActionBase implements
 		return instance.getDischargeDate() == null;
 	}
 
-	// @Override
-	public void discharge(String dischargeNote,
-			com.oreon.cerebrum.patient.DischargeCode dischargeCode) {
-
-		updateBedStayDate();
-
-		instance.setDischargeDate(new Date());
-		super.save();
-		addInfoMessage("Successfully Discharged patient");
-
-	}
-
-	public void discharge() {
-		discharge(instance.getDischargeNote(), instance.getDischargeCode());
-	}
-
-	private void updateBedStayDate() {
-		for (BedStay bedStay : instance.getBedStays()) {
-			if (bedStay.getToDate() == null)
-				bedStay.setToDate(new Date());
-			bedStay.getBed().setPatient(null);
-		}
-	}
-
-	@Override
-	public void transfer() {
-
-		updateBedStayDate();
-
-		save();
-
-		listBedStays.clear();
-		listBedStays.addAll(getInstance().getBedStays());
-
-		addInfoMessage("Successfully transferred to bed " + instance.getBed());
-	}
-
-	@Override
-	@End
-	public String save() {
-		bed = preferredBed != null ? preferredBed : nonPreferredBed;
-
-		if (bed == null)
-			throw new BusinessException("Please Select a Bed");
-
-		createBedStay();
-
-		return super.save();
-	}
-
 	private void createBedStay() {
-		if (bed == null)
-			bed = instance.getBed();
+		
+		setupBedAndPatient(getCurrentBed());
+		Bed	bed = getCurrentPatient().getBed();
 
-		bed.setPatient(instance.getPatient());
 
 		BedStay bedStay = new BedStay();
 		bedStay.setAdmission(instance);
@@ -229,6 +176,94 @@ public class AdmissionAction extends AdmissionActionBase implements
 		instance.addBedStay(bedStay);
 	}
 
+	private void setupBedAndPatient(Bed bed) {
+		Patient pt = getCurrentPatient();
+		if(pt == null )
+			pt = instance.getPatient();
+		bed.setPatient(pt);
+		pt.setBed(bed);
+	}
+	
+	private void clearBedAndPatient() {
+		Patient pt = getCurrentPatient();
+		if(pt.getBed() != null)
+			pt.getBed().setPatient(null);
+		pt.setBed(null);
+	}
+
+	private Patient getCurrentPatient() {
+		Patient pt = patientAction.getInstance();
+		if(pt == null )
+			pt = instance.getPatient();
+		if(pt == null )
+			throw new BusinessException("No patient available");
+		return pt;
+	}
+
+
+	private void updateBedStayDate() {
+		for (BedStay bedStay : instance.getBedStays()) {
+			if (bedStay.getToDate() == null)
+				bedStay.setToDate(new Date());
+			//bedStay.getBed().setPatient(null);
+		}
+	}
+
+	@Override
+	public void transfer() {
+		//update the previous bed end date
+		updateBedStayDate();
+		
+		clearBedAndPatient();
+		setupBedAndPatient(getCurrentBed());
+		//create a new bed stay
+		createBedStay();
+		save(true);
+
+		listBedStays.clear();
+		listBedStays.addAll(getInstance().getBedStays());
+
+		addInfoMessage("Successfully transferred to bed " + getCurrentPatient().getBed());
+	}
+
+	//@Override
+	@End
+	public String admit(boolean end ) {
+		
+		Patient patient = patientAction.getInstance();
+		
+		if( patient == null || patient.getId() == null )
+			throw new BusinessException("Please Select a Patient");
+		
+		if(patient.getBed() != null)
+			throw new BusinessException("Patient "  + patient.getLastName() + patient.getFirstName() + " is already  admitted to " + patient.getBed().getDisplayName());
+		
+		createBedStay();
+		
+		return super.save(end);
+	}
+
+	
+	// @Override
+	public void discharge(String dischargeNote,
+			com.oreon.cerebrum.patient.DischargeCode dischargeCode) {
+
+		updateBedStayDate();
+		instance.setDischargeDate(new Date());
+		
+		clearBedAndPatient();
+		
+		super.save(true);
+		addInfoMessage("Successfully Discharged patient");
+
+	}
+
+	public void discharge() {
+		discharge(instance.getDischargeNote(), instance.getDischargeCode());
+	}
+
+
+	
 	public void setWard(Ward ward) {
 		this.ward = ward;
 	}
@@ -245,33 +280,33 @@ public class AdmissionAction extends AdmissionActionBase implements
 		return roomType;
 	}
 
-	public void setBed(Bed bed) {
-		this.bed = bed;
-	}
-
-	public Bed getBed() {
-		return bed;
-	}
-
-	@Begin(join = true)
-	public void setPatient(Patient patient) {
-		this.patient = patient;
-	}
-
-	public Patient getPatient() {
-		return patient;
-	}
-
+	
 	public void updateSelectedBed() {
 		// this.selectedBed = this.bed;
 	}
+	
+	private Bed getCurrentBed() {
+		Bed bed = preferredBed != null ? preferredBed : nonPreferredBed;
+
+		if (bed == null)
+			throw new BusinessException("Please Select a Bed");
+		
+		return bed;
+	}
+	
 
 	public List<Ward> getWardList() {
+		/*
 		if (instance.getPatient() == null
 				|| instance.getPatient().getGender() == null)
 			return new ArrayList<Ward>();
+			
+		*/
 		// System.out.println(instance.getPatient().getGender());
 		String qry = "Select e from Ward e where e.gender = ?  or e.gender is null ";
+		if(patientAction.getInstance() != null && patientAction.getInstance().getId() != null){
+			instance.setPatient(patientAction.getInstance());
+		}
 		return executeQuery(qry, instance.getPatient().getGender());
 	}
 

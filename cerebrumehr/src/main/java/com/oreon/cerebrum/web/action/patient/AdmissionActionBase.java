@@ -59,9 +59,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	@In(create = true, value = "bedAction")
-	com.oreon.cerebrum.web.action.facility.BedAction bedAction;
-
 	public void setAdmissionId(Long id) {
 		setEntityId(id);
 	}
@@ -83,19 +80,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	public Long getPatientId() {
 		if (getInstance().getPatient() != null)
 			return getInstance().getPatient().getId();
-		return 0L;
-	}
-
-	public void setBedId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setBed(bedAction.loadFromId(id));
-
-	}
-
-	public Long getBedId() {
-		if (getInstance().getBed() != null)
-			return getInstance().getBed().getId();
 		return 0L;
 	}
 
@@ -159,11 +143,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 			getInstance().setPatient(patient);
 		}
 
-		com.oreon.cerebrum.facility.Bed bed = bedAction.getDefinedInstance();
-		if (bed != null && isNew()) {
-			getInstance().setBed(bed);
-		}
-
 	}
 
 	public Admission getDefinedInstance() {
@@ -194,11 +173,6 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 					.getPatient().getId()));
 		}
 
-		if (instance.getBed() != null) {
-			criteria = criteria.add(Restrictions.eq("bed.id", instance.getBed()
-					.getId()));
-		}
-
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -209,12 +183,9 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
-			patientAction.loadAssociations();
-		}
 
-		if (getInstance().getBed() != null) {
-			bedAction.setInstance(getInstance().getBed());
-			bedAction.loadAssociations();
+			patientAction.loadAssociations();
+
 		}
 
 		initListBedStays();

@@ -214,13 +214,17 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 
 		if (getInstance().getRelatedDisease() != null) {
 			relatedDiseaseAction.setInstance(getInstance().getRelatedDisease());
+
 			relatedDiseaseAction.loadAssociations();
+
 		}
 
 		if (getInstance().getConditionCategory() != null) {
 			conditionCategoryAction.setInstance(getInstance()
 					.getConditionCategory());
+
 			conditionCategoryAction.loadAssociations();
+
 		}
 
 		initListDifferentialDiagnoses();

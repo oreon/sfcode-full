@@ -202,12 +202,14 @@ public abstract class BedActionBase extends BaseAction<Bed>
 
 		if (getInstance().getRoom() != null) {
 			roomAction.setInstance(getInstance().getRoom());
+
 			roomAction.loadAssociations();
+
 		}
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
-			patientAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

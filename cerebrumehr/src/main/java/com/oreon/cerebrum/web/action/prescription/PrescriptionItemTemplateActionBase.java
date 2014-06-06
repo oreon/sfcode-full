@@ -232,18 +232,24 @@ public abstract class PrescriptionItemTemplateActionBase
 
 		if (getInstance().getDrug() != null) {
 			drugAction.setInstance(getInstance().getDrug());
+
 			drugAction.loadAssociations();
+
 		}
 
 		if (getInstance().getFrequency() != null) {
 			frequencyAction.setInstance(getInstance().getFrequency());
+
 			frequencyAction.loadAssociations();
+
 		}
 
 		if (getInstance().getPrescriptionTemplate() != null) {
 			prescriptionTemplateAction.setInstance(getInstance()
 					.getPrescriptionTemplate());
+
 			prescriptionTemplateAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

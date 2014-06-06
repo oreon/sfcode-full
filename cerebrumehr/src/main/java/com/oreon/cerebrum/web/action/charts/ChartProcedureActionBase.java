@@ -203,12 +203,16 @@ public abstract class ChartProcedureActionBase
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		if (getInstance().getChartItem() != null) {
 			chartItemAction.setInstance(getInstance().getChartItem());
+
 			chartItemAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

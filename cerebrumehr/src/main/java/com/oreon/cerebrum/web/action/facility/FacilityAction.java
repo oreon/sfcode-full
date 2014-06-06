@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.UserUtilAction;
 
 import com.oreon.cerebrum.employee.Physician;
@@ -25,20 +26,23 @@ public class FacilityAction extends FacilityActionBase implements java.io.Serial
 	
 	
 	public String register(){
-		save(true);
+		save();
 		instance.setTenant(instance.getId());
 		//need to do another save to update facility tenant
-		save(true);
+		save();
 		userUtilAction.setCurrentFacility(instance);
 		//physicianAction.getInstance().setTenant(getInstance().getId());
 		physicianAction.getInstance().setFacility(getInstance());
 		
 		physicianAction.getInstance().getAppUser().setEnabled(true);
 		
-		physicianAction.save(true);
+		physicianAction.save();
 		
 		return "success";
 	}
+	
+	
+	
 	
 	
 	/**

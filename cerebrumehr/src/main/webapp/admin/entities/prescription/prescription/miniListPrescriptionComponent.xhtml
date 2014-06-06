@@ -2,7 +2,7 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <p:dataTable var="_prescription" value="#{records}"> 
-    <p:column headerText="msg.id" sortBy="prescription.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+    <p:column headerText="#{msg.id}" sortBy="prescription.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
       <h:link outcome="/admin/entities/prescription/prescription/prescriptionActionPrescription.xhtml" rendered="#{s:hasPermission(_prescription, 'view')}" propagation="none"> 
         <h:outputText value="#{_prescription.id}"/>  
         <f:param name="prescriptionId" value="#{_prescription.id}"/> 
@@ -21,20 +21,11 @@
       <h:panelGroup> 
         <h:link id="patientprescription_patient" escape="false" value="#{_prescription.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
           <f:param name="patientId" value="#{_prescription.patient.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{_prescription.patient.popupInfo}</span> 
-          </p:tooltip> 
+          <f:param name="from" value="#{request.servletPath}"/> 
         </h:link>  
-        <p:overlayPanel for="patientprescription_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="patient" value="#{_prescription.patient}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="patientPrescriptions"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
+        <p:tooltip for="patientprescription_patient"> 
+          <span>#{_prescription.patient.popupInfo}</span> 
+        </p:tooltip> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.prescription_directivesForPatient}" sortBy="prescription.directivesForPatient" rendered="#{ ! excludeDirectivesForPatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')) }"> 

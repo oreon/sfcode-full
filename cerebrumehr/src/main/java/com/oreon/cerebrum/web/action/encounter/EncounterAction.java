@@ -11,6 +11,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.security.Identity;
 import org.witchcraft.base.entity.UserUtilAction;
+import org.witchcraft.exceptions.BusinessException;
 
 import com.oreon.cerebrum.codes.SimpleCode;
 import com.oreon.cerebrum.web.action.employee.PhysicianAction;
@@ -42,17 +43,22 @@ public class EncounterAction extends EncounterActionBase implements java.io.Seri
 	public String save(boolean endConversation) {
 		instance.setCreator(userUtilAction.getCurrentLoggedInEmployee());
 		
-		/*
+		if (getInstance().getPatient() == null) {
+			if(patientAction.getInstance() == null || patientAction.getInstance().getId() == null)
+				throw new BusinessException("Must Select a patient");
+			getInstance().setPatient(patientAction.getInstance());
+		}
+		
+		
 		prescriptionAction.getInstance().setPatient(instance.getPatient());
 		prescriptionAction.save();
 		
-		patientAction.setInstance(instance.getPatient());
+		/*
+		patientAction.setInstance(instance.getPatient()); 	
 		patientAction.save(endConversation);
-		
-		instance.setPrescription(prescriptionAction.getInstance());
 		*/
 		
-		 
+		instance.setPrescription(prescriptionAction.getInstance());
 		//getInstance().setCreatedByUser(userUtilAction.getCurrentUser());
 		return super.save(endConversation);
 	}

@@ -204,12 +204,16 @@ public abstract class RoomActionBase extends BaseAction<Room>
 
 		if (getInstance().getRoomType() != null) {
 			roomTypeAction.setInstance(getInstance().getRoomType());
+
 			roomTypeAction.loadAssociations();
+
 		}
 
 		if (getInstance().getWard() != null) {
 			wardAction.setInstance(getInstance().getWard());
+
 			wardAction.loadAssociations();
+
 		}
 
 		initListBeds();

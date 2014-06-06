@@ -28,8 +28,7 @@ public class CommaDelimitedPersister {
 	}
 
 	public static void main(String[] args) throws Exception {
-
-		// lineParser();
+/*
 		start();
 		
 		String line = "Heliminthic Parasites, Pulmonary aspergillosis, Severe scabies, Asthma, Hay Fever, Atopic dermatitis, Wiskott-Aldrich syndrome, 	Polyarteritis nodosa ,Necrotizing vasculitis, Eosinophilic fasciitis ,Pemphigus ,Addison’s disease ,Inflammatory bowel disease, Dermatitis herpetiformis " +
@@ -39,6 +38,7 @@ public class CommaDelimitedPersister {
 		
 		em.close();
 		emf.close();
+*/
 	}
 
 

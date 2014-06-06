@@ -66,10 +66,14 @@ public abstract class AbstractEmployeeAction<T extends com.oreon.cerebrum.employ
 	public void preSave() {
 		if(!isNew())
 			return;
-		AppRole role = appRoleAction.findByUnqName(getDefaultRoleName());
-		getInstance().getAppUser().addAppRole(role);
+		addRole();
 		//getInstance().setEmployeeNumber(createEmployeeNumber(getInstance()));
 	}
+	
+	protected void addRole() {
+		getInstance().getAppUser().addAppRole(appRoleAction.getOrCreateRoleByName(getClassName().toLowerCase()));
+	}
+	
 
 	@Override
 	//add current user's facility to the newly created employee

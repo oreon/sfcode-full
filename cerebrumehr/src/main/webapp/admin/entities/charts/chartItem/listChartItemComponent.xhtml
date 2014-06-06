@@ -17,7 +17,7 @@
     <h:form id="chartItemForm"> 
       <p:dataTable var="_chartItem" value="#{records}" id="chartItemList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{chartItemAction.chartItem}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editChartItemPanel')}" oncomplete="editChartItemDialog.show()" listener="#{chartItemAction.onRowSelect}"/>  
-        <p:column headerText="msg.id" sortBy="chartItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <p:column headerText="#{msg.id}" sortBy="chartItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/charts/chartItem/chartItemActionChartItem.xhtml" rendered="#{s:hasPermission(_chartItem, 'view')}" propagation="none"> 
             <h:outputText value="#{_chartItem.id}"/>  
             <f:param name="chartItemId" value="#{_chartItem.id}"/> 
@@ -49,7 +49,7 @@
         <p:column headerText="#{msg.chartItem_frequencyPeriod}" sortBy="chartItem.frequencyPeriod" rendered="#{ ! excludeFrequencyPeriod == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewFrequencyPeriod')) }"> 
           <h:outputText value="#{_chartItem.frequencyPeriod}" escape="false"/> 
         </p:column>  
-        <p:column headerText="msg.Creation Date" sortBy="chartItem.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+        <p:column headerText="#{msg.dateCreated}" sortBy="chartItem.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_chartItem.dateCreated}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 

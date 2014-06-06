@@ -101,6 +101,18 @@ public abstract class UnusualOccurenceListQueryBase
 			"unusualOccurence.dateCreated <= #{unusualOccurenceList.dateCreatedRange.end}",
 			"unusualOccurence.dateCreated >= #{unusualOccurenceList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all UnusualOccurences for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<UnusualOccurence> getAllUnusualOccurencesByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		unusualOccurence.setPatient(patient);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<UnusualOccurence> getUnusualOccurencesByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
 

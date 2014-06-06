@@ -16,15 +16,6 @@
         </ui:define>  
         <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}" label="#{msg.reason_remarks}" required="false" disabled="false" value="#{reasonAction.reason.remarks}"></h:inputText> 
       </s:decorate>  
-      <s:decorate id="encounterIdDecorate" rendered="#{ ! excludeEncounter == true}" template="/layout/edit.xhtml"> 
-        <ui:define name="label"> 
-          <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/>
-        </ui:define>  
-        <p:selectOneMenu id="encounterId" label="#{msg.reason_encounter}" value="#{reasonAction.reason.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}" disabled="false" converter="#{encounterList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{encounterList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
-      </s:decorate>  
       <s:decorate id="codeIdDecorate" rendered="#{ ! excludeCode == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>

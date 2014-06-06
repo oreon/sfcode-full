@@ -54,9 +54,6 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	@RequestParameter
 	protected Long differentialId;
 
-	@In(create = true, value = "encounterAction")
-	com.oreon.cerebrum.web.action.encounter.EncounterAction encounterAction;
-
 	public void setDifferentialId(Long id) {
 		setEntityId(id);
 	}
@@ -66,19 +63,6 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	 */
 	public void setDifferentialIdForModalDlg(Long id) {
 		setEntityIdForModalDlg(id);
-	}
-
-	public void setEncounterId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setEncounter(encounterAction.loadFromId(id));
-
-	}
-
-	public Long getEncounterId() {
-		if (getInstance().getEncounter() != null)
-			return getInstance().getEncounter().getId();
-		return 0L;
 	}
 
 	public Long getDifferentialId() {
@@ -130,12 +114,6 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.encounter.Encounter encounter = encounterAction
-				.getDefinedInstance();
-		if (encounter != null && isNew()) {
-			getInstance().setEncounter(encounter);
-		}
-
 	}
 
 	public Differential getDefinedInstance() {
@@ -155,29 +133,11 @@ public abstract class DifferentialActionBase extends BaseAction<Differential>
 		return Differential.class;
 	}
 
-	/** This function adds associated entities to an example criterion
-	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
-	 */
-	@Override
-	public void addAssociations(Criteria criteria) {
-
-		if (instance.getEncounter() != null) {
-			criteria = criteria.add(Restrictions.eq("encounter.id", instance
-					.getEncounter().getId()));
-		}
-
-	}
-
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
-
-		if (getInstance().getEncounter() != null) {
-			encounterAction.setInstance(getInstance().getEncounter());
-			encounterAction.loadAssociations();
-		}
 
 		addDefaultAssociations();
 	}

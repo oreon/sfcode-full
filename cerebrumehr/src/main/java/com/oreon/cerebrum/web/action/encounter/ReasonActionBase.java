@@ -54,9 +54,6 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 	@RequestParameter
 	protected Long reasonId;
 
-	@In(create = true, value = "encounterAction")
-	com.oreon.cerebrum.web.action.encounter.EncounterAction encounterAction;
-
 	@In(create = true, value = "codeAction")
 	com.oreon.cerebrum.web.action.codes.CodeAction codeAction;
 
@@ -69,19 +66,6 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 	 */
 	public void setReasonIdForModalDlg(Long id) {
 		setEntityIdForModalDlg(id);
-	}
-
-	public void setEncounterId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setEncounter(encounterAction.loadFromId(id));
-
-	}
-
-	public Long getEncounterId() {
-		if (getInstance().getEncounter() != null)
-			return getInstance().getEncounter().getId();
-		return 0L;
 	}
 
 	public void setCodeId(Long id) {
@@ -146,12 +130,6 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.encounter.Encounter encounter = encounterAction
-				.getDefinedInstance();
-		if (encounter != null && isNew()) {
-			getInstance().setEncounter(encounter);
-		}
-
 		com.oreon.cerebrum.codes.Code code = codeAction.getDefinedInstance();
 		if (code != null && isNew()) {
 			getInstance().setCode(code);
@@ -182,11 +160,6 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (instance.getEncounter() != null) {
-			criteria = criteria.add(Restrictions.eq("encounter.id", instance
-					.getEncounter().getId()));
-		}
-
 		if (instance.getCode() != null) {
 			criteria = criteria.add(Restrictions.eq("code.id", instance
 					.getCode().getId()));
@@ -200,14 +173,11 @@ public abstract class ReasonActionBase extends BaseAction<Reason>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getEncounter() != null) {
-			encounterAction.setInstance(getInstance().getEncounter());
-			encounterAction.loadAssociations();
-		}
-
 		if (getInstance().getCode() != null) {
 			codeAction.setInstance(getInstance().getCode());
+
 			codeAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

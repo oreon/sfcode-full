@@ -31,26 +31,33 @@
 				<p:commandLink
 					action="/admin/entities/appointment/appointment/createAppt.xhtml"
 					value="Appointments">
-					<s:conversationPropagation type="begin" />
+					<s:conversationPropagation type="join" />
 				</p:commandLink>
 				
 				
 				<p:commandLink
-					action="/admin/entities/appointment/appointment/createAppt.xhtml"
+					action="/admin/entities/patient/admission/editAdmission.xhtml"
+					value="Admissions">
+					<s:conversationPropagation type="join" />
+				</p:commandLink>
+					
+				<p:commandLink
+					action="/admin/entities/prescription/prescription/editPrescription.xhtml"
 					value="Prescription">
-					<s:conversationPropagation type="begin" />
+					<s:conversationPropagation type="join" />
 				</p:commandLink>
 
 			</p:toolbarGroup>
- 	
+ 			
 			<p:toolbarGroup align="right">
+				TENANT - #{userUtilAction.currentUser.tenant}
 				<ui:include src="/admin/entities/patient/patient/freeTypeSearchPatientComponentCustom.xhtml" />
 			
 				<s:link action="#{identity.logout}" view="/login.xhtml"
 					value="Logout #{identity.credentials.username}" propagation="none" />
 
 			</p:toolbarGroup>
-
+			
 		</p:toolbar>
 
 	</h:form>

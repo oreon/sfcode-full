@@ -88,12 +88,24 @@ public abstract class AllergyListQueryBase extends BaseQuery<Allergy, Long> {
 
 			"allergy.patient.id = #{allergyList.allergy.patient.id}",
 
-			"allergy.allergen.id = #{allergyList.allergy.allergen.id}",
-
 			"allergy.severity = #{allergyList.allergy.severity}",
+
+			"allergy.drug.id = #{allergyList.allergy.drug.id}",
 
 			"allergy.dateCreated <= #{allergyList.dateCreatedRange.end}",
 			"allergy.dateCreated >= #{allergyList.dateCreatedRange.begin}",};
+
+	/** 
+	 * List of all Allergys for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<Allergy> getAllAllergysByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		allergy.setPatient(patient);
+		return getResultListTable();
+	}
 
 	public LazyDataModel<Allergy> getAllergysByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
@@ -133,16 +145,15 @@ public abstract class AllergyListQueryBase extends BaseQuery<Allergy, Long> {
 				.getId();
 	}
 
-	public void setAllergenId(Long id) {
-		if (allergy.getAllergen() == null) {
-			allergy.setAllergen(new com.oreon.cerebrum.patient.Allergen());
+	public void setDrugId(Long id) {
+		if (allergy.getDrug() == null) {
+			allergy.setDrug(new com.oreon.cerebrum.drugs.Drug());
 		}
-		allergy.getAllergen().setId(id);
+		allergy.getDrug().setId(id);
 	}
 
-	public Long getAllergenId() {
-		return allergy.getAllergen() == null ? null : allergy.getAllergen()
-				.getId();
+	public Long getDrugId() {
+		return allergy.getDrug() == null ? null : allergy.getDrug().getId();
 	}
 
 }

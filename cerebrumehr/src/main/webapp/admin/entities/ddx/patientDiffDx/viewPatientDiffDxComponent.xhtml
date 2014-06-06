@@ -11,32 +11,21 @@
         <h:outputText value="#{msg.PatientDiffDx}"/> 
       </f:facet>  
       <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}notesAbbr" value="#{patientDiffDx.notesAbbreviated}" escape="false"/> 
-      </h:panelGroup>  
+      <h:outputText value="#{patientDiffDx.notes}" escape="false"/>  
       <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')}"/>  
       <h:panelGroup> 
         <h:link id="patientpatientDiffDx_patient" escape="false" value="#{patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
           <f:param name="patientId" value="#{patientDiffDx.patient.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{patientDiffDx.patient.popupInfo}</span> 
-          </p:tooltip> 
+          <f:param name="from" value="#{request.servletPath}"/> 
         </h:link>  
-        <p:overlayPanel for="patientpatientDiffDx_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="patient" value="#{patientDiffDx.patient}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="patient"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
+        <p:tooltip for="patientpatientDiffDx_patient"> 
+          <span>#{patientDiffDx.patient.popupInfo}</span> 
+        </p:tooltip> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePatientFindings == true}"> 
-      <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{not empty patientDiffDxAction.listPatientFindings and skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatientFindings') }" value="#{patientDiffDxAction.listPatientFindings}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{ patientDiffDxAction.listPatientFindings.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatientFindings') }" value="#{patientDiffDxAction.listPatientFindings}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.patientFinding_finding}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'viewFinding')}"/> 

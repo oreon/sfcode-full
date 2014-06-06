@@ -203,12 +203,16 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		if (getInstance().getVaccine() != null) {
 			vaccineAction.setInstance(getInstance().getVaccine());
+
 			vaccineAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

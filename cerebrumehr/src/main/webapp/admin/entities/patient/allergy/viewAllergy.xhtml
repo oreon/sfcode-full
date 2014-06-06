@@ -23,16 +23,14 @@
         <p:tab title="Patient" rendered="#{allergyAction.instance.patient != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="patientId" value="#{allergyAction.instance.patient.id}"/> 
+              <ui:param name="patient" value="#{allergyAction.instance.patient}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
-        <p:tab title="Allergen" rendered="#{allergyAction.instance.allergen != null}"> 
+        <p:tab title="Drug" rendered="#{allergyAction.instance.drug != null}"> 
           <h:form> 
-            <ui:include src="/admin/entities/patient/allergen/viewAllergenComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="allergenId" value="#{allergyAction.instance.allergen.id}"/> 
+            <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
+              <ui:param name="drug" value="#{allergyAction.instance.drug}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

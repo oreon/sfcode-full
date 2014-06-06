@@ -178,7 +178,9 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		initListPatientFindings();

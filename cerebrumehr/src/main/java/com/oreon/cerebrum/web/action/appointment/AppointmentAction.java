@@ -85,52 +85,59 @@ public class AppointmentAction extends AppointmentActionBase implements
 	}
 
 	public void onEventSelect(SelectEvent selectEvent) {
+		//clearInstance();
 		event = (ScheduleEvent) selectEvent.getObject();
 		load((Long) event.getData());
 		// updateAppointmentFromScheduleEvent(getInstance(), (ScheduleEvent)
 		// selectEvent.getObject());
+	}
+	 	
+	
+	public void cancelAppointment(){
+		eventModel.deleteEvent(event);
+		getEntityManager().remove(instance);
+		
 	}
 
 	@Begin(join = true)
 	public void onDateSelect(SelectEvent selectEvent) {
 		clearInstance();
 
-		Date start = (Date) selectEvent.getObject();
-		System.out.println(start);
+		DateTime dtStart = new DateTime((Date) selectEvent.getObject());
+		dtStart = new DateTime(dtStart.minusHours(1));
+		System.out.println(dtStart);
 
-		DateTime dtEnd = new DateTime(start);
-		dtEnd = dtEnd.plusMinutes(30);
+		DateTime dtEnd = dtStart.plusMinutes(30);
+		 
+		event = new DefaultScheduleEvent("", dtStart.toDate(), dtEnd.toDate());
 
-		event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(),
-				dtEnd.toDate());
-
-		getInstance().setStart(event.getStartDate());
+		getInstance().setStart(dtStart.toDate());
 		if (Conversation.instance().getId() == null)
 			Conversation.instance().begin(true, false);
-		System.out.println("current conersation bef "
-				+ Conversation.instance().getId());
-		// instance.setUnits(4);
+		
 	}
 
 	@Override
 	@Begin(join = true)
 	public String save(boolean endConv) {
 		
-	
-		System.out.println("current conersation end "
-				+ Conversation.instance().getId());
+		//System.out.println("current conersation end "
+		//		+ Conversation.instance().getId());
 
 		DateTime dtEnd = new DateTime(getInstance().getStart());
 		dtEnd = dtEnd.plusMinutes(30 * instance.getUnits());
 		instance.setEnd(dtEnd.toDate());
 		
-		instance.setPhysician(getCurrentPhysician());
 
 		((DefaultScheduleEvent) event).setEndDate(getInstance().getEnd());
 
 		// else
 		if (!isNew())
 			eventModel.updateEvent(event);
+		else{
+			instance.setPhysician(getCurrentPhysician());
+			instance.setPatient(patientAction.getInstance());
+		}
 
 		return super.save(endConv);
 	}
@@ -180,4 +187,9 @@ public class AppointmentAction extends AppointmentActionBase implements
 		return currentPhysician;
 	}
 
+	public boolean getGoodToRender(){
+		if(isNew())
+			return  (  (patientAction.getInstance() != null && patientAction.getInstance().getId() != null   )&& currentPhysician != null );
+		return true;	
+	}
 }

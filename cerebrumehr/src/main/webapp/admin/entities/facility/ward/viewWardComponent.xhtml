@@ -33,7 +33,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeRooms == true}"> 
-      <p:dataTable id="rooms" var="_room" rendered="#{not empty wardAction.listRooms and skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewRooms') }" value="#{wardAction.listRooms}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="rooms" var="_room" rendered="#{ wardAction.listRooms.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewRooms') }" value="#{wardAction.listRooms}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.room_roomType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'viewRoomType')}"/> 

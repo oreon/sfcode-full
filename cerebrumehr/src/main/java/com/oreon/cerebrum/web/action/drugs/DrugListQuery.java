@@ -28,10 +28,18 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.Component;
 
+import com.oreon.cerebrum.drugs.Drug;
+
 @Name("drugList")
 @Scope(ScopeType.CONVERSATION)
 public class DrugListQuery extends DrugListQueryBase
 		implements
 			java.io.Serializable {
+	
+	@Override
+	public List<Drug> getAll() {
+		setOrderColumn("name");
+		return super.getAll();
+	}
 
 }

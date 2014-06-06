@@ -15,9 +15,7 @@
       <h:outputText value="#{msg.unusualOccurence_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewSeverity')}"/>  
       <h:outputText value="#{unusualOccurence.severity}" escape="false"/>  
       <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewDescription')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}descriptionAbbr" value="#{unusualOccurence.descriptionAbbreviated}" escape="false"/> 
-      </h:panelGroup>  
+      <h:outputText value="#{unusualOccurence.description}" escape="false"/>  
       <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'viewOccurenceType')}"/>  
       <h:panelGroup> 
         <h:link id="occurenceTypeunusualOccurence_occurenceType" escape="false" value="#{unusualOccurence.occurenceType.displayName}" outcome="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
@@ -38,20 +36,11 @@
       <h:panelGroup> 
         <h:link id="patientunusualOccurence_patient" escape="false" value="#{unusualOccurence.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
           <f:param name="patientId" value="#{unusualOccurence.patient.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{unusualOccurence.patient.popupInfo}</span> 
-          </p:tooltip> 
+          <f:param name="from" value="#{request.servletPath}"/> 
         </h:link>  
-        <p:overlayPanel for="patientunusualOccurence_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="patient" value="#{unusualOccurence.patient}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="patientUnusualOccurences"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
+        <p:tooltip for="patientunusualOccurence_patient"> 
+          <span>#{unusualOccurence.patient.popupInfo}</span> 
+        </p:tooltip> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  

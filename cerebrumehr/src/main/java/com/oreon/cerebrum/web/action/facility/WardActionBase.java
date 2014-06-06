@@ -182,7 +182,9 @@ public abstract class WardActionBase extends BaseAction<Ward>
 
 		if (getInstance().getFacility() != null) {
 			facilityAction.setInstance(getInstance().getFacility());
+
 			facilityAction.loadAssociations();
+
 		}
 
 		initListRooms();

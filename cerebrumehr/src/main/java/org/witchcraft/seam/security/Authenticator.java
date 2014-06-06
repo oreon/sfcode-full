@@ -85,6 +85,7 @@ public class Authenticator {
 			}
 
 			userUtilAction.setCurrentUser(user);
+			//userUtilAction.setCurrentFacility(currentFacility);
 			/*
 			 * user.setLastLogin(new Date()); UserAction userAction =
 			 * (UserAction) Component.getInstance("userAction");

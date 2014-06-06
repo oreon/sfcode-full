@@ -95,6 +95,18 @@ public abstract class PatientFindingListQueryBase
 			"patientFinding.dateCreated <= #{patientFindingList.dateCreatedRange.end}",
 			"patientFinding.dateCreated >= #{patientFindingList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all PatientFindings for the given PatientDiffDx
+	 * @param patient
+	 * @return 
+	 */
+	public List<PatientFinding> getAllPatientFindingsByPatientDiffDx(
+			final com.oreon.cerebrum.ddx.PatientDiffDx patientDiffDx) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		patientFinding.setPatientDiffDx(patientDiffDx);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<PatientFinding> getPatientFindingsByPatientDiffDx(
 			final com.oreon.cerebrum.ddx.PatientDiffDx patientDiffDx) {
 

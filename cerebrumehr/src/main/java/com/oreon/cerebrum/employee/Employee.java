@@ -70,4 +70,9 @@ import com.oreon.cerebrum.ProjectUtils;
 @XmlRootElement
 public class Employee extends EmployeeBase implements java.io.Serializable {
 	private static final long serialVersionUID = -426154292L; 
+	
+	@Transient
+	public String getName(){
+		return firstName + " " +  lastName;
+	}
 }

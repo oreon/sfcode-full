@@ -125,6 +125,18 @@ public abstract class EmployeeListQueryBase<T extends Employee>
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all Employees for the given Department
+	 * @param patient
+	 * @return 
+	 */
+	public List<T> getAllEmployeesByDepartment(
+			final com.oreon.cerebrum.employee.Department department) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		employee.setDepartment(department);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<T> getEmployeesByDepartment(
 			final com.oreon.cerebrum.employee.Department department) {
 

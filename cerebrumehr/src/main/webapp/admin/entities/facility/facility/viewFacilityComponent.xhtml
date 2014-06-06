@@ -11,11 +11,13 @@
         <h:outputText value="#{msg.Facility}"/> 
       </f:facet>  
       <h:outputText value="#{msg.facility_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewName')}"/>  
-      <h:outputText value="#{facility.name}" escape="false"/> 
+      <h:outputText value="#{facility.name}" escape="false"/>  
+      <h:outputText value="#{msg.facility_isResidential}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewIsResidential')}"/>  
+      <h:outputText value="#{facility.isResidential? msg.yes : msg.no }"/> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeWards == true}"> 
-      <p:dataTable id="wards" var="_ward" rendered="#{not empty facilityAction.listWards and skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewWards') }" value="#{facilityAction.listWards}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="wards" var="_ward" rendered="#{ facilityAction.listWards.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('facility', 'viewWards') }" value="#{facilityAction.listWards}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.ward_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')}"/> 

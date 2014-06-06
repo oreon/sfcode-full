@@ -95,6 +95,18 @@ public abstract class AppliedChartListQueryBase
 			"appliedChart.dateCreated <= #{appliedChartList.dateCreatedRange.end}",
 			"appliedChart.dateCreated >= #{appliedChartList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all AppliedCharts for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<AppliedChart> getAllAppliedChartsByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		appliedChart.setPatient(patient);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<AppliedChart> getAppliedChartsByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
 

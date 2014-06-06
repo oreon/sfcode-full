@@ -28,11 +28,11 @@
       <h:panelGroup> 
         <h:link id="drugprescriptionItemTemplate_drug" escape="false" value="#{prescriptionItemTemplate.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
           <f:param name="drugId" value="#{prescriptionItemTemplate.drug.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{prescriptionItemTemplate.drug.popupInfo}</span> 
-          </p:tooltip> 
-        </h:link> 
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="drugprescriptionItemTemplate_drug"> 
+          <span>#{prescriptionItemTemplate.drug.popupInfo}</span> 
+        </p:tooltip> 
       </h:panelGroup>  
       <h:outputText value="#{msg.prescriptionItemTemplate_frequency}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewFrequency')}"/>  
       <h:panelGroup> 

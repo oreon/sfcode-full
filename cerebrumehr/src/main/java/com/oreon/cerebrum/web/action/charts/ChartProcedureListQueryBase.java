@@ -121,6 +121,18 @@ public abstract class ChartProcedureListQueryBase
 			"chartProcedure.dateCreated <= #{chartProcedureList.dateCreatedRange.end}",
 			"chartProcedure.dateCreated >= #{chartProcedureList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all ChartProcedures for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<ChartProcedure> getAllChartProceduresByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		chartProcedure.setPatient(patient);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<ChartProcedure> getChartProceduresByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
 

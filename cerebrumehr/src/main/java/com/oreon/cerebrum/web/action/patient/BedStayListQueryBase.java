@@ -117,6 +117,18 @@ public abstract class BedStayListQueryBase extends BaseQuery<BedStay, Long> {
 			"bedStay.dateCreated <= #{bedStayList.dateCreatedRange.end}",
 			"bedStay.dateCreated >= #{bedStayList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all BedStays for the given Admission
+	 * @param patient
+	 * @return 
+	 */
+	public List<BedStay> getAllBedStaysByAdmission(
+			final com.oreon.cerebrum.patient.Admission admission) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		bedStay.setAdmission(admission);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<BedStay> getBedStaysByAdmission(
 			final com.oreon.cerebrum.patient.Admission admission) {
 

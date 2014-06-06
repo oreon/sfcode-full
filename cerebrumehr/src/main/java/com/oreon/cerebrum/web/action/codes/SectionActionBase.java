@@ -180,7 +180,9 @@ public abstract class SectionActionBase
 
 		if (getInstance().getChapter() != null) {
 			chapterAction.setInstance(getInstance().getChapter());
+
 			chapterAction.loadAssociations();
+
 		}
 
 		initListCodes();

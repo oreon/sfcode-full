@@ -59,6 +59,15 @@
           <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}"/>
         </ui:define>  
         <h:inputText escape="false" id="healthNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}" label="#{msg.patient_healthNumber}" required="false" disabled="false" value="#{patientAction.patient.healthNumber}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="bedIdDecorate" rendered="#{ ! excludeBed == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.patient_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editBed')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="bedId" label="#{msg.patient_bed}" value="#{patientAction.patient.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editBed')}" disabled="false" converter="#{bedList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 

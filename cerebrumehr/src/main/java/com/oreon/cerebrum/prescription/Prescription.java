@@ -72,4 +72,10 @@ public class Prescription extends PrescriptionBase
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = -1190166836L;
+	
+	@Override
+	public String getDisplayName() {
+		// TODO Auto-generated method stub
+		return getDrugs();
+	}
 }

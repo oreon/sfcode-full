@@ -97,6 +97,18 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 			"disease.dateCreated <= #{diseaseList.dateCreatedRange.end}",
 			"disease.dateCreated >= #{diseaseList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all Diseases for the given Disease
+	 * @param patient
+	 * @return 
+	 */
+	public List<Disease> getAllDifferentialDiagnosesByRelatedDisease(
+			final com.oreon.cerebrum.ddx.Disease disease) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		disease.setRelatedDisease(disease);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<Disease> getDifferentialDiagnosesByRelatedDisease(
 			final com.oreon.cerebrum.ddx.Disease disease) {
 

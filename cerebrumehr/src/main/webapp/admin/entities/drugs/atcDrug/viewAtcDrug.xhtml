@@ -23,16 +23,14 @@
         <p:tab title="Drug" rendered="#{atcDrugAction.instance.drug != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="drugId" value="#{atcDrugAction.instance.drug.id}"/> 
+              <ui:param name="drug" value="#{atcDrugAction.instance.drug}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Parent" rendered="#{atcDrugAction.instance.parent != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="atcDrugId" value="#{atcDrugAction.instance.parent.id}"/> 
+              <ui:param name="atcDrug" value="#{atcDrugAction.instance.parent}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

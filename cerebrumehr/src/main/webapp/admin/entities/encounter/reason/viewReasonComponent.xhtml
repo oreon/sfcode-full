@@ -12,22 +12,6 @@
       </f:facet>  
       <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewRemarks')}"/>  
       <h:outputText value="#{reason.remarks}" escape="false"/>  
-      <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewEncounter')}"/>  
-      <h:panelGroup> 
-        <h:link id="encounterreason_encounter" escape="false" value="#{reason.encounter.displayName}" outcome="/admin/entities/encounter/encounter/viewEncounter.xhtml" propagation="none"> 
-          <f:param name="encounterId" value="#{reason.encounter.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link>  
-        <p:overlayPanel for="encounterreason_encounter" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
-              <ui:param name="encounter" value="#{reason.encounter}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="encounterReasons"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
-      </h:panelGroup>  
       <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewCode')}"/>  
       <h:panelGroup> 
         <h:link id="codereason_code" escape="false" value="#{reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 

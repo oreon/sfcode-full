@@ -184,7 +184,9 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		initListInvoiceItems();

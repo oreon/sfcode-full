@@ -107,6 +107,18 @@ public abstract class ImmunizationListQueryBase
 			"immunization.dateCreated <= #{immunizationList.dateCreatedRange.end}",
 			"immunization.dateCreated >= #{immunizationList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all Immunizations for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<Immunization> getAllImmunizationsByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		immunization.setPatient(patient);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<Immunization> getImmunizationsByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
 

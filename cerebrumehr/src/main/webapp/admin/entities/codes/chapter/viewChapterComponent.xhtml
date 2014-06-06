@@ -13,13 +13,11 @@
       <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewName')}"/>  
       <h:outputText value="#{chapter.name}" escape="false"/>  
       <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewDescription')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}descriptionAbbr" value="#{chapter.descriptionAbbreviated}" escape="false"/> 
-      </h:panelGroup> 
+      <h:outputText value="#{chapter.description}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeSections == true}"> 
-      <p:dataTable id="sections" var="_section" rendered="#{not empty chapterAction.listSections and skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewSections') }" value="#{chapterAction.listSections}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="sections" var="_section" rendered="#{ chapterAction.listSections.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewSections') }" value="#{chapterAction.listSections}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.abstractCode_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'viewName')}"/> 
@@ -30,9 +28,7 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'viewDescription')}"/> 
           </f:facet>  
-          <h:panelGroup> 
-            <h:outputText id="${panelId}descriptionAbbr" value="#{_section.descriptionAbbreviated}" escape="false"/> 
-          </h:panelGroup> 
+          <h:outputText value="#{_section.description}" escape="false"/> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

@@ -23,24 +23,21 @@
         <p:tab title="AppUser" rendered="#{employeeAction.instance.appUser != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/users/appUser/viewAppUserComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="appUserId" value="#{employeeAction.instance.appUser.id}"/> 
+              <ui:param name="appUser" value="#{employeeAction.instance.appUser}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Facility" rendered="#{employeeAction.instance.facility != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="facilityId" value="#{employeeAction.instance.facility.id}"/> 
+              <ui:param name="facility" value="#{employeeAction.instance.facility}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Department" rendered="#{employeeAction.instance.department != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
-              <ui:param name="entityId" value="3"/>  
-              <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
+              <ui:param name="department" value="#{employeeAction.instance.department}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

@@ -47,8 +47,6 @@ import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.encounter.PrescribedTest;
-import com.oreon.cerebrum.encounter.Differential;
-import com.oreon.cerebrum.encounter.Reason;
 
 //
 public abstract class EncounterActionBase extends BaseAction<Encounter>
@@ -155,11 +153,6 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 	private void addDefaultAssociations() {
 		instance = getInstance();
 
-		if (isNew() && instance.getReasons().isEmpty()) {
-			for (int i = 0; i < 1; i++)
-				getListReasons().add(new com.oreon.cerebrum.encounter.Reason());
-		}
-
 	}
 
 	public void wire() {
@@ -227,19 +220,19 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 
 		if (getInstance().getPrescription() != null) {
 			prescriptionAction.setInstance(getInstance().getPrescription());
+
 			prescriptionAction.loadAssociations();
+
 		}
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		initListPrescribedTests();
-
-		initListDifferentials();
-
-		initListReasons();
 
 		initListSimpleCodes();
 		initListAvailableSimpleCodes();
@@ -287,84 +280,6 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 		prescribedTests.setEncounter(getInstance());
 
 		getListPrescribedTests().add(prescribedTests);
-
-	}
-
-	protected List<com.oreon.cerebrum.encounter.Differential> listDifferentials = new ArrayList<com.oreon.cerebrum.encounter.Differential>();
-
-	void initListDifferentials() {
-
-		if (listDifferentials.isEmpty())
-			listDifferentials.addAll(getInstance().getDifferentials());
-
-	}
-
-	public List<com.oreon.cerebrum.encounter.Differential> getListDifferentials() {
-
-		prePopulateListDifferentials();
-		return listDifferentials;
-	}
-
-	public void prePopulateListDifferentials() {
-	}
-
-	public void setListDifferentials(
-			List<com.oreon.cerebrum.encounter.Differential> listDifferentials) {
-		this.listDifferentials = listDifferentials;
-	}
-
-	public void deleteDifferentials(int index) {
-		listDifferentials.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addDifferentials() {
-
-		initListDifferentials();
-		Differential differentials = new Differential();
-
-		differentials.setEncounter(getInstance());
-
-		getListDifferentials().add(differentials);
-
-	}
-
-	protected List<com.oreon.cerebrum.encounter.Reason> listReasons = new ArrayList<com.oreon.cerebrum.encounter.Reason>();
-
-	void initListReasons() {
-
-		if (listReasons.isEmpty())
-			listReasons.addAll(getInstance().getReasons());
-
-	}
-
-	public List<com.oreon.cerebrum.encounter.Reason> getListReasons() {
-
-		prePopulateListReasons();
-		return listReasons;
-	}
-
-	public void prePopulateListReasons() {
-	}
-
-	public void setListReasons(
-			List<com.oreon.cerebrum.encounter.Reason> listReasons) {
-		this.listReasons = listReasons;
-	}
-
-	public void deleteReasons(int index) {
-		listReasons.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addReasons() {
-
-		initListReasons();
-		Reason reasons = new Reason();
-
-		reasons.setEncounter(getInstance());
-
-		getListReasons().add(reasons);
 
 	}
 
@@ -442,51 +357,13 @@ public abstract class EncounterActionBase extends BaseAction<Encounter>
 			getInstance().getPrescribedTests().addAll(listPrescribedTests);
 		}
 
-		if (listDifferentials != null) {
-
-			java.util.Set<Differential> items = getInstance()
-					.getDifferentials();
-			for (Differential item : items) {
-				if (!listDifferentials.contains(item))
-					getEntityManager().remove(item);
-			}
-
-			for (Differential item : listDifferentials) {
-				item.setEncounter(getInstance());
-			}
-
-			getInstance().getDifferentials().clear();
-			getInstance().getDifferentials().addAll(listDifferentials);
-		}
-
-		if (listReasons != null) {
-
-			java.util.Set<Reason> items = getInstance().getReasons();
-			for (Reason item : items) {
-				if (!listReasons.contains(item))
-					getEntityManager().remove(item);
-			}
-
-			for (Reason item : listReasons) {
-				item.setEncounter(getInstance());
-			}
-
-			getInstance().getReasons().clear();
-			getInstance().getReasons().addAll(listReasons);
-		}
-
-		if (listAvailableSimpleCodes != null) {
-			getInstance().getSimpleCodes().clear();
-			getInstance().getSimpleCodes().addAll(
-					listAvailableSimpleCodes.getTarget());
-		}
+		getInstance().getSimpleCodes().clear();
+		getInstance().getSimpleCodes().addAll(listSimpleCodes);
 
 	}
 
 	public void clearLists() {
 		listPrescribedTests.clear();
-		listDifferentials.clear();
-		listReasons.clear();
 
 		listSimpleCodes.clear();
 

@@ -6,14 +6,6 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.reason_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editEncounter')}"/>  
-      <br/>  
-      <p:selectOneMenu id="encounterId" converter="#{encounterList.converter}" value="#{ reasonList.reason.encounter}"> 
-        <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{encounterList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-      </p:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>  
       <br/>  
       <p:selectOneMenu id="codeId" converter="#{codeList.converter}" value="#{ reasonList.reason.code}"> 

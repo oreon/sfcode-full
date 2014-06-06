@@ -97,6 +97,18 @@ public abstract class PrescriptionListQueryBase
 			"prescription.dateCreated <= #{prescriptionList.dateCreatedRange.end}",
 			"prescription.dateCreated >= #{prescriptionList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all Prescriptions for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<Prescription> getAllPrescriptionsByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		prescription.setPatient(patient);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<Prescription> getPrescriptionsByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
 

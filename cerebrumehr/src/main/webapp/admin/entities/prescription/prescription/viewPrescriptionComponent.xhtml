@@ -11,9 +11,7 @@
         <h:outputText value="#{msg.Prescription}"/> 
       </f:facet>  
       <h:outputText value="#{msg.prescription_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDirectivesForPatient')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}directivesForPatientAbbr" value="#{prescription.directivesForPatientAbbreviated}" escape="false"/> 
-      </h:panelGroup>  
+      <h:outputText value="#{prescription.directivesForPatient}" escape="false"/>  
       <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewActive')}"/>  
       <h:outputText value="#{prescription.active? msg.yes : msg.no }"/>  
       <h:outputText value="#{msg.prescription_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')}"/>  
@@ -22,25 +20,16 @@
       <h:panelGroup> 
         <h:link id="patientprescription_patient" escape="false" value="#{prescription.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
           <f:param name="patientId" value="#{prescription.patient.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{prescription.patient.popupInfo}</span> 
-          </p:tooltip> 
+          <f:param name="from" value="#{request.servletPath}"/> 
         </h:link>  
-        <p:overlayPanel for="patientprescription_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="patient" value="#{prescription.patient}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="patientPrescriptions"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
+        <p:tooltip for="patientprescription_patient"> 
+          <span>#{prescription.patient.popupInfo}</span> 
+        </p:tooltip> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePrescriptionItems == true}"> 
-      <p:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{not empty prescriptionAction.listPrescriptionItems and skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewPrescriptionItems') }" value="#{prescriptionAction.listPrescriptionItems}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{ prescriptionAction.listPrescriptionItems.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewPrescriptionItems') }" value="#{prescriptionAction.listPrescriptionItems}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDrug')}"/> 
@@ -48,11 +37,11 @@
           <h:panelGroup> 
             <h:link id="drugprescriptionItem_drug" escape="false" value="#{_prescriptionItem.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
               <f:param name="drugId" value="#{_prescriptionItem.drug.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/>  
-              <p:tooltip> 
-                <span>#{_prescriptionItem.drug.popupInfo}</span> 
-              </p:tooltip> 
-            </h:link> 
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="drugprescriptionItem_drug"> 
+              <span>#{_prescriptionItem.drug.popupInfo}</span> 
+            </p:tooltip> 
           </h:panelGroup> 
         </p:column>  
         <p:column> 

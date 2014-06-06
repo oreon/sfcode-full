@@ -23,16 +23,14 @@
         <p:tab title="Patient" rendered="#{chartProcedureAction.instance.patient != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="patientId" value="#{chartProcedureAction.instance.patient.id}"/> 
+              <ui:param name="patient" value="#{chartProcedureAction.instance.patient}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="ChartItem" rendered="#{chartProcedureAction.instance.chartItem != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/charts/chartItem/viewChartItemComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="chartItemId" value="#{chartProcedureAction.instance.chartItem.id}"/> 
+              <ui:param name="chartItem" value="#{chartProcedureAction.instance.chartItem}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

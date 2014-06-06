@@ -6,14 +6,6 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.differential_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editEncounter')}"/>  
-      <br/>  
-      <p:selectOneMenu id="encounterId" converter="#{encounterList.converter}" value="#{ differentialList.differential.encounter}"> 
-        <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{encounterList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-      </p:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{differentialList.differential.remarks}"/> 

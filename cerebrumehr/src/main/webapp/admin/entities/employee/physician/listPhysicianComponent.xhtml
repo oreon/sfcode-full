@@ -17,7 +17,7 @@
     <h:form id="physicianForm"> 
       <p:dataTable var="_physician" value="#{records}" id="physicianList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{physicianAction.physician}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editPhysicianPanel')}" oncomplete="editPhysicianDialog.show()" listener="#{physicianAction.onRowSelect}"/>  
-        <p:column headerText="msg.id" sortBy="physician.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <p:column headerText="#{msg.id}" sortBy="physician.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/employee/physician/physicianActionPhysician.xhtml" rendered="#{s:hasPermission(_physician, 'view')}" propagation="none"> 
             <h:outputText value="#{_physician.id}"/>  
             <f:param name="physicianId" value="#{_physician.id}"/> 
@@ -112,7 +112,7 @@
             </p:overlayPanel> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="msg.Creation Date" sortBy="physician.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+        <p:column headerText="#{msg.dateCreated}" sortBy="physician.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_physician.dateCreated}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 

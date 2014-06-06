@@ -95,6 +95,18 @@ public abstract class SectionListQueryBase extends BaseQuery<Section, Long> {
 			"section.dateCreated <= #{sectionList.dateCreatedRange.end}",
 			"section.dateCreated >= #{sectionList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all Sections for the given Chapter
+	 * @param patient
+	 * @return 
+	 */
+	public List<Section> getAllSectionsByChapter(
+			final com.oreon.cerebrum.codes.Chapter chapter) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		section.setChapter(chapter);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<Section> getSectionsByChapter(
 			final com.oreon.cerebrum.codes.Chapter chapter) {
 

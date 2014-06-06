@@ -171,6 +171,18 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 			"encounter.dateCreated <= #{encounterList.dateCreatedRange.end}",
 			"encounter.dateCreated >= #{encounterList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all Encounters for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<Encounter> getAllEncountersByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		encounter.setPatient(patient);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<Encounter> getEncountersByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
 

@@ -13,13 +13,11 @@
       <h:outputText value="#{msg.prescriptionTemplate_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewName')}"/>  
       <h:outputText value="#{prescriptionTemplate.name}" escape="false"/>  
       <h:outputText value="#{msg.prescriptionTemplate_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewDirectivesForPatient')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}directivesForPatientAbbr" value="#{prescriptionTemplate.directivesForPatientAbbreviated}" escape="false"/> 
-      </h:panelGroup> 
+      <h:outputText value="#{prescriptionTemplate.directivesForPatient}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePrescriptionItemTemplates == true}"> 
-      <p:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{not empty prescriptionTemplateAction.listPrescriptionItemTemplates and skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewPrescriptionItemTemplates') }" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="prescriptionItemTemplates" var="_prescriptionItemTemplate" rendered="#{ prescriptionTemplateAction.listPrescriptionItemTemplates.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewPrescriptionItemTemplates') }" value="#{prescriptionTemplateAction.listPrescriptionItemTemplates}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescriptionItemTemplate_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'viewDrug')}"/> 
@@ -27,11 +25,11 @@
           <h:panelGroup> 
             <h:link id="drugprescriptionItemTemplate_drug" escape="false" value="#{_prescriptionItemTemplate.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
               <f:param name="drugId" value="#{_prescriptionItemTemplate.drug.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/>  
-              <p:tooltip> 
-                <span>#{_prescriptionItemTemplate.drug.popupInfo}</span> 
-              </p:tooltip> 
-            </h:link> 
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="drugprescriptionItemTemplate_drug"> 
+              <span>#{_prescriptionItemTemplate.drug.popupInfo}</span> 
+            </p:tooltip> 
           </h:panelGroup> 
         </p:column>  
         <p:column> 
