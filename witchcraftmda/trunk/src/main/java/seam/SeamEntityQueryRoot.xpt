@@ -184,38 +184,7 @@ public abstract class «name»ListQueryBase«IF isAbstractEntity()» <T  extends «na
 		"«asVar()».dateCreated >= #{«asVar()»List.dateCreatedRange.begin}",
 	};
 	
-	
-	«FOREACH getOutgoingAssociations() AS e»
-	«IF !e.type.isAbstract && e.opposite.name != null»
-	
-	«LET !isAbstractEntity()? name : "T" AS param»
-	
-	public «isPrimeSeam2()?"LazyDataModel":"List"»<«param»> get«e.opposite.name.toFirstUpper()»By«e.name.toFirstUpper()»(final «e.type.fqn()» «e.type.asVar()»){
-		«IF isPrimeSeam2()»
-			EntityLazyDataModel<«param», Long> «asVar()»LazyDataModel = new EntityLazyDataModel<«param»,Long>(
-				this) {
-
-			@Override
-			public List<«param»> load(int first, int pageSize,String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
-
-				«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
-				return super.load(first, pageSize, sortField, sortOrder,filters);
-			}
-		};
-
-		return «asVar()»LazyDataModel;
-			
-		«ELSE»
-			«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
-			return getResultList();
-		«ENDIF»
-		
-	}
-	«ENDLET»
-	«ENDIF»
-	«ENDFOREACH»
-
+	«EXPAND genFindByMethods FOR this»
 	
 	@Observer("archived«name»")
 	public void onArchive(){
@@ -261,6 +230,51 @@ public abstract class «name»ListQueryBase«IF isAbstractEntity()» <T  extends «na
 «ENDDEFINE»
 
 
+
+«DEFINE genFindByMethods FOR wcprofile::Entity»
+ «FOREACH getOutgoingAssociations() AS e»
+	«IF !e.type.isAbstract && e.opposite.name != null»
+	
+	«LET !isAbstractEntity()? name : "T" AS param»
+	
+	
+	/** 
+	 * List of all «e.opposite.type.name»s for the given «e.type.name»
+	 * @param patient
+	 * @return 
+	 */
+	public List<«param»>  getAll«e.opposite.name.toFirstUpper()»By«e.name.toFirstUpper()»(final «e.type.fqn()» «e.type.asVar()») {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
+		return getResultListTable();
+	}
+	
+	public «isPrimeSeam2()?"LazyDataModel":"List"»<«param»> get«e.opposite.name.toFirstUpper()»By«e.name.toFirstUpper()»(final «e.type.fqn()» «e.type.asVar()»){
+		«IF isPrimeSeam2()»
+			EntityLazyDataModel<«param», Long> «asVar()»LazyDataModel = new EntityLazyDataModel<«param»,Long>(
+				this) {
+
+			@Override
+			public List<«param»> load(int first, int pageSize,String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+
+				«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
+				return super.load(first, pageSize, sortField, sortOrder,filters);
+			}
+		};
+
+		return «asVar()»LazyDataModel;
+			
+		«ELSE»
+			«asVar()».set«e.name.toFirstUpper()»(«e.type.asVar()»);
+			return getResultList();
+		«ENDIF»
+		
+	}
+	«ENDLET»
+	«ENDIF»
+  «ENDFOREACH»
+«ENDDEFINE»
 
 
 «DEFINE genAttribAsOutput(boolean createRangeDeclarations)  FOR uml::Class-»

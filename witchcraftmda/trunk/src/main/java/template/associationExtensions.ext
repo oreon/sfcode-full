@@ -15,6 +15,9 @@ entity.getAllAttributes().select(a|a.isMultivalued()  && a.association != null  
 getNonComposedManyAssociationsOpposite(Entity entity):
 entity.getAllAttributes().select(a|a.association != null && a.opposite.isMultivalued()    && !a.isMultivalued() && !a.opposite.isComposite());
 
+isBidirectional(Property e):
+e.isAssoc() && e.isNavigable() && e.opposite.isNavigable()  && !e.isMultivalued() && !e.opposite.isMultivalued() ;
+
 getLeadingManyToMany(Class entity):
 entity.getAllAttributes().select(a|a.isLeadingManyToMany());
 
@@ -22,9 +25,12 @@ isLeadingManyToManyAutoComplete(Property a):
 a.isLeadingManyToMany()  && a.isAutoComplete();
 
 
-isLeadingManyToMany(Property a):
-a.association != null && a.opposite != null && a.opposite.isMultivalued() && a.isMultivalued() && a.isAggregate();
 
+isLeadingManyToMany(Property a):
+a.isAssoc() && a.opposite.isMultivalued() && a.isMultivalued() && a.isAggregate();
+
+isAssoc(Property a):
+a.association != null && a.opposite != null;
 
 getManyToMany(Class entity):
 entity.getAllAttributes().select(a|a.isManyToMany());
