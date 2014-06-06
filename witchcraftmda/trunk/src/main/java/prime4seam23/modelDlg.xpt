@@ -21,7 +21,7 @@
 	  <c:set var="opId" value="outputPanel-${modalId}"/>
       <h:panelGrid id="edit«name»Panel" columns="2" cellpadding="4"> 
       	<p:messages autoUpdate="true" />
-        <ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
+        <ui:include src = "«getComponentViewFileCustomizable("edit")»" />
       </h:panelGrid> 
      
       <p:commandButton action="#{«asVar()»Action.save(false)}" styleClass="button" 
@@ -83,9 +83,9 @@
 			</f:facet>
 			
 			<s:div>
-				<p:outputPanel ajaxRendered="true"  id="view«name»OutputPanel">
+				<p:outputPanel id="view«name»OutputPanel">
 					<h:form>
-						<ui:include src = "«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" />
+						<ui:include src = "«getComponentViewFileCustomizable("view")»" />
 						<h:outputText value=" " />
 						<h:commandButton oncomplete="Richfaces.hidepopupPanel('${modalId}')" value="Hide" />
 					</h:form>

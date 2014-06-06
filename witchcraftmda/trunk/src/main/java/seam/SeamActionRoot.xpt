@@ -327,7 +327,9 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		«IF !e.type.isAbstract»
 		if (getInstance().get«e.name.toFirstUpper()»() != null) {
 			«e.name»Action.setInstance(getInstance().get«e.name.toFirstUpper()»());
-			«e.name»Action.loadAssociations();
+			«IF !e.isBidirectional()»
+				«e.name»Action.loadAssociations();
+			«ENDIF»
 		}
 		«ENDIF»
 		«ENDFOREACH»

@@ -20,7 +20,7 @@
 				<br/> <br/>
 				«EXPAND genButtons FOR this»
 				<div id="printable" >
-				<ui:include src="list«name»Component.«getExtension()»"  >
+				<ui:include src="«getComponentViewFileCustomizable("list")»"  >
 					<ui:param name="records" value="#{«asVar()»List.lazyModel}" />
          		</ui:include>
          		</div>
@@ -260,17 +260,20 @@
 	<h:link id="«getSimpleId()»" «getEscape()»  value="#{«prefix»«genPropertyLabel()».displayName}"  outcome="«type.getViewFile("view")»" propagation="none">
 			<f:param name="«type.name.toFirstLower()»Id" value="#{«prefix»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
-			«IF type.popupInfo != null»
-			 <p:tooltip>
-	            <span>
-	              #{«prefix»«genPropertyLabel()».popupInfo} 
-	            </span>
-	        </p:tooltip>
-	        «ENDIF»
-	       
 	</h:link>
-	
-	«IF type.name != "Drug" »«REM»MAJOR TODO «ENDREM»
+	«EXPAND genToolTip(prefix) FOR this»
+    </h:panelGroup>
+«ENDDEFINE»
+
+
+«DEFINE genToolTip(String prefix) FOR uml::Property»
+	«IF type.popupInfo != null»
+		 <p:tooltip for="«getSimpleId()»">
+            <span>
+              #{«prefix»«genPropertyLabel()».popupInfo} 
+            </span>
+        </p:tooltip>
+	«ELSE»
 	  <p:overlayPanel for="«getSimpleId()»" showEvent="mouseover" hideEffect="fade" dynamic="false">
 	  	<h:form>
            <ui:include src="«type.getComponentViewFile("view")»"> 
@@ -281,9 +284,7 @@
         </h:form>
        </p:overlayPanel>
     «ENDIF»
-    </h:panelGroup>
 «ENDDEFINE»
-
 
 
 «DEFINE genProperty FOR uml::Property-»
@@ -323,7 +324,7 @@
 				<f:convertNumber pattern="000.00"/>
 			</h:outputText>
 		«ELSEIF isLargeText()»
-			«IF isColumn() && !abbreviateInListing  && !isListView»
+			«IF !isListView || ( isColumn() && !abbreviateInListing  ) »
 				<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
 			«ELSE»
 			 <h:panelGroup>
@@ -360,7 +361,7 @@
 
 
 «DEFINE genId FOR uml::Class»
-	<p:column headerText="msg.id" sortBy="«getCurrentEntity().asVar()».id"  «EXPAND genPermission FOR 'id'»>
+	<p:column headerText="#{msg.id}" sortBy="«getCurrentEntity().asVar()».id"  «EXPAND genPermission FOR 'id'»>
 		<h:link outcome="«getViewFile(getAction())»"  rendered="#{s:hasPermission(_«asVar()», 'view')}" propagation="none">
 			<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  />
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
@@ -370,7 +371,7 @@
 
 
 «DEFINE genCreationDate FOR uml::Class»
-	 <p:column headerText="msg.Creation Date" sortBy="«getCurrentEntity().asVar()».dateCreated"  «EXPAND genPermission FOR 'dateCreated'»>
+	 <p:column headerText="#{msg.dateCreated}" sortBy="«getCurrentEntity().asVar()».dateCreated"  «EXPAND genPermission FOR 'dateCreated'»>
 		<h:outputText    value="#{_«getCurrentEntity().asVar()».dateCreated}"  >
 			<s:convertDateTime type="date" dateStyle="medium" />
 		</h:outputText>

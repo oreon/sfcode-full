@@ -297,15 +297,24 @@ String getErrorMessage(Property prop):
 "<rich:message styleClass=\"error errors\" for=\"" + prop.getId() + "\"" + " rendered=\"#{" + prop.genEditPermission()  + "}\"" + "/>";
 
 
+//to get container  file  such as editCustomer.xhtml which will contain editCustomerComponent.xhtml
 String getViewFile(Class e,String mode):
 getViewFileName(e, mode) + "." + getExtension();
 
+//to get component file  such as editCustomerComponent.xhtml
 String getComponentViewFile(Class e,String mode):
-getViewFileName(e, mode) + "Component" +  "." + getExtension();
+getViewFileName(e, mode) + "Component"   + "." + getExtension();
+
+String getComponentViewFileCustomizable(Class e,String mode):
+getViewFileName(e, mode) + "Component" + e.getCustom()  + "." + getExtension();
+
+String getCustom(Class e):
+e.customViewComponents ?"Custom":"";
+
 
 //returns name without extension 
 String getViewFileName(Class e,String mode):
-"/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "/" + mode + e.name;
+"/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "/" + mode + e.name  ;
 
 String getTemplateViewFileName(Class e,String mode):
 "/admin/entities/" + e.package.name.toFirstLower() + "/" + e.asVar() + "Template/" + mode + e.name;

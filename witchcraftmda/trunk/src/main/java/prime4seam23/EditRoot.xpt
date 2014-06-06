@@ -18,7 +18,7 @@
 «ENDDEFINE»
 
 «DEFINE genEditFile FOR uml::Class»
-«FILE getWebPath() +"/" + "edit" + name+ "." + getExtension()   »
+«FILE getWebPath() +"/" + "edit" + name+ "." + getExtension()  man_path »
 <ui:composition «EXPAND WebRoot::genIncludes-»
 	template = "«getAdminTemplate()»" >	
 	
@@ -36,9 +36,9 @@
 		«ENDIF»
 	
 		<div id="printable" >
-		<ui:include src="«getComponentViewFile(customViewComponents ?"customEdit":"edit")»" >
-			<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
-		</ui:include>
+			<ui:include src="«getComponentViewFileCustomizable("edit")»" >
+				<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
+			</ui:include>
 		</div>
 		«EXPAND genCancelSaveBtns(true) FOR this»
 		</h:form>
@@ -66,7 +66,7 @@
 			<p:tabView  dynamic="true" cache="true">
 				<p:tab title="«name»">
 					<div id="printable" >
-					<ui:include src = "«getComponentViewFile(customViewComponents ?"customView":"view")»" >
+					<ui:include src = "«getComponentViewFileCustomizable("view")»" >
 						<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
 					</ui:include>
 					</div>
@@ -76,9 +76,7 @@
 				<p:tab title="«a.name.toFirstUpper()»"  rendered="#{«getAction()».instance.«a.name» != null}">
 				  <h:form>
 					<ui:include src = "«a.type.getComponentViewFile("view")»" >
-						«REM»comment<ui:param name="entityId" value="«getRandomNumber()»" />«ENDREM»
-						<ui:param name="entityId" value="«iter.counter1»" />
-						<ui:param name="«a.type.name.toFirstLower()»Id" value="#{«getAction()».instance.«a.name».id}" />
+						<ui:param name="«a.type.name.toFirstLower()»" value="#{«getAction()».instance.«a.name»}" />
 					</ui:include>
 				 </h:form>
 				</p:tab>
@@ -87,34 +85,7 @@
 			«EXPAND genBusinessFunctionButtons FOR this»
 		</h:form>
 		<br/>
-			
-			<p:tabView   dynamic="true" cache="true" >
-			«FOREACH getNonComposedManyAssociations() AS a»
-			<p:tab title="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
-				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
-				
-				<ui:include src = "«a.type.getComponentViewFile("list")»" >
-					<ui:param name="records" value="#{«a.type.asVar()»List.get«a.name.toFirstUpper()»By«a.opposite.name.toFirstUpper()»(«getAction()».instance)}" />
-         			<ui:param name="modalId" value="${modalId}" />
-         			<ui:param name="exclude«a.opposite.name.toFirstUpper()»" value="true"/>
-         		</ui:include>
-         		
-         		<h:form> 
-		      		<h:button value="Create New" outcome="«a.type.getViewFile("edit")»" > 
-		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
-		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/> 
-		      		</h:button>
-	      		
-			  		<p:commandButton value="Quick Create" update=":#{p:component('edit«a.type.name»Panel')}"  
-			          oncomplete="edit«a.type.name»Dialog.show()"  actionListener="#{«a.type.getAction()».set«a.type.name»Id(0)}">
-						 <f:setPropertyActionListener target="#{«a.type.getAction()».«a.opposite.name»Id}" value="#{«getAction()».instance.id}" /> 	
-			  		</p:commandButton>
-		      		
-		    	</h:form>
-		    	
-			</p:tab>
-			«ENDFOREACH»
-			</p:tabView>
+			«EXPAND genTabbedNonComposedAssociations FOR this»
 		<br/>
 		
 		<p:tabView  dynamic="true" cache="true">
@@ -135,6 +106,37 @@
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
+«ENDDEFINE»
+
+«REM» For associations that are aggregations e.g a department has employees - we create tabbed view for each such aggreation«ENDREM»
+«DEFINE genTabbedNonComposedAssociations FOR wcprofile::Entity»
+	<p:tabView dynamic="true" cache="true" >
+			«FOREACH getNonComposedManyAssociations() AS a»
+			<p:tab title="«a.name.toFirstUpper()»" icon="/images/icons/bricks.png">
+				<c:set var="modalId" value="«name»ModalPanel-«a.name»" />
+				
+				<ui:include src = "«a.type.getComponentViewFile("list")»" >
+					<ui:param name="records" value="#{«a.type.asVar()»List.get«a.name.toFirstUpper()»By«a.opposite.name.toFirstUpper()»(«getAction()».instance)}" />
+         			<ui:param name="modalId" value="${modalId}" />
+         			<ui:param name="exclude«a.opposite.name.toFirstUpper()»" value="true"/>
+         		</ui:include>
+         		
+         		<h:form> 
+		      		<p:commandButton value="Create New" action="«a.type.getViewFile("edit")»" > 
+		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
+		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/>
+		      		    <s:conversationId/>
+		      		</p:commandButton>
+	      		
+			  		<p:commandButton value="Quick Create" update=":#{p:component('edit«a.type.name»Panel')}"  
+			          oncomplete="edit«a.type.name»Dialog.show()"  actionListener="#{«a.type.getAction()».set«a.type.name»Id(0)}">
+						 <f:setPropertyActionListener target="#{«a.type.getAction()».«a.opposite.name»Id}" value="#{«getAction()».instance.id}" /> 	
+			  		</p:commandButton>
+		    	</h:form>
+		    	
+			</p:tab>
+			«ENDFOREACH»
+	</p:tabView>
 «ENDDEFINE»
 
 
@@ -267,7 +269,7 @@
 «DEFINE genEditManyToManyShuttle FOR uml::Property»
 	<br/>
 	«IF isCurrentEditMode()»
-		«IF  isLeadingManyToManyAutoComplete()»
+		«IF isAutoComplete()»
 			<p:autoComplete minQueryLength="2" 
 				completeMethod="#{«type.name.toFirstLower()»List.searchDataBaseForAutocomplete}"
 				value="#{«class.getAction()».list«name.toFirstUpper()»}" converter="#{«type.name.toFirstLower()»List.converter}"
@@ -599,7 +601,7 @@
 	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
 	<p:dataTable id="«name»" var="_«type.asVar()»" 
 		«IF !isCurrentEditMode()» 
-			rendered="#{not empty «class.getAction()».list«name.toFirstUpper()» and «genViewPermission()» }"
+			rendered="#{ «class.getAction()».list«name.toFirstUpper()».size() > 0  and «genViewPermission()» }"
 			«ELSE»
 				rendered="#{«genEditPermission()»}"
 		 «ENDIF»

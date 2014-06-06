@@ -455,6 +455,9 @@ public class ClassUtil {
 	 */
 	public static String getViewLabelFromVariable(String varName,
 			String concatChar) {
+		
+		
+		
 		if (varName == null) {
 			// system.out.println("Warn: null variable in getViewLabel ");
 			return "";
