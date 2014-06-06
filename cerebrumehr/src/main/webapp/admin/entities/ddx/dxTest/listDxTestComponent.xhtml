@@ -17,7 +17,7 @@
     <h:form id="dxTestForm"> 
       <p:dataTable var="_dxTest" value="#{records}" id="dxTestList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{dxTestAction.dxTest}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editDxTestPanel')}" oncomplete="editDxTestDialog.show()" listener="#{dxTestAction.onRowSelect}"/>  
-        <p:column headerText="msg.id" sortBy="dxTest.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <p:column headerText="#{msg.id}" sortBy="dxTest.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/ddx/dxTest/dxTestActionDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'view')}" propagation="none"> 
             <h:outputText value="#{_dxTest.id}"/>  
             <f:param name="dxTestId" value="#{_dxTest.id}"/> 
@@ -31,7 +31,7 @@
             <h:outputText id="${panelId}descriptionAbbr" value="#{_dxTest.descriptionAbbreviated}" escape="false"/> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="msg.Creation Date" sortBy="dxTest.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+        <p:column headerText="#{msg.dateCreated}" sortBy="dxTest.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_dxTest.dateCreated}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 

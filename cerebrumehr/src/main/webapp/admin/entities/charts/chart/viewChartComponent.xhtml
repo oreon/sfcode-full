@@ -15,7 +15,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeChartItems == true}"> 
-      <p:dataTable id="chartItems" var="_chartItem" rendered="#{not empty chartAction.listChartItems and skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewChartItems') }" value="#{chartAction.listChartItems}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="chartItems" var="_chartItem" rendered="#{ chartAction.listChartItems.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewChartItems') }" value="#{chartAction.listChartItems}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.chartItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewName')}"/> 

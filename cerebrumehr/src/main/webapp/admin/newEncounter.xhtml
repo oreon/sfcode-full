@@ -12,29 +12,6 @@
 	<ui:define name="content">
 		<h:form id="encounterForm">
 
-			<s:decorate id="#{prefix}_patientpatientDecorate"
-				template="/layout/edit.xhtml">
-				<ui:define name="label">
-					<h:outputText value="#{msg.encounter_patient}  "
-						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}" />
-				</ui:define>
-
-				<h:selectOneMenu id="#{prefix}_patientpatient"
-					label="#{msg.encounter_patient}"
-					value="#{encounterAction.encounter.patient}" required="true"
-					rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'editPatient')}"
-					disabled="false">
-					<s:selectItems value="#{patientList.all}" var="itemIter"
-						label="#{itemIter.displayName}"
-						noSelectionLabel="Please Select..." />
-					
-					<s:convertEntity />
-				</h:selectOneMenu>
-			</s:decorate>
-
-			<br />
-			<br />
-			<br />
 
 			<p:dataTable id="reasons" var="_reason"
 				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editReasons')}"

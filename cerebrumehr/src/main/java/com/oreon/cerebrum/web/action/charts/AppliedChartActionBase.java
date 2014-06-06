@@ -203,12 +203,16 @@ public abstract class AppliedChartActionBase extends BaseAction<AppliedChart>
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		if (getInstance().getChart() != null) {
 			chartAction.setInstance(getInstance().getChart());
+
 			chartAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

@@ -203,12 +203,16 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 
 		if (getInstance().getService() != null) {
 			serviceAction.setInstance(getInstance().getService());
+
 			serviceAction.loadAssociations();
+
 		}
 
 		if (getInstance().getInvoice() != null) {
 			invoiceAction.setInstance(getInstance().getInvoice());
+
 			invoiceAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

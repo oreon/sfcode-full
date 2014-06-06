@@ -33,10 +33,11 @@
           <ui:param name="excludeDepartment" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/employee/employee/editEmployee.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/employee/employee/editEmployee.xhtml"> 
             <f:param name="departmentId" value="#{departmentAction.instance.id}"/>  
-            <f:param name="employeeId" value="0"/> 
-          </h:button>  
+            <f:param name="employeeId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editEmployeePanel')}" oncomplete="editEmployeeDialog.show()" actionListener="#{employeeAction.setEmployeeId(0)}"> 
             <f:setPropertyActionListener target="#{employeeAction.departmentId}" value="#{departmentAction.instance.id}"/> 
           </p:commandButton> 

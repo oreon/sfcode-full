@@ -203,12 +203,16 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 
 		if (getInstance().getTrackedVital() != null) {
 			trackedVitalAction.setInstance(getInstance().getTrackedVital());
+
 			trackedVitalAction.loadAssociations();
+
 		}
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

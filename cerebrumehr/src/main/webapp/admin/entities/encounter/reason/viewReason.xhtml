@@ -20,19 +20,10 @@
             </h:commandButton> 
           </div> 
         </p:tab>  
-        <p:tab title="Encounter" rendered="#{reasonAction.instance.encounter != null}"> 
-          <h:form> 
-            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="encounterId" value="#{reasonAction.instance.encounter.id}"/> 
-            </ui:include> 
-          </h:form> 
-        </p:tab>  
         <p:tab title="Code" rendered="#{reasonAction.instance.code != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/codes/code/viewCodeComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="codeId" value="#{reasonAction.instance.code.id}"/> 
+              <ui:param name="code" value="#{reasonAction.instance.code}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

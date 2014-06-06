@@ -129,6 +129,18 @@ public abstract class PrescriptionItemTemplateListQueryBase
 			"prescriptionItemTemplate.dateCreated <= #{prescriptionItemTemplateList.dateCreatedRange.end}",
 			"prescriptionItemTemplate.dateCreated >= #{prescriptionItemTemplateList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all PrescriptionItemTemplates for the given PrescriptionTemplate
+	 * @param patient
+	 * @return 
+	 */
+	public List<PrescriptionItemTemplate> getAllPrescriptionItemTemplatesByPrescriptionTemplate(
+			final com.oreon.cerebrum.prescription.PrescriptionTemplate prescriptionTemplate) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		prescriptionItemTemplate.setPrescriptionTemplate(prescriptionTemplate);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<PrescriptionItemTemplate> getPrescriptionItemTemplatesByPrescriptionTemplate(
 			final com.oreon.cerebrum.prescription.PrescriptionTemplate prescriptionTemplate) {
 

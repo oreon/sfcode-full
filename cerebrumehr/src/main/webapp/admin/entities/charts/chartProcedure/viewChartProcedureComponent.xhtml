@@ -19,27 +19,16 @@
         <s:convertDateTime type="date" dateStyle="medium"/> 
       </h:outputText>  
       <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewRemarks')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}remarksAbbr" value="#{chartProcedure.remarksAbbreviated}" escape="false"/> 
-      </h:panelGroup>  
+      <h:outputText value="#{chartProcedure.remarks}" escape="false"/>  
       <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewPatient')}"/>  
       <h:panelGroup> 
         <h:link id="patientchartProcedure_patient" escape="false" value="#{chartProcedure.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
           <f:param name="patientId" value="#{chartProcedure.patient.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{chartProcedure.patient.popupInfo}</span> 
-          </p:tooltip> 
+          <f:param name="from" value="#{request.servletPath}"/> 
         </h:link>  
-        <p:overlayPanel for="patientchartProcedure_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="patient" value="#{chartProcedure.patient}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="patientChartProcedures"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
+        <p:tooltip for="patientchartProcedure_patient"> 
+          <span>#{chartProcedure.patient.popupInfo}</span> 
+        </p:tooltip> 
       </h:panelGroup>  
       <h:outputText value="#{msg.chartProcedure_chartItem}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewChartItem')}"/>  
       <h:panelGroup> 

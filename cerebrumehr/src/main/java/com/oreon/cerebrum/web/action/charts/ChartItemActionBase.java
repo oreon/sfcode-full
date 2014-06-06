@@ -180,7 +180,9 @@ public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 
 		if (getInstance().getChart() != null) {
 			chartAction.setInstance(getInstance().getChart());
+
 			chartAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

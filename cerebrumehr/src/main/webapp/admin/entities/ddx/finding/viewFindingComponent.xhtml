@@ -15,7 +15,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeDifferentialDxs == true}"> 
-      <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{not empty findingAction.listDifferentialDxs and skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewDifferentialDxs') }" value="#{findingAction.listDifferentialDxs}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{ findingAction.listDifferentialDxs.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('finding', 'viewDifferentialDxs') }" value="#{findingAction.listDifferentialDxs}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.differentialDx_dxCategory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'viewDxCategory')}"/> 

@@ -95,6 +95,18 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 			"room.dateCreated <= #{roomList.dateCreatedRange.end}",
 			"room.dateCreated >= #{roomList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all Rooms for the given Ward
+	 * @param patient
+	 * @return 
+	 */
+	public List<Room> getAllRoomsByWard(
+			final com.oreon.cerebrum.facility.Ward ward) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		room.setWard(ward);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<Room> getRoomsByWard(
 			final com.oreon.cerebrum.facility.Ward ward) {
 

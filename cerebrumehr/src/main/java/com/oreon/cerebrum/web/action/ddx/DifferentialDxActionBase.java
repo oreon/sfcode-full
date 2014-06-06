@@ -203,12 +203,16 @@ public abstract class DifferentialDxActionBase
 
 		if (getInstance().getDxCategory() != null) {
 			dxCategoryAction.setInstance(getInstance().getDxCategory());
+
 			dxCategoryAction.loadAssociations();
+
 		}
 
 		if (getInstance().getFinding() != null) {
 			findingAction.setInstance(getInstance().getFinding());
+
 			findingAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

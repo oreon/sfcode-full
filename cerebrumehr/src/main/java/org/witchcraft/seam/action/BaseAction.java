@@ -1,9 +1,11 @@
 package org.witchcraft.seam.action;
 
 import java.io.OutputStream;
+import java.security.AccessControlException;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -47,6 +49,7 @@ import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
 import org.witchcraft.base.entity.FileAttachment;
+import org.witchcraft.base.entity.UserUtilAction;
 import org.witchcraft.exceptions.ContractViolationException;
 import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.Auditable;
@@ -204,6 +207,11 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		}
 		setId(entityId);
 		instance = loadInstance();
+		UserUtilAction userUtilAction = (UserUtilAction) Component.getInstance("userUtilAction");
+		
+		if(instance != null && instance.getTenant() != 0 && (instance.getTenant() != userUtilAction.getCurrentUser().getTenant())){
+			throw new AccessControlException("Not authorized");
+		}
 		if (!isPostBack())
 			loadAssociations();
 	}
@@ -216,11 +224,20 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 	}
 
 	protected void addInfoMessage(String message, Object... params) {
-		statusMessages.add(message, params);
+		addMessage(FacesMessage.SEVERITY_INFO, message, params);	
 	}
 
 	protected void addErrorMessage(String message, Object... params) {
-		statusMessages.add(Severity.ERROR, message, params);
+		addMessage(FacesMessage.SEVERITY_ERROR, message, params);
+	}
+	
+	protected void addWarnMessage(String message, Object... params) {
+		addMessage(FacesMessage.SEVERITY_WARN, message, params);
+	}
+	
+	public void addMessage(FacesMessage.Severity  se ,String message, Object... params) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(se, message, message));
 	}
 
 	public String saveTemplate() {
@@ -373,6 +390,9 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		return save(true);
 	}
 	
+	
+	
+	
 
 	public String save(boolean endConversation) {
 		String result =  doSave();
@@ -445,7 +465,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		}
 		log.info("loading id: " + entityId);
 		setId(entityId);
-		loadInstance();
+		instance = loadInstance();
 
 		// setInstance(loadFromId(entityId));
 		// return "edit";
@@ -792,7 +812,7 @@ public abstract class BaseAction<T extends BaseEntity> extends EntityHome<T> {
 		return id != getInstance().getId().longValue();
 	}
 
-	protected boolean isNew() {
+	public boolean isNew() {
 		boolean isNew = getInstance().getId() == null;
 		return isNew;
 

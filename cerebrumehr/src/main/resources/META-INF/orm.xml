@@ -16,12 +16,7 @@
   </entity>  
   <!--  Reason  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.encounter.Reason" name="Reason"> 
-    <table name="reason"> 
-      <unique-constraint> 
-        <column-name>encounter_id</column-name>  
-        <column-name>code_id</column-name> 
-      </unique-constraint> 
-    </table> 
+    <table name="reason"></table> 
   </entity>  
   <!--  Invoice  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.billing.Invoice" name="Invoice"> 
@@ -63,15 +58,6 @@
   <!--  Allergy  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.patient.Allergy" name="Allergy"> 
     <table name="allergy"></table> 
-  </entity>  
-  <!--  Allergen  JPA Configurations -->  
-  <entity class="com.oreon.cerebrum.patient.Allergen" name="Allergen"> 
-    <table name="allergen"></table>  
-    <named-query name="allergen.findByUnqName"> 
-      <query> <![CDATA[
-			select u from Allergen u where u.name = ?1
-			]]> </query> 
-    </named-query> 
   </entity>  
   <!--  Immunization  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.patient.Immunization" name="Immunization"> 
@@ -363,5 +349,31 @@
   <!--  ChartProcedure  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.charts.ChartProcedure" name="ChartProcedure"> 
     <table name="chartprocedure"></table> 
+  </entity>  
+  <!--  Settings  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.settings.Settings" name="Settings"> 
+    <table name="settings"></table> 
+  </entity>  
+  <!--  Setting  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.settings.Setting" name="Setting"> 
+    <table name="setting"></table> 
+  </entity>  
+  <!--  SettingName  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.settings.SettingName" name="SettingName"> 
+    <table name="settingname"></table>  
+    <named-query name="settingName.findByUnqName"> 
+      <query> <![CDATA[
+			select u from SettingName u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  SettingGroup  JPA Configurations -->  
+  <entity class="com.oreon.cerebrum.settings.SettingGroup" name="SettingGroup"> 
+    <table name="settinggroup"></table>  
+    <named-query name="settingGroup.findByUnqName"> 
+      <query> <![CDATA[
+			select u from SettingGroup u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity> 
 </entity-mappings>

@@ -181,7 +181,9 @@ public abstract class NurseActionBase
 
 		if (getInstance().getNurseSpecialty() != null) {
 			nurseSpecialtyAction.setInstance(getInstance().getNurseSpecialty());
+
 			nurseSpecialtyAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

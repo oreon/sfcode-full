@@ -18,11 +18,11 @@
       <h:panelGroup> 
         <h:link id="drugatcDrug_drug" escape="false" value="#{atcDrug.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
           <f:param name="drugId" value="#{atcDrug.drug.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{atcDrug.drug.popupInfo}</span> 
-          </p:tooltip> 
-        </h:link> 
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:tooltip for="drugatcDrug_drug"> 
+          <span>#{atcDrug.drug.popupInfo}</span> 
+        </p:tooltip> 
       </h:panelGroup>  
       <h:outputText value="#{msg.atcDrug_parent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')}"/>  
       <h:panelGroup> 
@@ -43,7 +43,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeSubcategories == true}"> 
-      <p:dataTable id="subcategories" var="_atcDrug" rendered="#{not empty atcDrugAction.listSubcategories and skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewSubcategories') }" value="#{atcDrugAction.listSubcategories}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="subcategories" var="_atcDrug" rendered="#{ atcDrugAction.listSubcategories.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewSubcategories') }" value="#{atcDrugAction.listSubcategories}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.atcDrug_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')}"/> 
@@ -51,11 +51,11 @@
           <h:panelGroup> 
             <h:link id="drugatcDrug_drug" escape="false" value="#{_atcDrug.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
               <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/>  
-              <p:tooltip> 
-                <span>#{_atcDrug.drug.popupInfo}</span> 
-              </p:tooltip> 
-            </h:link> 
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="drugatcDrug_drug"> 
+              <span>#{_atcDrug.drug.popupInfo}</span> 
+            </p:tooltip> 
           </h:panelGroup> 
         </p:column>  
         <p:column> 

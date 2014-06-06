@@ -23,16 +23,14 @@
         <p:tab title="Admission" rendered="#{bedStayAction.instance.admission != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/patient/admission/viewAdmissionComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="admissionId" value="#{bedStayAction.instance.admission.id}"/> 
+              <ui:param name="admission" value="#{bedStayAction.instance.admission}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Bed" rendered="#{bedStayAction.instance.bed != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="bedId" value="#{bedStayAction.instance.bed.id}"/> 
+              <ui:param name="bed" value="#{bedStayAction.instance.bed}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

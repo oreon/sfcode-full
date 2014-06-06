@@ -15,6 +15,12 @@
           <h:outputText value="#{msg.facility_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editName')}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editName')}" label="#{msg.facility_name}" required="false" disabled="false" value="#{facilityAction.facility.name}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="isResidentialDecorate" rendered="#{ ! excludeIsResidential == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.facility_isResidential}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editIsResidential')}"/>
+        </ui:define>  
+        <h:selectBooleanCheckbox escape="false" id="isResidential#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editIsResidential')}" label="#{msg.facility_isResidential}" required="false" disabled="false" value="#{facilityAction.facility.isResidential}"></h:selectBooleanCheckbox> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

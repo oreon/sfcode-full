@@ -73,6 +73,9 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	private static final String SEARCH_DATA = "searchData";
 
 	private Class<E> entityClass = null;
+	
+	public static final int ABSOLUTE_MAX_RECORDS = 100000;
+
 
 	protected E instance;
 
@@ -92,10 +95,10 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	private SavedSearch currentSavedSearch;
 
 	private Integer currentPage;
-	
-	private EntityLazyDataModel<E,PK> lazyDataModel = new EntityLazyDataModel<E,PK>(this);
-	
-	
+
+	private EntityLazyDataModel<E, PK> lazyDataModel = new EntityLazyDataModel<E, PK>(
+			this);
+
 	public Integer getCurrentPage() {
 		return currentPage;
 	}
@@ -141,6 +144,8 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	public BaseQuery() {
 		setEjbql(getql());
+		setOrderColumn("dateCreated");
+		setOrderDirection("desc");
 		setRestrictionExpressionStrings(Arrays.asList(getEntityRestrictions()));
 		setMaxResults(DEFAULT_PAGES_FOR_PAGINATION);
 	}
@@ -161,21 +166,18 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		this.textToSearch = textToSearch;
 	}
 
-	
-
-	public void setLazyDataModel(EntityLazyDataModel<E,PK> lazyModel) {
+	public void setLazyDataModel(EntityLazyDataModel<E, PK> lazyModel) {
 		this.lazyDataModel = lazyModel;
+
 	}
 
-	public EntityLazyDataModel<E,PK> getLazyDataModel() {
+	public EntityLazyDataModel<E, PK> getLazyDataModel() {
 		return lazyDataModel;
 	}
-	
-	public EntityLazyDataModel<E,PK> getLazyModel() {
+
+	public EntityLazyDataModel<E, PK> getLazyModel() {
 		return lazyDataModel;
 	}
-	
-	
 
 	/**
 	 * Get the class of the entity being managed. <br />
@@ -233,7 +235,39 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	public List<E> getAll() {
 		setMaxResults(100000);
+		setDropDownListOrder();
 		return getResultList();
+	}
+
+	public List<E> getResultListTable() {
+		if (!isPostBack()) {
+			setDefaultOrder();
+		}
+		return super.getResultList();
+	}
+
+	public void setDropDownListOrder() {
+		setOrderDirection("asc");
+		try {
+			
+			BaseEntity entity = getInstance();
+			
+			if( entity.getClass().getField("name") != null )
+				setOrderColumn("name");
+			
+			if( entity.getClass().getField("lastName") != null )
+				setOrderColumn("lastName");
+			
+			
+		} catch (Throwable e) {
+			
+			// ignore
+		}
+	}
+
+	public void setDefaultOrder() {
+		setOrderColumn("id");
+		setOrderDirection("desc");
 	}
 
 	/**
@@ -700,9 +734,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	public SavedSearch getCurrentSavedSearch() {
 		return currentSavedSearch;
 	}
-	
-	
-	
+
 	public Converter getConverter() {
 
 		return new Converter() {
@@ -720,7 +752,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 					return null;
 				}
 
-				E t = getEntityManager().find(getEntityClass(),id);
+				E t = getEntityManager().find(getEntityClass(), id);
 
 				/*
 				 * Hibernate.initialize(t); if (t instanceof HibernateProxy) { t

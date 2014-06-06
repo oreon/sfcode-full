@@ -23,16 +23,14 @@
         <p:tab title="Service" rendered="#{invoiceItemAction.instance.service != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/billing/service/viewServiceComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="serviceId" value="#{invoiceItemAction.instance.service.id}"/> 
+              <ui:param name="service" value="#{invoiceItemAction.instance.service}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Invoice" rendered="#{invoiceItemAction.instance.invoice != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="invoiceId" value="#{invoiceItemAction.instance.invoice.id}"/> 
+              <ui:param name="invoice" value="#{invoiceItemAction.instance.invoice}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

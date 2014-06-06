@@ -203,12 +203,16 @@ public abstract class PatientFindingActionBase
 
 		if (getInstance().getFinding() != null) {
 			findingAction.setInstance(getInstance().getFinding());
+
 			findingAction.loadAssociations();
+
 		}
 
 		if (getInstance().getPatientDiffDx() != null) {
 			patientDiffDxAction.setInstance(getInstance().getPatientDiffDx());
+
 			patientDiffDxAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

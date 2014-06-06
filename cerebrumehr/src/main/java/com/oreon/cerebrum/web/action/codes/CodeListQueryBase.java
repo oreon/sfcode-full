@@ -105,6 +105,18 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 			"code.dateCreated <= #{codeList.dateCreatedRange.end}",
 			"code.dateCreated >= #{codeList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all Codes for the given Section
+	 * @param patient
+	 * @return 
+	 */
+	public List<Code> getAllCodesBySection(
+			final com.oreon.cerebrum.codes.Section section) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		code.setSection(section);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<Code> getCodesBySection(
 			final com.oreon.cerebrum.codes.Section section) {
 

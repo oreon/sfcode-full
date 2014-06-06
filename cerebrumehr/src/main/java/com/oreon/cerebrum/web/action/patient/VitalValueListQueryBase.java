@@ -109,6 +109,18 @@ public abstract class VitalValueListQueryBase
 			"vitalValue.dateCreated <= #{vitalValueList.dateCreatedRange.end}",
 			"vitalValue.dateCreated >= #{vitalValueList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all VitalValues for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<VitalValue> getAllVitalValuesByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		vitalValue.setPatient(patient);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<VitalValue> getVitalValuesByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
 

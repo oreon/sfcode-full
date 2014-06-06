@@ -42,10 +42,25 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+import com.oreon.cerebrum.web.action.users.AppRoleAction;
+
 //@Scope(ScopeType.CONVERSATION)
 @Name("physicianAction")
 public class PhysicianAction extends PhysicianActionBase
 		implements
 			java.io.Serializable {
+	
+	@In(create=true)
+	AppRoleAction appRoleAction;
+	
+	
+	@Override
+	public String save() {
+		preSave();
+		return super.save();
+	}
+
+	
+	
 
 }

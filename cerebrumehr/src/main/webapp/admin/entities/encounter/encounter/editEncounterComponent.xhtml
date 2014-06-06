@@ -136,74 +136,10 @@
         </p:column> 
       </p:dataTable> 
     </p:panel>  
-    <p:panel rendered="#{ ! excludeDifferentials == true}"> 
-      <p:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" update="differentials, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}"> 
-        <s:conversationId/> 
-      </p:commandButton>  
-      <p:dataTable id="differentials" var="_differential" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDifferentials')}" value="#{encounterAction.listDifferentials}" rowIndexVar="rowIndex"> 
-        <p:column>
-          <f:facet name="header">
-            <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}"/>
-          </f:facet>  
-          <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/editTableField.xhtml"> 
-            <ui:define name="label"></ui:define>  
-            <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}" label="#{msg.differential_remarks}" required="false" disabled="false" value="#{_differential.remarks}"></h:inputText> 
-          </s:decorate> 
-        </p:column>  
-        <p:column> 
-          <p:commandButton value="New Differential" action="#{encounterAction.addDifferentials}" update="differentials, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editDifferentials')}"> 
-            <s:conversationId/> 
-          </p:commandButton> 
-        </p:column>  
-        <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{encounterAction.deleteDifferentials(rowIndex)}" update="differentials" process="@this"> 
-            <s:conversationId/> 
-          </p:commandButton> 
-        </p:column> 
-      </p:dataTable> 
-    </p:panel>  
-    <p:panel rendered="#{ ! excludeReasons == true}"> 
-      <p:commandButton value="New Reason" action="#{encounterAction.addReasons}" update="reasons, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editReasons')}"> 
-        <s:conversationId/> 
-      </p:commandButton>  
-      <p:dataTable id="reasons" var="_reason" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editReasons')}" value="#{encounterAction.listReasons}" rowIndexVar="rowIndex"> 
-        <p:column>
-          <f:facet name="header">
-            <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}"/>
-          </f:facet>  
-          <s:decorate id="codeIdDecorate" rendered="#{ ! excludeCode == true}" template="/layout/editTableField.xhtml"> 
-            <ui:define name="label"></ui:define>  
-            <p:selectOneMenu id="codeId" label="#{msg.reason_code}" value="#{_reason.code}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}" disabled="false" converter="#{codeList.converter}"> 
-              <f:selectItem itemLabel="Select One" itemValue=""/>  
-              <f:selectItems value="#{codeList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-            </p:selectOneMenu> 
-          </s:decorate> 
-        </p:column>  
-        <p:column>
-          <f:facet name="header">
-            <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}"/>
-          </f:facet>  
-          <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/editTableField.xhtml"> 
-            <ui:define name="label"></ui:define>  
-            <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editRemarks')}" label="#{msg.reason_remarks}" required="false" disabled="false" value="#{_reason.remarks}"></h:inputText> 
-          </s:decorate> 
-        </p:column>  
-        <p:column> 
-          <p:commandButton value="New Reason" action="#{encounterAction.addReasons}" update="reasons, :#{p:component('editEncounterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editReasons')}"> 
-            <s:conversationId/> 
-          </p:commandButton> 
-        </p:column>  
-        <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{encounterAction.deleteReasons(rowIndex)}" update="reasons" process="@this"> 
-            <s:conversationId/> 
-          </p:commandButton> 
-        </p:column> 
-      </p:dataTable> 
-    </p:panel>  
     <br/>  
     <br/>  
-    <p:panel toggleable="true" header="#{msg.encounter_simpleCodes}" switchType="client" id="simpleCodes"> 
-      <p:pickList value="#{encounterAction.listAvailableSimpleCodes}" var="member" itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{simpleCodeList.converter}"/> 
-    </p:panel> 
+    <p:autoComplete minQueryLength="2" completeMethod="#{simpleCodeList.searchDataBaseForAutocomplete}" value="#{encounterAction.listSimpleCodes}" converter="#{simpleCodeList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}" multiple="true"> 
+      <p:column>#{record.displayName}</p:column> 
+    </p:autoComplete> 
   </h:panelGroup> 
 </ui:composition>

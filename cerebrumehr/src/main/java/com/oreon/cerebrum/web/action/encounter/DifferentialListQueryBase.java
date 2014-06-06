@@ -88,50 +88,14 @@ public abstract class DifferentialListQueryBase
 
 			"differential.archived = #{differentialList.differential.archived}",
 
-			"differential.encounter.id = #{differentialList.differential.encounter.id}",
-
 			"lower(differential.remarks) like concat(lower(#{differentialList.differential.remarks}),'%')",
 
 			"differential.dateCreated <= #{differentialList.dateCreatedRange.end}",
 			"differential.dateCreated >= #{differentialList.dateCreatedRange.begin}",};
 
-	public LazyDataModel<Differential> getDifferentialsByEncounter(
-			final com.oreon.cerebrum.encounter.Encounter encounter) {
-
-		EntityLazyDataModel<Differential, Long> differentialLazyDataModel = new EntityLazyDataModel<Differential, Long>(
-				this) {
-
-			@Override
-			public List<Differential> load(int first, int pageSize,
-					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
-
-				differential.setEncounter(encounter);
-				return super.load(first, pageSize, sortField, sortOrder,
-						filters);
-			}
-		};
-
-		return differentialLazyDataModel;
-
-	}
-
 	@Observer("archivedDifferential")
 	public void onArchive() {
 		refresh();
-	}
-
-	public void setEncounterId(Long id) {
-		if (differential.getEncounter() == null) {
-			differential
-					.setEncounter(new com.oreon.cerebrum.encounter.Encounter());
-		}
-		differential.getEncounter().setId(id);
-	}
-
-	public Long getEncounterId() {
-		return differential.getEncounter() == null ? null : differential
-				.getEncounter().getId();
 	}
 
 }

@@ -9,6 +9,15 @@
       <h:outputText value="#{msg.facility_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{facilityList.facility.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.facility_isResidential}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editIsResidential')}"/>  
+      <br/>  
+      <h:selectOneMenu id="isResidential" value="#{facilityList.facility.isResidential}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

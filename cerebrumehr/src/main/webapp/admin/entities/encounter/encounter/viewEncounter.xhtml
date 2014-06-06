@@ -8,7 +8,7 @@
       <p:tabView dynamic="true" cache="true"> 
         <p:tab title="Encounter"> 
           <div id="printable"> 
-            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponent.xhtml"> 
+            <ui:include src="/admin/entities/encounter/encounter/viewEncounterComponentCustom.xhtml"> 
               <ui:param name="encounter" value="#{encounterAction.instance}"/> 
             </ui:include> 
           </div>  
@@ -23,24 +23,21 @@
         <p:tab title="Prescription" rendered="#{encounterAction.instance.prescription != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="prescriptionId" value="#{encounterAction.instance.prescription.id}"/> 
+              <ui:param name="prescription" value="#{encounterAction.instance.prescription}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Patient" rendered="#{encounterAction.instance.patient != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="patientId" value="#{encounterAction.instance.patient.id}"/> 
+              <ui:param name="patient" value="#{encounterAction.instance.patient}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Creator" rendered="#{encounterAction.instance.creator != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
-              <ui:param name="entityId" value="3"/>  
-              <ui:param name="employeeId" value="#{encounterAction.instance.creator.id}"/> 
+              <ui:param name="employee" value="#{encounterAction.instance.creator}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

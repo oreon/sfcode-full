@@ -192,18 +192,6 @@
         <end-conversation/>  
         <redirect view-id="/admin/entities/patient/allergy/editAllergy.xhtml"/> 
       </rule>  
-      <rule if-outcome="allergen"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/patient/allergen/listAllergen.xhtml"/> 
-      </rule>  
-      <rule if-outcome="viewAllergen"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/patient/allergen/viewAllergen.xhtml"/> 
-      </rule>  
-      <rule if-outcome="editAllergen"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/patient/allergen/editAllergen.xhtml"/> 
-      </rule>  
       <rule if-outcome="immunization"> 
         <end-conversation/>  
         <redirect view-id="/admin/entities/patient/immunization/listImmunization.xhtml"/> 
@@ -791,6 +779,54 @@
       <rule if-outcome="editChartProcedure"> 
         <end-conversation/>  
         <redirect view-id="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml"/> 
+      </rule>  
+      <rule if-outcome="settings"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settings/listSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewSettings"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settings/viewSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editSettings"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settings/editSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="setting"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/setting/listSetting.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewSetting"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/setting/viewSetting.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editSetting"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/setting/editSetting.xhtml"/> 
+      </rule>  
+      <rule if-outcome="settingName"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingName/listSettingName.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewSettingName"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingName/viewSettingName.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editSettingName"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingName/editSettingName.xhtml"/> 
+      </rule>  
+      <rule if-outcome="settingGroup"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingGroup/listSettingGroup.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewSettingGroup"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingGroup/viewSettingGroup.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editSettingGroup"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingGroup/editSettingGroup.xhtml"/> 
       </rule> 
     </navigation> 
   </page>  
@@ -929,8 +965,7 @@
         <redirect view-id="/admin/entities/encounter/differential/listDifferential.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="differentialId" value="#{differentialAction.differentialId}"/>  
-    <param name="encounterId" value="#{differentialAction.encounterId}"/> 
+    <param name="differentialId" value="#{differentialAction.differentialId}"/> 
   </page>  
   <page view-id="/admin/entities/encounter/differential/viewDifferential.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Differential: #{differential.displayName}</description> -->  
@@ -967,7 +1002,6 @@
     <param name="dir" value="#{differentialList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{differentialList.differential.id}"/>  
-    <param name="encounterId" value="#{differentialList.encounterId}" validateModel="false"/>  
     <param name="remarks" value="#{differentialList.differential.remarks}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/encounter/reason/editReason.xhtml"> 
@@ -985,7 +1019,6 @@
       </rule> 
     </navigation>  
     <param name="reasonId" value="#{reasonAction.reasonId}"/>  
-    <param name="encounterId" value="#{reasonAction.encounterId}"/>  
     <param name="codeId" value="#{reasonAction.codeId}"/> 
   </page>  
   <page view-id="/admin/entities/encounter/reason/viewReason.xhtml" action="#{redirect.captureCurrentView()}"> 
@@ -1023,7 +1056,6 @@
     <param name="dir" value="#{reasonList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{reasonList.reason.id}"/>  
-    <param name="encounterId" value="#{reasonList.encounterId}" validateModel="false"/>  
     <param name="codeId" value="#{reasonList.codeId}" validateModel="false"/>  
     <param name="remarks" value="#{reasonList.reason.remarks}" validateModel="false"/> 
   </page>  
@@ -1321,7 +1353,8 @@
         <redirect view-id="/admin/entities/patient/patient/listPatient.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="patientId" value="#{patientAction.patientId}"/> 
+    <param name="patientId" value="#{patientAction.patientId}"/>  
+    <param name="bedId" value="#{patientAction.bedId}"/> 
   </page>  
   <page view-id="/admin/entities/patient/patient/viewPatient.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Patient: #{patient.displayName}</description> -->  
@@ -1375,7 +1408,8 @@
     <param name="history_socialHistory" value="#{patientList.patient.history.socialHistory}" validateModel="false"/>  
     <param name="history_familyHistory" value="#{patientList.patient.history.familyHistory}" validateModel="false"/>  
     <param name="history_medications" value="#{patientList.patient.history.medications}" validateModel="false"/>  
-    <param name="history_allergies" value="#{patientList.patient.history.allergies}" validateModel="false"/> 
+    <param name="history_allergies" value="#{patientList.patient.history.allergies}" validateModel="false"/>  
+    <param name="bedId" value="#{patientList.bedId}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/patient/admission/editAdmission.xhtml"> 
     <!-- <description>Edit Admission: #{admission.displayName}</description> -->  
@@ -1392,8 +1426,7 @@
       </rule> 
     </navigation>  
     <param name="admissionId" value="#{admissionAction.admissionId}"/>  
-    <param name="patientId" value="#{admissionAction.patientId}"/>  
-    <param name="bedId" value="#{admissionAction.bedId}"/> 
+    <param name="patientId" value="#{admissionAction.patientId}"/> 
   </page>  
   <page view-id="/admin/entities/patient/admission/viewAdmission.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Admission: #{admission.displayName}</description> -->  
@@ -1433,9 +1466,9 @@
     <param name="patientId" value="#{admissionList.patientId}" validateModel="false"/>  
     <param name="admissionNote" value="#{admissionList.admission.admissionNote}" validateModel="false"/>  
     <param name="dischargeDate" value="#{admissionList.admission.dischargeDate}" validateModel="false"/>  
-    <param name="bedId" value="#{admissionList.bedId}" validateModel="false"/>  
     <param name="dischargeNote" value="#{admissionList.admission.dischargeNote}" validateModel="false"/>  
-    <param name="dischargeCode" value="#{admissionList.admission.dischargeCode}" validateModel="false"/> 
+    <param name="dischargeCode" value="#{admissionList.admission.dischargeCode}" validateModel="false"/>  
+    <param name="isCurrent" value="#{admissionList.admission.isCurrent}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/patient/patientDocument/editPatientDocument.xhtml"> 
     <!-- <description>Edit PatientDocument: #{patientDocument.displayName}</description> -->  
@@ -1509,7 +1542,7 @@
     </navigation>  
     <param name="allergyId" value="#{allergyAction.allergyId}"/>  
     <param name="patientId" value="#{allergyAction.patientId}"/>  
-    <param name="allergenId" value="#{allergyAction.allergenId}"/> 
+    <param name="drugId" value="#{allergyAction.drugId}"/> 
   </page>  
   <page view-id="/admin/entities/patient/allergy/viewAllergy.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Allergy: #{allergy.displayName}</description> -->  
@@ -1547,61 +1580,8 @@
     <param name="from"/>  
     <param name="id" value="#{allergyList.allergy.id}"/>  
     <param name="patientId" value="#{allergyList.patientId}" validateModel="false"/>  
-    <param name="allergenId" value="#{allergyList.allergenId}" validateModel="false"/>  
-    <param name="severity" value="#{allergyList.allergy.severity}" validateModel="false"/> 
-  </page>  
-  <page view-id="/admin/entities/patient/allergen/editAllergen.xhtml"> 
-    <!-- <description>Edit Allergen: #{allergen.displayName}</description> -->  
-    <restrict>#{s:hasPermission('allergen', 'edit')}</restrict>  
-    <begin-conversation join="true"/>  
-    <navigation> 
-      <rule if-outcome="save"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/patient/allergen/viewAllergen.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/patient/allergen/listAllergen.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="allergenId" value="#{allergenAction.allergenId}"/> 
-  </page>  
-  <page view-id="/admin/entities/patient/allergen/viewAllergen.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <!-- <description>View Allergen: #{allergen.displayName}</description> -->  
-    <restrict>#{s:hasPermission('allergen', 'view')}</restrict>  
-    <navigation> 
-      <rule if-outcome="edit"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/patient/allergen/editAllergen.xhtml"/> 
-      </rule>  
-      <rule if-outcome="cancel"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/patient/allergen/listAllergen.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="allergenId" value="#{allergenAction.allergenId}"/> 
-  </page>  
-  <page view-id="/admin/entities/patient/allergen/listAllergen.xhtml" action="#{redirect.captureCurrentView()}"> 
-    <restrict>#{s:hasPermission('allergen', 'view')}</restrict>  
-    <navigation> 
-      <rule if-outcome="viewAllergen"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/patient/allergen/viewAllergen.xhtml"/> 
-      </rule>  
-      <rule if-outcome="edit"> 
-        <end-conversation/>  
-        <redirect view-id="/admin/entities/patient/allergen/editAllergen.xhtml"/> 
-      </rule>  
-      <rule if-outcome="textSearch"> 
-        <redirect view-id="/admin/entities/patient/allergen/textSearchResultsAllergen.xhtml"/> 
-      </rule> 
-    </navigation>  
-    <param name="firstResult" value="#{allergenList.firstResult}"/>  
-    <param name="sort" value="#{allergenList.orderColumn}"/>  
-    <param name="dir" value="#{allergenList.orderDirection}"/>  
-    <param name="from"/>  
-    <param name="id" value="#{allergenList.allergen.id}"/>  
-    <param name="name" value="#{allergenList.allergen.name}" validateModel="false"/> 
+    <param name="severity" value="#{allergyList.allergy.severity}" validateModel="false"/>  
+    <param name="drugId" value="#{allergyList.drugId}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/patient/immunization/editImmunization.xhtml"> 
     <!-- <description>Edit Immunization: #{immunization.displayName}</description> -->  
@@ -1935,7 +1915,8 @@
     <param name="dir" value="#{facilityList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{facilityList.facility.id}"/>  
-    <param name="name" value="#{facilityList.facility.name}" validateModel="false"/> 
+    <param name="name" value="#{facilityList.facility.name}" validateModel="false"/>  
+    <param name="isResidential" value="#{facilityList.facility.isResidential}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/facility/room/editRoom.xhtml"> 
     <!-- <description>Edit Room: #{room.displayName}</description> -->  
@@ -4397,6 +4378,222 @@
     <param name="dueDate" value="#{chartProcedureList.chartProcedure.dueDate}" validateModel="false"/>  
     <param name="datePerformed" value="#{chartProcedureList.chartProcedure.datePerformed}" validateModel="false"/>  
     <param name="remarks" value="#{chartProcedureList.chartProcedure.remarks}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/settings/editSettings.xhtml"> 
+    <!-- <description>Edit Settings: #{settings.displayName}</description> -->  
+    <restrict>#{s:hasPermission('settings', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settings/viewSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settings/listSettings.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingsId" value="#{settingsAction.settingsId}"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/settings/viewSettings.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Settings: #{settings.displayName}</description> -->  
+    <restrict>#{s:hasPermission('settings', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settings/editSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settings/listSettings.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingsId" value="#{settingsAction.settingsId}"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/settings/listSettings.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('settings', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewSettings"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settings/viewSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settings/editSettings.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/settings/settings/textSearchResultsSettings.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{settingsList.firstResult}"/>  
+    <param name="sort" value="#{settingsList.orderColumn}"/>  
+    <param name="dir" value="#{settingsList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{settingsList.settings.id}"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/setting/editSetting.xhtml"> 
+    <!-- <description>Edit Setting: #{setting.displayName}</description> -->  
+    <restrict>#{s:hasPermission('setting', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/setting/viewSetting.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/setting/listSetting.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingId" value="#{settingAction.settingId}"/>  
+    <param name="settingNameId" value="#{settingAction.settingNameId}"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/setting/viewSetting.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View Setting: #{setting.displayName}</description> -->  
+    <restrict>#{s:hasPermission('setting', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/setting/editSetting.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/setting/listSetting.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingId" value="#{settingAction.settingId}"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/setting/listSetting.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('setting', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewSetting"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/setting/viewSetting.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/setting/editSetting.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/settings/setting/textSearchResultsSetting.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{settingList.firstResult}"/>  
+    <param name="sort" value="#{settingList.orderColumn}"/>  
+    <param name="dir" value="#{settingList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{settingList.setting.id}"/>  
+    <param name="value" value="#{settingList.setting.value}" validateModel="false"/>  
+    <param name="settingNameId" value="#{settingList.settingNameId}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/settingName/editSettingName.xhtml"> 
+    <!-- <description>Edit SettingName: #{settingName.displayName}</description> -->  
+    <restrict>#{s:hasPermission('settingName', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingName/viewSettingName.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingName/listSettingName.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingNameId" value="#{settingNameAction.settingNameId}"/>  
+    <param name="settingGroupId" value="#{settingNameAction.settingGroupId}"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/settingName/viewSettingName.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View SettingName: #{settingName.displayName}</description> -->  
+    <restrict>#{s:hasPermission('settingName', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingName/editSettingName.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingName/listSettingName.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingNameId" value="#{settingNameAction.settingNameId}"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/settingName/listSettingName.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('settingName', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewSettingName"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingName/viewSettingName.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingName/editSettingName.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/settings/settingName/textSearchResultsSettingName.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{settingNameList.firstResult}"/>  
+    <param name="sort" value="#{settingNameList.orderColumn}"/>  
+    <param name="dir" value="#{settingNameList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{settingNameList.settingName.id}"/>  
+    <param name="name" value="#{settingNameList.settingName.name}" validateModel="false"/>  
+    <param name="settingGroupId" value="#{settingNameList.settingGroupId}" validateModel="false"/>  
+    <param name="defaultValue" value="#{settingNameList.settingName.defaultValue}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/settingGroup/editSettingGroup.xhtml"> 
+    <!-- <description>Edit SettingGroup: #{settingGroup.displayName}</description> -->  
+    <restrict>#{s:hasPermission('settingGroup', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingGroup/viewSettingGroup.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingGroup/listSettingGroup.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingGroupId" value="#{settingGroupAction.settingGroupId}"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/settingGroup/viewSettingGroup.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View SettingGroup: #{settingGroup.displayName}</description> -->  
+    <restrict>#{s:hasPermission('settingGroup', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingGroup/editSettingGroup.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingGroup/listSettingGroup.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="settingGroupId" value="#{settingGroupAction.settingGroupId}"/> 
+  </page>  
+  <page view-id="/admin/entities/settings/settingGroup/listSettingGroup.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('settingGroup', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewSettingGroup"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingGroup/viewSettingGroup.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/settings/settingGroup/editSettingGroup.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/settings/settingGroup/textSearchResultsSettingGroup.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{settingGroupList.firstResult}"/>  
+    <param name="sort" value="#{settingGroupList.orderColumn}"/>  
+    <param name="dir" value="#{settingGroupList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{settingGroupList.settingGroup.id}"/>  
+    <param name="name" value="#{settingGroupList.settingGroup.name}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.witchcraft.exceptions.BusinessException"> 

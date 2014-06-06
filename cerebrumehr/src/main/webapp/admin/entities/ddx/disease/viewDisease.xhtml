@@ -23,16 +23,14 @@
         <p:tab title="RelatedDisease" rendered="#{diseaseAction.instance.relatedDisease != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="diseaseId" value="#{diseaseAction.instance.relatedDisease.id}"/> 
+              <ui:param name="disease" value="#{diseaseAction.instance.relatedDisease}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="ConditionCategory" rendered="#{diseaseAction.instance.conditionCategory != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="conditionCategoryId" value="#{diseaseAction.instance.conditionCategory.id}"/> 
+              <ui:param name="conditionCategory" value="#{diseaseAction.instance.conditionCategory}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 
@@ -49,10 +47,11 @@
           <ui:param name="excludeRelatedDisease" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/ddx/disease/editDisease.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/ddx/disease/editDisease.xhtml"> 
             <f:param name="diseaseId" value="#{diseaseAction.instance.id}"/>  
-            <f:param name="diseaseId" value="0"/> 
-          </h:button>  
+            <f:param name="diseaseId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" oncomplete="editDiseaseDialog.show()" actionListener="#{diseaseAction.setDiseaseId(0)}"> 
             <f:setPropertyActionListener target="#{diseaseAction.relatedDiseaseId}" value="#{diseaseAction.instance.id}"/> 
           </p:commandButton> 

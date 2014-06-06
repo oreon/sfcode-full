@@ -22,15 +22,11 @@ public class MetaData {
 
 	"prescription.displayName", "java.lang.String",
 
-	"differentialsCount", "java.lang.Integer",
-
 	"patient.displayName", "java.lang.String",
 
 	"creator.displayName", "java.lang.String",
 
 	"tests", "java.lang.String",
-
-	"reasonsCount", "java.lang.Integer",
 
 	"simpleCodesCount", "java.lang.Integer",
 
@@ -52,15 +48,11 @@ public class MetaData {
 
 	{"com.oreon.cerebrum.encounter.Differential",
 
-	"encounter.displayName", "java.lang.String",
-
 	"remarks", "java.lang.String",
 
 	},
 
 	{"com.oreon.cerebrum.encounter.Reason",
-
-	"encounter.displayName", "java.lang.String",
 
 	"code.displayName", "java.lang.String",
 
@@ -182,6 +174,8 @@ public class MetaData {
 
 	"chartProceduresCount", "java.lang.Integer",
 
+	"bed.displayName", "java.lang.String",
+
 	},
 
 	{"com.oreon.cerebrum.patient.Admission",
@@ -194,11 +188,13 @@ public class MetaData {
 
 	"bedStaysCount", "java.lang.Integer",
 
-	"bed.displayName", "java.lang.String",
-
 	"dischargeNote", "java.lang.String",
 
 	"dischargeCode.name", "java.lang.String",
+
+	"currentBed", "java.lang.String",
+
+	"isCurrent", "java.lang.Boolean",
 
 	},
 
@@ -218,15 +214,9 @@ public class MetaData {
 
 	"patient.displayName", "java.lang.String",
 
-	"allergen.displayName", "java.lang.String",
-
 	"severity.name", "java.lang.String",
 
-	},
-
-	{"com.oreon.cerebrum.patient.Allergen",
-
-	"name", "java.lang.String",
+	"drug.displayName", "java.lang.String",
 
 	},
 
@@ -285,6 +275,8 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"wardsCount", "java.lang.Integer",
+
+	"isResidential", "java.lang.Boolean",
 
 	},
 
@@ -815,6 +807,36 @@ public class MetaData {
 	"datePerformed", "java.util.Date",
 
 	"remarks", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.settings.Settings",
+
+	},
+
+	{"com.oreon.cerebrum.settings.Setting",
+
+	"value", "java.lang.String",
+
+	"settingName.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.settings.SettingName",
+
+	"name", "java.lang.String",
+
+	"settingGroup.displayName", "java.lang.String",
+
+	"defaultValue", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.settings.SettingGroup",
+
+	"name", "java.lang.String",
+
+	"settingNamesCount", "java.lang.Integer",
 
 	},
 

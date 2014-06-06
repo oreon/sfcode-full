@@ -181,7 +181,9 @@ public abstract class PhysicianActionBase
 
 		if (getInstance().getSpecialization() != null) {
 			specializationAction.setInstance(getInstance().getSpecialization());
+
 			specializationAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

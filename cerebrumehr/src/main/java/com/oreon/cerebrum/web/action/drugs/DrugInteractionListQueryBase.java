@@ -99,6 +99,18 @@ public abstract class DrugInteractionListQueryBase
 			"drugInteraction.dateCreated <= #{drugInteractionList.dateCreatedRange.end}",
 			"drugInteraction.dateCreated >= #{drugInteractionList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all DrugInteractions for the given Drug
+	 * @param patient
+	 * @return 
+	 */
+	public List<DrugInteraction> getAllDrugInteractionsByDrug(
+			final com.oreon.cerebrum.drugs.Drug drug) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		drugInteraction.setDrug(drug);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<DrugInteraction> getDrugInteractionsByDrug(
 			final com.oreon.cerebrum.drugs.Drug drug) {
 

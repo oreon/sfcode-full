@@ -102,14 +102,26 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 			"admission.dischargeDate >= #{admissionList.dischargeDateRange.begin}",
 			"admission.dischargeDate <= #{admissionList.dischargeDateRange.end}",
 
-			"admission.bed.id = #{admissionList.admission.bed.id}",
-
 			"lower(admission.dischargeNote) like concat(lower(#{admissionList.admission.dischargeNote}),'%')",
 
 			"admission.dischargeCode = #{admissionList.admission.dischargeCode}",
 
+			"admission.isCurrent = #{admissionList.admission.isCurrent}",
+
 			"admission.dateCreated <= #{admissionList.dateCreatedRange.end}",
 			"admission.dateCreated >= #{admissionList.dateCreatedRange.begin}",};
+
+	/** 
+	 * List of all Admissions for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<Admission> getAllAdmissionsByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		admission.setPatient(patient);
+		return getResultListTable();
+	}
 
 	public LazyDataModel<Admission> getAdmissionsByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
@@ -147,17 +159,6 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 	public Long getPatientId() {
 		return admission.getPatient() == null ? null : admission.getPatient()
 				.getId();
-	}
-
-	public void setBedId(Long id) {
-		if (admission.getBed() == null) {
-			admission.setBed(new com.oreon.cerebrum.facility.Bed());
-		}
-		admission.getBed().setId(id);
-	}
-
-	public Long getBedId() {
-		return admission.getBed() == null ? null : admission.getBed().getId();
 	}
 
 }

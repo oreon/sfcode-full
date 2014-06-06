@@ -203,12 +203,16 @@ public abstract class UnusualOccurenceActionBase
 
 		if (getInstance().getOccurenceType() != null) {
 			occurenceTypeAction.setInstance(getInstance().getOccurenceType());
+
 			occurenceTypeAction.loadAssociations();
+
 		}
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

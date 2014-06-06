@@ -57,8 +57,8 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
-	@In(create = true, value = "allergenAction")
-	com.oreon.cerebrum.web.action.patient.AllergenAction allergenAction;
+	@In(create = true, value = "drugAction")
+	com.oreon.cerebrum.web.action.drugs.DrugAction drugAction;
 
 	public void setAllergyId(Long id) {
 		setEntityId(id);
@@ -84,16 +84,16 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 		return 0L;
 	}
 
-	public void setAllergenId(Long id) {
+	public void setDrugId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setAllergen(allergenAction.loadFromId(id));
+			getInstance().setDrug(drugAction.loadFromId(id));
 
 	}
 
-	public Long getAllergenId() {
-		if (getInstance().getAllergen() != null)
-			return getInstance().getAllergen().getId();
+	public Long getDrugId() {
+		if (getInstance().getDrug() != null)
+			return getInstance().getDrug().getId();
 		return 0L;
 	}
 
@@ -152,10 +152,9 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 			getInstance().setPatient(patient);
 		}
 
-		com.oreon.cerebrum.patient.Allergen allergen = allergenAction
-				.getDefinedInstance();
-		if (allergen != null && isNew()) {
-			getInstance().setAllergen(allergen);
+		com.oreon.cerebrum.drugs.Drug drug = drugAction.getDefinedInstance();
+		if (drug != null && isNew()) {
+			getInstance().setDrug(drug);
 		}
 
 	}
@@ -188,9 +187,9 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 					.getPatient().getId()));
 		}
 
-		if (instance.getAllergen() != null) {
-			criteria = criteria.add(Restrictions.eq("allergen.id", instance
-					.getAllergen().getId()));
+		if (instance.getDrug() != null) {
+			criteria = criteria.add(Restrictions.eq("drug.id", instance
+					.getDrug().getId()));
 		}
 
 	}
@@ -203,12 +202,16 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
-		if (getInstance().getAllergen() != null) {
-			allergenAction.setInstance(getInstance().getAllergen());
-			allergenAction.loadAssociations();
+		if (getInstance().getDrug() != null) {
+			drugAction.setInstance(getInstance().getDrug());
+
+			drugAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

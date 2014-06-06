@@ -25,7 +25,23 @@
       <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewTitle')}"/>  
       <h:outputText value="#{patient.title}" escape="false"/>  
       <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewHealthNumber')}"/>  
-      <h:outputText value="#{patient.healthNumber}" escape="false"/> 
+      <h:outputText value="#{patient.healthNumber}" escape="false"/>  
+      <h:outputText value="#{msg.patient_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewBed')}"/>  
+      <h:panelGroup> 
+        <h:link id="bedpatient_bed" escape="false" value="#{patient.bed.displayName}" outcome="/admin/entities/facility/bed/viewBed.xhtml" propagation="none"> 
+          <f:param name="bedId" value="#{patient.bed.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="bedpatient_bed" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
+              <ui:param name="bed" value="#{patient.bed}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="bedPatient"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
       <c:set var="numColumns" value="2"/> 
@@ -65,25 +81,15 @@
         <h:outputText value="#{msg.History}"/> 
       </f:facet>  
       <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedicalHistory')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}medicalHistoryAbbr" value="#{patient.history.medicalHistoryAbbreviated}" escape="false"/> 
-      </h:panelGroup>  
+      <h:outputText value="#{patient.history.medicalHistory}" escape="false"/>  
       <h:outputText value="#{msg.history_socialHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewSocialHistory')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}socialHistoryAbbr" value="#{patient.history.socialHistoryAbbreviated}" escape="false"/> 
-      </h:panelGroup>  
+      <h:outputText value="#{patient.history.socialHistory}" escape="false"/>  
       <h:outputText value="#{msg.history_familyHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewFamilyHistory')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}familyHistoryAbbr" value="#{patient.history.familyHistoryAbbreviated}" escape="false"/> 
-      </h:panelGroup>  
+      <h:outputText value="#{patient.history.familyHistory}" escape="false"/>  
       <h:outputText value="#{msg.history_medications}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedications')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}medicationsAbbr" value="#{patient.history.medicationsAbbreviated}" escape="false"/> 
-      </h:panelGroup>  
+      <h:outputText value="#{patient.history.medications}" escape="false"/>  
       <h:outputText value="#{msg.history_allergies}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewAllergies')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}allergiesAbbr" value="#{patient.history.allergiesAbbreviated}" escape="false"/> 
-      </h:panelGroup> 
+      <h:outputText value="#{patient.history.allergies}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
     <br/> 

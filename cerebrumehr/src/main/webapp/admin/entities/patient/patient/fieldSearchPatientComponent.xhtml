@@ -110,6 +110,15 @@
       <h:outputText value="#{msg.history_allergies}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAllergies')}"/>  
       <br/>  
       <h:inputText id="history_allergies" value="#{patientList.patient.history.allergies}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.patient_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editBed')}"/>  
+      <br/>  
+      <p:selectOneMenu id="bedId" converter="#{bedList.converter}" value="#{ patientList.patient.bed}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

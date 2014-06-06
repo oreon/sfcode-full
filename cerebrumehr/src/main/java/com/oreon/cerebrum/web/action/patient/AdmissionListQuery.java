@@ -37,6 +37,7 @@ public class AdmissionListQuery extends AdmissionListQueryBase
 			java.io.Serializable {
 	
 	
+	/*
 	public LazyDataModel<Admission> getCurrentAdmissions() {
 
 		EntityLazyDataModel<Admission, Long> admissionLazyDataModel = new EntityLazyDataModel<Admission, Long>(
@@ -60,7 +61,51 @@ public class AdmissionListQuery extends AdmissionListQueryBase
 
 		return admissionLazyDataModel;
 
+	}*/
+	
+	
+	public LazyDataModel<Admission> getCurrentAdmissions() {
+
+		EntityLazyDataModel<Admission, Long> admissionLazyDataModel = new EntityLazyDataModel<Admission, Long>(
+				this) {
+
+			@Override
+			public List<Admission> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+
+				admission.setIsCurrent(true);
+				return super.load(first, pageSize, sortField, sortOrder,
+						filters);
+			}
+		};
+
+		return admissionLazyDataModel;
+
 	}
+	
+	
+	public LazyDataModel<Admission> getPastAdmissions() {
+
+		EntityLazyDataModel<Admission, Long> admissionLazyDataModel = new EntityLazyDataModel<Admission, Long>(
+				this) {
+
+			@Override
+			public List<Admission> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+
+				admission.setIsCurrent(false);
+				return super.load(first, pageSize, sortField, sortOrder,
+						filters);
+			}
+		};
+
+		return admissionLazyDataModel;
+
+	}
+	
+	
 	
 	
 	

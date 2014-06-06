@@ -202,12 +202,16 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 
 		if (getInstance().getAdmission() != null) {
 			admissionAction.setInstance(getInstance().getAdmission());
+
 			admissionAction.loadAssociations();
+
 		}
 
 		if (getInstance().getBed() != null) {
 			bedAction.setInstance(getInstance().getBed());
+
 			bedAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

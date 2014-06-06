@@ -97,6 +97,18 @@ public abstract class PatientDocumentListQueryBase
 			"patientDocument.dateCreated <= #{patientDocumentList.dateCreatedRange.end}",
 			"patientDocument.dateCreated >= #{patientDocumentList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all PatientDocuments for the given Patient
+	 * @param patient
+	 * @return 
+	 */
+	public List<PatientDocument> getAllPatientDocumentsByPatient(
+			final com.oreon.cerebrum.patient.Patient patient) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		patientDocument.setPatient(patient);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<PatientDocument> getPatientDocumentsByPatient(
 			final com.oreon.cerebrum.patient.Patient patient) {
 

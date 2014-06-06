@@ -5,7 +5,7 @@
     <c:set var="opId" value="outputPanel-${modalId}"/>  
     <h:panelGrid id="editEncounterPanel" columns="2" cellpadding="4"> 
       <p:messages autoUpdate="true"/>  
-      <ui:include src="/admin/entities/encounter/encounter/editEncounterComponent.xhtml"/> 
+      <ui:include src="/admin/entities/encounter/encounter/editEncounterComponentCustom.xhtml"/> 
     </h:panelGrid>  
     <p:commandButton action="#{encounterAction.save(false)}" styleClass="button" update=":#{p:component('editEncounterPanel')}  :#{p:component('encounterForm')}" value="Save" oncomplete="handleDialogSubmit(xhr, status, args, editEncounterDialog)" rendered="#{s:hasPermission('encounter', 'edit')}"/> 
   </p:dialog> 

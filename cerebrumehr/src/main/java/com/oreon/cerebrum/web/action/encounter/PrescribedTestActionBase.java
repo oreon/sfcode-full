@@ -203,12 +203,16 @@ public abstract class PrescribedTestActionBase
 
 		if (getInstance().getDxTest() != null) {
 			dxTestAction.setInstance(getInstance().getDxTest());
+
 			dxTestAction.loadAssociations();
+
 		}
 
 		if (getInstance().getEncounter() != null) {
 			encounterAction.setInstance(getInstance().getEncounter());
+
 			encounterAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

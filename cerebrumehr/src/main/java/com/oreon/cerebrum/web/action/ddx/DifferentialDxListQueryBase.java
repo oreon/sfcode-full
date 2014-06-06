@@ -97,6 +97,18 @@ public abstract class DifferentialDxListQueryBase
 			"differentialDx.dateCreated <= #{differentialDxList.dateCreatedRange.end}",
 			"differentialDx.dateCreated >= #{differentialDxList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all DifferentialDxs for the given Finding
+	 * @param patient
+	 * @return 
+	 */
+	public List<DifferentialDx> getAllDifferentialDxsByFinding(
+			final com.oreon.cerebrum.ddx.Finding finding) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		differentialDx.setFinding(finding);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<DifferentialDx> getDifferentialDxsByFinding(
 			final com.oreon.cerebrum.ddx.Finding finding) {
 

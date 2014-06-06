@@ -17,7 +17,7 @@
     <h:form id="immunizationForm"> 
       <p:dataTable var="_immunization" value="#{records}" id="immunizationList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{immunizationAction.immunization}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editImmunizationPanel')}" oncomplete="editImmunizationDialog.show()" listener="#{immunizationAction.onRowSelect}"/>  
-        <p:column headerText="msg.id" sortBy="immunization.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <p:column headerText="#{msg.id}" sortBy="immunization.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/patient/immunization/immunizationActionImmunization.xhtml" rendered="#{s:hasPermission(_immunization, 'view')}" propagation="none"> 
             <h:outputText value="#{_immunization.id}"/>  
             <f:param name="immunizationId" value="#{_immunization.id}"/> 
@@ -32,20 +32,11 @@
           <h:panelGroup> 
             <h:link id="patientimmunization_patient" escape="false" value="#{_immunization.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
               <f:param name="patientId" value="#{_immunization.patient.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/>  
-              <p:tooltip> 
-                <span>#{_immunization.patient.popupInfo}</span> 
-              </p:tooltip> 
+              <f:param name="from" value="#{request.servletPath}"/> 
             </h:link>  
-            <p:overlayPanel for="patientimmunization_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-              <h:form> 
-                <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-                  <ui:param name="patient" value="#{_immunization.patient}"/>  
-                  <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="patientImmunizations"/> 
-                </ui:include> 
-              </h:form> 
-            </p:overlayPanel> 
+            <p:tooltip for="patientimmunization_patient"> 
+              <span>#{_immunization.patient.popupInfo}</span> 
+            </p:tooltip> 
           </h:panelGroup> 
         </p:column>  
         <p:column headerText="#{msg.immunization_vaccine}" sortBy="immunization.vaccine" rendered="#{ ! excludeVaccine == true and ( skipPermissionCheck == 'true' || s:hasPermission('immunization', 'viewVaccine')) }"> 
@@ -65,7 +56,7 @@
             </p:overlayPanel> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="msg.Creation Date" sortBy="immunization.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+        <p:column headerText="#{msg.dateCreated}" sortBy="immunization.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_immunization.dateCreated}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 

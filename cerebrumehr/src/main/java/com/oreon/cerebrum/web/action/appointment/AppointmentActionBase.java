@@ -203,12 +203,16 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 
 		if (getInstance().getPhysician() != null) {
 			physicianAction.setInstance(getInstance().getPhysician());
+
 			physicianAction.loadAssociations();
+
 		}
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

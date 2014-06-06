@@ -69,4 +69,11 @@ public class Patient extends PatientBase implements java.io.Serializable {
 		// TODO Auto-generated method stub
 		return super.getContactDetails();
 	}
+	
+	@Override
+	public String getDisplayName() {
+		// TODO Auto-generated method stub
+		System.out.println(String.format("PT %s %s %s %s %s", title , firstName , lastName , getGender() , getAge()));
+		return title + " " + firstName + " " + lastName + getGender() + " " + getAge();
+	}
 }

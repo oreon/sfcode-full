@@ -176,7 +176,9 @@ public abstract class ConditionFindingActionBase
 
 		if (getInstance().getDisease() != null) {
 			diseaseAction.setInstance(getInstance().getDisease());
+
 			diseaseAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

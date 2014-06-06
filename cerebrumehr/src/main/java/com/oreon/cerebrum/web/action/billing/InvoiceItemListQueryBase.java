@@ -119,6 +119,18 @@ public abstract class InvoiceItemListQueryBase
 			"invoiceItem.dateCreated <= #{invoiceItemList.dateCreatedRange.end}",
 			"invoiceItem.dateCreated >= #{invoiceItemList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all InvoiceItems for the given Invoice
+	 * @param patient
+	 * @return 
+	 */
+	public List<InvoiceItem> getAllInvoiceItemsByInvoice(
+			final com.oreon.cerebrum.billing.Invoice invoice) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		invoiceItem.setInvoice(invoice);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<InvoiceItem> getInvoiceItemsByInvoice(
 			final com.oreon.cerebrum.billing.Invoice invoice) {
 

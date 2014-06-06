@@ -104,7 +104,7 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 	}
 
 	public List<DrugInteraction> getInteractions() {
-		System.out.println("elements " + interactions.size());
+		//System.out.println("elements " + interactions.size());
 		return interactions;
 	}
 
@@ -146,8 +146,6 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 
 	private boolean containsDrug(Drug drug) {
 		for (PrescriptionItem prescriptionItem : listPrescriptionItems) {
-			
-			
 			
 			if (prescriptionItem == null || prescriptionItem.getDrug() == null  || prescriptionItem.getDrug().getName() == null)
 				continue;

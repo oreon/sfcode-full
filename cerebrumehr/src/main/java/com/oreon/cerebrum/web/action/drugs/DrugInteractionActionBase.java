@@ -203,13 +203,17 @@ public abstract class DrugInteractionActionBase
 
 		if (getInstance().getDrug() != null) {
 			drugAction.setInstance(getInstance().getDrug());
+
 			drugAction.loadAssociations();
+
 		}
 
 		if (getInstance().getInteractingDrug() != null) {
 			interactingDrugAction.setInstance(getInstance()
 					.getInteractingDrug());
+
 			interactingDrugAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

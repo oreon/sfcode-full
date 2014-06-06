@@ -33,6 +33,12 @@
           <f:selectItem itemValue="REFERRED" itemLabel="#{msg.REFERRED}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
+      <s:decorate id="isCurrentDecorate" rendered="#{ ! excludeIsCurrent == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.admission_isCurrent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editIsCurrent')}"/>
+        </ui:define>  
+        <h:selectBooleanCheckbox escape="false" id="isCurrent#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editIsCurrent')}" label="#{msg.admission_isCurrent}" required="false" disabled="false" value="#{admissionAction.admission.isCurrent}"></h:selectBooleanCheckbox> 
+      </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>
@@ -50,15 +56,6 @@
             </p:column> 
           </p:autoComplete> 
         </h:panelGroup> 
-      </s:decorate>  
-      <s:decorate id="bedIdDecorate" rendered="#{ ! excludeBed == true}" template="/layout/edit.xhtml"> 
-        <ui:define name="label"> 
-          <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>
-        </ui:define>  
-        <p:selectOneMenu id="bedId" label="#{msg.admission_bed}" value="#{admissionAction.admission.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}" disabled="false" converter="#{bedList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

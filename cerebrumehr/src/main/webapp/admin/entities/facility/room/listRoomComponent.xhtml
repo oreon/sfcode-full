@@ -17,7 +17,7 @@
     <h:form id="roomForm"> 
       <p:dataTable var="_room" value="#{records}" id="roomList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{roomAction.room}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editRoomPanel')}" oncomplete="editRoomDialog.show()" listener="#{roomAction.onRowSelect}"/>  
-        <p:column headerText="msg.id" sortBy="room.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <p:column headerText="#{msg.id}" sortBy="room.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/facility/room/roomActionRoom.xhtml" rendered="#{s:hasPermission(_room, 'view')}" propagation="none"> 
             <h:outputText value="#{_room.id}"/>  
             <f:param name="roomId" value="#{_room.id}"/> 
@@ -69,7 +69,7 @@
             </p:overlayPanel> 
           </h:panelGroup> 
         </p:column>  
-        <p:column headerText="msg.Creation Date" sortBy="room.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+        <p:column headerText="#{msg.dateCreated}" sortBy="room.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
           <h:outputText value="#{_room.dateCreated}"> 
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 

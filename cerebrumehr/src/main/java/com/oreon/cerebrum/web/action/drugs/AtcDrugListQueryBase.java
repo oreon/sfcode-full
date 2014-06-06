@@ -97,6 +97,18 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 			"atcDrug.dateCreated <= #{atcDrugList.dateCreatedRange.end}",
 			"atcDrug.dateCreated >= #{atcDrugList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all AtcDrugs for the given AtcDrug
+	 * @param patient
+	 * @return 
+	 */
+	public List<AtcDrug> getAllSubcategoriesByParent(
+			final com.oreon.cerebrum.drugs.AtcDrug atcDrug) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		atcDrug.setParent(atcDrug);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<AtcDrug> getSubcategoriesByParent(
 			final com.oreon.cerebrum.drugs.AtcDrug atcDrug) {
 

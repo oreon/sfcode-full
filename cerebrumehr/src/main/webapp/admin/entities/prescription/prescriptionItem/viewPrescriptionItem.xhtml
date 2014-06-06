@@ -23,24 +23,21 @@
         <p:tab title="Drug" rendered="#{prescriptionItemAction.instance.drug != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="drugId" value="#{prescriptionItemAction.instance.drug.id}"/> 
+              <ui:param name="drug" value="#{prescriptionItemAction.instance.drug}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Prescription" rendered="#{prescriptionItemAction.instance.prescription != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="prescriptionId" value="#{prescriptionItemAction.instance.prescription.id}"/> 
+              <ui:param name="prescription" value="#{prescriptionItemAction.instance.prescription}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Frequency" rendered="#{prescriptionItemAction.instance.frequency != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
-              <ui:param name="entityId" value="3"/>  
-              <ui:param name="frequencyId" value="#{prescriptionItemAction.instance.frequency.id}"/> 
+              <ui:param name="frequency" value="#{prescriptionItemAction.instance.frequency}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

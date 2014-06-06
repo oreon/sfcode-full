@@ -28,15 +28,6 @@
       <p:calendar value="#{admissionList.dischargeDateRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.admission_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBed')}"/>  
-      <br/>  
-      <p:selectOneMenu id="bedId" converter="#{bedList.converter}" value="#{ admissionList.admission.bed}"> 
-        <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/>  
-        <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-      </p:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>  
       <br/>  
       <h:inputText id="dischargeNote" value="#{admissionList.admission.dischargeNote}"/> 
@@ -50,6 +41,15 @@
         <f:selectItem itemValue="REGULAR" itemLabel="Regular"/>  
         <f:selectItem itemValue="DECEASED" itemLabel="Deceased"/>  
         <f:selectItem itemValue="REFERRED" itemLabel="Referred"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.admission_isCurrent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editIsCurrent')}"/>  
+      <br/>  
+      <h:selectOneMenu id="isCurrent" value="#{admissionList.admission.isCurrent}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
       </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

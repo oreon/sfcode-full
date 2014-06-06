@@ -23,16 +23,14 @@
         <p:tab title="TrackedVital" rendered="#{vitalValueAction.instance.trackedVital != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/patient/trackedVital/viewTrackedVitalComponent.xhtml"> 
-              <ui:param name="entityId" value="1"/>  
-              <ui:param name="trackedVitalId" value="#{vitalValueAction.instance.trackedVital.id}"/> 
+              <ui:param name="trackedVital" value="#{vitalValueAction.instance.trackedVital}"/> 
             </ui:include> 
           </h:form> 
         </p:tab>  
         <p:tab title="Patient" rendered="#{vitalValueAction.instance.patient != null}"> 
           <h:form> 
             <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="entityId" value="2"/>  
-              <ui:param name="patientId" value="#{vitalValueAction.instance.patient.id}"/> 
+              <ui:param name="patient" value="#{vitalValueAction.instance.patient}"/> 
             </ui:include> 
           </h:form> 
         </p:tab> 

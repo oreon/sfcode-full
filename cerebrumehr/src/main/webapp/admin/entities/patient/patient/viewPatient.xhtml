@@ -4,6 +4,11 @@
   <ui:define name="content"> 
     <h:form> 
       <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_patient_Patient) ENABLED START-->  
+      <h:commandLink value="View File" action="/admin/entities/patient/patient/viewPatientFile.xhtml"> 
+        <ui:param name="patientId" value="#{patientAction.instance.id}"/>  
+        <s:conversationId/> 
+      </h:commandLink>  
+      <ui:repeat value="#{encounterList.getEncountersByPatient(patientAction.instance)}" var="enc">NOTE - #{enc.patientNote}</ui:repeat>  
       <!--PROTECTED REGION END-->  
       <p:tabView dynamic="true" cache="true"> 
         <p:tab title="Patient"> 
@@ -19,6 +24,13 @@
               <s:conversationPropagation type="end"/> 
             </h:commandButton> 
           </div> 
+        </p:tab>  
+        <p:tab title="Bed" rendered="#{patientAction.instance.bed != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/facility/bed/viewBedComponent.xhtml"> 
+              <ui:param name="bed" value="#{patientAction.instance.bed}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 
@@ -33,10 +45,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/patient/admission/editAdmission.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/patient/admission/editAdmission.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="admissionId" value="0"/> 
-          </h:button>  
+            <f:param name="admissionId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editAdmissionPanel')}" oncomplete="editAdmissionDialog.show()" actionListener="#{admissionAction.setAdmissionId(0)}"> 
             <f:setPropertyActionListener target="#{admissionAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
@@ -50,10 +63,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/prescription/prescription/editPrescription.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/prescription/prescription/editPrescription.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="prescriptionId" value="0"/> 
-          </h:button>  
+            <f:param name="prescriptionId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionPanel')}" oncomplete="editPrescriptionDialog.show()" actionListener="#{prescriptionAction.setPrescriptionId(0)}"> 
             <f:setPropertyActionListener target="#{prescriptionAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
@@ -67,10 +81,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurence.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurence.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="unusualOccurenceId" value="0"/> 
-          </h:button>  
+            <f:param name="unusualOccurenceId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" oncomplete="editUnusualOccurenceDialog.show()" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}"> 
             <f:setPropertyActionListener target="#{unusualOccurenceAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
@@ -84,10 +99,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/patient/patientDocument/editPatientDocument.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/patient/patientDocument/editPatientDocument.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="patientDocumentId" value="0"/> 
-          </h:button>  
+            <f:param name="patientDocumentId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editPatientDocumentPanel')}" oncomplete="editPatientDocumentDialog.show()" actionListener="#{patientDocumentAction.setPatientDocumentId(0)}"> 
             <f:setPropertyActionListener target="#{patientDocumentAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
@@ -101,10 +117,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/patient/allergy/editAllergy.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/patient/allergy/editAllergy.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="allergyId" value="0"/> 
-          </h:button>  
+            <f:param name="allergyId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" oncomplete="editAllergyDialog.show()" actionListener="#{allergyAction.setAllergyId(0)}"> 
             <f:setPropertyActionListener target="#{allergyAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
@@ -118,10 +135,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/patient/immunization/editImmunization.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/patient/immunization/editImmunization.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="immunizationId" value="0"/> 
-          </h:button>  
+            <f:param name="immunizationId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editImmunizationPanel')}" oncomplete="editImmunizationDialog.show()" actionListener="#{immunizationAction.setImmunizationId(0)}"> 
             <f:setPropertyActionListener target="#{immunizationAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
@@ -135,10 +153,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/patient/vitalValue/editVitalValue.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/patient/vitalValue/editVitalValue.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="vitalValueId" value="0"/> 
-          </h:button>  
+            <f:param name="vitalValueId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editVitalValuePanel')}" oncomplete="editVitalValueDialog.show()" actionListener="#{vitalValueAction.setVitalValueId(0)}"> 
             <f:setPropertyActionListener target="#{vitalValueAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
@@ -152,10 +171,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/encounter/encounter/editEncounter.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/encounter/encounter/editEncounter.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="encounterId" value="0"/> 
-          </h:button>  
+            <f:param name="encounterId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editEncounterPanel')}" oncomplete="editEncounterDialog.show()" actionListener="#{encounterAction.setEncounterId(0)}"> 
             <f:setPropertyActionListener target="#{encounterAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
@@ -169,10 +189,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/charts/appliedChart/editAppliedChart.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="appliedChartId" value="0"/> 
-          </h:button>  
+            <f:param name="appliedChartId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editAppliedChartPanel')}" oncomplete="editAppliedChartDialog.show()" actionListener="#{appliedChartAction.setAppliedChartId(0)}"> 
             <f:setPropertyActionListener target="#{appliedChartAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
@@ -186,10 +207,11 @@
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <h:button value="Create New" outcome="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="chartProcedureId" value="0"/> 
-          </h:button>  
+            <f:param name="chartProcedureId" value="0"/>  
+            <s:conversationId/> 
+          </p:commandButton>  
           <p:commandButton value="Quick Create" update=":#{p:component('editChartProcedurePanel')}" oncomplete="editChartProcedureDialog.show()" actionListener="#{chartProcedureAction.setChartProcedureId(0)}"> 
             <f:setPropertyActionListener target="#{chartProcedureAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 

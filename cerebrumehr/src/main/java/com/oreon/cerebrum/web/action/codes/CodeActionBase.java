@@ -178,7 +178,9 @@ public abstract class CodeActionBase
 
 		if (getInstance().getSection() != null) {
 			sectionAction.setInstance(getInstance().getSection());
+
 			sectionAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

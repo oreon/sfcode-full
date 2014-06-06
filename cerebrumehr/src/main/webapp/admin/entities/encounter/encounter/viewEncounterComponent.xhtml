@@ -11,9 +11,7 @@
         <h:outputText value="#{msg.Encounter}"/> 
       </f:facet>  
       <h:outputText value="#{msg.encounter_patientNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPatientNote')}"/>  
-      <h:panelGroup> 
-        <h:outputText id="${panelId}patientNoteAbbr" value="#{encounter.patientNoteAbbreviated}" escape="false"/> 
-      </h:panelGroup>  
+      <h:outputText value="#{encounter.patientNote}" escape="false"/>  
       <h:outputText value="#{msg.encounter_tests}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewTests')}"/>  
       <h:outputText value="#{encounter.tests}" escape="false"/>  
       <h:outputText value="#{msg.encounter_prescription}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescription')}"/>  
@@ -36,20 +34,11 @@
       <h:panelGroup> 
         <h:link id="patientencounter_patient" escape="false" value="#{encounter.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
           <f:param name="patientId" value="#{encounter.patient.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <p:tooltip> 
-            <span>#{encounter.patient.popupInfo}</span> 
-          </p:tooltip> 
+          <f:param name="from" value="#{request.servletPath}"/> 
         </h:link>  
-        <p:overlayPanel for="patientencounter_patient" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-              <ui:param name="patient" value="#{encounter.patient}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="patientEncounters"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
+        <p:tooltip for="patientencounter_patient"> 
+          <span>#{encounter.patient.popupInfo}</span> 
+        </p:tooltip> 
       </h:panelGroup>  
       <h:outputText value="#{msg.encounter_creator}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewCreator')}"/>  
       <h:panelGroup> 
@@ -90,7 +79,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePrescribedTests == true}"> 
-      <p:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{not empty encounterAction.listPrescribedTests and skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescribedTests') }" value="#{encounterAction.listPrescribedTests}" rowIndexVar="rowIndex"> 
+      <p:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{ encounterAction.listPrescribedTests.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescribedTests') }" value="#{encounterAction.listPrescribedTests}" rowIndexVar="rowIndex"> 
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDxTest')}"/> 
@@ -115,9 +104,7 @@
           <f:facet name="header"> 
             <h:outputText value="#{msg.testResults_results}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewResults')}"/> 
           </f:facet>  
-          <h:panelGroup> 
-            <h:outputText id="${panelId}resultsAbbr" value="#{_prescribedTest.testResults.resultsAbbreviated}" escape="false"/> 
-          </h:panelGroup> 
+          <h:outputText value="#{_prescribedTest.testResults.results}" escape="false"/> 
         </p:column>  
         <p:column> 
           <f:facet name="header"> 
@@ -135,46 +122,6 @@
             <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewRemarks')}"/> 
           </f:facet>  
           <h:outputText value="#{_prescribedTest.remarks}" escape="false"/> 
-        </p:column> 
-      </p:dataTable> 
-    </p:panel>  
-    <p:panel rendered="#{ ! excludeDifferentials == true}"> 
-      <p:dataTable id="differentials" var="_differential" rendered="#{not empty encounterAction.listDifferentials and skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'viewDifferentials') }" value="#{encounterAction.listDifferentials}" rowIndexVar="rowIndex"> 
-        <p:column> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewRemarks')}"/> 
-          </f:facet>  
-          <h:outputText value="#{_differential.remarks}" escape="false"/> 
-        </p:column> 
-      </p:dataTable> 
-    </p:panel>  
-    <p:panel rendered="#{ ! excludeReasons == true}"> 
-      <p:dataTable id="reasons" var="_reason" rendered="#{not empty encounterAction.listReasons and skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewReasons') }" value="#{encounterAction.listReasons}" rowIndexVar="rowIndex"> 
-        <p:column> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.reason_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewCode')}"/> 
-          </f:facet>  
-          <h:panelGroup> 
-            <h:link id="codereason_code" escape="false" value="#{_reason.code.displayName}" outcome="/admin/entities/codes/code/viewCode.xhtml" propagation="none"> 
-              <f:param name="codeId" value="#{_reason.code.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/> 
-            </h:link>  
-            <p:overlayPanel for="codereason_code" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-              <h:form> 
-                <ui:include src="/admin/entities/codes/code/viewCodeComponent.xhtml"> 
-                  <ui:param name="code" value="#{_reason.code}"/>  
-                  <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="code"/> 
-                </ui:include> 
-              </h:form> 
-            </p:overlayPanel> 
-          </h:panelGroup> 
-        </p:column>  
-        <p:column> 
-          <f:facet name="header"> 
-            <h:outputText value="#{msg.reason_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'viewRemarks')}"/> 
-          </f:facet>  
-          <h:outputText value="#{_reason.remarks}" escape="false"/> 
         </p:column> 
       </p:dataTable> 
     </p:panel>  

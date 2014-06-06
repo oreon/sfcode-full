@@ -193,7 +193,9 @@ public abstract class PatientDocumentActionBase
 
 		if (getInstance().getPatient() != null) {
 			patientAction.setInstance(getInstance().getPatient());
+
 			patientAction.loadAssociations();
+
 		}
 
 		addDefaultAssociations();

@@ -20,6 +20,7 @@ public class ProjectUtils {
 		for (PrescriptionItem prescriptionItem : items) {
 			builder.append(prescriptionItem.getDrug().getName() + " " + prescriptionItem.getStrength() + " " +  prescriptionItem.getFrequency().getName() + "<br/>");
 		}
+		System.out.println("ret " + builder.toString());
 		return builder.toString();
 	}
 

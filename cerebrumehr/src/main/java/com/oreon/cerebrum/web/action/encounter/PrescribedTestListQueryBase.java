@@ -99,6 +99,18 @@ public abstract class PrescribedTestListQueryBase
 			"prescribedTest.dateCreated <= #{prescribedTestList.dateCreatedRange.end}",
 			"prescribedTest.dateCreated >= #{prescribedTestList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all PrescribedTests for the given Encounter
+	 * @param patient
+	 * @return 
+	 */
+	public List<PrescribedTest> getAllPrescribedTestsByEncounter(
+			final com.oreon.cerebrum.encounter.Encounter encounter) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		prescribedTest.setEncounter(encounter);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<PrescribedTest> getPrescribedTestsByEncounter(
 			final com.oreon.cerebrum.encounter.Encounter encounter) {
 

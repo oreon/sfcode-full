@@ -210,12 +210,16 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 
 		if (getInstance().getDrug() != null) {
 			drugAction.setInstance(getInstance().getDrug());
+
 			drugAction.loadAssociations();
+
 		}
 
 		if (getInstance().getParent() != null) {
 			parentAction.setInstance(getInstance().getParent());
+
 			parentAction.loadAssociations();
+
 		}
 
 		initListSubcategories();

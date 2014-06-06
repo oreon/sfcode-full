@@ -88,6 +88,8 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 
 			"lower(facility.name) like concat(lower(#{facilityList.facility.name}),'%')",
 
+			"facility.isResidential = #{facilityList.facility.isResidential}",
+
 			"facility.dateCreated <= #{facilityList.dateCreatedRange.end}",
 			"facility.dateCreated >= #{facilityList.dateCreatedRange.begin}",};
 

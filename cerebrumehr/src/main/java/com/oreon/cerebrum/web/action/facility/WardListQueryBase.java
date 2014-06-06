@@ -95,6 +95,18 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 			"ward.dateCreated <= #{wardList.dateCreatedRange.end}",
 			"ward.dateCreated >= #{wardList.dateCreatedRange.begin}",};
 
+	/** 
+	 * List of all Wards for the given Facility
+	 * @param patient
+	 * @return 
+	 */
+	public List<Ward> getAllWardsByFacility(
+			final com.oreon.cerebrum.facility.Facility facility) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		ward.setFacility(facility);
+		return getResultListTable();
+	}
+
 	public LazyDataModel<Ward> getWardsByFacility(
 			final com.oreon.cerebrum.facility.Facility facility) {
 

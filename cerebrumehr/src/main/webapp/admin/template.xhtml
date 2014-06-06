@@ -27,8 +27,12 @@
 
 
 </div>
-<p:growl  id="growlMessages" />  XXXXX
-<div id="content"><s:div
+<!-- 
+<p:growl  id="growlMessages" /> 
+ -->
+<s:div id="content">
+<ui:include src="/admin/entities/patient/patient/patientInfo.xhtml" />
+<s:div
 	style="border:1px solid #bbc; background-color:#eef"
 	rendered="#{facesContext.maximumSeverity != null}">
 	<p:messages globalOnly="true" errorStyle="color:red" autoUpdate="true"
@@ -37,7 +41,8 @@
 </s:div> 
 
 <c:set var="skipPermissionCheck" value="true" />
-<ui:insert name="content" /></div>
+<ui:insert name="content" />
+</s:div>
 <div id="footer"></div>
 
 
