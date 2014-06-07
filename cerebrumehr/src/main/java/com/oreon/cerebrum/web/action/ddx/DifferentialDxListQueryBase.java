@@ -118,7 +118,7 @@ public abstract class DifferentialDxListQueryBase
 			@Override
 			public List<DifferentialDx> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				differentialDx.setFinding(finding);
 				return super.load(first, pageSize, sortField, sortOrder,

@@ -118,7 +118,7 @@ public abstract class DiseaseListQueryBase extends BaseQuery<Disease, Long> {
 			@Override
 			public List<Disease> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				disease.setRelatedDisease(disease);
 				return super.load(first, pageSize, sortField, sortOrder,

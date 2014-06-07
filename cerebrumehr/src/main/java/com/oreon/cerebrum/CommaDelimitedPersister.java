@@ -31,8 +31,8 @@ public class CommaDelimitedPersister {
 /*
 		start();
 		
-		String line = "Heliminthic Parasites, Pulmonary aspergillosis, Severe scabies, Asthma, Hay Fever, Atopic dermatitis, Wiskott-Aldrich syndrome, 	Polyarteritis nodosa ,Necrotizing vasculitis, Eosinophilic fasciitis ,Pemphigus ,Addison’s disease ,Inflammatory bowel disease, Dermatitis herpetiformis " +
-				"Hodgkin’s disease, Mycosis fungoidesm,	 Chronic myelocytic leukemia ,Eosinophilic leukemia ,Polycythemia vera ,Mucin-secreting adenocarcinomas , Hyperimmunoglobulin E with recurrent infection, ";
+		String line = "Heliminthic Parasites, Pulmonary aspergillosis, Severe scabies, Asthma, Hay Fever, Atopic dermatitis, Wiskott-Aldrich syndrome, 	Polyarteritis nodosa ,Necrotizing vasculitis, Eosinophilic fasciitis ,Pemphigus ,Addisonï¿½s disease ,Inflammatory bowel disease, Dermatitis herpetiformis " +
+				"Hodgkins disease, Mycosis fungoidesm,	 Chronic myelocytic leukemia ,Eosinophilic leukemia ,Polycythemia vera ,Mucin-secreting adenocarcinomas , Hyperimmunoglobulin E with recurrent infection, ";
 		lineParserLabValue(line,
 				"ELEVATED EOSINOPHIL COUNT" ,"EOSINOPHIL COUNT");
 		

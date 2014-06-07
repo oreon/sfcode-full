@@ -158,7 +158,7 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 			@Override
 			public List<Patient> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				patient.setBed(bed);
 				return super.load(first, pageSize, sortField, sortOrder,

@@ -150,7 +150,7 @@ public abstract class PrescriptionItemTemplateListQueryBase
 			@Override
 			public List<PrescriptionItemTemplate> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				prescriptionItemTemplate
 						.setPrescriptionTemplate(prescriptionTemplate);

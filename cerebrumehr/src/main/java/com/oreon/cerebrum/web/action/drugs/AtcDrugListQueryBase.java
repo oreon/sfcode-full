@@ -118,7 +118,7 @@ public abstract class AtcDrugListQueryBase extends BaseQuery<AtcDrug, Long> {
 			@Override
 			public List<AtcDrug> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				atcDrug.setParent(atcDrug);
 				return super.load(first, pageSize, sortField, sortOrder,

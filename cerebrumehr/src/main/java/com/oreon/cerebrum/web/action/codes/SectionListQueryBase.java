@@ -116,7 +116,7 @@ public abstract class SectionListQueryBase extends BaseQuery<Section, Long> {
 			@Override
 			public List<Section> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				section.setChapter(chapter);
 				return super.load(first, pageSize, sortField, sortOrder,

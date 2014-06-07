@@ -114,7 +114,7 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 
 			@Override
 			public List<Bed> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, String> filters) {
+					SortOrder sortOrder, Map<String, Object> filters) {
 
 				bed.setRoom(room);
 				return super.load(first, pageSize, sortField, sortOrder,
@@ -146,7 +146,7 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 
 			@Override
 			public List<Bed> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, String> filters) {
+					SortOrder sortOrder, Map<String, Object> filters) {
 
 				bed.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

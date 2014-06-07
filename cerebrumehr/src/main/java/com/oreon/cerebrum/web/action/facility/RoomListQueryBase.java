@@ -115,7 +115,7 @@ public abstract class RoomListQueryBase extends BaseQuery<Room, Long> {
 
 			@Override
 			public List<Room> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, String> filters) {
+					SortOrder sortOrder, Map<String, Object> filters) {
 
 				room.setWard(ward);
 				return super.load(first, pageSize, sortField, sortOrder,

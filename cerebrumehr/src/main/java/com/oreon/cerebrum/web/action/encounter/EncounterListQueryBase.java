@@ -192,7 +192,7 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 			@Override
 			public List<Encounter> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				encounter.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

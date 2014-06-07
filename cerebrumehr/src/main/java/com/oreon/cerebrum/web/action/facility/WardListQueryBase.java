@@ -115,7 +115,7 @@ public abstract class WardListQueryBase extends BaseQuery<Ward, Long> {
 
 			@Override
 			public List<Ward> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, String> filters) {
+					SortOrder sortOrder, Map<String, Object> filters) {
 
 				ward.setFacility(facility);
 				return super.load(first, pageSize, sortField, sortOrder,

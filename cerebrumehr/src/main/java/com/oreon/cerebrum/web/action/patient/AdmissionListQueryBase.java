@@ -132,7 +132,7 @@ public abstract class AdmissionListQueryBase extends BaseQuery<Admission, Long> 
 			@Override
 			public List<Admission> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				admission.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

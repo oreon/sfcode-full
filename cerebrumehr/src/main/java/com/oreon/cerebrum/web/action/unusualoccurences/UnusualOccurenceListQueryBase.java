@@ -122,7 +122,7 @@ public abstract class UnusualOccurenceListQueryBase
 			@Override
 			public List<UnusualOccurence> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				unusualOccurence.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

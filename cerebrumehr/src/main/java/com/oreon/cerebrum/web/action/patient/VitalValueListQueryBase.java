@@ -130,7 +130,7 @@ public abstract class VitalValueListQueryBase
 			@Override
 			public List<VitalValue> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				vitalValue.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

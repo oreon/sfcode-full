@@ -118,7 +118,7 @@ public abstract class SettingNameListQueryBase
 			@Override
 			public List<SettingName> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				settingName.setSettingGroup(settingGroup);
 				return super.load(first, pageSize, sortField, sortOrder,

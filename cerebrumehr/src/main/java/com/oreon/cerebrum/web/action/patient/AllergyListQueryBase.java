@@ -116,7 +116,7 @@ public abstract class AllergyListQueryBase extends BaseQuery<Allergy, Long> {
 			@Override
 			public List<Allergy> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				allergy.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

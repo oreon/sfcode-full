@@ -120,7 +120,7 @@ public abstract class PrescribedTestListQueryBase
 			@Override
 			public List<PrescribedTest> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				prescribedTest.setEncounter(encounter);
 				return super.load(first, pageSize, sortField, sortOrder,

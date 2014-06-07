@@ -2,10 +2,14 @@ package org.witchcraft.seam.action;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.witchcraft.base.entity.BaseEntity;
+
+import com.oreon.cerebrum.billing.InvoiceItem;
+import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
 
 
 
@@ -24,10 +28,12 @@ public class EntityLazyDataModel<E extends BaseEntity, PK extends Serializable> 
 		return entityQuery.getResultCount().intValue();
 	}
 
-	public java.util.List<E> load(int first, int pageSize,
-			String sortField, SortOrder sortOrder,
-			java.util.Map<String, String> filters) {
-
+	/* (non-Javadoc)
+	 * @see org.primefaces.model.LazyDataModel#load(int, int, java.lang.String, org.primefaces.model.SortOrder, java.util.Map)
+	 */
+	@Override
+	public List<E> load(int first, int pageSize, String sortField,
+			SortOrder sortOrder, Map<String, Object> filters) {
 		entityQuery.setFirstResult(first);
 		entityQuery.setMaxResults(pageSize);
 		entityQuery.setOrderColumn(sortField);
@@ -35,9 +41,8 @@ public class EntityLazyDataModel<E extends BaseEntity, PK extends Serializable> 
 		List<E> result = entityQuery.getResultListTable();
 		super.setWrappedData(result);
 		return result;
-
 	}
-	
+
 	@Override
 	public Object getRowKey( E t ) {
 		return t.getId();
@@ -51,4 +56,5 @@ public class EntityLazyDataModel<E extends BaseEntity, PK extends Serializable> 
 		E t = entityQuery.getEntityManager().find( entityQuery.getEntityClass(), Long.valueOf( rowKey ) );
 		return t;
 	}
+
 }
