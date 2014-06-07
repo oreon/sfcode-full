@@ -118,7 +118,7 @@ public abstract class PrescriptionListQueryBase
 			@Override
 			public List<Prescription> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				prescription.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

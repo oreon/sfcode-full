@@ -46,7 +46,7 @@ public class AdmissionListQuery extends AdmissionListQueryBase
 			@Override
 			public List<Admission> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				getDischargeDateRange().setEnd(new Date());
 				List<Admission> result =  super.load(first, pageSize, sortField, sortOrder,
@@ -72,7 +72,7 @@ public class AdmissionListQuery extends AdmissionListQueryBase
 			@Override
 			public List<Admission> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				admission.setIsCurrent(true);
 				return super.load(first, pageSize, sortField, sortOrder,
@@ -93,7 +93,7 @@ public class AdmissionListQuery extends AdmissionListQueryBase
 			@Override
 			public List<Admission> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				admission.setIsCurrent(false);
 				return super.load(first, pageSize, sortField, sortOrder,

@@ -118,7 +118,7 @@ public abstract class PatientDocumentListQueryBase
 			@Override
 			public List<PatientDocument> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				patientDocument.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

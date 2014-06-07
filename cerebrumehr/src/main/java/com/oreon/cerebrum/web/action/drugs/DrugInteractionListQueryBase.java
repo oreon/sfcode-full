@@ -120,7 +120,7 @@ public abstract class DrugInteractionListQueryBase
 			@Override
 			public List<DrugInteraction> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				drugInteraction.setDrug(drug);
 				return super.load(first, pageSize, sortField, sortOrder,

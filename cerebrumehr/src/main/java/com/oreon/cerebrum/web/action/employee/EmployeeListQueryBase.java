@@ -12,23 +12,21 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.framework.EntityQuery;
-
 import org.witchcraft.seam.action.BaseQuery;
-
 import org.witchcraft.base.entity.Range;
-
 import org.primefaces.model.SortOrder;
 import org.witchcraft.seam.action.EntityLazyDataModel;
 import org.primefaces.model.LazyDataModel;
+
 import java.util.Map;
 
 import org.jboss.seam.annotations.Observer;
 
 import java.math.BigDecimal;
+
 import javax.faces.model.DataModel;
 
 import org.jboss.seam.annotations.security.Restrict;
-
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.Component;
 
@@ -145,12 +143,13 @@ public abstract class EmployeeListQueryBase<T extends Employee>
 
 			@Override
 			public List<T> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, String> filters) {
+					SortOrder sortOrder, Map<String, Object> filters) {
 
 				employee.setDepartment(department);
 				return super.load(first, pageSize, sortField, sortOrder,
 						filters);
 			}
+
 		};
 
 		return employeeLazyDataModel;

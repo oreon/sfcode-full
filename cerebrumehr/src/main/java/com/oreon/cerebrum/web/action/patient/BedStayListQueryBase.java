@@ -138,7 +138,7 @@ public abstract class BedStayListQueryBase extends BaseQuery<BedStay, Long> {
 			@Override
 			public List<BedStay> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				bedStay.setAdmission(admission);
 				return super.load(first, pageSize, sortField, sortOrder,

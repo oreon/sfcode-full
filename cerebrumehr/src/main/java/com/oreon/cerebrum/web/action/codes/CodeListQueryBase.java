@@ -125,7 +125,7 @@ public abstract class CodeListQueryBase extends BaseQuery<Code, Long> {
 
 			@Override
 			public List<Code> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, String> filters) {
+					SortOrder sortOrder, Map<String, Object> filters) {
 
 				code.setSection(section);
 				return super.load(first, pageSize, sortField, sortOrder,

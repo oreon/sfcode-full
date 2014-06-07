@@ -116,7 +116,7 @@ public abstract class AppliedChartListQueryBase
 			@Override
 			public List<AppliedChart> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				appliedChart.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

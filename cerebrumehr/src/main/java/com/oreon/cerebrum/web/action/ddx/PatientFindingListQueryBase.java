@@ -116,7 +116,7 @@ public abstract class PatientFindingListQueryBase
 			@Override
 			public List<PatientFinding> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				patientFinding.setPatientDiffDx(patientDiffDx);
 				return super.load(first, pageSize, sortField, sortOrder,

@@ -142,7 +142,7 @@ public abstract class ChartProcedureListQueryBase
 			@Override
 			public List<ChartProcedure> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				chartProcedure.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,

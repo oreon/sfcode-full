@@ -128,7 +128,7 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 			@Override
 			public List<ChartItem> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				chartItem.setChart(chart);
 				return super.load(first, pageSize, sortField, sortOrder,

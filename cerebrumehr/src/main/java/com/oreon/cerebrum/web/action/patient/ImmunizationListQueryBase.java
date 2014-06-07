@@ -128,7 +128,7 @@ public abstract class ImmunizationListQueryBase
 			@Override
 			public List<Immunization> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
+					Map<String, Object> filters) {
 
 				immunization.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,
