@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/facility/bed/searchBedComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/facility/bed/editBed.xhtml" propagation="none"> 
         <f:param name="bedId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editBedPanel')}" actionListener="#{bedAction.setBedId(0)}" oncomplete="editBedDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editBedPanel')}" actionListener="#{bedAction.setBedId(0)}" oncomplete="PF('editBedDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/facility/bed/listBedComponent.xhtml"> 
         <ui:param name="records" value="#{bedList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/facility/bed/editBed.xhtml" propagation="none"> 
         <f:param name="bedId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editBedPanel')}" actionListener="#{bedAction.setBedId(0)}" oncomplete="editBedDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editBedPanel')}" actionListener="#{bedAction.setBedId(0)}" oncomplete="PF('editBedDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

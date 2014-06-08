@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/ddx/differentialDx/searchDifferentialDxComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml" propagation="none"> 
         <f:param name="differentialDxId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDifferentialDxPanel')}" actionListener="#{differentialDxAction.setDifferentialDxId(0)}" oncomplete="editDifferentialDxDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDifferentialDxPanel')}" actionListener="#{differentialDxAction.setDifferentialDxId(0)}" oncomplete="PF('editDifferentialDxDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/ddx/differentialDx/listDifferentialDxComponent.xhtml"> 
         <ui:param name="records" value="#{differentialDxList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/differentialDx/editDifferentialDx.xhtml" propagation="none"> 
         <f:param name="differentialDxId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDifferentialDxPanel')}" actionListener="#{differentialDxAction.setDifferentialDxId(0)}" oncomplete="editDifferentialDxDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDifferentialDxPanel')}" actionListener="#{differentialDxAction.setDifferentialDxId(0)}" oncomplete="PF('editDifferentialDxDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/facility/facility/searchFacilityComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/facility/facility/editFacility.xhtml" propagation="none"> 
         <f:param name="facilityId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editFacilityPanel')}" actionListener="#{facilityAction.setFacilityId(0)}" oncomplete="editFacilityDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editFacilityPanel')}" actionListener="#{facilityAction.setFacilityId(0)}" oncomplete="PF('editFacilityDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/facility/facility/listFacilityComponent.xhtml"> 
         <ui:param name="records" value="#{facilityList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/facility/facility/editFacility.xhtml" propagation="none"> 
         <f:param name="facilityId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editFacilityPanel')}" actionListener="#{facilityAction.setFacilityId(0)}" oncomplete="editFacilityDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editFacilityPanel')}" actionListener="#{facilityAction.setFacilityId(0)}" oncomplete="PF('editFacilityDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

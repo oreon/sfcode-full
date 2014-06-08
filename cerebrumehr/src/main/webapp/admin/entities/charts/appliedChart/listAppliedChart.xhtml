@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/charts/appliedChart/searchAppliedChartComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/charts/appliedChart/editAppliedChart.xhtml" propagation="none"> 
         <f:param name="appliedChartId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAppliedChartPanel')}" actionListener="#{appliedChartAction.setAppliedChartId(0)}" oncomplete="editAppliedChartDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAppliedChartPanel')}" actionListener="#{appliedChartAction.setAppliedChartId(0)}" oncomplete="PF('editAppliedChartDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/charts/appliedChart/listAppliedChartComponent.xhtml"> 
         <ui:param name="records" value="#{appliedChartList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/charts/appliedChart/editAppliedChart.xhtml" propagation="none"> 
         <f:param name="appliedChartId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAppliedChartPanel')}" actionListener="#{appliedChartAction.setAppliedChartId(0)}" oncomplete="editAppliedChartDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAppliedChartPanel')}" actionListener="#{appliedChartAction.setAppliedChartId(0)}" oncomplete="PF('editAppliedChartDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="drugCategoryForm"> 
       <p:dataTable var="_drugCategory" value="#{records}" id="drugCategoryList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{drugCategoryAction.drugCategory}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editDrugCategoryPanel')}" oncomplete="editDrugCategoryDialog.show()" listener="#{drugCategoryAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editDrugCategoryPanel')}" oncomplete="PF('editDrugCategoryDialog').show()" listener="#{drugCategoryAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="drugCategory.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/drugs/drugCategory/drugCategoryActionDrugCategory.xhtml" rendered="#{s:hasPermission(_drugCategory, 'view')}" propagation="none"> 
             <h:outputText value="#{_drugCategory.id}"/>  

@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/ddx/patientFinding/searchPatientFindingComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/patientFinding/editPatientFinding.xhtml" propagation="none"> 
         <f:param name="patientFindingId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPatientFindingPanel')}" actionListener="#{patientFindingAction.setPatientFindingId(0)}" oncomplete="editPatientFindingDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPatientFindingPanel')}" actionListener="#{patientFindingAction.setPatientFindingId(0)}" oncomplete="PF('editPatientFindingDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/ddx/patientFinding/listPatientFindingComponent.xhtml"> 
         <ui:param name="records" value="#{patientFindingList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/patientFinding/editPatientFinding.xhtml" propagation="none"> 
         <f:param name="patientFindingId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPatientFindingPanel')}" actionListener="#{patientFindingAction.setPatientFindingId(0)}" oncomplete="editPatientFindingDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPatientFindingPanel')}" actionListener="#{patientFindingAction.setPatientFindingId(0)}" oncomplete="PF('editPatientFindingDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

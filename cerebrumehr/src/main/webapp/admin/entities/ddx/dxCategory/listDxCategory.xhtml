@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/ddx/dxCategory/searchDxCategoryComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/dxCategory/editDxCategory.xhtml" propagation="none"> 
         <f:param name="dxCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDxCategoryPanel')}" actionListener="#{dxCategoryAction.setDxCategoryId(0)}" oncomplete="editDxCategoryDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDxCategoryPanel')}" actionListener="#{dxCategoryAction.setDxCategoryId(0)}" oncomplete="PF('editDxCategoryDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/ddx/dxCategory/listDxCategoryComponent.xhtml"> 
         <ui:param name="records" value="#{dxCategoryList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/dxCategory/editDxCategory.xhtml" propagation="none"> 
         <f:param name="dxCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDxCategoryPanel')}" actionListener="#{dxCategoryAction.setDxCategoryId(0)}" oncomplete="editDxCategoryDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDxCategoryPanel')}" actionListener="#{dxCategoryAction.setDxCategoryId(0)}" oncomplete="PF('editDxCategoryDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

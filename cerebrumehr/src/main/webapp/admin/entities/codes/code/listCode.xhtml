@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/codes/code/searchCodeComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/codes/code/editCode.xhtml" propagation="none"> 
         <f:param name="codeId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editCodePanel')}" actionListener="#{codeAction.setCodeId(0)}" oncomplete="editCodeDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editCodePanel')}" actionListener="#{codeAction.setCodeId(0)}" oncomplete="PF('editCodeDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/codes/code/listCodeComponent.xhtml"> 
         <ui:param name="records" value="#{codeList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/codes/code/editCode.xhtml" propagation="none"> 
         <f:param name="codeId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editCodePanel')}" actionListener="#{codeAction.setCodeId(0)}" oncomplete="editCodeDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editCodePanel')}" actionListener="#{codeAction.setCodeId(0)}" oncomplete="PF('editCodeDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

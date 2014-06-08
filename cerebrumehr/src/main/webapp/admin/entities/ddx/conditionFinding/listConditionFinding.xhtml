@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/ddx/conditionFinding/searchConditionFindingComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/conditionFinding/editConditionFinding.xhtml" propagation="none"> 
         <f:param name="conditionFindingId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editConditionFindingPanel')}" actionListener="#{conditionFindingAction.setConditionFindingId(0)}" oncomplete="editConditionFindingDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editConditionFindingPanel')}" actionListener="#{conditionFindingAction.setConditionFindingId(0)}" oncomplete="PF('editConditionFindingDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/ddx/conditionFinding/listConditionFindingComponent.xhtml"> 
         <ui:param name="records" value="#{conditionFindingList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/conditionFinding/editConditionFinding.xhtml" propagation="none"> 
         <f:param name="conditionFindingId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editConditionFindingPanel')}" actionListener="#{conditionFindingAction.setConditionFindingId(0)}" oncomplete="editConditionFindingDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editConditionFindingPanel')}" actionListener="#{conditionFindingAction.setConditionFindingId(0)}" oncomplete="PF('editConditionFindingDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

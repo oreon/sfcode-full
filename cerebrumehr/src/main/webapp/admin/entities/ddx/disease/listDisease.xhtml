@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/ddx/disease/searchDiseaseComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/disease/editDisease.xhtml" propagation="none"> 
         <f:param name="diseaseId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" actionListener="#{diseaseAction.setDiseaseId(0)}" oncomplete="editDiseaseDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" actionListener="#{diseaseAction.setDiseaseId(0)}" oncomplete="PF('editDiseaseDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/ddx/disease/listDiseaseComponent.xhtml"> 
         <ui:param name="records" value="#{diseaseList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/disease/editDisease.xhtml" propagation="none"> 
         <f:param name="diseaseId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" actionListener="#{diseaseAction.setDiseaseId(0)}" oncomplete="editDiseaseDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" actionListener="#{diseaseAction.setDiseaseId(0)}" oncomplete="PF('editDiseaseDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

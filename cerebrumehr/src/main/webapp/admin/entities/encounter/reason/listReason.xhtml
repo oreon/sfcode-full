@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/encounter/reason/searchReasonComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/encounter/reason/editReason.xhtml" propagation="none"> 
         <f:param name="reasonId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editReasonPanel')}" actionListener="#{reasonAction.setReasonId(0)}" oncomplete="editReasonDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editReasonPanel')}" actionListener="#{reasonAction.setReasonId(0)}" oncomplete="PF('editReasonDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/encounter/reason/listReasonComponent.xhtml"> 
         <ui:param name="records" value="#{reasonList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/encounter/reason/editReason.xhtml" propagation="none"> 
         <f:param name="reasonId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editReasonPanel')}" actionListener="#{reasonAction.setReasonId(0)}" oncomplete="editReasonDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editReasonPanel')}" actionListener="#{reasonAction.setReasonId(0)}" oncomplete="PF('editReasonDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

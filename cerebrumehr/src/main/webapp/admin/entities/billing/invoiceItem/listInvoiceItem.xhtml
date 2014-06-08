@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/billing/invoiceItem/searchInvoiceItemComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/billing/invoiceItem/editInvoiceItem.xhtml" propagation="none"> 
         <f:param name="invoiceItemId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editInvoiceItemPanel')}" actionListener="#{invoiceItemAction.setInvoiceItemId(0)}" oncomplete="editInvoiceItemDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editInvoiceItemPanel')}" actionListener="#{invoiceItemAction.setInvoiceItemId(0)}" oncomplete="PF('editInvoiceItemDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/billing/invoiceItem/listInvoiceItemComponent.xhtml"> 
         <ui:param name="records" value="#{invoiceItemList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/billing/invoiceItem/editInvoiceItem.xhtml" propagation="none"> 
         <f:param name="invoiceItemId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editInvoiceItemPanel')}" actionListener="#{invoiceItemAction.setInvoiceItemId(0)}" oncomplete="editInvoiceItemDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editInvoiceItemPanel')}" actionListener="#{invoiceItemAction.setInvoiceItemId(0)}" oncomplete="PF('editInvoiceItemDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/employee/physician/searchPhysicianComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/employee/physician/editPhysician.xhtml" propagation="none"> 
         <f:param name="physicianId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicianPanel')}" actionListener="#{physicianAction.setPhysicianId(0)}" oncomplete="editPhysicianDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicianPanel')}" actionListener="#{physicianAction.setPhysicianId(0)}" oncomplete="PF('editPhysicianDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/employee/physician/listPhysicianComponent.xhtml"> 
         <ui:param name="records" value="#{physicianList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/employee/physician/editPhysician.xhtml" propagation="none"> 
         <f:param name="physicianId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicianPanel')}" actionListener="#{physicianAction.setPhysicianId(0)}" oncomplete="editPhysicianDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicianPanel')}" actionListener="#{physicianAction.setPhysicianId(0)}" oncomplete="PF('editPhysicianDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

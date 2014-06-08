@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="settingGroupForm"> 
       <p:dataTable var="_settingGroup" value="#{records}" id="settingGroupList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{settingGroupAction.settingGroup}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editSettingGroupPanel')}" oncomplete="editSettingGroupDialog.show()" listener="#{settingGroupAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editSettingGroupPanel')}" oncomplete="PF('editSettingGroupDialog').show()" listener="#{settingGroupAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="settingGroup.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/settings/settingGroup/settingGroupActionSettingGroup.xhtml" rendered="#{s:hasPermission(_settingGroup, 'view')}" propagation="none"> 
             <h:outputText value="#{_settingGroup.id}"/>  

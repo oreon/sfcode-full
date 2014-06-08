@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="chartProcedureForm"> 
       <p:dataTable var="_chartProcedure" value="#{records}" id="chartProcedureList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{chartProcedureAction.chartProcedure}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editChartProcedurePanel')}" oncomplete="editChartProcedureDialog.show()" listener="#{chartProcedureAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editChartProcedurePanel')}" oncomplete="PF('editChartProcedureDialog').show()" listener="#{chartProcedureAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="chartProcedure.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/charts/chartProcedure/chartProcedureActionChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'view')}" propagation="none"> 
             <h:outputText value="#{_chartProcedure.id}"/>  

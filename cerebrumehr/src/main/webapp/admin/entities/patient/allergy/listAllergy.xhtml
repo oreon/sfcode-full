@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/patient/allergy/searchAllergyComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/patient/allergy/editAllergy.xhtml" propagation="none"> 
         <f:param name="allergyId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" actionListener="#{allergyAction.setAllergyId(0)}" oncomplete="editAllergyDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" actionListener="#{allergyAction.setAllergyId(0)}" oncomplete="PF('editAllergyDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/patient/allergy/listAllergyComponent.xhtml"> 
         <ui:param name="records" value="#{allergyList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/patient/allergy/editAllergy.xhtml" propagation="none"> 
         <f:param name="allergyId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" actionListener="#{allergyAction.setAllergyId(0)}" oncomplete="editAllergyDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" actionListener="#{allergyAction.setAllergyId(0)}" oncomplete="PF('editAllergyDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

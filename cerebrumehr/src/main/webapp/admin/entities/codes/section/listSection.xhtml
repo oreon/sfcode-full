@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/codes/section/searchSectionComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/codes/section/editSection.xhtml" propagation="none"> 
         <f:param name="sectionId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSectionPanel')}" actionListener="#{sectionAction.setSectionId(0)}" oncomplete="editSectionDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSectionPanel')}" actionListener="#{sectionAction.setSectionId(0)}" oncomplete="PF('editSectionDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/codes/section/listSectionComponent.xhtml"> 
         <ui:param name="records" value="#{sectionList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/codes/section/editSection.xhtml" propagation="none"> 
         <f:param name="sectionId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSectionPanel')}" actionListener="#{sectionAction.setSectionId(0)}" oncomplete="editSectionDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSectionPanel')}" actionListener="#{sectionAction.setSectionId(0)}" oncomplete="PF('editSectionDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

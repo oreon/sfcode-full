@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/ddx/physicalFinding/searchPhysicalFindingComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml" propagation="none"> 
         <f:param name="physicalFindingId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicalFindingPanel')}" actionListener="#{physicalFindingAction.setPhysicalFindingId(0)}" oncomplete="editPhysicalFindingDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicalFindingPanel')}" actionListener="#{physicalFindingAction.setPhysicalFindingId(0)}" oncomplete="PF('editPhysicalFindingDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/ddx/physicalFinding/listPhysicalFindingComponent.xhtml"> 
         <ui:param name="records" value="#{physicalFindingList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/physicalFinding/editPhysicalFinding.xhtml" propagation="none"> 
         <f:param name="physicalFindingId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicalFindingPanel')}" actionListener="#{physicalFindingAction.setPhysicalFindingId(0)}" oncomplete="editPhysicalFindingDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPhysicalFindingPanel')}" actionListener="#{physicalFindingAction.setPhysicalFindingId(0)}" oncomplete="PF('editPhysicalFindingDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

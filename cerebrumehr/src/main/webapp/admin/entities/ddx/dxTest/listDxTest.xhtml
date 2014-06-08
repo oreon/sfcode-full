@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/ddx/dxTest/searchDxTestComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/dxTest/editDxTest.xhtml" propagation="none"> 
         <f:param name="dxTestId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDxTestPanel')}" actionListener="#{dxTestAction.setDxTestId(0)}" oncomplete="editDxTestDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDxTestPanel')}" actionListener="#{dxTestAction.setDxTestId(0)}" oncomplete="PF('editDxTestDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/ddx/dxTest/listDxTestComponent.xhtml"> 
         <ui:param name="records" value="#{dxTestList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/dxTest/editDxTest.xhtml" propagation="none"> 
         <f:param name="dxTestId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDxTestPanel')}" actionListener="#{dxTestAction.setDxTestId(0)}" oncomplete="editDxTestDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDxTestPanel')}" actionListener="#{dxTestAction.setDxTestId(0)}" oncomplete="PF('editDxTestDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

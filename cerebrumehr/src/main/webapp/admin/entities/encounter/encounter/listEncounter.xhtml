@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/encounter/encounter/searchEncounterComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/encounter/encounter/editEncounter.xhtml" propagation="none"> 
         <f:param name="encounterId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editEncounterPanel')}" actionListener="#{encounterAction.setEncounterId(0)}" oncomplete="editEncounterDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editEncounterPanel')}" actionListener="#{encounterAction.setEncounterId(0)}" oncomplete="PF('editEncounterDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/encounter/encounter/listEncounterComponentCustom.xhtml"> 
         <ui:param name="records" value="#{encounterList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/encounter/encounter/editEncounter.xhtml" propagation="none"> 
         <f:param name="encounterId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editEncounterPanel')}" actionListener="#{encounterAction.setEncounterId(0)}" oncomplete="editEncounterDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editEncounterPanel')}" actionListener="#{encounterAction.setEncounterId(0)}" oncomplete="PF('editEncounterDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

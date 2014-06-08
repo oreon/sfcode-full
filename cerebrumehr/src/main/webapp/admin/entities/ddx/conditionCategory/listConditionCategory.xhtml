@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/ddx/conditionCategory/searchConditionCategoryComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/conditionCategory/editConditionCategory.xhtml" propagation="none"> 
         <f:param name="conditionCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editConditionCategoryPanel')}" actionListener="#{conditionCategoryAction.setConditionCategoryId(0)}" oncomplete="editConditionCategoryDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editConditionCategoryPanel')}" actionListener="#{conditionCategoryAction.setConditionCategoryId(0)}" oncomplete="PF('editConditionCategoryDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/ddx/conditionCategory/listConditionCategoryComponent.xhtml"> 
         <ui:param name="records" value="#{conditionCategoryList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/conditionCategory/editConditionCategory.xhtml" propagation="none"> 
         <f:param name="conditionCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editConditionCategoryPanel')}" actionListener="#{conditionCategoryAction.setConditionCategoryId(0)}" oncomplete="editConditionCategoryDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editConditionCategoryPanel')}" actionListener="#{conditionCategoryAction.setConditionCategoryId(0)}" oncomplete="PF('editConditionCategoryDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

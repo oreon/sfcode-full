@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/employee/nurse/searchNurseComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/employee/nurse/editNurse.xhtml" propagation="none"> 
         <f:param name="nurseId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editNursePanel')}" actionListener="#{nurseAction.setNurseId(0)}" oncomplete="editNurseDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editNursePanel')}" actionListener="#{nurseAction.setNurseId(0)}" oncomplete="PF('editNurseDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/employee/nurse/listNurseComponent.xhtml"> 
         <ui:param name="records" value="#{nurseList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/employee/nurse/editNurse.xhtml" propagation="none"> 
         <f:param name="nurseId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editNursePanel')}" actionListener="#{nurseAction.setNurseId(0)}" oncomplete="editNurseDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editNursePanel')}" actionListener="#{nurseAction.setNurseId(0)}" oncomplete="PF('editNurseDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

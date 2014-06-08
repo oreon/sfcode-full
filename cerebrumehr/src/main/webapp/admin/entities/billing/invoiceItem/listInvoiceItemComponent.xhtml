@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="invoiceItemForm"> 
       <p:dataTable var="_invoiceItem" value="#{records}" id="invoiceItemList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{invoiceItemAction.invoiceItem}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editInvoiceItemPanel')}" oncomplete="editInvoiceItemDialog.show()" listener="#{invoiceItemAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editInvoiceItemPanel')}" oncomplete="PF('editInvoiceItemDialog').show()" listener="#{invoiceItemAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="invoiceItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/billing/invoiceItem/invoiceItemActionInvoiceItem.xhtml" rendered="#{s:hasPermission(_invoiceItem, 'view')}" propagation="none"> 
             <h:outputText value="#{_invoiceItem.id}"/>  

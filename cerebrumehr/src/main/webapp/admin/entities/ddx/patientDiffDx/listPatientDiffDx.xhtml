@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/ddx/patientDiffDx/searchPatientDiffDxComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/patientDiffDx/editPatientDiffDx.xhtml" propagation="none"> 
         <f:param name="patientDiffDxId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPatientDiffDxPanel')}" actionListener="#{patientDiffDxAction.setPatientDiffDxId(0)}" oncomplete="editPatientDiffDxDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPatientDiffDxPanel')}" actionListener="#{patientDiffDxAction.setPatientDiffDxId(0)}" oncomplete="PF('editPatientDiffDxDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/ddx/patientDiffDx/listPatientDiffDxComponent.xhtml"> 
         <ui:param name="records" value="#{patientDiffDxList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/ddx/patientDiffDx/editPatientDiffDx.xhtml" propagation="none"> 
         <f:param name="patientDiffDxId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPatientDiffDxPanel')}" actionListener="#{patientDiffDxAction.setPatientDiffDxId(0)}" oncomplete="editPatientDiffDxDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPatientDiffDxPanel')}" actionListener="#{patientDiffDxAction.setPatientDiffDxId(0)}" oncomplete="PF('editPatientDiffDxDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>
