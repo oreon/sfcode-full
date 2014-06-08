@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="prescriptionItemTemplateForm"> 
       <p:dataTable var="_prescriptionItemTemplate" value="#{records}" id="prescriptionItemTemplateList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{prescriptionItemTemplateAction.prescriptionItemTemplate}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editPrescriptionItemTemplatePanel')}" oncomplete="editPrescriptionItemTemplateDialog.show()" listener="#{prescriptionItemTemplateAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editPrescriptionItemTemplatePanel')}" oncomplete="PF('editPrescriptionItemTemplateDialog').show()" listener="#{prescriptionItemTemplateAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="prescriptionItemTemplate.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/prescription/prescriptionItemTemplate/prescriptionItemTemplateActionPrescriptionItemTemplate.xhtml" rendered="#{s:hasPermission(_prescriptionItemTemplate, 'view')}" propagation="none"> 
             <h:outputText value="#{_prescriptionItemTemplate.id}"/>  

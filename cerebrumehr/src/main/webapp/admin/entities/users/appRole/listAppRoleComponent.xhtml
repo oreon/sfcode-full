@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="appRoleForm"> 
       <p:dataTable var="_appRole" value="#{records}" id="appRoleList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{appRoleAction.appRole}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editAppRolePanel')}" oncomplete="editAppRoleDialog.show()" listener="#{appRoleAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editAppRolePanel')}" oncomplete="PF('editAppRoleDialog').show()" listener="#{appRoleAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="appRole.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/users/appRole/appRoleActionAppRole.xhtml" rendered="#{s:hasPermission(_appRole, 'view')}" propagation="none"> 
             <h:outputText value="#{_appRole.id}"/>  

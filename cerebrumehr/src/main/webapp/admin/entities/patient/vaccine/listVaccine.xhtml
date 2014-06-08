@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/patient/vaccine/searchVaccineComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/patient/vaccine/editVaccine.xhtml" propagation="none"> 
         <f:param name="vaccineId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editVaccinePanel')}" actionListener="#{vaccineAction.setVaccineId(0)}" oncomplete="editVaccineDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editVaccinePanel')}" actionListener="#{vaccineAction.setVaccineId(0)}" oncomplete="PF('editVaccineDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/patient/vaccine/listVaccineComponent.xhtml"> 
         <ui:param name="records" value="#{vaccineList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/patient/vaccine/editVaccine.xhtml" propagation="none"> 
         <f:param name="vaccineId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editVaccinePanel')}" actionListener="#{vaccineAction.setVaccineId(0)}" oncomplete="editVaccineDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editVaccinePanel')}" actionListener="#{vaccineAction.setVaccineId(0)}" oncomplete="PF('editVaccineDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

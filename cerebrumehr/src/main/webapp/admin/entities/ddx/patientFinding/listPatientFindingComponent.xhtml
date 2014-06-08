@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="patientFindingForm"> 
       <p:dataTable var="_patientFinding" value="#{records}" id="patientFindingList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{patientFindingAction.patientFinding}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editPatientFindingPanel')}" oncomplete="editPatientFindingDialog.show()" listener="#{patientFindingAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editPatientFindingPanel')}" oncomplete="PF('editPatientFindingDialog').show()" listener="#{patientFindingAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="patientFinding.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/ddx/patientFinding/patientFindingActionPatientFinding.xhtml" rendered="#{s:hasPermission(_patientFinding, 'view')}" propagation="none"> 
             <h:outputText value="#{_patientFinding.id}"/>  

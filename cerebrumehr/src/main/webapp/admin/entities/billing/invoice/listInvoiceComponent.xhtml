@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="invoiceForm"> 
       <p:dataTable var="_invoice" value="#{records}" id="invoiceList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{invoiceAction.invoice}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editInvoicePanel')}" oncomplete="editInvoiceDialog.show()" listener="#{invoiceAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editInvoicePanel')}" oncomplete="PF('editInvoiceDialog').show()" listener="#{invoiceAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="invoice.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/billing/invoice/invoiceActionInvoice.xhtml" rendered="#{s:hasPermission(_invoice, 'view')}" propagation="none"> 
             <h:outputText value="#{_invoice.id}"/>  

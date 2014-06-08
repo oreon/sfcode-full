@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/employee/specialization/searchSpecializationComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/employee/specialization/editSpecialization.xhtml" propagation="none"> 
         <f:param name="specializationId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSpecializationPanel')}" actionListener="#{specializationAction.setSpecializationId(0)}" oncomplete="editSpecializationDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSpecializationPanel')}" actionListener="#{specializationAction.setSpecializationId(0)}" oncomplete="PF('editSpecializationDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/employee/specialization/listSpecializationComponent.xhtml"> 
         <ui:param name="records" value="#{specializationList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/employee/specialization/editSpecialization.xhtml" propagation="none"> 
         <f:param name="specializationId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSpecializationPanel')}" actionListener="#{specializationAction.setSpecializationId(0)}" oncomplete="editSpecializationDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSpecializationPanel')}" actionListener="#{specializationAction.setSpecializationId(0)}" oncomplete="PF('editSpecializationDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

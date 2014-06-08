@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/charts/chartProcedure/searchChartProcedureComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml" propagation="none"> 
         <f:param name="chartProcedureId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChartProcedurePanel')}" actionListener="#{chartProcedureAction.setChartProcedureId(0)}" oncomplete="editChartProcedureDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChartProcedurePanel')}" actionListener="#{chartProcedureAction.setChartProcedureId(0)}" oncomplete="PF('editChartProcedureDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/charts/chartProcedure/listChartProcedureComponent.xhtml"> 
         <ui:param name="records" value="#{chartProcedureList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml" propagation="none"> 
         <f:param name="chartProcedureId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChartProcedurePanel')}" actionListener="#{chartProcedureAction.setChartProcedureId(0)}" oncomplete="editChartProcedureDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChartProcedurePanel')}" actionListener="#{chartProcedureAction.setChartProcedureId(0)}" oncomplete="PF('editChartProcedureDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

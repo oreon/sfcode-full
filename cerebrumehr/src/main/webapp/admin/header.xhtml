@@ -10,55 +10,42 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
 	<h:form>
-
-		<p:toolbar height="34">
-
-			<p:toolbarGroup>
-				<h:graphicImage id="edit" value="/images/icons/bricks.png" />
-				<h:link outcome="/admin/entities/summary.xhtml" value="Entities" />
-
-				<h:graphicImage id="find" value="/images/icons/clock.png" />
-				<h:link outcome="/admin/tasks/tasks.xhtml" value="Tasks" />
-
-				<h:graphicImage id="filter" value="/images/icons/chart_bar.png" />
-				<h:link outcome="/admin/reports/reports.xhtml" value="Reports" />
-
-				<h:graphicImage value="/images/icons/eye.png" />
-				<h:link outcome="/admin/entities/patient/patient/listPatient.xhtml"
-					value="Patients" />
-
-				<h:graphicImage value="/images/icons/add.png" />
-				<p:commandLink
-					action="/admin/entities/appointment/appointment/createAppt.xhtml"
-					value="Appointments">
-					<s:conversationPropagation type="join" />
-				</p:commandLink>
-				
-				
-				<p:commandLink
+		<p:menubar>
+			<p:menuitem outcome="/admin/entities/summary.xhtml" value="Entities"
+				icon="ui-icon-contact" />
+			<p:menuitem outcome="/admin/reports/reports.xhtml" value="Reports" />
+			<p:menuitem
+				outcome="/admin/entities/patient/patient/listPatient.xhtml"
+				value="Patients" />
+			<p:menuitem
+				action="/admin/entities/appointment/appointment/createAppt.xhtml"
+				value="Appointments">
+				<s:conversationPropagation type="join" />
+			</p:menuitem>
+			
+			<p:menuitem
 					action="/admin/entities/patient/admission/editAdmission.xhtml"
 					value="Admissions">
 					<s:conversationPropagation type="join" />
-				</p:commandLink>
-					
-				<p:commandLink
-					action="/admin/entities/prescription/prescription/editPrescription.xhtml"
-					value="Prescription">
+				</p:menuitem>
+			
+			<p:menuitem
+					action="/admin/entities/encounter/encounter/editEncounter.xhtml"
+					value="Encounter">
 					<s:conversationPropagation type="join" />
-				</p:commandLink>
-
-			</p:toolbarGroup>
- 			
-			<p:toolbarGroup align="right">
-				TENANT - #{userUtilAction.currentUser.tenant}
-				<ui:include src="/admin/entities/patient/patient/freeTypeSearchPatientComponentCustom.xhtml" />
+			</p:menuitem>
 			
-				<s:link action="#{identity.logout}" view="/login.xhtml"
-					value="Logout #{identity.credentials.username}" propagation="none" />
+			<f:facet name="options">
+				<ui:include
+					src="/admin/entities/patient/patient/freeTypeSearchPatientComponentCustom.xhtml" />
 
-			</p:toolbarGroup>
-			
-		</p:toolbar>
+				<p:commandButton type="button" action="#{identity.logout}" view="/login.xhtml"
+					value="Logout #{identity.credentials.username}" icon="ui-icon-extlink" />
+
+			</f:facet>
+		</p:menubar>
+
+		
 
 	</h:form>
 

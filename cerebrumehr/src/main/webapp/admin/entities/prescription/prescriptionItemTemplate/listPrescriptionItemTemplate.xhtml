@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/prescription/prescriptionItemTemplate/searchPrescriptionItemTemplateComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/prescription/prescriptionItemTemplate/editPrescriptionItemTemplate.xhtml" propagation="none"> 
         <f:param name="prescriptionItemTemplateId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionItemTemplatePanel')}" actionListener="#{prescriptionItemTemplateAction.setPrescriptionItemTemplateId(0)}" oncomplete="editPrescriptionItemTemplateDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionItemTemplatePanel')}" actionListener="#{prescriptionItemTemplateAction.setPrescriptionItemTemplateId(0)}" oncomplete="PF('editPrescriptionItemTemplateDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/prescription/prescriptionItemTemplate/listPrescriptionItemTemplateComponent.xhtml"> 
         <ui:param name="records" value="#{prescriptionItemTemplateList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/prescription/prescriptionItemTemplate/editPrescriptionItemTemplate.xhtml" propagation="none"> 
         <f:param name="prescriptionItemTemplateId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionItemTemplatePanel')}" actionListener="#{prescriptionItemTemplateAction.setPrescriptionItemTemplateId(0)}" oncomplete="editPrescriptionItemTemplateDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionItemTemplatePanel')}" actionListener="#{prescriptionItemTemplateAction.setPrescriptionItemTemplateId(0)}" oncomplete="PF('editPrescriptionItemTemplateDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

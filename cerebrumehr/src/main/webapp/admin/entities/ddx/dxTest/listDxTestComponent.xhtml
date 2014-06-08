@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="dxTestForm"> 
       <p:dataTable var="_dxTest" value="#{records}" id="dxTestList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{dxTestAction.dxTest}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editDxTestPanel')}" oncomplete="editDxTestDialog.show()" listener="#{dxTestAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editDxTestPanel')}" oncomplete="PF('editDxTestDialog').show()" listener="#{dxTestAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="dxTest.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/ddx/dxTest/dxTestActionDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'view')}" propagation="none"> 
             <h:outputText value="#{_dxTest.id}"/>  

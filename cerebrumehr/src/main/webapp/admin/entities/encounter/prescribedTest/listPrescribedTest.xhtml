@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/encounter/prescribedTest/searchPrescribedTestComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/encounter/prescribedTest/editPrescribedTest.xhtml" propagation="none"> 
         <f:param name="prescribedTestId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescribedTestPanel')}" actionListener="#{prescribedTestAction.setPrescribedTestId(0)}" oncomplete="editPrescribedTestDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescribedTestPanel')}" actionListener="#{prescribedTestAction.setPrescribedTestId(0)}" oncomplete="PF('editPrescribedTestDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/encounter/prescribedTest/listPrescribedTestComponent.xhtml"> 
         <ui:param name="records" value="#{prescribedTestList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/encounter/prescribedTest/editPrescribedTest.xhtml" propagation="none"> 
         <f:param name="prescribedTestId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPrescribedTestPanel')}" actionListener="#{prescribedTestAction.setPrescribedTestId(0)}" oncomplete="editPrescribedTestDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPrescribedTestPanel')}" actionListener="#{prescribedTestAction.setPrescribedTestId(0)}" oncomplete="PF('editPrescribedTestDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

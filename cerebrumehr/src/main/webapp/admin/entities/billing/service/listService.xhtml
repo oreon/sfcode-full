@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/billing/service/searchServiceComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/billing/service/editService.xhtml" propagation="none"> 
         <f:param name="serviceId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editServicePanel')}" actionListener="#{serviceAction.setServiceId(0)}" oncomplete="editServiceDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editServicePanel')}" actionListener="#{serviceAction.setServiceId(0)}" oncomplete="PF('editServiceDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/billing/service/listServiceComponent.xhtml"> 
         <ui:param name="records" value="#{serviceList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/billing/service/editService.xhtml" propagation="none"> 
         <f:param name="serviceId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editServicePanel')}" actionListener="#{serviceAction.setServiceId(0)}" oncomplete="editServiceDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editServicePanel')}" actionListener="#{serviceAction.setServiceId(0)}" oncomplete="PF('editServiceDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

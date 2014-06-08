@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/charts/chart/searchChartComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/charts/chart/editChart.xhtml" propagation="none"> 
         <f:param name="chartId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChartPanel')}" actionListener="#{chartAction.setChartId(0)}" oncomplete="editChartDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChartPanel')}" actionListener="#{chartAction.setChartId(0)}" oncomplete="PF('editChartDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/charts/chart/listChartComponent.xhtml"> 
         <ui:param name="records" value="#{chartList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/charts/chart/editChart.xhtml" propagation="none"> 
         <f:param name="chartId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChartPanel')}" actionListener="#{chartAction.setChartId(0)}" oncomplete="editChartDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChartPanel')}" actionListener="#{chartAction.setChartId(0)}" oncomplete="PF('editChartDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

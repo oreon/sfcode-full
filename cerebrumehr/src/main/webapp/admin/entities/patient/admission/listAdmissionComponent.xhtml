@@ -14,10 +14,9 @@
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 
     </h:form>  
-    ${suffix}
-    <h:form id="admissionForm${suffix}"> 
+    <h:form id="admissionForm"> 
       <p:dataTable var="_admission" value="#{records}" id="admissionList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{admissionAction.admission}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editAdmissionPanel')}" oncomplete="editAdmissionDialog.show()" listener="#{admissionAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editAdmissionPanel')}" oncomplete="PF('editAdmissionDialog').show()" listener="#{admissionAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="admission.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/patient/admission/admissionActionAdmission.xhtml" rendered="#{s:hasPermission(_admission, 'view')}" propagation="none"> 
             <h:outputText value="#{_admission.id}"/>  

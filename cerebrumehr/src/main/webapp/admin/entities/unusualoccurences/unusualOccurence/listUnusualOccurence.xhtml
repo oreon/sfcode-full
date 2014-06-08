@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/searchUnusualOccurenceComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurence.xhtml" propagation="none"> 
         <f:param name="unusualOccurenceId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}" oncomplete="editUnusualOccurenceDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}" oncomplete="PF('editUnusualOccurenceDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/listUnusualOccurenceComponent.xhtml"> 
         <ui:param name="records" value="#{unusualOccurenceList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurence.xhtml" propagation="none"> 
         <f:param name="unusualOccurenceId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}" oncomplete="editUnusualOccurenceDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}" oncomplete="PF('editUnusualOccurenceDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

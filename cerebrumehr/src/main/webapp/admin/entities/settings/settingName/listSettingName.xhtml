@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/settings/settingName/searchSettingNameComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/settings/settingName/editSettingName.xhtml" propagation="none"> 
         <f:param name="settingNameId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSettingNamePanel')}" actionListener="#{settingNameAction.setSettingNameId(0)}" oncomplete="editSettingNameDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSettingNamePanel')}" actionListener="#{settingNameAction.setSettingNameId(0)}" oncomplete="PF('editSettingNameDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/settings/settingName/listSettingNameComponent.xhtml"> 
         <ui:param name="records" value="#{settingNameList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/settings/settingName/editSettingName.xhtml" propagation="none"> 
         <f:param name="settingNameId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSettingNamePanel')}" actionListener="#{settingNameAction.setSettingNameId(0)}" oncomplete="editSettingNameDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSettingNamePanel')}" actionListener="#{settingNameAction.setSettingNameId(0)}" oncomplete="PF('editSettingNameDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

@@ -16,7 +16,7 @@
     </h:form>  
     <h:form id="settingNameForm"> 
       <p:dataTable var="_settingName" value="#{records}" id="settingNameList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{settingNameAction.settingName}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editSettingNamePanel')}" oncomplete="editSettingNameDialog.show()" listener="#{settingNameAction.onRowSelect}"/>  
+        <p:ajax event="rowSelect" update=":#{p:component('editSettingNamePanel')}" oncomplete="PF('editSettingNameDialog').show()" listener="#{settingNameAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="settingName.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
           <h:link outcome="/admin/entities/settings/settingName/settingNameActionSettingName.xhtml" rendered="#{s:hasPermission(_settingName, 'view')}" propagation="none"> 
             <h:outputText value="#{_settingName.id}"/>  

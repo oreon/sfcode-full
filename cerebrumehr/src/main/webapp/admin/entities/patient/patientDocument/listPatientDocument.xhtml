@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/patient/patientDocument/searchPatientDocumentComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/patient/patientDocument/editPatientDocument.xhtml" propagation="none"> 
         <f:param name="patientDocumentId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPatientDocumentPanel')}" actionListener="#{patientDocumentAction.setPatientDocumentId(0)}" oncomplete="editPatientDocumentDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPatientDocumentPanel')}" actionListener="#{patientDocumentAction.setPatientDocumentId(0)}" oncomplete="PF('editPatientDocumentDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/patient/patientDocument/listPatientDocumentComponent.xhtml"> 
         <ui:param name="records" value="#{patientDocumentList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/patient/patientDocument/editPatientDocument.xhtml" propagation="none"> 
         <f:param name="patientDocumentId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editPatientDocumentPanel')}" actionListener="#{patientDocumentAction.setPatientDocumentId(0)}" oncomplete="editPatientDocumentDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editPatientDocumentPanel')}" actionListener="#{patientDocumentAction.setPatientDocumentId(0)}" oncomplete="PF('editPatientDocumentDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

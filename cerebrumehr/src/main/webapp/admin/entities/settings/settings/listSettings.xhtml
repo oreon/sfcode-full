@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/settings/settings/searchSettingsComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/settings/settings/editSettings.xhtml" propagation="none"> 
         <f:param name="settingsId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSettingsPanel')}" actionListener="#{settingsAction.setSettingsId(0)}" oncomplete="editSettingsDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSettingsPanel')}" actionListener="#{settingsAction.setSettingsId(0)}" oncomplete="PF('editSettingsDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/settings/settings/listSettingsComponent.xhtml"> 
         <ui:param name="records" value="#{settingsList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/settings/settings/editSettings.xhtml" propagation="none"> 
         <f:param name="settingsId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editSettingsPanel')}" actionListener="#{settingsAction.setSettingsId(0)}" oncomplete="editSettingsDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editSettingsPanel')}" actionListener="#{settingsAction.setSettingsId(0)}" oncomplete="PF('editSettingsDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

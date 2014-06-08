@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/prescription/frequency/searchFrequencyComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/prescription/frequency/editFrequency.xhtml" propagation="none"> 
         <f:param name="frequencyId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editFrequencyPanel')}" actionListener="#{frequencyAction.setFrequencyId(0)}" oncomplete="editFrequencyDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editFrequencyPanel')}" actionListener="#{frequencyAction.setFrequencyId(0)}" oncomplete="PF('editFrequencyDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/prescription/frequency/listFrequencyComponent.xhtml"> 
         <ui:param name="records" value="#{frequencyList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/prescription/frequency/editFrequency.xhtml" propagation="none"> 
         <f:param name="frequencyId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editFrequencyPanel')}" actionListener="#{frequencyAction.setFrequencyId(0)}" oncomplete="editFrequencyDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editFrequencyPanel')}" actionListener="#{frequencyAction.setFrequencyId(0)}" oncomplete="PF('editFrequencyDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

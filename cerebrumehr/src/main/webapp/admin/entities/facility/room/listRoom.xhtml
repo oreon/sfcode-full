@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/facility/room/searchRoomComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/facility/room/editRoom.xhtml" propagation="none"> 
         <f:param name="roomId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editRoomPanel')}" actionListener="#{roomAction.setRoomId(0)}" oncomplete="editRoomDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editRoomPanel')}" actionListener="#{roomAction.setRoomId(0)}" oncomplete="PF('editRoomDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/facility/room/listRoomComponent.xhtml"> 
         <ui:param name="records" value="#{roomList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/facility/room/editRoom.xhtml" propagation="none"> 
         <f:param name="roomId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editRoomPanel')}" actionListener="#{roomAction.setRoomId(0)}" oncomplete="editRoomDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editRoomPanel')}" actionListener="#{roomAction.setRoomId(0)}" oncomplete="PF('editRoomDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

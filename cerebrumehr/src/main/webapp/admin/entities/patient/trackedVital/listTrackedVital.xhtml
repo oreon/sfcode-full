@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/patient/trackedVital/searchTrackedVitalComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/patient/trackedVital/editTrackedVital.xhtml" propagation="none"> 
         <f:param name="trackedVitalId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editTrackedVitalPanel')}" actionListener="#{trackedVitalAction.setTrackedVitalId(0)}" oncomplete="editTrackedVitalDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editTrackedVitalPanel')}" actionListener="#{trackedVitalAction.setTrackedVitalId(0)}" oncomplete="PF('editTrackedVitalDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/patient/trackedVital/listTrackedVitalComponent.xhtml"> 
         <ui:param name="records" value="#{trackedVitalList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/patient/trackedVital/editTrackedVital.xhtml" propagation="none"> 
         <f:param name="trackedVitalId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editTrackedVitalPanel')}" actionListener="#{trackedVitalAction.setTrackedVitalId(0)}" oncomplete="editTrackedVitalDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editTrackedVitalPanel')}" actionListener="#{trackedVitalAction.setTrackedVitalId(0)}" oncomplete="PF('editTrackedVitalDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

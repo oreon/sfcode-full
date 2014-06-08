@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/users/appUser/searchAppUserComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/users/appUser/editAppUser.xhtml" propagation="none"> 
         <f:param name="appUserId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAppUserPanel')}" actionListener="#{appUserAction.setAppUserId(0)}" oncomplete="editAppUserDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAppUserPanel')}" actionListener="#{appUserAction.setAppUserId(0)}" oncomplete="PF('editAppUserDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/users/appUser/listAppUserComponent.xhtml"> 
         <ui:param name="records" value="#{appUserList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/users/appUser/editAppUser.xhtml" propagation="none"> 
         <f:param name="appUserId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editAppUserPanel')}" actionListener="#{appUserAction.setAppUserId(0)}" oncomplete="editAppUserDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editAppUserPanel')}" actionListener="#{appUserAction.setAppUserId(0)}" oncomplete="PF('editAppUserDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

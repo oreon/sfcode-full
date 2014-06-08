@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/codes/chapter/searchChapterComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/codes/chapter/editChapter.xhtml" propagation="none"> 
         <f:param name="chapterId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChapterPanel')}" actionListener="#{chapterAction.setChapterId(0)}" oncomplete="editChapterDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChapterPanel')}" actionListener="#{chapterAction.setChapterId(0)}" oncomplete="PF('editChapterDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/codes/chapter/listChapterComponent.xhtml"> 
         <ui:param name="records" value="#{chapterList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/codes/chapter/editChapter.xhtml" propagation="none"> 
         <f:param name="chapterId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editChapterPanel')}" actionListener="#{chapterAction.setChapterId(0)}" oncomplete="editChapterDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editChapterPanel')}" actionListener="#{chapterAction.setChapterId(0)}" oncomplete="PF('editChapterDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

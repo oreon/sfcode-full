@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/facility/ward/searchWardComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/facility/ward/editWard.xhtml" propagation="none"> 
         <f:param name="wardId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editWardPanel')}" actionListener="#{wardAction.setWardId(0)}" oncomplete="editWardDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editWardPanel')}" actionListener="#{wardAction.setWardId(0)}" oncomplete="PF('editWardDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/facility/ward/listWardComponent.xhtml"> 
         <ui:param name="records" value="#{wardList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/facility/ward/editWard.xhtml" propagation="none"> 
         <f:param name="wardId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editWardPanel')}" actionListener="#{wardAction.setWardId(0)}" oncomplete="editWardDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editWardPanel')}" actionListener="#{wardAction.setWardId(0)}" oncomplete="PF('editWardDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>

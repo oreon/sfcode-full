@@ -6,22 +6,26 @@
     <ui:include src="/admin/entities/drugs/drugCategory/searchDrugCategoryComponent.xhtml"/>  
     <br/>  
     <br/>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/drugs/drugCategory/editDrugCategory.xhtml" propagation="none"> 
         <f:param name="drugCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDrugCategoryPanel')}" actionListener="#{drugCategoryAction.setDrugCategoryId(0)}" oncomplete="editDrugCategoryDialog.show()"></p:commandButton> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDrugCategoryPanel')}" actionListener="#{drugCategoryAction.setDrugCategoryId(0)}" oncomplete="PF('editDrugCategoryDialog').show()"></p:commandButton> 
     </h:form>  
+    <br/>  
     <div id="printable"> 
       <ui:include src="/admin/entities/drugs/drugCategory/listDrugCategoryComponent.xhtml"> 
         <ui:param name="records" value="#{drugCategoryList.lazyModel}"/> 
       </ui:include> 
     </div>  
+    <br/>  
     <h:form> 
       <p:button value="Create New" outcome="/admin/entities/drugs/drugCategory/editDrugCategory.xhtml" propagation="none"> 
         <f:param name="drugCategoryId" value="0"/> 
       </p:button>  
-      <p:commandButton value="Quick Create" update=":#{p:component('editDrugCategoryPanel')}" actionListener="#{drugCategoryAction.setDrugCategoryId(0)}" oncomplete="editDrugCategoryDialog.show()"></p:commandButton> 
-    </h:form> 
+      <p:commandButton value="Quick Create" update=":#{p:component('editDrugCategoryPanel')}" actionListener="#{drugCategoryAction.setDrugCategoryId(0)}" oncomplete="PF('editDrugCategoryDialog').show()"></p:commandButton> 
+    </h:form>  
+    <br/> 
   </ui:define> 
 </ui:composition>
