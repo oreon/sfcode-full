@@ -79,9 +79,9 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("id DESC")
-	private Set<Admission> admissions = new HashSet<Admission>();
+	private Set<com.oreon.cerebrum.admission.Admission> admissions = new HashSet<com.oreon.cerebrum.admission.Admission>();
 
-	public void addAdmission(Admission admission) {
+	public void addAdmission(com.oreon.cerebrum.admission.Admission admission) {
 
 		admission.setPatient((Patient) this);
 
@@ -89,8 +89,8 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 	}
 
 	@Transient
-	public List<com.oreon.cerebrum.patient.Admission> getListAdmissions() {
-		return new ArrayList<com.oreon.cerebrum.patient.Admission>(admissions);
+	public List<com.oreon.cerebrum.admission.Admission> getListAdmissions() {
+		return new ArrayList<com.oreon.cerebrum.admission.Admission>(admissions);
 	}
 
 	//JSF Friendly function to get count of collections
@@ -349,11 +349,12 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 
 	;
 
-	public void setAdmissions(Set<Admission> admissions) {
+	public void setAdmissions(
+			Set<com.oreon.cerebrum.admission.Admission> admissions) {
 		this.admissions = admissions;
 	}
 
-	public Set<Admission> getAdmissions() {
+	public Set<com.oreon.cerebrum.admission.Admission> getAdmissions() {
 		return admissions;
 	}
 

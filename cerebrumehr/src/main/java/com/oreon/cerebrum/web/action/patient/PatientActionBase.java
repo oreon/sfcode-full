@@ -46,7 +46,7 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
-import com.oreon.cerebrum.patient.Admission;
+import com.oreon.cerebrum.admission.Admission;
 import com.oreon.cerebrum.prescription.Prescription;
 import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
 import com.oreon.cerebrum.patient.PatientDocument;
@@ -71,7 +71,7 @@ public abstract class PatientActionBase
 	com.oreon.cerebrum.web.action.facility.BedAction bedAction;
 
 	@In(create = true, value = "admissionAction")
-	com.oreon.cerebrum.web.action.patient.AdmissionAction admissionsAction;
+	com.oreon.cerebrum.web.action.admission.AdmissionAction admissionsAction;
 
 	@In(create = true, value = "prescriptionAction")
 	com.oreon.cerebrum.web.action.prescription.PrescriptionAction prescriptionsAction;
@@ -248,7 +248,7 @@ public abstract class PatientActionBase
 
 	}
 
-	protected List<com.oreon.cerebrum.patient.Admission> listAdmissions = new ArrayList<com.oreon.cerebrum.patient.Admission>();
+	protected List<com.oreon.cerebrum.admission.Admission> listAdmissions = new ArrayList<com.oreon.cerebrum.admission.Admission>();
 
 	void initListAdmissions() {
 
@@ -257,7 +257,7 @@ public abstract class PatientActionBase
 
 	}
 
-	public List<com.oreon.cerebrum.patient.Admission> getListAdmissions() {
+	public List<com.oreon.cerebrum.admission.Admission> getListAdmissions() {
 
 		prePopulateListAdmissions();
 		return listAdmissions;
@@ -267,7 +267,7 @@ public abstract class PatientActionBase
 	}
 
 	public void setListAdmissions(
-			List<com.oreon.cerebrum.patient.Admission> listAdmissions) {
+			List<com.oreon.cerebrum.admission.Admission> listAdmissions) {
 		this.listAdmissions = listAdmissions;
 	}
 

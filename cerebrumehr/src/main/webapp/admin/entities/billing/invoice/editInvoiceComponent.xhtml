@@ -16,6 +16,14 @@
         </ui:define>  
         <h:inputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}" label="#{msg.invoice_notes}" required="false" disabled="false" value="#{invoiceAction.invoice.notes}"></h:inputText> 
       </s:decorate>  
+      <s:decorate id="paidAmountDecorate" rendered="#{ ! excludePaidAmount == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.invoice_paidAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPaidAmount')}"/>
+        </ui:define>  
+        <h:inputText escape="false" id="paidAmount#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPaidAmount')}" label="#{msg.invoice_paidAmount}" required="false" disabled="false" value="#{invoiceAction.invoice.paidAmount}"> 
+          <f:converter converterId="javax.faces.BigDecimal"/> 
+        </h:inputText> 
+      </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/>
