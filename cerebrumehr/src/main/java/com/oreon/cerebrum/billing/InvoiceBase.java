@@ -117,6 +117,11 @@ public class InvoiceBase extends BaseEntity {
 
 	;
 
+	@Column(unique = false)
+	protected BigDecimal paidAmount
+
+	;
+
 	public void setInvoiceItems(Set<InvoiceItem> invoiceItems) {
 		this.invoiceItems = invoiceItems;
 	}
@@ -152,6 +157,16 @@ public class InvoiceBase extends BaseEntity {
 	public BigDecimal getTotalAmount() {
 
 		return totalAmount;
+
+	}
+
+	public void setPaidAmount(BigDecimal paidAmount) {
+		this.paidAmount = paidAmount;
+	}
+
+	public BigDecimal getPaidAmount() {
+
+		return paidAmount;
 
 	}
 

@@ -35,6 +35,11 @@
       <h:outputText value="#{_invoice.totalAmount}"> 
         <f:convertNumber pattern="$#,##0.00"/> 
       </h:outputText> 
+    </p:column>  
+    <p:column headerText="#{msg.invoice_paidAmount}" sortBy="invoice.paidAmount" rendered="#{ ! excludePaidAmount == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPaidAmount')) }"> 
+      <h:outputText value="#{_invoice.paidAmount}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText> 
     </p:column> 
   </p:dataTable> 
 </ui:composition>

@@ -90,6 +90,15 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 		this.totalAmountRange = totalAmountRange;
 	}
 
+	private Range<BigDecimal> paidAmountRange = new Range<BigDecimal>();
+
+	public Range<BigDecimal> getPaidAmountRange() {
+		return paidAmountRange;
+	}
+	public void setPaidAmount(Range<BigDecimal> paidAmountRange) {
+		this.paidAmountRange = paidAmountRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"invoice.id = #{invoiceList.invoice.id}",
 
@@ -101,6 +110,9 @@ public abstract class InvoiceListQueryBase extends BaseQuery<Invoice, Long> {
 
 			"invoice.totalAmount >= #{invoiceList.totalAmountRange.begin}",
 			"invoice.totalAmount <= #{invoiceList.totalAmountRange.end}",
+
+			"invoice.paidAmount >= #{invoiceList.paidAmountRange.begin}",
+			"invoice.paidAmount <= #{invoiceList.paidAmountRange.end}",
 
 			"invoice.dateCreated <= #{invoiceList.dateCreatedRange.end}",
 			"invoice.dateCreated >= #{invoiceList.dateCreatedRange.begin}",};
