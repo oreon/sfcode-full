@@ -129,7 +129,7 @@
 		      		</p:commandButton>
 	      		
 			  		<p:commandButton value="Quick Create" update=":#{p:component('edit«a.type.name»Panel')}"  
-			          oncomplete="edit«a.type.name»Dialog.show()"  actionListener="#{«a.type.getAction()».set«a.type.name»Id(0)}">
+			          oncomplete="PF('edit«a.type.name»Dialog').show()"  actionListener="#{«a.type.getAction()».set«a.type.name»Id(0)}">
 						 <f:setPropertyActionListener target="#{«a.type.getAction()».«a.opposite.name»Id}" value="#{«getAction()».instance.id}" /> 	
 			  		</p:commandButton>
 		    	</h:form>
@@ -271,7 +271,7 @@
 	«IF isCurrentEditMode()»
 		«IF isAutoComplete()»
 			<p:autoComplete minQueryLength="2" 
-				completeMethod="#{«type.name.toFirstLower()»List.searchDataBaseForAutocomplete}"
+				completeMethod="#{«type.name.toFirstLower()»List.autocompletedb}"
 				value="#{«class.getAction()».list«name.toFirstUpper()»}" converter="#{«type.name.toFirstLower()»List.converter}"
 				var="record" itemLabel="#{record.displayName}" itemValue="#{record}"   multiple="true">
 				<p:column>#{record.displayName}</p:column>
