@@ -92,6 +92,12 @@
       <h:outputText value="#{patient.history.allergies}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
-    <br/> 
+    <br/>  
+    <br/>  
+    <p:panel toggleable="true" header="#{msg.patient_chronicConditions}" switchType="client"> 
+      <p:dataTable value="#{patientAction.listChronicConditions}" var="item"> 
+        <p:column>#{item.displayName}</p:column> 
+      </p:dataTable> 
+    </p:panel> 
   </h:panelGroup> 
 </ui:composition>

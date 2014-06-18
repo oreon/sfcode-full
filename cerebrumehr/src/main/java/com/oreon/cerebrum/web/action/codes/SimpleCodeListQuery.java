@@ -15,9 +15,9 @@ public class SimpleCodeListQuery extends SimpleCodeListQueryBase
 			java.io.Serializable {
 	
 	
-	 public List<SimpleCode> searchDataBaseForAutocomplete(String qry) {
-		 getSimpleCode().setName(qry);
-		 return getResultList();
-	 }
+	@Override
+	protected void setupForAutoComplete(String input) {
+		getInstance().setName(input);
+	}
 
 }

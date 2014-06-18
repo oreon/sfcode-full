@@ -6,7 +6,7 @@
       <c:set var="opId" value="outputPanel-${modalId}"/>  
       <h:panelGrid id="editBedStayPanel" columns="2" cellpadding="4"> 
         <p:messages autoUpdate="true"/>  
-        <ui:include src="/admin/entities/patient/bedStay/editBedStayComponent.xhtml"/> 
+        <ui:include src="/admin/entities/admission/bedStay/editBedStayComponent.xhtml"/> 
       </h:panelGrid>  
       <p:commandButton action="#{bedStayAction.save(false)}" styleClass="button" update=":#{p:component('editBedStayPanel')}  :#{p:component('bedStayForm')}" value="Save" oncomplete="handleDialogSubmit(xhr, status, args, PF('editBedStayDialog'))" rendered="#{s:hasPermission('bedStay', 'edit')}"/> 
     </p:scrollPanel> 

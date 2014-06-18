@@ -33,6 +33,22 @@
         <p:tooltip for="patientadmission_patient"> 
           <span>#{admission.patient.popupInfo}</span> 
         </p:tooltip> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.admission_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'viewInvoice')}"/>  
+      <h:panelGroup> 
+        <h:link id="invoiceadmission_invoice" escape="false" value="#{admission.invoice.displayName}" outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+          <f:param name="invoiceId" value="#{admission.invoice.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="invoiceadmission_invoice" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/billing/invoice/viewInvoiceComponent.xhtml"> 
+              <ui:param name="invoice" value="#{admission.invoice}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="invoice"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  

@@ -4,7 +4,8 @@
   <p:autoComplete minQueryLength="4" completeMethod="#{patientList.doSearch}" value="#{patientAction.patient}" 
   	converter="#{patientList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}"> 
   	<p:ajax event="itemSelect" listener="#{patientAction.handlePatientSelect}"  update=":#{p:component('content')}" />
-    <p:column>#{record.displayName}  </p:column> 
+    <p:column>#{record.lastName} </p:column> 
+    <p:column>#{record.firstName} </p:column> 
     <p:column>#{record.contactDetails.primaryPhone}</p:column> 
   </p:autoComplete>  
   <h:commandButton action="/admin/entities/patient/patient/viewPatient.xhtml" value="GO"/> 

@@ -167,6 +167,10 @@
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <br/> 
+    <br/>  
+    <br/>  
+    <p:autoComplete minQueryLength="2" completeMethod="#{chronicConditionList.autocompletedb}" value="#{patientAction.listChronicConditions}" converter="#{chronicConditionList.converter}" var="record" itemLabel="#{record.displayName}" itemValue="#{record}" multiple="true"> 
+      <p:column>#{record.displayName}</p:column> 
+    </p:autoComplete> 
   </h:panelGroup> 
 </ui:composition>

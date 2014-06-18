@@ -420,6 +420,18 @@
         <end-conversation/>  
         <redirect view-id="/admin/entities/ddx/dxTest/editDxTest.xhtml"/> 
       </rule>  
+      <rule if-outcome="chronicCondition"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/ddx/chronicCondition/listChronicCondition.xhtml"/> 
+      </rule>  
+      <rule if-outcome="viewChronicCondition"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/ddx/chronicCondition/viewChronicCondition.xhtml"/> 
+      </rule>  
+      <rule if-outcome="editChronicCondition"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/ddx/chronicCondition/editChronicCondition.xhtml"/> 
+      </rule>  
       <rule if-outcome="prescriptionTemplate"> 
         <end-conversation/>  
         <redirect view-id="/admin/entities/prescription/prescriptionTemplate/listPrescriptionTemplate.xhtml"/> 
@@ -2630,6 +2642,59 @@
     <param name="name" value="#{dxTestList.dxTest.name}" validateModel="false"/>  
     <param name="description" value="#{dxTestList.dxTest.description}" validateModel="false"/> 
   </page>  
+  <page view-id="/admin/entities/ddx/chronicCondition/editChronicCondition.xhtml"> 
+    <!-- <description>Edit ChronicCondition: #{chronicCondition.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chronicCondition', 'edit')}</restrict>  
+    <begin-conversation join="true"/>  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/ddx/chronicCondition/viewChronicCondition.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/ddx/chronicCondition/listChronicCondition.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chronicConditionId" value="#{chronicConditionAction.chronicConditionId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/chronicCondition/viewChronicCondition.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View ChronicCondition: #{chronicCondition.displayName}</description> -->  
+    <restrict>#{s:hasPermission('chronicCondition', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/ddx/chronicCondition/editChronicCondition.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/ddx/chronicCondition/listChronicCondition.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="chronicConditionId" value="#{chronicConditionAction.chronicConditionId}"/> 
+  </page>  
+  <page view-id="/admin/entities/ddx/chronicCondition/listChronicCondition.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <restrict>#{s:hasPermission('chronicCondition', 'view')}</restrict>  
+    <navigation> 
+      <rule if-outcome="viewChronicCondition"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/ddx/chronicCondition/viewChronicCondition.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <end-conversation/>  
+        <redirect view-id="/admin/entities/ddx/chronicCondition/editChronicCondition.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/ddx/chronicCondition/textSearchResultsChronicCondition.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{chronicConditionList.firstResult}"/>  
+    <param name="sort" value="#{chronicConditionList.orderColumn}"/>  
+    <param name="dir" value="#{chronicConditionList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{chronicConditionList.chronicCondition.id}"/>  
+    <param name="name" value="#{chronicConditionList.chronicCondition.name}" validateModel="false"/> 
+  </page>  
   <page view-id="/admin/entities/prescription/prescriptionTemplate/editPrescriptionTemplate.xhtml"> 
     <!-- <description>Edit PrescriptionTemplate: #{prescriptionTemplate.displayName}</description> -->  
     <restrict>#{s:hasPermission('prescriptionTemplate', 'edit')}</restrict>  
@@ -4108,7 +4173,8 @@
         <redirect view-id="/admin/entities/charts/chart/listChart.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="chartId" value="#{chartAction.chartId}"/> 
+    <param name="chartId" value="#{chartAction.chartId}"/>  
+    <param name="chronicConditionId" value="#{chartAction.chronicConditionId}"/> 
   </page>  
   <page view-id="/admin/entities/charts/chart/viewChart.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Chart: #{chart.displayName}</description> -->  
@@ -4145,7 +4211,8 @@
     <param name="dir" value="#{chartList.orderDirection}"/>  
     <param name="from"/>  
     <param name="id" value="#{chartList.chart.id}"/>  
-    <param name="name" value="#{chartList.chart.name}" validateModel="false"/> 
+    <param name="name" value="#{chartList.chart.name}" validateModel="false"/>  
+    <param name="chronicConditionId" value="#{chartList.chronicConditionId}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/charts/chartItem/editChartItem.xhtml"> 
     <!-- <description>Edit ChartItem: #{chartItem.displayName}</description> -->  

@@ -39,18 +39,18 @@
     <p:tabView dynamic="true" cache="true"> 
       <p:tab title="Admissions" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="PatientModalPanel-admissions"/>  
-        <ui:include src="/admin/entities/patient/admission/listAdmissionComponent.xhtml"> 
+        <ui:include src="/admin/entities/admission/admission/listAdmissionComponent.xhtml"> 
           <ui:param name="records" value="#{admissionList.getAdmissionsByPatient(patientAction.instance)}"/>  
           <ui:param name="modalId" value="${modalId}"/>  
           <ui:param name="excludePatient" value="true"/> 
         </ui:include>  
         <h:form> 
-          <p:commandButton value="Create New" action="/admin/entities/patient/admission/editAdmission.xhtml"> 
+          <p:commandButton value="Create New" action="/admin/entities/admission/admission/editAdmission.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="admissionId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editAdmissionPanel')}" oncomplete="editAdmissionDialog.show()" actionListener="#{admissionAction.setAdmissionId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editAdmissionPanel')}" oncomplete="PF('editAdmissionDialog').show()" actionListener="#{admissionAction.setAdmissionId(0)}"> 
             <f:setPropertyActionListener target="#{admissionAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
@@ -68,7 +68,7 @@
             <f:param name="prescriptionId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionPanel')}" oncomplete="editPrescriptionDialog.show()" actionListener="#{prescriptionAction.setPrescriptionId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editPrescriptionPanel')}" oncomplete="PF('editPrescriptionDialog').show()" actionListener="#{prescriptionAction.setPrescriptionId(0)}"> 
             <f:setPropertyActionListener target="#{prescriptionAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
@@ -86,7 +86,7 @@
             <f:param name="unusualOccurenceId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" oncomplete="editUnusualOccurenceDialog.show()" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editUnusualOccurencePanel')}" oncomplete="PF('editUnusualOccurenceDialog').show()" actionListener="#{unusualOccurenceAction.setUnusualOccurenceId(0)}"> 
             <f:setPropertyActionListener target="#{unusualOccurenceAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
@@ -104,7 +104,7 @@
             <f:param name="patientDocumentId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editPatientDocumentPanel')}" oncomplete="editPatientDocumentDialog.show()" actionListener="#{patientDocumentAction.setPatientDocumentId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editPatientDocumentPanel')}" oncomplete="PF('editPatientDocumentDialog').show()" actionListener="#{patientDocumentAction.setPatientDocumentId(0)}"> 
             <f:setPropertyActionListener target="#{patientDocumentAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
@@ -122,7 +122,7 @@
             <f:param name="allergyId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" oncomplete="editAllergyDialog.show()" actionListener="#{allergyAction.setAllergyId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editAllergyPanel')}" oncomplete="PF('editAllergyDialog').show()" actionListener="#{allergyAction.setAllergyId(0)}"> 
             <f:setPropertyActionListener target="#{allergyAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
@@ -140,7 +140,7 @@
             <f:param name="immunizationId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editImmunizationPanel')}" oncomplete="editImmunizationDialog.show()" actionListener="#{immunizationAction.setImmunizationId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editImmunizationPanel')}" oncomplete="PF('editImmunizationDialog').show()" actionListener="#{immunizationAction.setImmunizationId(0)}"> 
             <f:setPropertyActionListener target="#{immunizationAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
@@ -158,7 +158,7 @@
             <f:param name="vitalValueId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editVitalValuePanel')}" oncomplete="editVitalValueDialog.show()" actionListener="#{vitalValueAction.setVitalValueId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editVitalValuePanel')}" oncomplete="PF('editVitalValueDialog').show()" actionListener="#{vitalValueAction.setVitalValueId(0)}"> 
             <f:setPropertyActionListener target="#{vitalValueAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
@@ -176,7 +176,7 @@
             <f:param name="encounterId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editEncounterPanel')}" oncomplete="editEncounterDialog.show()" actionListener="#{encounterAction.setEncounterId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editEncounterPanel')}" oncomplete="PF('editEncounterDialog').show()" actionListener="#{encounterAction.setEncounterId(0)}"> 
             <f:setPropertyActionListener target="#{encounterAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
@@ -194,7 +194,7 @@
             <f:param name="appliedChartId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editAppliedChartPanel')}" oncomplete="editAppliedChartDialog.show()" actionListener="#{appliedChartAction.setAppliedChartId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editAppliedChartPanel')}" oncomplete="PF('editAppliedChartDialog').show()" actionListener="#{appliedChartAction.setAppliedChartId(0)}"> 
             <f:setPropertyActionListener target="#{appliedChartAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 
@@ -212,7 +212,7 @@
             <f:param name="chartProcedureId" value="0"/>  
             <s:conversationId/> 
           </p:commandButton>  
-          <p:commandButton value="Quick Create" update=":#{p:component('editChartProcedurePanel')}" oncomplete="editChartProcedureDialog.show()" actionListener="#{chartProcedureAction.setChartProcedureId(0)}"> 
+          <p:commandButton value="Quick Create" update=":#{p:component('editChartProcedurePanel')}" oncomplete="PF('editChartProcedureDialog').show()" actionListener="#{chartProcedureAction.setChartProcedureId(0)}"> 
             <f:setPropertyActionListener target="#{chartProcedureAction.patientId}" value="#{patientAction.instance.id}"/> 
           </p:commandButton> 
         </h:form> 

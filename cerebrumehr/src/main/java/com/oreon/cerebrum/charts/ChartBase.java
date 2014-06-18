@@ -107,6 +107,12 @@ public class ChartBase extends BaseEntity {
 
 	;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "chronicCondition_id", nullable = false, updatable = true)
+	protected com.oreon.cerebrum.ddx.ChronicCondition chronicCondition
+
+	;
+
 	public void setChartItems(Set<ChartItem> chartItems) {
 		this.chartItems = chartItems;
 	}
@@ -122,6 +128,17 @@ public class ChartBase extends BaseEntity {
 	public String getName() {
 
 		return name;
+
+	}
+
+	public void setChronicCondition(
+			com.oreon.cerebrum.ddx.ChronicCondition chronicCondition) {
+		this.chronicCondition = chronicCondition;
+	}
+
+	public com.oreon.cerebrum.ddx.ChronicCondition getChronicCondition() {
+
+		return chronicCondition;
 
 	}
 
@@ -160,6 +177,10 @@ public class ChartBase extends BaseEntity {
 
 		builder.append(getName() + " ");
 
+		if (getChronicCondition() != null)
+			builder.append("chronicCondition:"
+					+ getChronicCondition().getDisplayName() + " ");
+
 		for (BaseEntity e : chartItems) {
 			builder.append(e.getDisplayName() + " ");
 		}
@@ -168,6 +189,7 @@ public class ChartBase extends BaseEntity {
 	}
 
 	/*
+	<param name="chronicConditionId" value="#{chronicConditionId}" />
 	
 	 */
 

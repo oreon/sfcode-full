@@ -119,6 +119,15 @@
         <f:selectItem itemLabel="--None--" itemValue=""/>  
         <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.patient_chronicConditions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editChronicConditions')}"/>  
+      <br/>  
+      <p:selectOneMenu id="chronicConditionsId" converter="#{chronicConditionList.converter}" value="#{ patientList.chronicConditionsToSearch}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{chronicConditionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

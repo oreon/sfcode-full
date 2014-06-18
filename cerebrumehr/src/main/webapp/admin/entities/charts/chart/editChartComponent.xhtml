@@ -15,6 +15,15 @@
           <h:outputText value="#{msg.chart_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editName')}"/>
         </ui:define>  
         <h:inputText escape="false" id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editName')}" label="#{msg.chart_name}" required="true" disabled="false" value="#{chartAction.chart.name}"></h:inputText> 
+      </s:decorate>  
+      <s:decorate id="chronicConditionIdDecorate" rendered="#{ ! excludeChronicCondition == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.chart_chronicCondition}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChronicCondition')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="chronicConditionId" label="#{msg.chart_chronicCondition}" value="#{chartAction.chart.chronicCondition}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChronicCondition')}" disabled="false" converter="#{chronicConditionList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{chronicConditionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

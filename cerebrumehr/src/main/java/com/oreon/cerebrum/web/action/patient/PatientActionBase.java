@@ -241,6 +241,9 @@ public abstract class PatientActionBase
 
 		initListChartProcedures();
 
+		initListChronicConditions();
+		initListAvailableChronicConditions();
+
 		addDefaultAssociations();
 	}
 
@@ -638,6 +641,62 @@ public abstract class PatientActionBase
 
 	}
 
+	protected List<com.oreon.cerebrum.ddx.ChronicCondition> listChronicConditions = new ArrayList<com.oreon.cerebrum.ddx.ChronicCondition>();
+
+	void initListChronicConditions() {
+
+		if (listChronicConditions.isEmpty())
+			listChronicConditions.addAll(getInstance().getChronicConditions());
+
+	}
+
+	public List<com.oreon.cerebrum.ddx.ChronicCondition> getListChronicConditions() {
+
+		prePopulateListChronicConditions();
+		return listChronicConditions;
+	}
+
+	public void prePopulateListChronicConditions() {
+	}
+
+	public void setListChronicConditions(
+			List<com.oreon.cerebrum.ddx.ChronicCondition> listChronicConditions) {
+		this.listChronicConditions = listChronicConditions;
+	}
+
+	protected DualListModel<com.oreon.cerebrum.ddx.ChronicCondition> listAvailableChronicConditions;
+
+	void initListAvailableChronicConditions() {
+
+		List<com.oreon.cerebrum.ddx.ChronicCondition> availablechronicConditions = ((com.oreon.cerebrum.web.action.ddx.ChronicConditionListQuery) Component
+				.getInstance("chronicConditionList")).getAll();
+
+		List<com.oreon.cerebrum.ddx.ChronicCondition> currentChronicConditions = getInstance()
+				.getListChronicConditions();
+
+		if (availablechronicConditions == null)
+			availablechronicConditions = new ArrayList<com.oreon.cerebrum.ddx.ChronicCondition>();
+
+		if (getEntity() != null)
+			availablechronicConditions.removeAll(getEntity()
+					.getChronicConditions());
+
+		listAvailableChronicConditions = new DualListModel<com.oreon.cerebrum.ddx.ChronicCondition>(
+				availablechronicConditions, currentChronicConditions);
+	}
+
+	public DualListModel<com.oreon.cerebrum.ddx.ChronicCondition> getListAvailableChronicConditions() {
+		if (listAvailableChronicConditions == null)
+			initListAvailableChronicConditions();
+
+		return listAvailableChronicConditions;
+	}
+
+	public void setListAvailableChronicConditions(
+			DualListModel<com.oreon.cerebrum.ddx.ChronicCondition> listAvailableChronicConditions) {
+		this.listAvailableChronicConditions = listAvailableChronicConditions;
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listAdmissions != null) {
@@ -805,6 +864,10 @@ public abstract class PatientActionBase
 			getInstance().getChartProcedures().clear();
 			getInstance().getChartProcedures().addAll(listChartProcedures);
 		}
+
+		getInstance().getChronicConditions().clear();
+		getInstance().getChronicConditions().addAll(listChronicConditions);
+
 	}
 
 	public void clearLists() {
@@ -818,6 +881,8 @@ public abstract class PatientActionBase
 		listEncounters.clear();
 		listAppliedCharts.clear();
 		listChartProcedures.clear();
+
+		listChronicConditions.clear();
 
 	}
 
