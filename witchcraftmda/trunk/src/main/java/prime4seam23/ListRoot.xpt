@@ -80,7 +80,7 @@
 					 selectionMode="single" selection="#{«asVar()»Action.«asVar()»}" >
 					 
                         <p:ajax event="rowSelect" update=":#{p:component('edit«name»Panel')}"  
-                              oncomplete="edit«name»Dialog.show()"
+                              oncomplete="PF('edit«name»Dialog').show()"
                               listener="#{«asVar()»Action.onRowSelect}" />
                               
 				«EXPAND genCoreColumns FOR this»
@@ -133,6 +133,7 @@
 «ENDDEFINE»
 
 «DEFINE genButtons FOR wcprofile::Entity»
+	<br/>
 	<h:form>
 		<p:button value="Create New" outcome="«getViewFile("edit")»" propagation="none" >
 			<f:param name="«asVar()»Id" value="0"/>
@@ -140,10 +141,11 @@
   		      
         <p:commandButton value="Quick Create"
         	update=":#{p:component('edit«name»Panel')}"  actionListener="#{«getAction()».set«name»Id(0)}"
-                              oncomplete="edit«name»Dialog.show()">
+                              oncomplete="PF('edit«name»Dialog').show()">
 		</p:commandButton>
 	
 	</h:form>
+	<br/>
 		«IF templatable»
 		 <h:button value="Create Template" outcome="«getTemplateViewFileName("edit")»"/>
 		 «ENDIF»

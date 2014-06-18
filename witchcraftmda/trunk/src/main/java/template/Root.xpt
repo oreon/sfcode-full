@@ -822,7 +822,7 @@ a
 		public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 			«IF isColumn() && derivedProperty != null »
 			try {
-				return «derivedProperty»;
+				return «derivedProperty»   «derivedProperty.endsWith(";")?"":";"»
 			} catch (Exception e) {
 				«IF isNumeric()»
 				    «IF  type.name == "Integer"»
