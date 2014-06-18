@@ -70,6 +70,8 @@ public class MetaData {
 
 	"totalAmount", "BigDecimal",
 
+	"paidAmount", "BigDecimal",
+
 	},
 
 	{"com.oreon.cerebrum.billing.Service",
@@ -176,25 +178,7 @@ public class MetaData {
 
 	"bed.displayName", "java.lang.String",
 
-	},
-
-	{"com.oreon.cerebrum.patient.Admission",
-
-	"patient.displayName", "java.lang.String",
-
-	"admissionNote", "java.lang.String",
-
-	"dischargeDate", "java.util.Date",
-
-	"bedStaysCount", "java.lang.Integer",
-
-	"dischargeNote", "java.lang.String",
-
-	"dischargeCode.name", "java.lang.String",
-
-	"currentBed", "java.lang.String",
-
-	"isCurrent", "java.lang.Boolean",
+	"chronicConditionsCount", "java.lang.Integer",
 
 	},
 
@@ -255,18 +239,6 @@ public class MetaData {
 	"patient.displayName", "java.lang.String",
 
 	"remarks", "java.lang.String",
-
-	},
-
-	{"com.oreon.cerebrum.patient.BedStay",
-
-	"fromDate", "java.util.Date",
-
-	"toDate", "java.util.Date",
-
-	"admission.displayName", "java.lang.String",
-
-	"bed.displayName", "java.lang.String",
 
 	},
 
@@ -421,6 +393,16 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"description", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.ddx.ChronicCondition",
+
+	"name", "java.lang.String",
+
+	"patientsCount", "java.lang.Integer",
+
+	"chartsCount", "java.lang.Integer",
 
 	},
 
@@ -782,6 +764,8 @@ public class MetaData {
 
 	"name", "java.lang.String",
 
+	"chronicCondition.displayName", "java.lang.String",
+
 	},
 
 	{"com.oreon.cerebrum.charts.ChartItem",
@@ -837,6 +821,40 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"settingNamesCount", "java.lang.Integer",
+
+	},
+
+	{"com.oreon.cerebrum.admission.Admission",
+
+	"patient.displayName", "java.lang.String",
+
+	"admissionNote", "java.lang.String",
+
+	"dischargeDate", "java.util.Date",
+
+	"bedStaysCount", "java.lang.Integer",
+
+	"dischargeNote", "java.lang.String",
+
+	"dischargeCode.name", "java.lang.String",
+
+	"currentBed", "java.lang.String",
+
+	"isCurrent", "java.lang.Boolean",
+
+	"invoice.displayName", "java.lang.String",
+
+	},
+
+	{"com.oreon.cerebrum.admission.BedStay",
+
+	"fromDate", "java.util.Date",
+
+	"toDate", "java.util.Date",
+
+	"admission.displayName", "java.lang.String",
+
+	"bed.displayName", "java.lang.String",
 
 	},
 

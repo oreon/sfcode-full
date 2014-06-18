@@ -9,6 +9,14 @@
       <h:outputText value="#{msg.chart_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{chartList.chart.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.chart_chronicCondition}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChronicCondition')}"/>  
+      <br/>  
+      <p:selectOneMenu id="chronicConditionId" converter="#{chronicConditionList.converter}" value="#{ chartList.chart.chronicCondition}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{chronicConditionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

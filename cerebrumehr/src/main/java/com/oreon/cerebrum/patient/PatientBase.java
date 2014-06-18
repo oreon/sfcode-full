@@ -349,6 +349,27 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 
 	;
 
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "patients_chronicConditions", joinColumns = @JoinColumn(name = "patients_ID"), inverseJoinColumns = @JoinColumn(name = "chronicConditions_ID"))
+	private Set<com.oreon.cerebrum.ddx.ChronicCondition> chronicConditions = new HashSet<com.oreon.cerebrum.ddx.ChronicCondition>();
+
+	public void addChronicCondition(
+			com.oreon.cerebrum.ddx.ChronicCondition chronicCondition) {
+
+		this.chronicConditions.add(chronicCondition);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.ddx.ChronicCondition> getListChronicConditions() {
+		return new ArrayList<com.oreon.cerebrum.ddx.ChronicCondition>(
+				chronicConditions);
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getChronicConditionsCount() {
+		return chronicConditions.size();
+	}
+
 	public void setAdmissions(
 			Set<com.oreon.cerebrum.admission.Admission> admissions) {
 		this.admissions = admissions;
@@ -477,6 +498,15 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 
 		return bed;
 
+	}
+
+	public void setChronicConditions(
+			Set<com.oreon.cerebrum.ddx.ChronicCondition> chronicConditions) {
+		this.chronicConditions = chronicConditions;
+	}
+
+	public Set<com.oreon.cerebrum.ddx.ChronicCondition> getChronicConditions() {
+		return chronicConditions;
 	}
 
 	@Transient

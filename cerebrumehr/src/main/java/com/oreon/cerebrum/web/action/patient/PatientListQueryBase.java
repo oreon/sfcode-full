@@ -60,6 +60,17 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 		return EJBQL;
 	}
 
+	private com.oreon.cerebrum.ddx.ChronicCondition chronicConditionsToSearch;
+
+	public void setChronicConditionsToSearch(
+			com.oreon.cerebrum.ddx.ChronicCondition chronicConditionToSearch) {
+		this.chronicConditionsToSearch = chronicConditionToSearch;
+	}
+
+	public com.oreon.cerebrum.ddx.ChronicCondition getChronicConditionsToSearch() {
+		return chronicConditionsToSearch;
+	}
+
 	@Override
 	public Patient getInstance() {
 		return getPatient();
@@ -133,6 +144,8 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 			"lower(patient.history.allergies) like concat(lower(#{patientList.patient.history.allergies}),'%')",
 
 			"patient.bed.id = #{patientList.patient.bed.id}",
+
+			"#{patientList.chronicConditionsToSearch} in elements(patient.chronicConditions)",
 
 			"patient.dateCreated <= #{patientList.dateCreatedRange.end}",
 			"patient.dateCreated >= #{patientList.dateCreatedRange.begin}",};

@@ -19,6 +19,13 @@
               <s:conversationPropagation type="end"/> 
             </h:commandButton> 
           </div> 
+        </p:tab>  
+        <p:tab title="ChronicCondition" rendered="#{chartAction.instance.chronicCondition != null}"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/chronicCondition/viewChronicConditionComponent.xhtml"> 
+              <ui:param name="chronicCondition" value="#{chartAction.instance.chronicCondition}"/> 
+            </ui:include> 
+          </h:form> 
         </p:tab> 
       </p:tabView>  
       <div class="buttonBox"></div> 

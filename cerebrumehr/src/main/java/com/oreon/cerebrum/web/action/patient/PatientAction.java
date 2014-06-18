@@ -33,9 +33,19 @@ public class PatientAction extends PatientActionBase implements
 	}
 	
 	public void handlePatientSelect(SelectEvent se){
-		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected patient " + se.getObject().toString(), null);
+		Patient patient = (Patient)se.getObject();
+		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected patient " + patient.getDisplayName(), null);
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		setInstance((Patient) se.getObject());
+	}
+	
+	public String getPatientInfo(){
+		
+		if(isNew())
+			return "No Patient Selected";
+		else
+			return instance.getDetailedInfo();
+		
 	}
 
 	/**

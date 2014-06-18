@@ -56,6 +56,15 @@
             </p:column> 
           </p:autoComplete> 
         </h:panelGroup> 
+      </s:decorate>  
+      <s:decorate id="invoiceIdDecorate" rendered="#{ ! excludeInvoice == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.admission_invoice}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editInvoice')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="invoiceId" label="#{msg.admission_invoice}" value="#{admissionAction.admission.invoice}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editInvoice')}" disabled="false" converter="#{invoiceList.converter}"> 
+          <f:selectItem itemLabel="Select One" itemValue=""/>  
+          <f:selectItems value="#{invoiceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

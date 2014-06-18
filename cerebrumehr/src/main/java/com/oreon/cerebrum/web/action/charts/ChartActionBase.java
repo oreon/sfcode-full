@@ -56,6 +56,9 @@ public abstract class ChartActionBase extends BaseAction<Chart>
 	@RequestParameter
 	protected Long chartId;
 
+	@In(create = true, value = "chronicConditionAction")
+	com.oreon.cerebrum.web.action.ddx.ChronicConditionAction chronicConditionAction;
+
 	public void setChartId(Long id) {
 		setEntityId(id);
 	}
@@ -65,6 +68,20 @@ public abstract class ChartActionBase extends BaseAction<Chart>
 	 */
 	public void setChartIdForModalDlg(Long id) {
 		setEntityIdForModalDlg(id);
+	}
+
+	public void setChronicConditionId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setChronicCondition(
+					chronicConditionAction.loadFromId(id));
+
+	}
+
+	public Long getChronicConditionId() {
+		if (getInstance().getChronicCondition() != null)
+			return getInstance().getChronicCondition().getId();
+		return 0L;
 	}
 
 	public Long getChartId() {
@@ -122,6 +139,12 @@ public abstract class ChartActionBase extends BaseAction<Chart>
 	public void wire() {
 		getInstance();
 
+		com.oreon.cerebrum.ddx.ChronicCondition chronicCondition = chronicConditionAction
+				.getDefinedInstance();
+		if (chronicCondition != null && isNew()) {
+			getInstance().setChronicCondition(chronicCondition);
+		}
+
 	}
 
 	public Chart getDefinedInstance() {
@@ -145,11 +168,32 @@ public abstract class ChartActionBase extends BaseAction<Chart>
 		return executeSingleResultNamedQuery("chart.findByUnqName", name);
 	}
 
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	@Override
+	public void addAssociations(Criteria criteria) {
+
+		if (instance.getChronicCondition() != null) {
+			criteria = criteria.add(Restrictions.eq("chronicCondition.id",
+					instance.getChronicCondition().getId()));
+		}
+
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
+
+		if (getInstance().getChronicCondition() != null) {
+			chronicConditionAction.setInstance(getInstance()
+					.getChronicCondition());
+
+			chronicConditionAction.loadAssociations();
+
+		}
 
 		initListChartItems();
 

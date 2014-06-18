@@ -11,7 +11,23 @@
         <h:outputText value="#{msg.Chart}"/> 
       </f:facet>  
       <h:outputText value="#{msg.chart_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewName')}"/>  
-      <h:outputText value="#{chart.name}" escape="false"/> 
+      <h:outputText value="#{chart.name}" escape="false"/>  
+      <h:outputText value="#{msg.chart_chronicCondition}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'viewChronicCondition')}"/>  
+      <h:panelGroup> 
+        <h:link id="chronicConditionchart_chronicCondition" escape="false" value="#{chart.chronicCondition.displayName}" outcome="/admin/entities/ddx/chronicCondition/viewChronicCondition.xhtml" propagation="none"> 
+          <f:param name="chronicConditionId" value="#{chart.chronicCondition.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="chronicConditionchart_chronicCondition" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/ddx/chronicCondition/viewChronicConditionComponent.xhtml"> 
+              <ui:param name="chronicCondition" value="#{chart.chronicCondition}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="chronicConditionCharts"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
+      </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeChartItems == true}"> 

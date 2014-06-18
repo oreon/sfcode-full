@@ -10,7 +10,7 @@
   <p:panel> 
     <f:facet name="header">${listTitle}</f:facet>  
     <h:form> 
-      <ui:include src="/admin/entities/patient/bedStay/modalDlgBedStayComponent.xhtml"> 
+      <ui:include src="/admin/entities/admission/bedStay/modalDlgBedStayComponent.xhtml"> 
         <ui:param name="modalId" value="${modalId}"/> 
       </ui:include> 
     </h:form>  
@@ -18,7 +18,7 @@
       <p:dataTable var="_bedStay" value="#{records}" id="bedStayList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{bedStayAction.bedStay}"> 
         <p:ajax event="rowSelect" update=":#{p:component('editBedStayPanel')}" oncomplete="PF('editBedStayDialog').show()" listener="#{bedStayAction.onRowSelect}"/>  
         <p:column headerText="#{msg.id}" sortBy="bedStay.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-          <h:link outcome="/admin/entities/patient/bedStay/bedStayActionBedStay.xhtml" rendered="#{s:hasPermission(_bedStay, 'view')}" propagation="none"> 
+          <h:link outcome="/admin/entities/admission/bedStay/bedStayActionBedStay.xhtml" rendered="#{s:hasPermission(_bedStay, 'view')}" propagation="none"> 
             <h:outputText value="#{_bedStay.id}"/>  
             <f:param name="bedStayId" value="#{_bedStay.id}"/> 
           </h:link> 
@@ -35,13 +35,13 @@
         </p:column>  
         <p:column headerText="#{msg.bedStay_admission}" sortBy="bedStay.admission" rendered="#{ ! excludeAdmission == true and ( skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'viewAdmission')) }"> 
           <h:panelGroup> 
-            <h:link id="admissionbedStay_admission" escape="false" value="#{_bedStay.admission.displayName}" outcome="/admin/entities/patient/admission/viewAdmission.xhtml" propagation="none"> 
+            <h:link id="admissionbedStay_admission" escape="false" value="#{_bedStay.admission.displayName}" outcome="/admin/entities/admission/admission/viewAdmission.xhtml" propagation="none"> 
               <f:param name="admissionId" value="#{_bedStay.admission.id}"/>  
               <f:param name="from" value="#{request.servletPath}"/> 
             </h:link>  
             <p:overlayPanel for="admissionbedStay_admission" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
               <h:form> 
-                <ui:include src="/admin/entities/patient/admission/viewAdmissionComponent.xhtml"> 
+                <ui:include src="/admin/entities/admission/admission/viewAdmissionComponent.xhtml"> 
                   <ui:param name="admission" value="#{_bedStay.admission}"/>  
                   <ui:param name="numColumns" value="4"/>  
                   <ui:param name="panelId" value="admissionBedStays"/> 
@@ -73,14 +73,14 @@
           </h:outputText> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_bedStay', 'view') and !_bedStayCategory.archived}"> 
-          <h:link outcome="/admin/entities/patient/bedStay/viewBedStay.xhtml" rendered="#{s:hasPermission(_bedStay, 'view')}"> 
+          <h:link outcome="/admin/entities/admission/bedStay/viewBedStay.xhtml" rendered="#{s:hasPermission(_bedStay, 'view')}"> 
             <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
             <f:param name="bedStayId" value="#{_bedStay.id}"/>  
             <s:conversationPropagation type="none"/> 
           </h:link> 
         </p:column>  
         <p:column rendered="#{s:hasPermission('_bedStay', 'edit') and !_bedStayCategory.archived}"> 
-          <h:link outcome="/admin/entities/patient/bedStay/editBedStay.xhtml" rendered="#{s:hasPermission(_bedStay, 'edit')}"> 
+          <h:link outcome="/admin/entities/admission/bedStay/editBedStay.xhtml" rendered="#{s:hasPermission(_bedStay, 'edit')}"> 
             <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
             <f:param name="bedStayId" value="#{_bedStay.id}"/>  
             <s:conversationPropagation type="none"/> 
