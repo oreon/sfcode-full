@@ -38,7 +38,7 @@ public class PatientAction extends PatientActionBase implements
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		setInstance((Patient) se.getObject());
 	}
-	
+
 	public String getPatientInfo(){
 		
 		if(isNew())
@@ -129,7 +129,18 @@ public class PatientAction extends PatientActionBase implements
 		}
 		return listVitals;
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see org.witchcraft.seam.action.BaseAction#onRowSelect(org.primefaces.event.SelectEvent)
+	 */
+	@Override
+	public void onRowSelect(SelectEvent event) throws Exception {
+		FacesContext.getCurrentInstance().getExternalContext()
+				.redirect("/admin/entities/patient/patient/editPatient.seam?patientId="
+								+ getPatientId() + "&conversationPropagation=none");
+		
+	}
+	
 	class DateComparator implements Comparator<BloodPressure> {
 
 		//@Override
