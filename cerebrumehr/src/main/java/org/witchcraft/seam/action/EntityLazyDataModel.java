@@ -8,9 +8,6 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.witchcraft.base.entity.BaseEntity;
 
-import com.oreon.cerebrum.billing.InvoiceItem;
-import com.oreon.cerebrum.unusualoccurences.UnusualOccurence;
-
 
 
 public class EntityLazyDataModel<E extends BaseEntity, PK extends Serializable> extends  LazyDataModel<E>{

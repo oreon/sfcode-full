@@ -1,8 +1,5 @@
 package org.witchcraft.utils;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
 //import org.richfaces.component.html.HtmlTabPanel;
 
 /*

@@ -1,6 +1,5 @@
 package com.oreon.cerebrum.web.action.appointment;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -8,11 +7,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.hibernate.event.internal.OnLockVisitor;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.Conversational;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Conversation;

@@ -22,8 +22,8 @@ import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
-import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
+import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Log;
 import org.witchcraft.exceptions.ContractViolationException;
 

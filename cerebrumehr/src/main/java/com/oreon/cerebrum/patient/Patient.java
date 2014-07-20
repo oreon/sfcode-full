@@ -6,7 +6,6 @@
 
 package com.oreon.cerebrum.patient;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;

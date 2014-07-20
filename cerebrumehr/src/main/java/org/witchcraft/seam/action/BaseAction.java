@@ -41,7 +41,6 @@ import org.jboss.seam.faces.Redirect;
 import org.jboss.seam.faces.Renderer;
 import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessages;
-import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
 import org.primefaces.event.SelectEvent;

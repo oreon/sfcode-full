@@ -1,8 +1,5 @@
 package org.witchcraft.seam.action;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;

@@ -1,14 +1,9 @@
 package com.oreon.cerebrum.users.dto;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.Date;
 
 import org.witchcraft.base.entity.BaseEntity;
-import org.witchcraft.base.entity.FileAttachment;
-import java.math.BigDecimal;
 
 public class AppUserDto extends BaseEntity {
 

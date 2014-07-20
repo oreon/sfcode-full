@@ -10,7 +10,6 @@ import org.apache.solr.analysis.PhoneticFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.apache.solr.analysis.StopFilterFactory;
-import org.hibernate.annotations.Filter;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
