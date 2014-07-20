@@ -1,7 +1,7 @@
 package org.witchcraft.seam.action;
  
 import java.util.List;
- 
+
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -11,7 +11,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
- 
+
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
@@ -21,7 +21,7 @@ import org.richfaces.model.Arrangeable;
 import org.richfaces.model.ArrangeableState;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
- 
+
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
  

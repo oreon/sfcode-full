@@ -1,15 +1,9 @@
 package org.witchcraft.base.entity;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import org.primefaces.model.DefaultUploadedFile;
-import org.primefaces.model.UploadedFile;
-import org.richfaces.request.UploadedFile25;
 
 @Embeddable
 public class FileAttachment extends DefaultUploadedFile{

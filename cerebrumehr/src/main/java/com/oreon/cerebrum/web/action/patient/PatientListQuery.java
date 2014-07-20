@@ -1,7 +1,5 @@
 package com.oreon.cerebrum.web.action.patient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.lucene.search.Query;
@@ -11,8 +9,6 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.junit.Before;
-
 
 import com.oreon.cerebrum.patient.Patient;
 

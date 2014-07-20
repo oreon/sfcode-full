@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.security.Restrict;
 import org.witchcraft.base.entity.UserUtilAction;
 
 import com.oreon.cerebrum.employee.Physician;
