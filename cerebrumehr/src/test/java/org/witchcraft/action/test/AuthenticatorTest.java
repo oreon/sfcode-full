@@ -2,7 +2,6 @@ package org.witchcraft.action.test;
 
 import java.io.File;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -43,14 +42,11 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 	@OverProtocol("Servlet 3.0")
 	public static Archive<?> createDeployment()
 	{
-		WebArchive web = ShrinkWrap.create(ZipImporter.class).importFrom(new File("../cerebrumehr/target/cerebrumehr.war")).as(WebArchive.class);
-		//WebArchive web =  ShrinkWrap.create(ZipImporter.class).importFrom(new File("../registration-ear/target/seam-registration.ear")).as(EnterpriseArchive.class);  //er.getAsType(WebArchive.class, "newrich.war");
+		WebArchive web = ShrinkWrap.create(ZipImporter.class)
+				.importFrom(new File("../cerebrumehr/target/cerebrumehr.war"))
+				.as(WebArchive.class);
 		web.addClasses(AuthenticatorTest.class);
-						
-		// Replacing the SeamListener with MockSeamListener
 		
-		web.delete("/WEB-INF/web.xml");
-		web.addAsWebInfResource("WEB-INF/mock-web.xml", "web.xml");
 		return web;
 	}
 
@@ -75,7 +71,6 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 
 	@Test
 	public void testRegisterAction() throws Exception {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
 
 		Query query = em
@@ -103,9 +98,7 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 	}
 	
 	private AppUser createUserAndRole(String username, String password, String role) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
-		
 		
 		AppUser admin = new AppUser();
 		admin.setUserName(username);
@@ -114,7 +107,6 @@ public class AuthenticatorTest extends BaseTest<AppUser> {
 		AppRole adminRole = new AppRole();
 		adminRole.setName(role);
 		admin.getAppRoles().add(adminRole);
-		//admin.setEmail(username + "@gmail.com");
 		admin.setEnabled(true);
 		
 		//setValue("#{userAction.instance}", admin);
