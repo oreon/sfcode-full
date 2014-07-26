@@ -725,6 +725,23 @@ a
 			return new ArrayList<«type.fqn()»>(  «name» );
 		}
 		
+		
+		@Transient
+		public String getList«name.toFirstUpper()»AsString() {
+			StringBuilder result = new StringBuilder();
+		
+			List<«type.fqn()»> tempList = getList«name.toFirstUpper()»();
+			int count = 0;
+			for («type.fqn()» «type.asVar()» : tempList) {
+				++count;
+				result.append(«type.asVar()».getDisplayName() );
+				if(count < tempList.size())
+					result.append(", ");
+			}
+			
+			return result.toString();
+		}
+		
 		//JSF Friendly function to get count of collections
 		public int get«name.toFirstUpper()»Count(){
 			return «name».size();
