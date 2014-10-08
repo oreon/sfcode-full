@@ -441,12 +441,14 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	«IF isPrimeSeam2()»
 		
 	  «IF isLeadingManyToManyAutoComplete()»
+	  if(list«name.toFirstUpper()» != null){
 	  	getInstance().get«name.toFirstUpper()»().clear();
 		getInstance().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
+	  }
 	  «ELSE»
-	  	if (listAvailable«name.toFirstUpper()» != null) {
-		getInstance().get«name.toFirstUpper()»().clear();
-		getInstance().get«name.toFirstUpper()»().addAll(listAvailable«name.toFirstUpper()».getTarget());
+	  if (listAvailable«name.toFirstUpper()» != null) {
+			getInstance().get«name.toFirstUpper()»().clear();
+			getInstance().get«name.toFirstUpper()»().addAll(listAvailable«name.toFirstUpper()».getTarget());
 	   }
 	  «ENDIF»
 	  
