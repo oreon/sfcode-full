@@ -115,6 +115,7 @@ public class ClassUtil {
 			//mapTypes.put("Currency", new String[] { "BigDecimal", "" });
 			mapTypes.put("imageFile", new String[] { "FileAttachment", "" });
 			mapTypes.put("Currency", new String[] { "BigDecimal", "" });
+			mapTypes.put("DateTime", new String[] { "Date", "" });
 		}
 
 		mapTypes.put("largeText", new String[] { "String", "@Lob" });
@@ -122,6 +123,7 @@ public class ClassUtil {
 				"@NotNull @Length(min=1, max=250)" });
 		mapTypes.put("uniqueNameType", new String[] { "String",
 				"@NotNull @Length(min=1, max=250)  " });
+		
 
 	}
 

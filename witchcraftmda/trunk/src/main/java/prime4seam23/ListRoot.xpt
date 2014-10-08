@@ -315,6 +315,10 @@
 			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
 				<s:convertDateTime type="date" dateStyle="medium" />
 			</h:outputText>
+		«ELSEIF isDateTime()»
+			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
+				<s:convertDateTime type="both" dateStyle="default" />
+			</h:outputText>
 		«ELSEIF isBoolean()»
 			<h:outputText value="#{«prefix»«genPropertyLabel()»? msg.yes : msg.no }" />	
 		«ELSEIF isCurrency()»
