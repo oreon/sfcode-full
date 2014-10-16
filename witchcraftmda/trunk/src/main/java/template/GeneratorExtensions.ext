@@ -359,10 +359,10 @@ String getLengthAnnotations(Column col):
 col.minLength > 0 ?"@Length(min=" + col.minLength + ")"  :"";
 
 String getUniqueAnnotations(Column col):
-col.uniqueProperty == true ||  col.type.name == "uniqueNameType" ?"//@Unique(entityName = " + "\"" + fqn(col.class) + "\"" + ", fieldName = " + "\"" + col.name + "\"" + ")":"";
+col.uniqueProperty == true  ||  col.type.name == "uniqueNameType" ?"//@Unique(entityName = " + "\"" + fqn(col.class) + "\"" + ", fieldName = " + "\"" + col.name + "\"" + ")":"";
 
 String getUniqueAnnotationsProp(Property  col):
-" @Column(unique= " + (col.isUnq() ? "true" : "false") + ")";
+" @Column(unique= " + (col.isUnq() &&  !isMultiTenanted()  ? "true" : "false") + ")";
 
 
 String getBoostAnnotations(Column col):
