@@ -12,9 +12,16 @@
 
 «DEFINE ReportTestGen FOR wcprofile::Report»
 «FILE getWebPackagePath("Test") »
+
 package « getWebPackageName() »;
 
+«IF isPrimeSeam2()»
+import org.junit.Test;
+«ELSE»
 import org.testng.annotations.Test;
+«ENDIF»
+
+
 import org.witchcraft.action.test.BaseReportsTest;
 import org.witchcraft.jasperreports.BaseReportAction;
 

@@ -44,6 +44,19 @@
 			</unique-constraint>
 			«ENDFOREACH»
 		«ENDIF»
+		
+		
+		«IF isMultiTenanted()»
+			«FOREACH getAllAttributes() AS p-»
+				«IF p.type.name == "uniqueNameType"»
+					<unique-constraint>	
+					«REM» if uniqunametype property is a column we need to get column name  «ENDREM»
+						<column-name>«p.name-»</column-name>
+						<column-name>tenant</column-name>
+					</unique-constraint>
+				«ENDIF»
+			«ENDFOREACH»
+		«ENDIF»
 		</table>
  	«EXPAND genOperation FOREACH getAllOperations()»
  	«EXPAND genFindQry FOREACH getAllAttributes()»
