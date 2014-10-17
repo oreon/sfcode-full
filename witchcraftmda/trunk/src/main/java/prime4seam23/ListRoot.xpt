@@ -62,40 +62,34 @@
     	<c:if test="${empty listTitle}">
        		 <c:set var="listTitle" value="«name» Search Results (#{empty records ? 0 : («asVar()»List.paginated ? «asVar()»List.resultCount : records.size)})" />
     	</c:if>
-    	
+	
+		<h3> ${listTitle}  </h3>
 		
-		<p:panel>
-		   <f:facet name="header">
-		   		${listTitle}
-		   </f:facet>
-		   <h:form>
-		 		<ui:include src="«getComponentViewFile("modalDlg")»" >
-					<ui:param name="modalId" value="${modalId}"/> 
-				</ui:include>
-			</h:form>	
-		   <h:form id="«asVar()»Form">
-			
-				<p:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
-					paginator="true" lazy="true"  rows="10" 
-					 selectionMode="single" selection="#{«asVar()»Action.«asVar()»}" >
-					 
-                        <p:ajax event="rowSelect" update=":#{p:component('edit«name»Panel')}"  
-                              oncomplete="PF('edit«name»Dialog').show()"
-                              listener="#{«asVar()»Action.onRowSelect}" />
-                              
-				«EXPAND genCoreColumns FOR this»
-				«EXPAND genCreationDate FOR this-»	
-				«EXPAND genLink("view", "eye.png") FOR this»
-				«EXPAND genLink ("edit", "edit.png")FOR this»
-				«EXPAND genDeleteLink FOR this»
-				«REM»comment
-				«EXPAND genQuickEditLink FOR this»
-				«ENDREM»
-				</p:dataTable>
-		 	</h:form>		
-		 	
-		 	
-		</p:panel>	
+	   <h:form>
+	 		<ui:include src="«getComponentViewFile("modalDlg")»" >
+				<ui:param name="modalId" value="${modalId}"/> 
+			</ui:include>
+		</h:form>	
+	   <h:form id="«asVar()»Form">
+		
+			<p:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
+				paginator="true" lazy="true"  rows="10" 
+				 selectionMode="single" selection="#{«asVar()»Action.«asVar()»}" >
+				 
+                    <p:ajax event="rowSelect" update=":#{p:component('edit«name»Panel')}"  
+                          oncomplete="PF('edit«name»Dialog').show()"
+                          listener="#{«asVar()»Action.onRowSelect}" />
+                          
+			«EXPAND genCoreColumns FOR this»
+			«EXPAND genCreationDate FOR this-»	
+			«EXPAND genLink("view", "eye.png") FOR this»
+			«EXPAND genLink ("edit", "edit.png")FOR this»
+			«EXPAND genDeleteLink FOR this»
+			«REM»comment
+			«EXPAND genQuickEditLink FOR this»
+			«ENDREM»
+			</p:dataTable>
+	 	</h:form>		
 		
 		</ui:composition>
 	«ENDFILE»
