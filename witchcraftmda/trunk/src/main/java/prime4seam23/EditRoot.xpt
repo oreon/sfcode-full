@@ -311,14 +311,20 @@
 
 «DEFINE genLabelAndControl FOR uml::Property»
 	«IF isCurrentEditMode()»
-		«EXPAND genLabelAndInput FOR this-»
+		«IF !isDerived() »
+			«EXPAND genLabelAndInput FOR this-»
+		«ELSE»   «REM» for derived properties «ENDREM» 
+			«EXPAND genLabelAndOutput FOR this-»
+		«ENDIF»
+		
 	«ELSE»
 		«EXPAND genLabelAndOutput FOR this-»
 	«ENDIF»
 «ENDDEFINE»
 
+«REM»to create input label and control «ENDREM»
 «DEFINE genLabelAndInput FOR uml::Property-»
-	«IF !isDerived() && !type.isEmbeddable() && !systemModify() && !currentUser()»
+	«IF  !type.isEmbeddable() && !systemModify() && !currentUser()»
 		«isCurrentMultiMode()?"<p:column><f:facet name=\"header\">" + getOutputMessage() + "</f:facet>":""» 
 		<s:decorate id="«getId()»Decorate"  rendered="#{ ! exclude«name.toFirstUpper()» == true}" template="/layout/edit«isCurrentMultiMode()?"TableField":""».xhtml">
 		<ui:define name="label"> «!isCurrentMultiMode()?getOutputMessage():" "»</ui:define> 
@@ -487,30 +493,33 @@
 
 «REM»Generate text control for the given property «ENDREM»
 «DEFINE genPropertyEntry(uml::PrimitiveType cls) FOR uml::Property-»
-«IF isFile()-» «EXPAND genFilePropertyEntry»
-«ELSE-»
-<«getTextControl()» «getEscape()» 
-	 «IF type.name == "largeText"»
-	 	 useSeamText="true" 
-	 «ENDIF»  
-	 «IF isColumn() && secret»
-	 	 redisplay="true" 
-	 «ENDIF»  
-	 «IF isType("Date")»  navigator="true" «ENDIF»
-	  
-	 id="«getId()»#{entityId}"  rendered="#{«genEditPermission()»}"  
-	 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"" + " disabled=\"" + getDisabled() + "\"" :""
-	 » 
-	  value="#{«getActionForMode()»«genPropertyLabel()»}" >
-	  «genAjaxValidatorJSF2()»
-	  «IF isNameType()»
-	  	 <f:converter  converterId="witchcraft.ui.jsf.capitalizeConverter"/>
-	  «ENDIF»
-	   «IF isCurrency()»
-	   	<f:converter converterId="javax.faces.BigDecimal"/>
-	   «ENDIF»
-</«getTextControl()»>
-«ENDIF»
+	«IF isFile()-» «EXPAND genFilePropertyEntry»
+	«ELSE-»
+	<«getTextControl()» «getInputControlAttributes()»  «getEscape()» 
+		
+		 «IF isColumn() && secret»
+		 	 redisplay="true" 
+		 «ENDIF»  
+		 «IF isType("Date")»  navigator="true" «ENDIF»
+		  
+		 id="«getId()»#{entityId}"  rendered="#{«genEditPermission()»}"  
+		 «isCurrentEditMode()? " label=\"" + msgBundleKey() + "\"  required=\"" + getRequired() +"\"" + " disabled=\"" + getDisabled() + "\"" :""
+		 » 
+		  value="#{«getActionForMode()»«genPropertyLabel()»}" >
+		  «genAjaxValidatorJSF2()»
+		 «EXPAND genConverters FOR this»
+	</«getTextControl()»>
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genConverters FOR uml::Property»
+  «IF isNameType()»
+  	 <f:converter  converterId="witchcraft.ui.jsf.capitalizeConverter"/>
+  «ENDIF»
+  «IF isCurrency()»
+   	<f:converter converterId="javax.faces.BigDecimal"/>
+  «ENDIF»
 «ENDDEFINE»
 
 

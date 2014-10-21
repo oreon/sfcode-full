@@ -162,10 +162,23 @@ else if (prop.isType("Date")) then
 	"p:calendar" 
 else if (prop.isColumn() && prop.secret ) then
 	prop.getJSFPrefix() + ":inputSecret"
+else if ( prop.isType("Integer") )
+	then  "p:spinner"
 else if (prop.isColumn() && prop.textSize > 0 ) then
 	prop.getJSFPrefix() + ":inputText size=\"" + prop.textSize +"\""
 else	
 	prop.getJSFPrefix() + ":inputText";
+	
+	
+String  getInputControlAttributes(Property prop):
+if ( prop.isType("Integer") )
+	then  " size=\"2\" min=\"0\" "
+else if (prop.type.name == "largeText") then
+	" useSeamText=\"true\" " 
+else	
+	"";
+
+	  
 	
 //get the parent class for a web action class - for classes that derive from non  mappedsuperclass parent , we need to return special class Abstract<Parent>Base	
 String getParentForAction(Class cls):
