@@ -443,7 +443,7 @@
 	<p:autocomplete  suggestionAction="#{«type.asVar()»List.autocompletedb}"  ajaxSingle="true"
 		  var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found"
 		  >			
-		<p:ajax event="onselect">
+		<p:ajax event="onselect"  resetValues="true">
 			<f:setPropertyActionListener value="#{_result}"
 				target="#{«getActionForMode()»«genPropertyLabel()-»}" />
 		</p:ajax>
@@ -455,9 +455,10 @@
 		disabled="false"  converter="#{«type.asVar()»List.converter}">
 		«IF isColumn() && this.controls != null » 
 			«IF !isCurrentMultiMode()»   «REM»TODO: update=controls need to be id aware «ENDREM»
-			<p:ajax  listener="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}"  update=":#{p:component('«controls»')}"    />
+			<p:ajax  listener="#{«class.getAction()».onChange«name.toFirstUpper()»(«class.getAction()».instance)}" 
+				 update=":#{p:component('«controls»')}"  resetValues="true"  />
 			«ELSE» «REM»For multimode we need to send the variable «ENDREM»
-			 <p:ajax  listener="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"  update=":#{p:component('«class.asVar()»s')}" >
+			 <p:ajax  listener="#{«class.getAction()».onChange«name.toFirstUpper()»(_«class.asVar()»)}"  update=":#{p:component('«class.asVar()»s')}" resetValues="true"  >
 			 	«REM»TODO: Replace with actual name of relationship «ENDREM»
 				<s:conversationPropagation type="join" />
 			  </p:ajax>
