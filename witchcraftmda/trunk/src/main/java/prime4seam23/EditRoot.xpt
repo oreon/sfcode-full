@@ -171,8 +171,10 @@
 «DEFINE genCancelSaveBtns(boolean edit) FOR uml::Class»
 	<div class="buttonBox">
 		«IF !edit»
+
 		«REM»<h:commandButton value="Edit"  rendered="#{s:hasPermission('«asVar()»', 'edit', «getAction()».instance)}" action="edit" >«ENDREM»
-		<h:commandButton value="Edit"  rendered="#{s:hasPermission('«asVar()»', 'edit')}" action="edit" >
+		<h:commandButton value="Edit"  rendered="#{s:hasPermission(«getAction()».instance, 'edit')}" 
+		action="edit" >
 		</h:commandButton> 
 		<h:outputText value=" " />
 		<h:commandButton value="Back To Listing" action="#{«getAction()».cancel}" >
