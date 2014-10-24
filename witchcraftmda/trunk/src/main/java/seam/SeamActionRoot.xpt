@@ -217,16 +217,14 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	public void wire() {
 		getInstance();
 		«FOREACH getOutgoingAssociations() AS e-»
-		«IF !e.type.isAbstract»
-		«e.type.fqn()» «e.name» = «e.name»Action.getDefinedInstance();
-		if («e.name» != null  && isNew()) {
-			 getInstance().set«e.name.toFirstUpper()»(«e.name»);
-		}
-		«ENDIF»
+		 «IF !e.type.isAbstract»
+			«e.type.fqn()» «e.name» = «e.name»Action.getInstance();
+			if («e.name» != null  && isNew()) {
+				 getInstance().set«e.name.toFirstUpper()»(«e.name»);
+			}
+		 «ENDIF»
 		«ENDFOREACH»
 	}
-
-	
 
 	public «name» getDefinedInstance() {
 		return («name») (isIdDefined() ? getInstance() : null);
@@ -323,17 +321,6 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations(){
-		«FOREACH getOutgoingAssociations() AS e»
-		«IF !e.type.isAbstract»
-		if (getInstance().get«e.name.toFirstUpper()»() != null) {
-			«e.name»Action.setInstance(getInstance().get«e.name.toFirstUpper()»());
-			«IF !e.isBidirectional()»
-				«e.name»Action.loadAssociations();
-			«ENDIF»
-		}
-		«ENDIF»
-		«ENDFOREACH»
-		
 		«FOREACH getMultiValued() AS e»
 			initList«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
@@ -344,6 +331,8 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		«ENDFOREACH»
 		
 		addDefaultAssociations();
+		
+		wire();
 	}
 	
 	public void updateAssociations(){

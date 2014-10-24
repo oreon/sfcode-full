@@ -395,11 +395,11 @@
 			<f:param name="«name»Id" value="#{«getActionForMode()»«genPropertyLabel()».id}" />
 			<f:param name="from" value="#{request.servletPath}" />
 			«IF type.popupInfo != null»
-			 <rich:tooltip>
+			 <p:tooltip>
 	            <span>
 	              #{«getActionForMode()»«genPropertyLabel()».popupInfo} 
 	            </span>
-	        </rich:tooltip>
+	        </p:tooltip>
 	        «ENDIF»
 	</h:link>
 «ENDDEFINE»
@@ -412,7 +412,7 @@
 		«IF (isColumn() && autocomplete == true) » 
 			«EXPAND genAutoCompleteAssoc FOR this»
 		«ELSE»
-			«IF isPreloadedComposition()»
+			«IF ( isPreloadedComposition() ||  type.defaultInAssociation != null )»
 				«EXPAND genAssocLink FOR this»
 			«ELSE»
 				«EXPAND genDropDown FOR this»
