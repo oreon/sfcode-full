@@ -18,17 +18,21 @@
 <ui:composition «EXPAND WebRoot::genIncludes-»>	
 	<p:dialog header="Edit #{msg.«asVar()»} " widgetVar="edit«name»Dialog" resizable="true"  width="60%"  height="20%"> 
 	  «REM»TODO: move all hardcoded style to css «ENDREM»
-	  <p:scrollPanel style="width:auto;max-height:480px" autoRefresh="true" mode="native">
 	  <c:set var="opId" value="outputPanel-${modalId}"/>
+	  <p:scrollPanel style="width:auto;max-height:480px" autoRefresh="true" mode="native">
+	  
 	  <p:messages autoUpdate="true" />
-      <h:panelGrid id="edit«name»Panel" columns="2" cellpadding="4"> 
+      <h:panelGrid id="edit«name»Panel" columns="2" cellpadding="1">
+       
         <ui:include src = "«getComponentViewFileCustomizable("edit")»" />
+     	 
+     	 <p:commandButton actionListener="#{«asVar()»Action.saveModalDlg(false, 'edit«name»Dialog')}" styleClass="button" 
+      	update=":#{p:component('edit«name»Panel')}  :#{p:component('«asVar()»Form')}"  value="#{msg.save}"     
+      	rendered="#{s:hasPermission(«getAction()».instance, 'edit')}" />  
+      
       </h:panelGrid> 
      
-      <p:commandButton actionListener="#{«asVar()»Action.saveModalDlg(false, 'edit«name»Dialog')}" styleClass="button" 
-      	update=":#{p:component('edit«name»Panel')}  :#{p:component('«asVar()»Form')}"  value="#{msg.save}"     
-      	rendered="#{s:hasPermission('«asVar()»', 'edit')}" />  
-      </p:scrollPanel>
+     </p:scrollPanel>
     </p:dialog> 
 
 </ui:composition>

@@ -97,7 +97,7 @@
     «setAsCurrentEntity(e)-»
     <page view-id="«e.getViewFile("edit")»"  >
     	<!-- <description>Edit «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
-    	<restrict>#{s:hasPermission('«e.name.toFirstLower()»', 'edit')}</restrict>
+    	<restrict>#{s:hasPermission('«e.name.toFirstLower()»', 'edit') and s:hasPermission(«e.getAction()».instance, 'edit') }</restrict>
     	<begin-conversation join="true"/>
     	<navigation> 
 			 <rule if-outcome="save">
