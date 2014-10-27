@@ -363,7 +363,7 @@
 
 «DEFINE genId FOR uml::Class»
 	<p:column headerText="#{msg.id}" sortBy="«getCurrentEntity().asVar()».id"  «EXPAND genPermission FOR 'id'»>
-		<h:link outcome="«getViewFile(getAction())»"  rendered="#{s:hasPermission(_«asVar()», 'view')}" propagation="none">
+		<h:link outcome="«getViewFile('view')»"  rendered="#{s:hasPermission(_«asVar()», 'view')}" propagation="none">
 			<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  />
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
 		</h:link>
