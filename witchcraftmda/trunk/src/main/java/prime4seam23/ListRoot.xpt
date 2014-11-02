@@ -285,13 +285,13 @@
 
 
 «DEFINE genProperty FOR uml::Property-»
-	<p:column headerText="«msgBundleKey()-»" sortBy="«genPropertyLabel()»"    «EXPAND genPermission FOR this»>
+	«EXPAND genColHeader FOR this»
 		«EXPAND genPropertyValue("_", true) FOR this»
 	</p:column>
 «ENDDEFINE»
 
 «DEFINE genColHeader FOR uml::Property»
-	<p:column headerText="«msgBundleKey()-»" sortBy="«genPropertyLabel()»"    «EXPAND genPermission FOR this»>
+	<p:column headerText="«msgBundleKey()-»" sortBy="#{«genPropertyLabel()»}"    «EXPAND genPermission FOR this»>
 «ENDDEFINE»
 
 «DEFINE genPropertyValue(String prefix, boolean isListView) FOR uml::Property»
@@ -362,7 +362,7 @@
 
 
 «DEFINE genId FOR uml::Class»
-	<p:column headerText="#{msg.id}" sortBy="«getCurrentEntity().asVar()».id"  «EXPAND genPermission FOR 'id'»>
+	<p:column headerText="#{msg.id}" sortBy="#{«getCurrentEntity().asVar()».id}"  «EXPAND genPermission FOR 'id'»>
 		<h:link outcome="«getViewFile('view')»"  rendered="#{s:hasPermission(_«asVar()», 'view')}" propagation="none">
 			<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  />
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
@@ -372,7 +372,7 @@
 
 
 «DEFINE genCreationDate FOR uml::Class»
-	 <p:column headerText="#{msg.dateCreated}" sortBy="«getCurrentEntity().asVar()».dateCreated"  «EXPAND genPermission FOR 'dateCreated'»>
+	 <p:column headerText="#{msg.dateCreated}" sortBy="#{«getCurrentEntity().asVar()».dateCreated}"  «EXPAND genPermission FOR 'dateCreated'»>
 		<h:outputText    value="#{_«getCurrentEntity().asVar()».dateCreated}"  >
 			<s:convertDateTime type="date" dateStyle="medium" />
 		</h:outputText>
