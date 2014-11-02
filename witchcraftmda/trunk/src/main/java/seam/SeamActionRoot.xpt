@@ -321,9 +321,11 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations(){
-		«FOREACH getMultiValued() AS e»
+	  «REM»comment  «ENDREM»
+		«FOREACH getComposed() AS e»
 			initList«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
+	  
 		
 		«FOREACH getLeadingManyToMany() AS e»
 			initList«e.name.toFirstUpper()»(); 
@@ -493,10 +495,10 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 		protected DualListModel<«type.fqn()»> «currentList» ;
 		
-		void init«currentList.toFirstUpper()»(){
+		protected void init«currentList.toFirstUpper()»(){
 			
 			List<«type.fqn()»> available«name» = 
-				((«type.getListFqn()»)Component.getInstance ("«type.asVar()»List")).getAll();
+				((«type.getListFqn()»)Component.getInstance ("«type.asVar()»List")).fetchAll();
 			
 			List<«type.fqn()»> current«name.toFirstUpper()» = getInstance().getList«name.toFirstUpper()»();
 			
@@ -509,7 +511,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 			«currentList» = new DualListModel<«type.fqn()»>( available«name», current«name.toFirstUpper()» );
 		}
 		
-		public DualListModel<«type.fqn()»> get«currentList.toFirstUpper()»() {
+		public DualListModel<«type.fqn()»> fetch«currentList.toFirstUpper()»() {
 			if («currentList» == null)
 				init«currentList.toFirstUpper()»();
 			

@@ -59,10 +59,15 @@
 	«FILE getWebPath() +"/" + "view" + name + "." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
 	<ui:define name="content">
-		<h:form>
-			 «PROTECT CSTART '<!--' CEND '-->' ID  'EDITABLE_RGN_VIEW_' + package.name + "_" + (isCurrentTemplateMode()?"Template_":"") + name»
+		<h:panelGroup rendered="#{patientAction.hasCustomView}">
+			«PROTECT CSTART '<!--' CEND '-->' ID  'EDITABLE_RGN_VIEW_' + package.name + "_" + (isCurrentTemplateMode()?"Template_":"") + name»
+				<ui:include src="/admin/entities/patient/patient/viewPatientCustom.xhtml" />
+			«ENDPROTECT»
+		</h:panelGroup>
 
-			«ENDPROTECT»	
+		<h:panelGroup rendered="#{!patientAction.hasCustomView}">
+		  <h:form>
+				
 			<p:tabView  dynamic="true" cache="true">
 				<p:tab title="«name»">
 					<div id="printable" >
@@ -99,10 +104,8 @@
 			</p:tab>
 			«ENDIF»
 		</p:tabView>
-		
-		
 		«EXPAND generateWebFunctionIncludes FOR this»
-		
+	  </h:panelGroup>
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
@@ -280,7 +283,7 @@
 			</p:autoComplete>
 		«ELSE»
 		<p:panel toggleable="true" header="«msgBundleKey()»" switchType="client"  id="«name»">     
-		     <p:pickList value="#{«class.getAction()».listAvailable«name.toFirstUpper()»}" var="member"
+		     <p:pickList value="#{«class.getAction()».fetchListAvailable«name.toFirstUpper()»()}" var="member"
 	    	 	itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{«type.name.toFirstLower()»List.converter}"/>
 	    </p:panel>
 	    «ENDIF»
@@ -473,7 +476,7 @@
 			«ENDIF»
 		«ENDIF»
 		<f:selectItem itemLabel="Select One" itemValue="" /> 
-		<f:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.all"»}" var="itemIter"
+		<f:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.fetchAll()"»}" var="itemIter"
 			itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"   />
 		«genAjaxValidatorJSF2()»
 	</p:selectOneMenu>
@@ -635,7 +638,7 @@
 «DEFINE genDelete FOR uml::Property»
 	<p:column>
 		<p:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
-			update="«name»"  process="@this">
+			update="«name»"  process="@this" id="btndelete_«name»"  icon="ui-icon-minus">
 			<s:conversationId/>
 		</p:commandButton>
 	</p:column>
@@ -650,7 +653,9 @@
 «DEFINE genNewButton FOR uml::Property»
 	«REM»TODO -  edit«class.name.toFirstUpper()»ComponentPanel should be a function «ENDREM»
 	<p:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		update="«name», :#{p:component('edit«class.name.toFirstUpper()»ComponentPanel')}"  rendered="#{«genEditPermission()»}" >
+		update="«name», :#{p:component('edit«class.name.toFirstUpper()»ComponentPanel')}"  rendered="#{«genEditPermission()»}" 
+		id="btnadd_«name»"  icon="ui-icon-plus"
+		>
 		<s:conversationId/>
 	</p:commandButton>
 «ENDDEFINE»

@@ -142,9 +142,8 @@
 <ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
 <ui:define name="content">   
  
-
 	<h:form>
-	<ui:include src="textSearchResults«name»Component.xhtml" />
+		<ui:include src="textSearchResults«name»Component.xhtml" />
 	</h:form>
  </ui:define>
 </ui:composition>
@@ -216,6 +215,7 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«clearCurrentEmbeddable()-»
+	«EXPAND genId FOR this»
 	«FOREACH allParents() AS e-»
 	 «EXPAND genPropertyRec FOREACH e.getAllAttributes().select(a| a.isSearchable()  ) -»
 	«ENDFOREACH»
@@ -244,6 +244,15 @@
 	«ENDIF»
 «ENDDEFINE»
 
+«DEFINE genId FOR uml::Class»
+	<h:panelGroup>
+			<h:outputText value="#{msg.id}"
+				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}" />
+			<br />
+			<h:inputText id="«name»SearchId" value="#{«asVar()»List.«asVar()».id}" size="5" />
+	</h:panelGroup>
+«ENDDEFINE»
+
 «DEFINE genProperty FOR uml::Property-»
 	<h:panelGroup>
 	«getOutputMessage()» <br/>
@@ -258,7 +267,7 @@
 	<p:selectOneMenu id="«getId()»" converter="#{«type.asVar()»List.converter}"  value="#{ «getCurrentEntity().asVar()»List.«isManyToMany() ? name +"ToSearch": genPropertyLabel()»}" >
 		<f:selectItem itemLabel="Any..." itemValue="" /> 
 		«getAssocOptional()?"<f:selectItem itemLabel=\"--None--\" itemValue=\"\"/>":""»
-		<f:selectItems value="#{«type.asVar()»List.all}" var="itemIter"
+		<f:selectItems value="#{«type.asVar()»List.fetchAll()}" var="itemIter"
 			itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"   />
 	</p:selectOneMenu>
 	</h:panelGroup>
