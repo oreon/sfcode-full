@@ -105,5 +105,10 @@ prop.association != null && prop.opposite!= null  ;
 getCompositionParent(Class cls):
 cls.getAllAttributes().select(a|a.association != null && a.opposite.isComposite() );
 
+//if an association is aggregate e.g employees in department, its updapatable ...but if its a containment updatable is false.
+getAssocUpdatable(Property prop):
+prop.isAggregate();
 
+getAssocUpdatable(Column col):
+col.mutable;
 

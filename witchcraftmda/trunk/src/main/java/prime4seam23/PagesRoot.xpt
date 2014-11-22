@@ -73,23 +73,21 @@
             
         «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
             <rule if-outcome="«e.asVar()»">
-            	<end-conversation/> 
+            	«REM»<end-conversation/> «ENDREM»
                 <redirect view-id="«e.getViewFile("list")»" />
             </rule>
             
             <rule if-outcome="view«e.name»">
-            	<end-conversation/> 
+            	«REM»<end-conversation/> «ENDREM»
                 <redirect view-id="«e.getViewFile("view")»" />
             </rule>
             
             <rule if-outcome="edit«e.name»">
-            	<end-conversation/> 
+            	«REM»<end-conversation/> «ENDREM»
                 <redirect view-id="«e.getViewFile("edit")»" />
             </rule>
         «ENDFOREACH»
         </navigation>
-        
-        
     </page>
 
     
@@ -135,11 +133,11 @@
 		<restrict>#{s:hasPermission('«e.name.toFirstLower()»', 'view')}</restrict>
 		<navigation>
 			<rule if-outcome="view«e.name»">
-				<end-conversation/>
+				«REM»<end-conversation/> «ENDREM»
 				<redirect view-id="«e.getViewFile("view")»" />
 			</rule> 
 			 <rule if-outcome="edit">
-			 	<end-conversation/>
+			 	«REM»<end-conversation/> «ENDREM»
  				<redirect view-id="«e.getViewFile("edit")»" />
             </rule>			
             <rule if-outcome="textSearch"> 
@@ -163,58 +161,7 @@
    
   «PROTECT CSTART '<!--' CEND '-->' ID 'USER_EDITABLE_XCPT'»
   
-    <exception class="org.jboss.seam.framework.EntityNotFoundException">
-        <redirect view-id="/error.«getExtension()»">
-            <message severity="warn">Record not found</message>
-        </redirect>
-    </exception>
-    
-    <exception class="javax.persistence.EntityNotFoundException">
-        <redirect view-id="/error.«getExtension()»">
-            <message severity="warn">Record not found</message>
-        </redirect>
-    </exception>
-    
-    <exception class="javax.persistence.EntityExistsException">
-        <redirect view-id="/error.«getExtension()»">
-            <message severity="warn">Duplicate record</message>
-        </redirect>
-    </exception>
-    
-    <exception class="javax.persistence.OptimisticLockException">
-        <end-conversation/>
-        <redirect view-id="/error.«getExtension()»">
-            <message severity="warn">Another user changed the same data, please try again</message>
-        </redirect>
-    </exception>
-    
-    <exception class="org.jboss.seam.security.AuthorizationException">
-        <redirect view-id="/error.«getExtension()»">
-            <message severity="error">You don't have permission to access this resource</message>
-        </redirect>
-    </exception>
-    
-    <exception class="org.jboss.seam.security.NotLoggedInException">
-        <redirect view-id="/login.«getExtension()»">
-            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
-        </redirect>
-    </exception>
-    
-    <exception class="javax.faces.application.ViewExpiredException">
-        <redirect view-id="/error.«getExtension()»">
-            <message severity="warn">Your session has timed out, please try again</message>
-        </redirect>
-    </exception>
-    
-    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
-      <http-error error-code="503" />
-    </exception>
-     
-    <exception>
-        <redirect view-id="/error.«getExtension()»">
-            <message severity="error">Unexpected error, please try again</message>
-        </redirect>
-    </exception>
+    «EXPAND genExceptions FOR this»
     «ENDPROTECT»
     
 </pages>
@@ -292,4 +239,63 @@
 		<param name="from" />
 		<param name="id" value="#{«asVar()»List.«asVar()».id}" />		
 	</page>
+«ENDDEFINE»
+
+
+
+«DEFINE genExceptions FOR uml::Model»
+	<exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.«getExtension()»">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.«getExtension()»">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.«getExtension()»">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.«getExtension()»">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.AuthorizationException">
+        <redirect view-id="/error.«getExtension()»">
+            <message severity="error">You don't have permission to access this resource</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.NotLoggedInException">
+        <redirect view-id="/login.«getExtension()»">
+            <message severity="warn">#{messages['org.jboss.seam.NotLoggedIn']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/error.«getExtension()»">
+            <message severity="warn">Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/error.«getExtension()»">
+            <message severity="error">Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+
+
 «ENDDEFINE»
