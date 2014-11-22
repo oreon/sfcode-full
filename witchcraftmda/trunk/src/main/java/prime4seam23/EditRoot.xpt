@@ -59,13 +59,13 @@
 	«FILE getWebPath() +"/" + "view" + name + "." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
 	<ui:define name="content">
-		<h:panelGroup rendered="#{patientAction.hasCustomView}">
+		<h:panelGroup rendered="#{«getAction()».hasCustomView}">
 			«PROTECT CSTART '<!--' CEND '-->' ID  'EDITABLE_RGN_VIEW_' + package.name + "_" + (isCurrentTemplateMode()?"Template_":"") + name»
 				<ui:include src="/admin/entities/patient/patient/viewPatientCustom.xhtml" />
 			«ENDPROTECT»
 		</h:panelGroup>
 
-		<h:panelGroup rendered="#{!patientAction.hasCustomView}">
+		<h:panelGroup rendered="#{!«getAction()».hasCustomView}">
 		  <h:form>
 				
 			<p:tabView  dynamic="true" cache="true">
