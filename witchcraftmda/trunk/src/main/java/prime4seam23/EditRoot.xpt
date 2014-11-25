@@ -126,9 +126,13 @@
          		
          		<h:form> 
 		      		<p:commandButton value="Create New" action="«a.type.getViewFile("edit")»" > 
-		      			<f:param name="«name.toFirstLower()»Id" value="#{«getAction()».instance.id}" />
-		      		    <f:param name="«a.type.name.toFirstLower()»Id" value="0"/>
-		      		    <s:conversationId/>
+		      			<f:setPropertyActionListener target="#{«a.type.getAction()».instance.patient}"
+						value="#{«getAction()».instance}" />
+						<f:setPropertyActionListener target="#{«a.type.getAction()».entityId}"
+							value="0" />
+						<f:setPropertyActionListener target="#{«a.type.getAction()».fromView}"
+							value="#{view.viewId}" />
+						<s:conversationId />
 		      		</p:commandButton>
 	      		
 			  		<p:commandButton value="Quick Create" update=":#{p:component('edit«a.type.name»Panel')}"  
