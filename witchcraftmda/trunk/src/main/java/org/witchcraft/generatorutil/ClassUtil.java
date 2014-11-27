@@ -661,7 +661,6 @@ public class ClassUtil {
 	}
 
 	public static boolean isAggregate(Property prop) {
-		Class c;
 		return prop.getAggregation().getValue() == AggregationKind.SHARED;
 	}
 

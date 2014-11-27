@@ -107,7 +107,7 @@ cls.getAllAttributes().select(a|a.association != null && a.opposite.isComposite(
 
 //if an association is aggregate e.g employees in department, its updapatable ...but if its a containment updatable is false.
 getAssocUpdatable(Property prop):
-prop.isAggregate();
+prop.opposite == null ? true : !prop.opposite.isComposite();
 
 getAssocUpdatable(Column col):
 col.mutable;
