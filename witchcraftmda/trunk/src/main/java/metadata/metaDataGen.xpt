@@ -8,23 +8,26 @@
 
 
 «DEFINE gen FOR uml::Model»
-«FILE getTopLevelPackagePath(allOwnedElements().typeSelect(wcprofile::Entity).get(0)) +"/MetaData.java"»
-package «getTopLevelPackage(allOwnedElements().typeSelect(wcprofile::Entity).get(0))»;
-
-public class MetaData{
-
-public static final String[][] ARR_FIELDS = {
-«FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
-	«setCurrentEmbeddableName("")»
-	«setAsCurrentEntity(e)»
-	{ "«e.fqn()»",  
-		«EXPAND genAttributeNames FOR e»
-	},
-«ENDFOREACH»
-};
-
-}
-«ENDFILE»
+	«IF !allOwnedElements().typeSelect(wcprofile::Entity).isEmpty»
+	
+		«FILE getTopLevelPackagePath(allOwnedElements().typeSelect(wcprofile::Entity).get(0)) +"/MetaData.java"»
+		package «getTopLevelPackage(allOwnedElements().typeSelect(wcprofile::Entity).get(0))»;
+		
+		public class MetaData{
+		
+		public static final String[][] ARR_FIELDS = {
+		«FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
+			«setCurrentEmbeddableName("")»
+			«setAsCurrentEntity(e)»
+			{ "«e.fqn()»",  
+				«EXPAND genAttributeNames FOR e»
+			},
+		«ENDFOREACH»
+		};
+		
+		}
+		«ENDFILE»
+	«ENDIF»
 «ENDDEFINE» 	
 
 
