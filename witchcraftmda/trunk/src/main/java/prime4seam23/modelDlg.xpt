@@ -22,19 +22,18 @@
 	  <p:scrollPanel style="width:auto;max-height:480px" autoRefresh="true" mode="native">
 	  
 	  <p:messages autoUpdate="true" />
-      <h:panelGrid id="edit«name»Panel" columns="2" cellpadding="1">
-       
+      <h:panelGrid id="edit«name»Panel" columns="2" cellpadding="1">     
         <ui:include src = "«getComponentViewFileCustomizable("edit")»" />
-     	 
-     	 <p:commandButton actionListener="#{«asVar()»Action.saveModalDlg(false, 'edit«name»Dialog')}" styleClass="button" 
-      	update=":#{p:component('edit«name»Panel')}  :#{p:component('«asVar()»Form')}"  value="#{msg.save}"     
-      	rendered="#{s:hasPermission(«getAction()».instance, 'edit')}" />  
-      
       </h:panelGrid> 
      
      </p:scrollPanel>
+    
+     <p:commandButton actionListener="#{«asVar()»Action.saveModalDlg(false, 'edit«name»Dialog')}" styleClass="button" 
+      	update=":#{p:component('edit«name»Panel')}  :#{p:component('«asVar()»Form')}"  value="#{msg.save}"     
+      	rendered="#{s:hasPermission(«getAction()».instance, 'edit')}" />  
+      	 
     </p:dialog> 
-
+	
 </ui:composition>
  «ENDFILE»
 «ENDDEFINE»

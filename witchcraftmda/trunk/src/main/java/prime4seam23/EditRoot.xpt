@@ -61,7 +61,7 @@
 	<ui:define name="content">
 		<h:panelGroup rendered="#{«getAction()».hasCustomView}">
 			«PROTECT CSTART '<!--' CEND '-->' ID  'EDITABLE_RGN_VIEW_' + package.name + "_" + (isCurrentTemplateMode()?"Template_":"") + name»
-				<ui:include src="/admin/entities/patient/patient/viewPatientCustom.xhtml" />
+				
 			«ENDPROTECT»
 		</h:panelGroup>
 
@@ -126,8 +126,8 @@
          		
          		<h:form> 
 		      		<p:commandButton value="Create New" action="«a.type.getViewFile("edit")»" > 
-		      			<f:setPropertyActionListener target="#{«a.type.getAction()».instance.patient}"
-						value="#{«getAction()».instance}" />
+		      			<f:setPropertyActionListener target="#{«a.type.getAction()».instance.«a.opposite.name»}"
+							value="#{«getAction()».instance}" />
 						<f:setPropertyActionListener target="#{«a.type.getAction()».entityId}"
 							value="0" />
 						<f:setPropertyActionListener target="#{«a.type.getAction()».fromView}"
