@@ -16,7 +16,10 @@ getNonComposedManyAssociationsOpposite(Entity entity):
 entity.getAllAttributes().select(a|a.association != null && a.opposite.isMultivalued()    && !a.isMultivalued() && !a.opposite.isComposite());
 
 isBidirectional(Property e):
-e.isAssoc() && e.isNavigable() && e.opposite.isNavigable()  && !e.isMultivalued() && !e.opposite.isMultivalued() ;
+e.isAssoc() && e.isNavigable() && e.opposite.isNavigable() ;
+
+//isBidirectional(Property prop):
+//prop.association != null && prop.opposite!= null;
 
 getLeadingManyToMany(Class entity):
 entity.getAllAttributes().select(a|a.isLeadingManyToMany());
@@ -87,8 +90,7 @@ isOneOnOne(Property prop):
 (prop.getUpper() != null && prop.getUpper() == 1 && prop.opposite.getUpper() != null && prop.opposite.getUpper() == 1 )
 ||(!prop.isMultivalued()) && prop.association != null && prop.isContainedAssoc(); //prop.opposite!= null &&  (!prop.opposite.isMultivalued() ) ;
 
-isBidirectional(Property prop):
-prop.association != null && prop.opposite!= null;
+
 
 isContainedAssoc(Property prop):
 prop.association.getAppliedStereotype("wcprofile::ContainedAssociation") != null;
@@ -97,9 +99,6 @@ prop.association.getAppliedStereotype("wcprofile::ContainedAssociation") != null
 isPreloadedComposition(Property prop):
 prop.association.getAppliedStereotype("wcprofile::PreloadedComposition") != null;
 
-
-isBidirectional(Property prop):
-prop.association != null && prop.opposite!= null  ;
 
 
 getCompositionParent(Class cls):

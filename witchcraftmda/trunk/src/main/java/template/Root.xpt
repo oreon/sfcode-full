@@ -706,7 +706,7 @@ import org.hibernate.annotations.FilterDefs;
 		«ELSE»
 			 @OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 			 «REM»comment«IF isComposite()»@Cascade(value=org.hibernate.annotations.CascadeType.DELETE_ORPHAN)«ENDIF»«ENDREM»
-			 @JoinColumn(name = "«getOppositeName()»_ID", nullable = «getAssocOptional()»)
+			 «REM»@JoinColumn(name = "«getOppositeName()»_ID", nullable = «getAssocOptional()»)«ENDREM»
 			 @OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"id DESC"«ENDIF»)
 			«IF type.name != class.name && class.isFullTextSearchable()»@IndexedEmbedded«ENDIF»
 		«ENDIF»
