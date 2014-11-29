@@ -355,11 +355,11 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 	
 	public void updateComposedAssociations(){
-	«REM»comment
-		«EXPAND updateList FOREACH getMultiValued() -»
+		«EXPAND updateList FOREACH getComposed() -»
+		/*
 		«EXPAND updateListManyToMany FOREACH getLeadingManyToMany() -»
-	«ENDREM»
-	}
+		*/
+	}	
 	
 	
 	public void clearLists(){
@@ -413,17 +413,6 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 
 «DEFINE updateList FOR uml::Property»
 	  if (list«name.toFirstUpper()» != null) {
-	  
-	  	java.util.Set<«type.name»> items = getInstance().get«name.toFirstUpper()»();
-			for («type.name» item : items) {
-				if(!list«name.toFirstUpper()».contains(item))
-					getEntityManager().remove(item);
-			}
-			
-			for («type.name» item : list«name.toFirstUpper()») {
-				item.set«opposite.name.toFirstUpper()»(getInstance());
-			}
-	  
 		getInstance().get«name.toFirstUpper()»().clear();
 		getInstance().get«name.toFirstUpper()»().addAll(list«name.toFirstUpper()»);
 	  }
