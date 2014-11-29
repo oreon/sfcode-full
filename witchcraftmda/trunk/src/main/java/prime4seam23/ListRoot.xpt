@@ -221,25 +221,29 @@
 
 «DEFINE genDeleteLink FOR uml::Class»
 	<p:column rendered="#{s:hasPermission('«asVar()»Action', 'archive')}" propagation="none">
-		<f:facet name="header">
-			<h:outputText value="" />
-		</f:facet>
-		
+			
+		<h:commandLink  action="#{«asVar()»Action.delete(_«asVar()»)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_«asVar()».displayName} ?')){ return false; } else { return true; }"> 
+            Delete  
+            <f:param name="currentEntityId" value="#{_«asVar()».id}"/>
+        </h:commandLink> 
+			
+		«REM»comment
 		<h:commandLink rendered="#{!_«asVar()».archived}" action="#{«asVar()»Action.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_«asVar()».displayName} ?')){ return false; } else { return true; }" >
 			<h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>
 			<f:param name="currentEntityId" value="#{_«asVar()».id}"/>
 		</h:commandLink>
 		
-        <h:commandLink rendered="#{_«asVar()».archived}" action="#{«asVar()»Action.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_«asVar()».displayName} ?')){ return false; } else { return true; }"> 
-            Delete  
-            <f:param name="currentEntityId" value="#{_«asVar()».id}"/>
-        </h:commandLink> 
-         
         <h:commandLink rendered="#{_«asVar()».archived}" action="#{«asVar()»Action.restore}" > 
             Restore
             <f:param name="currentEntityId" value="#{_«asVar()».id}"/> 
         </h:commandLink> 
-		
+        
+        <h:commandLink rendered="#{_«asVar()».archived}" action="#{«asVar()»Action.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_«asVar()».displayName} ?')){ return false; } else { return true; }"> 
+            Delete  
+            <f:param name="currentEntityId" value="#{_«asVar()».id}"/>
+        </h:commandLink> 
+        
+		«ENDREM»
 	</p:column>
 «ENDDEFINE»
 

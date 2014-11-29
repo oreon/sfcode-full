@@ -704,7 +704,7 @@ import org.hibernate.annotations.FilterDefs;
 		    	 @ManyToMany(mappedBy="«opposite.name»")
 			«ENDIF»
 		«ELSE»
-			 @OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+			 @OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL «IF isComposite()»,orphanRemoval=true«ENDIF»)
 			 «REM»comment«IF isComposite()»@Cascade(value=org.hibernate.annotations.CascadeType.DELETE_ORPHAN)«ENDIF»«ENDREM»
 			 «REM»@JoinColumn(name = "«getOppositeName()»_ID", nullable = «getAssocOptional()»)«ENDREM»
 			 @OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"id DESC"«ENDIF»)
@@ -995,5 +995,4 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	import org.witchcraft.base.entity.FileAttachment;
 	import org.witchcraft.base.entity.BaseEntity;
 	
-	import «getTopLevelPackage()».ProjectUtils;
 «ENDDEFINE»
