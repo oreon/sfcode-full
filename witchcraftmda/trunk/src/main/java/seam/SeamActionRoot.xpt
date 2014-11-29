@@ -207,8 +207,11 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		«FOREACH getComposed() AS e-»
 		«IF e.getLower() > 0  »
 		if(isNew() && instance.get«e.name.toFirstUpper()»().isEmpty()){
-			for(int i = 0; i < «e.getLower()» ; i++)
-				getList«e.name.toFirstUpper()»().add(new «e.type.fqn()»());
+			for(int i = 0; i < «e.getLower()» ; i++){
+				«e.type.fqn()» item = new «e.type.fqn()»();
+				item.set«e.opposite.name.toFirstUpper()»(getInstance());
+				getList«e.name.toFirstUpper()»().add(item);
+			}
 		}
 		«ENDIF»
 		«ENDFOREACH»

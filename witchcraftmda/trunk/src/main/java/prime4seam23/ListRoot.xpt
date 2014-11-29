@@ -185,11 +185,10 @@
 
 «DEFINE genLink(String action, String icon) FOR uml::Class»
 	<p:column  rendered="#{s:hasPermission('_«asVar()»', '«action»') and !_«asVar()»Category.archived}">
-		
 		<h:link outcome="«getViewFile(action)»"  rendered="#{s:hasPermission(_«asVar()», '«action»')}" >
 			<h:graphicImage value="/images/icons/«icon»" style="border: 0px" alt="«action»"/>
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />
-			<s:conversationPropagation type="none"/>
+			<s:conversationId/>
 		</h:link>
 	</p:column>
 «ENDDEFINE»
