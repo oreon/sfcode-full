@@ -10,8 +10,6 @@
 «DEFINE Root FOR uml::Model»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 	«EXPAND SeamEntityQueryRoot::Root FOR this»
-	
-	«EXPAND richfaces::PagesRoot::genPages»
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
@@ -130,6 +128,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	«ENDIF»
 	
 	
+	«REM»comment
 	«FOREACH getOutgoingAssociations() AS e-»
 	
 	public void set«e.name.toFirstUpper()»Id(Long id) {
@@ -146,6 +145,8 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	}
 	
 	«ENDFOREACH»
+	
+	«ENDREM»
 	
 
 	public Long get«name»Id() {

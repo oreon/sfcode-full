@@ -185,10 +185,11 @@
 		</h:commandButton> 
 		<h:outputText value=" " />
 		<h:commandButton value="Back To Listing" action="#{«getAction()».cancel}" >
-			<s:conversationPropagation type="end" />
+			<s:conversationId/>
 		</h:commandButton>  
 		«ELSE»
 		<h:commandButton value="Save" action="#{«getAction()».save«isCurrentTemplateMode()?"Template":"" »(true)}" >
+			<s:conversationId/>
 		</h:commandButton>  
 		<h:outputText value=" " /> 
 		<h:commandButton value="Cancel" immediate="true" action="#{«getAction()».cancel}" >
