@@ -89,6 +89,9 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	@RequestParameter
 	protected Long «asVar()»Id;
 	
+	
+	«REM»
+	
 	«FOREACH getOutgoingAssociations() AS e»
 	«IF !e.type.isAbstract»
 	 @In(create = true, value="«e.type.name.toFirstLower()»Action")
@@ -103,6 +106,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	«ENDIF»
 	«ENDFOREACH»
 	
+	«ENDREM»
 	
 	«IF getAppliedStereotype("wcprofile::SystemUser") != null && defaultRole != null»
 		public static final String DEFAULT_ROLE_NAME = "«defaultRole»"; 
@@ -111,6 +115,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	public void set«name»Id(Long id) {
 		setEntityId(id);
 	}
+	
 	
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
@@ -153,22 +158,10 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		return (Long) getId();
 	}
 	
-	
 
-	public «name» getEntity(){
-		return instance;
-	}
-
-	//@Override
-	public void setEntity(«name» t) {
-		this.instance = t;
-		loadAssociations();
-	}
-	
 	public «name» get«name»(){
-		return («name»)getInstance();
+		return getEntity();
 	}
-	
 	
 	
 	@Override
@@ -177,7 +170,6 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		return super.save(endconv);
 	}
 	
-
 	
 	@Override
 	@Restrict("#{s:hasPermission('«asVar()»', 'delete')}")
@@ -204,30 +196,36 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	 * An order should always have at least one order item . Marked in uml with 1..* multiplicity
 	 */
 	private void addDefaultAssociations() {
-		instance = getInstance();
-		«FOREACH getComposed() AS e-»
-		«IF e.getLower() > 0  »
-		if(isNew() && instance.get«e.name.toFirstUpper()»().isEmpty()){
-			for(int i = 0; i < «e.getLower()» ; i++){
-				«e.type.fqn()» item = new «e.type.fqn()»();
-				item.set«e.opposite.name.toFirstUpper()»(getInstance());
-				getList«e.name.toFirstUpper()»().add(item);
-			}
+		if(isNew()){
+			instance = getInstance();
+			«FOREACH getComposed() AS e-»
+				«IF e.getLower() > 0  »
+				 if( instance.get«e.name.toFirstUpper()»().isEmpty() ){
+					for(int i = 0; i < «e.getLower()» ; i++){
+						«e.type.fqn()» item = new «e.type.fqn()»();
+						item.set«e.opposite.name.toFirstUpper()»(getInstance());
+						getList«e.name.toFirstUpper()»().add(item);
+					}
+				}
+				«ENDIF»
+			«ENDFOREACH»
 		}
-		«ENDIF»
-		«ENDFOREACH»
 	}
 
 	public void wire() {
-		getInstance();
-		«FOREACH getOutgoingAssociations() AS e-»
-		 «IF !e.type.isAbstract»
-			«e.type.fqn()» «e.name» = «e.name»Action.getInstance();
-			if («e.name» != null  && isNew()) {
-				 getInstance().set«e.name.toFirstUpper()»(«e.name»);
-			}
-		 «ENDIF»
-		«ENDFOREACH»
+		/*
+		if (isNew()){
+			getInstance();
+			«FOREACH getOutgoingAssociations() AS e-»
+				 «IF !e.type.isAbstract»
+					«e.type.fqn()» «e.name» = «e.name»Action.getInstance();
+					if («e.name» != null  ) {
+						 getInstance().set«e.name.toFirstUpper()»(«e.name»);
+					}
+				 «ENDIF»
+			«ENDFOREACH»
+		}
+		*/
 	}
 
 	public «name» getDefinedInstance() {
@@ -236,11 +234,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 
 	public void set«name»(«name» t) {
-		this.instance = t;
-		if (getInstance() != null && t != null){
-			set«name»Id(t.getId());
-			loadAssociations();
-		}
+		setEntity(t);
 	}
 	
 	@Override
@@ -338,21 +332,21 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		
 		addDefaultAssociations();
 		
-		wire();
+		//wire();
 	}
 	
-	public void updateAssociations(){
-		«IF isRich()»
 	
+	«IF isRich()»
+	public void updateAssociations(){
+		
 		«FOREACH getNonComposedManyAssociations() AS a»
-		«a.type.fqn()» «a.name» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
-		«a.name».set«a.opposite.name.toFirstUpper()»(instance);
-		events.raiseTransactionSuccessEvent("archived«a.type.name»");
+			«a.type.fqn()» «a.name» =(«a.type.fqn()») org.jboss.seam.Component.getInstance("«a.type.name.toFirstLower()»");
+			«a.name».set«a.opposite.name.toFirstUpper()»(instance);
+			events.raiseTransactionSuccessEvent("archived«a.type.name»");
 		«ENDFOREACH»
 		
-		«ENDIF»
 	}
-	
+	«ENDIF»
 	
 	«EXPAND genCompositeCode FOREACH getMultiValued() -»
 	«EXPAND genManyToMany FOREACH getLeadingManyToMany() -»
@@ -456,9 +450,6 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 
 
 «DEFINE genCompositeCode FOR uml::Property»
-	
-	
-	
 	
 	«EXPAND genList("") FOR this»
 	«LET "list" + name.toFirstUpper()  AS currentList»
