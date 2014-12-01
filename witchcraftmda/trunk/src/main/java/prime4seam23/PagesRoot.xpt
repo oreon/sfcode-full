@@ -53,7 +53,6 @@
 		«ENDPROTECT»
 	
 		
-	
         <navigation>
         	«PROTECT CSTART '<!--' CEND '-->' ID 'USER_EDITABLE_PAGESROOT_BLKT'» 
         	<rule if-outcome="home">
@@ -71,23 +70,18 @@
             
         «FOREACH allOwnedElements().typeSelect(wcprofile::Entity) AS e»
             <rule if-outcome="«e.asVar()»">
-            	 
                 <redirect view-id="«e.getViewFile("list")»" />
             </rule>
             
             <rule if-outcome="view«e.name»">
-            	 
                 <redirect view-id="«e.getViewFile("view")»" />
             </rule>
             
             <rule if-outcome="edit«e.name»">
-            	 
                 <redirect view-id="«e.getViewFile("edit")»" />
             </rule>
         «ENDFOREACH»
         </navigation>
-        
-        
     </page>
 
     
@@ -99,18 +93,18 @@
     	<begin-conversation join="true"/>
     	<navigation> 
 			 <rule if-outcome="save">
-			 	
  				<redirect view-id="«e.getViewFile("view")»" />
             </rule>	
              <rule if-outcome="cancel">
-             	
  				<redirect view-id="«e.getViewFile("list")»" />
             </rule>			
 		</navigation>
 		<param name="«e.asVar()»Id" value="#{«e.asVar()»Action.«e.asVar()»Id}" />
+		«REM»comment
 		«FOREACH e.getOutgoingAssociations() AS a-»
 		<param name="«a.name»Id" value="#{«e.getAction()».«a.name»Id}" />
 		«ENDFOREACH»
+		«ENDREM»
 	</page>
 	
 	 <page view-id="«e.getViewFile("view")»"  action="#{redirect.captureCurrentView()}">
