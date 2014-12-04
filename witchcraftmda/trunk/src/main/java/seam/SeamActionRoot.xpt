@@ -314,12 +314,13 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	}
 	«ENDIF»
 	
+	«REM»comment
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations(){
-	  «REM»comment  «ENDREM»
+	 
 		«FOREACH getComposed() AS e»
 			initList«e.name.toFirstUpper()»(); 
 		«ENDFOREACH»
@@ -334,6 +335,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		
 		//wire();
 	}
+	«ENDREM»
 	
 	
 	«IF isRich()»
@@ -351,14 +353,14 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	«EXPAND genCompositeCode FOREACH getMultiValued() -»
 	«EXPAND genManyToMany FOREACH getLeadingManyToMany() -»
 	
-	
+	«REM»comment
 	public void updateComposedAssociations(){
 		«EXPAND updateList FOREACH getComposed() -»
 		/*
 		«EXPAND updateListManyToMany FOREACH getLeadingManyToMany() -»
 		*/
 	}	
-	
+
 	
 	public void clearLists(){
 		«FOREACH getMultiValued() AS a -»
@@ -369,7 +371,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 			list«a.name.toFirstUpper()».clear();
 		«ENDFOREACH»
 	}
-	
+	«ENDREM»
 
 	«EXPAND template::Root::genOperation FOREACH getAllOperations()»
 	
@@ -452,25 +454,16 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 «DEFINE genCompositeCode FOR uml::Property»
 	
 	«EXPAND genList("") FOR this»
-	«LET "list" + name.toFirstUpper()  AS currentList»
+	
+	@Begin(join=true, flushMode= org.jboss.seam.annotations.FlushModeType.MANUAL)
 	public void delete«name.toFirstUpper()»(int index){
-		«currentList».remove(index);
+		getList«name.toFirstUpper()»().remove(index);
 	}
 	
-	@Begin(join=true)
+	@Begin(join = true, flushMode =  org.jboss.seam.annotations.FlushModeType.MANUAL)
 	public void add«name.toFirstUpper()»(){
-		«IF !type.isAbstract »
-		init«currentList.toFirstUpper()»();
-		«type.name» «name» = new «type.name»();
-		«IF opposite != null && opposite.isNavigable()»
-			«name».set«opposite.name.toFirstUpper()»(getInstance());
-		«ENDIF»
-		get«currentList.toFirstUpper()»().add(«name»);
-		«ENDIF»
+		getInstance().add«name.toFirstUpper().getSingular()»(new «type.fqn()»());
 	}
-	
-	«ENDLET»	
-	
 «ENDDEFINE»
 
 «DEFINE genList(String prefix) FOR uml::Property»
@@ -510,6 +503,19 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		}
 	
 	«ELSE»
+		public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
+			return getInstance().get«name.toFirstUpper()»();
+		}
+		
+		//public void prePopulate«currentList.toFirstUpper()»() {}
+	
+		public void set«currentList.toFirstUpper()»(List<«type.fqn()»> «currentList») {
+			//this.«currentList» = «currentList»;
+		}
+	
+	
+	
+		«REM»comment
 		protected List<«type.fqn()»> «currentList» = new ArrayList<«type.fqn()»>();
 		
 		void init«currentList.toFirstUpper()»(){
@@ -520,9 +526,8 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		}
 		
 		«IF prefix == "Available"»@Begin(join=true)«ENDIF»
+		
 		public List<«type.fqn()»> get«currentList.toFirstUpper()»() {
-			«REM»«IF isLeadingManyToMany() && prefix == "Available"» init«currentList.toFirstUpper()»(); «ENDIF»comment«ENDREM»
-			prePopulate«currentList.toFirstUpper()»();
 			return «currentList»;
 		}
 		
@@ -531,6 +536,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		public void set«currentList.toFirstUpper()»(List<«type.fqn()»> «currentList») {
 			this.«currentList» = «currentList»;
 		}
+		«ENDREM»
 	«ENDIF»
 	«ENDLET»
 «ENDDEFINE»
