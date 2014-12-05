@@ -1,15 +1,13 @@
 <?xml version="1.0"?>
 <workflow>
-	<property name="model" value="model/model-export/model.uml" />
-	<property name="src-gen" value="src-gen" />
-	
-	<bean class="oaw.uml2.Setup" standardUML2Setup="true"/>
-	
-	<component class="oaw.emf.XmiReader">
-		<modelFile value="model/model-export/model.uml"/>
-		<outputSlot value="model"/>
-	</component>
-	
+		
+<property file="workflow.properties" />
+
+<bean class="oaw.uml2.Setup" standardUML2Setup="true"/>
+<component class="oaw.emf.XmiReader">
+<modelFile value="${model.dir}/model.uml"/>
+<outputSlot value="model"/>
+</component>
 
 <component id="BeansGenerator" class="oaw.xpand2.Generator"
 skipOnErrors="true">
@@ -18,7 +16,7 @@ skipOnErrors="true">
 	</metaModel>
 	<metaModel class="oaw.uml2.UML2MetaModel"/>
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
-		<profile value="model/model-export/wcprofile.profile.uml"/>
+		<profile value="${model.dir}/model/model-export/model-export/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="pojo::Template::Root FOR model"/>
 	<outlet path="src-gen">
@@ -34,7 +32,7 @@ skipOnErrors="true">
 	</metaModel>
 	<metaModel class="oaw.uml2.UML2MetaModel"/>
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
-		<profile value="model/model-export/wcprofile.profile.uml"/>
+		<profile value="${model.dir}/model-export/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="jpagen::Root::gen FOR model"/>
 	<outlet path="src-gen">
@@ -42,7 +40,6 @@ skipOnErrors="true">
 		<vetoStrategy class="oaw.xpand2.output.NoChangesVetoStrategy"/>
 	</outlet>
 </component>
-	
 	
 
 	
