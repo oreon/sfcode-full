@@ -1,12 +1,32 @@
 «IMPORT wcprofile»
+
+
+
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
+«EXTENSION template::GeneratorExtensions»
+«EXTENSION template::associationExtensions»
 
 «DEFINE root FOR uml::Model»
-	«EXPAND javaClass FOREACH this.allOwnedElements().typeSelect(uml::Class)»
+	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
 
-«DEFINE javaClass FOR uml::Class»
-	«FILE name+ ".java"»
+«DEFINE PackageRoot FOR uml::Package»
+	«IF !excludeFromGeneration()»
+		«EXPAND PackageRoot FOREACH  eContents().typeSelect(uml::Package)»
+		«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Class)»
+		«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Interface)»
+		«EXPAND EnumGen FOREACH eContents().typeSelect(uml::Enumeration)»
+		«EXPAND GenPackageInfo FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE ClassRoot FOR uml::Class»
+ «IF name != null && package != null»
+	
+	«FILE packagePath() +"/" + name + "Base.java"»
+		
+		package « packageName() »;
+		«EXPAND genImports FOR this»
 	
 		«EXPAND genClassAnnotations FOR this»
 		«REM»comment«EXPAND genClassDocs FOR this» «ENDREM»
@@ -25,6 +45,7 @@
 			«ENDFOREACH»
 		}
 	«ENDFILE»
+ «ENDIF»
 «ENDDEFINE»
 
 
@@ -37,4 +58,32 @@
 «DEFINE genClassDocs FOR wcprofile::Entity»
 //this is entity docs
 «ENDDEFINE»
+
+
+
+«DEFINE GenPackageInfo FOR uml::Package»
+	«IF !name.startsWith("UML")»
+	
+	 «FILE packagePathPck() +"/package-info.java"  »
+		«EXPAND genFileHeader FOR this»
+		package «packageNamePck()»; 
+	 «ENDFILE»
+	
+	«ENDIF»
+«ENDDEFINE»
+
+
+
+
+«DEFINE genFileHeader FOR uml::Element»
+«ENDDEFINE»
+
+
+
+«DEFINE genImports FOR uml::Type»
+	import java.util.ArrayList;
+	import java.util.List;
+	import java.util.Date;
+«ENDDEFINE»
+
 
