@@ -3,15 +3,15 @@
 
 «EXTENSION template::GeneratorExtensions»
 
-«DEFINE Root FOR uml::Model»
-«EXPAND javaClass FOREACH this.allOwnedElements().typeSelect(uml::Class)»
+«DEFINE root FOR uml::Model»
+	«EXPAND javaClass FOREACH this.allOwnedElements().typeSelect(uml::Class)»
 «ENDDEFINE»
 
 «DEFINE javaClass FOR uml::Class»
 	«FILE name+".java"»
 	
 		«EXPAND genClassAnnotations FOR this»
-		/* DO NOT MODIFY  THIS FILE */
+		«EXPAND genClassDocs FOR this»
 		public class «name» {
 		
 			«FOREACH this.getAllAttributes() AS f»
@@ -30,6 +30,19 @@
 «ENDDEFINE»
 
 
-«DEFINE genClassAnnotations FOR uml::Class»
+«DEFINE genClassBody FOR wcprofile::Entity»
+	//this is entity 
+«ENDDEFINE»
 
+«DEFINE genClassAnnotations FOR uml::Class»
+//put entities here
+«ENDDEFINE»
+
+
+«DEFINE genClassDocs FOR wcprofile::Entity»
+//this is entity 
+«ENDDEFINE»
+
+«DEFINE genClassDocs FOR uml::Class»
+//put Docs  here
 «ENDDEFINE»
