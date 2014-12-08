@@ -1,0 +1,40 @@
+«IMPORT wcprofile»
+«EXTENSION org::openarchitectureware::uml2::profile::profiling»
+
+«DEFINE root FOR uml::Model»
+	«EXPAND javaClass FOREACH this.allOwnedElements().typeSelect(uml::Class)»
+«ENDDEFINE»
+
+«DEFINE javaClass FOR uml::Class»
+	«FILE name+ ".java"»
+	
+		«EXPAND genClassAnnotations FOR this»
+		«REM»comment«EXPAND genClassDocs FOR this» «ENDREM»
+		public class «name» {
+		
+			«FOREACH this.getAllAttributes() AS f»
+				private «f.type.name» «f.name»;
+				
+				public void set«f.name.toFirstUpper()» («f.type.name» «f.name») {
+					this.«f.name» = «f.name»;
+				}
+				
+				public «f.type.name» get«f.name.toFirstUpper()»() {
+					return «f.name»;
+				}
+			«ENDFOREACH»
+		}
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genClassAnnotations FOR uml::Class»
+	
+«ENDDEFINE»
+
+
+
+«DEFINE genClassDocs FOR wcprofile::Entity»
+//this is entity docs
+«ENDDEFINE»
+
