@@ -38,7 +38,7 @@ skipOnErrors="true">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::PreProcessor::Root FOR model"/>
-	<outlet path="${srcGenPath}/">
+	<outlet path="src-gen">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
 </component>
@@ -72,7 +72,9 @@ skipOnErrors="true">
 	<expand value="javagen::jpagen::jparoot::root FOR model"/>
 	<outlet path="src-gen">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+		<!--
 		<vetoStrategy class="oaw.xpand2.output.NoChangesVetoStrategy"/>
+		-->
 	</outlet>
 </component>
 	
