@@ -86,7 +86,7 @@ skipOnErrors="true">
 
 <component id="BeansGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
 	<metaModel class="oaw.type.emf.EmfMetaModel">
-	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+		<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
 	</metaModel>
 	<metaModel class="oaw.uml2.UML2MetaModel"/>
 	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
@@ -115,6 +115,25 @@ organizeImports="true" format="true"/>
  <component adviceTarget="BeansGenerator"  id="reflectionAdvice" class="oaw.xpand2.GeneratorAdvice">
       <advices value="template::advices"/>
  </component>
+ 
+ 
+ <component id="MyBeansGenerator" class="oaw.xpand2.Generator"
+skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<expand value="pojo::pojoroot::root FOR model"/>
+	<outlet path="src-gen">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+		<vetoStrategy class="oaw.xpand2.output.NoChangesVetoStrategy"/>
+	</outlet>
+</component>
+ 
+ 
 
 
 <component id="TestGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">

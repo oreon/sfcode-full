@@ -18,6 +18,18 @@
 «ENDAROUND»
 
 
+«AROUND javagen::pojo::pojoroot::genImports  FOR uml::Class»
+	«EXPAND genPersistenceImports FOR this»
+	«targetDef.proceed()»
+«ENDAROUND»
+
+
+«AROUND javagen::pojo::pojoroot::genBaseClassAnnotations  FOR uml::Class»
+	@MappedSuperclass
+	«targetDef.proceed()»
+«ENDAROUND»
+
+
 «AROUND javagen::pojo::pojoroot::genPropertyAnnotations FOR uml::Property»
 	«EXPAND genPropertyAnnotations FOR this»
 	«targetDef.proceed()»
@@ -44,6 +56,67 @@
 
 
 «DEFINE genPropertyAnnotations FOR uml::Property»
-	@OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL «IF isComposite()»,orphanRemoval=true«ENDIF»)
-	@OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"id DESC"«ENDIF»)
+	«IF !isAssoc()»
+		«EXPAND genSimplePropertyAnnotations FOR this»
+	«ELSE»
+		«EXPAND genAssocPropertyAnnotations FOR this»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genSimplePropertyAnnotations FOR uml::Property»
+	«type.name.getTypeAnnotation()»
+	«IF association == null»«getUniqueAnnotationsProp()»«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genAssocPropertyAnnotations FOR uml::Property»
+	«IF isMultivalued()»
+		«IF isManyToMany()»
+			«EXPAND genManyToMany FOR this»
+		«ELSE»
+			@OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL «IF isComposite()»,orphanRemoval=true«ENDIF»)
+			@OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"id DESC"«ENDIF»)			
+		«ENDIF»
+	«ELSE»	
+		@« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY «IF isOneOnOne()», cascade = CascadeType.ALL «ENDIF» )
+		«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = false , insertable = false «REM»«getAssocUpdatable()»  comment«ENDREM») «ENDIF»
+	«ENDIF»	
+«ENDDEFINE»
+
+
+«DEFINE genManyToMany FOR uml::Property»
+	«IF isLeadingManyToMany()»
+		@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	    @JoinTable(
+	        name="«opposite.name»_«name»",
+	        joinColumns=@JoinColumn(name="«opposite.name»_ID"),
+	        inverseJoinColumns=@JoinColumn(name="«name»_ID")
+	    )
+	«ELSE»
+	   @ManyToMany(mappedBy="«opposite.name»")
+	«ENDIF»
+«ENDDEFINE»
+
+
+
+«DEFINE genPersistenceImports FOR uml::Class»
+	import javax.persistence.*;	
+	import javax.validation.constraints.*;
+	import org.witchcraft.base.entity.FileAttachment;
+	import org.witchcraft.base.entity.BaseEntity;
+«ENDDEFINE»
+
+
+«DEFINE genDisplayname FOR uml::Class»
+	«IF !getAllAttributes().isEmpty»
+		@Transient
+	    public String getDisplayName(){
+	    	try {
+				return «getDisplayName()»;
+			} catch (Exception e) {
+				return "Exception - " + e.getMessage();
+			}
+	    }
+	«ENDIF»
 «ENDDEFINE»
