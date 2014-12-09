@@ -5,6 +5,8 @@
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::associationExtensions»
+«EXTENSION template::javaextensions»
+
 
 «DEFINE root FOR uml::Model»
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
@@ -78,7 +80,7 @@
 
 
 «DEFINE genPropertyAnnotations FOR uml::Property»
-	//kkkk
+	//pp
 «ENDDEFINE»
 
 
@@ -115,4 +117,17 @@
 	import java.util.Date;
 «ENDDEFINE»
 
+
+
+«DEFINE EnumGen FOR uml::Enumeration»
+	«FILE packagePath() + "/"+ name +".java"»  
+	package «packageName()»;
+	
+	public enum «name» {		
+		«FOREACH  ownedLiteral AS e»
+			«e.name»,
+		«ENDFOREACH»
+	} 
+	«ENDFILE»
+«ENDDEFINE»
 
