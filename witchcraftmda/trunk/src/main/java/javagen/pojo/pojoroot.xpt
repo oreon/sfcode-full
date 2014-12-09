@@ -31,7 +31,7 @@
 		«EXPAND genImports FOR this»
 	
 		«EXPAND genClassAnnotations FOR this»
-		«REM»comment«EXPAND genClassDocs FOR this» «ENDREM»
+		«EXPAND genClassDocs FOR this»
 		public class «name» «getParent()» «getInterfaces()»{
 		
 		 «EXPAND genDecl FOREACH getAllAttributes()»
@@ -71,8 +71,6 @@
 
 
 	
-	
-
 
 «DEFINE genClassAnnotations FOR uml::Class»
 	
@@ -80,7 +78,7 @@
 
 
 «DEFINE genPropertyAnnotations FOR uml::Property»
-	//pp
+	
 «ENDDEFINE»
 
 
@@ -90,17 +88,21 @@
 //this is entity docs
 «ENDDEFINE»
 
+«DEFINE genClassDocs FOR uml::Class»
+//simple class
+«ENDDEFINE»
+
 
 
 «DEFINE GenPackageInfo FOR uml::Package»
-	«IF !name.startsWith("UML")»
+ «IF !name.startsWith("UML")»
 	
 	 «FILE packagePathPck() +"/package-info.java"  »
 		«EXPAND genFileHeader FOR this»
 		package «packageNamePck()»; 
 	 «ENDFILE»
 	
-	«ENDIF»
+ «ENDIF»
 «ENDDEFINE»
 
 
