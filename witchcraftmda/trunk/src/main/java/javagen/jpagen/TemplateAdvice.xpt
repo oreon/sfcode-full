@@ -17,6 +17,12 @@
 «ENDAROUND»
 
 
+«AROUND javagen::pojo::pojoroot::genPropertyAnnotations FOR uml::Property»
+	«EXPAND genPropertyAnnotations FOR this»
+	«targetDef.proceed()»
+«ENDAROUND»
+
+
 
 «DEFINE genClassAnnotations FOR uml::Class»
 	//should not gen advice
@@ -36,3 +42,7 @@
 «ENDDEFINE»
 
 
+«DEFINE genPropertyAnnotations FOR uml::Property»
+	@OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL «IF isComposite()»,orphanRemoval=true«ENDIF»)
+	@OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"id DESC"«ENDIF»)
+«ENDDEFINE»

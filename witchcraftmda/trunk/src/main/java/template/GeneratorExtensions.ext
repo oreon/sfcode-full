@@ -24,6 +24,14 @@ isSeam2():
 isRich() || isJsf2Rich() || isPrimeSeam2();
 
 
+getCollectionBeginPartIfNeeded(uml::Property p):
+p.isMultivalued()?"List<":"";
+
+getCollectionEndPartIfNeeded(uml::Property p):
+p.isMultivalued()?">":"";
+
+
+
 
 print(String msg):
 JAVA org.witchcraft.generatorutil.ClassUtil.print(java.lang.String);

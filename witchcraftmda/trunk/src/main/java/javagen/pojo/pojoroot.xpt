@@ -30,28 +30,57 @@
 	
 		«EXPAND genClassAnnotations FOR this»
 		«REM»comment«EXPAND genClassDocs FOR this» «ENDREM»
-		public class «name» {
+		public class «name» «getParent()» «getInterfaces()»{
 		
-			«FOREACH this.getAllAttributes() AS f»
-				private «f.type.name» «f.name»;
-				
-				public void set«f.name.toFirstUpper()» («f.type.name» «f.name») {
-					this.«f.name» = «f.name»;
-				}
-				
-				public «f.type.name» get«f.name.toFirstUpper()»() {
-					return «f.name»;
-				}
-			«ENDFOREACH»
+		 «EXPAND genDecl FOREACH getAllAttributes()»
+
+		 «EXPAND genGetterSetter FOREACH getAllAttributes()»
+			
 		}
 	«ENDFILE»
  «ENDIF»
 «ENDDEFINE»
 
 
+
+«DEFINE genDecl FOR wcprofile::DerivedProperty»
+«ENDDEFINE»
+
+«DEFINE genDecl FOR wcprofile::DerivedFormula»
+«ENDDEFINE»
+
+
+«DEFINE genDecl FOR uml::Property»
+	«EXPAND genPropertyAnnotations FOR this»
+	protected «getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()» «name»; «REM»comment = new ArrayList<«type.fqnForPackage(this.class)»>();«ENDREM»
+«ENDDEFINE»
+
+
+«DEFINE genGetterSetter FOR uml::Property»
+	public void set«name.toFirstUpper()»(«getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()» «name»){
+		this.«name» = «name»;
+	}
+	
+	public «getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()»  get«name.toFirstUpper()»( ){
+		return «name»;
+	}
+«ENDDEFINE»
+
+
+
+	
+	
+
+
 «DEFINE genClassAnnotations FOR uml::Class»
 	
 «ENDDEFINE»
+
+
+«DEFINE genPropertyAnnotations FOR uml::Property»
+	//kkkk
+«ENDDEFINE»
+
 
 
 
