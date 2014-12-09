@@ -751,7 +751,7 @@ import org.hibernate.annotations.FilterDefs;
 		«IF association != null &&  !type.isEmbeddable()»
 			«REM»comment//«isOneOnOne()» unq «isUnique» opp is unq«opposite.isUnique» mult «isMultivalued()» opp mult «opposite.isMultivalued()» «opposite.isMultivalued() == null ? "unspec" : "spec-blank" » «ENDREM»
 			@« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY «IF isOneOnOne()», cascade = CascadeType.ALL «ENDIF» )
-			«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = «getAssocUpdatable()») «ENDIF»
+			«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = false , insertable = false «REM»«getAssocUpdatable()»  comment«ENDREM») «ENDIF»
     		«IF type.name != class.name  && class.isFullTextSearchable()»@ContainedIn«ENDIF»
 		«ENDIF» 
 		«IF type.isEmbeddable() || isContainedAssoc() || (isColumn()  && autocomplete)»
