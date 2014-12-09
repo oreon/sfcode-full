@@ -33,11 +33,14 @@
 		«EXPAND genClassDocs FOR this»
 		
 		«EXPAND genBaseClassAnnotations FOR this»
-		public class «name» «getParent()» «getInterfaces()»{
+		public class «name»Base «getParent()» «getInterfaces()»{
 		
 		 «EXPAND genDecl FOREACH getAllAttributes()»
 
 		 «EXPAND genGetterSetter FOREACH getAllAttributes()»
+		 
+		 
+		 «EXPAND genAdditionalMethods FOR this»
 			
 		}
 	«ENDFILE»
@@ -98,6 +101,7 @@
 	
 «ENDDEFINE»
 
+
 «DEFINE genBaseClassAnnotations FOR uml::Class»
 	
 «ENDDEFINE»
@@ -105,6 +109,10 @@
 
 «DEFINE genPropertyAnnotations FOR uml::Property»
 	
+«ENDDEFINE»
+
+
+«DEFINE genAdditionalMethods FOR uml::Class»
 «ENDDEFINE»
 
 
@@ -137,7 +145,7 @@
 
 
 
-«DEFINE genImports FOR uml::Type»
+«DEFINE genImports FOR uml::Class»
 	import java.util.ArrayList;
 	import java.util.List;
 	import java.util.Date;

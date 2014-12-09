@@ -36,6 +36,12 @@
 «ENDAROUND»
 
 
+«AROUND javagen::pojo::pojoroot::genAdditionalMethods  FOR uml::Class»
+	«EXPAND genDisplayname FOR this»
+	«targetDef.proceed()»
+«ENDAROUND»
+
+
 
 «DEFINE genClassAnnotations FOR uml::Class»
 	//should not gen advice
@@ -51,7 +57,7 @@
 
 
 «DEFINE genClassAnnotations FOR wcprofile::MappedSuperClass»
-	@MappedSuperclass
+	«EXPAND genAdditionalMethods FOR this»
 «ENDDEFINE»
 
 
@@ -105,6 +111,11 @@
 	import javax.validation.constraints.*;
 	import org.witchcraft.base.entity.FileAttachment;
 	import org.witchcraft.base.entity.BaseEntity;
+«ENDDEFINE»
+
+
+«DEFINE genAdditionalMethods FOR uml::Class»  
+	«EXPAND genDisplayname FOR this»
 «ENDDEFINE»
 
 
