@@ -25,7 +25,7 @@
 
 
 «AROUND javagen::pojo::pojoroot::genBaseClassAnnotations  FOR uml::Class»
-	@MappedSuperclass
+	«EXPAND genBaseClassAnnotations FOR this»
 	«targetDef.proceed()»
 «ENDAROUND»
 
@@ -43,6 +43,14 @@
 
 
 
+«DEFINE genBaseClassAnnotations FOR wcprofile::AbstractEntity»
+	@Mappedsuperclass
+«ENDDEFINE»
+
+«DEFINE genBaseClassAnnotations FOR uml::Class»
+	
+«ENDDEFINE»
+
 «DEFINE genClassAnnotations FOR uml::Class»
 	//should not gen advice
 «ENDDEFINE»
@@ -57,7 +65,7 @@
 
 
 «DEFINE genClassAnnotations FOR wcprofile::MappedSuperClass»
-	«EXPAND genAdditionalMethods FOR this»
+	@Mappedsuperclass
 «ENDDEFINE»
 
 
@@ -105,8 +113,11 @@
 «ENDDEFINE»
 
 
-
 «DEFINE genPersistenceImports FOR uml::Class»
+«ENDDEFINE»
+
+
+«DEFINE genPersistenceImports FOR wcprofile::Entity»
 	import javax.persistence.*;	
 	import javax.validation.constraints.*;
 	import org.witchcraft.base.entity.FileAttachment;
@@ -120,6 +131,11 @@
 
 
 «DEFINE genDisplayname FOR uml::Class»
+
+«ENDDEFINE»
+
+
+«DEFINE genDisplayname FOR wcprofile::AbstractEntity»
 	«IF !getAllAttributes().isEmpty»
 		@Transient
 	    public String getDisplayName(){
