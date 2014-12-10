@@ -359,7 +359,7 @@ getCartridge() == "RICH" ? "regex" : "regexp";
 
 
 String getLengthAnnotations(Column col):
-col.minLength > 0 ?"@Length(min=" + col.minLength + ")"  :"";
+col.minLength > 0 ?"@Size(min=" + col.minLength + ")"  :"";
 
 String getUniqueAnnotations(Column col):
 col.uniqueProperty == true  ||  col.type.name == "uniqueNameType" ?"//@Unique(entityName = " + "\"" + fqn(col.class) + "\"" + ", fieldName = " + "\"" + col.name + "\"" + ")":"";

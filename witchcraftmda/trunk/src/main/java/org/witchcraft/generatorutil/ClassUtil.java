@@ -118,11 +118,12 @@ public class ClassUtil {
 			mapTypes.put("DateTime", new String[] { "Date", "" });
 		}
 
+		//TODO maxsize should be configurable 
 		mapTypes.put("largeText", new String[] { "String", "@Lob" });
 		mapTypes.put("nameType", new String[] { "String",
-				"@NotNull @Length(min=1, max=250)" });
+				"@NotNull @Size(min=1, max=50)" });
 		mapTypes.put("uniqueNameType", new String[] { "String",
-				"@NotNull @Length(min=1, max=250)  " });
+				"@NotNull @Size(min=1, max=50)  " });
 		
 
 	}

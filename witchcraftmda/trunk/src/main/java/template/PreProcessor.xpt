@@ -14,6 +14,10 @@
 	«EXPAND massageEmbeddables FOREACH allOwnedElements().typeSelect(wcprofile::Embeddable) »
 	
 	
+	«REM»Make all properties columns for attributes of entities «ENDREM»
+	«EXPAND applyColumnStereoType(this) FOREACH allOwnedElements().typeSelect(wcprofile::AbstractEntity)»
+	
+	«REM»If all fields are marked mandatory «ENDREM»
 	«EXPAND applyRequired(this) FOREACH allOwnedElements().typeSelect(wcprofile::AbstractEntity)»
 	
 	
@@ -28,9 +32,16 @@
 «ENDDEFINE»
 
 
+«DEFINE applyColumnStereoType(uml::Model model) FOR wcprofile::AbstractEntity»
+	«IF c.getStereotypeApplications().isEmpty  »
+		«c.applyStereotype("wcprofile::Column")»
+	«ENDIF»
+«ENDDEFINE»
+
+
 «DEFINE applyRequired(uml::Model model) FOR wcprofile::AbstractEntity»
 	«IF readPropertyDef("allFieldsMandatory","false") == "true"»
-		«EXPAND ApplyColumnStereotype(model) FOREACH getAllAttributes()»
+		«EXPAND ApplyRequiredColStereotype(model) FOREACH getAllAttributes()»
 		«EXPAND setRequired(model) FOREACH getAllAttributes()»
 	«ENDIF»
 «ENDDEFINE»
@@ -61,15 +72,15 @@
 «ENDDEFINE»
 
 <!-- Make all fields notnull  -->
-«DEFINE ApplyColumnStereotype(uml::Model model) FOR uml::Property»
+«DEFINE ApplyRequiredColStereotype(uml::Model model) FOR uml::Property»
    «IF !( type.name == "nameType"  || type.name == "uniqueNameType"  || type.name == "Boolean") »
 	«FOREACH model.getAppliedProfile("wcprofile").ownedStereotype AS s»
 			«IF s.name == "Column"» «this.applyStereotype(s)»   «ENDIF»
 	«ENDFOREACH»
-	«ENDIF»
+  «ENDIF»
 «ENDDEFINE»
 
-«DEFINE ApplyColumnStereotype(uml::Model model) FOR wcprofile::Column»
+«DEFINE ApplyRequiredColStereotype(uml::Model model) FOR wcprofile::Column»
 «ENDDEFINE»
 
 «DEFINE setRequired(uml::Model model) FOR wcprofile::Column»

@@ -49,10 +49,9 @@
 	«FILE packagePath() +"/" +name+".java" man_path»
 		«EXPAND genFileHeader FOR this»
 		package « packageName() »;
-	
-		«REM»comment
+			
 		«EXPAND genImports FOR this»
-		«ENDREM»
+
 		«EXPAND genClassBodyMan FOR this»
 	«ENDFILE»
 	
@@ -91,6 +90,15 @@
 	public «getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()»  get«name.toFirstUpper()»( ){
 		return «name»;
 	}
+	
+	«IF isMultivalued()»
+	public void add«name.toFirstUpper().getSingular()» («type.fqnForPackage(this.class)» «name.getSingular()»){
+		«IF !isManyToMany()»
+		  «name.getSingular()».set«opposite.name.toFirstUpper()»((«class.name»)this);
+		«ENDIF»
+		this.«name».add(«name.getSingular()»);
+	}
+	«ENDIF»
 «ENDDEFINE»
 
 
@@ -134,14 +142,18 @@
 	
 	 «FILE packagePathPck() +"/package-info.java"  »
 		«EXPAND genFileHeader FOR this»
+		«EXPAND genPackageDetails FOR this»
 		package «packageNamePck()»; 
+		
 	 «ENDFILE»
 	
  «ENDIF»
 «ENDDEFINE»
 
 
+«DEFINE genPackageDetails FOR uml::Package»
 
+«ENDDEFINE»
 
 
 

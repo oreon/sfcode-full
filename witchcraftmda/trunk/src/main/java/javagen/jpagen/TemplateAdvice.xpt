@@ -43,8 +43,17 @@
 
 
 
+«AROUND javagen::pojo::pojoroot::genPackageDetails FOR uml::Package»
+	«EXPAND genPackageDetails FOR this»
+	«targetDef.proceed()»
+«ENDAROUND»
+
+
+
+
+
 «DEFINE genBaseClassAnnotations FOR wcprofile::AbstractEntity»
-	@Mappedsuperclass
+	@MappedSuperclass
 «ENDDEFINE»
 
 «DEFINE genBaseClassAnnotations FOR uml::Class»
@@ -57,6 +66,10 @@
 
 «DEFINE genClassAnnotations FOR wcprofile::Entity»
 	@Entity
+	@Table(name="«getTableName()»")
+	@Filters( {  @Filter(name = "archiveFilterDef") , 
+	«IF isMultiTenanted()»  @Filter(name = "tenantFilterDef")  «ENDIF»
+	})
 «ENDDEFINE»
 
 «DEFINE genClassAnnotations FOR wcprofile::Embeddable»
@@ -65,7 +78,7 @@
 
 
 «DEFINE genClassAnnotations FOR wcprofile::MappedSuperClass»
-	@Mappedsuperclass
+	@MappedSuperclass
 «ENDDEFINE»
 
 
@@ -80,7 +93,18 @@
 
 «DEFINE genSimplePropertyAnnotations FOR uml::Property»
 	«type.name.getTypeAnnotation()»
-	«IF association == null»«getUniqueAnnotationsProp()»«ENDIF»
+	«getUniqueAnnotationsProp()»
+«ENDDEFINE»
+
+
+«DEFINE genPropertyDecl FOR wcprofile::Column»
+	«getNotNullAnnotations()»
+	«IF validator != null »«getValidatorAnnotations()»«ENDIF»
+	«getLengthAnnotations()»
+	«getUniqueAnnotations()»
+	«getTransient()»
+	«type.name.getTypeAnnotation()»
+	«IF !isDerived()»«getColJpaAnnotations()» «ENDIF»
 «ENDDEFINE»
 
 
@@ -146,4 +170,25 @@
 			}
 	    }
 	«ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE genPackageDetails FOR wcprofile::EntitiesPackage»
+	
+	«IF isSeam2()»
+		@FilterDefs({
+		@FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", parameters = @ParamDef(name = "aArchived", type = "string")),
+		«IF isMultiTenanted()»
+			@FilterDef(name="tenantFilterDef", defaultCondition="(tenant is null or tenant = 0 or tenant = :tenantId  )", parameters=@ParamDef(name="tenantId", type="long"))
+		«ENDIF»
+		}) 
+	«ENDIF»
+	 
+	import org.hibernate.annotations.FilterDef;
+	import org.hibernate.annotations.ParamDef;
+	import org.hibernate.annotations.FilterDefs;
+	
+«ENDDEFINE»
+
+«DEFINE genPackageDetails FOR uml::Package»
 «ENDDEFINE»
