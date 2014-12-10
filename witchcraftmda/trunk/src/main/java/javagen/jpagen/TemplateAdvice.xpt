@@ -82,7 +82,7 @@
 «ENDDEFINE»
 
 
-«DEFINE genPropertyAnnotations FOR uml::Property»
+«DEFINE genPropertyAnnotations FOR wcprofile::Column»
 	«IF !isAssoc()»
 		«EXPAND genSimplePropertyAnnotations FOR this»
 	«ELSE»
@@ -91,17 +91,17 @@
 «ENDDEFINE»
 
 
-«DEFINE genSimplePropertyAnnotations FOR uml::Property»
-	«type.name.getTypeAnnotation()»
-	«getUniqueAnnotationsProp()»
+«DEFINE genPropertyAnnotations FOR uml::Property»
+
 «ENDDEFINE»
 
 
-«DEFINE genPropertyDecl FOR wcprofile::Column»
+«DEFINE genSimplePropertyAnnotations FOR wcprofile::Column»
 	«getNotNullAnnotations()»
 	«IF validator != null »«getValidatorAnnotations()»«ENDIF»
 	«getLengthAnnotations()»
 	«getUniqueAnnotations()»
+	«REM»«getUniqueAnnotationsProp()»«ENDREM»
 	«getTransient()»
 	«type.name.getTypeAnnotation()»
 	«IF !isDerived()»«getColJpaAnnotations()» «ENDIF»

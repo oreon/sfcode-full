@@ -33,9 +33,11 @@
 
 
 «DEFINE applyColumnStereoType(uml::Model model) FOR wcprofile::AbstractEntity»
-	«IF c.getStereotypeApplications().isEmpty  »
-		«c.applyStereotype("wcprofile::Column")»
-	«ENDIF»
+	«FOREACH getAllAttributes() AS c»
+		«IF c.getStereotypeApplications().isEmpty  »
+			«c.applyStereotype("wcprofile::Column")»
+		«ENDIF»
+	«ENDFOREACH»
 «ENDDEFINE»
 
 
