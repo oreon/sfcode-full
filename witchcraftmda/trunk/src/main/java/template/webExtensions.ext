@@ -183,9 +183,20 @@ else
 //get the parent class for a web action class - for classes that derive from non  mappedsuperclass parent , we need to return special class Abstract<Parent>Base	
 String getParentForAction(Class cls):
 if(cls.hasParent())  
- then (  cls.getFirstParentCls().isMappedSuperClass() ? cls.getFirstParentCls().getActionFqn() : cls.getFirstParentCls().getActionFqn("Abstract","") ) + cls.getGenericType(cls.getFirstParentCls()) 
+ then (   cls.getFirstParentCls().getActionFqn("Abstract","")  ) + cls.getGenericType(cls.getFirstParentCls()) 
 else 
 	"BaseAction<" +  cls.name + ">";
+
+
+
+//String getParentForAction(Class cls):
+//if(cls.hasParent())  
+// then (  cls.getFirstParentCls().isMappedSuperClass() ? cls.getFirstParentCls().getActionFqn() : cls.getFirstParentCls().getActionFqn("Abstract","") ) + cls.getGenericType(cls.getFirstParentCls()) 
+//else 
+//	"BaseAction<" +  cls.name + ">";
+
+
+
 
 	
 	
