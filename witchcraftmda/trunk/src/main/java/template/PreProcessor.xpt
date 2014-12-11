@@ -53,7 +53,7 @@
 
 «DEFINE applyRequired(uml::Model model) FOR wcprofile::AbstractEntity»
 	«IF readPropertyDef("allFieldsMandatory","false") == "true"»
-		«EXPAND ApplyRequiredColStereotype(model) FOREACH getAllAttributes()»
+		«EXPAND ApplyRequiredColStereotype FOREACH getAllAttributes()»
 		«EXPAND setRequired(model) FOREACH getAllAttributes()»
 	«ENDIF»
 «ENDDEFINE»
@@ -84,15 +84,13 @@
 «ENDDEFINE»
 
 <!-- Make all fields notnull  -->
-«DEFINE ApplyRequiredColStereotype(uml::Model model) FOR uml::Property»
+«DEFINE ApplyRequiredColStereotype FOR uml::Property»
    «IF !( type.name == "nameType"  || type.name == "uniqueNameType"  || type.name == "Boolean") »
-	«FOREACH model.getAppliedProfile("wcprofile").ownedStereotype AS s»
-			«IF s.name == "Column"» «this.applyStereotype(s)»   «ENDIF»
-	«ENDFOREACH»
+	«applyStereotype("wcprofile::Column")»
   «ENDIF»
 «ENDDEFINE»
 
-«DEFINE ApplyRequiredColStereotype(uml::Model model) FOR wcprofile::Column»
+«DEFINE ApplyRequiredColStereotype FOR wcprofile::Column»
 «ENDDEFINE»
 
 «DEFINE setRequired(uml::Model model) FOR wcprofile::Column»
