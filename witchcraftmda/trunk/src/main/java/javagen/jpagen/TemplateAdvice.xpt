@@ -45,7 +45,9 @@
 
 «AROUND javagen::pojo::pojoroot::genPackageDetails FOR uml::Package»
 	«EXPAND genPackageDetails FOR this»
+	«REM»
 	«targetDef.proceed()»
+	«ENDREM»
 «ENDAROUND»
 
 
@@ -92,7 +94,7 @@
 
 
 «DEFINE genPropertyAnnotations FOR uml::Property»
-
+	//simple
 «ENDDEFINE»
 
 
@@ -108,7 +110,7 @@
 «ENDDEFINE»
 
 
-«DEFINE genAssocPropertyAnnotations FOR uml::Property»
+«DEFINE genAssocPropertyAnnotations FOR wcprofile::Column»
 	«IF isMultivalued()»
 		«IF isManyToMany()»
 			«EXPAND genManyToMany FOR this»
@@ -141,11 +143,13 @@
 «ENDDEFINE»
 
 
-«DEFINE genPersistenceImports FOR wcprofile::Entity»
+«DEFINE genPersistenceImports FOR wcprofile::AbstractEntity»
 	import javax.persistence.*;	
 	import javax.validation.constraints.*;
 	import org.witchcraft.base.entity.FileAttachment;
 	import org.witchcraft.base.entity.BaseEntity;
+	import org.hibernate.annotations.Filter;
+	import org.hibernate.annotations.Filters;
 «ENDDEFINE»
 
 
@@ -174,7 +178,7 @@
 
 
 «DEFINE genPackageDetails FOR wcprofile::EntitiesPackage»
-	
+
 	«IF isSeam2()»
 		@FilterDefs({
 		@FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", parameters = @ParamDef(name = "aArchived", type = "string")),
@@ -183,6 +187,8 @@
 		«ENDIF»
 		}) 
 	«ENDIF»
+	 
+	package «packageNamePck()»;  
 	 
 	import org.hibernate.annotations.FilterDef;
 	import org.hibernate.annotations.ParamDef;

@@ -504,8 +504,8 @@ JAVA org.witchcraft.generatorutil.ClassUtil.getSwimlane(org.eclipse.uml2.uml.Act
  getColJpaAnnotations(Column col):
  col.association == null? "@Column(name = \"" +  (col.columnName != null ? col.columnName : col.name) +  "\"," + "unique=" + col.isUnq() + ")":"";
  
-getTableName(Entity entity):
-entity.tableName!=null?entity.tableName.toLowerCase():entity.name.toLowerCase();
+getTableName(wcprofile::Entity entity):
+entity.tableName!=null?entity.tableName:entity.name.toLowerCase();
 
 
 getQyeryTypeByReturnType(Operation op):
