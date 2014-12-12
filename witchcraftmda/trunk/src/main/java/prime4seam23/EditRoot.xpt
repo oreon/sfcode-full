@@ -126,10 +126,10 @@
          		
          		<h:form> 
 		      		<p:commandButton value="Create New" action="«a.type.getViewFile("edit")»" > 
-		      			<f:setPropertyActionListener target="#{«a.type.getAction()».instance.«a.opposite.name»}"
-							value="#{«getAction()».instance}" />
 						<f:setPropertyActionListener target="#{«a.type.getAction()».entityId}"
 							value="0" />
+						<f:setPropertyActionListener target="#{«a.type.getAction()».instance.«a.opposite.name»}"
+							value="#{«getAction()».instance}" />
 						<f:setPropertyActionListener target="#{«a.type.getAction()».fromView}"
 							value="#{view.viewId}" />
 						<s:conversationId />
@@ -137,7 +137,8 @@
 	      		
 			  		<p:commandButton value="Quick Create" update=":#{p:component('edit«a.type.name»Panel')}"  
 			          oncomplete="PF('edit«a.type.name»Dialog').show()"  actionListener="#{«a.type.getAction()».set«a.type.name»Id(0)}">
-						 <f:setPropertyActionListener target="#{«a.type.getAction()».«a.opposite.name»Id}" value="#{«getAction()».instance.id}" /> 	
+						 <f:setPropertyActionListener target="#{«a.type.getAction()».instance.«a.opposite.name»}"
+							value="#{«getAction()».instance}" />	
 			  		</p:commandButton>
 		    	</h:form>
 		    	

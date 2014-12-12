@@ -144,7 +144,6 @@
  «IF !name.startsWith("UML")»
 	
 	 «FILE packagePathPck() +"/package-info.java"  »
-		«EXPAND genFileHeader FOR this»
 		«EXPAND genPackageDetails FOR this»	
 	 «ENDFILE»
 	
@@ -153,6 +152,7 @@
 
 
 «DEFINE genPackageDetails FOR uml::Package»
+	«EXPAND genFileHeader FOR this»
 	package «packageNamePck()»;
 	«EXPAND genDocumentation FOR this»
 «ENDDEFINE»
@@ -184,7 +184,7 @@
 	«IF getDocumentation() != null»
 		/** 
 		* «getDocumentation()» 
-		*/
+		**/
 	«ENDIF»
 «ENDDEFINE»
 
