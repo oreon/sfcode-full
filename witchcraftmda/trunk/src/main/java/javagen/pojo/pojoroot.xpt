@@ -30,7 +30,7 @@
 		package « packageName() »;
 		«EXPAND genImports FOR this»
 	
-		«EXPAND genClassDocs FOR this»
+		«EXPAND genDocumentation FOR this»
 		
 		«EXPAND genBaseClassAnnotations FOR this»
 		public class «name»Base «getParent()» «getInterfaces()»{
@@ -51,6 +51,8 @@
 		package « packageName() »;
 			
 		«EXPAND genImports FOR this»
+		
+		«EXPAND genDocumentation FOR this»
 
 		«EXPAND genClassBodyMan FOR this»
 	«ENDFILE»
@@ -144,9 +146,6 @@
 	 «FILE packagePathPck() +"/package-info.java"  »
 		«EXPAND genFileHeader FOR this»
 		«EXPAND genPackageDetails FOR this»	
-		«EXPAND genDocumentation FOR this»	
-		package «packageNamePck()»; 
-		
 	 «ENDFILE»
 	
  «ENDIF»
@@ -154,7 +153,8 @@
 
 
 «DEFINE genPackageDetails FOR uml::Package»
-
+	package «packageNamePck()»;
+	«EXPAND genDocumentation FOR this»
 «ENDDEFINE»
 
 
@@ -181,8 +181,10 @@
 
 
 «DEFINE genDocumentation FOR uml::Element»
-	/** 
-	* «getDocumentation()» 
-	*/
+	«IF getDocumentation() != null»
+		/** 
+		* «getDocumentation()» 
+		*/
+	«ENDIF»
 «ENDDEFINE»
 
