@@ -116,6 +116,25 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		return getEntity();
 	}
 	
+	«REM»TODO make function«ENDREM»
+	«FOREACH getOutgoingAssociations() AS e-»
+	
+		public void set«e.name.toFirstUpper()»Id(Long id) {
+		   «IF !e.type.isAbstract»
+		   if(id != null && id > 0 )
+				getInstance().set«e.name.toFirstUpper()»(«e.name»Action.loadFromId(id));
+		   «ENDIF»
+		}
+	
+		public Long get«e.name.toFirstUpper()»Id() {
+			if (getInstance().get«e.name.toFirstUpper()»() != null)
+				return getInstance().get«e.name.toFirstUpper()»().getId();
+			return 0L;
+		}
+	
+	«ENDFOREACH»
+	
+	
 	
 	@Override
 	@Restrict("#{s:hasPermission('«asVar()»', 'edit')}")

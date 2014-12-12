@@ -45,9 +45,7 @@
 
 «AROUND javagen::pojo::pojoroot::genPackageDetails FOR uml::Package»
 	«EXPAND genPackageDetails FOR this»
-	«REM»
 	«targetDef.proceed()»
-	«ENDREM»
 «ENDAROUND»
 
 
@@ -83,7 +81,7 @@
 
 
 «DEFINE genPropertyAnnotations FOR wcprofile::Column»
-	«IF !isAssoc()»
+	«IF association == null»
 		«EXPAND genSimplePropertyAnnotations FOR this»
 	«ELSE»
 		«EXPAND genAssocPropertyAnnotations FOR this»
@@ -118,7 +116,7 @@
 		«ENDIF»
 	«ELSE»	
 		@« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY «IF isOneOnOne()», cascade = CascadeType.ALL «ENDIF» )
-		«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = false , insertable = false «REM»«getAssocUpdatable()»  comment«ENDREM») «ENDIF»
+		«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = true , insertable = true «REM»«getAssocUpdatable()»  comment«ENDREM») «ENDIF»
 	«ENDIF»	
 «ENDDEFINE»
 
@@ -178,22 +176,14 @@
 
 
 «DEFINE genPackageDetails FOR wcprofile::EntitiesPackage»
-
-	«IF isSeam2()»
-		@FilterDefs({
-		@FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", parameters = @ParamDef(name = "aArchived", type = "string")),
-		«IF isMultiTenanted()»
-			@FilterDef(name="tenantFilterDef", defaultCondition="(tenant is null or tenant = 0 or tenant = :tenantId  )", parameters=@ParamDef(name="tenantId", type="long"))
-		«ENDIF»
-		}) 
+	@org.hibernate.annotations.FilterDefs({
+	@org.hibernate.annotations.FilterDef(name = "archiveFilterDef", defaultCondition = "archived = :aArchived", parameters = @org.hibernate.annotations.ParamDef(name = "aArchived", type = "string")),
+	«IF isMultiTenanted()»
+		@org.hibernate.annotations.FilterDef(name="tenantFilterDef", defaultCondition="(tenant is null or tenant = 0 or tenant = :tenantId  )", parameters=@org.hibernate.annotations.ParamDef(name="tenantId", type="long"))
 	«ENDIF»
-	 
-	package «packageNamePck()»;  
-	 
-	import org.hibernate.annotations.FilterDef;
-	import org.hibernate.annotations.ParamDef;
-	import org.hibernate.annotations.FilterDefs;
+	}) 
 «ENDDEFINE»
 
 «DEFINE genPackageDetails FOR uml::Package»
+	
 «ENDDEFINE»
