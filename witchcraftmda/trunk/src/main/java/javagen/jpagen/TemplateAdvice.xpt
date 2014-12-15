@@ -68,6 +68,7 @@
 	@Filters( {  @Filter(name = "archiveFilterDef") , 
 	«IF isMultiTenanted()»  @Filter(name = "tenantFilterDef")  «ENDIF»
 	})
+	«IF auditable»@Audited«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genClassAnnotations FOR wcprofile::Embeddable»
@@ -90,7 +91,7 @@
 
 
 «DEFINE genPropertyAnnotations FOR uml::Property»
-	//simple
+	
 «ENDDEFINE»
 
 
