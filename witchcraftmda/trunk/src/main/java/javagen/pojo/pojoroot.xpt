@@ -99,6 +99,10 @@
 		«IF !isManyToMany()»
 		  «name.getSingular()».set«opposite.name.toFirstUpper()»((«class.name»)this);
 		«ENDIF»
+		if(«name» == null) {
+			«name» = new ArrayList<«type.fqn()»>();
+		}
+		
 		this.«name».add(«name.getSingular()»);
 	}
 	«ENDIF»
