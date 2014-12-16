@@ -73,8 +73,8 @@
 	   <h:form id="«asVar()»Form">
 		
 			<p:dataTable  var="_«asVar()»" value="#{records}"  id="«name.toFirstLower()»List"
-				paginator="true" lazy="true"  rows="10" 
-				 selectionMode="single" selection="#{«asVar()»Action.«asVar()»}" >
+				paginator="true" lazy="true"  rows="20" 
+				 selectionMode="single" selection="#{«asVar()»Action.«asVar()»}"  tableStyle="width:auto">
 				 
                     <p:ajax event="rowSelect" update=":#{p:component('edit«name»Panel')}"  
                           oncomplete="PF('edit«name»Dialog').show()"
@@ -101,7 +101,7 @@
 	</p:column>
 	<p:rowExpansion>
 		<ui:include src="«this.type.getComponentViewFile("miniList")»"  >
-			<ui:param name="records" value="#{_«class.asVar()».list«name.toFirstUpper()»}" />
+			<ui:param name="records" value="#{_«class.asVar()».«name»}" />
 			 <ui:param name="exclude«opposite.name.toFirstUpper()»" value="true"/>
         </ui:include>
 	</p:rowExpansion>

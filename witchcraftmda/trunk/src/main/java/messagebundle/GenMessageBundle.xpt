@@ -35,10 +35,10 @@
 
 «REM» Gen default messages for each attribute for an entity «ENDREM»
 «DEFINE genBundle(String localeName) FOR uml::Class»
-«name»=«localeName»«name»
-«name.toFirstLower()»=«name.toFirstLower()»
+	«name»=«localeName»«name»
+	«name.toFirstLower()»=«name.toFirstLower()»
 	«FOREACH getAllAttributes() AS a»
-«name.toFirstLower()»_«a.name»=«localeName»«a.name.getVariableNameForDisplay()-»
+		«name.toFirstLower()»_«a.name»=«localeName»«a.name.getVariableNameForDisplay()-»
 	«ENDFOREACH-»
 «ENDDEFINE»
 
