@@ -71,17 +71,14 @@
 
 
 
-«DEFINE genDecl FOR wcprofile::DerivedProperty»
-«ENDDEFINE»
 
-«DEFINE genDecl FOR wcprofile::DerivedFormula»
-«ENDDEFINE»
+
 
 
 «DEFINE genDecl FOR uml::Property»
 	«EXPAND genDocumentation FOR this»
 	«EXPAND genPropertyAnnotations FOR this»
-	protected «getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()» «name»; «REM»comment = new ArrayList<«type.fqnForPackage(this.class)»>();«ENDREM»
+	«visibility» «getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()» «name»; «REM»comment = new ArrayList<«type.fqnForPackage(this.class)»>();«ENDREM»
 «ENDDEFINE»
 
 
@@ -90,6 +87,7 @@
 		this.«name» = «name»;
 	}
 	
+	«EXPAND genPropertyGetterAnnotations FOR this»
 	public «getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()»  get«name.toFirstUpper()»( ){
 		return «name»;
 	}
@@ -108,6 +106,9 @@
 	«ENDIF»
 «ENDDEFINE»
 
+
+«DEFINE genPropertyGetterAnnotations FOR uml::Property»
+«ENDDEFINE»
 
 
 	
@@ -163,7 +164,7 @@
 
 
 
-«DEFINE genImports FOR uml::Class»
+«DEFINE genImports FOR uml::Element»
 	import java.util.ArrayList;
 	import java.util.List;
 	import java.util.Date;
@@ -185,10 +186,42 @@
 
 
 «DEFINE genDocumentation FOR uml::Element»
-	«IF getDocumentation() != null»
+	«IF getDocumentation() != null  && getDocumentation().length > 0 »
 		/** 
 		* «getDocumentation()» 
 		**/
 	«ENDIF»
 «ENDDEFINE»
+
+
+«DEFINE genOperation FOR uml::Operation»
+	/** 
+	 * «ownedComment.body»
+	 */
+	«visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («getParametersSignature()»){ 
+		«IF !isVoid()»
+			return null;
+		«ENDIF»
+	}
+«ENDDEFINE»
+
+
+«DEFINE ClassRoot FOR uml::Interface»
+	«FILE packagePath() +"/" +name+".java"»
+	«EXPAND genFileHeader FOR this»
+	package « packageName() »;
+	«EXPAND genImports»
+	
+	public interface «name» «parents().size > 0 ?" extends " + parents().get(0).name:""»{
+		 «EXPAND genOperationDecl FOREACH getAllOperations()»
+	}
+	«ENDFILE»
+«ENDDEFINE»
+
+
+
+«DEFINE genOperationDecl FOR uml::Operation»
+	«visibility» «getOpReturnType()» «name» («getParametersSignature()»);
+«ENDDEFINE»
+
 
