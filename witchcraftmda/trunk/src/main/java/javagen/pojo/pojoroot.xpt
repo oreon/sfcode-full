@@ -35,10 +35,7 @@
 		«EXPAND genBaseClassAnnotations FOR this»
 		public class «name»Base «getParent()» «getInterfaces()»{
 		
-		 «EXPAND genDecl FOREACH getAllAttributes()»
-
-		 «EXPAND genGetterSetter FOREACH getAllAttributes()»
-		 
+		«EXPAND genProperties FOR this»
 		 
 		 «EXPAND genAdditionalMethods FOR this»
 			
@@ -62,6 +59,8 @@
 «ENDDEFINE»
 
 
+
+
 «DEFINE genClassBodyMan FOR uml::Class»
 	«EXPAND genClassAnnotations FOR this»
 	public class «name» extends «name»Base implements java.io.Serializable {
@@ -73,6 +72,10 @@
 
 
 
+«DEFINE genProperties FOR uml::Class»
+	«EXPAND genDecl FOREACH getAllAttributes()»
+	«EXPAND genGetterSetter FOREACH getAllAttributes()»
+«ENDDEFINE»
 
 
 «DEFINE genDecl FOR uml::Property»
@@ -164,7 +167,17 @@
 
 
 
-«DEFINE genImports FOR uml::Element»
+«DEFINE genImports FOR uml::Class»
+	«EXPAND genImportsGeneric FOR this»
+«ENDDEFINE»
+
+
+«DEFINE genImports FOR uml::Interface»
+	«EXPAND genImportsGeneric FOR this»
+«ENDDEFINE»
+
+
+«DEFINE genImportsGeneric FOR uml::Element»
 	import java.util.ArrayList;
 	import java.util.List;
 	import java.util.Date;
@@ -221,7 +234,14 @@
 
 
 «DEFINE genOperationDecl FOR uml::Operation»
-	«visibility» «getOpReturnType()» «name» («getParametersSignature()»);
+	«visibility» «getOpReturnType()» «name» («EXPAND genParamSignature»);
+«ENDDEFINE»
+
+
+«DEFINE genParamSignature FOR uml::Operation-»  
+	«FOREACH ownedParameter.select( a |  a.name != ""  ) AS a  SEPARATOR ','-»
+	      «a.type.fqn()-» «a.name-»«REM» TODO - find a mechanism for generalizing many «ENDREM»
+	«ENDFOREACH-»
 «ENDDEFINE»
 
 

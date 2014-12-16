@@ -7,32 +7,26 @@
 
 
 «DEFINE root FOR uml::Model»
-	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
+	«EXPAND root FOREACH allOwnedElements().typeSelect(uml::Package)»
 «ENDDEFINE»
 
-«DEFINE PackageRoot FOR uml::Package»
-	«IF !excludeFromGeneration()»
-		
-		«EXPAND ClassRoot FOREACH eContents().typeSelect(uml::Class)»
-		
-	«ENDIF»
-«ENDDEFINE»
 
-«DEFINE ClassRoot FOR uml::Class»
+«DEFINE root FOR wcprofile::Service»
  «IF name != null && package != null»
 	
 	«FILE packagePath() +"/" + name + "Base.java"»
 		
 		package « packageName() »;
-		«EXPAND genImports FOR this»
+		«EXPAND javagen::pojo::pojoroot::genImports FOR this»
 	
 		«EXPAND javagen::pojo::pojoroot::genDocumentation FOR this»
 		
-		«EXPAND genBaseClassAnnotations FOR this»
+		«EXPAND javagen::pojo::pojoroot::genBaseClassAnnotations FOR this»
 		public class «name»Base «getParent()» «getInterfaces()»{
-	 
-		 «EXPAND genAdditionalMethods FOR this»
-		 
+			
+			«EXPAND javagen::pojo::pojoroot::genProperties FOR this»
+				
+			 «EXPAND genOperations FOR this»
 		}
 	«ENDFILE»
 	
@@ -49,8 +43,8 @@
 «ENDDEFINE»
 
 
-«DEFINE genClassBodyMan FOR uml::Class»
-	«EXPAND genClassAnnotations FOR this»
+«DEFINE genClassBodyMan FOR wcprofile::Service»
+	«EXPAND javagen::pojo::pojoroot::genClassAnnotations FOR this»
 	public class «name» extends «name»Base implements java.io.Serializable {
 		private static final long serialVersionUID = «serialver()»;
 	}
@@ -76,30 +70,27 @@
        * @return «type.name»
        */
       //@Restrict("#{s:hasPermission('«class.name»','«name»')}")
-      «visibility»  «EXPAND methodSignature("") FOR this-» {
-      		
-      		«IF ! ( ownedParameter.select( e | !e.isReturn() ).size == 0 )»
-	      		«EXPAND applyNonNullCheck FOR this»
-			«ENDIF»
+      «visibility» «getOpReturnType()» «getOpReturnTypeTemplateParam()»  «name» («EXPAND javagen::pojo::pojoroot::genParamSignature») {
       		 
-			«EXPAND applyConstaints FOREACH ownedParameter.select( e | !e.isReturn() )»
-			
-     		logger.info("starting «name» ......"  «IF ownedParameter.select( e | !e.isReturn() ).size > 0 » +  «ENDIF»
-     			«FOREACH ownedParameter.select( e | !e.isReturn() ) AS e  SEPARATOR '+" "+' -» «e.type.name == "List" ? e.name + ".size()  + \" entries\" ": e.name» «ENDFOREACH»  );
+			/*
+     		//logger.info("starting «name-» ......" + «EXPAND genParams-» );
+	        */
 	                
-            «IF !isVoid()» «EXPAND genParamSignature(true) FOR this» result = «ENDIF» do«name.toFirstUpper()»(«getParameters()»);
+            «IF !isVoid()» «getOpReturnType()» result = «ENDIF» do«name.toFirstUpper()»(«EXPAND genParams-»);
            
+           /*
            logger.info("finished «name» ....." «IF !isVoid()» + " returning - " + result«type.name == "List" ?  ".size()  + \" entries \" ": ""» «ENDIF»);
+           */
            «IF !isVoid()» return  result  ; «ENDIF» 
       }
      
       /**
        * «ownedComment.body»
        */
-      «IF readPropertyDef("generateAbstractMethods","true") == "true"»
-       	protected  abstract «EXPAND methodSignature("do") FOR this»  ;
+      «IF readPropertyDef("generateAbstractMethods","false") == "true"»
+       	protected  abstract  «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («EXPAND javagen::pojo::pojoroot::genParamSignature») ;
       «ELSE»
-      	protected «EXPAND methodSignature("do") FOR this»{
+      	protected «getOpReturnType()» «getOpReturnTypeTemplateParam()»  do«name.toFirstUpper()» («EXPAND javagen::pojo::pojoroot::genParamSignature»){
            «IF type != null» return null; «ENDIF»
       	}
       «ENDIF»
@@ -107,110 +98,19 @@
 
 
 «DEFINE methodSignature(String prefix) FOR uml::Operation-»
-       «IF isVoid()-» void «ELSE-» «EXPAND genParamSignature(true) FOR this» «ENDIF»  «prefix»«prefix != "" ? name.toFirstUpper() : name-» («EXPAND genParamSignature(false) FOR this-»)«EXPAND genExceptions FOR this»
+      
 «ENDDEFINE»
+
+
  
- 
-«DEFINE genParamSignature(boolean isret) FOR uml::Operation-»  
-«FOREACH ownedParameter.select( a | ( isret ? a.name == "" : a.name != "" ) ) AS a  SEPARATOR ','-»
-       «a.type.fqn()-» «REM» TODO - find a mechanism for generalizing many «ENDREM»
-      «FOREACH a.eContents().typeSelect(uml::Comment) AS c-»<«FOREACH c.annotatedElement AS e SEPARATOR ','-»«e.fqn()-»«ENDFOREACH-»> «ENDFOREACH-»
-      «a.name-»
-«ENDFOREACH-»
+
+
+ «DEFINE genParams FOR uml::Operation-»  
+	«FOREACH ownedParameter.select( a |  a.name != ""  ) AS a  SEPARATOR ','-»
+	     «a.name-»«REM» TODO - find a mechanism for generalizing many «ENDREM»
+	«ENDFOREACH-»
 «ENDDEFINE»
 
-«DEFINE applyConstaints FOR uml::Parameter»
-	«IF getAllConstraints().size > 0»
-	
-	«FOREACH getAllConstraints() AS c»
-		Preconditions.checkArgument(«c.specification.body.get(0).replaceAll(":self",name) »,
-			"«c.errorMessage != null ? c.errorMessage.replaceAll(":self",name) : "Invalid " + name»  %s ", «name»);
-	«ENDFOREACH»
-	
-	«ENDIF»
-«ENDDEFINE»
-
-
-«DEFINE genExceptions FOR uml::Operation-»
-	«IF raisedException.size > 0 -» throws «ENDIF» «FOREACH raisedException AS e SEPARATOR ',' » «e.fqn()-» «ENDFOREACH»
-«ENDDEFINE»
-	
-
-
-
-
-
-
-
-«DEFINE genBaseClassAnnotations FOR uml::Class»
-«ENDDEFINE»
-
-«DEFINE genClassAnnotations FOR uml::Class»
-«ENDDEFINE»
-
-
-
-
-
-
-«DEFINE genPropertyAnnotations FOR uml::Property»
-	
-«ENDDEFINE»
-
-
-«DEFINE genSimplePropertyAnnotations FOR wcprofile::Column»
-	«getNotNullAnnotations()»
-	«IF validator != null »«getValidatorAnnotations()»«ENDIF»
-	«getLengthAnnotations()»
-	«getUniqueAnnotations()»
-	«REM»«getUniqueAnnotationsProp()»«ENDREM»
-	«getTransient()»
-	«type.name.getTypeAnnotation()»
-	«IF !isDerived()»«getColJpaAnnotations()» «ENDIF»
-«ENDDEFINE»
-
-
-«DEFINE genAssocPropertyAnnotations FOR wcprofile::Column»
-	
-«ENDDEFINE»
-
-
-«DEFINE genManyToMany FOR uml::Property»
-	
-«ENDDEFINE»
-
-
-«DEFINE genImports FOR uml::Class»
-«ENDDEFINE»
-
-
-«DEFINE genPersistenceImports FOR wcprofile::AbstractEntity»
-	import javax.persistence.*;	
-	import org.witchcraft.base.entity.FileAttachment;
-	import org.witchcraft.base.entity.BaseEntity;
-	import org.hibernate.annotations.Filter;
-	import org.hibernate.annotations.Filters;
-	
-	import javax.validation.constraints.*;
-	
-	import java.math.BigDecimal;
-«ENDDEFINE»
-
-
-«DEFINE genAdditionalMethods FOR uml::Class»  
-	«EXPAND genDisplayname FOR this»
-«ENDDEFINE»
-
-
-«DEFINE genDisplayname FOR uml::Class»
-
-«ENDDEFINE»
-
-
-
-«DEFINE genPackageDetails FOR uml::Package»
-	
-«ENDDEFINE»
 
 
 
