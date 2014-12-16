@@ -81,6 +81,11 @@
 «ENDDEFINE»
 
 
+«DEFINE genPropertyAnnotations FOR wcprofile::DerivedProperty»
+	@Transient
+«ENDDEFINE»
+
+
 «DEFINE genPropertyAnnotations FOR wcprofile::Column»
 	«IF association == null»
 		«EXPAND genSimplePropertyAnnotations FOR this»
@@ -142,11 +147,12 @@
 
 «DEFINE genPersistenceImports FOR wcprofile::AbstractEntity»
 	import javax.persistence.*;	
-	import javax.validation.constraints.*;
 	import org.witchcraft.base.entity.FileAttachment;
 	import org.witchcraft.base.entity.BaseEntity;
 	import org.hibernate.annotations.Filter;
 	import org.hibernate.annotations.Filters;
+	
+	import javax.validation.constraints.*;
 	
 	import java.math.BigDecimal;
 «ENDDEFINE»

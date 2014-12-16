@@ -286,26 +286,14 @@ public class ClassUtil {
 	
 
 	public static String getParametersSignatureRest(Operation op, String type) {
-		op.getOwnedParameters();
-
+	
 		List<Parameter> params = op.getOwnedParameters();
-		// op.get
-		StringBuffer buffer = new StringBuffer();
+		
 		List<String> lstStrings = new ArrayList<String>();
-
-		Transition tr;
-
-		Element el;
-
-		// op.getEAnnotation(source);
 
 		for (int i = 0; i < params.size(); i++) {
 			Parameter param = params.get(i);
-			
-			//param.get
-			//param.getClientDependency("aa").get
-			String result = (String) xtendFacade.call("fqn",
-					new Object[] { param.getType() });
+			String result = (String) xtendFacade.call("fqn", new Object[] { param.getType() });
 			if (!StringUtils.isEmpty(param.getName()))
 				lstStrings.add("@" + type + "(" + "\"" + param.getName()
 						+ "\")" + " " + result + " " + param.getName());
