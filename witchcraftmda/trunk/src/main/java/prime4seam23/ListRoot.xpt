@@ -117,8 +117,7 @@
 «DEFINE genMiniTable FOR wcprofile::Entity»
  «FILE getWebPath() +"/miniList" +name+ "Component." + getExtension()»
  <ui:composition «EXPAND WebRoot::genIncludes-» >
- 	<p:commandButton type="button" onclick="jQuery('.ui-row-toggler').click()" value="Expand/Collapse" />
-	<p:dataTable var="_«name.toFirstLower()»" value="#{records}"  tableStyle="width:auto" expandedRow="true">
+	<p:dataTable var="_«name.toFirstLower()»" value="#{records}"  tableStyle="width:auto" >
 		«EXPAND genCoreColumns»
  	</p:dataTable>
  </ui:composition>
@@ -147,9 +146,9 @@
 	
 	</h:form>
 	<br/>
-		«IF templatable»
-		 <h:button value="Create Template" outcome="«getTemplateViewFileName("edit")»"/>
-		 «ENDIF»
+	«IF templatable»
+	 <h:button value="Create Template" outcome="«getTemplateViewFileName("edit")»"/>
+	 «ENDIF»
 «ENDDEFINE»
 
 
