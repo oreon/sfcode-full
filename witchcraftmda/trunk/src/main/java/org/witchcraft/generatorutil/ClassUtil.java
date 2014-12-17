@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.ActivityEdge;
 import org.eclipse.uml2.uml.ActivityFinalNode;
 import org.eclipse.uml2.uml.ActivityNode;
@@ -166,6 +167,9 @@ public class ClassUtil {
 		// currentEmbeddable.getName());
 		ClassUtil.currentEmbeddable = currentEmbeddable;
 		setCurrentEmbeddableName(currentEmbeddable.getName());
+		
+		
+		
 	}
 
 	public static void clearCurrentEmbeddable() {
