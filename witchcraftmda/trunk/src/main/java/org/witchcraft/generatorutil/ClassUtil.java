@@ -482,8 +482,9 @@ public class ClassUtil {
 
 	public static String getDisplayNameFromAttribs(Class cls) {
 		EList<Property> attribs = cls.getAllAttributes();
-
-		// //system.out.println("before first loop");
+		
+		//String firstProp = if( attribs.get(0).getName();
+		
 		for (Property property : attribs) {
 			if (property.getName().contains("name")
 					&& property.getAssociation() == null
@@ -500,7 +501,7 @@ public class ClassUtil {
 					return property.getName();
 			}
 		}
-		// //system.out.println("after second loop");
+	
 		// couldnt find any suitable display name
 		return attribs.get(0).getName() + "+ \"\"";
 	}
@@ -646,7 +647,8 @@ public class ClassUtil {
 	public static boolean isStringType(String name) {
 		return (name.equalsIgnoreCase("String")
 				|| name.equalsIgnoreCase("nameType") || name
-				.equalsIgnoreCase("uniqueNameType"));
+				.equalsIgnoreCase("uniqueNameType") ||  name
+				.equalsIgnoreCase("largeText"));
 	}
 
 	public static boolean isAggregate(Property prop) {
