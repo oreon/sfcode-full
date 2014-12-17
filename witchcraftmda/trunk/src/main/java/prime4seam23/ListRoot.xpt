@@ -28,16 +28,16 @@
 				
 			</ui:define>
 		</ui:composition>
-			«ENDFILE»
-			«EXPAND genViewComponent FOR this» 
-			«REM»comment
-			«EXPAND auditListRoot::genAuditLogComponent FOR this»
-			«ENDREM»
-			«EXPAND modelDlg::genModelDlgComponent FOR this»
-			
-			«EXPAND genArchivedFile FOR this»
-			
-			«EXPAND genMiniTable FOR this»
+		«ENDFILE»
+		«EXPAND genViewComponent FOR this» 
+		«REM»comment
+		«EXPAND auditListRoot::genAuditLogComponent FOR this»
+		«ENDREM»
+		«EXPAND modelDlg::genModelDlgComponent FOR this»
+		
+		«EXPAND genArchivedFile FOR this»
+		
+		«EXPAND genMiniTable FOR this»
 			
 «ENDDEFINE»
 		
@@ -100,11 +100,16 @@
 		<p:rowToggler />
 	</p:column>
 	<p:rowExpansion>
-		<ui:include src="«this.type.getComponentViewFile("miniList")»"  >
-			<ui:param name="records" value="#{_«class.asVar()».«name»}" />
-			 <ui:param name="exclude«opposite.name.toFirstUpper()»" value="true"/>
-        </ui:include>
+	«EXPAND genMiniTableInclude(true) FOR this»
 	</p:rowExpansion>
+«ENDDEFINE»
+
+
+«DEFINE genMiniTableInclude(boolean includeUnderScore) FOR uml::Property»
+	<ui:include src="«this.type.getComponentViewFile("miniList")»"  >
+		<ui:param name="records" value="#{«includeUnderScore?"_":""»«class.asVar()».«name»}" />
+		<ui:param name="exclude«opposite.name.toFirstUpper()»" value="true"/>
+    </ui:include>
 «ENDDEFINE»
 
 
@@ -112,7 +117,8 @@
 «DEFINE genMiniTable FOR wcprofile::Entity»
  «FILE getWebPath() +"/miniList" +name+ "Component." + getExtension()»
  <ui:composition «EXPAND WebRoot::genIncludes-» >
-	<p:dataTable var="_«name.toFirstLower()»" value="#{records}">
+ 	<p:commandButton type="button" onclick="jQuery('.ui-row-toggler').click()" value="Expand/Collapse" />
+	<p:dataTable var="_«name.toFirstLower()»" value="#{records}"  tableStyle="width:auto" expandedRow="true">
 		«EXPAND genCoreColumns»
  	</p:dataTable>
  </ui:composition>
@@ -124,6 +130,7 @@
 	«EXPAND genExpandRow FOREACH getComposed() -»
 	«EXPAND genAttribAsOutput FOR this-»
 	«EXPAND genPropsFromBusinessEntity FOR this-»
+	«EXPAND genLink ("edit", "edit.png")FOR this»
 «ENDDEFINE»
 
 «DEFINE genButtons FOR wcprofile::Entity»
@@ -273,6 +280,7 @@
             </span>
         </p:tooltip>
 	«ELSE»
+	 «REM»comment
 	  <p:overlayPanel for="«getSimpleId()»" showEvent="mouseover" hideEffect="fade" dynamic="false">
 	  	<h:form>
            <ui:include src="«type.getComponentViewFile("view")»"> 
@@ -283,6 +291,7 @@
            </ui:include>
         </h:form>
        </p:overlayPanel>
+       «ENDREM»
     «ENDIF»
 «ENDDEFINE»
 
@@ -365,7 +374,7 @@
 
 
 «DEFINE genId FOR uml::Class»
-	<p:column headerText="#{msg.id}" sortBy="#{«getCurrentEntity().asVar()».id}"  «EXPAND genPermission FOR 'id'»>
+	<p:column headerText="#{msg.«name»} #{msg.id}" sortBy="#{«getCurrentEntity().asVar()».id}"  «EXPAND genPermission FOR 'id'»>
 		<h:link outcome="«getViewFile('view')»"  rendered="#{s:hasPermission(_«asVar()», 'view')}" propagation="none">
 			<h:outputText    value="#{_«getCurrentEntity().asVar()».id}"  />
 			<f:param name="«asVar()»Id" value="#{_«asVar()».id}" />

@@ -264,9 +264,9 @@
 «REM»For multivalued attributes e.g. an order's order items«ENDREM»
 «DEFINE genTable FOR uml::Class»
 	«FOREACH allParents() AS e-»
-		«EXPAND gentEditableTable FOREACH e.getComposed() -»
+		«EXPAND genEditViewTable FOREACH e.getComposed() -»
 	«ENDFOREACH»
-	«EXPAND gentEditableTable FOREACH getComposed() -»
+	«EXPAND genEditViewTable FOREACH getComposed() -»
 «ENDDEFINE»
 
 
@@ -613,35 +613,47 @@
 «ENDDEFINE»
 
 
-
-«DEFINE gentEditableTable FOR uml::Property-»
-	
-	«IF !isColumn() || (isColumn() &&  systemModifyOnly == false) »
-	«setCurrentMultiMode(true)-»
-	<p:panel rendered="#{ ! exclude«name.toFirstUpper()» == true}" >
-	  <f:facet name="header"> 
-        <h:outputText value="#{msg.«name.toFirstUpper()»}"/> 
-      </f:facet>  
-	«IF isCurrentEditMode() && !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
-	<p:dataTable id="«name»" var="_«type.asVar()»" tableStyle="width:auto"
-		«IF !isCurrentEditMode()» 
-			rendered="#{ «class.getAction()».list«name.toFirstUpper()».size() > 0  and «genViewPermission()» }"
-			«ELSE»
-				rendered="#{«genEditPermission()»}"
-		 «ENDIF»
-				value="#{«class.getAction()».list«name.toFirstUpper()»}" rowIndexVar="rowIndex">
-		«setAsCurrentEntity(type)»
-		«EXPAND genAttribAsOutput FOR type-»
-		«IF isCurrentEditMode()  -»
-		 «IF !isPreloadedComposition()»
-		  «EXPAND genNew -»
-		  «EXPAND genDelete FOR this -»
-		 «ENDIF»
-		«ENDIF»	
-	</p:dataTable>
-	</p:panel>
-	«setCurrentMultiMode(false)-»
+«DEFINE genEditViewTable FOR uml::Property»
+	«IF isCurrentEditMode()»
+		«EXPAND genEditableTable FOR this»
+	«ELSE»
+		«EXPAND genViewTable FOR this»
 	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genViewTable FOR uml::Property»
+	<p:panel rendered="#{ ! exclude«name.toFirstUpper()» == true}" >
+		«EXPAND genTableHeader FOR this» 
+		«EXPAND ListRoot::genMiniTableInclude(false) FOR this»
+	</p:panel>
+«ENDDEFINE»
+
+«DEFINE genEditableTable FOR uml::Property-»
+	«IF !isColumn() || (isColumn() &&  systemModifyOnly == false) »
+		«setCurrentMultiMode(true)-»
+		<p:panel rendered="#{ ! exclude«name.toFirstUpper()» == true}" >
+		  «EXPAND genTableHeader FOR this»
+		«IF !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
+		<p:dataTable id="«name»" var="_«type.asVar()»" tableStyle="width:auto" rendered="#{«genEditPermission()»}"
+			value="#{«class.getAction()».list«name.toFirstUpper()»}" rowIndexVar="rowIndex">
+			«setAsCurrentEntity(type)»
+			«EXPAND genAttribAsOutput FOR type-»
+			
+			«IF !isPreloadedComposition()»
+			  «EXPAND genNew -»
+			  «EXPAND genDelete FOR this -»
+			«ENDIF»
+				
+		</p:dataTable>
+		</p:panel>
+		«setCurrentMultiMode(false)-»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE genTableHeader FOR uml::Property»
+	<f:facet name="header"> 
+		<h:outputText value="#{msg.«class.name.toFirstLower() + "_" + name»}"/> 
+	</f:facet>  
 «ENDDEFINE»
 
 «DEFINE genDelete FOR uml::Property»
