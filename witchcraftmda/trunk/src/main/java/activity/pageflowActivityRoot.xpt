@@ -8,9 +8,38 @@
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
+	«EXPAND PagesRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
+	«REM»comment
 	«EXPAND WorkflowActionRoot::StateMachineRoot FOREACH allOwnedElements().typeSelect(uml::Activity)»
+	«ENDREM»
 «ENDDEFINE»
 
+
+«DEFINE PagesRoot FOR uml::Activity»
+	«EXPAND genPage FOREACH allOwnedElements().typeSelect(uml::Action)»
+«ENDDEFINE»
+
+
+ «DEFINE genPage FOR uml::Action»
+  «FILE getActivityWebPath()»
+	<ui:composition «EXPAND prime4seam23::WebRoot::genIncludes FOR this»
+	 template = "«getTemplateName()»" >	
+		<ui:define name="content">
+		<!--
+		«FOREACH outgoing() AS a»
+		  <h:commandButton action="«a.name»" value="«a.name»" />	«ENDFOREACH»
+		-->
+		«REM»comment
+		«EXPAND genComp FOR this»
+		«ENDREM»
+		
+		«PROTECT CSTART '<!--' CEND '-->' ID  'USER_EDITABLE_RGN_' + activity.name + "_" + name»
+	
+		«ENDPROTECT»	
+		</ui:define> 
+	</ui:composition>
+ «ENDFILE»
+ «ENDDEFINE»
 
 
 
@@ -141,14 +170,20 @@
 
 
  «DEFINE gen FOR uml::ActivityFinalNode»
- 	<end-state name="«name != null? name.removeSpaces() : "endState" »"></end-state>
+ 	<end-state name="«name != null? name.removeSpaces() : "endState" »">
+ 		<redirect/>
+    	<end-conversation/>
+ 	</end-state>
  «ENDDEFINE»
  
-  «DEFINE gen FOR uml::FlowFinalNode»
- 	<end-state name="«name != null? name.removeSpaces() : "endState" »"></end-state>
+ «DEFINE gen FOR uml::FlowFinalNode»
+ 	<end-state name="«name != null? name.removeSpaces() : "endState" »">
+ 		<redirect/>
+    	<end-conversation/>
+ 	</end-state>
  «ENDDEFINE»
  
-   «DEFINE gen FOR uml::CentralBufferNode»
+ «DEFINE gen FOR uml::CentralBufferNode»
  	<end-state name="cbn"></end-state>
  «ENDDEFINE»
  
