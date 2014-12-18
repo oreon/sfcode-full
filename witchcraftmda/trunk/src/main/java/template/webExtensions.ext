@@ -260,6 +260,9 @@ readPropertyDef("adminRoot", "../webapp/admin/");
 String getStateWebPath(State st):
 "../webapp/" + st.containingStateMachine().name + "/" + st.name + "." + getExtension();
 
+String getActivityWebPath(Action st):
+"../webapp/" +  "/" + st.activity.name + "/" + st.name + "." + getExtension();
+
 getTaskFromWebPath(ActivityNode node):
 "../webapp/admin/tasks/taskForms/" + node.activity.name + "/" + node.name + "TaskForm." + getExtension();
 
@@ -286,6 +289,10 @@ if (vs.template != null ) then
 else if(vs.containingStateMachine().template != null) then 
 	vs.containingStateMachine().template
 else 
+  "/defaultTemplate/template." + getExtension();
+  
+  
+String getTemplateName(Action act):
   "/defaultTemplate/template." + getExtension();
 
 String getSimpleId(Property prop):
