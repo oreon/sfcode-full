@@ -263,8 +263,8 @@
 	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
 	<h:panelGroup>
 	<h:link id="«getSimpleId()»" «getEscape()»  value="#{«prefix»«genPropertyLabel()».displayName}"  outcome="«type.getViewFile("view")»" propagation="none">
-			<f:param name="«type.name.toFirstLower()»Id" value="#{«prefix»«genPropertyLabel()».id}" />
-			<f:param name="from" value="#{request.servletPath}" />
+		<f:param name="id" value="#{«prefix»«genPropertyLabel()».id}" />
+		<f:param name="from" value="#{request.servletPath}" />
 	</h:link>
 	«EXPAND genToolTip(prefix) FOR this»
     </h:panelGroup>
