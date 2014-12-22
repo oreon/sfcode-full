@@ -81,12 +81,12 @@
 «DEFINE genDecl FOR uml::Property»
 	«EXPAND genDocumentation FOR this»
 	«EXPAND genPropertyAnnotations FOR this»
-	«visibility» «getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()» «name» «EXPAND genNewNeeded FOR this»;
+	«visibility» «getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()» «name» «EXPAND genNewDeclaration FOR this»;
 «ENDDEFINE»
 
 
 «DEFINE genNewDeclaration FOR uml::Property»
-	«IF isMultiValued()» = new ArrayList<«type.fqnForPackage(this.class)»>()«ENDIF»
+	«IF isMultivalued()» = new ArrayList<«type.fqnForPackage(this.class)»>()«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genGetterSetter FOR uml::Property»

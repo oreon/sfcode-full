@@ -107,7 +107,7 @@
 		«ENDREM»
 	</page>
 	
-	 <page view-id="«e.getViewFile("view")»"  action="#{redirect.captureCurrentView()}">
+	 <page view-id="«e.getViewFile("view")»"  action="#{«e.asVar()»Action.onLoadView()}">
 	 	<!-- <description>View «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
 	 	<restrict>#{s:hasPermission('«e.name.toFirstLower()»', 'view')}</restrict>
 	 	<navigation> 
@@ -121,9 +121,10 @@
             </rule>			
 		</navigation>
 		<param name="«e.asVar()»Id" value="#{«e.asVar()»Action.«e.asVar()»Id}" />
+		<param name="id" value="#{«e.asVar()»Action.entityId}" />
 	</page>
 	
-	<page view-id="«e.getViewFile("list")»" action="#{redirect.captureCurrentView()}" >
+	<page view-id="«e.getViewFile("list")»" action="#{«e.asVar()»Action.onLoadEdit()}" >
 		<restrict>#{s:hasPermission('«e.name.toFirstLower()»', 'view')}</restrict>
 		<navigation>
 			<rule if-outcome="view«e.name»">
