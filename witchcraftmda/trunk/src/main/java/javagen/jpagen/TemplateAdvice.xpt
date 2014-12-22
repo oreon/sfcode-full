@@ -41,6 +41,19 @@
 	«targetDef.proceed()»
 «ENDAROUND»
 
+«AROUND javagen::pojo::pojoroot::genNewDeclaration  FOR uml::Property»
+	«EXPAND genNewDeclaration FOR this»
+	«targetDef.proceed()»
+«ENDAROUND»
+
+«DEFINE genNewDeclaration FOR uml::Property»
+	 
+«ENDDEFINE»
+
+«DEFINE genNewDeclaration FOR wcprofile::Embeddable»
+	 = new «type.fqnForPackage(this.class)»
+«ENDDEFINE»
+
 
 
 «AROUND javagen::pojo::pojoroot::genPackageDetails FOR uml::Package»
@@ -120,9 +133,13 @@
 			@OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL «IF isComposite()»,orphanRemoval=true«ENDIF»)
 			@OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"id DESC"«ENDIF»)			
 		«ENDIF»
-	«ELSE»	
-		@« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY «IF isOneOnOne()», cascade = CascadeType.ALL «ENDIF» )
-		«IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = true , insertable = true «REM»«getAssocUpdatable()»  comment«ENDREM») «ENDIF»
+	«ELSE»
+		«IF type.isEmbeddable() || isContainedAssoc()»
+		 «IF type.name != class.name && type.isEmbeddable() » «EXPAND EmbeddedAttributes FOR this»  «ENDIF»	
+		«ELSE»
+		 @« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY «IF isOneOnOne()», cascade = CascadeType.ALL «ENDIF» )
+		 «IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = true , insertable = true «REM»«getAssocUpdatable()»  comment«ENDREM») «ENDIF»
+		«ENDIF»
 	«ENDIF»	
 «ENDDEFINE»
 
@@ -138,6 +155,14 @@
 	«ELSE»
 	   @ManyToMany(mappedBy="«opposite.name»")
 	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE EmbeddedAttributes FOR uml::Property»
+	@AttributeOverrides( {
+	«FOREACH type.getAllAttributes() AS e ITERATOR iter»
+		@AttributeOverride(name="«e.name»", column = @Column(name="«name»_«e.name»") ) «IF iter.counter1 < type.getAllAttributes().size » , «ENDIF»
+	«ENDFOREACH»
+    } )
 «ENDDEFINE»
 
 
