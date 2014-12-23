@@ -764,11 +764,14 @@ import org.hibernate.annotations.FilterDefs;
 «ENDDEFINE»
 
 «DEFINE EmbeddedAttributes FOR uml::Property»
+	@Embedded
+	«REM» 
 	@AttributeOverrides( {
 	«FOREACH type.getAllAttributes() AS e ITERATOR iter»
 		@AttributeOverride(name="«e.name»", column = @Column(name="«name»_«e.name»") ) «IF iter.counter1 < type.getAllAttributes().size » , «ENDIF»
 	«ENDFOREACH»
     } )
+    «ENDREM»
 «ENDDEFINE»
 
 «DEFINE genPropertyDecl FOR uml::Property»

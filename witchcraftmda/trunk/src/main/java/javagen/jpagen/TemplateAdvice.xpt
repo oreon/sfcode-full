@@ -62,6 +62,21 @@
 «ENDAROUND»
 
 
+«AROUND javagen::pojo::pojoroot::initGetter FOR uml::Property»
+	«EXPAND initGetter FOR this»
+	«targetDef.proceed()»
+«ENDAROUND»
+
+
+«DEFINE initGetter FOR uml::Property»
+«ENDDEFINE»
+
+
+«DEFINE initGetter FOR wcprofile::Embeddable»
+	if(«name» == null{
+		«name» = new «type.fqn()»();
+	}
+«ENDDEFINE»
 
 
 
@@ -135,7 +150,7 @@
 		«ENDIF»
 	«ELSE»
 		«IF type.isEmbeddable() || isContainedAssoc()»
-		 «IF type.name != class.name && type.isEmbeddable() » «EXPAND EmbeddedAttributes FOR this»  «ENDIF»	
+		 «IF type.name != class.name && type.isEmbeddable() »  «EXPAND EmbeddedAttributes FOR this»  «ENDIF»	
 		«ELSE»
 		 @« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY «IF isOneOnOne()», cascade = CascadeType.ALL «ENDIF» )
 		 «IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = true , insertable = true «REM»«getAssocUpdatable()»  comment«ENDREM») «ENDIF»
