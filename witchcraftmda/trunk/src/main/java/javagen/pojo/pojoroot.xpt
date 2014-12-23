@@ -96,6 +96,7 @@
 	
 	«EXPAND genPropertyGetterAnnotations FOR this»
 	public «getCollectionBeginPartIfNeeded()»«type.fqnForPackage(this.class)»«getCollectionEndPartIfNeeded()»  get«name.toFirstUpper()»( ){
+		«EXPAND initGetter FOR this»
 		return «name»;
 	}
 	
@@ -124,15 +125,14 @@
 «ENDDEFINE»
 
 
-	
+«DEFINE initGetter FOR uml::Property»
+«ENDDEFINE»
 
 «DEFINE genClassAnnotations FOR uml::Class»
-	
 «ENDDEFINE»
 
 
 «DEFINE genBaseClassAnnotations FOR uml::Class»
-	
 «ENDDEFINE»
 
 
