@@ -8,7 +8,8 @@
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND BaseGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
-	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)» 
+	«EXPAND ManualGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
+	«EXPAND AnalyticsGen FOREACH allOwnedElements().typeSelect(wcprofile::Entity)» 
 «ENDDEFINE»
 
 
@@ -23,6 +24,35 @@ public class «name»ListQuery extends «name»ListQueryBase implements java.io.Seri
 	
 }
 «ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE AnalyticsGen FOR wcprofile::Entity»
+	«FILE getWebPackagePath("AnalyticsView")  man_path »
+		package « getWebPackageName() »;
+		/* CAN BE MODIFIED - GENERATED ONCE */
+		«EXPAND genImports FOR this»	
+		
+		@Name("«asVar()»AnalyticsView")
+		@Scope(ScopeType.PAGE)
+		public class «name»AnalyticsView extends org.witchcraft.seam.action.BaseAnalyticsViewBean implements java.io.Serializable{
+		
+			private String[] groupByFlds = {«groupByFields» };
+
+			@Override
+			public String[] getGroupByFlds() {
+				return groupByFlds;
+			}
+		
+		
+			@Override
+			public String getEntityName() {
+				
+				return "«name»";
+			}
+			
+		}
+	«ENDFILE»
 «ENDDEFINE»
 
 
