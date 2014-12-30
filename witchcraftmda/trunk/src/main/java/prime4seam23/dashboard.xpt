@@ -6,64 +6,27 @@
 «EXTENSION template::associationExtensions»
 
 
-«DEFINE genGroups FOR wcprofile::Entity»
-
-	«FILE getWebPath() +"/" + "dashBoard" + name + "Component." + getExtension()»
-	<ui:composition «EXPAND WebRoot::genIncludes-» >
-	  
-		<h:panelGrid columns="1" styleClass="summarywrap">
-		«FOREACH getMultiValued() AS e»
-			<p:panel id="pnl«e.name.toFirstUpper()»" header="«e.name.toFirstUpper()»" toggleable="true" closable="true" >
-				<h:panelGrid columns="2">
-			
-					<p:pieChart value="#{«name.toFirstLower()»List.resultList}" var="dep"
-						categoryField="#{dep.displayName}" dataField="#{dep.«e.name»Count}" />
-		
-					<p:barChart value="#{«name.toFirstLower()»List.resultList}" var="dep" yfield="#{dep.displayName}">
-						<p:chartSeries label="Incidents" value="#{dep.«e.name»Count}" />
-					
-				</p:barChart>
-				
-				</h:panelGrid>
-			</p:panel>
-		«ENDFOREACH»
-		</h:panelGrid>
-	</ui:composition>
-	«ENDFILE»
+«DEFINE gen FOR wcprofile::Entity»
+	«EXPAND genViewFile FOR this»
 «ENDDEFINE»
 
 
 
-«DEFINE gen FOR uml::Class»
-
-	«FILE getWebPath() +"/" + "dashBoard" + name + "Component." + getExtension()»
-	<ui:composition «EXPAND WebRoot::genIncludes-» >
-	  
-		<h:panelGrid columns="1" styleClass="summarywrap">
-		«FOREACH getMultiValued() AS e»
-			<p:panel id="pnl«e.name.toFirstUpper()»" header="«e.name.toFirstUpper()»" toggleable="true" closable="true" >
-				<h:panelGrid columns="2">
-			
-					<p:pieChart value="#{«name.toFirstLower()»List.resultList}" var="dep"
-						categoryField="#{dep.displayName}" dataField="#{dep.«e.name»Count}" />
-		
-					<p:barChart value="#{«name.toFirstLower()»List.resultList}" var="dep" yfield="#{dep.displayName}">
-						<p:chartSeries label="Incidents" value="#{dep.«e.name»Count}" />
-					
-				</p:barChart>
-				
-				</h:panelGrid>
-			</p:panel>
-		«ENDFOREACH»
-		</h:panelGrid>
-	</ui:composition>
-	«ENDFILE»
-«ENDDEFINE»
-
-
-«DEFINE genEditFile FOR uml::Class»
-«FILE getWebPath() +"/" + "dashBoard" + name + "." + getExtension()»
+«DEFINE genViewFile FOR wcprofile::Entity»
+«FILE getWebPath() +"/" + "dashBoard" + name + "." + getExtension()  man_path»
+<!-- This file is generated once  -->
 <ui:composition «EXPAND WebRoot::genIncludes-» >
+  
+  <ui:define name="content">
+
+		<ui:include
+			src="/common/components/dashBoardComponent.xhtml">
+			<ui:param name="viewBean" value="#{«asVar()»AnalyticsView}" />
+		</ui:include>	
+
+
+	</ui:define>
+  
   
 </ui:composition>
 «ENDFILE»
