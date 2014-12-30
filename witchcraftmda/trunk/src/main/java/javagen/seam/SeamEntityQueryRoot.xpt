@@ -28,7 +28,7 @@ public class «name»ListQuery extends «name»ListQueryBase implements java.io.Seri
 
 
 «DEFINE AnalyticsGen FOR wcprofile::Entity»
-	«FILE getWebPackagePath("AnalyticsView")  man_path »
+	«FILE getWebPackagePath("AnalyticsView")   »
 		package « getWebPackageName() »;
 		/* CAN BE MODIFIED - GENERATED ONCE */
 		«EXPAND genImports FOR this»	
@@ -37,7 +37,13 @@ public class «name»ListQuery extends «name»ListQueryBase implements java.io.Seri
 		@Scope(ScopeType.PAGE)
 		public class «name»AnalyticsView extends org.witchcraft.seam.action.BaseAnalyticsViewBean implements java.io.Serializable{
 		
-			private String[] groupByFlds = {«groupByFields» };
+			private String[] groupByFlds = { 
+			
+			«IF groupByFields != null» 
+				«FOREACH groupByFields.getAsList() AS e SEPARATOR "," »
+				"«e»"
+				«ENDFOREACH»
+			«ENDIF»   };
 
 			@Override
 			public String[] getGroupByFlds() {
@@ -53,6 +59,10 @@ public class «name»ListQuery extends «name»ListQueryBase implements java.io.Seri
 			
 		}
 	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE definionName FOR Type»
 «ENDDEFINE»
 
 
