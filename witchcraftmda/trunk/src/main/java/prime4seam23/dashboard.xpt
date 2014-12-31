@@ -15,18 +15,16 @@
 «DEFINE genViewFile FOR wcprofile::Entity»
 «FILE getWebPath() +"/" + "dashBoard" + name + "." + getExtension()  »
 <!-- This file is generated once  -->
-<ui:composition «EXPAND WebRoot::genIncludes-» >
+<ui:composition «EXPAND WebRoot::genIncludes-» template="/admin/template.xhtml">
   
   <ui:define name="content">
-
+  
 		<ui:include src="/common/components/dashboardComponent.xhtml">
 			<ui:param name="viewBean" value="#{«asVar()»AnalyticsView}" />
 		</ui:include>	
 
-
 	</ui:define>
-  
-  
+
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
