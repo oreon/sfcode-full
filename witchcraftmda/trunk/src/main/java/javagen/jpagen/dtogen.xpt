@@ -33,7 +33,7 @@
 
 
 «DEFINE genClassBodyExt(String ext) FOR uml::Class»
-	public class «name»«ext» «getParentWithExt("dto")» «getInterfaces()»{
+	public class «name»«ext» «EXPAND genClassPrtName(ext) FOR this» «getInterfaces()»{
 		«EXPAND genDecl(ext) FOREACH getAllAttributes() »
 		«EXPAND genGetterListter(ext) FOREACH getAllAttributes() »
 		«REM»comment
@@ -41,6 +41,15 @@
 		«ENDREM»
 	}
 «ENDDEFINE»
+
+«DEFINE genClassPrtName(String ext) FOR uml::Class»
+	 extends «getParentNameWithExt(ext) != "" ? getParentNameWithExt(ext) : "BaseDto" »
+«ENDDEFINE»
+
+«DEFINE genClassPrtName(String ext) FOR wcprofile::Embeddable»
+	 «getParentNameWithExt(ext) != "" ? " extends " +  getParentNameWithExt(ext) : "" »
+«ENDDEFINE»
+
 
 
 
