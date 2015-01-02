@@ -92,9 +92,12 @@ String fqn (Type cls) :
 fqn(cls, "");
 
 String fqn (Type cls, String ext) :
-( packageName(cls) != "" ? packageName(cls) + "." + ext +  "." + cls.name : cls.name) + ext;
+packageName(cls) != "" ? packageName(cls) + "." +  ifNotBlank(ext, ext.toLowerCase() + ".")  + cls.name : cls.name + ext;
 
 
+
+String ifNotBlank(String arg, String argExt):
+arg != "" ? argExt : "";
 
 String fqnPackage (Type cls, String package) :
 packageName(cls) + "." +  (package != "" ? package + "." : "") + cls.name;
@@ -236,9 +239,6 @@ JAVA org.witchcraft.generatorutil.ClassUtil.removeSpaces(java.lang.String);
 
 String getParent(Class cls):
 getParentName(cls);
-
-String getParentWithExt():
-;
 
 
 //get the parent
