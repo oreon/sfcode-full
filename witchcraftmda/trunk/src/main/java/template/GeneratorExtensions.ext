@@ -89,7 +89,10 @@ str.replaceAll("::|\\.", "/");
 
 //fully qualified name of a class
 String fqn (Type cls) :
-packageName(cls) != "" ? packageName(cls) + "." + cls.name : cls.name;
+fqn(cls, "");
+
+String fqn (Type cls, String ext) :
+( packageName(cls) != "" ? packageName(cls) + "." + ext +  "." + cls.name : cls.name) + ext;
 
 
 
@@ -229,14 +232,29 @@ JAVA org.witchcraft.generatorutil.ClassUtil.removeSpaces(java.lang.String);
 
 
 
-//get the parent
-String getParent(Entity cls):
-getExtensionKeyword() + ( cls.parents().size > 0 ? cls.parents().get(0).fqn():" BaseEntity ");
+
+
+String getParent(Class cls):
+getParentName(cls);
+
+String getParentWithExt():
+;
+
 
 //get the parent
-String getParent(MappedSuperClass cls):
-getExtensionKeyword() + ( cls.parents().size > 0 ? cls.parents().get(0).name:" BaseEntity ");
+String getParent(Class cls, String defaultPrt):
+getExtensionKeyword() + " " + ( getParentName(cls) != "" ? getParentName(cls):  defaultPrt);
 
+
+String getParentNameWithExt(Class cls, String ext):
+cls.parents().size > 0 ? cls.parents().get(0).fqn(ext) :"";
+
+
+String getParentName(Class cls):
+cls.parents().size > 0 ? cls.parents().get(0).fqn():"";
+
+
+//TODO: remove - 
 String getExtensionKeyword():
 if( getCurrentCartridge() == "DOT_NET" ) then
 	":"
