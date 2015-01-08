@@ -55,11 +55,13 @@
 
 «DEFINE genDecl(String ext) FOR uml::Property»
 	«IF isMultivalued()»
+		«LET type.fqnForPackage(this.class, ext.toFirstLower()) + ext AS typeName»
+		
 		«IF association != null»
-		private List<«type.fqnForPackage(this.class)»«ext»> «name»«ext» = new ArrayList<«type.fqnForPackage(this.class)»«ext»>();
-		«ELSE»
-		private List<«type.fqnForPackage(this.class)»> «name» = new ArrayList<«type.fqnForPackage(this.class)»>();
+		private List<«typeName»> «name»«ext» = new ArrayList<«typeName»>();
 		«ENDIF»
+		
+		«ENDLET»
 	«ELSE»
 		«EXPAND genPropertyDecl(ext) FOR this»
 	«ENDIF»
@@ -95,7 +97,7 @@
 		}
 		
 		public «ptype» get«pnameu»( ){
-			return «isColumn() && derivedProperty != null ? derivedProperty :  pname»;
+			return «pname»;
 		}
 	«ENDIF»
 	

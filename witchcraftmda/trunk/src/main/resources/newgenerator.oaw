@@ -23,9 +23,9 @@
 	<abortOnError value="true" />
 </component>
 
-<!--
+
 <component id="dirCleaner" class="oaw.workflow.common.DirectoryCleaner" directories="${srcGenPath}"/>
--->
+
 
 <component id="PreProcessor" class="oaw.xpand2.Generator"
 skipOnErrors="true">
@@ -52,7 +52,7 @@ skipOnErrors="true">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="javagen::pojo::pojoroot::root FOR model"/>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false"  >
+	<outlet name="man_path" path="${manGenPath}/" overwrite="false"  >
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<vetoStrategy class="oaw.xpand2.output.NoChangesVetoStrategy"/>
 	</outlet>
@@ -75,7 +75,7 @@ skipOnErrors="true">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="javagen::services::servicesroot::root FOREACH model.allOwnedElements().typeSelect(wcprofile::Service)"/>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false"  >
+	<outlet name="man_path" path="${manGenPath}/" overwrite="false"  >
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<vetoStrategy class="oaw.xpand2.output.NoChangesVetoStrategy"/>
 	</outlet>
@@ -109,7 +109,7 @@ skipOnErrors="true">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<vetoStrategy class="oaw.xpand2.output.NoChangesVetoStrategy"/>
 	</outlet>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false">
+	<outlet name="man_path" path="${manGenPath}/" overwrite="false">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<vetoStrategy class="oaw.xpand2.output.NoChangesVetoStrategy"/>
 	</outlet>
@@ -134,7 +134,7 @@ skipOnErrors="true">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="messagebundle::GenMessageBundle::Root FOR model"/>
-	<outlet path="${srcGenPath}/">
+	<outlet path="${manGenPath}/">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
 </component>
@@ -154,7 +154,7 @@ skipOnErrors="true">
 	<prExcludes value="*.svn-base, *.svn"/>
 	<prDefaultExcludes value="false"/>
 	<expand value="javagen::seam::SeamActionRoot::Root FOR model"/>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false">
+	<outlet name="man_path" path="${manGenPath}/" overwrite="false">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter"  />
 	</outlet>
@@ -166,7 +166,7 @@ skipOnErrors="true">
 
 
 
-
+<!--
 <component id="SeamRestEasyGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
 	<metaModel class="oaw.type.emf.EmfMetaModel">
 	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
@@ -179,13 +179,13 @@ skipOnErrors="true">
 	<prExcludes value="*.svn-base, *.svn"/>
 	<prDefaultExcludes value="false"/>
 	<expand value="seam::RestEasyGen::Root FOR model"/>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<outlet name="man_path" path="${manGenPath}/" overwrite="false" />
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter"  />
 	</outlet>
 </component>
-
+-->
 
 
 
@@ -201,7 +201,7 @@ skipOnErrors="true">
 	<prExcludes value="*.svn-base, *.svn"/>
 	<prDefaultExcludes value="false"/>
 	<expand value="prime4seam23::WebRoot::Root FOR model"/>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<outlet name="man_path" path="${manGenPath}/" overwrite="false" />
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" fileExtensions=".xhtml" />
@@ -222,7 +222,7 @@ skipOnErrors="true">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="activity::pageflowActivityRoot::Root FOR model"/>
-	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
+	<outlet name="man_path" path="${manGenPath}/" overwrite="false" />
 	<outlet path="${srcGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" />
