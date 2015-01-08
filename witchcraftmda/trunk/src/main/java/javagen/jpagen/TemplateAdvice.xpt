@@ -173,11 +173,14 @@
 «ENDDEFINE»
 
 «DEFINE EmbeddedAttributes FOR uml::Property»
+	@Embedded
+	«REM»comment
 	@AttributeOverrides( {
 	«FOREACH type.getAllAttributes() AS e ITERATOR iter»
 		@AttributeOverride(name="«e.name»", column = @Column(name="«name»_«e.name»") ) «IF iter.counter1 < type.getAllAttributes().size » , «ENDIF»
 	«ENDFOREACH»
     } )
+    «ENDREM»
 «ENDDEFINE»
 
 
