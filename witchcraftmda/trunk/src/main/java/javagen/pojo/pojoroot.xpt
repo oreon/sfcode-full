@@ -161,7 +161,7 @@
 «DEFINE GenPackageInfo FOR uml::Package»
  «IF !name.startsWith("UML")»
 	
-	 «FILE packagePathPck() +"/package-info.java"  »
+	 «FILE packagePathPck() + "/package-info.java" man_path»
 		«EXPAND genPackageDetails FOR this»	
 	 «ENDFILE»
 	
@@ -196,13 +196,16 @@
 
 
 «DEFINE EnumGen FOR uml::Enumeration»
-	«FILE packagePath() + "/"+ name +".java"»  
+
+	«FILE packagePath() + "/"+ name +".java" man_path»  
 	package «packageName()»;
 	
 	public enum «name» {		
+		
 		«FOREACH  ownedLiteral AS e»
 			«e.name»,
 		«ENDFOREACH»
+	
 	} 
 	«ENDFILE»
 «ENDDEFINE»
