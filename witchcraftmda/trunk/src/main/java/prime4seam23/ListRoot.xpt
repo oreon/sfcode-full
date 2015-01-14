@@ -19,10 +19,27 @@
 				<ui:include src="«getComponentViewFile("search")»" />
 				<br/> <br/>
 				«EXPAND genButtons FOR this»
-				<div id="printable" >
-				<ui:include src="«getComponentViewFileCustomizable("list")»"  >
-					<ui:param name="records" value="#{«asVar()»List.lazyModel}" />
-         		</ui:include>
+				<div id="printable" > 
+				
+					<p:tabView>
+						<p:tab>
+						
+						<ui:include src="«getComponentViewFileCustomizable("list")»"  >
+							<ui:param name="records" value="#{«asVar()»List.lazyModel}" />
+		         		</ui:include>
+	         		
+	         			</p:tab>
+         			«IF groupByFields != null»
+         				<p:tab>
+         				
+         					<ui:include src="/common/components/dashboardComponent.xhtml">
+								<ui:param name="viewBean" value="#{«asVar()»AnalyticsView}" />
+							</ui:include>
+         					
+         				</p:tab>
+         			«ENDIF»
+         			</p:tabView>
+         			
          		</div>
 				«EXPAND genButtons FOR this»
 				
