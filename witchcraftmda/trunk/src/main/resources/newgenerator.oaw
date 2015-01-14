@@ -165,6 +165,22 @@ skipOnErrors="true">
 </component>
 
 
+<component id="TestGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
+	<metaModel class="oaw.type.emf.EmfMetaModel">
+	<metaModelPackage value="org.eclipse.emf.ecore.EcorePackage"/>
+	</metaModel>
+	<metaModel class="oaw.uml2.UML2MetaModel"/>
+	<metaModel id="profile" class="oaw.uml2.profile.ProfileMetaModel">
+		<profile value="${model.dir}/wcprofile.profile.uml"/>
+	</metaModel>
+	<expand value="template::tests::Root::Root FOR model"/>
+	<outlet name="man_path" path="${testGenPath}/" overwrite="false" />
+	<outlet path="${testGenPath}">
+		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
+	</outlet>
+</component>
+
+
 
 <!--
 <component id="SeamRestEasyGenerator" class="oaw.xpand2.Generator" skipOnErrors="true">
