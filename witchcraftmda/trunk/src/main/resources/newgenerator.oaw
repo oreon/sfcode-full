@@ -25,6 +25,7 @@
 
 
 <component id="dirCleaner" class="oaw.workflow.common.DirectoryCleaner" directories="${srcGenPath}"/>
+<component id="dirCleaner" class="oaw.workflow.common.DirectoryCleaner" directories="${testGenPath}"/>
 
 
 <component id="PreProcessor" class="oaw.xpand2.Generator"
@@ -174,7 +175,7 @@ skipOnErrors="true">
 		<profile value="${model.dir}/wcprofile.profile.uml"/>
 	</metaModel>
 	<expand value="template::tests::Root::Root FOR model"/>
-	<outlet name="man_path" path="${testGenPath}/" overwrite="false" />
+	<outlet name="man_path" path="${testGenManPath}/" overwrite="false" />
 	<outlet path="${testGenPath}">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
 	</outlet>
