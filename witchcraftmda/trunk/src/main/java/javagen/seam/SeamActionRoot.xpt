@@ -280,7 +280,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		UploadedFile uploadItem = event.getUploadedFile();
 		if (getInstance().get«e.name.toFirstUpper()»() == null)
 			getInstance().set«e.name.toFirstUpper()»(new FileAttachment());
-		getInstance().get«e.name.toFirstUpper()»().setName(uploadItem.getName());
+		getInstance().get«e.name.toFirstUpper()»().setFileName(uploadItem.getName());
 		getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
 		getInstance().get«e.name.toFirstUpper()»().setData((uploadItem.getData()));
 	  }
@@ -289,7 +289,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		  UploadItem uploadItem = event.getUploadItem();
 		  if(getInstance().get«e.name.toFirstUpper()»() == null )
 			getInstance().set«e.name.toFirstUpper()»(new FileAttachment());
-		  getInstance().get«e.name.toFirstUpper()»().setName(uploadItem.getFileName());
+		  getInstance().get«e.name.toFirstUpper()»().setFileName(uploadItem.getFileName());
 		  getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
 		  getInstance().get«e.name.toFirstUpper()»().setData(FileUtils.readFileToByteArray( uploadItem.getFile() )); 
 	  }
@@ -299,7 +299,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 			org.primefaces.model.UploadedFile uploadItem = event.getFile();
 			if (getInstance().get«e.name.toFirstUpper()»() == null)
 				getInstance().set«e.name.toFirstUpper()»(new FileAttachment());
-			getInstance().get«e.name.toFirstUpper()»().setName(uploadItem.getFileName());
+			getInstance().get«e.name.toFirstUpper()»().setFileName(uploadItem.getFileName());
 			getInstance().get«e.name.toFirstUpper()»().setContentType(uploadItem.getContentType());
 			getInstance().get«e.name.toFirstUpper()»().setData((uploadItem.getContents())); 
 	    }  
