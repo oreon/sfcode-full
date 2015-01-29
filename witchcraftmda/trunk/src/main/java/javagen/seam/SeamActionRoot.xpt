@@ -375,6 +375,14 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 		protected DualListModel<«type.fqn()»> «currentList» ;
 		
+		«REM»TODO This method will not work if there is more than one many to many 
+		@Override
+		public void setEntityId(Long entityId) {
+			super.setEntityId(entityId);
+			init«currentList.toFirstUpper()»();
+		}
+		«ENDREM»
+		
 		protected void init«currentList.toFirstUpper()»(){
 			
 			List<«type.fqn()»> available«name» = 
@@ -401,6 +409,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 	
 		public void set«currentList.toFirstUpper()»(DualListModel<«type.fqn()»> «currentList») {
 			this.«currentList» = «currentList»;
+			getInstance().set«name.toFirstUpper()»(«currentList».getTarget());
 		}
 	
 	«ELSE»
