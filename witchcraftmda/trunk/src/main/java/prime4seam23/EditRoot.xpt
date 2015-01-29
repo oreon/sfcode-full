@@ -57,21 +57,36 @@
 
 «DEFINE genViewFile FOR uml::Class»
 	«FILE getWebPath() +"/" + "view" + name + "." + getExtension()»
+	«EXPAND genViewFileComponent FOR this»
 <ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
 	<ui:define name="content">
-		<h:panelGroup rendered="#{«getAction()».hasCustomView}">
-			«PROTECT CSTART '<!--' CEND '-->' ID  'EDITABLE_RGN_VIEW_' + package.name + "_" + (isCurrentTemplateMode()?"Template_":"") + name»
-				
-			«ENDPROTECT»
-		</h:panelGroup>
-
 		<h:panelGroup rendered="#{!«getAction()».hasCustomView}">
-		  <h:form>
+			<ui:include src = "«getComponentViewFileCustomizable("view")»" >
+				<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
+			</ui:include>
+		</h:panelGroup>
+		<!-- If you need a custom view component create a file called view{entityName}ComponentCustom.xhtml -->
+		<h:panelGroup rendered="#{«getAction()».hasCustomView}">
+		  <ui:include src = "«getCustomViewFileComponent("view")»" >
+			<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
+		  </ui:include>
+	  	</h:panelGroup>
+	</ui:define> 
+</ui:composition>
+	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genViewFileComponent FOR uml::Class»
+	«FILE getWebPath() +"/" + "view" + name + "Component." + getExtension()»
+	<ui:composition «EXPAND WebRoot::genIncludes-»  >	
+	
+		<h:form>
 				
 			<p:tabView  dynamic="true" cache="true">
 				<p:tab title="«name»">
 					<div id="printable" >
-					<ui:include src = "«getComponentViewFileCustomizable("view")»" >
+					<ui:include src = "«getComponentViewFileCustomizable("viewBasic")»" >
 						<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
 					</ui:include>
 					</div>
@@ -88,7 +103,7 @@
 			«ENDFOREACH»	
 			</p:tabView>
 			«EXPAND genBusinessFunctionButtons FOR this»
-		</h:form>
+		  </h:form>
 		<br/>
 			«EXPAND genTabbedNonComposedAssociations FOR this»
 		<br/>
@@ -105,9 +120,7 @@
 			«ENDIF»
 		</p:tabView>
 		«EXPAND generateWebFunctionIncludes FOR this»
-	  </h:panelGroup>
-	</ui:define> 
-</ui:composition>
+	</ui:composition>
 	«ENDFILE»
 «ENDDEFINE»
 
@@ -149,7 +162,7 @@
 
 
 «DEFINE genEditViewComponent(boolean edit) FOR uml::Class»
-	«FILE getWebPath() +"/" + (edit?"edit":"view") + name+ "Component." + getExtension()»
+	«FILE getWebPath() +"/" + (edit?"edit":"viewBasic") + name+ "Component." + getExtension()»
 	<ui:composition «EXPAND WebRoot::genIncludes-» >	
 	
 	<h:panelGroup  id="«IF edit»edit«name»ComponentPanel«ELSE»${panelId == null ? 'view«name»Panel' : panelId}«ENDIF»" >
