@@ -65,12 +65,15 @@
 				<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
 			</ui:include>
 		</h:panelGroup>
-		<!-- If you need a custom view component create a file called view{entityName}ComponentCustom.xhtml -->
+		
+		<!-- If you need a custom view component create a file called view{entityName}ComponentCustom.xhtml and override hasCustomView 
 		<h:panelGroup rendered="#{«getAction()».hasCustomView}">
 		  <ui:include src = "«getCustomViewFileComponent("view")»" >
 			<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
 		  </ui:include>
 	  	</h:panelGroup>
+	  	-->
+	  	
 	</ui:define> 
 </ui:composition>
 	«ENDFILE»
@@ -400,7 +403,7 @@
 «DEFINE panelBegin FOR uml::Class»
 	«IF !isCurrentMultiMode()»
 		<c:if test="${numColumns == null }" > <c:set var="numColumns" value="2" /> </c:if>
-  		<h:panelGrid columns="${numColumns}" >
+  		<h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol">
   		<f:facet name="header"> 
 			<h:outputText value="#{msg.«name»}"/> 
   		</f:facet>
