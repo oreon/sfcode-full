@@ -89,7 +89,7 @@
     «setAsCurrentEntity(e)-»
     <page view-id="«e.getViewFile("edit")»"  >
     	<!-- <description>Edit «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
-    	<restrict>#{s:hasPermission('«e.name.toFirstLower()»', 'edit')}</restrict>
+    	«EXPAND genSecurity('edit') FOR e»
     	<begin-conversation join="true"/>
     	<navigation> 
 			 <rule if-outcome="save">
@@ -109,7 +109,7 @@
 	
 	 <page view-id="«e.getViewFile("view")»"  action="#{«e.asVar()»Action.onLoadView()}">
 	 	<!-- <description>View «e.name»: #{«e.name.toFirstLower()».displayName}</description> -->
-	 	<restrict>#{s:hasPermission('«e.name.toFirstLower()»', 'view')}</restrict>
+	 	«EXPAND genSecurity('view') FOR e»
 	 	<navigation> 
 			 <rule if-outcome="edit">
 			 	
@@ -125,7 +125,7 @@
 	</page>
 	
 	<page view-id="«e.getViewFile("list")»" action="#{«e.asVar()»Action.onLoadEdit()}" >
-		<restrict>#{s:hasPermission('«e.name.toFirstLower()»', 'view')}</restrict>
+		«EXPAND genSecurity('view') FOR e»
 		<navigation>
 			<rule if-outcome="view«e.name»">
 				
@@ -214,6 +214,10 @@
 «ENDFILE»
 «ENDDEFINE»
 
+
+«DEFINE genSecurity(String mode) FOR uml::Class»
+	«REM» TODO:temp   <restrict>#{s:hasPermission('«name.toFirstLower()»', '«mode»')}</restrict>  «ENDREM»
+«ENDDEFINE»
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
