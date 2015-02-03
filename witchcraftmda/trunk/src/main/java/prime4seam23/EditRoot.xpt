@@ -98,7 +98,7 @@
 			«FOREACH getOutgoingAssociations() AS a ITERATOR iter»
 				<p:tab title="«a.name.toFirstUpper()»"  rendered="#{«getAction()».instance.«a.name» != null}">
 				  <h:form>
-					<ui:include src = "«a.type.getComponentViewFile("view")»" >
+					<ui:include src = "«a.type.getComponentViewFile("viewBasic")»" >
 						<ui:param name="«a.type.name.toFirstLower()»" value="#{«getAction()».instance.«a.name»}" />
 					</ui:include>
 				 </h:form>
