@@ -554,9 +554,9 @@ import org.hibernate.annotations.FilterDefs;
 «ENDDEFINE»
 
 «DEFINE genEmbeddedAndAssociatedSearch FOR uml::Property»
-«FOREACH type.getAllAttributes() AS attr»
-	«IF attr.isString()» listSearchableFields.add("«name».«attr.name»");«ENDIF»
-«ENDFOREACH»
+	«FOREACH type.getAllAttributes() AS attr»
+		«IF attr.isString()» listSearchableFields.add("«name».«attr.name»");«ENDIF»
+	«ENDFOREACH»
 «ENDDEFINE»
 
 «DEFINE genClassBody FOR wcprofile::Embeddable»

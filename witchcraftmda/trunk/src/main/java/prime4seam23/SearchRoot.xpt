@@ -139,10 +139,10 @@
 «ENDDEFINE»
 
 «DEFINE genFullTextSearchResults FOR wcprofile::Entity»
-«FILE getWebPath() +"/" + "textSearchResults" + name+ "." + getExtension()»
+«FILE getWebPath() +"/" + "fullTextSearch" + name+ "." + getExtension()»
 <ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
 <ui:define name="content">   
- 
+ 	<ui:include src="«getComponentViewFile("tabMenu")»" />
 	<h:form>
 		<ui:include src="textSearchResults«name»Component.xhtml" />
 	</h:form>

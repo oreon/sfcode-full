@@ -13,7 +13,8 @@
 			«setAsCurrentEntity(this)-»
 			«clearCurrentEmbeddable()-»
 			<ui:define name="content">
-				«IF isFullTextSearchable()» «EXPAND genFullTextBtn FOR this» «ENDIF»
+				
+				<ui:include src="«getComponentViewFile("tabMenu")»" />
 				
 				<c:set var="modalId" value="«name»ModalPanel-«name»" />
 				<ui:include src="«getComponentViewFile("search")»" />
@@ -22,7 +23,7 @@
 				<div id="printable" > 
 				
 					<p:tabView>
-						<p:tab>
+						<p:tab title="Main">
 						
 						<ui:include src="«getComponentViewFileCustomizable("list")»"  >
 							<ui:param name="records" value="#{«asVar()»List.lazyModel}" />
@@ -30,7 +31,7 @@
 	         		
 	         			</p:tab>
          			«IF groupByFields != null»
-         				<p:tab>
+         				<p:tab title="Analytics">
          				
          					<ui:include src="/common/components/dashboardComponent.xhtml">
 								<ui:param name="viewBean" value="#{«asVar()»AnalyticsView}" />
@@ -55,6 +56,8 @@
 		«EXPAND genArchivedFile FOR this»
 		
 		«EXPAND genMiniTable FOR this»
+		
+		«EXPAND genTabMenu FOR this»
 			
 «ENDDEFINE»
 		
@@ -429,4 +432,30 @@
 			</ui:define>
 		</ui:composition>
 	«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE genTabMenu FOR uml::Class»
+«FILE getWebPath() +"/tabMenu" + name+ "Component." + getExtension()»
+<ui:composition «EXPAND WebRoot::genIncludes-» >	
+<p:tabMenu activeIndex="#{param.i}">
+    <p:menuitem value="Overview" outcome="list«name.toFirstUpper()»" icon="ui-icon-star">
+        <f:param name="i" value="0" />
+    </p:menuitem>
+    «REM»comment
+    <p:menuitem value="Detailed" outcome="/ui/menu/tabMenu" icon="ui-icon-wrench">
+        <f:param name="i" value="1" />
+    </p:menuitem>
+    <p:menuitem value="Analytics" outcome="/ui/menu/tabMenu" icon="ui-icon-document">
+        <f:param name="i" value="2" />
+    </p:menuitem>
+   «ENDREM»
+    «IF isFullTextSearchable()»  
+    <p:menuitem value="Text Search" outcome="«getViewFile("fullTextSearch")»" icon="ui-icon-search">
+        <f:param name="i" value="3" />
+    </p:menuitem>
+    «ENDIF»
+</p:tabMenu>
+</ui:composition>
+«ENDFILE»
 «ENDDEFINE»
