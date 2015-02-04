@@ -26,6 +26,7 @@
 
 «AROUND javagen::pojo::pojoroot::genBaseClassAnnotations  FOR uml::Class»
 	«EXPAND genBaseClassAnnotations FOR this»
+	«EXPAND genSearchAnnotations FOR this»
 	«targetDef.proceed()»
 «ENDAROUND»
 
@@ -97,15 +98,36 @@
 	«IF isMultiTenanted()»  @Filter(name = "tenantFilterDef")  «ENDIF»
 	})
 	«IF auditable»@Audited«ENDIF»
+	«EXPAND genSearchAnnotations FOR this»
 «ENDDEFINE»
 
 «DEFINE genClassAnnotations FOR wcprofile::Embeddable»
 	@Embeddable
+	«REM»
+	«EXPAND genSearchAnnotations FOR this»
+	«ENDREM»
 «ENDDEFINE»
 
 
 «DEFINE genClassAnnotations FOR wcprofile::MappedSuperClass»
 	@MappedSuperclass
+	//KKKKKKK
+	«REM»comment
+	«EXPAND genSearchAnnotations FOR this»
+	«ENDREM»
+«ENDDEFINE»
+
+
+«DEFINE genSearchAnnotations FOR uml::Class»
+«ENDDEFINE»
+
+«DEFINE genSearchAnnotations FOR wcprofile::MappedSuperClass»
+«ENDDEFINE»
+
+
+«DEFINE genSearchAnnotations FOR wcprofile::AbstractEntity»
+	@Indexed
+	@Analyzer(definition = "entityAnalyzer")
 «ENDDEFINE»
 
 
@@ -200,6 +222,9 @@
 	import javax.validation.constraints.*;
 	
 	import java.math.BigDecimal;
+	
+	import org.hibernate.search.annotations.Analyzer;
+	import org.hibernate.search.annotations.Indexed;
 «ENDDEFINE»
 
 
@@ -224,6 +249,25 @@
 			}
 	    }
 	«ENDIF»
+	
+	«REM»
+	/** This method is used by hibernate full text search - override to add additional fields
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
+	 */
+	@Override
+	public List<String> listSearchableFields() {
+		List<String> listSearchableFields = new ArrayList<String>();
+		listSearchableFields.addAll(super.listSearchableFields());
+		«FOREACH getAllAttributes() AS e»
+			«IF e.isString()» listSearchableFields.add("«e.name»"); «ENDIF»
+		«ENDFOREACH»
+		
+		«EXPAND genEmbeddedAndAssociatedSearch FOREACH getComposed()»
+		«EXPAND genEmbeddedAndAssociatedSearch FOREACH getEmbeddable()»
+		return listSearchableFields;
+	}
+	«ENDREM»
+	
 «ENDDEFINE»
 
 
