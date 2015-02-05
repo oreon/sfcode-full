@@ -70,7 +70,7 @@
 
 «DEFINE gen FOR uml::Action»
 	<task-node name="«name.removeSpaces()»"  «IF outgoing().typeSelect(wcprofile::TimerTransition).size > 0 » end-tasks="true" «ENDIF»>
-		<task name="«name.removeSpaces()»" «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""» notify="«getNotify()»">
+		<task name="«name.removeSpaces()»" «getSwimlane() != null ?"swimlane=\"" + getSwimlane()+ "\"":""» >
 			«EXPAND genTimer FOR this»
 		</task>
 		«EXPAND genTransitions»
