@@ -8,7 +8,9 @@
 	«EXPAND PackageRoot FOREACH allOwnedElements().typeSelect(uml::Package)»
 	«EXPAND ORMGen::Root FOR this»
 	«EXPAND genProjectUtils FOR this»
+	«REM»comment
 	«EXPAND DocumentationRoot::Root FOR this»
+	«ENDREM»
 «ENDDEFINE»
 
 «DEFINE PackageRoot FOR uml::Package»
@@ -196,7 +198,9 @@ import org.hibernate.annotations.FilterDefs;
 	«IF !isAbstract »   
 		«IF getCurrentCartridge() == "RICH"» //@Name("«asVar()»")   «ENDIF»
 		«EXPAND genIndexed»
+		«REM»comment
 		«IF cacheType != null »@Cache(usage = CacheConcurrencyStrategy.«cacheType.name»)«ENDIF»
+		«ENDREM»
 	«ELSE»
 		@Inheritance(strategy=InheritanceType.«inheritanceType.name»)
 	«ENDIF»
@@ -492,7 +496,7 @@ import org.hibernate.annotations.FilterDefs;
 «DEFINE genDecl FOR wcprofile::DerivedFormula»
 	
 «ENDDEFINE»
-a
+
 
 «DEFINE genDecl FOR uml::Property»
 	«IF isMultivalued()»
