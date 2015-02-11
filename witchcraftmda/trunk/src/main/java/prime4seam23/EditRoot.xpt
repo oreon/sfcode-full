@@ -498,7 +498,7 @@
 			«ENDIF»
 		«ENDIF»
 		<f:selectItem itemLabel="Select One" itemValue="" /> 
-		<f:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.fetchAll()"»}" var="itemIter"
+		<f:selectItems value="#{«isColumn() && this.assocList != null ? assocList : type.asVar() + "List.fetchAll(" + class.asVar() +  ")"»}" var="itemIter"
 			itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"   />
 		«genAjaxValidatorJSF2()»
 	</p:selectOneMenu>

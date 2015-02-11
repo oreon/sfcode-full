@@ -161,41 +161,46 @@ public abstract class «name»ListQueryBase«IF isAbstractEntity()» <T  extends «na
 
 	«IF isAbstractEntity()»
 	
-
-	@Override
-	public T getInstance() {
-		return (T) get«name»();
-	}
-
-	@Override
-	//@Restrict("#{s:hasPermission('«asVar()»', 'view')}")
-	public List<T> getResultList() {
-		return super.getResultList();
-	}
+		@Override
+		public T getInstance() {
+			return (T) get«name»();
+		}
 	
-	@Override
-	public Class<T> getEntityClass() {
-		return (Class<T>) «name».class;
-	}
-	«ELSE»
-	@Override
-	public «name» getInstance() {
-		return get«name»();
-	}
+		@Override
+		//@Restrict("#{s:hasPermission('«asVar()»', 'view')}")
+		public List<T> getResultList() {
+			return super.getResultList();
+		}
+		
+		@Override
+		public Class<T> getEntityClass() {
+			return (Class<T>) «name».class;
+		}
+		«ELSE»
+		@Override
+		public «name» getInstance() {
+			return get«name»();
+		}
+		
+		@Override
+		//@Restrict("#{s:hasPermission('«asVar()»', 'view')}")
+		public List<«name»> getResultList() {
+			return super.getResultList();
+		}
+		
 	
-	@Override
-	//@Restrict("#{s:hasPermission('«asVar()»', 'view')}")
-	public List<«name»> getResultList() {
-		return super.getResultList();
-	}
-	
-
-	@Override
-	public Class<«name»> getEntityClass() {
-		return «name».class;
-	}
-	
+		@Override
+		public Class<«name»> getEntityClass() {
+			return «name».class;
+		}
 	«ENDIF»
+	
+	«FOREACH getComposed() AS e»
+		//Override this method to filter lists
+		public List<«fqn()»> fetchAll(«e.type.fqn()» «e.type.asVar()») {
+			return super.fetchAll();
+		}
+	«ENDFOREACH»
 	
 	@Override
 	public String[] getEntityRestrictions() {
