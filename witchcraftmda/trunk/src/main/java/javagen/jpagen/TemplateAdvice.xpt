@@ -126,8 +126,8 @@
 
 
 «DEFINE genSearchAnnotations FOR wcprofile::AbstractEntity»
-	@Indexed
-	@Analyzer(definition = "entityAnalyzer")
+	//@Indexed
+	//@Analyzer(definition = "entityAnalyzer")
 «ENDDEFINE»
 
 
@@ -197,14 +197,14 @@
 «ENDDEFINE»
 
 «DEFINE EmbeddedAttributes FOR uml::Property»
-	@Embedded
-	«REM»comment
+	«REM»@Embedded«ENDREM»
+	
 	@AttributeOverrides( {
 	«FOREACH type.getAllAttributes() AS e ITERATOR iter»
 		@AttributeOverride(name="«e.name»", column = @Column(name="«name»_«e.name»") ) «IF iter.counter1 < type.getAllAttributes().size » , «ENDIF»
 	«ENDFOREACH»
     } )
-    «ENDREM»
+    
 «ENDDEFINE»
 
 
