@@ -3,6 +3,8 @@
 «EXTENSION org::openarchitectureware::uml2::profile::profiling»
 «EXTENSION template::GeneratorExtensions»
 «EXTENSION template::associationExtensions»
+«EXTENSION template::univExtensions»
+
 
 «DEFINE Root FOR uml::Model»
 	«EXPAND ClassRoot FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
@@ -55,7 +57,7 @@ package com.univeris.ewm.service.data.common.«name.toFirstLower()»;
 //package « packageName() »;
 
 import com.univeris.ewm.service.data.common.baseservice.ServiceCommons;
-import com.univeris.uif.annotations.ClassVersionDetails;
+
 import com.univeris.uif.core.manager.service.ServiceDefinition;
 
 import javax.ejb.Local;
@@ -65,9 +67,9 @@ import com.univeris.ewm.dataobjects.cxp.«name»Dto;
 /**
  * Service  interface
  */
-@Local
-@ServiceDefinition(defaultService = "«name»ServiceUVS")
-@ClassVersionDetails(revision = "$Rev: 123288 $", id = "$Id: «name»Service.java 123288 2015-02-03 17:08:02Z wfeng $")
+//@Local
+//@ServiceDefinition(defaultService = "«name»ServiceUVS")
+//@ClassVersionDetails(revision = "$Rev: 123288 $", id = "$Id: «name»Service.java 123288 2015-02-03 17:08:02Z wfeng $")
 public interface «name»Service extends ServiceCommons<«name»Dto, Integer> {
 
 }
@@ -82,10 +84,10 @@ import com.univeris.uif.core.manager.service.ServiceInterceptor;
 import com.univeris.ewm.service.data.common.baseservice.AbstractBaseService;
 import com.univeris.ewm.service.data.common.baseservice.AbstractBaseCachedService;
 
-@Stateless
-@Interceptors(ServiceInterceptor.class)
-@ClassVersionDetails(revision = "$Rev: 123288 $", id = "$Id: «name»ServiceUVS.java 123288 2015-02-03 17:08:02Z wfeng $")
-public class «name»ServiceUVS extends AbstractBase«univCacheName != null ? "Cached" : ""»Service<«name»Dto, Integer, «name»Entity, «name»Provider> implements «name»Service {
+//@Stateless
+//@Interceptors(ServiceInterceptor.class)
+//@ClassVersionDetails(revision = "$Rev: 123288 $", id = "$Id: «name»ServiceUVS.java 123288 2015-02-03 17:08:02Z wfeng $")
+public class «name»ServiceUVS extends AbstractBase«univCacheName != null ? "Cached" : ""»Service<«name»Dto, Integer, «name»«entitySuffix()», «name»Provider> implements «name»Service {
  
     «IF univCacheName != null»
     	 final static String CACHE_KEY_«name.toUpperCase()» = "«univCacheName»";
@@ -117,12 +119,12 @@ import org.jboss.seam.annotations.Scope;
  * «name» View bean 
  */
 @Scope(ScopeType.CONVERSATION)
-@Name(«name»View.COMPONENT_NAME)
-@BusinessExceptionInterceptor
-@ClassVersionDetails(revision = "$Rev: 123075 $", id = "$Id: «name»View.java 123075 2015-01-28 22:20:50Z jasingh $")
+@Name(InvestorProfileView.COMPONENT_NAME)
+//@BusinessExceptionInterceptor
+//@ClassVersionDetails(revision = "$Rev: 123075 $", id = "$Id: InvestorProfileView.java 123075 2015-01-28 22:20:50Z jasingh $")
 public class «name»View extends BaseCrudView<«name»Dto, «name»Service, Integer> {
 
-    public static final String COMPONENT_NAME = "cxp.operations.«name.toLowerCase()»";
+    public static final String COMPONENT_NAME = "cxp.operations.profile";
    
 
 }
@@ -139,14 +141,14 @@ import javax.ejb.Local;
 import com.univeris.ewm.provider.data.basedataaccess.ProviderCommons;
 
 
-import com.univeris.ewm.provider.data.common.profile.impl.«name»Entity;
+import com.univeris.ewm.provider.data.common.profile.impl.«name»«entitySuffix()»;
 
 /**
  * «name»Dto provider interface
  */
-@Local
-@ClassVersionDetails(revision = "$Rev: 123075 $", id = "$Id: «name»Provider.java 123075 2015-01-28 22:20:50Z jasingh $")
-public interface «name»Provider extends ProviderCommons<«name»Entity, Integer> {
+//@Local
+//@ClassVersionDetails(revision = "$Rev: 123075 $", id = "$Id: «name»Provider.java 123075 2015-01-28 22:20:50Z jasingh $")
+public interface «name»Provider extends ProviderCommons<«name»«entitySuffix()», Integer> {
 }
 «ENDDEFINE»
 
@@ -165,10 +167,10 @@ import com.univeris.ewm.provider.data.common.profile.«name»Provider;
 /**
  * Investor profile provider implementation class
  */
-@Stateless
-@Interceptors(ProviderInterceptor.class)
-@ClassVersionDetails(revision = "$Rev: 123075 $", id = "$Id: «name»ProviderUVS.java 123075 2015-01-28 22:20:50Z jasingh $")
-public class «name»ProviderUVS extends AbstractBaseProvider<«name»Entity, Integer> implements «name»Provider {
+//@Stateless
+//@Interceptors(ProviderInterceptor.class)
+//@ClassVersionDetails(revision = "$Rev: 123075 $", id = "$Id: «name»ProviderUVS.java 123075 2015-01-28 22:20:50Z jasingh $")
+public class «name»ProviderUVS extends AbstractBaseProvider<«name»«entitySuffix()», Integer> implements «name»Provider {
 
 }
 «ENDDEFINE»
@@ -179,6 +181,8 @@ public class «name»ProviderUVS extends AbstractBaseProvider<«name»Entity, Intege
 	import com.univeris.uif.annotations.ClassVersionDetails;
 	import javax.ejb.Stateless;
 	import javax.interceptor.Interceptors;
+	
+	import com.univeris.uif.annotations.ClassVersionDetails;
 «ENDDEFINE»
 
 
