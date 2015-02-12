@@ -80,19 +80,28 @@
 «ENDDEFINE»
 
 
+«DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
+	<h:selectOneMenu id="«getId()»"  rendered="#{«genEditPermission()»}" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getRequired()»" 
+	  label="«msgBundleKey()»">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		«FOREACH  enm.ownedLiteral AS e-»
+		<f:selectItem itemValue="«e.name»"  itemLabel="#{msg.«e.name-»}" />
+		«ENDFOREACH»
+	</h:selectOneMenu>
+«ENDDEFINE»
+
+
+
 «DEFINE genAssocValue(String prefix) FOR uml::Property»
-	«REM»TODO  link should not be hard coded to path and should be of type action=view«type.name» «ENDREM»
-	<s:link «getEscape()»  value="#{«prefix»«genPropertyLabel()».displayName}"  view="«type.getViewFile("view")»" propagation="none">
-			<f:param name="«type.name.toFirstLower()»Id" value="#{«prefix»«genPropertyLabel()».id}" />
-			<f:param name="from" value="#{request.servletPath}" />
-			«IF type.popupInfo != null»
-			 <rich:toolTip>
-	            <span>
-	              #{«prefix»«genPropertyLabel()».popupInfo} 
-	            </span>
-	        </rich:toolTip>
-	        «ENDIF»
-	</s:link>
+	<div class="cxp_inputBlock">
+	<h:outputText value="#{uvs:label('«getId().toUpperCase()»')}" styleClass="cxp_leftFixWidthLabel"/>
+	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()-»}" required="«!getAssocOptional()»">
+		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+	</div>
 «ENDDEFINE»
 
 
@@ -111,7 +120,7 @@
 		
 				<s:link value="#{«prefix»«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(«prefix»«class.asVar()».id)}" 
 					propagation="none"  rendered="#{not «prefix»«genPropertyLabel()».contentType.startsWith('image')}" >
-					<f:param name="currentEnt	ityId" value="#{«prefix»«class.asVar()».id}" />
+					<f:param name="currentEntityId" value="#{«prefix»«class.asVar()».id}" />
           		</s:link> 
 		«ELSEIF isDate()»
 			 <div class="cxp_inputBlock">
@@ -120,7 +129,12 @@
                 <h:message for="«getId()»"/>
             </div>
 		«ELSEIF isBoolean()»
-			<h:outputText value="#{«prefix»«genPropertyLabel()»? msg.yes : msg.no }" />	
+			<div class="cxp_inputBlock">
+                <div class="cxp_topLabel">
+                    <h:outputText value="#{uvs:label('«getId().toUpperCase()»'}"/>
+                </div>
+                <h::selectBooleanCheckbox id="«getId()»" value="#{«genPropertyLabel()»}" />
+            </div>		
 		«ELSEIF isCurrency()»
 			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
 				<f:convertNumber pattern="$#,##0.00"/>
@@ -138,6 +152,7 @@
             </div>			
 	 	«ELSE»
 		  <div class="cxp_inputBlock">
+		  «type.name»
                 <h:outputText value="#{uvs:label('«getId().toUpperCase()»')}" styleClass="cxp_leftFixWidthLabel"/>
                 <h:inputText id="«getId()»"  value="#{«genPropertyLabel()»}" 
                 	maxlength="40" styleclass="cxp_singleLineTextInput"
