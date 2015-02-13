@@ -51,7 +51,7 @@
 
 
 «DEFINE genConcrete FOR uml::Class»
-	«FILE packagePath() +"/"» «EXPAND getClassName».java 
+	«FILE packagePath() +"/" +  name + ".java" » 
 		«EXPAND genFileHeader FOR this»
 		package « packageName() »;
 			
@@ -64,8 +64,7 @@
 «ENDDEFINE»
 
 
-«DEFINE getClassName FOR Type»
-«ENDDEFINE»
+
 
 «DEFINE genClassBodyMan FOR uml::Class»
 	«EXPAND genClassAnnotations FOR this»

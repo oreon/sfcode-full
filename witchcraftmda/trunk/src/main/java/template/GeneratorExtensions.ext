@@ -190,6 +190,10 @@ applyEntityStereoType(Class cls):
 cls.applyStereotype("wcprofile::Entity");
 
 
+isAttributeEditable(Property prop):
+!prop.isDerived() && !prop.type.isEmbeddable() && !prop.systemModify() && !prop.currentUser();
+
+
 
 //Returns lower case name e.g. Student will be returned as student
 String asVar(Class cls):

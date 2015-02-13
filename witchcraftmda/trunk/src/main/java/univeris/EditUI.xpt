@@ -52,6 +52,7 @@
     <h:panelGroup id="panelProfiles" layout="block">
           «EXPAND genAttribAsOutput FOR this»
      <h:panelGroup>  
+     «EXPAND genTable FOR this»
 </div>   
 </ui:composition>
 «ENDFILE»
@@ -60,9 +61,17 @@
 
 «DEFINE genAttribAsOutput FOR uml::Class-»
 	«FOREACH allParents() AS e-»
-	 «EXPAND genPropertyRec FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()  ) -»
+	 «EXPAND genPropertyRec FOREACH e.getAllAttributes().select(a|!a.isMultivalued() && a.isAttributeEditable()  ) -»
 	«ENDFOREACH»
-	«EXPAND genPropertyRec FOREACH getAllAttributes().select(a|!a.isMultivalued() && !a.isSecret()   ) -»
+	«EXPAND genPropertyRec FOREACH getAllAttributes().select(a|!a.isMultivalued() && a.isAttributeEditable()   ) -»
+«ENDDEFINE»
+
+
+«DEFINE genTable FOR uml::Class»
+	«FOREACH allParents() AS e-»
+		«EXPAND genEditableTable FOREACH e.getComposed() -»
+	«ENDFOREACH»
+	«EXPAND genEditableTable FOREACH getComposed() -»
 «ENDDEFINE»
 
 «DEFINE genPropertyRec FOR uml::Property-»
@@ -107,71 +116,112 @@
 
 
 «DEFINE genProperty FOR uml::Property-»
- «EXPAND genPropertyValue("") FOR this»
+
+ «EXPAND genInputBegin FOR this»
+
+ «EXPAND genLabel FOR this»
+
+ «EXPAND genPropertyInput("") FOR this»
+ 
+ «EXPAND genMessage FOR this»
+ 
+ «EXPAND genInputEnd FOR this»
+ 
+ 
 «ENDDEFINE»
 
-«DEFINE genPropertyValue(String prefix) FOR uml::Property»
+«DEFINE genPropertyInput(String prefix) FOR uml::Property»
 		«IF association != null -»
 			«EXPAND genAssocValue(prefix) FOR this»
 		«ELSEIF isFile()»
-				<s:graphicImage rendered="#{«prefix»«genPropertyLabel()» ne null and  «prefix»«genPropertyLabel()».contentType.startsWith('image')}" value="#{«prefix»«genPropertyLabel()».data}">
-					<s:transformImageSize height="100" maintainRatio="true"/>
-				</s:graphicImage>
-		
-				<s:link value="#{«prefix»«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(«prefix»«class.asVar()».id)}" 
-					propagation="none"  rendered="#{not «prefix»«genPropertyLabel()».contentType.startsWith('image')}" >
-					<f:param name="currentEntityId" value="#{«prefix»«class.asVar()».id}" />
-          		</s:link> 
+			<h2>TODO </h2>
 		«ELSEIF isDate()»
-			 <div class="cxp_inputBlock">
-                <h:outputText value="#{uvs:label('«getId().toUpperCase()»')}" styleClass="cxp_leftFixWidthLabel"/>
-                   <p:calendar id="«getId()»" value="#{«genPropertyLabel()»}" showOn="button" />
-                <h:message for="«getId()»"/>
-            </div>
+           <p:calendar id="«getId()»" value="#{«genPropertyLabel()»}" showOn="button" />
 		«ELSEIF isBoolean()»
-			<div class="cxp_inputBlock">
-                <div class="cxp_topLabel">
-                    <h:outputText value="#{uvs:label('«getId().toUpperCase()»'}"/>
-                </div>
-                <h::selectBooleanCheckbox id="«getId()»" value="#{«genPropertyLabel()»}" />
-            </div>		
+            <h::selectBooleanCheckbox id="«getId()»" value="#{«genPropertyLabel()»}" />		
 		«ELSEIF isCurrency()»
 			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
 				<f:convertNumber pattern="$#,##0.00"/>
 			</h:outputText>
 		«ELSEIF isDouble()»
-			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
+			<h:inputText id="«getId()»"  value="#{«genPropertyLabel()»}" />
 				<f:convertNumber pattern="000.00"/>
-			</h:outputText>
+			</h:inputText>
 		«ELSEIF isLargeText()»
-			<div class="cxp_inputBlock">
-                <div class="cxp_topLabel">
-                    <h:outputText value="#{uvs:label('«getId().toUpperCase()»'}"/>
-                </div>
-                <h:inputTextarea id="«getId()»" value="#{«genPropertyLabel()»}" cols="55" rows="5" maxlength="800" styleClass="cxp_descriptionInput"/>
-            </div>			
+			<h:inputTextarea id="«getId()»" value="#{«genPropertyLabel()»}" cols="55" rows="5" maxlength="800" />
 	 	«ELSE»
-		  <div class="cxp_inputBlock">
-		  «type.name»
-                <h:outputText value="#{uvs:label('«getId().toUpperCase()»')}" styleClass="cxp_leftFixWidthLabel"/>
-                <h:inputText id="«getId()»"  value="#{«genPropertyLabel()»}" 
-                	maxlength="40" styleclass="cxp_singleLineTextInput"
-                   />
-                <h:message for="«getId()»"/>
-            </div>
+            <h:inputText id="«getId()»"  value="#{«genPropertyLabel()»}" />
+       
 		«ENDIF»
 «ENDDEFINE»
 
 
-
-«DEFINE genImports FOR uml::Class»
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:c="http://java.sun.com/jstl/core"
-                xmlns:uvs="http://www.univeris.com/jsf/ewms/8.x"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:s="http://jboss.com/products/seam/taglib"
-                xmlns:a="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich"
+«DEFINE genLabel FOR uml::Property»
+	<h:outputText value="#{uvs:label('«getId().toUpperCase()»')}" />
 «ENDDEFINE»
 
+«DEFINE genMessage FOR uml::Property»
+	 <h:message for="«getId()»"/>
+«ENDDEFINE»
+
+
+«DEFINE genInputBegin FOR uml::Property»
+	«IF isCurrentMultiMode()»
+		<rich:column >
+			<f:facet name="header"> «getOutputMessage()» </f:facet>
+	«ENDIF»
+	 
+«ENDDEFINE»
+
+
+«DEFINE genInputEnd FOR uml::Property»
+	 «IF isCurrentMultiMode()»
+		</rich:column >
+	«ENDIF»
+«ENDDEFINE»
+
+
+
+
+
+«DEFINE genEditableTable FOR uml::Property-»
+	«IF !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
+	«setCurrentMultiMode(true)-»
+	<rich:dataTable id="«name»" var="«type.asVar()»" rendered="#{«genEditPermission()»}"
+				value="#{«class.getAction()».list«name.toFirstUpper()»}" 
+				rowKeyVar="rowIndex" 
+				rowClasses="odd, even" styleClass="viewInfo" rules="all">
+		«setAsCurrentEntity(type)»
+		«EXPAND genAttribAsOutput FOR type-»
+		
+		 «IF !isPreloadedComposition()»
+		  «EXPAND genNew -»
+		  «EXPAND genDelete FOR this -»
+		 «ENDIF»
+	</rich:dataTable>
+	«setCurrentMultiMode(false)-»
+«ENDDEFINE»
+
+
+«DEFINE genNew FOR uml::Property»
+	<h:column>
+		«EXPAND genNewButton FOR this»
+	</h:column>
+«ENDDEFINE»
+
+«DEFINE genNewButton FOR uml::Property»
+	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
+		reRender="«name», «class.getComponentPanelId(true)»"  rendered="#{«genEditPermission()»}" >
+		<s:conversationId/>
+	</a:commandButton>
+«ENDDEFINE»
+
+«DEFINE genDelete FOR uml::Property»
+	<h:column>
+		<h:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
+			reRender="«name»"
+			>
+			<s:conversationId/>
+		</h:commandButton>
+	</h:column>
+«ENDDEFINE»
