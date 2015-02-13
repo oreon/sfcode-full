@@ -11,9 +11,6 @@
 	«EXPAND EditUI::Root FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	«EXPAND SqlXmlRoot::Root FOREACH allOwnedElements().typeSelect(wcprofile::Entity)»
 	
-	«REM»comment
-	«EXPAND genConcreteService FOREACH allOwnedElements().typeSelect(wcprofile::Service)»
-	«ENDREM»
 «ENDDEFINE»
 
 
@@ -61,7 +58,7 @@ import com.univeris.uif.core.manager.service.ServiceDefinition;
 
 import javax.ejb.Local;
 
-import com.univeris.ewm.dataobjects.cxp.«name»Dto;
+import «packageName().replaceAll("provider.data","dataobjects.cxp")».«name»Dto;
 
 /**
  * Service  interface
@@ -83,14 +80,24 @@ import com.univeris.uif.core.manager.service.ServiceInterceptor;
 import com.univeris.ewm.service.data.common.baseservice.AbstractBaseService;
 import com.univeris.ewm.service.data.common.baseservice.AbstractBaseCachedService;
 
+
+import «packageName().replaceAll("provider.data","dataobjects.cxp")».«name»Dto;
+import «packageName()».«name»;
+
+
 @Stateless
 @Interceptors(ServiceInterceptor.class)
 @ClassVersionDetails(revision = "$Rev: 123288 $", id = "$Id: «name»ServiceUVS.java 123288 2015-02-03 17:08:02Z wfeng $")
-public class «name»ServiceUVS extends AbstractBase«univCacheName != null ? "Cached" : ""»Service<«name»Dto, Integer, «name»Entity, «name»Provider> implements «name»Service {
+public class «name»ServiceUVS extends AbstractBase«univCacheName != null ? "Cached" : ""»Service<«name»Dto, Integer, «name», «name»Provider> implements «name»Service {
  
     «IF univCacheName != null»
     	 final static String CACHE_KEY_«name.toUpperCase()» = "«univCacheName»";
     «ENDIF»
+    
+    @Override
+    public String getCacheKey() {
+        return CACHE_KEY_«name.toUpperCase()»;  
+    }
    
 }
 «ENDDEFINE»
@@ -99,8 +106,8 @@ public class «name»ServiceUVS extends AbstractBase«univCacheName != null ? "Cach
 «DEFINE genView FOR wcprofile::Entity»
 package com.univeris.uwm.ui.viewbeans.cxp.operations;
 
-import com.univeris.ewm.dataobjects.cxp.«name»Dto;
-import com.univeris.ewm.service.data.common.profile.«name»Service;
+import «fqn()»Dto;
+//import com.univeris.ewm.service.data.common.«name»Service;
 import com.univeris.uif.annotations.ClassVersionDetails;
 
 
@@ -112,6 +119,7 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
+import «packageName().replaceAll("provider.data","dataobjects.cxp")».«name»Dto;
 
 
 /**
@@ -140,28 +148,28 @@ import javax.ejb.Local;
 import com.univeris.ewm.provider.data.basedataaccess.ProviderCommons;
 
 
-import com.univeris.ewm.provider.data.common.profile.impl.«name»Entity;
+import «fqn()»;
 
 /**
  * «name»Dto provider interface
  */
 @Local
 @ClassVersionDetails(revision = "$Rev: 123075 $", id = "$Id: «name»Provider.java 123075 2015-01-28 22:20:50Z jasingh $")
-public interface «name»Provider extends ProviderCommons<«name»Entity, Integer> {
+public interface «name»Provider extends ProviderCommons<«name», Integer> {
 }
 «ENDDEFINE»
 
 
 
 «DEFINE genProvider FOR wcprofile::Entity»
-package com.univeris.ewm.provider.data.common.profile.impl;
+package com.univeris.ewm.provider.data.;
 
 «EXPAND genImports FOR this»
 
 import com.univeris.uif.core.manager.provider.ProviderInterceptor;
 import com.univeris.ewm.provider.data.basedataaccess.AbstractBaseProvider;
 
-import com.univeris.ewm.provider.data.common.profile.«name»Provider;
+import «fqn()»;
 
 /**
  * Investor profile provider implementation class
@@ -169,7 +177,7 @@ import com.univeris.ewm.provider.data.common.profile.«name»Provider;
 @Stateless
 @Interceptors(ProviderInterceptor.class)
 @ClassVersionDetails(revision = "$Rev: 123075 $", id = "$Id: «name»ProviderUVS.java 123075 2015-01-28 22:20:50Z jasingh $")
-public class «name»ProviderUVS extends AbstractBaseProvider<«name»Entity, Integer> implements «name»Provider {
+public class «name»ProviderUVS extends AbstractBaseProvider<«name», Integer> implements «name»Provider {
 
 }
 «ENDDEFINE»
