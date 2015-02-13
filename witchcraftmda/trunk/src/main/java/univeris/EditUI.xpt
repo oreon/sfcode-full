@@ -14,8 +14,8 @@
 «DEFINE genEditContainer FOR wcprofile::Entity»
 «FILE getWebPath() +"/edit" +name+ "." + "tpl"»
 
-<ui:composition «EXPAND genImports FOR this»
-                template="/layout/stub/clientXpress.seam">
+<ui:composition «EXPAND ListUI::genImports FOR this»
+   template="/layout/stub/clientXpress.seam">
 
     <!--selected script/css includes file-->
     <ui:param name="layout_jsIncludes" value="/layout/scripts/cxpImports.seam"/>
@@ -43,17 +43,14 @@
 «DEFINE genEditComponent FOR wcprofile::Entity»
 «FILE getWebPath() +"/edit" +name+ "Component." + "tpl"»
 
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-«EXPAND genImports FOR this»
+«EXPAND ListUI::genImports FOR this»
  >
- <div>
-          
-    <h:panelGroup id="panelProfiles" layout="block">
+    <h:panelGroup id="panel«name»" layout="block">
           «EXPAND genAttribAsOutput FOR this»
-     <h:panelGroup>  
+     </h:panelGroup>  
      «EXPAND genTable FOR this»
-</div>   
+   
 </ui:composition>
 «ENDFILE»
 «ENDDEFINE»
@@ -102,15 +99,12 @@
 
 
 «DEFINE genAssocValue(String prefix) FOR uml::Property»
-	<div class="cxp_inputBlock">
-	<h:outputText value="#{uvs:label('«getId().toUpperCase()»')}" styleClass="cxp_leftFixWidthLabel"/>
 	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()-»}" required="«!getAssocOptional()»">
 		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
 			label="#{itemIter.displayName}"
 			noSelectionLabel="Please Select..." />
 		<s:convertEntity />
 	</h:selectOneMenu>
-	</div>
 «ENDDEFINE»
 
 
@@ -138,13 +132,13 @@
 		«ELSEIF isDate()»
            <p:calendar id="«getId()»" value="#{«genPropertyLabel()»}" showOn="button" />
 		«ELSEIF isBoolean()»
-            <h::selectBooleanCheckbox id="«getId()»" value="#{«genPropertyLabel()»}" />		
+            <h:selectBooleanCheckbox id="«getId()»" value="#{«genPropertyLabel()»}" />		
 		«ELSEIF isCurrency()»
 			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
 				<f:convertNumber pattern="$#,##0.00"/>
 			</h:outputText>
 		«ELSEIF isDouble()»
-			<h:inputText id="«getId()»"  value="#{«genPropertyLabel()»}" />
+			<h:inputText id="«getId()»"  value="#{«genPropertyLabel()»}" >
 				<f:convertNumber pattern="000.00"/>
 			</h:inputText>
 		«ELSEIF isLargeText()»
@@ -157,7 +151,9 @@
 
 
 «DEFINE genLabel FOR uml::Property»
+«IF !isCurrentMultiMode()»
 	<h:outputText value="#{uvs:label('«getId().toUpperCase()»')}" />
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE genMessage FOR uml::Property»

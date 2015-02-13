@@ -49,8 +49,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 «EXPAND genImports FOR this»
  >
- <div>
-            <uvs:secured fsaid="20000" access-type="8">
+ 	 «setAsCurrentEntity(this)-»
+   <uvs:secured fsaid="20000" access-type="8">
             <h:panelGroup id="panelProfiles" layout="block">
                  <rich:datascroller for="recordsTable" maxpages="10" id="dsTop" fastcontrols="hide"
                     renderifsinglepage="false" rerender="dsBtm" />
@@ -144,14 +144,6 @@
 		«IF association != null -»
 			«EXPAND genAssocValue(prefix) FOR this»
 		«ELSEIF isFile()»
-				<s:graphicImage rendered="#{«prefix»«genPropertyLabel()» ne null and  «prefix»«genPropertyLabel()».contentType.startsWith('image')}" value="#{«prefix»«genPropertyLabel()».data}">
-					<s:transformImageSize height="100" maintainRatio="true"/>
-				</s:graphicImage>
-		
-				<s:link value="#{«prefix»«genPropertyLabel()».name}"  action="#{«class.asVar()»Action.download«name.toFirstUpper()»(«prefix»«class.asVar()».id)}" 
-					propagation="none"  rendered="#{not «prefix»«genPropertyLabel()».contentType.startsWith('image')}" >
-					<f:param name="currentEnt	ityId" value="#{«prefix»«class.asVar()».id}" />
-          		</s:link> 
 		«ELSEIF isDate()»
 			<h:outputText value="#{«prefix»«genPropertyLabel()»}">
 				<s:convertDateTime type="date" dateStyle="medium" />
@@ -170,10 +162,7 @@
 			«IF isColumn() && !abbreviateInListing»
 				<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
 			«ELSE»
-			 <h:panelGroup>
-			 <rich:toolTip value="#{«prefix»«genPropertyLabel()»}" for="«name»Abbr">  </rich:toolTip>
-	         <h:outputText id="«name»Abbr" value="#{«prefix»«genPropertyLabel()»Abbreviated}" escape="false"/> 
-	         </h:panelGroup>
+			    <h:outputText id="«name»Abbr" value="#{«prefix»«genPropertyLabel()»Abbreviated}" escape="false"/> 
 	         «ENDIF»				
 		«ELSE»
 			<h:outputText value="#{«prefix»«genPropertyLabel()»}"  escape="false" />	
@@ -190,6 +179,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:s="http://jboss.com/products/seam/taglib"
                 xmlns:a="http://richfaces.org/a4j"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
                 xmlns:rich="http://richfaces.org/rich"
 «ENDDEFINE»
 

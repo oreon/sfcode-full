@@ -33,12 +33,9 @@
 		«EXPAND genDocumentation FOR this»
 		
 		«EXPAND genBaseClassAnnotations FOR this»
-		public class «name»Base «getParent()» «getInterfaces()»{
-		
-		«EXPAND genProperties FOR this»
-		 
+		«EXPAND genClassDeclaration FOR this»{
+		 «EXPAND genProperties FOR this»
 		 «EXPAND genAdditionalMethods FOR this»
-			
 		}
 	«ENDFILE»
 	
@@ -48,6 +45,11 @@
 	
  «ENDIF»
 «ENDDEFINE»
+
+«DEFINE genClassDeclaration FOR uml::Class»
+	public class «name»Base «getParent()» «getInterfaces()»
+«ENDDEFINE»
+
 
 
 «DEFINE genConcrete FOR uml::Class»
