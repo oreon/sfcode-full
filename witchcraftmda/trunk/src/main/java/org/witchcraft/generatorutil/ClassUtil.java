@@ -464,6 +464,10 @@ public class ClassUtil {
 		}
 		return WordUtils.capitalizeFully(varName);
 	}
+	
+	public static String getColumnNameUC(String varName){
+		return getViewLabelFromVariable(varName, "_").toUpperCase();
+	}
 
 	public static String readProperty(String key) {
 		if (properties == null) {

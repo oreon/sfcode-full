@@ -43,6 +43,11 @@
 «ENDDEFINE»
 
 «DEFINE genClassPrtName(String ext) FOR uml::Class»
+	«EXPAND genClassPrtNameBase(ext) FOR this»
+«ENDDEFINE»
+
+
+«DEFINE genClassPrtNameBase(String ext) FOR uml::Class»
 	 extends «getParentNameWithExt(ext) != "" ? getParentNameWithExt(ext) : "BaseDto" »
 «ENDDEFINE»
 
