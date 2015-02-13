@@ -41,6 +41,10 @@
 «ENDAROUND»
 
 
+«AROUND fullyQualifiedDefinionName FOR Type»
+«ENDAROUND»
+
+
 «AROUND javagen::pojo::pojoroot::genClassDeclaration FOR uml::Class»
 	«EXPAND genClassDeclaration FOR this»
 	
@@ -61,6 +65,11 @@
 
 «AROUND javagen::jpagen::dtogen::genClassPrtName(String ext) FOR uml::Class»
 	«EXPAND genClassPrtNameBase(ext) FOR this»
+«ENDAROUND»
+
+
+«AROUND javagen::jpagen::dtogen::genImports FOR uml::Class»
+	«EXPAND genDtoImports FOR this»
 «ENDAROUND»
 
 «AROUND javagen::pojo::pojoroot::genNewDeclaration  FOR uml::Property»
@@ -225,7 +234,7 @@
 			«EXPAND genManyToMany FOR this»
 		«ELSE»
 			@OneToMany(«IF isBidirectional()»mappedBy = "«getOppositeName() »", «ENDIF» fetch = FetchType.LAZY, cascade = CascadeType.ALL «REM» «IF isComposite()»,orphanRemoval=true«ENDIF» «ENDREM»)
-			@OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"id DESC"«ENDIF»)			
+			//@OrderBy(«IF isColumn() && orderBy != null» "«orderBy»" «ELSE»"id DESC"«ENDIF»)			
 		«ENDIF»
 	«ELSE»
 		«IF type.isEmbeddable()»
@@ -372,4 +381,18 @@
 
 «DEFINE genPackageDetails FOR uml::Package»
 	
+«ENDDEFINE»
+
+
+
+«DEFINE genDtoImports FOR uml::Class»
+	import java.util.ArrayList;
+	import java.util.List;
+	import java.util.List;
+	import java.util.Date;
+
+	import com.univeris.ewm.dataobjects.support.BaseDto;
+	import com.univeris.uifcommon.dataobjects.MultilingualText;
+	
+	import java.math.BigDecimal;
 «ENDDEFINE»
