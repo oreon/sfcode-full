@@ -17,20 +17,6 @@
 <ui:composition «EXPAND ListUI::genImports FOR this»
    template="/layout/stub/clientXpress.seam">
 
-    <!--selected script/css includes file-->
-    <ui:param name="layout_jsIncludes" value="/layout/scripts/cxpImports.seam"/>
-    <!--selected tab template file-->
-    <ui:param name="layout_tabTemplate" value="/layout/menu/tabSelectionOperations.seam"/>
-    <!--selected left nav template file-->
-    <ui:param name="layout_navTemplate" value="/layout/menu/nav/operationsClientXpressProfile.seam"/>
-
-    <ui:param name="layout_pageTitle" value="#{uvs:label('PROFILES')}"/>
-    <ui:param name="step" value="library"/>
-
-    <ui:define name="page-header">
-        <ui:include src="/cxp/operations/controls/clientProfileTabs.seam"/>
-    </ui:define>
-
     <ui:define name="page-content">
     	<ui:include src="edit«name»Component.tpl" />
     </ui:define>
@@ -86,10 +72,26 @@
 «ENDDEFINE»
 
 
+«DEFINE genPropertyEntry(uml::Enumeration enm) FOR uml::Property-»
+	<h:selectOneMenu id="«getId()»"  rendered="#{«genEditPermission()»}" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getRequired()»" 
+	  label="«msgBundleKey()»">
+		<f:selectItem itemLabel="Please Select..." itemValue="" />
+		«FOREACH  enm.ownedLiteral AS e-»
+		<f:selectItem itemValue="«e.name»"  itemLabel="#{msg.«e.name-»}" />
+		«ENDFOREACH»
+	</h:selectOneMenu>
+«ENDDEFINE»
 
 
 
-
+«DEFINE genAssocValue(String prefix) FOR uml::Property»
+	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()-»}" required="«!getAssocOptional()»">
+		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+«ENDDEFINE»
 
 
 
@@ -99,7 +101,7 @@
 
  «EXPAND genLabel FOR this»
 
- «EXPAND genPropertyInput(type) FOR this»
+ «EXPAND genPropertyInput("") FOR this»
  
  «EXPAND genMessage FOR this»
  
@@ -108,18 +110,9 @@
  
 «ENDDEFINE»
 
-«DEFINE genPropertyInput(wcprofile::Column col) FOR uml::Property»
-	«EXPAND genProp FOR this»
-«ENDDEFINE»
- 
-
-«DEFINE genPropertyInput(uml::PrimitiveType type) FOR uml::Property»
-	«EXPAND genProp FOR this»
-«ENDDEFINE»
-
-«DEFINE genProp FOR uml::Property»
+«DEFINE genPropertyInput(String prefix) FOR uml::Property»
 		«IF association != null -»
-		
+			«EXPAND genAssocValue(prefix) FOR this»
 		«ELSEIF isFile()»
 			<h2>TODO </h2>
 		«ELSEIF isDate()»
@@ -137,33 +130,12 @@
 		«ELSEIF isLargeText()»
 			<h:inputTextarea id="«getId()»" value="#{«genPropertyLabel()»}" cols="55" rows="5" maxlength="800" />
 	 	«ELSE»
-            <h:inputText id="«getId()»"  value="#{«genPropertyLabel()»}" />
+	 		 <input id="«getId()»" name="«getId()»" type="text" class="form-control" maxlength="50"
+                       ng-model="«genPropertyLabel()»"
+                       required ng-minlength="2" ng-maxlength="50"/>
+          
 		«ENDIF»
 «ENDDEFINE»
-
-
-
-«DEFINE genPropertyInput(uml::Enumeration enm) FOR uml::Property-»
-	<h:selectOneMenu id="«getId()»"  rendered="#{«genEditPermission()»}" value="#{«getActionForMode()»«genPropertyLabel()»}" required="«getRequired()»" 
-	  label="«msgBundleKey()»">
-		<f:selectItem itemLabel="Please Select..." itemValue="" />
-		«FOREACH  enm.ownedLiteral AS e-»
-		<f:selectItem itemValue="«e.name»"  itemLabel="#{msg.«e.name-»}" />
-		«ENDFOREACH»
-	</h:selectOneMenu>
-«ENDDEFINE»
-
-«DEFINE genPropertyInput(wcprofile::Entity entity) FOR uml::Property»
-	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()-»}" required="«!getAssocOptional()»">
-		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<s:convertEntity />
-	</h:selectOneMenu>
-«ENDDEFINE»
-
-
-
 
 
 «DEFINE genLabel FOR uml::Property»
