@@ -22,15 +22,21 @@
 		</Field>
 		«EXPAND auditFlds FOR this»
 		«FOREACH getAllAttributes() AS a»
-		«IF !a.isMultivalued()»
-		<Field>
-			<Name>«IF a.isColumn() && a.columnName != null »  «a.columnName» «ELSE» «a.name.toUpperCase()»«ENDIF»</Name>
-			<Datatype> «EXPAND getDataType FOR a»</Datatype>
-			<Nullable>1</Nullable>
-			<Purpose/>
-			<Lang/>
-		</Field>
-		«ENDIF»
+			«IF !a.isMultivalued()»
+			<Field>
+				«IF a.association != null»
+				<Name>«a.name.getColumnNameUC()»</Name>
+				<Datatype> «EXPAND getDataType FOR a»</Datatype>
+				<Nullable>1</Nullable>
+				«ELSE»
+				<Name>«name.toUpperCase()»_SYSID</Name>
+				<Datatype> «EXPAND getDataType FOR a»</Datatype>
+				<Nullable>«a.getAssocOptional()?"1":"0"»</Nullable>
+				«ENDIF»
+				<Purpose/>
+				<Lang/>
+			</Field>
+		    «ENDIF»
 		«ENDFOREACH»
 	
 	</Fields>
