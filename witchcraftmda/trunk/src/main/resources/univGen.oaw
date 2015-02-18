@@ -92,6 +92,11 @@ skipOnErrors="true">
 </component>	
 
 
+<component id="DtoGeneratorAdvice" class="oaw.xpand2.GeneratorAdvice"  adviceTarget="JpaGenerator" >
+	<advices value="javagen::jpagen::UnivTemplateAdvice"/>
+</component>
+
+
 <component id="ServiceProviderGenerator" class="oaw.xpand2.Generator"
 skipOnErrors="true">
 	<metaModel class="oaw.type.emf.EmfMetaModel">
@@ -105,10 +110,10 @@ skipOnErrors="true">
 	<prExcludes value="*.svn-base, *.svn"/>
 	<prDefaultExcludes value="false"/>
 	<outlet name="man_path" path="${srcGenPath}/" overwrite="false" />
-	<expand value="univeris::ServiceRootBasic::Root FOR model"/>
+	<expand value="univeris::ServiceRoot::Root FOR model"/>
 	<outlet path="${srcGenPath}/">
 		<postprocessor class="oaw.xpand2.output.JavaBeautifier"/>
-		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" fileExtensions=".xhtml, .tpl" />
+		<postprocessor class="org.fornax.utilities.formatter.xml.XmlFormatter" fileExtensions=".xhtml, .tpl, .xml" />
 		<!--
 		<postprocessor  class="org.hybridlabs.source.formatter.JavaImportBeautifier"
 organizeImports="true" format="true"/>

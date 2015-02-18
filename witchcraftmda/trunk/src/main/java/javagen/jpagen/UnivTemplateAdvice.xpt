@@ -145,10 +145,8 @@
 
 «DEFINE genClassAnnotations FOR wcprofile::Entity»
 	@Entity
-	@Table(name="«getTableName()»")
-	@Filters( {  @Filter(name = "archiveFilterDef") , 
-	«IF isMultiTenanted()»  @Filter(name = "tenantFilterDef")  «ENDIF»
-	})
+	@Table(name="«getTableNameUC()»")
+	//@Filters( {  @Filter(name = "archiveFilterDef") 
 	«IF auditable»@Audited«ENDIF»
 	«EXPAND genSearchAnnotations FOR this»
 «ENDDEFINE»
@@ -223,8 +221,8 @@
 «DEFINE MLTextGen FOR wcprofile::Column»
 	@Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "FIELD_ENG", column = @Column(name = "«class.getTableNameUC()»_«name.toUpperCase()»_ENG")),
-        @AttributeOverride(name = "FIELD_FRE", column = @Column(name = "«class.getTableNameUC()»_«name.toUpperCase()»_FRE"))})
+        @AttributeOverride(name = FIELD_ENG, column = @Column(name = "«class.getTableNameUC()»_«name.toUpperCase()»_ENG")),
+        @AttributeOverride(name = FIELD_FRE, column = @Column(name = "«class.getTableNameUC()»_«name.toUpperCase()»_FRE"))})
 «ENDDEFINE»
 
 
@@ -292,6 +290,9 @@
 	//import org.hibernate.search.annotations.Analyzer;
 	//import org.hibernate.search.annotations.Indexed;
 	
+	import static com.univeris.uifcommon.dataobjects.MultilingualText.FIELD_ENG;
+	import static com.univeris.uifcommon.dataobjects.MultilingualText.FIELD_FRE;
+	
 	
 	import com.univeris.uifcommon.dataobjects.MultilingualText;
 «ENDDEFINE»
@@ -354,10 +355,15 @@
     @Column(name = "ID", nullable = false)
     private Integer _id;
     
+    @Override
+    public void setPK(final Integer id) {
+        setId(id);
+    }
+    
     
     @Override
     public Integer getPK() {
-        return getId();  //To change body of implemented methods use File | Settings | File Templates.
+        return getId();  
     }
     
      public Integer getId() {

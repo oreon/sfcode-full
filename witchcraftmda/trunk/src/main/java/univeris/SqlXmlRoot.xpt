@@ -20,24 +20,33 @@
 			<Purpose>code</Purpose>
 			<Lang/>
 		</Field>
-		«EXPAND auditFlds FOR this»
+		«IF timeStamped»
+			«EXPAND auditFlds FOR this»
+		«ENDIF»
 		«FOREACH getAllAttributes() AS a»
 			«IF !a.isMultivalued()»
-			<Field>
+			
 				«IF a.association != null»
-				<Name>«a.name.getColumnNameUC()»</Name>
-				<Datatype> «EXPAND getDataType FOR a»</Datatype>
-				<Nullable>1</Nullable>
-				«ELSE»
-				<Name>«name.toUpperCase()»_SYSID</Name>
+			<Field>
+				<Name>«a.name.toUpperCase()»_SYSID</Name>
 				<Datatype> «EXPAND getDataType FOR a»</Datatype>
 				<Nullable>«a.getAssocOptional()?"1":"0"»</Nullable>
-				«ENDIF»
 				<Purpose/>
 				<Lang/>
 			</Field>
+				«ELSE»
+					«IF a.type.name == "MultilingualText"»
+						«EXPAND genProperty("_ENG") FOR a»
+						«EXPAND genProperty("_FRE") FOR a»
+					«ELSE»
+						«EXPAND genProperty("") FOR a»
+					«ENDIF»
+				«ENDIF»
+				
 		    «ENDIF»
 		«ENDFOREACH»
+		
+		«EXPAND additionalFields FOR this»
 	
 	</Fields>
 	<Constraints>
@@ -58,6 +67,17 @@
 
 «ENDDEFINE»
 
+
+«DEFINE genProperty(String suffix) FOR uml::Property»
+	<Field>
+		<Name>«name.getColumnNameUC()»«suffix»</Name>
+		<Datatype> «EXPAND getDataType FOR this»</Datatype>
+		<Nullable>1</Nullable>
+		<Purpose/>
+		<Lang/>
+	</Field>
+«ENDDEFINE»
+
 «DEFINE getDataType FOR uml::Property»
 	«IF isDate()» datetime
 	«ELSEIF isBoolean()»bit
@@ -71,15 +91,16 @@
 
 
 «DEFINE auditFlds FOR wcprofile::Entity»
+
 		<Field>
-			<Name>CR_DT</Name>
+			<Name>CREATE_DATE</Name>
 			<Datatype>datetime</Datatype>
 			<Nullable>1</Nullable>
 			<Purpose/>
 			<Lang/>
 		</Field>
 		<Field>
-			<Name>CR_USER_SYSID</Name>
+			<Name>USER_SYSID</Name>
 			<Datatype>int</Datatype>
 			<Nullable>1</Nullable>
 			<Purpose/>
@@ -87,7 +108,7 @@
 		</Field>
 
 		<Field>
-			<Name>UPD_DT</Name>
+			<Name>LAST_UPDATE_DATE</Name>
 			<Datatype>datetime</Datatype>
 			<Nullable>1</Nullable>
 			<Purpose/>
@@ -96,6 +117,24 @@
 		<Field>
 			<Name>UPD_USER_SYSID</Name>
 			<Datatype>int</Datatype>
+			<Nullable>1</Nullable>
+			<Purpose/>
+			<Lang/>
+		</Field>
+«ENDDEFINE»
+
+
+«DEFINE additionalFields FOR wcprofile::Entity»
+		<Field>
+			<Name>ARCHIVED</Name>
+			<Datatype>bit</Datatype>
+			<Nullable>1</Nullable>
+			<Purpose/>
+			<Lang/>
+		</Field>
+		<Field>
+			<Name>DTYPE</Name>
+			<Datatype>varchar(255)</Datatype>
 			<Nullable>1</Nullable>
 			<Purpose/>
 			<Lang/>
