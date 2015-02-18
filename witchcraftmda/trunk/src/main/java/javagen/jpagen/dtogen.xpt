@@ -39,11 +39,16 @@
 		«REM»comment
 		«EXPAND genOperation FOREACH getAllOperations()»
 		«ENDREM»
+		
+		«EXPAND genAdditionalMethods FOR this»
 	}
 «ENDDEFINE»
 
 «DEFINE genClassPrtName(String ext) FOR uml::Class»
 	«EXPAND genClassPrtNameBase(ext) FOR this»
+«ENDDEFINE»
+
+«DEFINE genAdditionalMethods FOR uml::Class»
 «ENDDEFINE»
 
 
@@ -133,6 +138,8 @@ public «type.fqnForPackage(this.class)» get«name.toFirstUpper()»( ){
 	} 
 	«ENDFILE»
 «ENDDEFINE»
+
+
 
 
 
