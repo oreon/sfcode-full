@@ -72,6 +72,11 @@
 	«EXPAND genDtoImports FOR this»
 «ENDAROUND»
 
+
+«AROUND javagen::jpagen::dtogen::genAdditionalMethods FOR uml::Class»
+	«EXPAND genAdditionalDtoMethods FOR this»
+«ENDAROUND»
+
 «AROUND javagen::pojo::pojoroot::genNewDeclaration  FOR uml::Property»
 	«EXPAND genNewDeclaration FOR this»
 	«targetDef.proceed()»
@@ -221,8 +226,8 @@
 «DEFINE MLTextGen FOR wcprofile::Column»
 	@Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = FIELD_ENG, column = @Column(name = "«class.getTableNameUC()»_«name.toUpperCase()»_ENG")),
-        @AttributeOverride(name = FIELD_FRE, column = @Column(name = "«class.getTableNameUC()»_«name.toUpperCase()»_FRE"))})
+        @AttributeOverride(name = FIELD_ENG, column = @Column(name = "«name.toUpperCase()»_ENG")),
+        @AttributeOverride(name = FIELD_FRE, column = @Column(name = "«name.toUpperCase()»_FRE"))})
 «ENDDEFINE»
 
 
@@ -401,4 +406,44 @@
 	import com.univeris.uifcommon.dataobjects.MultilingualText;
 	
 	import java.math.BigDecimal;
+«ENDDEFINE»
+
+«DEFINE genAdditionalDtoMethods FOR uml::Class»
+
+«ENDDEFINE»
+
+
+«DEFINE genAdditionalDtoMethods FOR wcprofile::AbstractEntity»
+
+	 «EXPAND genMultiLang FOREACH  getAllAttributes().select( e | e.type.name == "MultilingualText")»
+	
+«ENDDEFINE»
+
+
+«DEFINE genMultiLang FOR uml::Property»
+
+	public String get«name.toFirstUpper()»English() {
+        return «name» == null ? "" : «name».getText(MultilingualText.LANG_CD_ENG);
+    }
+
+    public void set«name.toFirstUpper()»English(final String nameEnglish) {
+        if («name» == null) {
+            «name» = new MultilingualText();
+        }
+
+        «name».addText(MultilingualText.LANG_CD_ENG, nameEnglish);
+    }
+    
+    public String get«name.toFirstUpper()»French() {
+        return «name» == null ? "" : «name».getText(MultilingualText.LANG_CD_FRE);
+    }
+
+    public void set«name.toFirstUpper()»French(final String nameFrench) {
+        if («name» == null) {
+            «name» = new MultilingualText();
+        }
+
+        «name».addText(MultilingualText.LANG_CD_FRE, nameFrench);
+    }
+
 «ENDDEFINE»
