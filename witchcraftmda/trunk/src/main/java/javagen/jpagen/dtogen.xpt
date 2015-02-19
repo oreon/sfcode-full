@@ -101,6 +101,28 @@
 		public List<«ptype»> get«pnameu»( ){
 			return «pname»;
 		}
+		
+		
+		«LET name.getSingular() + ext AS pnamesingular»
+		«LET class.fqnForPackage(this.class, ext.toFirstLower()) + ext AS typeName»
+		
+		public void add«name.toFirstUpper().getSingular()» («ptype»  «pnamesingular»){
+		«IF !isManyToMany() && opposite != null»
+		  «pnamesingular».set«opposite.name.toFirstUpper()»((«typeName»)this);
+		«ENDIF»
+		if(«pname» == null) {
+			«pname» = new ArrayList<«ptype»>();
+		}
+		
+		this.«pname».add(«pnamesingular»);
+		}
+		«ENDLET»
+		«ENDLET»
+		
+		«REM»comment
+		«EXPAND genAdder(ext) FOR this»
+		«ENDREM»
+		
 	«ELSE»
 		public void set«pnameu»(«ptype» «pname»){
 			this.«pname» = «pname»;
@@ -117,7 +139,9 @@
 «ENDDEFINE»
 
 
-
+«DEFINE genAdder(String ext) FOR uml::Property»
+		
+«ENDDEFINE»
 
 «DEFINE genGetterListter FOR wcprofile::DerivedProperty»
 //derived property - «name»
