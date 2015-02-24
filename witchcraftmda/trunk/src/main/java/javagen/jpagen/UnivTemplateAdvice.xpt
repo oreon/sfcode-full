@@ -246,7 +246,7 @@
 		 «ENDIF»	
 		«ELSE»
 		 @« isOneOnOne()?"One":"Many"»ToOne(«IF isOneOnOne() && isAggregate()»mappedBy = "« class.asVar()»", «ENDIF»optional=«getAssocOptional()», fetch=FetchType.LAZY «IF isOneOnOne()», cascade = CascadeType.ALL «ENDIF» )
-		 «IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name»_id", nullable=«getAssocOptional()», updatable = true , insertable = true «REM»«getAssocUpdatable()»  comment«ENDREM») «ENDIF»
+		 «IF !(isOneOnOne() && isAggregate())»@JoinColumn(name="«name.toUpperCase()»_SYSID", nullable=«getAssocOptional()», updatable = true , insertable = true «REM»«getAssocUpdatable()»  comment«ENDREM») «ENDIF»
 		«ENDIF»
 	«ENDIF»	
 «ENDDEFINE»
@@ -257,8 +257,8 @@
 		@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	    @JoinTable(
 	        name="«opposite.name»_«name»",
-	        joinColumns=@JoinColumn(name="«opposite.name»_ID"),
-	        inverseJoinColumns=@JoinColumn(name="«name»_ID")
+	        joinColumns=@JoinColumn(name="«opposite.name.toUpperCase()»_SYSID"),
+	        inverseJoinColumns=@JoinColumn(name="«name.toUpperCase()»_SYSID")
 	    )
 	«ELSE»
 	   @ManyToMany(mappedBy="«opposite.name»")
