@@ -385,7 +385,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 		
 		protected void init«currentList.toFirstUpper()»(){
 			
-			List<«type.fqn()»> available«name» = getSourceListQuestions();
+			List<«type.fqn()»> available«name» = getSourceList«name.toFirstUpper()»();
 				
 			List<«type.fqn()»> current«name.toFirstUpper()» = getInstance().get«name.toFirstUpper()»();
 			
@@ -415,7 +415,7 @@ public abstract class «name»ActionBase extends «getParentForAction()» implements
 			getInstance().set«name.toFirstUpper()»(«currentList».getTarget());
 		}
 		
-		public List<«type.fqn()»> getSourceListQuestions() {
+		public List<«type.fqn()»> getSourceList«name.toFirstUpper()»() {
 		
 			return ((«type.getListFqn()»)Component.getInstance ("«type.asVar()»List")).fetchAll();
 		}
