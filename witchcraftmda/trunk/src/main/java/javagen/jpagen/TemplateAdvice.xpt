@@ -39,6 +39,7 @@
 
 «AROUND javagen::pojo::pojoroot::genAdditionalMethods  FOR uml::Class»
 	«EXPAND genDisplayname FOR this»
+	«EXPAND genAbbreviatedText FOREACH getAllAttributes().select(a|a.isLargeText())»
 	«targetDef.proceed()»
 «ENDAROUND»
 
@@ -70,6 +71,11 @@
 
 
 «DEFINE initGetter FOR uml::Property»
+	«IF type.isEmbeddable()»
+		if(«name» == null ){
+			«name» = new «type.fqn()»();
+		}
+	«ENDIF»
 «ENDDEFINE»
 
 
@@ -197,14 +203,12 @@
 «ENDDEFINE»
 
 «DEFINE EmbeddedAttributes FOR uml::Property»
-	«REM»@Embedded«ENDREM»
-	
+	@Embedded
 	@AttributeOverrides( {
 	«FOREACH type.getAllAttributes() AS e ITERATOR iter»
 		@AttributeOverride(name="«e.name»", column = @Column(name="«name»_«e.name»") ) «IF iter.counter1 < type.getAllAttributes().size » , «ENDIF»
 	«ENDFOREACH»
     } )
-    
 «ENDDEFINE»
 
 
@@ -229,18 +233,34 @@
 
 
 «DEFINE genAdditionalMethods FOR uml::Class»  
-	«EXPAND genDisplayname FOR this»
 «ENDDEFINE»
 
 
 «DEFINE genDisplayname FOR uml::Class»
+«ENDDEFINE»
 
+
+«DEFINE genAbbreviatedText FOR uml::Property»
+
+«ENDDEFINE»
+
+«DEFINE genAbbreviatedText FOR wcprofile::Column»
+	@Transient
+	public String get«name.toFirstUpper()»Abbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(«name»
+					.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return «name» != null ? «name» : "";
+		}
+	}
 «ENDDEFINE»
 
 
 «DEFINE genDisplayname FOR wcprofile::AbstractEntity»
 	«IF !getAllAttributes().isEmpty»
 		@Transient
+		//Display name
 	    public String getDisplayName(){
 	    	try {
 				return «getDisplayName()»;
