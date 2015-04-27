@@ -56,11 +56,19 @@
 «ENDDEFINE»
 
 «DEFINE genViewFile FOR uml::Class»
-	«FILE getWebPath() +"/" + "view" + name + "." + getExtension() man_path»
+ «FILE getWebPath() +"/" + "view" + name + "." + getExtension() man_path»
 	«EXPAND genViewFileComponent FOR this»
-<ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
-	<ui:define name="content">
-		<h:panelGroup rendered="#{!«getAction()».hasCustomView}">
+		<ui:composition «EXPAND WebRoot::genIncludes-» template = "«getAdminTemplate()»" >	
+			<ui:define name="content">
+				<ui:include src = "«getComponentViewFileCustomizable("view")»" >
+						<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
+					</ui:include>
+			</ui:define> 
+		</ui:composition>
+ «ENDFILE»
+	
+«REM»
+<h:panelGroup rendered="#{!«getAction()».hasCustomView}">
 			<ui:include src = "«getComponentViewFileCustomizable("view")»" >
 				<ui:param name="«asVar()»" value="#{«getAction()».instance}"/>
 			</ui:include>
@@ -74,9 +82,8 @@
 	  	</h:panelGroup>
 	  	-->
 	  	
-	</ui:define> 
-</ui:composition>
-	«ENDFILE»
+
+«ENDREM»
 «ENDDEFINE»
 
 
