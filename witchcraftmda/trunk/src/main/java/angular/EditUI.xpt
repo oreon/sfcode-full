@@ -85,12 +85,9 @@
 
 
 «DEFINE genAssocValue(String prefix) FOR uml::Property»
-	<h:selectOneMenu id="«getId()»" value="#{«genPropertyLabel()-»}" required="«!getAssocOptional()»">
-		<s:selectItems value="#{«type.asVar()»List}" var="itemIter"
-			label="#{itemIter.displayName}"
-			noSelectionLabel="Please Select..." />
-		<s:convertEntity />
-	</h:selectOneMenu>
+	<select class="form-control" name="«getId()»" ng-model="«genPropertyLabel()-»" 
+                            	ng-options="item.id as item.displayName for item in «type.asVar()»List">
+    </select>
 «ENDDEFINE»
 
 
@@ -133,7 +130,6 @@
 	 		 <input id="«getId()»" name="«getId()»" type="text" class="form-control" maxlength="50"
                        ng-model="«genPropertyLabel()»"
                        required ng-minlength="2" ng-maxlength="50"/>
-          
 		«ENDIF»
 «ENDDEFINE»
 
@@ -166,9 +162,22 @@
 
 
 
-
-
 «DEFINE genEditableTable FOR uml::Property-»
+	«setCurrentMultiMode(true)-»
+	«IF !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
+	<div ng-repeat="«type.asVar()» in «class.asVar()».«name» ">
+		«setAsCurrentEntity(type)»
+		«EXPAND genAttribAsOutput FOR type-»
+		«IF !isPreloadedComposition()»
+		  «EXPAND genNew -»
+		  «EXPAND genDelete FOR this -»
+		«ENDIF»
+     </div>
+	«setCurrentMultiMode(false)-»
+«ENDDEFINE»
+
+
+«DEFINE genEditableTableOrg FOR uml::Property-»
 	«IF !isPreloadedComposition() -» «EXPAND genNewButton FOR this» «ENDIF»
 	«setCurrentMultiMode(true)-»
 	<rich:dataTable id="«name»" var="«type.asVar()»" rendered="#{«genEditPermission()»}"
@@ -194,18 +203,9 @@
 «ENDDEFINE»
 
 «DEFINE genNewButton FOR uml::Property»
-	<a:commandButton  value="New «name.toFirstUpper().getSingular()»" action="#{«class.getAction()».add«name.toFirstUpper()»}"  
-		reRender="«name», «class.getComponentPanelId(true)»"  rendered="#{«genEditPermission()»}" >
-		<s:conversationId/>
-	</a:commandButton>
+	<button type="button" ng-click="add«name.asSingular()»()">ADD</button>
 «ENDDEFINE»
 
 «DEFINE genDelete FOR uml::Property»
-	<h:column>
-		<h:commandButton value="Delete" immediate="true" action="#{«class.getAction()».delete«name.toFirstUpper()»(rowIndex)}"  
-			reRender="«name»"
-			>
-			<s:conversationId/>
-		</h:commandButton>
-	</h:column>
+	<button type="button" ng-click="remove«name.asSingular()»($index)">DELETE</button>
 «ENDDEFINE»

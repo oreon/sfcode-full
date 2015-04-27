@@ -90,7 +90,7 @@
 	   <h:form>
 	 		<ui:include src="«getComponentViewFile("modalDlg")»" >
 				<ui:param name="modalId" value="${modalId}"/> 
-				<ui:param name="«asVar()»" value="#{«asVar()»Action.instance}"/>
+				 <ui:param name="«asVar()»" value="#{«asVar()»Action.instance}"/>
 			</ui:include>
 		</h:form>	
 	   <h:form id="«asVar()»Form">
@@ -103,10 +103,10 @@
                           oncomplete="PF('edit«name»Dialog').show()"
                           listener="#{«asVar()»Action.onRowSelect}" />
                           
-			«EXPAND genCoreColumns FOR this»
-			«EXPAND genCreationDate FOR this-»	
+			
+			«EXPAND genCreationDate FOR this-»
+			«EXPAND genCoreColumns FOR this»	
 			«EXPAND genLink("view", "eye.png") FOR this»
-			«EXPAND genLink ("edit", "edit.png")FOR this»
 			«EXPAND genDeleteLink FOR this»
 			«REM»comment
 			«EXPAND genQuickEditLink FOR this»
